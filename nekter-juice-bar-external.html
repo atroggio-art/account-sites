@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Nekter Juice Bar × Salesforce | A Custom Brief from Anthony Troggio</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f5f9f5; color: #1a2e1a; line-height: 1.6; font-size: 16px; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* BRAND: Nekter — fresh green, citrus orange, clean white */
+:root {
+  --green:      #2d6a2d;
+  --green2:     #3a8a3a;
+  --green-light:#e8f5e8;
+  --green-mid:  #4caf50;
+  --orange:     #e8650a;
+  --orange2:    #f57c35;
+  --warm:       #fdf8f0;
+  --white:      #ffffff;
+  --charcoal:   #1a2e1a;
+  --border:     #d4e8d4;
+  --muted:      #4a6a4a;
+  --r:          12px;
+  --shadow:     0 2px 16px rgba(45,106,45,.08);
+}
+
+/* TOPBAR */
+.topbar { background: var(--green); padding: 0 48px; height: 52px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--orange); }
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-wordmark { color: #fff; font-size: .78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: .9; }
+.topbar-divider { width: 1px; height: 18px; background: rgba(255,255,255,.25); }
+.topbar-company { color: rgba(255,255,255,.6); font-size: .78rem; }
+.topbar-cta { background: var(--orange); color: #fff; font-size: .75rem; font-weight: 700; padding: 7px 18px; border-radius: 50px; letter-spacing: .3px; transition: background .2s, transform .1s; }
+.topbar-cta:hover { background: var(--orange2); transform: translateY(-1px); }
+
+/* HERO */
+.hero { position: relative; min-height: 580px; display: flex; align-items: center; overflow: hidden; background: var(--green); }
+.hero-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&fit=crop&w=1600&q=80'); background-size: cover; background-position: center 40%; opacity: .18; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(110deg, rgba(26,46,26,.97) 40%, rgba(26,46,26,.55) 100%); }
+.hero-content { position: relative; z-index: 2; max-width: 1120px; margin: 0 auto; padding: 80px 48px; width: 100%; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px; background: rgba(232,101,10,.15); border: 1px solid rgba(232,101,10,.4); border-radius: 50px; padding: 5px 14px 5px 10px; }
+.hero-eyebrow-dot { width: 8px; height: 8px; background: var(--orange2); border-radius: 50%; }
+.hero-eyebrow span { font-size: .72rem; font-weight: 700; color: #fdba74; text-transform: uppercase; letter-spacing: 1px; }
+.hero h1 { font-size: clamp(2rem, 4.5vw, 3.1rem); font-weight: 800; color: #fff; line-height: 1.15; letter-spacing: -.5px; max-width: 720px; margin-bottom: 20px; }
+.hero h1 em { color: #86efac; font-style: normal; }
+.hero-sub { font-size: 1.05rem; color: rgba(255,255,255,.72); max-width: 560px; line-height: 1.7; margin-bottom: 36px; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; font-weight: 700; font-size: .95rem; padding: 14px 28px; border-radius: 8px; transition: background .2s, transform .15s, box-shadow .2s; box-shadow: 0 4px 20px rgba(232,101,10,.4); }
+.btn-primary:hover { background: var(--orange2); transform: translateY(-2px); box-shadow: 0 6px 26px rgba(232,101,10,.5); }
+.btn-ghost { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: rgba(255,255,255,.75); font-weight: 600; font-size: .9rem; padding: 14px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,.2); transition: border-color .2s, color .2s; }
+.btn-ghost:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+
+/* STATS STRIP */
+.strip { background: rgba(26,46,26,.95); display: flex; border-bottom: 1px solid rgba(255,255,255,.06); }
+.strip-item { flex: 1; padding: 20px 24px; text-align: center; border-right: 1px solid rgba(255,255,255,.08); }
+.strip-item:last-child { border-right: none; }
+.sv { font-size: 1.6rem; font-weight: 800; color: #86efac; }
+.sl { font-size: .68rem; text-transform: uppercase; letter-spacing: .6px; color: rgba(255,255,255,.45); margin-top: 4px; }
+
+/* SECTIONS */
+.section { max-width: 1120px; margin: 0 auto; padding: 60px 48px; }
+.section-eyebrow { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--green2); margin-bottom: 10px; }
+.section-title { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 800; color: var(--charcoal); line-height: 1.2; margin-bottom: 14px; }
+.section-sub { font-size: 1rem; color: var(--muted); max-width: 620px; line-height: 1.7; }
+.hr { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* POV */
+.pov-section { background: var(--white); border-top: 4px solid var(--green2); }
+.pov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-top: 40px; }
+.pov-statement { background: linear-gradient(135deg, var(--charcoal) 0%, #2d5a2d 100%); border-radius: var(--r); padding: 36px; color: #fff; }
+.pov-statement blockquote { font-size: 1.2rem; font-weight: 700; line-height: 1.5; margin-bottom: 16px; font-style: normal; }
+.pov-statement blockquote em { color: #86efac; font-style: normal; }
+.pov-statement p { font-size: .9rem; color: rgba(255,255,255,.7); line-height: 1.7; }
+.pov-points { display: flex; flex-direction: column; gap: 18px; }
+.pov-point { display: flex; gap: 14px; align-items: flex-start; padding: 18px; background: var(--green-light); border-radius: var(--r); border-left: 3px solid var(--green2); }
+.pov-point-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 1px; }
+.pov-point-body strong { display: block; font-size: .9rem; font-weight: 700; color: var(--charcoal); margin-bottom: 4px; }
+.pov-point-body p { font-size: .84rem; color: var(--muted); line-height: 1.6; }
+
+/* PROOF */
+.proof-section { background: var(--warm); }
+.proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; margin-top: 40px; }
+.proof-card { background: var(--white); border-radius: var(--r); border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s; }
+.proof-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(45,106,45,.12); }
+.proof-card-top { background: linear-gradient(135deg, var(--charcoal), #2d5a2d); padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; }
+.proof-company { font-size: .85rem; font-weight: 800; color: #fff; }
+.proof-tag { font-size: .63rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; background: rgba(232,101,10,.3); color: #fdba74; border-radius: 50px; padding: 3px 10px; }
+.proof-card-body { padding: 18px 20px; }
+.proof-stat { font-size: 1.8rem; font-weight: 800; color: var(--green2); margin-bottom: 4px; }
+.proof-desc { font-size: .84rem; color: var(--muted); line-height: 1.6; }
+.proof-industry { font-size: .7rem; text-transform: uppercase; letter-spacing: .5px; color: var(--green); font-weight: 600; margin-top: 10px; }
+
+/* PRODUCTS */
+.products-section { background: var(--white); }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 40px; }
+.product-card { border-radius: var(--r); border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow); }
+.product-card-img { width: 100%; height: 160px; object-fit: cover; }
+.product-card-body { padding: 22px; }
+.product-name { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--green2); margin-bottom: 7px; }
+.product-title { font-size: 1.05rem; font-weight: 800; color: var(--charcoal); margin-bottom: 10px; }
+.product-desc { font-size: .86rem; color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
+.product-bullets { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.product-bullets li { font-size: .82rem; color: var(--muted); display: flex; align-items: flex-start; gap: 8px; }
+.product-bullets li::before { content: '→'; color: var(--green2); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+/* ABOUT */
+.about-section { background: var(--charcoal); color: #fff; }
+.about-section .section-eyebrow { color: #86efac; }
+.about-section .section-title { color: #fff; }
+.about-grid { display: grid; grid-template-columns: 260px 1fr; gap: 56px; align-items: center; margin-top: 40px; }
+.about-photo-wrap { position: relative; }
+.about-photo { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; object-position: center top; border: 4px solid var(--orange); box-shadow: 0 8px 40px rgba(0,0,0,.4); }
+.about-badge { position: absolute; bottom: 10px; right: 10px; background: var(--orange); color: #fff; font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 4px 10px; border-radius: 50px; }
+.about-name { font-size: 1.8rem; font-weight: 800; margin-bottom: 4px; }
+.about-role { font-size: .9rem; color: #86efac; font-weight: 600; margin-bottom: 20px; }
+.about-body { font-size: .95rem; color: rgba(255,255,255,.72); line-height: 1.75; margin-bottom: 24px; }
+.about-body strong { color: #fff; font-weight: 700; }
+.about-cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* CTA */
+.cta-section { background: linear-gradient(135deg, var(--green) 0%, #1a3d1a 100%); color: #fff; text-align: center; }
+.cta-section .section { padding: 70px 48px; }
+.cta-title { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 14px; }
+.cta-sub { font-size: 1rem; opacity: .85; max-width: 500px; margin: 0 auto 32px; line-height: 1.7; }
+.btn-white { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--green); font-weight: 700; font-size: 1rem; padding: 15px 32px; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,.2); transition: transform .15s, box-shadow .2s; }
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,.25); }
+
+/* FOOTER */
+footer { background: var(--charcoal); color: rgba(255,255,255,.45); text-align: center; padding: 24px 48px; font-size: .75rem; border-top: 1px solid rgba(255,255,255,.08); }
+footer span { color: rgba(255,255,255,.65); }
+
+/* ANIMATIONS */
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 860px) {
+  .topbar { padding: 0 20px; }
+  .hero-content { padding: 60px 24px; }
+  .section { padding: 48px 24px; }
+  .pov-grid { grid-template-columns: 1fr; gap: 28px; }
+  .about-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; }
+  .about-photo-wrap { display: flex; justify-content: center; }
+  .strip { flex-wrap: wrap; }
+  .strip-item { flex: 1 1 calc(33% - 1px); min-width: 120px; }
+}
+@media (max-width: 540px) {
+  .hero h1 { font-size: 1.7rem; }
+  .topbar-company { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-wordmark">Salesforce</span>
+    <div class="topbar-divider"></div>
+    <span class="topbar-company">Nekter Juice Bar</span>
+  </div>
+  <div class="topbar-right">
+    <a href="mailto:atroggio@salesforce.com" class="topbar-cta">Book a Call with Anthony</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content fade-in">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-dot"></div>
+      <span>Prepared exclusively for Nekter Juice Bar</span>
+    </div>
+    <h1>Your Guests Are Loyal.<br>Now Build the <em>Platform</em><br>That Proves It.</h1>
+    <p class="hero-sub">Nekter has built one of the most recognizable health and wellness brands in the country. The next step is turning that love into data — so you can personalize every interaction, reward your best guests, and grow LTV across every location.</p>
+    <div class="hero-actions">
+      <a href="mailto:atroggio@salesforce.com" class="btn-primary">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+        Book a Call with Anthony
+      </a>
+      <a href="#pov" class="btn-ghost">See our POV ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="strip">
+  <div class="strip-item"><div class="sv">100+</div><div class="sl">Locations</div></div>
+  <div class="strip-item"><div class="sv">501</div><div class="sl">Employees</div></div>
+  <div class="strip-item"><div class="sv">$60M+</div><div class="sl">Revenue</div></div>
+  <div class="strip-item"><div class="sv">Franchise</div><div class="sl">Brand Model</div></div>
+  <div class="strip-item"><div class="sv">Health</div><div class="sl">& Wellness QSR</div></div>
+</div>
+
+<!-- POV -->
+<section class="pov-section" id="pov">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Our Point of View</div>
+    <h2 class="section-title">Your Guests Keep Coming Back.<br>Do You Know Why — and Who's at Risk of Stopping?</h2>
+    <p class="section-sub">Nekter has earned an intensely loyal customer base through great product and strong brand identity. The opportunity now is to capture that loyalty in data — so it becomes a competitive moat, not just a feeling.</p>
+
+    <div class="pov-grid">
+      <div class="pov-statement">
+        <blockquote>"Loyalty without data is just <em>hope</em>. The brands winning in QSR turn repeat visits into relationships — and relationships into revenue."</blockquote>
+        <p>Every Nekter guest who visits 3x/month is worth dramatically more than a one-time visitor — but without a loyalty platform, you can't identify them, reward them differently, or reach them when they go quiet. Loyalty Management Starter gives you the member data layer to make every campaign smarter and every guest interaction feel personal.</p>
+      </div>
+      <div class="pov-points">
+        <div class="pov-point">
+          <div class="pov-point-icon">🎯</div>
+          <div class="pov-point-body">
+            <strong>Turn anonymous visits into known members</strong>
+            <p>Right now, most of your guests are anonymous transactions. Loyalty Management Starter converts them into named profiles with purchase history, visit frequency, and tier status — the foundation for every personalized interaction downstream.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">📱</div>
+          <div class="pov-point-body">
+            <strong>Reward your best guests — automatically</strong>
+            <p>Points, tiers, birthday rewards, win-back flows — all automated through Marketing Cloud. Your team sets the rules once; the platform runs the relationships at scale across every location.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">📊</div>
+          <div class="pov-point-body">
+            <strong>Measure what's actually driving LTV</strong>
+            <p>Which locations have the highest member retention? Which offers actually drive a second visit? Loyalty data answers these questions — and makes every marketing dollar work harder.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- PROOF -->
+<section class="proof-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Customer Proof</div>
+    <h2 class="section-title">Brands That Turned Guest Love Into Data</h2>
+    <p class="section-sub">These are companies that built loyalty and personalization into their growth strategy — and have the numbers to show for it.</p>
+
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Kitchen Magic</span>
+          <span class="proof-tag">Marketing Cloud</span>
+        </div>
+        <div class="proof-card-body">
+          <div class="proof-stat">100%</div>
+          <div class="proof-desc">Replaced 100% of manual campaign work with automated Marketing Cloud flows. Their team now launches campaigns independently — no IT dependency, no manual list-pulling before every send.</div>
+          <div class="proof-industry">Consumer Brand · Marketing Cloud Advanced + Data Cloud</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Sutton Tools</span>
+          <span class="proof-tag">Agentforce + Data Cloud</span>
+        </div>
+        <div class="proof-card-body">
+          <div class="proof-stat">4×</div>
+          <div class="proof-desc">A fourth-generation family brand unified Sales, Service, and Marketing data with Salesforce Data Cloud + Agentforce — and saw a 4× increase in online orders as a direct result of personalized, data-driven engagement.</div>
+          <div class="proof-industry">Family-Owned Brand · Data Cloud + Marketing + Agentforce</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">GE Appliances</span>
+          <span class="proof-tag">Agentforce + MC</span>
+        </div>
+        <div class="proof-card-body">
+          <div class="proof-stat">25%</div>
+          <div class="proof-desc">25% autonomous resolution rate using Agentforce — meaning one in four customer interactions is handled end-to-end without a human agent, freeing teams for higher-value work.</div>
+          <div class="proof-industry">Consumer Brand · Marketing Cloud + Agentforce</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Forrester TEI (2024)</span>
+          <span class="proof-tag">Platform ROI</span>
+        </div>
+        <div class="proof-card-body">
+          <div class="proof-stat">289% ROI</div>
+          <div class="proof-desc">Forrester's 2024 Total Economic Impact study found $9.6M NPV and 289% ROI over 3 years for organizations deploying the Salesforce platform for customer engagement and loyalty.</div>
+          <div class="proof-industry">Composite Study · Full Platform · 3-Year Horizon</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- PRODUCTS -->
+<section class="products-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">What We're Building Together</div>
+    <h2 class="section-title">Start with Loyalty. Grow Into the Full Guest Relationship.</h2>
+    <p class="section-sub">Loyalty Management Starter is the foundation — a member data layer that makes every future marketing investment smarter.</p>
+
+    <div class="products-grid">
+      <div class="product-card">
+        <img class="product-card-img" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80" alt="Loyalty Management">
+        <div class="product-card-body">
+          <div class="product-name">Loyalty Management Starter — Enterprise</div>
+          <div class="product-title">Know Your Best Guests. Keep Them.</div>
+          <div class="product-desc">Build a member database with points, tiers, and rewards that turns anonymous transactions into named relationships — across every Nekter location, managed centrally.</div>
+          <ul class="product-bullets">
+            <li>Points and rewards programs configured to your brand</li>
+            <li>Member tiers (e.g., Nekter Regular → Nekter Enthusiast → Nekter Elite)</li>
+            <li>Win-back and re-engagement flows triggered by visit gaps</li>
+            <li>Centralized franchisee visibility with location-level reporting</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img class="product-card-img" src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=800&q=80" alt="Marketing Cloud">
+        <div class="product-card-body">
+          <div class="product-name">Marketing Cloud</div>
+          <div class="product-title">Personalized at Scale. Automated by Default.</div>
+          <div class="product-desc">Connect your loyalty data to Marketing Cloud and every email, SMS, and push notification becomes smarter — triggered by behavior, personalized by member tier, and measured by actual revenue impact.</div>
+          <ul class="product-bullets">
+            <li>Automated journeys for onboarding, birthday rewards, and win-back</li>
+            <li>Segment by visit frequency, tier, location, or spend level</li>
+            <li>Email + SMS campaigns from one platform, no manual list exports</li>
+            <li>Full attribution — which campaign drove the next visit</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- ABOUT -->
+<section class="about-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Who You're Talking To</div>
+    <h2 class="section-title">A Peer, Not a Pitch.</h2>
+
+    <div class="about-grid">
+      <div class="about-photo-wrap">
+        <img src="anthony.png" alt="Anthony Troggio" class="about-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div style="display:none;width:220px;height:220px;border-radius:50%;background:#2d5a2d;border:4px solid var(--orange);align-items:center;justify-content:center;font-size:3rem;color:rgba(255,255,255,.3)">👤</div>
+        <div class="about-badge">Salesforce AE</div>
+      </div>
+      <div>
+        <div class="about-name">Anthony Troggio</div>
+        <div class="about-role">Digital Account Executive — Manufacturing &amp; Automotive | Salesforce</div>
+        <p class="about-body">
+          I work with brands across the country that have built something real — a loyal customer base, strong word of mouth, a product people genuinely love. The question I help them answer is: <strong>how do you turn that brand love into measurable, repeatable revenue growth?</strong> For Nekter, the answer starts with knowing your guests — not just counting their transactions.<br><br>
+          I'm a dad and a family man. I keep things direct: if Loyalty Management is the right fit for where Nekter is today, we'll know quickly. If it's not, I'll tell you. Either way, it's a 30-minute conversation worth having.
+        </p>
+        <div class="about-cta-row">
+          <a href="mailto:atroggio@salesforce.com" class="btn-primary" style="font-size:.88rem;padding:11px 22px">
+            <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+            atroggio@salesforce.com
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section fade-in">
+    <div class="cta-title">Ready to see what this looks like for Nekter?</div>
+    <p class="cta-sub">30 minutes. No deck required. Just a direct conversation about where the loyalty opportunity is and whether the timing makes sense.</p>
+    <a href="mailto:atroggio@salesforce.com?subject=Nekter Juice Bar – Salesforce Loyalty Conversation" class="btn-white">
+      <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="var(--green)" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      Book a Call with Anthony
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>Anthony Troggio</span> · Digital Account Executive, Salesforce · <span>atroggio@salesforce.com</span><br>
+  <span style="font-size:.68rem;opacity:.5;margin-top:6px;display:block">Prepared exclusively for Nekter Juice Bar · June 2026</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
