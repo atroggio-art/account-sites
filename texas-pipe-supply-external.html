@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Texas Pipe & Supply × Salesforce | A Custom Brief from Ruben Munoz & Anthony Troggio</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f4f6f9; color: #1a2030; line-height: 1.6; font-size: 16px; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* BRAND: Texas Pipe — deep navy, Texas burnt orange, industrial steel */
+:root {
+  --navy:       #1a2540;
+  --navy2:      #243358;
+  --steel:      #2d4070;
+  --orange:     #bf4c0a;
+  --orange2:    #d9611a;
+  --orange-lt:  #fef0e6;
+  --warm:       #f6f8fb;
+  --white:      #ffffff;
+  --border:     #dce3ee;
+  --muted:      #4a5872;
+  --r:          12px;
+  --shadow:     0 2px 16px rgba(26,37,64,.08);
+}
+
+/* TOPBAR */
+.topbar { background: var(--navy); padding: 0 48px; height: 52px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; border-bottom: 3px solid var(--orange); }
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-wordmark { color: #fff; font-size: .78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: .9; }
+.topbar-divider { width: 1px; height: 18px; background: rgba(255,255,255,.2); }
+.topbar-company { color: rgba(255,255,255,.55); font-size: .78rem; }
+.topbar-cta { background: var(--orange); color: #fff; font-size: .75rem; font-weight: 700; padding: 7px 18px; border-radius: 50px; letter-spacing: .3px; transition: background .2s, transform .1s; }
+.topbar-cta:hover { background: var(--orange2); transform: translateY(-1px); }
+
+/* HERO */
+.hero { position: relative; min-height: 580px; display: flex; align-items: center; overflow: hidden; background: var(--navy); }
+.hero-bg { position: absolute; inset: 0; background-image: url('https://images.unsplash.com/photo-1611095973763-414019e72400?auto=format&fit=crop&w=1600&q=80'); background-size: cover; background-position: center 50%; opacity: .15; }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(110deg, rgba(26,37,64,.97) 42%, rgba(26,37,64,.55) 100%); }
+.hero-content { position: relative; z-index: 2; max-width: 1120px; margin: 0 auto; padding: 80px 48px; width: 100%; }
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px; background: rgba(191,76,10,.15); border: 1px solid rgba(191,76,10,.4); border-radius: 50px; padding: 5px 14px 5px 10px; }
+.hero-eyebrow-dot { width: 8px; height: 8px; background: var(--orange2); border-radius: 50%; }
+.hero-eyebrow span { font-size: .72rem; font-weight: 700; color: #fdba74; text-transform: uppercase; letter-spacing: 1px; }
+.hero h1 { font-size: clamp(2rem, 4.5vw, 3.1rem); font-weight: 800; color: #fff; line-height: 1.15; letter-spacing: -.5px; max-width: 720px; margin-bottom: 20px; }
+.hero h1 em { color: #93c5fd; font-style: normal; }
+.hero-sub { font-size: 1.05rem; color: rgba(255,255,255,.72); max-width: 580px; line-height: 1.7; margin-bottom: 36px; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--orange); color: #fff; font-weight: 700; font-size: .95rem; padding: 14px 28px; border-radius: 8px; transition: background .2s, transform .15s, box-shadow .2s; box-shadow: 0 4px 20px rgba(191,76,10,.4); }
+.btn-primary:hover { background: var(--orange2); transform: translateY(-2px); box-shadow: 0 6px 26px rgba(191,76,10,.5); }
+.btn-ghost { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: rgba(255,255,255,.75); font-weight: 600; font-size: .9rem; padding: 14px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,.2); transition: border-color .2s, color .2s; }
+.btn-ghost:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+
+/* STATS STRIP */
+.strip { background: rgba(26,37,64,.97); display: flex; border-bottom: 1px solid rgba(255,255,255,.06); }
+.strip-item { flex: 1; padding: 20px 24px; text-align: center; border-right: 1px solid rgba(255,255,255,.07); }
+.strip-item:last-child { border-right: none; }
+.sv { font-size: 1.6rem; font-weight: 800; color: #fdba74; }
+.sl { font-size: .68rem; text-transform: uppercase; letter-spacing: .6px; color: rgba(255,255,255,.45); margin-top: 4px; }
+
+/* SECTIONS */
+.section { max-width: 1120px; margin: 0 auto; padding: 60px 48px; }
+.section-eyebrow { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--orange); margin-bottom: 10px; }
+.section-title { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 800; color: var(--navy); line-height: 1.2; margin-bottom: 14px; }
+.section-sub { font-size: 1rem; color: var(--muted); max-width: 620px; line-height: 1.7; }
+.hr { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* POV */
+.pov-section { background: var(--white); border-top: 4px solid var(--orange); }
+.pov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-top: 40px; }
+.pov-statement { background: linear-gradient(135deg, var(--navy) 0%, var(--steel) 100%); border-radius: var(--r); padding: 36px; color: #fff; }
+.pov-statement blockquote { font-size: 1.2rem; font-weight: 700; line-height: 1.5; margin-bottom: 16px; font-style: normal; }
+.pov-statement blockquote em { color: #93c5fd; font-style: normal; }
+.pov-statement p { font-size: .9rem; color: rgba(255,255,255,.7); line-height: 1.7; }
+.pov-points { display: flex; flex-direction: column; gap: 18px; }
+.pov-point { display: flex; gap: 14px; align-items: flex-start; padding: 18px; background: var(--warm); border-radius: var(--r); border-left: 3px solid var(--orange); }
+.pov-point-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 1px; }
+.pov-point-body strong { display: block; font-size: .9rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+.pov-point-body p { font-size: .84rem; color: var(--muted); line-height: 1.6; }
+
+/* PROOF */
+.proof-section { background: var(--warm); }
+.proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; margin-top: 40px; }
+.proof-card { background: var(--white); border-radius: var(--r); border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s; }
+.proof-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(26,37,64,.12); }
+.proof-card-top { background: linear-gradient(135deg, var(--navy), var(--steel)); padding: 18px 20px; display: flex; align-items: center; justify-content: space-between; }
+.proof-company { font-size: .85rem; font-weight: 800; color: #fff; }
+.proof-tag { font-size: .63rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; background: rgba(191,76,10,.3); color: #fdba74; border-radius: 50px; padding: 3px 10px; }
+.proof-card-body { padding: 18px 20px; }
+.proof-stat { font-size: 1.8rem; font-weight: 800; color: var(--orange); margin-bottom: 4px; }
+.proof-desc { font-size: .84rem; color: var(--muted); line-height: 1.6; }
+.proof-industry { font-size: .7rem; text-transform: uppercase; letter-spacing: .5px; color: var(--steel); font-weight: 600; margin-top: 10px; }
+
+/* PRODUCTS */
+.products-section { background: var(--white); }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 40px; }
+.product-card { border-radius: var(--r); border: 1px solid var(--border); overflow: hidden; box-shadow: var(--shadow); }
+.product-card-img { width: 100%; height: 160px; object-fit: cover; }
+.product-card-body { padding: 22px; }
+.product-name { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--orange); margin-bottom: 7px; }
+.product-title { font-size: 1.05rem; font-weight: 800; color: var(--navy); margin-bottom: 10px; }
+.product-desc { font-size: .86rem; color: var(--muted); line-height: 1.65; margin-bottom: 14px; }
+.product-bullets { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.product-bullets li { font-size: .82rem; color: var(--muted); display: flex; align-items: flex-start; gap: 8px; }
+.product-bullets li::before { content: '→'; color: var(--orange); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+/* ABOUT — two-person layout */
+.about-section { background: var(--navy); color: #fff; }
+.about-section .section-eyebrow { color: #93c5fd; }
+.about-section .section-title { color: #fff; }
+.about-team { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
+.about-card { display: flex; gap: 24px; align-items: flex-start; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: var(--r); padding: 28px; }
+.about-photo { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; object-position: center top; border: 3px solid var(--orange); box-shadow: 0 4px 20px rgba(0,0,0,.35); flex-shrink: 0; }
+.about-photo-placeholder { width: 100px; height: 100px; border-radius: 50%; background: var(--steel); border: 3px solid var(--orange); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: rgba(255,255,255,.3); }
+.about-info { flex: 1; }
+.about-role-tag { display: inline-block; font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; background: var(--orange); color: #fff; border-radius: 4px; padding: 2px 8px; margin-bottom: 8px; }
+.about-name { font-size: 1.15rem; font-weight: 800; margin-bottom: 3px; }
+.about-title { font-size: .8rem; color: #93c5fd; font-weight: 600; margin-bottom: 12px; }
+.about-bio { font-size: .84rem; color: rgba(255,255,255,.65); line-height: 1.65; }
+.about-cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 40px; justify-content: center; }
+
+/* CTA */
+.cta-section { background: linear-gradient(135deg, var(--orange) 0%, #7c2d00 100%); color: #fff; text-align: center; }
+.cta-section .section { padding: 70px 48px; }
+.cta-title { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 14px; }
+.cta-sub { font-size: 1rem; opacity: .85; max-width: 500px; margin: 0 auto 32px; line-height: 1.7; }
+.btn-white { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--orange); font-weight: 700; font-size: 1rem; padding: 15px 32px; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,.2); transition: transform .15s, box-shadow .2s; }
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,.25); }
+
+/* FOOTER */
+footer { background: var(--navy); color: rgba(255,255,255,.45); text-align: center; padding: 24px 48px; font-size: .75rem; border-top: 1px solid rgba(255,255,255,.08); }
+footer span { color: rgba(255,255,255,.65); }
+
+/* ANIMATIONS */
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+/* RESPONSIVE */
+@media (max-width: 860px) {
+  .topbar { padding: 0 20px; }
+  .hero-content { padding: 60px 24px; }
+  .section { padding: 48px 24px; }
+  .pov-grid { grid-template-columns: 1fr; gap: 28px; }
+  .about-team { grid-template-columns: 1fr; gap: 24px; }
+  .about-card { flex-direction: column; align-items: center; text-align: center; }
+  .strip { flex-wrap: wrap; }
+  .strip-item { flex: 1 1 calc(33% - 1px); min-width: 120px; }
+}
+@media (max-width: 540px) {
+  .hero h1 { font-size: 1.7rem; }
+  .topbar-company { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-wordmark">Salesforce</span>
+    <div class="topbar-divider"></div>
+    <span class="topbar-company">Texas Pipe &amp; Supply</span>
+  </div>
+  <div class="topbar-right">
+    <a href="mailto:atroggio@salesforce.com" class="topbar-cta">Book a Call with Our Team</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content fade-in">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-dot"></div>
+      <span>Prepared exclusively for Texas Pipe &amp; Supply</span>
+    </div>
+    <h1>Your Team Moves Product<br>at Scale. Now Give Them the<br><em>Visibility</em> to Match.</h1>
+    <p class="hero-sub">Texas Pipe &amp; Supply has built one of the most respected distribution operations in the energy sector. The next step is giving your 200+ person sales team a single system to manage accounts, track pipeline, and forecast with confidence — across every branch, every rep, every deal.</p>
+    <div class="hero-actions">
+      <a href="mailto:atroggio@salesforce.com" class="btn-primary">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+        Book a Call with Our Team
+      </a>
+      <a href="#pov" class="btn-ghost">See our POV ↓</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="strip">
+  <div class="strip-item"><div class="sv">886</div><div class="sl">Employees</div></div>
+  <div class="strip-item"><div class="sv">$564M</div><div class="sl">Revenue</div></div>
+  <div class="strip-item"><div class="sv">Houston</div><div class="sl">Headquarters</div></div>
+  <div class="strip-item"><div class="sv">Multi</div><div class="sl">Branch Operations</div></div>
+  <div class="strip-item"><div class="sv">Oil &amp; Gas</div><div class="sl">Distribution</div></div>
+</div>
+
+<!-- POV -->
+<section class="pov-section" id="pov">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Our Point of View</div>
+    <h2 class="section-title">At 200 Sales Reps Across Multiple Branches,<br>the Problem Isn't Talent — It's Visibility.</h2>
+    <p class="section-sub">Texas Pipe has the relationships, the product depth, and the reputation to compete at the highest level of energy distribution. What a 200-seat MFG Cloud deployment unlocks is a unified view of every account, every opportunity, and every forecast — across the entire organization.</p>
+
+    <div class="pov-grid">
+      <div class="pov-statement">
+        <blockquote>"In a distributed sales organization, the biggest risk isn't a bad rep — it's <em>invisible pipeline</em> and accounts that fall through the cracks between branches."</blockquote>
+        <p>When 200 reps are managing accounts across multiple branches without a unified system, opportunities get double-covered or missed, forecast accuracy depends on who fills out the spreadsheet, and leadership has no reliable view of where revenue is actually going to come from. Manufacturing Cloud solves this — giving every rep a system, every manager a dashboard, and every executive a forecast they can trust.</p>
+      </div>
+      <div class="pov-points">
+        <div class="pov-point">
+          <div class="pov-point-icon">📊</div>
+          <div class="pov-point-body">
+            <strong>One forecast number you can actually trust</strong>
+            <p>MFG Cloud consolidates pipeline across all branches and reps into a single, real-time view. No more end-of-quarter surprises — leadership sees exactly where revenue stands and where the gaps are, weeks in advance.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">🔗</div>
+          <div class="pov-point-body">
+            <strong>Account history that doesn't walk out the door</strong>
+            <p>In relationship-driven distribution, key account knowledge often lives with individual reps. MFG Cloud captures every interaction, every order history, and every conversation — so the account survives rep transitions and territory changes.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">⚡</div>
+          <div class="pov-point-body">
+            <strong>Branch-to-branch coordination without the phone tag</strong>
+            <p>Multi-branch accounts are common in energy distribution. MFG Cloud gives your team shared visibility so Houston knows what Midland is doing, and national accounts get consistent service without internal confusion.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- PROOF -->
+<section class="proof-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Customer Proof</div>
+    <h2 class="section-title">Distributors and Manufacturers Who Made the Investment</h2>
+    <p class="section-sub">Companies with complex, multi-location sales operations who deployed Manufacturing Cloud and saw measurable impact on pipeline visibility, forecast accuracy, and revenue growth.</p>
+
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Sutton Tools</span>
+          <span class="proof-tag">MFG Cloud + Agentforce</span>
+        </div>
+        <div class="proof-card-body">
+          <div class="proof-stat">4×</div>
+          <div class="proof-desc">A fourth-generation family-owned manufacturer unified Sales, Service, and Marketing on Salesforce Data Cloud + Agentforce — driving a 4× increase in online orders and a 20% additional reduction in service call volume on top of prior gains.</div>
+          <div class="proof-industry">Family-Owned Industrial Manufacturing · Full Platform</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Belden</span>
+          <span class="proof-tag">Agentforce Service</span>
+        </div>
+        <div class="proof-card-body">
+          <div class="proof-stat">98%</div>
+          <div class="proof-desc">98% routing accuracy across 500,000+ service cases per year. Belden's distributed operations team uses Agentforce to automate case routing and service triage at scale — eliminating manual overhead across a complex multi-location operation.</div>
+          <div class="proof-industry">Industrial Distribution · Agentforce Service Cloud</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Continental</span>
+          <span class="proof-tag">Agentforce + B2B Commerce</span>
+        </div>
+        <div class="proof-card-body">
+          <div class="proof-stat">Automated</div>
+          <div class="proof-desc">Continental deployed Agentforce + B2B Webshop Agent to automate order form completion directly in their ERP — turning a manual, rep-heavy process into a self-service motion that scales without adding headcount.</div>
+          <div class="proof-industry">Global Industrial Manufacturing · Agentforce + Commerce</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Forrester TEI (2024)</span>
+          <span class="proof-tag">Platform ROI</span>
+        </div>
+        <div class="proof-card-body">
+          <div class="proof-stat">289% ROI</div>
+          <div class="proof-desc">Forrester's 2024 Total Economic Impact study found $9.6M NPV and 289% ROI over 3 years for manufacturers and distributors deploying the full Salesforce platform for sales, service, and operations.</div>
+          <div class="proof-industry">$1B Composite Manufacturer · Full Platform · 3-Year Horizon</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- PRODUCTS -->
+<section class="products-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">What We're Building Together</div>
+    <h2 class="section-title">Manufacturing Cloud at Scale.<br>200 Reps. One System. Full Visibility.</h2>
+    <p class="section-sub">Manufacturing Cloud Sales Enterprise Edition — purpose-built for complex, multi-location sales organizations in energy and industrial distribution.</p>
+
+    <div class="products-grid">
+      <div class="product-card">
+        <img class="product-card-img" src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=800&q=80" alt="Manufacturing Cloud">
+        <div class="product-card-body">
+          <div class="product-name">Manufacturing Cloud Sales — Enterprise Edition</div>
+          <div class="product-title">Pipeline Visibility Across Every Branch.</div>
+          <div class="product-desc">200 seats of Manufacturing Cloud Sales EE — giving every rep a system of record, every manager a live pipeline dashboard, and executive leadership a forecast they can take to the board.</div>
+          <ul class="product-bullets">
+            <li>Account and opportunity management across all branches and reps</li>
+            <li>Real-time forecast rollup — no more end-of-quarter spreadsheet scrambles</li>
+            <li>Account history captured in the system, not in people's heads</li>
+            <li>Territory and branch-level reporting for ops leadership</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img class="product-card-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Platform Roadmap">
+        <div class="product-card-body">
+          <div class="product-name">The Platform Roadmap</div>
+          <div class="product-title">MFG Cloud Is the Foundation.</div>
+          <div class="product-desc">Once the sales org is running on a unified platform, the natural next layers compound the investment and unlock the full power of the Salesforce ecosystem.</div>
+          <ul class="product-bullets">
+            <li>Revenue Cloud: configure-price-quote at scale for complex distribution pricing</li>
+            <li>Service Cloud: order management, returns, and customer service in one system</li>
+            <li>Data Cloud: unified customer analytics across branches and product lines</li>
+            <li>Agentforce: AI-assisted selling, service routing, and account insights</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- ABOUT — two-person -->
+<section class="about-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Who You're Talking To</div>
+    <h2 class="section-title">Your Salesforce Account Team.</h2>
+
+    <div class="about-team">
+      <div class="about-card">
+        <div class="about-photo-placeholder">RM</div>
+        <div class="about-info">
+          <div class="about-role-tag">Core AE</div>
+          <div class="about-name">Ruben Munoz</div>
+          <div class="about-title">Account Executive — Manufacturing &amp; Automotive | Salesforce</div>
+          <p class="about-bio">Ruben leads the Texas Pipe &amp; Supply relationship at Salesforce — bringing deep experience in enterprise manufacturing and distribution accounts. He's the primary point of contact for deal strategy, executive alignment, and overall account success.</p>
+        </div>
+      </div>
+      <div class="about-card">
+        <img src="anthony.png" alt="Anthony Troggio" class="about-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div style="display:none;width:100px;height:100px;border-radius:50%;background:var(--steel);border:3px solid var(--orange);flex-shrink:0;align-items:center;justify-content:center;font-size:2rem;color:rgba(255,255,255,.3)">👤</div>
+        <div class="about-info">
+          <div class="about-role-tag">Digital AE</div>
+          <div class="about-name">Anthony Troggio</div>
+          <div class="about-title">Digital Account Executive — Manufacturing &amp; Automotive | Salesforce</div>
+          <p class="about-bio">Anthony partners with Ruben to bring digital and platform depth to the Texas Pipe engagement — focused on translating business problems into scalable Salesforce solutions. Dad, family man, and straight shooter: if there's a fit, we'll find it fast.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-cta-row">
+      <a href="mailto:atroggio@salesforce.com" class="btn-primary" style="font-size:.88rem;padding:11px 22px">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+        atroggio@salesforce.com
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section fade-in">
+    <div class="cta-title">Ready to see what this looks like for Texas Pipe &amp; Supply?</div>
+    <p class="cta-sub">30 minutes. No deck required. A direct conversation about where the platform opportunity is and what 200 seats of MFG Cloud actually looks like in practice.</p>
+    <a href="mailto:atroggio@salesforce.com?subject=Texas Pipe %26 Supply – Salesforce MFG Cloud Conversation" class="btn-white">
+      <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="var(--orange)" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      Book a Call with Our Team
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>Ruben Munoz</span> (Core AE) · <span>Anthony Troggio</span> (Digital AE) · Salesforce · <span>atroggio@salesforce.com</span><br>
+  <span style="font-size:.68rem;opacity:.5;margin-top:6px;display:block">Prepared exclusively for Texas Pipe &amp; Supply · June 2026</span>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
