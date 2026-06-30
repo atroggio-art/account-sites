@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FleetPride | Salesforce Account Brief</title>
+  <style>
+    :root {
+      --sf-blue: #0176d3;
+      --sf-blue-dark: #014486;
+      --sf-cloud: #f3f3f3;
+      --sf-white: #ffffff;
+      --sf-text: #181818;
+      --sf-muted: #5a5a5a;
+      --sf-border: #dddbda;
+      --sf-green: #2e844a;
+      --sf-orange: #e56700;
+      --sf-teal: #06a59a;
+      --radius: 12px;
+      --shadow: 0 2px 12px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Salesforce Sans', Arial, sans-serif;
+      background: #f8f9fa;
+      color: var(--sf-text);
+      line-height: 1.6;
+    }
+
+    /* HEADER */
+    header {
+      background: linear-gradient(135deg, var(--sf-blue-dark) 0%, var(--sf-blue) 100%);
+      color: white;
+      padding: 40px 48px 32px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 40%;
+      width: 400px; height: 200px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+    .header-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .account-name {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .account-meta {
+      font-size: 0.95rem;
+      opacity: 0.85;
+      margin-top: 6px;
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .account-meta span { display: flex; align-items: center; gap: 6px; }
+    .header-tag {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .rep-badge {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      text-align: right;
+      min-width: 200px;
+    }
+    .rep-badge .rep-name { font-size: 1.05rem; font-weight: 700; }
+    .rep-badge .rep-title { font-size: 0.8rem; opacity: 0.8; margin-top: 2px; }
+    .rep-badge .rep-email { font-size: 0.82rem; opacity: 0.75; margin-top: 4px; }
+
+    /* STATS BAR */
+    .stats-bar {
+      background: white;
+      border-bottom: 1px solid var(--sf-border);
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+    }
+    .stat-item {
+      flex: 1;
+      min-width: 140px;
+      padding: 18px 24px;
+      border-right: 1px solid var(--sf-border);
+      text-align: center;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--sf-blue);
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--sf-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    /* MAIN LAYOUT */
+    .main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 36px 24px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 28px;
+    }
+    @media (max-width: 900px) {
+      .main { grid-template-columns: 1fr; }
+    }
+
+    /* CARDS */
+    .card {
+      background: white;
+      border-radius: var(--radius);
+      border: 1px solid var(--sf-border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .card-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--sf-border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-header h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--sf-text);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .card-icon {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .icon-blue { background: #e8f4fd; color: var(--sf-blue); }
+    .icon-green { background: #e9f7ee; color: var(--sf-green); }
+    .icon-orange { background: #fef0e4; color: var(--sf-orange); }
+    .icon-teal { background: #e0f5f4; color: var(--sf-teal); }
+    .card-body { padding: 20px 24px; }
+
+    /* OPP CARDS */
+    .opp-list { display: flex; flex-direction: column; gap: 16px; }
+    .opp-item {
+      border: 1px solid var(--sf-border);
+      border-radius: 10px;
+      padding: 16px 18px;
+      transition: border-color 0.2s;
+    }
+    .opp-item:hover { border-color: var(--sf-blue); }
+    .opp-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .opp-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--sf-text);
+      line-height: 1.3;
+    }
+    .opp-amount {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--sf-green);
+      white-space: nowrap;
+    }
+    .opp-stage-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 2px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .badge-stage-01 { background: #e8f4fd; color: #014486; }
+    .badge-stage-03 { background: #e9f7ee; color: #1b5e20; }
+    .badge-stage-04 { background: #fff3e0; color: #bf360c; }
+    .badge-stage-05 { background: #fce4ec; color: #880e4f; }
+    .close-date { font-size: 0.78rem; color: var(--sf-muted); }
+    .products-label { font-size: 0.75rem; color: var(--sf-muted); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 6px; font-weight: 600; }
+    .products-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .product-chip {
+      background: var(--sf-cloud);
+      border: 1px solid var(--sf-border);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 0.78rem;
+      color: var(--sf-text);
+    }
+    .pov-section {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--sf-border);
+    }
+    .pov-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--sf-blue);
+      margin-bottom: 6px;
+    }
+    .pov-text { font-size: 0.875rem; color: var(--sf-muted); line-height: 1.55; }
+
+    /* SIDEBAR */
+    .sidebar { display: flex; flex-direction: column; gap: 20px; }
+
+    /* CONTACTS */
+    .contact-list { display: flex; flex-direction: column; gap: 12px; }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .contact-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      background: var(--sf-blue);
+      color: white;
+    }
+    .contact-info { flex: 1; min-width: 0; }
+    .contact-name { font-weight: 600; font-size: 0.88rem; }
+    .contact-title { font-size: 0.75rem; color: var(--sf-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .contact-email { font-size: 0.72rem; color: var(--sf-blue); }
+
+    /* ABOUT ME */
+    .about-section { font-size: 0.875rem; color: var(--sf-muted); }
+    .about-section .rep-name-big { font-size: 1.1rem; font-weight: 700; color: var(--sf-text); margin-bottom: 4px; }
+    .about-section .rep-role { font-size: 0.82rem; color: var(--sf-blue); font-weight: 600; margin-bottom: 12px; }
+    .about-bullets { padding-left: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .about-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 0.85rem;
+    }
+    .bullet-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--sf-blue);
+      margin-top: 7px;
+      flex-shrink: 0;
+    }
+
+    /* COMPETITOR */
+    .competitor-empty {
+      font-size: 0.85rem;
+      color: var(--sf-muted);
+      font-style: italic;
+      padding: 8px 0;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 0.78rem;
+      color: #aaa;
+      border-top: 1px solid var(--sf-border);
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-top">
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+        <div class="account-name">FleetPride, Inc.</div>
+        <span class="header-tag">Manufacturing & Automotive</span>
+      </div>
+      <div class="account-meta">
+        <span>&#127968; Irving, TX</span>
+        <span>&#128101; ~3,000 employees</span>
+        <span>&#128176; $1.31B revenue</span>
+        <span>&#127758; fleetpride.com</span>
+      </div>
+    </div>
+    <div class="rep-badge">
+      <div class="rep-name">Anthony Troggio</div>
+      <div class="rep-title">Digital Account Executive</div>
+      <div class="rep-email">atroggio@salesforce.com</div>
+    </div>
+  </div>
+</header>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-value">8</div>
+    <div class="stat-label">Open Opportunities</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">$148K+</div>
+    <div class="stat-label">Pipeline (with amount)</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">3</div>
+    <div class="stat-label">Product Families</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">Jun 30</div>
+    <div class="stat-label">Nearest Close</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-value">10</div>
+    <div class="stat-label">Key Contacts</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="left-col">
+
+    <!-- OPEN OPPORTUNITIES -->
+    <div class="card" style="margin-bottom:0;">
+      <div class="card-header">
+        <div class="card-icon icon-blue">&#128203;</div>
+        <h2>Open Opportunities &amp; POV</h2>
+      </div>
+      <div class="card-body">
+        <div class="opp-list">
+
+          <!-- OPP 1: MuleSoft Renewal -->
+          <div class="opp-item">
+            <div class="opp-top">
+              <div class="opp-name">MS - Early Truckpro Renewal iACV</div>
+              <div class="opp-amount">$40,157</div>
+            </div>
+            <div class="opp-stage-row">
+              <span class="badge badge-stage-05">05 - Negotiating</span>
+              <span class="close-date">&#128197; Jun 30, 2026</span>
+            </div>
+            <div class="products-label">Products</div>
+            <div class="products-chips">
+              <span class="product-chip">MuleSoft Anypoint Platform - Platinum</span>
+              <span class="product-chip">Additional vCores (Prod &amp; Pre-Prod)</span>
+              <span class="product-chip">Anypoint API Manager - Platinum</span>
+              <span class="product-chip">Load Balancer - Platinum</span>
+            </div>
+            <div class="pov-section">
+              <div class="pov-label">Why MuleSoft</div>
+              <div class="pov-text">FleetPride runs a complex integration layer across 260+ locations, ERP, e-commerce, and supplier systems. MuleSoft is the connective tissue that makes real-time parts availability, order routing, and inventory sync possible — replacing fragile point-to-point integrations. Renewing on Platinum locks in performance SLAs critical to their Truckpro service guarantee.</div>
+            </div>
+          </div>
+
+          <!-- OPP 2: Additional Users / Event Monitoring -->
+          <div class="opp-item">
+            <div class="opp-top">
+              <div class="opp-name">FleetPride: Additional Users</div>
+              <div class="opp-amount">$32,585</div>
+            </div>
+            <div class="opp-stage-row">
+              <span class="badge badge-stage-04">04 - Confirming Value</span>
+              <span class="close-date">&#128197; Jun 30, 2026</span>
+            </div>
+            <div class="products-label">Products</div>
+            <div class="products-chips">
+              <span class="product-chip">Event Monitoring</span>
+            </div>
+            <div class="pov-section">
+              <div class="pov-label">Why Event Monitoring</div>
+              <div class="pov-text">With 3,000 employees across branch, field, and HQ operations, FleetPride needs visibility into how their platform is being used — who is accessing sensitive records, when, and from where. Event Monitoring closes the gap between compliance requirements and actionable security insights without adding new tooling overhead.</div>
+            </div>
+          </div>
+
+          <!-- OPP 3: Signature Success -->
+          <div class="opp-item">
+            <div class="opp-top">
+              <div class="opp-name">Signature Success - Free Trial (6 months)</div>
+              <div class="opp-amount" style="color:#888;">$0 Trial</div>
+            </div>
+            <div class="opp-stage-row">
+              <span class="badge badge-stage-04">04 - Confirming Value</span>
+              <span class="close-date">&#128197; Jun 30, 2026</span>
+            </div>
+            <div class="products-label">Products</div>
+            <div class="products-chips">
+              <span class="product-chip">Signature Success - Salesforce Platform</span>
+            </div>
+            <div class="pov-section">
+              <div class="pov-label">Why Signature Success</div>
+              <div class="pov-text">FleetPride is scaling fast and can't afford platform disruption at go-live moments. Signature Success gives them a designated Technical Account Manager, proactive health checks, and priority access to support — the difference between resolving a critical incident in hours vs. days. The 6-month trial removes all friction to prove value before commit.</div>
+            </div>
+          </div>
+
+          <!-- OPP 4: Marketing Intelligence -->
+          <div class="opp-item">
+            <div class="opp-top">
+              <div class="opp-name">MC - Marketing Intelligence (MI)</div>
+              <div class="opp-amount">$50,000</div>
+            </div>
+            <div class="opp-stage-row">
+              <span class="badge badge-stage-03">03 - Validating Value</span>
+              <span class="close-date">&#128197; Jul 31, 2026</span>
+            </div>
+            <div class="products-label">Products</div>
+            <div class="products-chips">
+              <span class="product-chip">Marketing Intelligence - Enterprise Edition</span>
+            </div>
+            <div class="pov-section">
+              <div class="pov-label">Why Marketing Intelligence</div>
+              <div class="pov-text">FleetPride's marketing team runs campaigns across email, digital, and field channels but lacks a unified view of performance. Marketing Intelligence consolidates cross-channel analytics into a single dashboard, enabling the team to attribute revenue, optimize spend, and report confidently to leadership — without waiting on BI or IT to pull data.</div>
+            </div>
+          </div>
+
+          <!-- OPP 5: Ad Audiences -->
+          <div class="opp-item">
+            <div class="opp-top">
+              <div class="opp-name">Fleetpride, Inc. - Ad Audiences</div>
+              <div class="opp-amount">$4,800</div>
+            </div>
+            <div class="opp-stage-row">
+              <span class="badge badge-stage-04">04 - Confirming Value</span>
+              <span class="close-date">&#128197; Jul 31, 2026</span>
+            </div>
+            <div class="products-label">Products</div>
+            <div class="products-chips">
+              <span class="product-chip">Data Cloud for Marketing - Ad Audiences</span>
+            </div>
+            <div class="pov-section">
+              <div class="pov-label">Why Ad Audiences</div>
+              <div class="pov-text">FleetPride's first-party customer data is a competitive advantage sitting unused in paid media. Ad Audiences activates their CRM data directly on Google, Meta, and LinkedIn — enabling suppression of existing customers, lookalike targeting of high-value truck fleet operators, and better ROAS without relying on third-party cookies.</div>
+            </div>
+          </div>
+
+          <!-- OPP 6: MCE Additional Contacts -->
+          <div class="opp-item">
+            <div class="opp-top">
+              <div class="opp-name">MCE Additional Contacts</div>
+              <div class="opp-amount">$6,839</div>
+            </div>
+            <div class="opp-stage-row">
+              <span class="badge badge-stage-03">03 - Validating Value</span>
+              <span class="close-date">&#128197; Jul 31, 2026</span>
+            </div>
+            <div class="products-label">Products</div>
+            <div class="products-chips">
+              <span class="product-chip">Additional Contacts - Corporate Edition (1k)</span>
+              <span class="product-chip">Premier Success Plan - MCE</span>
+            </div>
+            <div class="pov-section">
+              <div class="pov-label">Why More Contacts</div>
+              <div class="pov-text">As FleetPride grows its digital marketing footprint — reaching fleet managers, service directors, and procurement buyers — they're bumping against their current contact limits. Additional contacts directly expand their sendable audience and ensure campaigns reach the full buyer committee without throttling.</div>
+            </div>
+          </div>
+
+          <!-- OPP 7: MC Early Renewal -->
+          <div class="opp-item">
+            <div class="opp-top">
+              <div class="opp-name">Marketing Cloud Early Renewal</div>
+              <div class="opp-amount" style="color:#888;">TBD</div>
+            </div>
+            <div class="opp-stage-row">
+              <span class="badge badge-stage-01">01 - Identifying</span>
+              <span class="close-date">&#128197; Dec 15, 2025</span>
+            </div>
+            <div class="products-label">Products</div>
+            <div class="products-chips">
+              <span class="product-chip">Marketing Cloud Engagement</span>
+            </div>
+            <div class="pov-section">
+              <div class="pov-label">Why Early Renewal</div>
+              <div class="pov-text">FleetPride has built their customer lifecycle marketing on MCE — from acquisition through service retention. Locking in an early renewal secures pricing stability and creates the opening to expand into Marketing Intelligence and Data Cloud as part of a broader platform conversation.</div>
+            </div>
+          </div>
+
+          <!-- OPP 8: Sales & Service Cloud -->
+          <div class="opp-item">
+            <div class="opp-top">
+              <div class="opp-name">598 Sales &amp; Service Cloud UE (+10)</div>
+              <div class="opp-amount" style="color:#888;">TBD</div>
+            </div>
+            <div class="opp-stage-row">
+              <span class="badge badge-stage-01">01 - Identifying</span>
+              <span class="close-date">&#128197; Jun 3, 2026</span>
+            </div>
+            <div class="products-label">Products</div>
+            <div class="products-chips">
+              <span class="product-chip">Sales Cloud UE</span>
+              <span class="product-chip">Service Cloud UE</span>
+            </div>
+            <div class="pov-section">
+              <div class="pov-label">Why Sales &amp; Service Cloud UE</div>
+              <div class="pov-text">FleetPride's branch network is growing — adding 10 seats signals team expansion, a new territory, or a business unit onboarding. Unlimited Edition positions them to scale without per-feature licensing friction, and bundles Agentforce capability that can automate service triage and sales workflows across the field team.</div>
+            </div>
+          </div>
+
+        </div><!-- /opp-list -->
+      </div>
+    </div>
+
+  </div><!-- /left-col -->
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <!-- ABOUT ME -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon icon-blue">&#128100;</div>
+        <h2>Your Salesforce Rep</h2>
+      </div>
+      <div class="card-body about-section">
+        <div class="rep-name-big">Anthony Troggio</div>
+        <div class="rep-role">Digital Account Executive — MFG &amp; Automotive, West</div>
+        <ul class="about-bullets">
+          <li><span class="bullet-dot"></span><span>Focused on manufacturing and automotive accounts across AMER — understands the unique challenges of multi-location, supply-chain-heavy businesses.</span></li>
+          <li><span class="bullet-dot"></span><span>Specializes in helping commercial teams use Salesforce to connect field sales, marketing, and service under one platform.</span></li>
+          <li><span class="bullet-dot"></span><span>Works closely with MuleSoft, Marketing Cloud, and Data Cloud specialists to design the right solution for each account's growth stage.</span></li>
+          <li><span class="bullet-dot"></span><span>Based in Arizona | <a href="mailto:atroggio@salesforce.com" style="color:var(--sf-blue);">atroggio@salesforce.com</a></span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- KEY CONTACTS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon icon-teal">&#128101;</div>
+        <h2>Key Contacts</h2>
+      </div>
+      <div class="card-body">
+        <div class="contact-list">
+          <div class="contact-item">
+            <div class="contact-avatar" style="background:#4caf50;">GL</div>
+            <div class="contact-info">
+              <div class="contact-name">Grant J. LaBarbera</div>
+              <div class="contact-title">Chief Growth &amp; Commercial Officer</div>
+              <div class="contact-email">grant.labarbera@fleetpride.com</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-avatar" style="background:#9c27b0;">MC</div>
+            <div class="contact-info">
+              <div class="contact-name">Michael Current</div>
+              <div class="contact-title">Director of Service Sales</div>
+              <div class="contact-email">michael.current@fleetpride.com</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-avatar" style="background:#e91e63;">RH</div>
+            <div class="contact-info">
+              <div class="contact-name">Ryan Hornacek</div>
+              <div class="contact-title">Sr. Manager, Digital Marketing</div>
+              <div class="contact-email">rhornace@alumni.nd.edu</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-avatar" style="background:#ff5722;">RU</div>
+            <div class="contact-info">
+              <div class="contact-name">Ravi Upad</div>
+              <div class="contact-title">Sr. Director Systems / DevOps</div>
+              <div class="contact-email">ravi.upad@fleetpride.com</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-avatar" style="background:#607d8b;">TH</div>
+            <div class="contact-info">
+              <div class="contact-name">Tim Harshbarger</div>
+              <div class="contact-title">Lead Solutions Architect</div>
+              <div class="contact-email">timothy.harshbarger@fleetpride.com</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-avatar" style="background:#795548;">MH</div>
+            <div class="contact-info">
+              <div class="contact-name">Miles Hummedson</div>
+              <div class="contact-title">Developer</div>
+              <div class="contact-email">miles.hummedson@fleetpride.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPETITORS -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon icon-orange">&#9876;</div>
+        <h2>Competitive Landscape</h2>
+      </div>
+      <div class="card-body">
+        <p class="competitor-empty">No formal competitors logged on open opportunities.</p>
+        <div style="margin-top:12px;font-size:0.82rem;color:var(--sf-muted);">
+          <strong style="color:var(--sf-text);">Common in this space:</strong>
+          <div style="margin-top:8px;display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;gap:8px;align-items:flex-start;">
+              <span style="background:#fce4ec;color:#880e4f;border-radius:4px;padding:2px 8px;font-size:0.72rem;font-weight:600;flex-shrink:0;">Integration</span>
+              <span>Boomi, MuleSoft (renewal risk), Azure Integration Services, Informatica</span>
+            </div>
+            <div style="display:flex;gap:8px;align-items:flex-start;">
+              <span style="background:#e3f2fd;color:#0d47a1;border-radius:4px;padding:2px 8px;font-size:0.72rem;font-weight:600;flex-shrink:0;">Marketing</span>
+              <span>HubSpot, Adobe Marketo, Klaviyo</span>
+            </div>
+            <div style="display:flex;gap:8px;align-items:flex-start;">
+              <span style="background:#e8f5e9;color:#1b5e20;border-radius:4px;padding:2px 8px;font-size:0.72rem;font-weight:600;flex-shrink:0;">Analytics</span>
+              <span>Domo, Tableau, Power BI, Triple Whale</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCOUNT SNAPSHOT -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon icon-green">&#127970;</div>
+        <h2>Account Snapshot</h2>
+      </div>
+      <div class="card-body" style="font-size:0.85rem;color:var(--sf-muted);display:flex;flex-direction:column;gap:10px;">
+        <div><strong style="color:var(--sf-text);">What They Do</strong><br>Largest independent heavy-duty truck &amp; trailer parts distributor in the US. 260+ branch locations, serving commercial fleets and independent repair shops.</div>
+        <div><strong style="color:var(--sf-text);">Strategic Priority</strong><br>Digital transformation of their branch network — connecting e-commerce, field sales, service, and marketing on a unified data platform.</div>
+        <div><strong style="color:var(--sf-text);">Salesforce Footprint</strong><br>Sales Cloud · Service Cloud · Marketing Cloud Engagement · MuleSoft · Event Monitoring · Signature Success (trial)</div>
+      </div>
+    </div>
+
+  </div><!-- /sidebar -->
+</div><!-- /main -->
+
+<div class="footer">
+  Built for Anthony Troggio &nbsp;|&nbsp; Salesforce Account Brief &nbsp;|&nbsp; FleetPride, Inc. &nbsp;|&nbsp; Generated June 2026
+</div>
+
+</body>
+</html>

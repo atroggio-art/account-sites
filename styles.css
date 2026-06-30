@@ -1,0 +1,59 @@
+:root{--bl:#0176d3;--bd:#014486;--gr:#2e844a;--or:#dd5a00;--tx:#181818;--mu:#5a5a5a;--br:#e0e0e0;--bg:#f4f6f9;--r:10px;--sh:0 1px 8px rgba(0,0,0,.07)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:var(--bg);color:var(--tx);line-height:1.55;font-size:15px}
+a{color:var(--bl)}
+header{background:linear-gradient(135deg,var(--bd),var(--bl));color:#fff;padding:32px 44px 24px;display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.an{font-size:1.9rem;font-weight:700;letter-spacing:-.5px}
+.am{display:flex;gap:14px;flex-wrap:wrap;font-size:.88rem;opacity:.85;margin-top:5px}
+.tag{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);border-radius:20px;padding:2px 11px;font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.rc{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:var(--r);padding:13px 16px;text-align:right;min-width:175px}
+.rc .rn{font-weight:700;font-size:.95rem}
+.rc .rt{font-size:.76rem;opacity:.78;margin-top:2px}
+.rc .re{font-size:.73rem;opacity:.68;margin-top:3px}
+.stats{display:flex;background:#fff;border-bottom:1px solid var(--br);overflow-x:auto}
+.stat{flex:1;min-width:110px;padding:14px 18px;text-align:center;border-right:1px solid var(--br)}
+.stat:last-child{border-right:none}
+.sv{font-size:1.35rem;font-weight:700;color:var(--bl)}
+.sl{font-size:.68rem;text-transform:uppercase;letter-spacing:.5px;color:var(--mu);margin-top:3px}
+.main{max-width:1140px;margin:0 auto;padding:24px 18px;display:grid;grid-template-columns:1fr 310px;gap:22px}
+@media(max-width:840px){.main{grid-template-columns:1fr}}
+.card{background:#fff;border-radius:var(--r);border:1px solid var(--br);box-shadow:var(--sh);overflow:hidden;margin-bottom:18px}
+.card:last-child{margin-bottom:0}
+.ch{padding:12px 18px;border-bottom:1px solid var(--br);display:flex;align-items:center;gap:8px}
+.ch h2{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.ico{width:24px;height:24px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.ib{background:#e8f4fd;color:var(--bl)}
+.ig{background:#e9f7ee;color:var(--gr)}
+.io{background:#fef0e4;color:var(--or)}
+.it{background:#e0f5f4;color:#009688}
+.cb{padding:16px 18px}
+.oh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px}
+.on{font-weight:700;font-size:.95rem}
+.oa{font-weight:700;color:var(--gr);white-space:nowrap}
+.badges{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:11px}
+.badge{font-size:.68rem;font-weight:600;padding:2px 9px;border-radius:20px;text-transform:uppercase;letter-spacing:.3px}
+.bs{background:#e8f4fd;color:#014486}
+.bd2{background:#f3f3f3;color:var(--mu)}
+.pl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--mu);margin-bottom:5px}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}
+.chip{background:#f3f3f3;border:1px solid var(--br);border-radius:5px;padding:2px 9px;font-size:.75rem}
+.pov{border-top:1px solid var(--br);padding-top:12px}
+.pvl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--bl);margin-bottom:5px}
+.pvt{font-size:.875rem;color:var(--mu);line-height:1.58}
+.ctc{display:flex;align-items:center;gap:9px;margin-bottom:11px}
+.ctc:last-child{margin-bottom:0}
+.av{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.76rem;color:#fff;flex-shrink:0}
+.cn{font-weight:600;font-size:.83rem}
+.ct2{font-size:.71rem;color:var(--mu)}
+.cem{font-size:.69rem;color:var(--bl)}
+.abn{font-size:1rem;font-weight:700;margin-bottom:2px}
+.abr{font-size:.78rem;color:var(--bl);font-weight:600;margin-bottom:9px}
+.abt{font-size:.84rem;color:var(--mu);line-height:1.55}
+.cr{display:flex;gap:7px;align-items:flex-start;margin-bottom:7px;font-size:.81rem;color:var(--mu)}
+.ctag{border-radius:4px;padding:1px 7px;font-size:.68rem;font-weight:600;flex-shrink:0}
+.si{margin-bottom:9px;font-size:.84rem}
+.si strong{color:var(--tx)}
+.si span{color:var(--mu)}
+footer{text-align:center;padding:16px;font-size:.72rem;color:#bbb;border-top:1px solid var(--br);margin-top:6px}
+.back-link{display:inline-block;margin:14px 18px 0;font-size:.82rem;color:var(--bl);text-decoration:none;font-weight:600}
+.back-link:hover{text-decoration:underline}

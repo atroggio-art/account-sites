@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Q3 2026 Pipeline | Anthony Troggio</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f3f8; color: #1a2535; font-size: 15px; line-height: 1.55; }
+a { color: #0176d3; text-decoration: none; }
+
+:root {
+  --bl: #0176d3; --bd: #014486; --gr: #2e844a; --or: #dd5a00;
+  --tx: #1a2535; --mu: #5a6a7a; --br: #dde4ed; --bg: #f0f3f8;
+  --white: #fff; --r: 10px; --sh: 0 2px 12px rgba(26,37,53,.07);
+}
+
+.topbar { background: var(--bd); padding: 0 40px; height: 50px; display: flex; align-items: center; justify-content: space-between; border-bottom: 3px solid var(--bl); position: sticky; top: 0; z-index: 100; }
+.topbar-title { color: #fff; font-size: .8rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; opacity: .9; }
+.topbar-right { color: rgba(255,255,255,.6); font-size: .75rem; }
+
+.page-header { background: linear-gradient(135deg, var(--bd) 0%, var(--bl) 100%); color: #fff; padding: 40px 40px 32px; }
+.page-header-top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 20px; margin-bottom: 28px; }
+.page-title { font-size: 1.9rem; font-weight: 800; letter-spacing: -.5px; margin-bottom: 4px; }
+.page-sub { font-size: .9rem; opacity: .75; }
+.rep-badge { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.2); border-radius: var(--r); padding: 10px 16px; text-align: right; }
+.rep-name { font-weight: 700; font-size: .9rem; }
+.rep-role { font-size: .72rem; opacity: .7; margin-top: 2px; }
+.rep-email { font-size: .7rem; opacity: .6; margin-top: 2px; }
+
+.summary { display: flex; background: rgba(255,255,255,.1); border-radius: var(--r); border: 1px solid rgba(255,255,255,.15); overflow: hidden; flex-wrap: wrap; }
+.sum-item { flex: 1; min-width: 100px; padding: 14px 18px; text-align: center; border-right: 1px solid rgba(255,255,255,.12); }
+.sum-item:last-child { border-right: none; }
+.sum-val { font-size: 1.4rem; font-weight: 800; }
+.sum-lbl { font-size: .63rem; text-transform: uppercase; letter-spacing: .6px; opacity: .65; margin-top: 3px; }
+.sum-val.green { color: #86efac; }
+.sum-val.yellow { color: #fde68a; }
+.sum-val.blue { color: #93c5fd; }
+.sum-val.orange { color: #fdba74; }
+
+.main { max-width: 1200px; margin: 0 auto; padding: 28px 24px; }
+
+.month-section { margin-bottom: 36px; }
+.month-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.month-label { font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--bd); white-space: nowrap; }
+.month-line { flex: 1; height: 1px; background: var(--br); }
+.month-stat { font-size: .68rem; font-weight: 700; padding: 2px 10px; border-radius: 50px; white-space: nowrap; }
+.m-deals { background: #e8f4fd; color: var(--bd); }
+.m-amount { background: #e9f7ee; color: #1a5c33; }
+
+.deal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; }
+
+.deal-card { background: var(--white); border-radius: var(--r); border: 1px solid var(--br); box-shadow: var(--sh); overflow: hidden; transition: transform .15s, box-shadow .15s; }
+.deal-card:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(26,37,53,.1); }
+
+.deal-card-top { padding: 13px 16px 11px; border-bottom: 1px solid var(--br); display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.deal-account { font-weight: 800; font-size: .92rem; color: var(--tx); }
+.deal-location { font-size: .7rem; color: var(--mu); margin-top: 1px; }
+.deal-amount { font-weight: 800; font-size: 1.1rem; color: var(--gr); white-space: nowrap; flex-shrink: 0; }
+
+.deal-card-mid { padding: 10px 16px; border-bottom: 1px solid var(--br); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.deal-name { font-size: .78rem; color: var(--mu); flex: 1; min-width: 160px; }
+
+.badge { display: inline-flex; align-items: center; font-size: .63rem; font-weight: 700; padding: 2px 9px; border-radius: 50px; text-transform: uppercase; letter-spacing: .3px; white-space: nowrap; }
+.stage-05 { background: #f0fdf4; color: #14532d; border: 1px solid #bbf7d0; }
+.stage-04 { background: #e8f4fd; color: #014486; border: 1px solid #bfdbfe; }
+.stage-03 { background: #fff7ed; color: #7c2d12; border: 1px solid #fed7aa; }
+.stage-02 { background: #f5f3ff; color: #4c1d95; border: 1px solid #ddd6fe; }
+.stage-01 { background: #fafafa; color: #374151; border: 1px solid #e5e7eb; }
+.type-badge { background: #f3f4f6; color: var(--mu); border: 1px solid var(--br); }
+.date-badge { background: #fff; color: var(--mu); border: 1px solid var(--br); }
+.big-badge { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+
+.deal-chips { padding: 8px 16px 0; display: flex; flex-wrap: wrap; gap: 5px; }
+.chip { background: #f0f3f8; border: 1px solid var(--br); border-radius: 5px; padding: 2px 9px; font-size: .71rem; font-weight: 500; color: var(--tx); }
+
+.deal-pov { padding: 10px 16px 0; }
+.pov-label { font-size: .63rem; font-weight: 800; text-transform: uppercase; letter-spacing: .8px; color: var(--bl); margin-bottom: 5px; }
+.pov-text { font-size: .82rem; color: var(--mu); line-height: 1.6; }
+.next-steps { padding: 10px 16px 14px; border-top: 1px dashed var(--br); margin-top: 10px; }
+.ns-label { font-size: .63rem; font-weight: 800; text-transform: uppercase; letter-spacing: .8px; color: var(--gr); margin-bottom: 6px; }
+.ns-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.ns-list li { font-size: .81rem; color: var(--tx); display: flex; align-items: flex-start; gap: 7px; line-height: 1.5; }
+.ns-list li::before { content: '→'; color: var(--gr); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+/* urgency top borders */
+.aug { border-top: 3px solid #3b82f6; }
+.sep { border-top: 3px solid #8b5cf6; }
+.oct-high { border-top: 3px solid #f59e0b; }
+.oct-low { border-top: 3px solid #cbd5e1; }
+
+.legend { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; background: var(--white); border: 1px solid var(--br); border-radius: var(--r); padding: 10px 16px; margin-bottom: 24px; }
+.legend-title { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--mu); }
+.leg-item { display: flex; align-items: center; gap: 5px; font-size: .7rem; color: var(--mu); }
+.leg-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+
+footer { text-align: center; padding: 20px; font-size: .72rem; color: #bbb; border-top: 1px solid var(--br); margin-top: 10px; }
+
+@media (max-width: 700px) {
+  .topbar, .page-header { padding-left: 16px; padding-right: 16px; }
+  .page-header { padding-top: 24px; padding-bottom: 20px; }
+  .main { padding: 20px 12px; }
+  .deal-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-title">Q3 2026 Pipeline — Aug · Sep · Oct</span>
+  <span class="topbar-right">Anthony Troggio · Salesforce</span>
+</div>
+
+<div class="page-header">
+  <div class="page-header-top">
+    <div>
+      <div class="page-title">Q3 2026 Pipeline</div>
+      <div class="page-sub">August 1 – October 31, 2026 &nbsp;·&nbsp; SFR Forecast &nbsp;·&nbsp; 18 Active Deals</div>
+    </div>
+    <div class="rep-badge">
+      <div class="rep-name">Anthony Troggio</div>
+      <div class="rep-role">Digital Account Executive — MFG &amp; Automotive</div>
+      <div class="rep-email">atroggio@salesforce.com</div>
+    </div>
+  </div>
+  <div class="summary">
+    <div class="sum-item"><div class="sum-val green">$2.74M</div><div class="sum-lbl">Total Pipeline</div></div>
+    <div class="sum-item"><div class="sum-val blue">18</div><div class="sum-lbl">Deals</div></div>
+    <div class="sum-item"><div class="sum-val blue">$149K</div><div class="sum-lbl">August</div></div>
+    <div class="sum-item"><div class="sum-val blue">$421K</div><div class="sum-lbl">September</div></div>
+    <div class="sum-item"><div class="sum-val yellow">$2.17M</div><div class="sum-lbl">October</div></div>
+    <div class="sum-item"><div class="sum-val orange">1</div><div class="sum-lbl">Stage 04</div></div>
+    <div class="sum-item"><div class="sum-val orange">4</div><div class="sum-lbl">Stage 03</div></div>
+    <div class="sum-item"><div class="sum-val blue">13</div><div class="sum-lbl">Stage 01–02</div></div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="legend">
+    <span class="legend-title">Month:</span>
+    <div class="leg-item"><div class="leg-dot" style="background:#3b82f6"></div>August</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#8b5cf6"></div>September</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#f59e0b"></div>October (Stage 03–04)</div>
+    <div class="leg-item"><div class="leg-dot" style="background:#cbd5e1"></div>October (Stage 01–02)</div>
+  </div>
+
+  <!-- ── AUGUST ── -->
+  <div class="month-section">
+    <div class="month-header">
+      <span class="month-label">August 2026</span>
+      <div class="month-line"></div>
+      <span class="month-stat m-deals">1 deal</span>
+      <span class="month-stat m-amount">$149K</span>
+    </div>
+    <div class="deal-grid">
+
+      <div class="deal-card aug">
+        <div class="deal-card-top">
+          <div><div class="deal-account">ECO Material Technologies</div><div class="deal-location">South Jordan, UT</div></div>
+          <div class="deal-amount">$149,100</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">+70 Sales Cloud &amp; Revenue Cloud EE</span>
+          <span class="badge stage-03">Stage 03</span>
+          <span class="badge date-badge">📅 Aug 28</span>
+          <span class="badge type-badge">New Business</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">Sales Cloud EE</span>
+          <span class="chip">Revenue Cloud Advanced</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">ECO Material makes sustainable building materials — fly ash and supplementary cementitious products sold into construction and infrastructure markets at project scale. Their pricing is variable by project type, geography, and volume — which is exactly where Revenue Cloud Advanced earns its keep. Sales Cloud EE gives 70 commercial reps structured account management and visibility. Stage 03 closing Aug 28: the value is being validated — get in front of the commercial executive who owns the revenue ops budget before this slips to Q4.</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Identify and confirm exec sponsor who owns commercial / revenue ops budget</li>
+            <li>Build ROI model around variable pricing complexity and quote cycle reduction</li>
+            <li>Schedule Stage 04 value confirmation meeting before Aug 21</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SEPTEMBER ── -->
+  <div class="month-section">
+    <div class="month-header">
+      <span class="month-label">September 2026</span>
+      <div class="month-line"></div>
+      <span class="month-stat m-deals">4 deals</span>
+      <span class="month-stat m-amount">$421K</span>
+    </div>
+    <div class="deal-grid">
+
+      <div class="deal-card sep">
+        <div class="deal-card-top">
+          <div><div class="deal-account">Veseris</div><div class="deal-location">Redmond, WA</div></div>
+          <div class="deal-amount">$187,000</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">+100 MFG Cloud Sales EE</span>
+          <span class="badge stage-03">Stage 03</span>
+          <span class="badge date-badge">📅 Sep 25</span>
+          <span class="badge type-badge">Add-On</span>
+          <span class="badge big-badge">💰 Largest Sep Deal</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">Manufacturing Cloud Sales EE</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">Veseris is a $15B revenue pest control and specialty chemical distributor — the largest account by revenue in the Q3 book. A 100-seat MFG Cloud expansion unlocks run-rate revenue management, contract-based account planning, and structured forecasting across their national distribution network. Stage 03 by Sep 25 is achievable — the priority is confirming value with an executive who can speak to commercial impact at scale, not just IT. Don't let this drift to Q4.</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Get to VP Sales or CRO — IT is not the right audience for a 100-seat commercial motion</li>
+            <li>Prepare a MFG Cloud run-rate forecasting demo tailored to distribution</li>
+            <li>Stage 04 meeting must be on calendar before Sep 5 to protect Sep 25 close</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deal-card sep">
+        <div class="deal-card-top">
+          <div><div class="deal-account">Pyrotek Inc.</div><div class="deal-location">Spokane Valley, WA</div></div>
+          <div class="deal-amount">$60,000</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">Marketing Cloud</span>
+          <span class="badge stage-03">Stage 03</span>
+          <span class="badge date-badge">📅 Sep 30</span>
+          <span class="badge type-badge">Add-On</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">Marketing Cloud</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">Pyrotek is a nearly 3,000-employee global industrial engineering company serving aluminum, glass, and foundry manufacturers. Their buyers are technical, their sales cycles are long, and their marketing today is largely manual. Marketing Cloud gives Pyrotek automated account-based nurture and event-driven communications for a buying cycle that spans months. Close this deal and use the MC footprint to advance the $39K MC Next + Data Cloud opp already sitting at Stage 01.</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Identify marketing or commercial ops champion who feels the manual campaign pain</li>
+            <li>Run a MC demo with a technical B2B nurture use case (not B2C examples)</li>
+            <li>Confirm value with power — present ROI and get verbal by Sep 15 to protect Sep 30 close</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deal-card sep">
+        <div class="deal-card-top">
+          <div><div class="deal-account">Puffer-Sweiven LP</div><div class="deal-location">Stafford, TX</div></div>
+          <div class="deal-amount">$49,000</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">MC Growth + Data Cloud</span>
+          <span class="badge stage-02">Stage 02</span>
+          <span class="badge date-badge">📅 Sep 30</span>
+          <span class="badge type-badge">Add-On</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">Marketing Cloud Growth</span>
+          <span class="chip">Data Cloud</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">Puffer-Sweiven is a $566M industrial valve and instrumentation distributor with the most active pipeline in the portfolio — 5 open opps simultaneously across Marketing, OMS, Revenue Cloud, MCAE, and Slack. The MC Growth + Data Cloud thread gives their marketing team automated customer communications with a unified data layer underneath. Stage 02 with a Sep 30 close is aggressive — define the business owner and problem statement immediately or this slips.</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Name a single business owner for this thread — marketing lead or VP Sales</li>
+            <li>Define the specific problem statement (manual campaigns? no data unification?) before next call</li>
+            <li>Coordinate with other Puffer-Sweiven threads — don't let 5 opps create 5 disconnected conversations</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deal-card sep">
+        <div class="deal-card-top">
+          <div><div class="deal-account">Puffer-Sweiven LP</div><div class="deal-location">Stafford, TX</div></div>
+          <div class="deal-amount">$125,000</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">Qualified Placeholder — Lead Pass</span>
+          <span class="badge stage-02">Stage 02</span>
+          <span class="badge date-badge">📅 Sep 30</span>
+          <span class="badge type-badge">Add-On</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">TBD — Lead Pass</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">$125K placeholder holding committed budget for a lead pass opportunity — the product isn't yet defined. Given Puffer-Sweiven's 5 active threads, the most logical fit is Revenue Cloud or OMS where the business case is already partially built. Priority: convert this to a named opportunity before Sep 30. If it stays a placeholder it'll either slip the date or get zeroed out in a pipeline review.</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Convert placeholder to a named opp with a specific product — Revenue Cloud or OMS most likely</li>
+            <li>Confirm with account team which product thread owns this budget</li>
+            <li>Do not let this stay as a placeholder past the next pipeline review</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── OCTOBER ── -->
+  <div class="month-section">
+    <div class="month-header">
+      <span class="month-label">October 2026</span>
+      <div class="month-line"></div>
+      <span class="month-stat m-deals">13 deals</span>
+      <span class="month-stat m-amount">$2.17M</span>
+    </div>
+    <div class="deal-grid">
+
+      <div class="deal-card oct-high">
+        <div class="deal-card-top">
+          <div><div class="deal-account">TECO-Westinghouse Motor Co</div><div class="deal-location">Round Rock, TX</div></div>
+          <div class="deal-amount">$208,519</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">50 MFG Cloud Sales</span>
+          <span class="badge stage-04">Stage 04</span>
+          <span class="badge date-badge">📅 Oct 20</span>
+          <span class="badge type-badge">New Business</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">Manufacturing Cloud Sales</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">TECO-Westinghouse is a 380-person industrial motor manufacturer ($293M revenue) headquartered in Round Rock. This is the only Stage 04 deal in October — value is confirmed with power, the exec sponsor is engaged, and the commercial close is the priority. A $40K MuleSoft Anypoint opp is also active (Dec 23 close), making TECO a two-deal account in Q3/Q4. Protect the deal value and close clean — previous Commerce Cloud and MuleSoft opps went dead here, so don't let this one stall.</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Send commercial terms / order form — this is a close, not a discovery call</li>
+            <li>Confirm legal/procurement timeline to avoid last-minute Oct slip</li>
+            <li>Keep MuleSoft Anypoint (Dec 23) warm — don't let the MFG close kill the second deal</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deal-card oct-high">
+        <div class="deal-card-top">
+          <div><div class="deal-account">LS Electric America</div><div class="deal-location">Lincolnshire, IL</div></div>
+          <div class="deal-amount">$350,000</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">Sales &amp; Service Cloud +90 Seats</span>
+          <span class="badge stage-03">Stage 03</span>
+          <span class="badge date-badge">📅 Oct 23</span>
+          <span class="badge type-badge">New Business</span>
+          <span class="badge big-badge">💰 Largest Oct Deal</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">Sales Cloud EE</span>
+          <span class="chip">Service Cloud EE</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">LS Electric America is the U.S. arm of a $1.25B Korean electrical equipment manufacturer. A 90-seat Sales &amp; Service expansion is a significant investment — it gives LS Electric's North America commercial team structured account management, service case visibility, and the CRM infrastructure to support their growing industrial distribution channel. Stage 03 by Oct 23 is the correct cadence — confirm value with the commercial exec (not IT). Note: the $77K Marketing Cloud opp already closed in July, making this the follow-on and relationship-deepening deal.</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Leverage the July MC close — use that relationship to get a warm intro to the S&amp;S exec sponsor</li>
+            <li>Run a tailored S&amp;S demo for the North America commercial team lead</li>
+            <li>Stage 04 confirmation meeting on calendar before Oct 9 to protect Oct 23 close</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deal-card oct-high">
+        <div class="deal-card-top">
+          <div><div class="deal-account">Standex International</div><div class="deal-location">Salem, NH</div></div>
+          <div class="deal-amount">$135,828</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">Standex Electronics +60 S&amp;S EE + FCSB</span>
+          <span class="badge stage-03">Stage 03</span>
+          <span class="badge date-badge">📅 Oct 30</span>
+          <span class="badge type-badge">New Business</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">Sales &amp; Service Cloud EE</span>
+          <span class="chip">Field Service</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">Standex Electronics is a division of Standex International ($790M diversified manufacturer). The 60-seat S&amp;S EE expansion with Field Service Bundle gives their electronics division a full sales, service, and field operations CRM. The Standex Scientific division closed at $60K in July — this is the larger sister deal, and together they represent $196K+ from a single parent account. Stage 03 by Oct 30 means the value case is being validated — coordinate across both divisions so they don't block each other at the corporate approval layer.</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Map the corporate approval path — does Electronics need sign-off from Standex International parent?</li>
+            <li>Use the Scientific division close as a reference point in the Electronics conversation</li>
+            <li>FSL demo scoped to Standex's field service use case — make it specific, not generic</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deal-card oct-low">
+        <div class="deal-card-top">
+          <div><div class="deal-account">Texas Pipe and Supply</div><div class="deal-location">Houston, TX</div></div>
+          <div class="deal-amount">$660,000</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">+200 MFG Cloud</span>
+          <span class="badge stage-02">Stage 02</span>
+          <span class="badge date-badge">📅 Oct 30</span>
+          <span class="badge type-badge">New Business</span>
+          <span class="badge big-badge">⚡ Biggest Deal in Q3</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">Manufacturing Cloud</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">The single largest deal in the Q3 book at $660K — but it's at Stage 02. Texas Pipe &amp; Supply is a $564M industrial pipe and valve distributor serving oil &amp; gas and industrial markets out of Houston. A 200-seat MFG Cloud deployment is a major commercial CRM transformation: run-rate agreements, account-based forecasting, and distributor relationship management at scale. Stage 02 with an Oct 30 close means this needs to accelerate fast — define the problem, get to the business owner (likely VP Sales or COO), and build a compelling ROI case. This deal alone would define the quarter.</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Get to VP Sales or COO this week — do not stay at the IT/admin level on a $660K deal</li>
+            <li>Build a ROI model: 200 reps × reduced forecast cycle time + contract visibility = quantified impact</li>
+            <li>Validate that Oct 30 is a real close date — if not, re-date now rather than carry false pipeline</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deal-card oct-low">
+        <div class="deal-card-top">
+          <div><div class="deal-account">Architectural Surfaces Group</div><div class="deal-location">Fife, WA</div></div>
+          <div class="deal-amount">$211,000</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">+100 Sales &amp; Service Cloud EE</span>
+          <span class="badge stage-02">Stage 02</span>
+          <span class="badge date-badge">📅 Oct 30</span>
+          <span class="badge type-badge">New Business</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">Sales Cloud EE</span>
+          <span class="chip">Service Cloud EE</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">Architectural Surfaces Group is a $2.2B architectural surfaces distributor — stone, tile, and hard surfaces for commercial and residential construction. A 100-seat S&amp;S EE expansion gives their commercial team account management, opportunity tracking, and service visibility across a distributor network that spans multiple regions. Stage 02 — the problem definition is still in progress. Move quickly to identify the commercial champion and confirm whether the Oct 30 date is real or a placeholder.</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Confirm the Oct 30 close date is real — Stage 02 to close in 4 months requires active exec engagement now</li>
+            <li>Identify the commercial champion (VP Sales or regional sales director)</li>
+            <li>Frame the S&amp;S EE pitch around multi-region distributor account visibility — that's the specific pain</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deal-card oct-low">
+        <div class="deal-card-top">
+          <div><div class="deal-account">FNA Group</div><div class="deal-location">Elk Grove Village, IL</div></div>
+          <div class="deal-amount">$138,000</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">50 Sales Cloud EE + Account Engagement</span>
+          <span class="badge stage-02">Stage 02</span>
+          <span class="badge date-badge">📅 Oct 27</span>
+          <span class="badge type-badge">New Business</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">Sales Cloud EE</span>
+          <span class="chip">Marketing Cloud Account Engagement</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">FNA Group makes pressure washers and outdoor power equipment — brands like Simpson, Delco, and PowerStroke. Their sales team covers dealers, distributors, and OEM accounts across North America. Sales Cloud EE + Account Engagement gives FNA a connected sales and marketing motion: structured dealer account management and automated channel marketing in one platform. Stage 02 — needs to define the specific business owner who feels the channel coordination problem most acutely.</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Identify VP Sales or VP Marketing as the co-champion for a two-product deal</li>
+            <li>Run a joint Sales Cloud + Account Engagement demo showing the dealer channel motion end-to-end</li>
+            <li>Define the specific problem: is it rep visibility into dealer pipeline, or marketing to dealers, or both?</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deal-card oct-low">
+        <div class="deal-card-top">
+          <div><div class="deal-account">Daiichi Jitsugyo America</div><div class="deal-location">Itasca, IL</div></div>
+          <div class="deal-amount">$165,000</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">+50 Manufacturing Cloud</span>
+          <span class="badge stage-02">Stage 02</span>
+          <span class="badge date-badge">📅 Oct 31</span>
+          <span class="badge type-badge">Add-On</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">Manufacturing Cloud</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">Daiichi Jitsugyo America is the U.S. arm of a Japanese machinery and industrial equipment trading company. A 50-seat MFG Cloud expansion gives their commercial team structured account and contract management for a complex multi-product, multi-customer trading business. Stage 02 — the value needs to be translated into the language of a trading company (relationship management, contract visibility, run-rate forecasting) not just a manufacturer. Identify who owns revenue planning and use that as the entry.</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Find the revenue planning or commercial ops owner — that's the right entry point, not IT</li>
+            <li>Tailor the MFG Cloud pitch to trading company language: contract management, relationship visibility, forecast accuracy</li>
+            <li>Confirm Oct 31 date with an active Stage 03 conversation scheduled before Oct</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deal-card oct-low">
+        <div class="deal-card-top">
+          <div><div class="deal-account">R.S. Hughes</div><div class="deal-location">Sunnyvale, CA</div></div>
+          <div class="deal-amount">$82,800</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">+50 MFG Cloud EE</span>
+          <span class="badge stage-02">Stage 02</span>
+          <span class="badge date-badge">📅 Oct 30</span>
+          <span class="badge type-badge">New Business</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">Manufacturing Cloud EE</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">R.S. Hughes is a $466M industrial safety and MRO products distributor with 500+ employees across the U.S. A 50-seat MFG Cloud EE expansion gives their sales team account-based forecasting, run-rate contract management, and structured pipeline visibility for a distributor business where renewal and reorder patterns are the core commercial model. Stage 02 — get to the VP of Sales or commercial ops lead to build the ROI case around retention and share-of-wallet growth.</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Get to VP Sales or commercial ops — frame the pitch around account retention and share-of-wallet</li>
+            <li>Build a run-rate forecasting demo: show how MFG Cloud tracks reorder patterns vs. spreadsheets</li>
+            <li>Stage 03 meeting needs to be on calendar by mid-September to protect Oct 30 close</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deal-card oct-low">
+        <div class="deal-card-top">
+          <div><div class="deal-account">Reinke Manufacturing</div><div class="deal-location">Deshler, NE</div></div>
+          <div class="deal-amount">$81,250</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">+125 MFG Cloud</span>
+          <span class="badge stage-02">Stage 02</span>
+          <span class="badge date-badge">📅 Oct 30</span>
+          <span class="badge type-badge">New Business</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">Manufacturing Cloud</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">Reinke Manufacturing is the world's largest center-pivot irrigation equipment manufacturer, based in Deshler, NE. Their dealer and distributor channel is global — 125 MFG Cloud seats represents a substantial commercial org. The value case centers on dealer account management, territory visibility, and contract-based run-rate forecasting for a business that runs on long-term dealer relationships. Stage 02 — identify the commercial exec (VP Sales or Dealer Network Manager) and build the dealer channel story.</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Find the VP Sales or Dealer Network Manager — dealer channel management is the core value prop</li>
+            <li>Demo MFG Cloud with an ag dealer channel use case: territory, contract, run-rate forecasting</li>
+            <li>Stage 03 value confirmation must happen in September to close Oct 30</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deal-card oct-low">
+        <div class="deal-card-top">
+          <div><div class="deal-account">Meissner Filtration Products</div><div class="deal-location">Camarillo, CA</div></div>
+          <div class="deal-amount">$80,500</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">+35 Manufacturing Cloud Sales EE</span>
+          <span class="badge stage-02">Stage 02</span>
+          <span class="badge date-badge">📅 Oct 31</span>
+          <span class="badge type-badge">New Business</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">Manufacturing Cloud Sales EE</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">Meissner is a biotech filtration manufacturer ($37M revenue, 500 employees) serving pharma, biotech, and life science manufacturers. Their buyers are highly technical, their sales cycles are long, and their accounts require careful regulatory documentation. MFG Cloud Sales EE gives Meissner's 35-person commercial team structured account management and run-rate visibility for a business where every deal is a multi-year relationship. Stage 02 — the technical complexity of the customer base is a compelling POV hook.</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Identify VP Sales or commercial lead — life science sales teams are small but high-value</li>
+            <li>Lead with the account management story: every pharma account is a multi-year relationship that needs to be tracked</li>
+            <li>Schedule Stage 03 before October to give enough runway to close Oct 31</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deal-card oct-low">
+        <div class="deal-card-top">
+          <div><div class="deal-account">DEE ZEE, INC.</div><div class="deal-location">Des Moines, IA</div></div>
+          <div class="deal-amount">$28,800</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">+15 MFG Cloud Sales</span>
+          <span class="badge stage-02">Stage 02</span>
+          <span class="badge date-badge">📅 Oct 23</span>
+          <span class="badge type-badge">New Business</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">Manufacturing Cloud Sales</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">DEE ZEE makes truck accessories (toolboxes, bed management, steps, fuel tanks) with a dealer and OEM channel. A 15-seat MFG Cloud Sales expansion adds CRM capacity for their commercial team alongside a $39K MCA + Data Cloud opp also in flight. Stage 02 — the two deals should be coordinated: the commercial case for MFG Cloud (sales team structure) and MCA (dealer/consumer marketing) are complementary and stronger together than separate.</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Coordinate this with the MCA + Data Cloud thread — present both products in one conversation</li>
+            <li>Get Director of Marketing (Scott Moyer) and IT lead (Jason Wiedmier) in the same room</li>
+            <li>Stage 03 call scheduled before Oct 9 to hold the Oct 23 close date</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deal-card oct-low">
+        <div class="deal-card-top">
+          <div><div class="deal-account">Diamond C Trailers</div><div class="deal-location">Mt. Pleasant, TX</div></div>
+          <div class="deal-amount">$21,780</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">Sandbox — Quoting Portal</span>
+          <span class="badge stage-02">Stage 02</span>
+          <span class="badge date-badge">📅 Oct 31</span>
+          <span class="badge type-badge">Add-On</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">Sandbox / CPQ</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">Diamond C Trailers manufactures custom trailers (gooseneck, equipment, dump) sold through a dealer network. This sandbox deal funds the development of a quoting portal — a pre-cursor to a full CPQ or Commerce deployment. The strategic value: getting Diamond C's dealers onto a self-service quoting tool creates lock-in, reduces manual quote cycles, and positions the platform for a larger Commerce or RCA expansion. Stage 02 — keep it moving and plant the seed for the bigger follow-on.</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Confirm sandbox scope and deliverable with technical stakeholder</li>
+            <li>Plant the Commerce / CPQ follow-on seed now — the sandbox is the foot in the door</li>
+            <li>Keep the EE Upgrade opp ($24.9K, Dec 31) aligned — both deals should close in sequence</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="deal-card oct-high">
+        <div class="deal-card-top">
+          <div><div class="deal-account">CFAN</div><div class="deal-location">San Marcos, TX</div></div>
+          <div class="deal-amount">$4,908</div>
+        </div>
+        <div class="deal-card-mid">
+          <span class="deal-name">+40 MFG Cloud Sales &amp; Service Upgrade</span>
+          <span class="badge stage-03">Stage 03</span>
+          <span class="badge date-badge">📅 Oct 30</span>
+          <span class="badge type-badge">Upgrade</span>
+        </div>
+        <div class="deal-chips">
+          <span class="chip">Manufacturing Cloud Sales &amp; Service</span>
+        </div>
+        <div class="deal-pov">
+          <div class="pov-label">POV</div>
+          <div class="pov-text">CFAN is a GE/Safran joint venture manufacturing composite fan blades for commercial aircraft engines — 650 employees, $229M revenue. This is a license upgrade at Stage 03. Small dollar value but high-profile account. The commercial value is straightforward: upgrading 40 seats to Sales &amp; Service adds service case management alongside the existing sales motion. At Stage 03 with Oct 30 close, this is essentially a formality — get it papered and use the relationship to explore what's next (Field Service is a natural fit for a precision manufacturing environment).</div>
+        </div>
+        <div class="next-steps">
+          <div class="ns-label">Next Steps</div>
+          <ul class="ns-list">
+            <li>Get the order form out — Stage 03 upgrade should be paperwork, not more discovery</li>
+            <li>Use the upgrade close to open the FSL conversation — precision MFG field service is the natural next deal</li>
+            <li>Don't let a small-dollar deal get deprioritized; CFAN (GE/Safran JV) is a marquee reference</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer>Anthony Troggio · Digital Account Executive, Salesforce · atroggio@salesforce.com · Q3 2026 Pipeline (Aug–Oct) · June 2026</footer>
+</body>
+</html>

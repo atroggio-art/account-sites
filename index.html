@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anthony Troggio | Account Portfolio</title>
+<style>
+:root{--bl:#0176d3;--bd:#014486;--gr:#2e844a;--or:#dd5a00;--tx:#181818;--mu:#5a5a5a;--br:#e0e0e0;--bg:#f4f6f9}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:var(--bg);color:var(--tx);font-size:15px}
+header{background:linear-gradient(135deg,var(--bd),var(--bl));color:#fff;padding:36px 48px 28px}
+.hd{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.title{font-size:1.8rem;font-weight:700;letter-spacing:-.5px}
+.subtitle{font-size:.9rem;opacity:.82;margin-top:5px}
+.rep{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:10px;padding:13px 18px;text-align:right}
+.rep .n{font-weight:700;font-size:.95rem}
+.rep .r{font-size:.75rem;opacity:.75;margin-top:2px}
+.rep .e{font-size:.72rem;opacity:.65;margin-top:3px}
+.summary{display:flex;background:#fff;border-bottom:1px solid var(--br)}
+.sm{flex:1;min-width:110px;padding:14px 20px;text-align:center;border-right:1px solid var(--br)}
+.sm:last-child{border-right:none}
+.sv{font-size:1.3rem;font-weight:700;color:var(--bl)}
+.sl{font-size:.67rem;text-transform:uppercase;letter-spacing:.5px;color:var(--mu);margin-top:3px}
+.grid{max-width:1200px;margin:0 auto;padding:28px 20px;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+.acct-card{background:#fff;border-radius:10px;border:1px solid var(--br);box-shadow:0 1px 8px rgba(0,0,0,.07);overflow:hidden;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s}
+.acct-card:hover{border-color:var(--bl);box-shadow:0 4px 16px rgba(1,118,211,.12)}
+.card-top{padding:16px 18px 12px;flex:1}
+.acct-name{font-weight:700;font-size:1rem;color:var(--tx);margin-bottom:4px}
+.acct-loc{font-size:.78rem;color:var(--mu);margin-bottom:10px}
+.opp-name{font-size:.82rem;color:var(--mu);margin-bottom:6px;font-style:italic}
+.tag-row{display:flex;gap:6px;flex-wrap:wrap}
+.ptag{background:#e8f4fd;color:#014486;border-radius:5px;padding:2px 8px;font-size:.7rem;font-weight:600}
+.card-bottom{padding:10px 18px;background:#f8f9fa;border-top:1px solid var(--br);display:flex;justify-content:space-between;align-items:center}
+.amt{font-weight:700;color:var(--gr);font-size:.9rem}
+.close{font-size:.75rem;color:var(--mu)}
+.arr{color:var(--bl);font-size:1rem;font-weight:700}
+footer{text-align:center;padding:18px;font-size:.72rem;color:#bbb;border-top:1px solid var(--br)}
+</style>
+</head>
+<body>
+<header>
+  <div class="hd">
+    <div>
+      <div class="title">Account Portfolio</div>
+      <div class="subtitle">Open Opportunities &nbsp;·&nbsp; Manufacturing &amp; Automotive &nbsp;·&nbsp; AMER West</div>
+    </div>
+    <div class="rep">
+      <div class="n">Anthony Troggio</div>
+      <div class="r">Digital Account Executive</div>
+      <div class="e">atroggio@salesforce.com</div>
+    </div>
+  </div>
+</header>
+
+<div class="summary">
+  <div class="sm"><div class="sv">12</div><div class="sl">Accounts</div></div>
+  <div class="sm"><div class="sv">12</div><div class="sl">Open Opps</div></div>
+  <div class="sm"><div class="sv">$708K+</div><div class="sl">Pipeline</div></div>
+  <div class="sm"><div class="sv">Jul '26</div><div class="sl">Nearest Close</div></div>
+  <div class="sm"><div class="sv">Stage 01</div><div class="sl">All Opps</div></div>
+</div>
+
+<div class="grid">
+
+  <a class="acct-card" href="nexeo-plastics.html">
+    <div class="card-top">
+      <div class="acct-name">Nexeo Plastics, LLC</div>
+      <div class="acct-loc">The Woodlands, TX &nbsp;·&nbsp; 500 employees &nbsp;·&nbsp; $3.9B revenue</div>
+      <div class="opp-name">Loyalty Management</div>
+      <div class="tag-row"><span class="ptag">Loyalty Management</span></div>
+    </div>
+    <div class="card-bottom"><span class="amt">$30,000</span><span class="close">Jul 16, 2026</span><span class="arr">→</span></div>
+  </a>
+
+  <a class="acct-card" href="gowan.html">
+    <div class="card-top">
+      <div class="acct-name">Gowan Company</div>
+      <div class="acct-loc">Yuma, AZ &nbsp;·&nbsp; 847 employees &nbsp;·&nbsp; $100M revenue</div>
+      <div class="opp-name">Revenue Cloud Advanced</div>
+      <div class="tag-row"><span class="ptag">Revenue Cloud Advanced</span></div>
+    </div>
+    <div class="card-bottom"><span class="amt">$49,000</span><span class="close">Nov 30, 2026</span><span class="arr">→</span></div>
+  </a>
+
+  <a class="acct-card" href="jw-power.html">
+    <div class="card-top">
+      <div class="acct-name">J-W Power Company</div>
+      <div class="acct-loc">Addison, TX &nbsp;·&nbsp; 850 employees &nbsp;·&nbsp; $116M revenue</div>
+      <div class="opp-name">Marketing Cloud Next</div>
+      <div class="tag-row"><span class="ptag">Marketing Cloud Next</span></div>
+    </div>
+    <div class="card-bottom"><span class="amt">$39,000</span><span class="close">Nov 18, 2026</span><span class="arr">→</span></div>
+  </a>
+
+  <a class="acct-card" href="puffer-sweiven.html">
+    <div class="card-top">
+      <div class="acct-name">Puffer-Sweiven LP</div>
+      <div class="acct-loc">Stafford, TX &nbsp;·&nbsp; 582 employees &nbsp;·&nbsp; $565M revenue</div>
+      <div class="opp-name">Order Management System</div>
+      <div class="tag-row"><span class="ptag">OMS</span></div>
+    </div>
+    <div class="card-bottom"><span class="amt">$10,000</span><span class="close">Dec 23, 2026</span><span class="arr">→</span></div>
+  </a>
+
+  <a class="acct-card" href="floworks.html">
+    <div class="card-top">
+      <div class="acct-name">FloWorks International, LLC</div>
+      <div class="acct-loc">Pasadena, TX &nbsp;·&nbsp; 750 employees &nbsp;·&nbsp; $573M revenue</div>
+      <div class="opp-name">Commerce Cloud Advanced</div>
+      <div class="tag-row"><span class="ptag">Commerce Cloud Advanced</span></div>
+    </div>
+    <div class="card-bottom"><span class="amt">$175,000</span><span class="close">Jan 5, 2027</span><span class="arr">→</span></div>
+  </a>
+
+  <a class="acct-card" href="smead.html">
+    <div class="card-top">
+      <div class="acct-name">Smead Manufacturing Company</div>
+      <div class="acct-loc">Hastings, MN &nbsp;·&nbsp; 1,000 employees &nbsp;·&nbsp; $500M revenue</div>
+      <div class="opp-name">MCA &amp; Data Bundles — New Logo</div>
+      <div class="tag-row"><span class="ptag">Marketing Cloud Advanced</span><span class="ptag">Data Cloud</span></div>
+    </div>
+    <div class="card-bottom"><span class="amt">$39,000</span><span class="close">Jan 5, 2027</span><span class="arr">→</span></div>
+  </a>
+
+  <a class="acct-card" href="wholesale-electric.html">
+    <div class="card-top">
+      <div class="acct-name">Wholesale Electric Supply</div>
+      <div class="acct-loc">Mansfield, TX &nbsp;·&nbsp; 475 employees &nbsp;·&nbsp; $750M revenue</div>
+      <div class="opp-name">MCA &amp; Data Bundles — New Logo</div>
+      <div class="tag-row"><span class="ptag">Marketing Cloud Advanced</span><span class="ptag">Data Cloud</span></div>
+    </div>
+    <div class="card-bottom"><span class="amt">TBD</span><span class="close">Jan 6, 2027</span><span class="arr">→</span></div>
+  </a>
+
+  <a class="acct-card" href="unical-aviation.html">
+    <div class="card-top">
+      <div class="acct-name">Unical Aviation Inc</div>
+      <div class="acct-loc">Valle Lindo, CA &nbsp;·&nbsp; 743 employees &nbsp;·&nbsp; $127M revenue</div>
+      <div class="opp-name">Revenue Cloud Advanced</div>
+      <div class="tag-row"><span class="ptag">Revenue Cloud Advanced</span></div>
+    </div>
+    <div class="card-bottom"><span class="amt">$200,000</span><span class="close">Jan 19, 2027</span><span class="arr">→</span></div>
+  </a>
+
+  <a class="acct-card" href="dee-zee.html">
+    <div class="card-top">
+      <div class="acct-name">DEE ZEE, INC.</div>
+      <div class="acct-loc">Des Moines, IA &nbsp;·&nbsp; 1,122 employees &nbsp;·&nbsp; $500M revenue</div>
+      <div class="opp-name">MCA &amp; Data Bundles — New Logo</div>
+      <div class="tag-row"><span class="ptag">Marketing Cloud Advanced</span><span class="ptag">Data Cloud</span></div>
+    </div>
+    <div class="card-bottom"><span class="amt">$39,000</span><span class="close">Feb 16, 2027</span><span class="arr">→</span></div>
+  </a>
+
+  <a class="acct-card" href="pyrotek.html">
+    <div class="card-top">
+      <div class="acct-name">Pyrotek Inc.</div>
+      <div class="acct-loc">Spokane Valley, WA &nbsp;·&nbsp; 2,934 employees &nbsp;·&nbsp; $676M revenue</div>
+      <div class="opp-name">MC Next + Data Bundles</div>
+      <div class="tag-row"><span class="ptag">Marketing Cloud Next</span><span class="ptag">Data Cloud</span></div>
+    </div>
+    <div class="card-bottom"><span class="amt">$39,000</span><span class="close">Feb 16, 2027</span><span class="arr">→</span></div>
+  </a>
+
+  <a class="acct-card" href="diamond-plastics.html">
+    <div class="card-top">
+      <div class="acct-name">Diamond Plastics Corporation</div>
+      <div class="acct-loc">Grand Island, NE &nbsp;·&nbsp; 450 employees &nbsp;·&nbsp; $132M revenue</div>
+      <div class="opp-name">MCA &amp; Data Bundles — New Logo</div>
+      <div class="tag-row"><span class="ptag">Marketing Cloud Advanced</span><span class="ptag">Data Cloud</span></div>
+    </div>
+    <div class="card-bottom"><span class="amt">$39,000</span><span class="close">Feb 10, 2027</span><span class="arr">→</span></div>
+  </a>
+
+  <a class="acct-card" href="stevens-industries.html">
+    <div class="card-top">
+      <div class="acct-name">Stevens Industries Inc</div>
+      <div class="acct-loc">Teutopolis, IL &nbsp;·&nbsp; 500 employees &nbsp;·&nbsp; $108M revenue</div>
+      <div class="opp-name">MCA &amp; Data Bundles — New Logo</div>
+      <div class="tag-row"><span class="ptag">Marketing Cloud Advanced</span><span class="ptag">Data Cloud</span></div>
+    </div>
+    <div class="card-bottom"><span class="amt">$39,000</span><span class="close">Mar 10, 2027</span><span class="arr">→</span></div>
+  </a>
+
+</div>
+<footer>Anthony Troggio &nbsp;·&nbsp; Digital Account Executive, Salesforce &nbsp;·&nbsp; June 2026</footer>
+</body>
+</html>
