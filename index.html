@@ -35,6 +35,17 @@ header{background:linear-gradient(135deg,var(--bd),var(--bl));color:#fff;padding
 .close{font-size:.75rem;color:var(--mu)}
 .arr{color:var(--bl);font-size:1rem;font-weight:700}
 footer{text-align:center;padding:18px;font-size:.72rem;color:#bbb;border-top:1px solid var(--br)}
+.featured-card{background:linear-gradient(135deg,#0b1929,#1a3a5c);border-radius:10px;border:2px solid #c94a00;box-shadow:0 4px 20px rgba(11,25,41,.18);overflow:hidden;text-decoration:none;color:#fff;display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s;grid-column:1/-1}
+.featured-card:hover{box-shadow:0 8px 32px rgba(201,74,0,.3);transform:translateY(-2px)}
+.featured-card .card-top{padding:20px 24px 16px;flex:1}
+.featured-card .acct-name{font-weight:800;font-size:1.05rem;color:#fff;margin-bottom:4px}
+.featured-card .acct-loc{font-size:.78rem;color:rgba(255,255,255,.55);margin-bottom:10px}
+.featured-card .opp-name{font-size:.84rem;color:rgba(255,255,255,.7);margin-bottom:8px;font-style:italic}
+.featured-card .ptag{background:rgba(201,74,0,.3);color:#e86820;border-radius:5px;padding:2px 8px;font-size:.7rem;font-weight:600}
+.featured-card .card-bottom{padding:10px 24px;background:rgba(0,0,0,.2);border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center}
+.featured-card .amt{font-weight:700;color:#e86820;font-size:.9rem}
+.featured-card .close{font-size:.75rem;color:rgba(255,255,255,.5)}
+.featured-label{display:inline-block;background:#c94a00;color:#fff;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:2px 9px;border-radius:50px;margin-bottom:8px}
 </style>
 </head>
 <body>
@@ -46,21 +57,32 @@ footer{text-align:center;padding:18px;font-size:.72rem;color:#bbb;border-top:1px
     </div>
     <div class="rep">
       <div class="n">Anthony Troggio</div>
-      <div class="r">Digital Account Executive</div>
+      <div class="r">Digital Transformation Executive</div>
       <div class="e">atroggio@salesforce.com</div>
     </div>
   </div>
 </header>
 
 <div class="summary">
-  <div class="sm"><div class="sv">12</div><div class="sl">Accounts</div></div>
-  <div class="sm"><div class="sv">12</div><div class="sl">Open Opps</div></div>
-  <div class="sm"><div class="sv">$708K+</div><div class="sl">Pipeline</div></div>
+  <div class="sm"><div class="sv">14</div><div class="sl">Accounts</div></div>
+  <div class="sm"><div class="sv">14</div><div class="sl">Open Opps</div></div>
+  <div class="sm"><div class="sv">$885K+</div><div class="sl">Pipeline</div></div>
   <div class="sm"><div class="sv">Jul '26</div><div class="sl">Nearest Close</div></div>
   <div class="sm"><div class="sv">Stage 01</div><div class="sl">All Opps</div></div>
 </div>
 
 <div class="grid">
+
+  <a class="featured-card" href="manufacturing-marketing.html">
+    <div class="card-top">
+      <div class="featured-label">Resource</div>
+      <div class="acct-name">The Manufacturing Marketer's Guide to What's Actually Working</div>
+      <div class="acct-loc">Shareable industry resource &nbsp;·&nbsp; Marketing Cloud + Agentforce + Data Cloud</div>
+      <div class="opp-name">Educational site for manufacturing marketing leaders — customer stories, platform overview, AI agents</div>
+      <div class="tag-row"><span class="ptag">Marketing Cloud</span>&nbsp;<span class="ptag">Agentforce</span>&nbsp;<span class="ptag">Data Cloud</span></div>
+    </div>
+    <div class="card-bottom"><span class="amt">Industry Resource</span><span class="close">Share with prospects →</span><span class="arr" style="color:#e86820">→</span></div>
+  </a>
 
   <a class="acct-card" href="nexeo-plastics.html">
     <div class="card-top">
@@ -192,6 +214,26 @@ footer{text-align:center;padding:18px;font-size:.72rem;color:#bbb;border-top:1px
     <div class="card-bottom"><span class="amt">$95,000</span><span class="close">Jan 29, 2027</span><span class="arr">→</span></div>
   </a>
 
+  <a class="acct-card" href="wilson-tool.html">
+    <div class="card-top">
+      <div class="acct-name">Wilson Tool International</div>
+      <div class="acct-loc">Saint Paul, MN &nbsp;·&nbsp; ~500 employees &nbsp;·&nbsp; $129M revenue</div>
+      <div class="opp-name">B2B Commerce Cloud — ERP Transition Window</div>
+      <div class="tag-row"><span class="ptag">B2B Commerce</span><span class="ptag">MuleSoft</span></div>
+    </div>
+    <div class="card-bottom"><span class="amt">$100,000</span><span class="close">Jan 28, 2027</span><span class="arr">→</span></div>
+  </a>
+
+  <a class="acct-card" href="ls-electric.html">
+    <div class="card-top">
+      <div class="acct-name">LS Electric America Inc.</div>
+      <div class="acct-loc">Lincolnshire, IL &nbsp;·&nbsp; ~2,500 employees &nbsp;·&nbsp; $1.25B revenue</div>
+      <div class="opp-name">Marketing Cloud Advanced — $20M → $100M Growth Infrastructure</div>
+      <div class="tag-row"><span class="ptag">Marketing Cloud Advanced</span><span class="ptag">Data Cloud</span><span class="ptag">Agentforce</span></div>
+    </div>
+    <div class="card-bottom"><span class="amt">$77,000</span><span class="close">Sep 17, 2026</span><span class="arr">→</span></div>
+  </a>
+
   <a class="acct-card" href="kps-global.html">
     <div class="card-top">
       <div class="acct-name">KPS Global LLC</div>
@@ -203,6 +245,6 @@ footer{text-align:center;padding:18px;font-size:.72rem;color:#bbb;border-top:1px
   </a>
 
 </div>
-<footer>Anthony Troggio &nbsp;·&nbsp; Digital Account Executive, Salesforce &nbsp;·&nbsp; June 2026</footer>
+<footer>Anthony Troggio &nbsp;·&nbsp; Digital Transformation Executive, Salesforce &nbsp;·&nbsp; June 2026</footer>
 </body>
 </html>

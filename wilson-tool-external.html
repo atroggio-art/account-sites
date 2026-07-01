@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Ontic × Salesforce | A Custom Brief from Anthony Troggio</title>
+<title>Wilson Tool × Salesforce | A Custom Brief from Anthony Troggio</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
@@ -72,7 +72,7 @@ img { display: block; max-width: 100%; }
 .hero-bg {
   position: absolute;
   inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1540979388789-6cee28a1cdc9?auto=format&fit=crop&w=1600&q=80');
+  background-image: url('https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?auto=format&fit=crop&w=1600&q=80');
   background-size: cover;
   background-position: center 40%;
   opacity: .28;
@@ -249,10 +249,25 @@ img { display: block; max-width: 100%; }
 .about-body strong { color: #fff; font-weight: 700; }
 .about-cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
 
+.objection-bar {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--r);
+  padding: 18px 24px;
+  margin-top: 32px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.objection-icon { font-size: 1.4rem; flex-shrink: 0; }
+.objection-body { font-size: .88rem; color: rgba(255,255,255,.65); line-height: 1.65; }
+.objection-body strong { color: rgba(255,255,255,.9); }
+
 .cta-section { background: linear-gradient(135deg, var(--orange) 0%, #8f3000 100%); color: #fff; text-align: center; }
 .cta-section .section { padding: 70px 48px; }
 .cta-title { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 14px; }
 .cta-sub { font-size: 1rem; opacity: .85; max-width: 500px; margin: 0 auto 32px; line-height: 1.7; }
+.cta-contact { font-size: .88rem; opacity: .75; margin-top: 20px; }
 .btn-white { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--orange); font-weight: 700; font-size: 1rem; padding: 15px 32px; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,.2); transition: transform .15s, box-shadow .2s; }
 .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,.25); }
 
@@ -281,84 +296,89 @@ footer span { color: rgba(255,255,255,.65); }
 </head>
 <body>
 
-<!-- TOPBAR -->
+<!-- Topbar -->
 <nav class="topbar">
   <div class="topbar-left">
     <span class="topbar-wordmark">Salesforce</span>
     <div class="topbar-divider"></div>
-    <span class="topbar-company">Ontic</span>
+    <span class="topbar-company">Wilson Tool International</span>
   </div>
   <div class="topbar-right">
-    <a href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" class="topbar-cta">Book a Call with Anthony</a>
+    <a class="topbar-cta" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Schedule a Call</a>
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- Hero -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
-  <div class="hero-content fade-in">
+  <div class="hero-content">
     <div class="hero-eyebrow">
       <div class="hero-eyebrow-dot"></div>
-      <span>Prepared exclusively for Ontic</span>
+      <span>Built for Wilson Tool International</span>
     </div>
-    <h1>Complex Parts.<br>Global Customers.<br><em>One System to Run It All.</em></h1>
-    <p class="hero-sub">Ontic manages hundreds of licensed part numbers across civil, defense, and MRO programs — sold by a distributed global team into some of the most demanding customers in aviation. The sales motion is sophisticated. The CRM should be too.</p>
+    <h1>Your Customers Want to <em>Order Online.</em><br>Give Them the Experience They Expect.</h1>
+    <p class="hero-sub">Wilson Tool's 61-person direct sales force is your competitive edge. A modern B2B commerce platform turns your reps into trusted advisors — not order-entry clerks — while giving customers self-service that actually works.</p>
     <div class="hero-actions">
-      <a href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" class="btn-primary">
-        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-        Book a Call with Anthony
+      <a class="btn-primary" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">
+        &#128197; Schedule Time with Anthony
       </a>
-      <a href="#pov" class="btn-ghost">
-        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-        See our POV
-      </a>
+      <a class="btn-ghost" href="#pov">See the Approach ↓</a>
     </div>
   </div>
 </section>
 
-<!-- STATS STRIP -->
+<!-- Stats Strip -->
 <div class="strip">
-  <div class="strip-item"><div class="sv">$193M</div><div class="sl">Annual Revenue</div></div>
-  <div class="strip-item"><div class="sv">600+</div><div class="sl">Employees</div></div>
-  <div class="strip-item"><div class="sv">Global</div><div class="sl">MRO Operations</div></div>
-  <div class="strip-item"><div class="sv">Civil + Defense</div><div class="sl">Programs</div></div>
-  <div class="strip-item"><div class="sv">Chatsworth, CA</div><div class="sl">Headquarters</div></div>
+  <div class="strip-item"><div class="sv">4x</div><div class="sl">Online Order Growth</div></div>
+  <div class="strip-item"><div class="sv">289%</div><div class="sl">Avg ROI (Mfg)</div></div>
+  <div class="strip-item"><div class="sv">#1</div><div class="sl">B2B Commerce Vertical</div></div>
+  <div class="strip-item"><div class="sv">$9.6M</div><div class="sl">Avg NPV (Mfg)</div></div>
+  <div class="strip-item"><div class="sv">Siemens</div><div class="sl">Runs on this Platform</div></div>
 </div>
 
-<!-- POV SECTION -->
+<!-- POV Section -->
 <section class="pov-section" id="pov">
   <div class="section fade-in">
-    <div class="section-eyebrow">Our Point of View</div>
-    <h2 class="section-title">Ontic's Business Is Built on Complexity.<br>Your Commercial System Should Handle It.</h2>
-    <p class="section-sub">You license, manufacture, and support parts that keep aircraft flying across naval, military, and civil programs. Your BD directors, account managers, and revenue team are managing long-cycle, high-stakes relationships across multiple programs simultaneously. That's not a job for a generic CRM.</p>
+    <div class="section-eyebrow">Point of View</div>
+    <div class="section-title">The ERP Transition Is the Forcing Function — Not the Blocker</div>
+    <div class="section-sub">Most manufacturers assume a platform change means freezing everything. The ones who come out ahead use the transition window to design a better customer experience from scratch.</div>
 
     <div class="pov-grid">
       <div class="pov-statement">
-        <blockquote>"The most valuable thing a modern CRM does for a company like Ontic isn't tracking contacts — it's giving your commercial team <em>full program visibility</em> so nothing slips between BD and revenue."</blockquote>
-        <p>When you're running civil, military, naval, and MRO motions simultaneously, the handoff between business development and revenue management is where deals get dropped. Manufacturing Cloud gives every commercial stakeholder a single view of the customer relationship — from initial BD engagement through contract and revenue realization.</p>
-        <p>Every month your BD and revenue teams operate in separate systems is a month of missed cross-sell, misaligned forecasts, and manual coordination overhead that your competitors don't have.</p>
+        <blockquote>Replacing your ERP is the right time to ask: <em>what should our customers actually experience?</em> — before you lock it in.</blockquote>
+        <p>Wilson Tool's ERP transition opens a rare design window. The SAP commerce integration was described as a "great combination of a mess" — that's not a failure, that's evidence that commerce infrastructure needs to be rethought, not ported.</p>
+        <p>Salesforce B2B Commerce sits in front of your ERP — whatever ERP you run — handling the customer experience layer: browse, configure, price, order, account self-service. Your ERP handles fulfillment. They don't compete. They complement.</p>
+        <p>The question your Voice of Customer visits answered: your highest-volume customers depend on that portal. Shutting down commerce for a year doesn't just inconvenience them — it hands reorder volume to whoever makes it easiest to buy.</p>
       </div>
+
       <div class="pov-points">
         <div class="pov-point">
-          <div class="pov-point-icon">✈️</div>
+          <div class="pov-point-icon">🏭</div>
           <div class="pov-point-body">
-            <strong>Program-level visibility across the full commercial org</strong>
-            <p>Your BD directors, Technical Sales Managers, and Key Account Managers are all touching the same customers from different angles. Manufacturing Cloud gives every rep visibility into what's been sold, what's in flight, and where the next opportunity lives — across every program and region.</p>
+            <strong>Configurable Products Need a Commerce Experience Built for Them</strong>
+            <p>Wilson Tool's punch tooling, press brake tooling, and stamping dies span standard and custom-engineered SKUs. B2B Commerce with native CPQ handles complex configuration logic — so customers can self-configure and order without tying up inside sales on every quote.</p>
           </div>
         </div>
         <div class="pov-point">
-          <div class="pov-point-icon">📋</div>
+          <div class="pov-point-icon">👥</div>
           <div class="pov-point-body">
-            <strong>Revenue management that matches the complexity of your contracts</strong>
-            <p>Ontic's revenue motion isn't transactional — it's long-cycle, program-driven, and involves multiple stakeholders. Manufacturing Cloud's forecasting and account management tools are built for exactly this kind of contract complexity, not adapted from a B2C sales tool.</p>
+            <strong>Your Sales Reps Should Be in Front of Customers, Not Entering Orders</strong>
+            <p>61 direct reps across ~300 accounts each. When self-service handles reorders, quotes, and account documents, your reps stop being order clerks and start being the consultative partner your key accounts want to hear from.</p>
           </div>
         </div>
         <div class="pov-point">
-          <div class="pov-point-icon">🌐</div>
+          <div class="pov-point-icon">📁</div>
           <div class="pov-point-body">
-            <strong>One platform across North America, UK, and global programs</strong>
-            <p>Your commercial team spans Chatsworth, the UK, and program offices globally. A unified CRM means your head of MRO North America and your global BD directors are working from the same customer data — no more regional silos or spreadsheet hand-offs.</p>
+            <strong>The Document Portal Is Commerce Infrastructure — Not a Separate System</strong>
+            <p>Quotes, orders, invoices, drawings, CAD files — your customers built workflows around this. Salesforce Commerce brings self-service ordering and the account document portal into a single connected experience, not two separate products held together with integrations.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">🔗</div>
+          <div class="pov-point-body">
+            <strong>Commerce + Dynamics ERP: Not Either/Or</strong>
+            <p>Salesforce Commerce connects to Dynamics ERP via standard APIs and MuleSoft connectors. Order data flows downstream to Dynamics for fulfillment. You get a world-class front-end buying experience without re-platforming your ERP investment.</p>
           </div>
         </div>
       </div>
@@ -368,83 +388,83 @@ footer span { color: rgba(255,255,255,.65); }
 
 <hr class="hr">
 
-<!-- PROOF SECTION -->
+<!-- Proof Points -->
 <section class="proof-section">
   <div class="section fade-in">
-    <div class="section-eyebrow">Customer Proof</div>
-    <h2 class="section-title">Aerospace & Defense Manufacturers Who've Made This Move</h2>
-    <p class="section-sub">Complex programs, long sales cycles, global teams. These manufacturers run the same motion Ontic runs — and they've standardized on Salesforce to do it.</p>
+    <div class="section-eyebrow">Customer Proof Points</div>
+    <div class="section-title">Manufacturers Are Already Doing This</div>
+    <div class="section-sub">B2B Commerce + Agentforce is Salesforce's largest industry vertical. The results from manufacturing customers speak for themselves.</div>
 
     <div class="proof-grid">
       <div class="proof-card">
         <div class="proof-card-top">
-          <span class="proof-company">Belden</span>
-          <span class="proof-tag">Service Operations</span>
-        </div>
-        <div class="proof-card-body">
-          <div class="proof-stat">98%</div>
-          <div class="proof-desc">Case routing accuracy across 500,000+ service interactions annually. When your service team is fielding program-critical support requests, routing and resolution speed matter.</div>
-          <div class="proof-industry">Industrial Manufacturing · Agentforce + Service Cloud</div>
-        </div>
-      </div>
-
-      <div class="proof-card">
-        <div class="proof-card-top">
-          <span class="proof-company">Eaton</span>
-          <span class="proof-tag">Revenue Cloud</span>
-        </div>
-        <div class="proof-card-body">
-          <div class="proof-stat">80%+</div>
-          <div class="proof-desc">Reduction in manual effort in their initial Revenue Cloud deployment — streamlining quote-to-cash across multiple business units and regions. The same complexity Ontic manages across programs.</div>
-          <div class="proof-industry">Diversified Manufacturing · Revenue Cloud Advanced</div>
-        </div>
-      </div>
-
-      <div class="proof-card">
-        <div class="proof-card-top">
-          <span class="proof-company">GE Appliances</span>
-          <span class="proof-tag">Agentforce</span>
-        </div>
-        <div class="proof-card-body">
-          <div class="proof-stat">25%</div>
-          <div class="proof-desc">Autonomous resolution rate — one in four customer interactions handled without human intervention. Frees your commercial team to focus on the high-value program relationships, not routine account management.</div>
-          <div class="proof-industry">Manufacturing · Agentforce + Service Cloud</div>
-        </div>
-      </div>
-
-      <div class="proof-card">
-        <div class="proof-card-top">
           <span class="proof-company">Sutton Tools</span>
-          <span class="proof-tag">Unified Platform</span>
+          <span class="proof-tag">B2B Commerce</span>
         </div>
         <div class="proof-card-body">
-          <div class="proof-stat">4×</div>
-          <div class="proof-desc">Increase in commercial performance after unifying Sales, Service, and data on one platform. When every team sees the same customer record, they move faster and coordinate without overhead.</div>
-          <div class="proof-industry">Industrial Manufacturing · Data Cloud + Agentforce + Commerce</div>
+          <div class="proof-stat">4x</div>
+          <div class="proof-desc">Increase in online orders after deploying B2B Commerce + Agentforce Commerce. Sutton Tools is a 4th-generation family-owned precision tooling manufacturer — a near-direct analog to Wilson Tool.</div>
+          <div class="proof-industry">Precision Tools Manufacturing · APAC</div>
         </div>
       </div>
 
       <div class="proof-card">
         <div class="proof-card-top">
-          <span class="proof-company">Mitsubishi Electric Trane HVAC</span>
-          <span class="proof-tag">CPQ + Channel</span>
+          <span class="proof-company">Siemens</span>
+          <span class="proof-tag">B2B Commerce</span>
         </div>
         <div class="proof-card-body">
-          <div class="proof-stat">Self-Serve</div>
-          <div class="proof-desc">Modernized quote-to-cash and gave their dealer network self-serve visibility into inventory and pricing — eliminating years of manual quoting overhead across a complex multi-channel commercial operation.</div>
-          <div class="proof-industry">Climate Equipment Manufacturer · Sales Cloud + CPQ + Community Cloud</div>
+          <div class="proof-stat">Global Scale</div>
+          <div class="proof-desc">One of the largest B2B Commerce deployments on the planet. Full case study available via Deloitte. When your customers ask "can Salesforce handle manufacturing scale?" — this is your answer.</div>
+          <div class="proof-industry">Industrial Manufacturing · Global</div>
         </div>
       </div>
 
       <div class="proof-card">
         <div class="proof-card-top">
-          <span class="proof-company">Forrester TEI (2024)</span>
-          <span class="proof-tag">Platform ROI</span>
+          <span class="proof-company">Westlake Royal Building Products</span>
+          <span class="proof-tag">B2B Commerce</span>
+        </div>
+        <div class="proof-card-body">
+          <div class="proof-stat">Live</div>
+          <div class="proof-desc">AMER B2B Commerce live at link2westlake.com — a public reference for a manufacturer serving professional trade buyers, similar to Wilson Tool's distributor and direct-to-customer channels.</div>
+          <div class="proof-industry">Building Products Manufacturing · AMER</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Solenis</span>
+          <span class="proof-tag">B2B Commerce</span>
+        </div>
+        <div class="proof-card-body">
+          <div class="proof-stat">Post-M&amp;A Win</div>
+          <div class="proof-desc">Displaced incumbent commerce platform post-acquisition on the full platform story. Won on integration depth and the ability to connect commerce, CRM, and service data in a single platform — relevant as Wilson navigates its own system consolidation.</div>
+          <div class="proof-industry">Specialty Chemicals / Manufacturing · AMER</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Continental</span>
+          <span class="proof-tag">Agentforce Commerce</span>
+        </div>
+        <div class="proof-card-body">
+          <div class="proof-stat">Automated</div>
+          <div class="proof-desc">Deployed Agentforce B2B Webshop Agent to automate order form completion in ERP. Customers submit complex orders online; the agent handles the back-end ERP data entry — reducing inside sales burden on high-volume configurables.</div>
+          <div class="proof-industry">Automotive / Industrial Manufacturing · Global</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Forrester TEI Study 2024</span>
+          <span class="proof-tag">Composite Mfg</span>
         </div>
         <div class="proof-card-body">
           <div class="proof-stat">289% ROI</div>
-          <div class="proof-desc">$9.6M NPV over 3 years for a composite $1B manufacturer. The benchmark was built specifically for complex manufacturing organizations — the math applies directly to Ontic's scale and commercial model.</div>
-          <div class="proof-industry">$1B Composite Manufacturer · Full Platform</div>
+          <div class="proof-desc">Forrester's Total Economic Impact study on Salesforce B2B Commerce. Composite organization modeled as a $1B manufacturer. $9.6M NPV over three years. Available as a shareable asset for internal business case reviews.</div>
+          <div class="proof-industry">Manufacturing (Composite) · Global</div>
         </div>
       </div>
     </div>
@@ -453,52 +473,56 @@ footer span { color: rgba(255,255,255,.65); }
 
 <hr class="hr">
 
-<!-- PRODUCTS SECTION -->
+<!-- Products -->
 <section class="products-section">
   <div class="section fade-in">
-    <div class="section-eyebrow">What We're Building Together</div>
-    <h2 class="section-title">Built for the Way Ontic Actually Sells.</h2>
-    <p class="section-sub">Not a generic CRM adapted for manufacturing — a platform purpose-built for program-driven, long-cycle, multi-stakeholder commercial operations.</p>
+    <div class="section-eyebrow">What We're Recommending</div>
+    <div class="section-title">The Platform Stack for Wilson Tool</div>
+    <div class="section-sub">Commerce as the starting point. Connected to your ERP, your service team, and your sales reps from day one.</div>
 
     <div class="products-grid">
       <div class="product-card">
-        <img class="product-card-img" src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=800&q=80" alt="Manufacturing sales">
+        <img class="product-card-img" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=700&q=80" alt="B2B Commerce">
         <div class="product-card-body">
-          <div class="product-name">Manufacturing Cloud</div>
-          <div class="product-title">Program-Level Commercial Visibility</div>
-          <div class="product-desc">Give your BD directors, Technical Sales Managers, and Key Account Managers a single view of every program, every customer relationship, and every revenue forecast — in one system.</div>
+          <div class="product-name">Phase 1 — Foundation</div>
+          <div class="product-title">B2B Commerce Cloud</div>
+          <div class="product-desc">Purpose-built for manufacturers selling direct and through distributors. Handles complex configurable products, account-based pricing, multi-level buyer hierarchies, and self-service order management.</div>
           <ul class="product-bullets">
-            <li>Account-based forecasting tied to actual program activity</li>
-            <li>Run rates and contract visibility across civil, defense, and MRO</li>
-            <li>Full pipeline from BD engagement through close</li>
+            <li>Browse, configure, and order — any product complexity</li>
+            <li>Account self-service: orders, invoices, quotes, documents</li>
+            <li>Native CPQ integration for custom-engineered SKUs</li>
+            <li>Connects to Dynamics ERP via standard APIs</li>
+            <li>Customer portal + transactional commerce in one platform</li>
           </ul>
         </div>
       </div>
 
       <div class="product-card">
-        <img class="product-card-img" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80" alt="Sales Cloud">
+        <img class="product-card-img" src="https://images.unsplash.com/photo-1677696797468-bc3c66ac4b30?auto=format&fit=crop&w=700&q=80" alt="Agentforce Commerce">
         <div class="product-card-body">
-          <div class="product-name">Sales Cloud Enterprise</div>
-          <div class="product-title">One CRM for a Global Sales Team</div>
-          <div class="product-desc">Your commercial team spans Chatsworth, the UK, and program offices globally. Sales Cloud gives every rep the same customer data, the same activity history, and no more regional blind spots.</div>
+          <div class="product-name">Phase 1 — Accelerator</div>
+          <div class="product-title">Agentforce Commerce</div>
+          <div class="product-desc">AI agents that handle routine customer interactions — order status, reorder, product questions — so your inside sales team handles exceptions, not volume. Deployed alongside B2B Commerce.</div>
           <ul class="product-bullets">
-            <li>Unified account and contact management across all regions</li>
-            <li>Activity visibility — no more siloed BD pipelines</li>
-            <li>Forecasting and quota management at every level</li>
+            <li>Agentforce handles reorder and order status 24/7</li>
+            <li>Autonomous support reduces inside sales ticket volume</li>
+            <li>Escalates complex or high-value cases to your team</li>
+            <li>Learns from every interaction to get smarter over time</li>
           </ul>
         </div>
       </div>
 
       <div class="product-card">
-        <img class="product-card-img" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Service Cloud">
+        <img class="product-card-img" src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=700&q=80" alt="MuleSoft Integration">
         <div class="product-card-body">
-          <div class="product-name">Service Cloud + Agentforce</div>
-          <div class="product-title">Program Support That Matches Program Stakes</div>
-          <div class="product-desc">When an airline or defense operator has a parts issue, the response speed matters. Service Cloud gives your support team full asset and program context — and Agentforce handles the routine so your team focuses on the critical.</div>
+          <div class="product-name">Phase 1 — Integration</div>
+          <div class="product-title">MuleSoft Anypoint</div>
+          <div class="product-desc">Connects Salesforce Commerce to Dynamics ERP for seamless order-to-fulfillment data flow. Pre-built Dynamics connectors accelerate time to go-live. No custom middleware to build or maintain.</div>
           <ul class="product-bullets">
-            <li>Case management with full customer and program history</li>
-            <li>Agentforce: AI triage routes and resolves routine requests</li>
-            <li>Connected to Sales — service issues become account intelligence</li>
+            <li>Bi-directional Dynamics ERP sync — orders, inventory, pricing</li>
+            <li>Pre-built connectors reduce integration build time</li>
+            <li>API management for future systems (WMS, PLM, portals)</li>
+            <li>Replaces fragile point-to-point SAP integrations</li>
           </ul>
         </div>
       </div>
@@ -508,32 +532,34 @@ footer span { color: rgba(255,255,255,.65); }
 
 <hr class="hr">
 
-<!-- ABOUT -->
+<!-- About -->
 <section class="about-section">
   <div class="section fade-in">
-    <div class="section-eyebrow">Who You're Talking To</div>
-    <h2 class="section-title">A Peer, Not a Pitch.</h2>
+    <div class="section-eyebrow">Your Salesforce Contact</div>
+    <div class="section-title">Anthony Troggio</div>
 
     <div class="about-grid">
       <div class="about-photo-wrap">
         <img src="anthony.png" alt="Anthony Troggio" class="about-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="about-photo-placeholder" style="display:none">👤</div>
-        <div class="about-badge">Salesforce AE</div>
+        <div class="about-photo-placeholder" style="display:none">AT</div>
+        <span class="about-badge">Digital Transformation Exec</span>
       </div>
       <div>
         <div class="about-name">Anthony Troggio</div>
-        <div class="about-role">Digital Transformation Executive — Manufacturing &amp; Automotive | Salesforce</div>
-        <p class="about-body">
-          I work with manufacturers in the West — companies that run complex commercial operations across multiple programs, channels, and geographies. Ontic's business is not simple: you're managing licensed part relationships, long-cycle BD, global MRO accounts, and a distributed sales team that all need to work from the same playbook. <strong>That's exactly the problem Manufacturing Cloud was built to solve.</strong><br><br>
-          I'm not here to pitch you another tool. I'm here because I've seen what happens when companies with Ontic's commercial complexity get this right — and what it costs when they don't. If there's a fit, we'll find it in 30 minutes.
-        </p>
-        <div class="about-cta-row">
-          <a href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" class="btn-primary" style="font-size:.88rem;padding:11px 22px">
-            <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            Book a Call with Anthony
-          </a>
+        <div class="about-role">Digital Transformation Executive — Manufacturing &amp; Automotive, West</div>
+        <div class="about-body">
+          I've been working with Wilson Tool's team since 2025, and I've watched your commerce situation closely — from the SAP HANA complexity to the ERP decision to the VOC work with your highest-volume customers.<br><br>
+          <strong>The story I keep hearing from manufacturers in your position:</strong> the companies that used their ERP transition window to redesign the customer experience came out with a platform that drives revenue. The ones who punted came back two years later needing to redo the work anyway — but now playing catch-up.<br><br>
+          I'm not here to pitch you into something before you're ready. I want to show you what a clean Commerce + ERP integration actually looks like, share what Sutton Tools (a nearly identical business to yours) experienced when they launched, and help your team build the internal case for doing this right.
         </div>
-        <p style="margin-top:12px;font-size:.85rem;color:rgba(255,255,255,.5)">Or call / text: <a href="tel:7654307903" style="color:var(--orange2)">765-430-7903</a></p>
+        <div class="objection-bar">
+          <div class="objection-icon">💬</div>
+          <div class="objection-body"><strong>"We already committed to Dynamics — this isn't the right time."</strong> I hear this a lot, and I'd say the opposite is true. Right now, before the ERP is fully live, is exactly when you have design flexibility. Once Dynamics ERP is embedded and the Kentico portal is built, adding commerce means another integration project. The window to do this cleanly closes in 2026.</div>
+        </div>
+        <div class="about-cta-row" style="margin-top:28px">
+          <a class="btn-primary" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">&#128197; Schedule Time</a>
+          <a class="btn-ghost" href="tel:7654307903">&#128222; Call or Text 765-430-7903</a>
+        </div>
       </div>
     </div>
   </div>
@@ -542,27 +568,22 @@ footer span { color: rgba(255,255,255,.65); }
 <!-- CTA -->
 <section class="cta-section">
   <div class="section fade-in">
-    <div class="cta-title">Ready to see what this looks like for Ontic?</div>
-    <p class="cta-sub">30 minutes. No deck, no demo unless you want one. Just a direct conversation about where the fit is and whether it makes sense to go further.</p>
-    <a href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" class="btn-white">
-      <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="var(--orange)" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-      Book a Call with Anthony
-    </a>
-    <p style="margin-top:16px;font-size:.85rem;opacity:.8">Or call / text: <a href="tel:7654307903" style="color:#fff;text-decoration:underline">765-430-7903</a></p>
+    <div class="cta-title">Ready to See What This Looks Like for Wilson Tool?</div>
+    <div class="cta-sub">30 minutes. No slides. Just a concrete look at what a Commerce deployment on your stack would involve, what it costs, and what manufacturers like Sutton Tools saw in year one.</div>
+    <a class="btn-white" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">&#128197; Book Time with Anthony</a>
+    <div class="cta-contact">Or call / text directly: 765-430-7903 &nbsp;·&nbsp; atroggio@salesforce.com</div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <span>Anthony Troggio</span> · Digital Transformation Executive, Salesforce · <span>atroggio@salesforce.com</span><br>
-  <span style="font-size:.68rem;opacity:.5;margin-top:6px;display:block">Prepared exclusively for Ontic Engineering and Manufacturing, Inc. · June 2026</span>
+  <span>Anthony Troggio</span> · Digital Transformation Executive, Salesforce · Prepared for Wilson Tool International · June 2026
 </footer>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
