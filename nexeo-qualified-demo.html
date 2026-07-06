@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Nexeo Plastics — Automotive Materials (Qualified Demo)</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #fff; color: #1a1a1a; font-size: 15px; }
+
+/* ── DEMO CHROME ── */
+#demo-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+  background: #1a1a2e; color: #fff; padding: 10px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  flex-wrap: wrap;
+}
+.demo-bar-left { display: flex; align-items: center; gap: 12px; }
+.demo-badge { background: #7c3aed; color: #fff; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; padding: 3px 10px; border-radius: 50px; }
+.demo-title { font-size: .82rem; color: rgba(255,255,255,.8); }
+.demo-bar-right { display: flex; gap: 8px; align-items: center; }
+.demo-btn {
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  color: #fff; font-size: .75rem; font-weight: 600; padding: 6px 14px; border-radius: 6px;
+  cursor: pointer; transition: background .15s; white-space: nowrap;
+}
+.demo-btn:hover { background: rgba(255,255,255,.2); }
+.demo-btn.active { background: #7c3aed; border-color: #7c3aed; }
+
+/* ── NEXEO SITE MOCKUP ── */
+body { padding-top: 50px; }
+
+.nx-topbar { background: #005670; padding: 0 48px; height: 38px; display: flex; align-items: center; justify-content: space-between; }
+.nx-topbar-left { font-size: .72rem; color: rgba(255,255,255,.75); }
+.nx-topbar-right { display: flex; gap: 20px; }
+.nx-topbar-right a { font-size: .72rem; color: rgba(255,255,255,.75); text-decoration: none; }
+.nx-topbar-right a:hover { color: #fff; }
+
+.nx-header { background: #fff; border-bottom: 1px solid #e5e7eb; padding: 0 48px; height: 68px; display: flex; align-items: center; justify-content: space-between; }
+.nx-logo { display: flex; align-items: center; gap: 10px; }
+.nx-logo-mark { background: #005670; color: #fff; font-weight: 900; font-size: 1.1rem; padding: 4px 10px; border-radius: 4px; letter-spacing: -1px; }
+.nx-logo-text { font-size: 1.05rem; font-weight: 700; color: #005670; letter-spacing: -.3px; }
+.nx-nav { display: flex; gap: 28px; }
+.nx-nav a { font-size: .84rem; color: #374151; text-decoration: none; font-weight: 500; padding: 4px 0; border-bottom: 2px solid transparent; }
+.nx-nav a:hover { color: #005670; border-bottom-color: #005670; }
+.nx-nav a.active { color: #005670; border-bottom-color: #005670; font-weight: 700; }
+.nx-header-right { display: flex; gap: 10px; align-items: center; }
+.nx-cta { background: #005670; color: #fff; font-size: .78rem; font-weight: 700; padding: 8px 16px; border-radius: 5px; text-decoration: none; }
+.nx-search { border: 1px solid #d1d5db; border-radius: 5px; padding: 6px 12px; font-size: .8rem; width: 180px; }
+
+.nx-hero { background: linear-gradient(135deg, #003d50 0%, #005670 60%, #007a9a 100%); color: #fff; padding: 56px 48px 48px; }
+.nx-breadcrumb { font-size: .72rem; color: rgba(255,255,255,.6); margin-bottom: 14px; }
+.nx-hero-title { font-size: 2rem; font-weight: 800; letter-spacing: -.5px; margin-bottom: 10px; }
+.nx-hero-sub { font-size: .95rem; opacity: .8; max-width: 560px; line-height: 1.6; }
+.nx-hero-stats { display: flex; gap: 32px; margin-top: 28px; flex-wrap: wrap; }
+.nx-stat { }
+.nx-stat-val { font-size: 1.5rem; font-weight: 800; }
+.nx-stat-lbl { font-size: .68rem; text-transform: uppercase; letter-spacing: .5px; opacity: .65; margin-top: 2px; }
+
+.nx-body { max-width: 1200px; margin: 0 auto; padding: 40px 48px; display: grid; grid-template-columns: 1fr 280px; gap: 40px; }
+.nx-main { }
+.nx-sidebar { }
+
+.nx-section-title { font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: #005670; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid #e5f4f8; }
+
+.nx-product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px; }
+.nx-product-card { border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; cursor: pointer; transition: border-color .15s, box-shadow .15s; }
+.nx-product-card:hover { border-color: #005670; box-shadow: 0 4px 16px rgba(0,86,112,.1); }
+.nx-product-card.viewed { border-color: #005670; background: #f0f9fc; }
+.nx-product-tag { font-size: .63rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: #005670; background: #e5f4f8; padding: 2px 8px; border-radius: 50px; display: inline-block; margin-bottom: 8px; }
+.nx-product-name { font-size: .92rem; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+.nx-product-sub { font-size: .78rem; color: #6b7280; line-height: 1.5; }
+.nx-product-suppliers { font-size: .72rem; color: #9ca3af; margin-top: 8px; }
+.nx-product-suppliers strong { color: #374151; }
+
+.nx-supplier-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+.nx-supplier-row { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid #e5e7eb; border-radius: 6px; font-size: .82rem; color: #374151; }
+.nx-supplier-dot { width: 8px; height: 8px; border-radius: 50%; background: #005670; flex-shrink: 0; }
+
+.nx-sidebar-card { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 8px; padding: 18px; margin-bottom: 16px; }
+.nx-sidebar-card h4 { font-size: .82rem; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; }
+.nx-quote-btn { display: block; background: #005670; color: #fff; text-align: center; padding: 10px; border-radius: 6px; font-size: .82rem; font-weight: 700; text-decoration: none; margin-bottom: 8px; }
+.nx-catalog-btn { display: block; border: 1px solid #005670; color: #005670; text-align: center; padding: 10px; border-radius: 6px; font-size: .82rem; font-weight: 700; text-decoration: none; }
+
+.nx-viewed-badge { background: #fef3c7; color: #92400e; font-size: .65rem; font-weight: 700; padding: 1px 7px; border-radius: 50px; margin-left: 6px; }
+
+/* ── SDR VIEW PANEL ── */
+#sdr-panel {
+  position: fixed; top: 50px; right: 0; bottom: 0; width: 380px; z-index: 8000;
+  background: #0f172a; color: #fff; overflow-y: auto;
+  transform: translateX(100%); transition: transform .3s;
+  display: flex; flex-direction: column;
+}
+#sdr-panel.open { transform: translateX(0); }
+
+.sdr-header { background: #7c3aed; padding: 16px 18px; flex-shrink: 0; }
+.sdr-header-title { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; opacity: .75; margin-bottom: 4px; }
+.sdr-header-main { font-size: 1rem; font-weight: 800; }
+
+.sdr-alert {
+  margin: 16px; background: #1e293b; border-radius: 10px; overflow: hidden;
+  border: 1px solid rgba(124,58,237,.4);
+}
+.sdr-alert-header { background: linear-gradient(135deg, #7c3aed, #6d28d9); padding: 12px 14px; display: flex; align-items: center; gap: 10px; }
+.sdr-alert-icon { font-size: 1.2rem; }
+.sdr-alert-title { font-weight: 700; font-size: .88rem; }
+.sdr-alert-sub { font-size: .68rem; opacity: .75; margin-top: 1px; }
+
+.sdr-company { padding: 14px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.sdr-company-name { font-size: 1.05rem; font-weight: 800; color: #fff; margin-bottom: 3px; }
+.sdr-company-meta { font-size: .75rem; color: #94a3b8; }
+.sdr-intent-score { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+.sdr-score-bar { flex: 1; height: 6px; background: rgba(255,255,255,.1); border-radius: 3px; overflow: hidden; }
+.sdr-score-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #10b981, #f59e0b); width: 0; transition: width 1.5s ease; }
+.sdr-score-val { font-size: .85rem; font-weight: 800; color: #10b981; white-space: nowrap; }
+
+.sdr-activity { padding: 14px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.sdr-activity-title { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: #94a3b8; margin-bottom: 10px; }
+.sdr-activity-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px; font-size: .78rem; }
+.sdr-activity-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+.sdr-activity-dot.hot { background: #ef4444; }
+.sdr-activity-dot.warm { background: #f59e0b; }
+.sdr-activity-dot.cool { background: #94a3b8; }
+.sdr-activity-text { color: #e2e8f0; line-height: 1.4; }
+.sdr-activity-time { color: #64748b; font-size: .7rem; margin-top: 1px; }
+
+.sdr-contact { padding: 14px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.sdr-contact-title { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: #94a3b8; margin-bottom: 10px; }
+.sdr-contact-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.sdr-contact-av { width: 32px; height: 32px; border-radius: 50%; background: #334155; display: flex; align-items: center; justify-content: center; font-size: .72rem; font-weight: 700; flex-shrink: 0; }
+.sdr-contact-name { font-size: .82rem; font-weight: 700; color: #fff; }
+.sdr-contact-role { font-size: .7rem; color: #94a3b8; }
+
+.sdr-actions { padding: 14px; }
+.sdr-action-title { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: #94a3b8; margin-bottom: 10px; }
+.sdr-call-btn { display: block; background: #10b981; color: #fff; text-align: center; padding: 11px; border-radius: 7px; font-size: .84rem; font-weight: 700; margin-bottom: 8px; cursor: pointer; border: none; width: 100%; }
+.sdr-email-btn { display: block; background: rgba(255,255,255,.08); color: #fff; text-align: center; padding: 11px; border-radius: 7px; font-size: .84rem; font-weight: 700; cursor: pointer; border: 1px solid rgba(255,255,255,.15); width: 100%; }
+.sdr-note { font-size: .72rem; color: #64748b; margin-top: 10px; line-height: 1.5; }
+
+/* ── QUALIFIED WIDGET ── */
+#q-fab {
+  position: fixed; bottom: 28px; right: 28px; z-index: 7000;
+  width: 56px; height: 56px; border-radius: 50%; border: none;
+  background: linear-gradient(135deg, #7c3aed, #5b21b6);
+  box-shadow: 0 4px 20px rgba(124,58,237,.5);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 22px; transition: transform .15s;
+}
+#q-fab:hover { transform: scale(1.08); }
+
+#q-panel {
+  position: fixed; bottom: 96px; right: 28px; z-index: 7000;
+  width: 340px; background: #fff; border-radius: 16px;
+  box-shadow: 0 12px 48px rgba(0,0,0,.18);
+  display: flex; flex-direction: column; overflow: hidden;
+  transform: scale(.92) translateY(16px); opacity: 0; pointer-events: none;
+  transition: transform .2s, opacity .2s; max-height: 520px;
+}
+#q-panel.open { transform: scale(1) translateY(0); opacity: 1; pointer-events: all; }
+
+.q-header { background: linear-gradient(135deg, #7c3aed, #5b21b6); padding: 14px 16px; display: flex; align-items: center; gap: 10px; }
+.q-avatar { background: rgba(255,255,255,.2); border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+.q-hdr-title { font-weight: 700; font-size: .88rem; color: #fff; }
+.q-hdr-sub { font-size: .68rem; color: rgba(255,255,255,.7); margin-top: 1px; }
+.q-status { width: 8px; height: 8px; background: #10b981; border-radius: 50%; margin-left: auto; flex-shrink: 0; }
+
+.q-visitor-id {
+  background: #f0fdf4; border-bottom: 1px solid #d1fae5;
+  padding: 10px 14px; display: flex; align-items: center; gap: 8px;
+  font-size: .75rem; color: #065f46;
+}
+.q-visitor-id-icon { font-size: 14px; }
+.q-visitor-id-text strong { font-weight: 700; }
+
+.q-msgs { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; min-height: 180px; }
+.q-msg { display: flex; gap: 8px; align-items: flex-end; }
+.q-msg.bot { }
+.q-msg.user { flex-direction: row-reverse; }
+.q-msg-av { width: 26px; height: 26px; border-radius: 50%; background: linear-gradient(135deg,#7c3aed,#5b21b6); display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; }
+.q-msg-bubble { max-width: 80%; padding: 9px 12px; border-radius: 12px; font-size: .81rem; line-height: 1.5; }
+.q-msg.bot .q-msg-bubble { background: #f3f4f6; color: #1a1a1a; border-bottom-left-radius: 3px; }
+.q-msg.user .q-msg-bubble { background: #7c3aed; color: #fff; border-bottom-right-radius: 3px; }
+
+.q-typing { display: flex; gap: 4px; padding: 10px 14px; align-items: center; }
+.q-typing span { width: 7px; height: 7px; border-radius: 50%; background: #d1d5db; animation: typing .9s infinite; }
+.q-typing span:nth-child(2) { animation-delay: .15s; }
+.q-typing span:nth-child(3) { animation-delay: .3s; }
+@keyframes typing { 0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)} }
+
+.q-quick-replies { padding: 0 14px 10px; display: flex; flex-direction: column; gap: 6px; }
+.q-qr { background: #fff; border: 1px solid #7c3aed; color: #7c3aed; border-radius: 20px; padding: 7px 14px; font-size: .78rem; font-weight: 600; cursor: pointer; text-align: center; transition: background .15s; }
+.q-qr:hover { background: #7c3aed; color: #fff; }
+
+.q-input-row { padding: 10px 12px; border-top: 1px solid #e5e7eb; display: flex; gap: 8px; background: #fff; }
+.q-input { flex: 1; border: 1px solid #d1d5db; border-radius: 20px; padding: 8px 14px; font-size: .81rem; outline: none; font-family: inherit; }
+.q-input:focus { border-color: #7c3aed; }
+.q-send { background: #7c3aed; color: #fff; border: none; border-radius: 50%; width: 34px; height: 34px; font-size: 14px; cursor: pointer; flex-shrink: 0; }
+
+/* ── NOTIFICATION TOAST ── */
+#q-toast {
+  position: fixed; bottom: 96px; right: 28px; z-index: 7500;
+  background: #fff; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,.15);
+  padding: 14px 16px; width: 300px; display: flex; align-items: flex-start; gap: 10px;
+  transform: translateY(20px); opacity: 0; transition: all .3s; pointer-events: none;
+  border-left: 4px solid #7c3aed;
+}
+#q-toast.show { transform: translateY(0); opacity: 1; pointer-events: all; cursor: pointer; }
+.q-toast-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.q-toast-title { font-size: .82rem; font-weight: 700; color: #1a1a1a; }
+.q-toast-sub { font-size: .74rem; color: #6b7280; margin-top: 2px; line-height: 1.4; }
+.q-toast-close { margin-left: auto; color: #9ca3af; font-size: 16px; cursor: pointer; flex-shrink: 0; }
+
+/* SDR notification */
+#sdr-toast {
+  position: fixed; top: 66px; right: 16px; z-index: 9998;
+  background: #1e293b; border: 1px solid #7c3aed; border-radius: 10px;
+  padding: 12px 14px; width: 300px; color: #fff;
+  transform: translateX(320px); opacity: 0; transition: all .4s;
+  pointer-events: none;
+}
+#sdr-toast.show { transform: translateX(0); opacity: 1; pointer-events: all; }
+.sdr-toast-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.sdr-toast-dot { width: 8px; height: 8px; border-radius: 50%; background: #ef4444; animation: pulse 1s infinite; }
+@keyframes pulse { 0%,100%{opacity:1}50%{opacity:.4} }
+.sdr-toast-title { font-size: .78rem; font-weight: 700; }
+.sdr-toast-body { font-size: .73rem; color: #94a3b8; line-height: 1.5; }
+.sdr-toast-cta { display: inline-block; margin-top: 8px; background: #7c3aed; color: #fff; font-size: .72rem; font-weight: 700; padding: 5px 12px; border-radius: 20px; cursor: pointer; border: none; }
+
+@media(max-width:700px) {
+  .nx-body { grid-template-columns: 1fr; padding: 24px 20px; }
+  .nx-hero { padding: 32px 20px; }
+  .nx-header { padding: 0 20px; }
+  .nx-nav { display: none; }
+  .nx-product-grid { grid-template-columns: 1fr; }
+  #sdr-panel { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<!-- DEMO BAR -->
+<div id="demo-bar">
+  <div class="demo-bar-left">
+    <span class="demo-badge">Qualified Demo</span>
+    <span class="demo-title">Simulating visitor experience on nexeoplastics.com — Automotive Materials page</span>
+  </div>
+  <div class="demo-bar-right">
+    <button class="demo-btn" id="restart-btn" onclick="restartDemo()">↺ Restart Demo</button>
+    <button class="demo-btn" id="sdr-btn" onclick="toggleSDR()">Show SDR View →</button>
+  </div>
+</div>
+
+<!-- SDR ALERT PANEL -->
+<div id="sdr-panel">
+  <div class="sdr-header">
+    <div class="sdr-header-title">Qualified · Live Alert</div>
+    <div class="sdr-header-main">🔥 High-Intent Visitor Identified</div>
+  </div>
+  <div class="sdr-alert">
+    <div class="sdr-alert-header">
+      <div class="sdr-alert-icon">⚡</div>
+      <div>
+        <div class="sdr-alert-title">Act Now — Buyer on Site</div>
+        <div class="sdr-alert-sub">4 min 18 sec on Automotive Materials</div>
+      </div>
+    </div>
+    <div class="sdr-company">
+      <div class="sdr-company-name">Amcor Packaging — Chicago, IL</div>
+      <div class="sdr-company-meta">Packaging Manufacturer · $14B Revenue · 44,000 employees</div>
+      <div class="sdr-intent-score" style="margin-top:12px">
+        <div style="font-size:.68rem;color:#94a3b8;white-space:nowrap">Intent Score</div>
+        <div class="sdr-score-bar"><div class="sdr-score-fill" id="score-fill" style="width:0%"></div></div>
+        <div class="sdr-score-val">94 / 100</div>
+      </div>
+    </div>
+    <div class="sdr-activity">
+      <div class="sdr-activity-title">Session Activity</div>
+      <div class="sdr-activity-row">
+        <div class="sdr-activity-dot hot"></div>
+        <div>
+          <div class="sdr-activity-text">Viewed <strong>BASF Ultramid® PA6 data sheet</strong> — 2:14 time on page</div>
+          <div class="sdr-activity-time">2 min ago</div>
+        </div>
+      </div>
+      <div class="sdr-activity-row">
+        <div class="sdr-activity-dot hot"></div>
+        <div>
+          <div class="sdr-activity-text">Started <strong>Request a Quote</strong> form — did not submit</div>
+          <div class="sdr-activity-time">3 min ago</div>
+        </div>
+      </div>
+      <div class="sdr-activity-row">
+        <div class="sdr-activity-dot warm"></div>
+        <div>
+          <div class="sdr-activity-text">Browsed <strong>Automotive Plastics</strong> product category</div>
+          <div class="sdr-activity-time">4 min ago</div>
+        </div>
+      </div>
+      <div class="sdr-activity-row">
+        <div class="sdr-activity-dot cool"></div>
+        <div>
+          <div class="sdr-activity-text">Landed from <strong>Google Search:</strong> "automotive grade PA6 distributor"</div>
+          <div class="sdr-activity-time">5 min ago</div>
+        </div>
+      </div>
+    </div>
+    <div class="sdr-contact">
+      <div class="sdr-contact-title">Suggested Contact</div>
+      <div class="sdr-contact-row">
+        <div class="sdr-contact-av" style="background:#7c3aed">MR</div>
+        <div>
+          <div class="sdr-contact-name">Mark Reynolds</div>
+          <div class="sdr-contact-role">Sr. Materials Engineer — Amcor Packaging</div>
+        </div>
+      </div>
+      <div class="sdr-contact-row">
+        <div class="sdr-contact-av" style="background:#005670">JP</div>
+        <div>
+          <div class="sdr-contact-name">Jennifer Park</div>
+          <div class="sdr-contact-role">Director of Procurement — Amcor Packaging</div>
+        </div>
+      </div>
+    </div>
+    <div class="sdr-actions">
+      <div class="sdr-action-title">Recommended Action</div>
+      <button class="sdr-call-btn">📞 Call Now — They're Still on the Site</button>
+      <button class="sdr-email-btn">✉ Send Personalized Email</button>
+      <div class="sdr-note">They searched for "automotive grade PA6 distributor" and viewed your BASF Ultramid® data sheet for 2+ minutes. Lead with PA6 automotive specs and ask about their current supplier relationship.</div>
+    </div>
+  </div>
+</div>
+
+<!-- NEXEO SITE MOCKUP -->
+<div class="nx-topbar">
+  <div class="nx-topbar-left">A GPD Companies Company</div>
+  <div class="nx-topbar-right">
+    <a href="#">MyNexeo Login</a>
+    <a href="#">Contact Us</a>
+    <a href="#">Careers</a>
+  </div>
+</div>
+
+<div class="nx-header">
+  <div class="nx-logo">
+    <div class="nx-logo-mark">N</div>
+    <div class="nx-logo-text">Nexeo Plastics</div>
+  </div>
+  <nav class="nx-nav">
+    <a href="#">About</a>
+    <a href="#" class="active">Industries</a>
+    <a href="#">Products</a>
+    <a href="#">Suppliers</a>
+    <a href="#">Services</a>
+    <a href="#">Resources</a>
+  </nav>
+  <div class="nx-header-right">
+    <input class="nx-search" type="text" placeholder="Search 20,000+ resins...">
+    <a href="#" class="nx-cta">Request a Quote</a>
+  </div>
+</div>
+
+<div class="nx-hero">
+  <div class="nx-breadcrumb">Industries / <strong>Automotive</strong></div>
+  <div class="nx-hero-title">Automotive Plastics & Resins</div>
+  <div class="nx-hero-sub">Engineering-grade thermoplastics for interior, exterior, and under-hood applications. Stocking programs from BASF, Covestro, DuPont, SABIC, and 40+ global suppliers.</div>
+  <div class="nx-hero-stats">
+    <div class="nx-stat"><div class="nx-stat-val">20,000+</div><div class="nx-stat-lbl">Resin SKUs</div></div>
+    <div class="nx-stat"><div class="nx-stat-val">40+</div><div class="nx-stat-lbl">Tier-1 Suppliers</div></div>
+    <div class="nx-stat"><div class="nx-stat-val">Next-Day</div><div class="nx-stat-lbl">Stocking Available</div></div>
+    <div class="nx-stat"><div class="nx-stat-val">OEM Spec'd</div><div class="nx-stat-lbl">Materials Available</div></div>
+  </div>
+</div>
+
+<div class="nx-body">
+  <div class="nx-main">
+    <div class="nx-section-title">Featured Material Families</div>
+    <div class="nx-product-grid">
+      <div class="nx-product-card viewed" id="card-pa6">
+        <div class="nx-product-tag">Most Viewed</div>
+        <div class="nx-product-name">Polyamide (PA6 / PA66) <span class="nx-viewed-badge">Viewing Now</span></div>
+        <div class="nx-product-sub">High-strength nylon for structural components, engine covers, and air intake manifolds. OEM-approved grades available.</div>
+        <div class="nx-product-suppliers"><strong>Suppliers:</strong> BASF Ultramid®, DuPont Zytel®, Lanxess Durethan®</div>
+      </div>
+      <div class="nx-product-card">
+        <div class="nx-product-tag">Automotive</div>
+        <div class="nx-product-name">Polypropylene (PP / PP-GF)</div>
+        <div class="nx-product-sub">Lightweight interior and exterior trim, bumper systems, and door panels. Glass-filled grades for structural rigidity.</div>
+        <div class="nx-product-suppliers"><strong>Suppliers:</strong> LyondellBasell, Borealis, SABIC PP</div>
+      </div>
+      <div class="nx-product-card">
+        <div class="nx-product-tag">Automotive</div>
+        <div class="nx-product-name">Polycarbonate (PC / PC-ABS)</div>
+        <div class="nx-product-sub">Optical clarity for lighting components, headlamp housings, and instrument panels. High impact resistance.</div>
+        <div class="nx-product-suppliers"><strong>Suppliers:</strong> Covestro Makrolon®, SABIC Lexan®</div>
+      </div>
+      <div class="nx-product-card">
+        <div class="nx-product-tag">Under-Hood</div>
+        <div class="nx-product-name">PBT / PET Polyesters</div>
+        <div class="nx-product-sub">Heat and chemical resistant resins for electrical connectors, sensors, and under-hood components.</div>
+        <div class="nx-product-suppliers"><strong>Suppliers:</strong> BASF Ultradur®, Toray, DuPont</div>
+      </div>
+    </div>
+
+    <div class="nx-section-title">Available Suppliers — Automotive Grade</div>
+    <div class="nx-supplier-list">
+      <div class="nx-supplier-row"><div class="nx-supplier-dot"></div><strong>BASF</strong> — Ultramid® PA6/PA66, Ultradur® PBT, Ultrason® PES/PSU</div>
+      <div class="nx-supplier-row"><div class="nx-supplier-dot"></div><strong>Covestro</strong> — Makrolon® PC, Bayblend® PC/ABS, Pocan® PBT</div>
+      <div class="nx-supplier-row"><div class="nx-supplier-dot"></div><strong>DuPont</strong> — Zytel® PA, Delrin® POM, Hytrel® TPC</div>
+      <div class="nx-supplier-row"><div class="nx-supplier-dot"></div><strong>SABIC</strong> — Lexan® PC, Stamax® PP-LGF, Noryl® PPO</div>
+      <div class="nx-supplier-row"><div class="nx-supplier-dot"></div><strong>LyondellBasell</strong> — Moplen® PP, Lupolen® PE, Adstif® PP</div>
+    </div>
+  </div>
+
+  <div class="nx-sidebar">
+    <div class="nx-sidebar-card">
+      <h4>Ready to Source?</h4>
+      <a href="#" class="nx-quote-btn">Request a Quote</a>
+      <a href="#" class="nx-catalog-btn">Browse MyNexeo Catalog</a>
+    </div>
+    <div class="nx-sidebar-card">
+      <h4>Technical Support</h4>
+      <p style="font-size:.78rem;color:#6b7280;line-height:1.5;margin-bottom:10px">Our materials engineers can help you identify the right grade for your application and OEM spec requirements.</p>
+      <a href="#" class="nx-catalog-btn">Talk to an Engineer</a>
+    </div>
+    <div class="nx-sidebar-card" style="background:#f0f9fc;border-color:#bae6fd">
+      <h4 style="color:#005670">Next-Day Stocking</h4>
+      <p style="font-size:.78rem;color:#0369a1;line-height:1.5">Most automotive-grade PA6, PP, and PC materials available for next-day delivery from our Texas and Illinois DCs.</p>
+    </div>
+  </div>
+</div>
+
+<!-- QUALIFIED TOAST NOTIFICATION -->
+<div id="q-toast" onclick="openQualified()">
+  <div class="q-toast-icon">👋</div>
+  <div>
+    <div class="q-toast-title">Looking for automotive PA6?</div>
+    <div class="q-toast-sub">I can help you find the right grade and check availability. Takes 30 seconds.</div>
+  </div>
+  <div class="q-toast-close" onclick="event.stopPropagation(); dismissToast()">✕</div>
+</div>
+
+<!-- SDR TOAST NOTIFICATION -->
+<div id="sdr-toast">
+  <div class="sdr-toast-header">
+    <div class="sdr-toast-dot"></div>
+    <div class="sdr-toast-title">⚡ High-Intent Visitor — Amcor Packaging</div>
+  </div>
+  <div class="sdr-toast-body">Browsing PA6 automotive specs · Started quote form · On site 4+ min<br><strong style="color:#fff">Score: 94/100 — Call now</strong></div>
+  <button class="sdr-toast-cta" onclick="openSDR()">Open SDR View →</button>
+</div>
+
+<!-- QUALIFIED CHAT PANEL -->
+<button id="q-fab" onclick="toggleQualified()">💬</button>
+
+<div id="q-panel">
+  <div class="q-header">
+    <div class="q-avatar">🤖</div>
+    <div>
+      <div class="q-hdr-title">Nexeo AI Assistant</div>
+      <div class="q-hdr-sub">Powered by Qualified · Typically replies instantly</div>
+    </div>
+    <div class="q-status"></div>
+  </div>
+  <div class="q-visitor-id" id="q-visitor-id" style="display:none">
+    <div class="q-visitor-id-icon">🏢</div>
+    <div class="q-visitor-id-text"><strong>Amcor Packaging</strong> — Chicago, IL · Packaging Manufacturer</div>
+  </div>
+  <div class="q-msgs" id="q-msgs"></div>
+  <div class="q-quick-replies" id="q-qr" style="display:none">
+    <div class="q-qr" onclick="sendUserMsg('Check availability for BASF Ultramid® PA6')">Check PA6 availability</div>
+    <div class="q-qr" onclick="sendUserMsg('I need a quote for 5,000 lbs')">Get a quote</div>
+    <div class="q-qr" onclick="sendUserMsg('Talk to a materials engineer')">Talk to an engineer</div>
+  </div>
+  <div class="q-input-row">
+    <input class="q-input" id="q-input" type="text" placeholder="Ask about materials, availability, pricing..." onkeydown="if(event.key==='Enter')handleQInput()">
+    <button class="q-send" onclick="handleQInput()">➤</button>
+  </div>
+</div>
+
+<script>
+let demoPhase = 0;
+let panelOpen = false;
+let sdrOpen = false;
+let timers = [];
+
+function t(fn, ms) { const id = setTimeout(fn, ms); timers.push(id); return id; }
+
+function restartDemo() {
+  timers.forEach(clearTimeout); timers = [];
+  demoPhase = 0; panelOpen = false;
+  document.getElementById('q-panel').classList.remove('open');
+  document.getElementById('q-toast').classList.remove('show');
+  document.getElementById('sdr-toast').classList.remove('show');
+  document.getElementById('q-visitor-id').style.display = 'none';
+  document.getElementById('q-msgs').innerHTML = '';
+  document.getElementById('q-qr').style.display = 'none';
+  document.getElementById('score-fill').style.width = '0%';
+  startDemo();
+}
+
+function startDemo() {
+  // Phase 1: Toast appears after 4s
+  t(() => {
+    document.getElementById('q-toast').classList.add('show');
+  }, 4000);
+
+  // Phase 2: SDR gets notified after 8s
+  t(() => {
+    document.getElementById('sdr-toast').classList.add('show');
+    document.getElementById('score-fill').style.width = '94%';
+  }, 8000);
+
+  // Phase 3: Auto-open chat after 14s if not interacted
+  t(() => {
+    if (!panelOpen) openQualified();
+  }, 14000);
+}
+
+function dismissToast() {
+  document.getElementById('q-toast').classList.remove('show');
+}
+
+function openQualified() {
+  document.getElementById('q-toast').classList.remove('show');
+  panelOpen = true;
+  document.getElementById('q-panel').classList.add('open');
+  if (demoPhase === 0) {
+    demoPhase = 1;
+    runConversation();
+  }
+}
+
+function toggleQualified() {
+  if (panelOpen) {
+    panelOpen = false;
+    document.getElementById('q-panel').classList.remove('open');
+  } else {
+    openQualified();
+  }
+}
+
+function toggleSDR() {
+  sdrOpen = !sdrOpen;
+  document.getElementById('sdr-panel').classList.toggle('open', sdrOpen);
+  document.getElementById('sdr-btn').textContent = sdrOpen ? '← Hide SDR View' : 'Show SDR View →';
+  document.getElementById('sdr-btn').classList.toggle('active', sdrOpen);
+  document.getElementById('score-fill').style.width = '94%';
+}
+
+function openSDR() {
+  if (!sdrOpen) toggleSDR();
+  document.getElementById('sdr-toast').classList.remove('show');
+}
+
+function addMsg(text, cls, delay) {
+  return new Promise(resolve => {
+    t(() => {
+      // Show typing for bot messages
+      if (cls === 'bot') {
+        const typing = document.createElement('div');
+        typing.className = 'q-typing'; typing.id = 'typing-indicator';
+        typing.innerHTML = '<span></span><span></span><span></span>';
+        document.getElementById('q-msgs').appendChild(typing);
+        scrollMsgs();
+        t(() => {
+          const el = document.getElementById('typing-indicator');
+          if (el) el.remove();
+          appendBubble(text, cls);
+          resolve();
+        }, 900);
+      } else {
+        appendBubble(text, cls);
+        resolve();
+      }
+    }, delay);
+  });
+}
+
+function appendBubble(text, cls) {
+  const msgs = document.getElementById('q-msgs');
+  const wrap = document.createElement('div');
+  wrap.className = 'q-msg ' + cls;
+  if (cls === 'bot') {
+    wrap.innerHTML = `<div class="q-msg-av">🤖</div><div class="q-msg-bubble">${text}</div>`;
+  } else {
+    wrap.innerHTML = `<div class="q-msg-bubble">${text}</div>`;
+  }
+  msgs.appendChild(wrap);
+  scrollMsgs();
+}
+
+function scrollMsgs() {
+  const m = document.getElementById('q-msgs');
+  m.scrollTop = m.scrollHeight;
+}
+
+function runConversation() {
+  // Reveal visitor ID after short delay
+  t(() => {
+    document.getElementById('q-visitor-id').style.display = 'flex';
+  }, 600);
+
+  t(() => {
+    appendBubble("Hi there! I see you're looking at our automotive PA6 materials — great choice for structural components. Are you sourcing for a specific application or OEM spec?", 'bot');
+    scrollMsgs();
+    t(() => {
+      document.getElementById('q-qr').style.display = 'flex';
+    }, 400);
+  }, 1200);
+}
+
+function sendUserMsg(text) {
+  document.getElementById('q-qr').style.display = 'none';
+  appendBubble(text, 'user');
+
+  if (text.includes('availability') || text.includes('PA6')) {
+    t(() => {
+      const typing = document.createElement('div');
+      typing.className = 'q-typing'; typing.id = 'typing-indicator';
+      typing.innerHTML = '<span></span><span></span><span></span>';
+      document.getElementById('q-msgs').appendChild(typing);
+      scrollMsgs();
+      t(() => {
+        const el = document.getElementById('typing-indicator');
+        if (el) el.remove();
+        appendBubble("We have BASF Ultramid® B3S (PA6) in stock at our Illinois DC — next-day available. For automotive structural, B3WG6 (30% glass-filled) is also in stock and OEM-spec'd for several Tier-1 applications. How much are you looking for?", 'bot');
+        scrollMsgs();
+        t(() => showQuoteReplies(), 500);
+      }, 900);
+    }, 400);
+  } else if (text.includes('quote') || text.includes('5,000')) {
+    t(() => {
+      appendBubble("I can get you a quote on that right away. Let me connect you with one of our materials specialists — they can have a number back to you within the hour. What's the best way to reach you?", 'bot');
+      scrollMsgs();
+      t(() => showConnectReplies(), 500);
+    }, 1300);
+  } else if (text.includes('engineer')) {
+    t(() => {
+      appendBubble("Absolutely — I'm looping in Sarah Chen from our automotive materials team. She's based in Chicago and specializes in PA and PBT grades for OEM applications. She'll reach out within 15 minutes. Can I confirm your contact info?", 'bot');
+      scrollMsgs();
+    }, 1300);
+  } else {
+    t(() => {
+      appendBubble("Got it — let me pull that up for you. One of our materials specialists can give you the full picture including pricing and lead times. Want me to connect you now?", 'bot');
+      scrollMsgs();
+    }, 1300);
+  }
+}
+
+function showQuoteReplies() {
+  const qr = document.getElementById('q-qr');
+  qr.innerHTML = `
+    <div class="q-qr" onclick="sendUserMsg('About 5,000 lbs per month')">~5,000 lbs/month</div>
+    <div class="q-qr" onclick="sendUserMsg('Need a quote for a trial order')">Trial order first</div>
+  `;
+  qr.style.display = 'flex';
+}
+
+function showConnectReplies() {
+  const qr = document.getElementById('q-qr');
+  qr.innerHTML = `
+    <div class="q-qr" onclick="sendUserMsg('Email me the quote')">Email me the quote</div>
+    <div class="q-qr" onclick="sendUserMsg('Call me to discuss')">Call me to discuss</div>
+  `;
+  qr.style.display = 'flex';
+}
+
+function handleQInput() {
+  const input = document.getElementById('q-input');
+  const val = input.value.trim();
+  if (!val) return;
+  input.value = '';
+  document.getElementById('q-qr').style.display = 'none';
+  sendUserMsg(val);
+}
+
+// Boot
+startDemo();
+</script>
+</body>
+</html>
