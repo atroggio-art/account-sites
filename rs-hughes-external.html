@@ -101,15 +101,15 @@ img { display: block; max-width: 100%; }
 .about-section { background: var(--navy); color: #fff; }
 .about-section .section-eyebrow { color: #93c5fd; }
 .about-section .section-title { color: #fff; }
-.about-grid { display: grid; grid-template-columns: 260px 1fr; gap: 56px; align-items: center; margin-top: 40px; }
-.about-photo-wrap { position: relative; }
-.about-photo { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; object-position: center top; border: 4px solid var(--red); box-shadow: 0 8px 40px rgba(0,0,0,.4); }
-.about-badge { position: absolute; bottom: 10px; right: 10px; background: var(--red); color: #fff; font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 4px 10px; border-radius: 50px; }
-.about-name { font-size: 1.8rem; font-weight: 800; margin-bottom: 4px; }
-.about-role { font-size: .9rem; color: #93c5fd; font-weight: 600; margin-bottom: 20px; }
-.about-body { font-size: .95rem; color: rgba(255,255,255,.72); line-height: 1.75; margin-bottom: 24px; }
-.about-body strong { color: #fff; }
-.about-cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+.about-team { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 40px; }
+.about-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 28px; display: flex; gap: 20px; align-items: flex-start; }
+.about-card-photo { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; object-position: center top; border: 3px solid var(--red); flex-shrink: 0; }
+.about-card-photo-placeholder { width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,.1); border: 3px solid var(--red); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: rgba(255,255,255,.3); }
+.about-card-info { flex: 1; }
+.about-name { font-size: 1.1rem; font-weight: 800; margin-bottom: 3px; }
+.about-role { font-size: .78rem; color: #bfdbfe; font-weight: 600; margin-bottom: 10px; }
+.about-body { font-size: .84rem; color: rgba(255,255,255,.65); line-height: 1.65; }
+.about-cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; justify-content: center; }
 
 .cta-section { background: linear-gradient(135deg, var(--red) 0%, #7f1d1d 100%); color: #fff; text-align: center; }
 .cta-section .section { padding: 70px 48px; }
@@ -128,8 +128,8 @@ footer span { color: rgba(255,255,255,.65); }
   .topbar { padding: 0 20px; }
   .hero-content, .section { padding: 48px 24px; }
   .pov-grid { grid-template-columns: 1fr; gap: 28px; }
-  .about-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; }
-  .about-photo-wrap { display: flex; justify-content: center; }
+  .about-team { grid-template-columns: 1fr; }
+  .about-card { flex-direction: column; align-items: center; text-align: center; }
   .strip { flex-wrap: wrap; }
   .strip-item { flex: 1 1 calc(33% - 1px); min-width: 120px; }
 }
@@ -313,27 +313,36 @@ footer span { color: rgba(255,255,255,.65); }
     <div class="section-eyebrow">Who You're Talking To</div>
     <h2 class="section-title">A Peer, Not a Pitch.</h2>
 
-    <div class="about-grid">
-      <div class="about-photo-wrap">
-        <img src="anthony.png" alt="Anthony Troggio" class="about-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div style="display:none;width:220px;height:220px;border-radius:50%;background:var(--steel);border:4px solid var(--red);align-items:center;justify-content:center;font-size:3rem;color:rgba(255,255,255,.3)">👤</div>
-        <div class="about-badge">Salesforce AE</div>
+    <div class="about-team">
+      <div class="about-card">
+        <img src="anthony.png" alt="Anthony Troggio" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="about-card-photo-placeholder" style="display:none">👤</div>
+        <div class="about-card-info">
+          <div class="about-name">Anthony Troggio</div>
+          <div class="about-role">Digital Transformation Executive — Manufacturing &amp; Automotive | Salesforce</div>
+          <p class="about-body">I work with manufacturers and distributors across the country — focused on translating complex business problems into Salesforce platforms that actually get adopted. Dad and family man. Straight shooter: if there's a fit, we'll find it fast.</p>
+        </div>
       </div>
-      <div>
-        <div class="about-name">Anthony Troggio</div>
-        <div class="about-role">Digital Transformation Executive — Manufacturing &amp; Automotive | Salesforce</div>
-        <p class="about-body">
-          I work with industrial distributors and manufacturers across the country who have built their business on great people and deep customer relationships — and are now figuring out how to protect and scale that advantage. <strong>The challenge I hear most often is: "our best reps know everything, but we have no way to capture it."</strong> That's exactly the problem Manufacturing Cloud solves.<br><br>
-          I'm a dad and a family man. I keep it direct: if there's a fit, we'll know in 30 minutes. If there isn't, I'll tell you.
-        </p>
+      <div class="about-card">
+        <img src="kennedy-wenz.png" alt="Kennedy Wenz" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="about-card-photo-placeholder" style="display:none">👤</div>
+        <div class="about-card-info">
+          <div class="about-name">Kennedy Wenz</div>
+          <div class="about-role">Digital Transformation Executive — Manufacturing, Automotive &amp; Energy | Salesforce</div>
+          <p class="about-body">From founding EAT.org across DACH to driving Agentic AI adoption at Salesforce in San Francisco, Kennedy bridges global strategy and frontier technology. With roots in the U.S. and Germany and an MSc in Business, she translates AI capabilities into outcomes manufacturing and energy leaders can implement.</p>
+        </div>
+      </div>
+    </div>
         <div class="about-cta-row">
           <a href="mailto:atroggio@salesforce.com" class="btn-primary" style="font-size:.88rem;padding:11px 22px">
             <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
             atroggio@salesforce.com
           </a>
+          <a href="mailto:kwenz@salesforce.com" class="btn-primary" style="font-size:.88rem;padding:11px 22px">
+            <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+            kwenz@salesforce.com
+          </a>
         </div>
-      </div>
-    </div>
   </div>
 </section>
 

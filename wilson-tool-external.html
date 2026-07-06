@@ -238,16 +238,15 @@ img { display: block; max-width: 100%; }
 .about-section { background: var(--navy); color: #fff; }
 .about-section .section-eyebrow { color: var(--orange2); }
 .about-section .section-title { color: #fff; }
-.about-grid { display: grid; grid-template-columns: 260px 1fr; gap: 56px; align-items: center; margin-top: 40px; }
-.about-photo-wrap { position: relative; }
-.about-photo { width: 220px; height: 220px; border-radius: 50%; object-fit: cover; object-position: center top; border: 4px solid var(--orange); box-shadow: 0 8px 40px rgba(0,0,0,.4); }
-.about-photo-placeholder { width: 220px; height: 220px; border-radius: 50%; background: var(--steel); border: 4px solid var(--orange); display: flex; align-items: center; justify-content: center; font-size: 3rem; color: rgba(255,255,255,.3); }
-.about-badge { position: absolute; bottom: 10px; right: 10px; background: var(--orange); color: #fff; font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 4px 10px; border-radius: 50px; }
-.about-name { font-size: 1.8rem; font-weight: 800; margin-bottom: 4px; }
-.about-role { font-size: .9rem; color: var(--orange2); font-weight: 600; margin-bottom: 20px; }
-.about-body { font-size: .95rem; color: rgba(255,255,255,.72); line-height: 1.75; margin-bottom: 24px; }
-.about-body strong { color: #fff; font-weight: 700; }
-.about-cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+.about-team { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 40px; }
+.about-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 28px; display: flex; gap: 20px; align-items: flex-start; }
+.about-card-photo { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; object-position: center top; border: 3px solid var(--orange); flex-shrink: 0; }
+.about-card-photo-placeholder { width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,.1); border: 3px solid var(--orange); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: rgba(255,255,255,.3); }
+.about-card-info { flex: 1; }
+.about-name { font-size: 1.1rem; font-weight: 800; margin-bottom: 3px; }
+.about-role { font-size: .78rem; color: #bfdbfe; font-weight: 600; margin-bottom: 10px; }
+.about-body { font-size: .84rem; color: rgba(255,255,255,.65); line-height: 1.65; }
+.about-cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; justify-content: center; }
 
 .objection-bar {
   background: rgba(255,255,255,.05);
@@ -282,8 +281,8 @@ footer span { color: rgba(255,255,255,.65); }
   .hero-content { padding: 60px 24px; }
   .section { padding: 48px 24px; }
   .pov-grid { grid-template-columns: 1fr; gap: 28px; }
-  .about-grid { grid-template-columns: 1fr; gap: 32px; text-align: center; }
-  .about-photo-wrap { display: flex; justify-content: center; }
+  .about-team { grid-template-columns: 1fr; }
+  .about-card { flex-direction: column; align-items: center; text-align: center; }
   .strip { flex-wrap: wrap; }
   .strip-item { flex: 1 1 calc(33% - 1px); min-width: 120px; }
 }
@@ -538,30 +537,37 @@ footer span { color: rgba(255,255,255,.65); }
     <div class="section-eyebrow">Your Salesforce Contact</div>
     <div class="section-title">Anthony Troggio</div>
 
-    <div class="about-grid">
-      <div class="about-photo-wrap">
-        <img src="anthony.png" alt="Anthony Troggio" class="about-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="about-photo-placeholder" style="display:none">AT</div>
-        <span class="about-badge">Digital Transformation Exec</span>
-      </div>
-      <div>
-        <div class="about-name">Anthony Troggio</div>
-        <div class="about-role">Digital Transformation Executive — Manufacturing &amp; Automotive, West</div>
-        <div class="about-body">
-          I've been working with Wilson Tool's team since 2025, and I've watched your commerce situation closely — from the SAP HANA complexity to the ERP decision to the VOC work with your highest-volume customers.<br><br>
-          <strong>The story I keep hearing from manufacturers in your position:</strong> the companies that used their ERP transition window to redesign the customer experience came out with a platform that drives revenue. The ones who punted came back two years later needing to redo the work anyway — but now playing catch-up.<br><br>
-          I'm not here to pitch you into something before you're ready. I want to show you what a clean Commerce + ERP integration actually looks like, share what Sutton Tools (a nearly identical business to yours) experienced when they launched, and help your team build the internal case for doing this right.
+    <div class="about-team">
+      <div class="about-card">
+        <img src="anthony.png" alt="Anthony Troggio" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="about-card-photo-placeholder" style="display:none">👤</div>
+        <div class="about-card-info">
+          <div class="about-name">Anthony Troggio</div>
+          <div class="about-role">Digital Transformation Executive — Manufacturing &amp; Automotive | Salesforce</div>
+          <p class="about-body">I work with manufacturers and distributors across the country — focused on translating complex business problems into Salesforce platforms that actually get adopted. Dad and family man. Straight shooter: if there's a fit, we'll find it fast.</p>
         </div>
-        <div class="objection-bar">
+      </div>
+      <div class="about-card">
+        <img src="kennedy-wenz.png" alt="Kennedy Wenz" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="about-card-photo-placeholder" style="display:none">👤</div>
+        <div class="about-card-info">
+          <div class="about-name">Kennedy Wenz</div>
+          <div class="about-role">Digital Transformation Executive — Manufacturing, Automotive &amp; Energy | Salesforce</div>
+          <p class="about-body">From founding EAT.org across DACH to driving Agentic AI adoption at Salesforce in San Francisco, Kennedy bridges global strategy and frontier technology. With roots in the U.S. and Germany and an MSc in Business, she translates AI capabilities into outcomes manufacturing and energy leaders can implement.</p>
+        </div>
+      </div>
+    </div>
+        <div class="objection-bar" style="margin-top:28px">
           <div class="objection-icon">💬</div>
           <div class="objection-body"><strong>"We already committed to Dynamics — this isn't the right time."</strong> I hear this a lot, and I'd say the opposite is true. Right now, before the ERP is fully live, is exactly when you have design flexibility. Once Dynamics ERP is embedded and the Kentico portal is built, adding commerce means another integration project. The window to do this cleanly closes in 2026.</div>
         </div>
         <div class="about-cta-row" style="margin-top:28px">
-          <a class="btn-primary" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">&#128197; Schedule Time</a>
-          <a class="btn-ghost" href="tel:7654307903">&#128222; Call or Text 765-430-7903</a>
+          <a class="btn-primary" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">&#128197; Schedule Time with Anthony</a>
+          <a href="mailto:kwenz@salesforce.com" class="btn-primary" style="font-size:.88rem;padding:11px 22px">
+            <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+            kwenz@salesforce.com
+          </a>
         </div>
-      </div>
-    </div>
   </div>
 </section>
 
