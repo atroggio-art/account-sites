@@ -415,10 +415,10 @@ footer span { color: rgba(255,255,255,.62); }
 
 <!-- STATS STRIP -->
 <div class="strip">
-  <div class="strip-item"><div class="sv">55+</div><div class="sl">Showroom Locations</div></div>
-  <div class="strip-item"><div class="sv">1977</div><div class="sl">Family-Founded</div></div>
+  <div class="strip-item"><div class="sv count-up" data-target="55" data-suffix="+">55+</div><div class="sl">Showroom Locations</div></div>
+  <div class="strip-item"><div class="sv count-up" data-target="1977">1977</div><div class="sl">Family-Founded</div></div>
   <div class="strip-item"><div class="sv">B2B + B2C</div><div class="sl">Trade + Consumer Channels</div></div>
-  <div class="strip-item"><div class="sv">3</div><div class="sl">Buyer Types to Serve</div></div>
+  <div class="strip-item"><div class="sv count-up" data-target="3">3</div><div class="sl">Buyer Types to Serve</div></div>
   <div class="strip-item"><div class="sv">National</div><div class="sl">Distribution Footprint</div></div>
 </div>
 
@@ -504,19 +504,19 @@ footer span { color: rgba(255,255,255,.62); }
     </div>
     <div class="vc-card-group">
       <div class="vc-stat-card">
-        <div class="vc-stat-num">4x</div>
+        <div class="vc-stat-num count-up" data-target="4" data-suffix="x">4x</div>
         <div class="vc-stat-headline">Online Order Growth — Comparable Premium Brand</div>
         <div class="vc-stat-body">Sutton Tools — a premium specialty brand with trade and consumer channels — saw a 4x increase in online orders after unifying Data Cloud, Commerce Cloud, and Agentforce. The same architecture applies directly to Arizona Tile's trade portal opportunity.</div>
         <span class="vc-tag">B2B Commerce + Data Cloud + Agentforce</span>
       </div>
       <div class="vc-stat-card">
-        <div class="vc-stat-num">289%</div>
+        <div class="vc-stat-num count-up" data-target="289" data-suffix="%">289%</div>
         <div class="vc-stat-headline">Average ROI for Specialty Product Brands</div>
         <div class="vc-stat-body">Forrester's 2024 Total Economic Impact study found 289% ROI and $9.6M NPV over 3 years for a composite specialty brand deploying Marketing Cloud + Commerce + Data Cloud. A shareable business case document is available for your internal conversation.</div>
         <span class="vc-tag">Forrester TEI Study 2024</span>
       </div>
       <div class="vc-stat-card">
-        <div class="vc-stat-num">#1</div>
+        <div class="vc-stat-num">#1</div><!-- static, not numeric -->
         <div class="vc-stat-headline">B2B Commerce Platform for Specialty Products</div>
         <div class="vc-stat-body">Salesforce B2B Commerce is the platform of choice for premium specialty product brands with complex trade channels — from Siemens (the largest B2B Commerce deployment on the planet) to boutique design brands. Built for account-based buying, project ordering, and catalog depth.</div>
         <span class="vc-tag">Salesforce B2B Commerce Cloud</span>
@@ -541,7 +541,7 @@ footer span { color: rgba(255,255,255,.62); }
           <span class="proof-tag">Commerce + Agentforce</span>
         </div>
         <div class="proof-body">
-          <div class="proof-stat">4x</div>
+          <div class="proof-stat count-up" data-target="4" data-suffix="x">4x</div>
           <div class="proof-desc">A 4th-generation specialty manufacturer unified Sales, Service, and Marketing on Data Cloud and deployed Agentforce Commerce — and saw online orders quadruple. The same playbook: premium brand, trade + consumer buyers, complex product catalog.</div>
           <div class="proof-industry">Specialty Mfg · B2B Commerce + Data Cloud + Agentforce</div>
         </div>
@@ -577,7 +577,7 @@ footer span { color: rgba(255,255,255,.62); }
           <span class="proof-tag">Marketing Cloud</span>
         </div>
         <div class="proof-body">
-          <div class="proof-stat">100%</div>
+          <div class="proof-stat count-up" data-target="100" data-suffix="%">100%</div>
           <div class="proof-desc">A home improvement brand replaced 100% of manual campaign work with automated Marketing Cloud journeys — the marketing team now launches full multi-touch campaigns without IT or manual list exports. New collection launches, event follow-ups, and re-engagement fully automated.</div>
           <div class="proof-industry">Home + Design Brand · Marketing Cloud Advanced</div>
         </div>
@@ -678,19 +678,19 @@ footer span { color: rgba(255,255,255,.62); }
     <p class="section-sub" style="color:rgba(255,255,255,.75); max-width:700px">These are benchmarks from Forrester's 2024 Total Economic Impact study on Salesforce Commerce + Marketing + Data Cloud, composite for a specialty products brand with trade and consumer channels.</p>
     <div class="impact-grid">
       <div class="impact-item">
-        <div class="impact-num">289%</div>
+        <div class="impact-num count-up" data-target="289" data-suffix="%">289%</div>
         <div class="impact-label">Return on Investment<br>over 3 years</div>
       </div>
       <div class="impact-item">
-        <div class="impact-num">$9.6M</div>
+        <div class="impact-num count-up" data-target="9.6" data-prefix="$" data-suffix="M">$9.6M</div>
         <div class="impact-label">Net Present Value<br>for composite brand</div>
       </div>
       <div class="impact-item">
-        <div class="impact-num">4×</div>
+        <div class="impact-num count-up" data-target="4" data-suffix="×">4×</div>
         <div class="impact-label">Online order growth<br>comparable brand</div>
       </div>
       <div class="impact-item">
-        <div class="impact-num">100%</div>
+        <div class="impact-num count-up" data-target="100" data-suffix="%">100%</div>
         <div class="impact-label">Manual campaign work<br>eliminated by automation</div>
       </div>
     </div>
@@ -750,12 +750,46 @@ footer span { color: rgba(255,255,255,.62); }
 </footer>
 
 <script>
-const observer = new IntersectionObserver(entries => {
+// Fade-in on scroll
+const fadeObserver = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    if (e.isIntersecting) { e.target.classList.add('visible'); fadeObserver.unobserve(e.target); }
   });
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+// Animated counting numbers
+function animateCount(el) {
+  const raw = el.dataset.target;
+  const isFloat = raw.includes('.');
+  const suffix = el.dataset.suffix || '';
+  const prefix = el.dataset.prefix || '';
+  const target = parseFloat(raw);
+  const duration = 1800;
+  const start = performance.now();
+
+  function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const value = target * ease(progress);
+    el.textContent = prefix + (isFloat ? value.toFixed(1) : Math.floor(value).toLocaleString()) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = prefix + (isFloat ? target.toFixed(1) : target.toLocaleString()) + suffix;
+  }
+  requestAnimationFrame(step);
+}
+
+const countObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateCount(e.target);
+      countObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
 </script>
 </body>
 </html>
