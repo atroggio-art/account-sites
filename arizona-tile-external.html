@@ -588,6 +588,90 @@ footer span { color: rgba(255,255,255,.62); }
 
 <hr class="hr">
 
+<!-- SLAB YARD WIDGET -->
+<section style="background:var(--warm); padding: 0;">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Live Demo — What Your Trade Portal Could Look Like</div>
+    <h2 class="section-title">Slab Yard Inventory — Powered by Data Cloud</h2>
+    <p class="section-sub">This is a preview of what your contractors and designers would see after login — real hold status, warehouse location, and lead time pulled live from your inventory system. Every row is Data Cloud in action.</p>
+
+    <!-- Portal chrome wrapper -->
+    <div style="margin-top:32px; border-radius:14px; overflow:hidden; box-shadow: 0 8px 48px rgba(30,20,12,.14); border: 1px solid var(--border);">
+
+      <!-- Portal topbar -->
+      <div style="background:var(--slate); padding:10px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:16px;">
+          <span style="color:#fff; font-size:.78rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; opacity:.9;">Arizona Tile Trade Portal</span>
+          <span style="background:rgba(184,92,42,.3); color:var(--terra3); font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.6px; padding:2px 9px; border-radius:50px;">● Live Inventory</span>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <span style="color:rgba(255,255,255,.45); font-size:.75rem;">Logged in as: <strong style="color:rgba(255,255,255,.75);">Granite State Builders</strong></span>
+          <span style="background:rgba(255,255,255,.1); color:rgba(255,255,255,.6); font-size:.7rem; padding:3px 10px; border-radius:50px;">Account Tier: <strong style="color:var(--terra2);">Trade Pro</strong></span>
+        </div>
+      </div>
+
+      <!-- Search + filter bar -->
+      <div style="background:#f0ece6; padding:12px 20px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; border-bottom:1px solid var(--border);">
+        <div style="flex:1; min-width:200px; display:flex; align-items:center; gap:8px; background:#fff; border:1px solid var(--border); border-radius:8px; padding:7px 12px;">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="var(--stone2)" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <span style="font-size:.82rem; color:var(--stone2);">Search by name, series, or SKU…</span>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button onclick="filterSlabs('all')" id="filter-all" style="background:var(--slate); color:#fff; border:none; border-radius:6px; padding:6px 14px; font-size:.75rem; font-weight:700; cursor:pointer;">All</button>
+          <button onclick="filterSlabs('available')" id="filter-available" style="background:#fff; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:6px 14px; font-size:.75rem; font-weight:600; cursor:pointer;">Available</button>
+          <button onclick="filterSlabs('hold')" id="filter-hold" style="background:#fff; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:6px 14px; font-size:.75rem; font-weight:600; cursor:pointer;">On Hold</button>
+          <button onclick="filterSlabs('incoming')" id="filter-incoming" style="background:#fff; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:6px 14px; font-size:.75rem; font-weight:600; cursor:pointer;">Incoming</button>
+        </div>
+        <span style="font-size:.75rem; color:var(--stone); margin-left:auto;" id="slab-count">Showing 8 slabs</span>
+      </div>
+
+      <!-- Data Cloud banner -->
+      <div style="background:linear-gradient(90deg, #0b3d6b 0%, #1a5a8a 100%); padding:8px 20px; display:flex; align-items:center; gap:10px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60c4f0" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        <span style="font-size:.75rem; color:#a8d8f0;"><strong style="color:#fff;">Salesforce Data Cloud</strong> — inventory synced from SAP every 90 seconds · Hold status updated in real time · Lead times calculated from production schedule</span>
+        <span style="margin-left:auto; font-size:.7rem; color:rgba(255,255,255,.4);">Last sync: 2 min ago</span>
+      </div>
+
+      <!-- Slab table -->
+      <div style="background:#fff; overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; font-size:.84rem;" id="slab-table">
+          <thead>
+            <tr style="background:#f5f1eb; border-bottom:2px solid var(--border);">
+              <th style="padding:11px 16px; text-align:left; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;">Product / Series</th>
+              <th style="padding:11px 12px; text-align:left; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;">Material</th>
+              <th style="padding:11px 12px; text-align:center; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;">Size</th>
+              <th style="padding:11px 12px; text-align:center; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;">Qty</th>
+              <th style="padding:11px 12px; text-align:left; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;">Location</th>
+              <th style="padding:11px 12px; text-align:center; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;">Status</th>
+              <th style="padding:11px 12px; text-align:center; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;">Lead Time</th>
+              <th style="padding:11px 12px; text-align:center; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;">Your Price</th>
+              <th style="padding:11px 12px; text-align:center; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;"></th>
+            </tr>
+          </thead>
+          <tbody id="slab-tbody">
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Portal footer bar -->
+      <div style="background:#f5f1eb; padding:10px 20px; display:flex; align-items:center; justify-content:space-between; border-top:1px solid var(--border); flex-wrap:wrap; gap:8px;">
+        <span style="font-size:.75rem; color:var(--muted);">💡 <strong>Data Cloud insight:</strong> Based on your last 3 projects, Mont Blanc quartzite is trending in your install region. <a href="mailto:atroggio@salesforce.com" style="color:var(--terra); font-weight:600; text-decoration:underline;">Talk to your rep →</a></span>
+        <div style="display:flex; gap:8px;">
+          <button style="background:var(--terra); color:#fff; border:none; border-radius:6px; padding:7px 16px; font-size:.78rem; font-weight:700; cursor:pointer;" onclick="alert('In the live portal, this would open your project cart.')">Request a Quote</button>
+          <button style="background:var(--slate); color:#fff; border:none; border-radius:6px; padding:7px 16px; font-size:.78rem; font-weight:700; cursor:pointer;" onclick="alert('In the live portal, you can schedule a slab viewing at your nearest showroom.')">Schedule Viewing</button>
+        </div>
+      </div>
+
+    </div><!-- end portal chrome -->
+
+    <p style="text-align:center; font-size:.8rem; color:var(--stone2); margin-top:16px;">
+      ✦ This is a prototype — real product names, realistic data, interactive filters. The live portal would connect directly to your SAP inventory and show your account-specific pricing.
+    </p>
+  </div>
+</section>
+
+<hr class="hr">
+
 <!-- PRODUCTS -->
 <section class="products-section">
   <div class="section fade-in">
@@ -750,6 +834,74 @@ footer span { color: rgba(255,255,255,.62); }
 </footer>
 
 <script>
+// ── SLAB YARD WIDGET ──
+const SLABS = [
+  { name: 'Della Terra', series: 'Quartzite Collection', sku: 'DT-QTZ-3CM-WH', material: 'Quartzite', finish: 'Polished', size: '126″ × 63″', thickness: '3cm', qty: 14, location: 'Phoenix Slab Yard – Bay 3', status: 'available', leadTime: 'In stock', price: '$18.40/sq ft', tag: null },
+  { name: 'Mont Blanc', series: 'Premium Quartzite', sku: 'MB-QTZ-2CM-WH', material: 'Quartzite', finish: 'Honed', size: '118″ × 55″', thickness: '2cm', qty: 6, location: 'Los Angeles DC – Bay 7', status: 'available', leadTime: 'In stock', price: '$22.10/sq ft', tag: 'Trending in your region' },
+  { name: 'Calacatta Luxe', series: 'Della Terra Marble', sku: 'CL-MRB-3CM-WH', material: 'Marble', finish: 'Polished', size: '126″ × 63″', thickness: '3cm', qty: 3, location: 'Phoenix Slab Yard – Bay 1', status: 'hold', leadTime: 'Hold exp. Jul 14', price: '$24.80/sq ft', tag: 'On hold – expires soon' },
+  { name: 'Pietra Grey', series: 'Natural Stone', sku: 'PG-LMS-3CM-GR', material: 'Limestone', finish: 'Brushed', size: '120″ × 60″', thickness: '3cm', qty: 22, location: 'Denver DC – Bay 2', status: 'available', leadTime: 'In stock', price: '$14.20/sq ft', tag: null },
+  { name: 'Statuario Venato', series: 'Della Terra Marble', sku: 'SV-MRB-3CM-WH', material: 'Marble', finish: 'Polished', size: '126″ × 63″', thickness: '3cm', qty: 0, location: 'Italy – Porto di Livorno', status: 'incoming', leadTime: 'Est. Aug 3', price: '$28.50/sq ft', tag: 'New container arriving' },
+  { name: 'Nero Marquina', series: 'Premium Marble', sku: 'NM-MRB-2CM-BK', material: 'Marble', finish: 'Polished', size: '118″ × 55″', thickness: '2cm', qty: 9, location: 'Los Angeles DC – Bay 4', status: 'available', leadTime: 'In stock', price: '$19.90/sq ft', tag: null },
+  { name: 'Mont Blanc', series: 'Premium Quartzite', sku: 'MB-QTZ-3CM-WH', material: 'Quartzite', finish: 'Leathered', size: '126″ × 63″', thickness: '3cm', qty: 4, location: 'San Diego Slab Yard – Bay 2', status: 'hold', leadTime: 'Hold exp. Jul 19', price: '$23.60/sq ft', tag: 'On hold' },
+  { name: 'Patagonia', series: 'Della Terra Quartzite', sku: 'PT-QTZ-3CM-MU', material: 'Quartzite', finish: 'Polished', size: '126″ × 63″', thickness: '3cm', qty: 0, location: 'Brazil – Port of Santos', status: 'incoming', leadTime: 'Est. Aug 18', price: '$21.30/sq ft', tag: 'Incoming shipment' },
+];
+
+const STATUS_CONFIG = {
+  available: { label: 'Available', bg: '#e8f5e9', color: '#2e7d32', dot: '#43a047' },
+  hold:      { label: 'On Hold',   bg: '#fff3e0', color: '#e65100', dot: '#fb8c00' },
+  incoming:  { label: 'Incoming',  bg: '#e3f2fd', color: '#1565c0', dot: '#1e88e5' },
+};
+
+function renderSlabs(filter) {
+  const tbody = document.getElementById('slab-tbody');
+  const filtered = filter === 'all' ? SLABS : SLABS.filter(s => s.status === filter);
+  document.getElementById('slab-count').textContent = `Showing ${filtered.length} slab${filtered.length !== 1 ? 's' : ''}`;
+
+  tbody.innerHTML = filtered.map((s, i) => {
+    const st = STATUS_CONFIG[s.status];
+    const rowBg = i % 2 === 0 ? '#fff' : '#fdf9f4';
+    const tag = s.tag ? `<div style="font-size:.65rem; color:var(--terra); font-weight:700; margin-top:3px;">★ ${s.tag}</div>` : '';
+    const qtyColor = s.qty === 0 ? 'var(--stone2)' : s.qty <= 5 ? '#e65100' : 'var(--slate)';
+    const btn = s.status === 'available'
+      ? `<button onclick="alert('In the live portal, this adds ${s.name} to your project cart with your Trade Pro pricing.')" style="background:var(--terra);color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:.72rem;font-weight:700;cursor:pointer;white-space:nowrap;">Add to Cart</button>`
+      : s.status === 'hold'
+      ? `<button onclick="alert('In the live portal, you can join a waitlist or request the hold be released.')" style="background:var(--slate2);color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:.72rem;font-weight:700;cursor:pointer;white-space:nowrap;">Waitlist</button>`
+      : `<button onclick="alert('In the live portal, you can pre-order incoming slabs and get notified on arrival.')" style="background:#1565c0;color:#fff;border:none;border-radius:6px;padding:5px 12px;font-size:.72rem;font-weight:700;cursor:pointer;white-space:nowrap;">Pre-Order</button>`;
+    return `<tr style="background:${rowBg}; border-bottom:1px solid #f0ece4; transition:background .15s;" onmouseover="this.style.background='#f5f0e8'" onmouseout="this.style.background='${rowBg}'">
+      <td style="padding:12px 16px;">
+        <div style="font-weight:700; color:var(--slate); font-size:.9rem;">${s.name}</div>
+        <div style="font-size:.72rem; color:var(--stone2); margin-top:1px;">${s.series} · ${s.sku}</div>
+        ${tag}
+      </td>
+      <td style="padding:12px; color:var(--muted); font-size:.82rem;">${s.material}<br><span style="font-size:.7rem; color:var(--stone2);">${s.finish} · ${s.thickness}</span></td>
+      <td style="padding:12px; text-align:center; color:var(--muted); font-size:.8rem; white-space:nowrap;">${s.size}</td>
+      <td style="padding:12px; text-align:center; font-weight:700; font-size:.95rem; color:${qtyColor};">${s.qty > 0 ? s.qty : '–'}</td>
+      <td style="padding:12px; font-size:.78rem; color:var(--muted); max-width:160px;">${s.location}</td>
+      <td style="padding:12px; text-align:center;">
+        <span style="background:${st.bg}; color:${st.color}; font-size:.7rem; font-weight:700; padding:4px 10px; border-radius:50px; white-space:nowrap; display:inline-flex; align-items:center; gap:5px;">
+          <span style="width:6px;height:6px;background:${st.dot};border-radius:50%;flex-shrink:0;"></span>${st.label}
+        </span>
+      </td>
+      <td style="padding:12px; text-align:center; font-size:.8rem; color:var(--muted); white-space:nowrap;">${s.leadTime}</td>
+      <td style="padding:12px; text-align:center; font-weight:700; color:var(--terra); white-space:nowrap;">${s.price}</td>
+      <td style="padding:12px; text-align:center;">${btn}</td>
+    </tr>`;
+  }).join('');
+}
+
+function filterSlabs(filter) {
+  ['all','available','hold','incoming'].forEach(f => {
+    const btn = document.getElementById('filter-' + f);
+    if (!btn) return;
+    btn.style.background = f === filter ? 'var(--slate)' : '#fff';
+    btn.style.color = f === filter ? '#fff' : 'var(--muted)';
+    btn.style.border = f === filter ? 'none' : '1px solid var(--border)';
+  });
+  renderSlabs(filter);
+}
+
+document.addEventListener('DOMContentLoaded', () => { renderSlabs('all'); });
+
 // Fade-in on scroll
 const fadeObserver = new IntersectionObserver(entries => {
   entries.forEach(e => {
