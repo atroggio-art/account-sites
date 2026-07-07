@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LS Electric — What We Heard</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0a0a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  .slide {
+    width: 1280px;
+    height: 720px;
+    background: linear-gradient(135deg, #032D60 0%, #014486 60%, #0176d3 100%);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    padding: 56px 64px 48px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+  }
+  /* Subtle background texture */
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .slide::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(1,118,211,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 44px;
+    position: relative; z-index: 1;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  h1 {
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+  }
+  h1 span {
+    color: #7EC8E3;
+  }
+  .company-badge {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 10px 18px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .company-badge .name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .company-badge .meta {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 3px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    flex: 1;
+    position: relative; z-index: 1;
+  }
+  .card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background 0.2s;
+  }
+  .card-icon {
+    font-size: 20px;
+    margin-bottom: 2px;
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #7EC8E3;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+  }
+  .card-body {
+    font-size: 14px;
+    color: rgba(255,255,255,0.88);
+    line-height: 1.55;
+  }
+  .card-quote {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.5);
+    font-style: italic;
+    line-height: 1.4;
+    border-left: 2px solid rgba(126,200,227,0.4);
+    padding-left: 10px;
+    margin-top: 4px;
+  }
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    position: relative; z-index: 1;
+  }
+  .footer-left {
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.5px;
+  }
+  .sf-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sf-logo-mark {
+    width: 24px; height: 24px;
+    background: #00A1E0;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; color: #fff;
+  }
+  .sf-logo-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.5);
+  }
+</style>
+</head>
+<body>
+<div class="slide">
+  <div class="header">
+    <div>
+      <div class="eyebrow">Discovery Debrief &nbsp;·&nbsp; June 2026</div>
+      <h1>What We <span>Heard</span></h1>
+    </div>
+    <div class="company-badge">
+      <div class="name">LS Electric America</div>
+      <div class="meta">Andy Urda, VP Marketing</div>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-icon">🧩</div>
+      <div class="card-title">Fragmented Stack</div>
+      <div class="card-body">HubSpot + ZoomInfo + Power Automate + SharePoint — stitched together, not integrated. Too many logins, too much manual glue.</div>
+      <div class="card-quote">"I feel like I'm Jeff Bezos starting Amazon… 13 different software programs."</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">⏱️</div>
+      <div class="card-title">Speed to Lead</div>
+      <div class="card-body">Qualified leads go stale in the nurture queue. Andy wants a real person on it fast — automated warming is too slow for high-intent signals.</div>
+      <div class="card-quote">"Fresh bread out of the oven goes stale. The window closes."</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🔀</div>
+      <div class="card-title">Rep Routing Gap</div>
+      <div class="card-body">Hybrid org of direct + independent reps. HubSpot can't route leads to non-seated reps — the #1 reason they moved to HubSpot and it still isn't solved.</div>
+      <div class="card-quote">"Guess what? That's not exactly true today."</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">🤖</div>
+      <div class="card-title">AI Cross-Sell Signal</div>
+      <div class="card-body">Wants AI to mine ERP history and surface: "This customer buys X — here are 3 similar accounts that don't. Go talk to them."</div>
+      <div class="card-quote">"That's marketing intelligence I could actually use."</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📄</div>
+      <div class="card-title">Inbound PO Automation</div>
+      <div class="card-body">Customers email PDF purchase orders. New portal should read the PDF, populate the form, and auto-flag missing fields — no human touchpoint needed.</div>
+      <div class="card-quote">"We did OCR 20 years ago at Yaskawa. This isn't new."</div>
+    </div>
+
+    <div class="card">
+      <div class="card-icon">📈</div>
+      <div class="card-title">Scale Demands It</div>
+      <div class="card-body">Revenue: $50M → $750M → $1.5B+ this year. Data center boom is accelerating. Manual processes and workarounds won't hold at this growth rate.</div>
+      <div class="card-quote">"A lot of that growth is into data centers."</div>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">Confidential &nbsp;·&nbsp; Salesforce Manufacturing & Automotive West</div>
+    <div class="sf-logo">
+      <div class="sf-logo-mark">S</div>
+      <div class="sf-logo-text">Salesforce</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
