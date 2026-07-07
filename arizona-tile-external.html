@@ -608,59 +608,6 @@ footer span { color: rgba(255,255,255,.62); }
 <hr class="hr">
 
 <!-- PRODUCTS -->
-      <div style="background:var(--slate); padding:10px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
-        <div style="display:flex; align-items:center; gap:16px;">
-          <span style="color:#fff; font-size:.78rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; opacity:.9;">Arizona Tile Trade Portal</span>
-          <span style="background:rgba(184,92,42,.3); color:var(--terra3); font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.6px; padding:2px 9px; border-radius:50px;">● Live Inventory</span>
-        </div>
-        <div style="display:flex; align-items:center; gap:10px;">
-          <span style="color:rgba(255,255,255,.45); font-size:.75rem;">Logged in as: <strong style="color:rgba(255,255,255,.75);">Granite State Builders</strong></span>
-          <span style="background:rgba(255,255,255,.1); color:rgba(255,255,255,.6); font-size:.7rem; padding:3px 10px; border-radius:50px;">Account Tier: <strong style="color:var(--terra2);">Trade Pro</strong></span>
-        </div>
-      </div>
-
-      <!-- Search + filter bar -->
-      <div style="background:#f0ece6; padding:12px 20px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; border-bottom:1px solid var(--border);">
-        <div style="flex:1; min-width:200px; display:flex; align-items:center; gap:8px; background:#fff; border:1px solid var(--border); border-radius:8px; padding:7px 12px;">
-          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="var(--stone2)" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-          <span style="font-size:.82rem; color:var(--stone2);">Search by name, series, or SKU…</span>
-        </div>
-        <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <button onclick="filterSlabs('all')" id="filter-all" style="background:var(--slate); color:#fff; border:none; border-radius:6px; padding:6px 14px; font-size:.75rem; font-weight:700; cursor:pointer;">All</button>
-          <button onclick="filterSlabs('available')" id="filter-available" style="background:#fff; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:6px 14px; font-size:.75rem; font-weight:600; cursor:pointer;">Available</button>
-          <button onclick="filterSlabs('hold')" id="filter-hold" style="background:#fff; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:6px 14px; font-size:.75rem; font-weight:600; cursor:pointer;">On Hold</button>
-          <button onclick="filterSlabs('incoming')" id="filter-incoming" style="background:#fff; color:var(--muted); border:1px solid var(--border); border-radius:6px; padding:6px 14px; font-size:.75rem; font-weight:600; cursor:pointer;">Incoming</button>
-        </div>
-        <span style="font-size:.75rem; color:var(--stone); margin-left:auto;" id="slab-count">Showing 8 slabs</span>
-      </div>
-
-      <!-- Data Cloud banner -->
-      <div style="background:linear-gradient(90deg, #0b3d6b 0%, #1a5a8a 100%); padding:8px 20px; display:flex; align-items:center; gap:10px;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#60c4f0" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-        <span style="font-size:.75rem; color:#a8d8f0;"><strong style="color:#fff;">Salesforce Data Cloud</strong> — inventory synced from SAP every 90 seconds · Hold status updated in real time · Lead times calculated from production schedule</span>
-        <span style="margin-left:auto; font-size:.7rem; color:rgba(255,255,255,.4);">Last sync: 2 min ago</span>
-      </div>
-
-      <!-- Slab table -->
-      <div style="background:#fff; overflow-x:auto;">
-        <table style="width:100%; border-collapse:collapse; font-size:.84rem;" id="slab-table">
-          <thead>
-            <tr style="background:#f5f1eb; border-bottom:2px solid var(--border);">
-              <th style="padding:11px 16px; text-align:left; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;">Product / Series</th>
-              <th style="padding:11px 12px; text-align:left; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;">Material</th>
-              <th style="padding:11px 12px; text-align:center; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;">Size</th>
-              <th style="padding:11px 12px; text-align:center; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;">Qty</th>
-              <th style="padding:11px 12px; text-align:left; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;">Location</th>
-              <th style="padding:11px 12px; text-align:center; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;">Status</th>
-              <th style="padding:11px 12px; text-align:center; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;">Lead Time</th>
-              <th style="padding:11px 12px; text-align:center; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;">Your Price</th>
-              <th style="padding:11px 12px; text-align:center; font-size:.68rem; text-transform:uppercase; letter-spacing:.7px; color:var(--stone); font-weight:700;"></th>
-            </tr>
-          </thead>
-          <tbody id="slab-tbody">
-          </tbody>
-        </table>
-      </div>
 <section class="products-section">
   <div class="section fade-in">
     <div class="section-eyebrow">What We're Building Together</div>
