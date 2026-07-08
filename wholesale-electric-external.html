@@ -256,8 +256,9 @@ img { display: block; max-width: 100%; }
 .about-card-photo { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; object-position: center top; border: 3px solid var(--green2); flex-shrink: 0; }
 .about-card-photo-placeholder { width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,.1); border: 3px solid var(--green2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: rgba(255,255,255,.3); }
 .about-card-info { flex: 1; }
-.about-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 4px; }
-.about-role { font-size: .82rem; color: var(--green3); font-weight: 600; margin-bottom: 12px; }
+.about-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 2px; }
+.about-contact { font-size: .78rem; color: var(--green3); margin-bottom: 8px; }
+.about-role { font-size: .78rem; color: rgba(255,255,255,.5); font-weight: 500; margin-bottom: 12px; }
 .about-body { font-size: .88rem; color: rgba(255,255,255,.68); line-height: 1.75; margin-bottom: 0; }
 .about-body strong { color: #fff; }
 .about-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
@@ -699,6 +700,7 @@ footer span { color: rgba(255,255,255,.62); }
         <div class="about-card-photo-placeholder" style="display:none">AT</div>
         <div class="about-card-info">
           <div class="about-name">Anthony Troggio</div>
+          <div class="about-contact"><a href="mailto:atroggio@salesforce.com" style="color:inherit">atroggio@salesforce.com</a> · <a href="tel:7654307903" style="color:inherit">765-430-7903</a></div>
           <div class="about-role">Digital Transformation Executive — Manufacturing &amp; Automotive | Salesforce</div>
           <p class="about-body">I work with distributors and manufacturers across the West — companies where relationships are the business, and the challenge is making those relationships scale without losing what makes them work. Texas distribution is squarely in my wheelhouse. Dad, family man, straight shooter.</p>
         </div>
@@ -708,6 +710,7 @@ footer span { color: rgba(255,255,255,.62); }
         <div class="about-card-photo-placeholder" style="display:none">KW</div>
         <div class="about-card-info">
           <div class="about-name">Kennedy Wenz</div>
+          <div class="about-contact"><a href="mailto:kwenz@salesforce.com" style="color:inherit">kwenz@salesforce.com</a></div>
           <div class="about-role">Digital Transformation Executive — Manufacturing, Automotive &amp; Energy | Salesforce</div>
           <p class="about-body">From founding EAT.org across DACH to driving Agentic AI adoption at Salesforce in San Francisco, Kennedy bridges global strategy and frontier technology. With roots in the U.S. and Germany and an MSc in Business, she translates AI capabilities into outcomes manufacturing leaders can implement.</p>
         </div>
@@ -717,6 +720,10 @@ footer span { color: rgba(255,255,255,.62); }
       <a href="mailto:atroggio@salesforce.com?subject=Wholesale Electric Supply — Let's Talk" class="btn-white">
         <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
         atroggio@salesforce.com
+      </a>
+      <a href="tel:7654307903" class="btn-ghost" style="color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.2)">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        765-430-7903
       </a>
       <a href="mailto:kwenz@salesforce.com?subject=Wholesale Electric Supply — Salesforce" class="btn-white">
         <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
