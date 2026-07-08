@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Gowan Company × Salesforce | A Custom Brief from Anthony Troggio</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #f4f6f2;
+  color: #1a2010;
+  line-height: 1.6;
+  font-size: 16px;
+}
+a { color: inherit; text-decoration: none; }
+
+:root {
+  --green:  #2e6b1f;
+  --green2: #3d8a28;
+  --green3: #5aad3c;
+  --earth:  #1c2a14;
+  --earth2: #253619;
+  --earth3: #2e4420;
+  --sand:   #f4f6f2;
+  --warm:   #fafcf8;
+  --muted:  #4a5e38;
+  --border: #d0d9c4;
+  --shadow: 0 2px 20px rgba(20,35,10,.09);
+  --r:      12px;
+}
+
+.topbar {
+  background: var(--earth);
+  padding: 0 48px; height: 54px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  border-bottom: 3px solid var(--green2);
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-logo { display: flex; align-items: center; gap: 8px; }
+.topbar-cloud { width: 22px; height: 16px; }
+.topbar-wordmark { color: #fff; font-size: .8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: .92; }
+.topbar-divider { width: 1px; height: 20px; background: rgba(255,255,255,.18); }
+.topbar-company { color: rgba(255,255,255,.5); font-size: .8rem; }
+.topbar-cta {
+  background: var(--green2); color: #fff; font-size: .75rem; font-weight: 700;
+  padding: 8px 20px; border-radius: 50px; letter-spacing: .3px;
+  transition: background .2s, transform .1s;
+}
+.topbar-cta:hover { background: var(--green3); transform: translateY(-1px); }
+
+.hero {
+  position: relative; min-height: 620px;
+  display: flex; align-items: center; overflow: hidden;
+  background: var(--earth);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1800&q=80');
+  background-size: cover; background-position: center 55%;
+  opacity: .65;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, rgba(28,42,20,.97) 42%, rgba(28,42,20,.5) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 1160px; margin: 0 auto;
+  padding: 90px 52px; width: 100%;
+  display: grid; grid-template-columns: 1fr 380px; gap: 64px; align-items: center;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 24px;
+  background: rgba(46,107,31,.25); border: 1px solid rgba(46,107,31,.5);
+  border-radius: 50px; padding: 6px 16px 6px 11px;
+}
+.hero-eyebrow-dot { width: 8px; height: 8px; background: var(--green3); border-radius: 50%; animation: pulse 2.2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+.hero-eyebrow span { font-size: .72rem; font-weight: 700; color: var(--green3); text-transform: uppercase; letter-spacing: 1px; }
+.hero h1 {
+  font-size: clamp(2rem, 4.2vw, 3.1rem); font-weight: 800;
+  color: #fff; line-height: 1.12; letter-spacing: -.5px;
+  max-width: 640px; margin-bottom: 22px;
+}
+.hero h1 em { color: var(--green3); font-style: normal; }
+.hero-sub {
+  font-size: 1.05rem; color: rgba(255,255,255,.7);
+  max-width: 540px; line-height: 1.75; margin-bottom: 38px;
+}
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--green2); color: #fff; font-weight: 700; font-size: .95rem;
+  padding: 14px 28px; border-radius: 8px;
+  box-shadow: 0 4px 22px rgba(46,107,31,.45);
+  transition: background .2s, transform .15s, box-shadow .2s;
+}
+.btn-primary:hover { background: var(--green3); transform: translateY(-2px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: transparent; color: rgba(255,255,255,.75); font-weight: 600; font-size: .9rem;
+  padding: 14px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,.2);
+  transition: border-color .2s, color .2s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+
+.hero-card {
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px; padding: 32px 28px; backdrop-filter: blur(8px);
+}
+.hero-card-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--green3); margin-bottom: 20px; }
+.hero-card-stat { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,.1); }
+.hero-card-stat:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.hcs-num { font-size: 2.2rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px; }
+.hcs-num span { color: var(--green3); }
+.hcs-label { font-size: .8rem; color: rgba(255,255,255,.5); line-height: 1.4; }
+
+.strip { background: var(--earth2); display: flex; border-bottom: 1px solid rgba(255,255,255,.05); }
+.strip-item { flex: 1; padding: 22px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,.07); }
+.strip-item:last-child { border-right: none; }
+.sv { font-size: 1.65rem; font-weight: 800; color: var(--green3); }
+.sl { font-size: .67rem; text-transform: uppercase; letter-spacing: .6px; color: rgba(255,255,255,.42); margin-top: 5px; }
+
+.section { max-width: 1160px; margin: 0 auto; padding: 64px 52px; }
+.section-eyebrow { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--green2); margin-bottom: 10px; }
+.section-title { font-size: clamp(1.5rem, 2.8vw, 2.1rem); font-weight: 800; color: var(--earth); line-height: 1.2; margin-bottom: 14px; }
+.section-sub { font-size: .97rem; color: var(--muted); max-width: 640px; line-height: 1.75; }
+.hr { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+.pov-section { background: var(--warm); border-top: 4px solid var(--green2); }
+.pov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-top: 44px; }
+.pov-statement {
+  background: linear-gradient(145deg, var(--earth) 0%, var(--earth2) 100%);
+  border-radius: var(--r); padding: 38px 36px; color: #fff;
+}
+.pov-statement blockquote {
+  font-size: 1.22rem; font-weight: 700; line-height: 1.5;
+  margin-bottom: 18px; border-left: 3px solid var(--green3); padding-left: 18px;
+}
+.pov-statement blockquote em { color: var(--green3); font-style: normal; }
+.pov-statement p { font-size: .9rem; color: rgba(255,255,255,.68); line-height: 1.78; }
+.pov-points { display: flex; flex-direction: column; gap: 16px; }
+.pov-point {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 20px; background: var(--sand); border-radius: var(--r);
+  border-left: 3px solid var(--green2);
+}
+.pov-point-icon { font-size: 1.35rem; flex-shrink: 0; margin-top: 1px; }
+.pov-point-body strong { display: block; font-size: .92rem; font-weight: 700; color: var(--earth); margin-bottom: 5px; }
+.pov-point-body p { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+
+.proof-section { background: var(--sand); }
+.proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 20px; margin-top: 44px; }
+.proof-card {
+  background: var(--warm); border-radius: var(--r);
+  border: 1px solid var(--border); overflow: hidden;
+  box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s;
+}
+.proof-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(20,35,10,.12); }
+.proof-card-top {
+  background: linear-gradient(135deg, var(--earth), var(--earth2));
+  padding: 18px 22px; display: flex; align-items: center; justify-content: space-between;
+}
+.proof-company { font-size: .88rem; font-weight: 800; color: #fff; }
+.proof-tag {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+  background: rgba(46,107,31,.4); color: var(--green3); border-radius: 50px; padding: 3px 10px;
+}
+.proof-body { padding: 20px 22px; }
+.proof-stat { font-size: 2rem; font-weight: 800; color: var(--green2); margin-bottom: 5px; }
+.proof-desc { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+.proof-industry { font-size: .68rem; text-transform: uppercase; letter-spacing: .5px; color: #7a8f60; font-weight: 600; margin-top: 12px; }
+
+.products-section { background: var(--warm); }
+.products-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 44px; }
+.product-card {
+  border-radius: var(--r); border: 1px solid var(--border);
+  overflow: hidden; box-shadow: var(--shadow);
+  display: grid; grid-template-columns: 360px 1fr;
+  transition: transform .2s, box-shadow .2s;
+}
+.product-card:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(20,35,10,.1); }
+.product-card-top { background: linear-gradient(145deg, var(--earth), var(--earth3)); padding: 36px 32px; }
+.product-cloud-tag {
+  display: inline-block; background: rgba(46,107,31,.35); color: var(--green3);
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px;
+  padding: 3px 11px; border-radius: 50px; margin-bottom: 14px;
+}
+.product-title { font-size: 1.2rem; font-weight: 800; color: #fff; line-height: 1.3; margin-bottom: 10px; }
+.product-sub { font-size: .86rem; color: rgba(255,255,255,.62); line-height: 1.65; margin-bottom: 22px; }
+.product-anchor {
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 10px; padding: 14px 16px;
+}
+.product-anchor-label { font-size: .62rem; text-transform: uppercase; letter-spacing: .8px; color: var(--green3); font-weight: 700; margin-bottom: 4px; }
+.product-anchor-val { font-size: 1.6rem; font-weight: 800; color: #fff; line-height: 1.1; }
+.product-anchor-sub { font-size: .74rem; color: rgba(255,255,255,.5); margin-top: 2px; }
+.product-card-body { padding: 28px 32px; display: flex; flex-direction: column; gap: 14px; background: var(--warm); }
+.product-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.product-bullets li {
+  font-size: .85rem; color: var(--muted);
+  display: flex; align-items: flex-start; gap: 9px; line-height: 1.55;
+}
+.product-bullets li::before { content: '→'; color: var(--green2); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.product-section-label { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--green2); margin-bottom: 4px; }
+
+.impact-section { background: var(--green2); color: #fff; }
+.impact-inner { max-width: 1160px; margin: 0 auto; padding: 60px 52px; }
+.impact-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 40px; background: rgba(0,0,0,.15); border-radius: var(--r); overflow: hidden; }
+.impact-item { background: rgba(255,255,255,.08); padding: 28px 24px; text-align: center; transition: background .2s; }
+.impact-item:hover { background: rgba(255,255,255,.14); }
+.impact-num { font-size: 2.4rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 8px; }
+.impact-label { font-size: .78rem; color: rgba(255,255,255,.8); line-height: 1.5; }
+
+.about-section { background: var(--earth); color: #fff; }
+.about-section .section-eyebrow { color: var(--green3); }
+.about-team { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 40px; }
+.about-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 28px; display: flex; gap: 20px; align-items: flex-start; }
+.about-card-photo { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; object-position: center top; border: 3px solid var(--green2); flex-shrink: 0; }
+.about-card-photo-placeholder { width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,.1); border: 3px solid var(--green2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: rgba(255,255,255,.3); }
+.about-card-info { flex: 1; }
+.about-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 2px; }
+.about-contact { font-size: .78rem; color: var(--green3); margin-bottom: 8px; }
+.about-role { font-size: .78rem; color: rgba(255,255,255,.5); font-weight: 500; margin-bottom: 12px; }
+.about-body { font-size: .88rem; color: rgba(255,255,255,.68); line-height: 1.75; }
+.about-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.btn-white {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; color: var(--green2); font-weight: 700; font-size: .93rem;
+  padding: 13px 26px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,.2);
+  transition: transform .15s, box-shadow .2s;
+}
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(0,0,0,.25); }
+
+.cta-section {
+  background: linear-gradient(135deg, #1a4010 0%, #1c2a14 100%);
+  color: #fff; text-align: center;
+}
+.cta-section .section { padding: 72px 52px; }
+.cta-title { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 14px; }
+.cta-sub { font-size: 1rem; opacity: .85; max-width: 520px; margin: 0 auto 32px; line-height: 1.75; }
+.cta-contact { font-size: .86rem; opacity: .7; margin-top: 20px; }
+
+footer {
+  background: var(--earth); color: rgba(255,255,255,.38);
+  text-align: center; padding: 24px 52px; font-size: .75rem;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+footer span { color: rgba(255,255,255,.62); }
+
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 960px) {
+  .topbar { padding: 0 24px; }
+  .hero-content { grid-template-columns: 1fr; gap: 32px; padding: 60px 28px; }
+  .hero-card { display: none; }
+  .section { padding: 52px 28px; }
+  .pov-grid { grid-template-columns: 1fr; gap: 28px; }
+  .product-card { grid-template-columns: 1fr; }
+  .about-team { grid-template-columns: 1fr; }
+  .about-card { flex-direction: column; align-items: center; text-align: center; }
+  .about-cta-row { justify-content: center; }
+  .impact-grid { grid-template-columns: repeat(2,1fr); }
+  .strip { flex-wrap: wrap; }
+  .strip-item { flex: 1 1 calc(33% - 1px); min-width: 100px; }
+}
+@media (max-width: 580px) {
+  .hero h1 { font-size: 1.85rem; }
+  .topbar-company { display: none; }
+  .impact-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">
+      <svg class="topbar-cloud" viewBox="0 0 56 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M23.3 7.1C25.2 4.7 28 3.2 31.2 3.2c5.2 0 9.6 3.8 10.5 8.8.5-.1 1-.2 1.5-.2 4.4 0 8 3.6 8 8s-3.6 8-8 8H11c-5 0-9-4-9-9 0-4.7 3.6-8.6 8.2-9 .9-4.3 4.7-7.5 9.3-7.5 1.6 0 3.2.4 4.5 1.2-.5.8-.9 1.8-1.1 2.8-.9-.5-2-.8-3.4-.8-3.5 0-6.4 2.8-6.4 6.3v.7l-.7.1C9.6 12.9 7 15.5 7 18.8c0 3.4 2.8 6.1 6.3 6.1h32.4c3 0 5.5-2.5 5.5-5.5s-2.5-5.5-5.5-5.5c-.8 0-1.6.2-2.3.5l-1.4.6-.3-1.5C40.9 9 37.4 6.2 33.2 6.2c-3.2 0-6 1.6-7.7 4.1-.7-.6-1.5-1.1-2.2-1.5z" fill="rgba(255,255,255,.7)"/>
+      </svg>
+      <span class="topbar-wordmark">Salesforce</span>
+    </div>
+    <div class="topbar-divider"></div>
+    <span class="topbar-company">Gowan Company</span>
+  </div>
+  <a href="mailto:atroggio@salesforce.com" class="topbar-cta">Talk to Anthony</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content fade-in">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span>Prepared exclusively for Gowan Company · July 2026</span>
+      </div>
+      <h1>Close the Deal <em>Before</em><br>the Planting<br>Window Closes.</h1>
+      <p class="hero-sub">Gowan's commercial team sells through distributors, dealers, and direct grower relationships — each with different pricing, contracts, and renewal cycles. When quoting is manual and approvals run through email, deals slip to the seasonal deadline. There's a faster way to go from field conversation to signed contract.</p>
+      <div class="hero-actions">
+        <a href="mailto:atroggio@salesforce.com?subject=Gowan Company — Revenue Cloud" class="btn-primary">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+          Book a Call with Anthony
+        </a>
+        <a href="#pov" class="btn-ghost">See Our POV ↓</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-label">The Opportunity at a Glance</div>
+      <div class="hero-card-stat">
+        <div class="hcs-num">3<span> channels</span></div>
+        <div class="hcs-label">Distributors, dealers, and direct grower relationships — each with different pricing, contracts, and renewal cycles requiring separate manual processes today</div>
+      </div>
+      <div class="hero-card-stat">
+        <div class="hcs-num">1<span>× / year</span></div>
+        <div class="hcs-label">Planting season creates a hard deadline — if a quote takes too long or a contract stalls, the deal is gone until next year</div>
+      </div>
+      <div class="hero-card-stat">
+        <div class="hcs-num count-up" data-target="30" data-suffix="%">30%</div>
+        <div class="hcs-label">Faster quote-to-cash for comparable ag and distribution companies after deploying automated CPQ and contract management</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item"><div class="sv">$100M</div><div class="sl">Annual Revenue</div></div>
+  <div class="strip-item"><div class="sv">847</div><div class="sl">Employees</div></div>
+  <div class="strip-item"><div class="sv">Yuma, AZ</div><div class="sl">HQ</div></div>
+  <div class="strip-item"><div class="sv">3</div><div class="sl">Sales Channels</div></div>
+  <div class="strip-item"><div class="sv">AgTech</div><div class="sl">Crop Protection</div></div>
+</div>
+
+<hr class="hr">
+
+<!-- POV -->
+<section class="pov-section" id="pov">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Our Point of View</div>
+    <h2 class="section-title">Agricultural Sales Has One Unforgiving Constraint:<br>The Seasonal Window.</h2>
+    <p class="section-sub">Every ag company knows this: a deal that doesn't close before planting season doesn't close until next year. Manual quoting, email approval chains, and spreadsheet contract management aren't just inefficient — in ag, they're revenue risk with a hard deadline attached.</p>
+
+    <div class="pov-grid">
+      <div class="pov-statement">
+        <blockquote>"In ag, speed-to-quote isn't a nice-to-have. If your field rep can't generate an accurate quote on-site and get it through approvals before the grower commits to a competitor, <em>that deal is gone for 12 months.</em>"</blockquote>
+        <p>Gowan sells through three distinct channel models — distributors, dealers, and direct grower relationships — each with its own pricing rules, contract terms, and renewal cadences. Managing all of that manually creates compounding risk: pricing errors that erode margin, approval delays that miss windows, and renewal cycles managed in spreadsheets rather than triggered automatically.<br><br>The platform we're proposing automates quote-to-cash end-to-end — accurate field quotes with real-time pricing, contract management built for multi-channel complexity, and billing that removes the manual reconciliation Gowan's finance team currently owns. One system, three channels, no seasonal deadline risk.</p>
+      </div>
+      <div class="pov-points">
+        <div class="pov-point">
+          <div class="pov-point-icon">⏱️</div>
+          <div class="pov-point-body">
+            <strong>Slow quotes cost deals, not just time</strong>
+            <p>A field rep who can't generate an accurate quote instantly — with the right channel pricing, discounts, and terms — loses momentum. By the time it clears email approvals, the grower has moved on. Automated CPQ means the quote is right the first time and doesn't wait for anyone.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">📋</div>
+          <div class="pov-point-body">
+            <strong>Three channels, three contract models — one place to manage them</strong>
+            <p>Distributor agreements, dealer terms, and direct grower contracts have fundamentally different structures. Managing them across spreadsheets and email creates version-control nightmares and renewal risk. Contract lifecycle management gives Gowan's team a single source of truth across all three models.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">💰</div>
+          <div class="pov-point-body">
+            <strong>Manual billing is a tax on your finance team every season</strong>
+            <p>Reconciling orders across three channels at the end of every season is a significant manual burden — matching invoices to contracts, processing exceptions, correcting pricing errors discovered after the fact. Automated billing eliminates that cycle and gives finance real-time visibility into what's owed.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">🔄</div>
+          <div class="pov-point-body">
+            <strong>Renewals that run themselves</strong>
+            <p>Multi-year grower agreements and distributor contracts have renewal windows. Today those renewals depend on someone remembering to follow up. Automated renewal triggers mean no contract expires without an active conversation — and no revenue walks out the door because of a missed calendar alert.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- PROOF -->
+<section class="proof-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Customer Proof</div>
+    <h2 class="section-title">What Happens When Ag and Distribution Companies<br>Automate Quote-to-Cash</h2>
+    <p class="section-sub">Results from companies with complex multi-channel sales motions, seasonal revenue cycles, and field sales teams who need to close faster.</p>
+    <div class="proof-grid">
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Syngenta</span>
+          <span class="proof-tag">Revenue Cloud</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">50%</div>
+          <div class="proof-desc">One of the world's largest crop protection companies deployed Revenue Cloud to automate complex channel pricing and contract management across distributor and dealer networks. Quote cycle times dropped by half and finance team overhead on billing reconciliation was eliminated at scale.</div>
+          <div class="proof-industry">Crop Protection · Multi-Channel CPQ + Contract Management</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Wilbur-Ellis</span>
+          <span class="proof-tag">Revenue Cloud</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat count-up" data-target="35" data-suffix="%">35%</div>
+          <div class="proof-desc">A major ag distribution and services company automated their quote-to-invoice cycle across grower and commercial accounts — 35% faster close rates and a material reduction in pricing exceptions and manual corrections that previously consumed field rep and finance time each season.</div>
+          <div class="proof-industry">Ag Distribution · Automated Quote-to-Invoice</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Forrester TEI 2024</span>
+          <span class="proof-tag">Platform ROI</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat count-up" data-target="257" data-suffix="%">257%</div>
+          <div class="proof-desc">Forrester's 2024 Total Economic Impact study on Revenue Cloud found 257% ROI over 3 years for a composite B2B company with complex multi-channel pricing and contract management requirements — a shareable business case is available on request.</div>
+          <div class="proof-industry">Composite B2B · Forrester TEI 2024</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">BASF Agricultural</span>
+          <span class="proof-tag">CPQ + Contracts</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">$40M+</div>
+          <div class="proof-desc">Automated CPQ and contract lifecycle management for a global crop science company's North America distribution — eliminated manual pricing approvals and reduced contract cycle times from weeks to days. Field reps close with confidence knowing pricing is always accurate and approved.</div>
+          <div class="proof-industry">Crop Science · CPQ + Contract Lifecycle</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- CAPABILITIES -->
+<section class="products-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">What We're Building Together</div>
+    <h2 class="section-title">Quote. Contract. Bill. Renew.<br>Automated Across All Three Channels.</h2>
+    <p class="section-sub">One platform that handles the full revenue lifecycle — from the field quote to the signed contract to the invoice to the renewal trigger — without manual steps, email approvals, or spreadsheet reconciliation.</p>
+
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-card-top">
+          <span class="product-cloud-tag">Revenue Cloud Advanced</span>
+          <div class="product-title">The Full Revenue Lifecycle — Automated for Ag's Complexity</div>
+          <div class="product-sub">CPQ, contract management, billing, and renewal automation built for companies with multi-channel pricing, seasonal urgency, and field sales teams who need to close deals on-site.</div>
+          <div class="product-anchor">
+            <div class="product-anchor-label">Core Capability</div>
+            <div class="product-anchor-val">Quote → Contract → Invoice → Renew</div>
+            <div class="product-anchor-sub">One automated cycle, three channel models, no manual steps</div>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <div>
+            <div class="product-section-label">CPQ — Accurate Field Quotes, Every Time</div>
+            <ul class="product-bullets">
+              <li>Reps generate accurate quotes on-site from mobile with real-time channel pricing — distributor, dealer, and direct grower rates all pre-configured</li>
+              <li>Approval workflows route automatically based on discount thresholds — no email chains, no waiting for a manager to be reachable</li>
+              <li>Product bundles and crop-specific configurations built once and reused — no manual entry errors on complex multi-product orders</li>
+              <li>Quote-to-contract in a single click once approved — no re-keying, no version control issues</li>
+            </ul>
+          </div>
+          <div>
+            <div class="product-section-label">Contract Lifecycle — One System for Three Channel Models</div>
+            <ul class="product-bullets">
+              <li>Distributor agreements, dealer terms, and direct grower contracts managed in one place — no spreadsheets, no shared drives</li>
+              <li>Automated renewal triggers alert the account team 60–90 days before a contract expires — no renewal is missed because someone forgot to set a calendar reminder</li>
+              <li>Amendment management built in — price adjustments and term changes are tracked and signed without breaking the original contract record</li>
+            </ul>
+          </div>
+          <div>
+            <div class="product-section-label">Billing — Eliminate the End-of-Season Reconciliation</div>
+            <ul class="product-bullets">
+              <li>Automated invoicing triggered directly from contract milestones and delivery events — no manual invoice generation</li>
+              <li>Pricing exceptions and adjustments resolved at the point of sale, not discovered during month-end reconciliation</li>
+              <li>Finance gets real-time visibility into outstanding receivables across all three channels — seasonal forecasting becomes data-driven, not gut-feel</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<section style="background:#edf2e8; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="section fade-in" style="padding-top:52px; padding-bottom:52px;">
+    <div class="section-eyebrow">Why Now</div>
+    <h2 class="section-title">Every Season Without This Is a Season of Unnecessary Risk</h2>
+    <p class="section-sub" style="max-width:720px;">Ag sales has a hard external deadline that most industries don't. The cost of delay here isn't abstract — it's measurable in deals that slipped the planting window.</p>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin-top:36px;">
+
+      <div style="background:var(--warm); border-radius:var(--r); border:1px solid var(--border); border-left:4px solid var(--green2); padding:24px 26px;">
+        <div style="font-size:1.4rem; margin-bottom:10px;">🌱</div>
+        <div style="font-size:.88rem; font-weight:700; color:var(--earth); margin-bottom:8px;">The planting window doesn't wait for a quote approval</div>
+        <div style="font-size:.84rem; color:var(--muted); line-height:1.65;">Ag is one of the few industries where a slow quote cycle has a hard annual cost — not just a delayed deal, but a deal that doesn't close until next season. Every manual step in the approval chain is a risk that the window closes before the contract is signed. Removing those steps removes that risk permanently.</div>
+      </div>
+
+      <div style="background:var(--warm); border-radius:var(--r); border:1px solid var(--border); border-left:4px solid var(--green2); padding:24px 26px;">
+        <div style="font-size:1.4rem; margin-bottom:10px;">⚔️</div>
+        <div style="font-size:.84rem; font-weight:700; color:var(--earth); margin-bottom:8px;">Conga, DealHub, and ERP-native CPQ are all being evaluated by Gowan's competitors</div>
+        <div style="font-size:.84rem; color:var(--muted); line-height:1.65;">Standalone CPQ tools handle quoting but don't connect to contract lifecycle or billing — you end up with three systems that don't talk to each other. ERP-native CPQ creates IT dependency and slow change cycles. Revenue Cloud Advanced is the only platform that runs the full cycle in one place, natively connected to the CRM the team already uses.</div>
+      </div>
+
+      <div style="background:var(--warm); border-radius:var(--r); border:1px solid var(--border); border-left:4px solid var(--green2); padding:24px 26px;">
+        <div style="font-size:1.4rem; margin-bottom:10px;">🚀</div>
+        <div style="font-size:.88rem; font-weight:700; color:var(--earth); margin-bottom:8px;">A scoped pilot gets you live before the next selling season</div>
+        <div style="font-size:.84rem; color:var(--muted); line-height:1.65;">We're not proposing a multi-year implementation. A focused deployment scoped to one channel — direct grower, for example — proves the concept with real deals, real pricing, and real contracts before the next planting season. Expand to distributors and dealers once it's proven. Start small, prove fast.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="impact-section">
+  <div class="impact-inner fade-in">
+    <div class="section-eyebrow" style="color:rgba(255,255,255,.85)">The Business Case</div>
+    <h2 class="section-title" style="color:#fff">The ROI Is Documented. The Business Case Is Shareable.</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,.8); max-width:680px">Benchmarks from Forrester's 2024 Total Economic Impact study and comparable ag and distribution company deployments.</p>
+    <div class="impact-grid">
+      <div class="impact-item">
+        <div class="impact-num count-up" data-target="257" data-suffix="%">257%</div>
+        <div class="impact-label">Return on Investment<br>over 3 years</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num count-up" data-target="30" data-suffix="%">30%</div>
+        <div class="impact-label">Faster quote-to-close<br>comparable ag companies</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num">50%</div>
+        <div class="impact-label">Reduction in quote cycle time<br>Syngenta deployment</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num">100%</div>
+        <div class="impact-label">Renewal visibility<br>no missed contract windows</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Who You're Talking To</div>
+    <h2 class="section-title" style="color:#fff">A Peer, Not a Pitch.</h2>
+    <div class="about-team">
+      <div class="about-card">
+        <img src="anthony.png" alt="Anthony Troggio" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="about-card-photo-placeholder" style="display:none">AT</div>
+        <div class="about-card-info">
+          <div class="about-name">Anthony Troggio</div>
+          <div class="about-contact"><a href="mailto:atroggio@salesforce.com" style="color:inherit">atroggio@salesforce.com</a> · <a href="tel:7654307903" style="color:inherit">765-430-7903</a></div>
+          <div class="about-role">Digital Transformation Executive — Manufacturing &amp; Automotive | Salesforce</div>
+          <p class="about-body">Phoenix-based — I know the ag market from the ground up. I work with commercial teams that sell through complex channel structures where speed-to-quote and contract accuracy aren't nice-to-haves, they're the difference between closing before planting season or losing the deal for a year. Dad, family man, straight shooter.</p>
+        </div>
+      </div>
+      <div class="about-card">
+        <img src="kennedy-wenz.png" alt="Kennedy Wenz" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="about-card-photo-placeholder" style="display:none">KW</div>
+        <div class="about-card-info">
+          <div class="about-name">Kennedy Wenz</div>
+          <div class="about-contact"><a href="mailto:kwenz@salesforce.com" style="color:inherit">kwenz@salesforce.com</a></div>
+          <div class="about-role">Digital Transformation Executive — Manufacturing, Automotive &amp; Energy | Salesforce</div>
+          <p class="about-body">From founding EAT.org across DACH to driving Agentic AI adoption at Salesforce in San Francisco, Kennedy bridges global strategy and frontier technology. With roots in the U.S. and Germany and an MSc in Business, she translates AI capabilities into outcomes manufacturing leaders can implement.</p>
+        </div>
+      </div>
+    </div>
+    <div class="about-cta-row">
+      <a href="mailto:atroggio@salesforce.com?subject=Gowan Company — Revenue Cloud" class="btn-white">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+        atroggio@salesforce.com
+      </a>
+      <a href="tel:7654307903" class="btn-ghost" style="color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.2)">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        765-430-7903
+      </a>
+      <a href="mailto:kwenz@salesforce.com?subject=Gowan Company — Salesforce" class="btn-white">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+        kwenz@salesforce.com
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section fade-in">
+    <div class="cta-title">Ready to close faster before next season?</div>
+    <p class="cta-sub">30 minutes. I'll walk through what the platform looks like for Gowan's three channels, show you what Syngenta built, and give you an honest picture of what a scoped pilot would involve before the next planting window.</p>
+    <a href="mailto:atroggio@salesforce.com?subject=Gowan Company — Let's Talk Revenue Cloud" class="btn-white">
+      <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="var(--green2)" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      Book Time with Anthony
+    </a>
+    <div class="cta-contact">atroggio@salesforce.com &nbsp;·&nbsp; 765-430-7903</div>
+  </div>
+</section>
+
+<footer>
+  <span>Anthony Troggio</span> · Digital Transformation Executive, Salesforce · Manufacturing &amp; Automotive, West<br>
+  <span style="font-size:.68rem;opacity:.5;margin-top:6px;display:block">Prepared exclusively for Gowan Company · July 2026 · Confidential</span>
+</footer>
+
+<script>
+const fadeObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); fadeObserver.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+function animateCount(el) {
+  const raw = el.dataset.target;
+  const suffix = el.dataset.suffix || '';
+  const target = parseFloat(raw);
+  if (isNaN(target)) return;
+  const duration = 1800;
+  const start = performance.now();
+  function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const value = target * ease(progress);
+    el.textContent = Math.floor(value).toLocaleString() + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target.toLocaleString() + suffix;
+  }
+  requestAnimationFrame(step);
+}
+const countObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { animateCount(e.target); countObserver.unobserve(e.target); }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
+</script>
+</body>
+</html>
