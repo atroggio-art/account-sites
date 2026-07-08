@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Stevens Industries × Salesforce | A Custom Brief from Anthony Troggio</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #f5f3f0;
+  color: #1e1a14;
+  line-height: 1.6;
+  font-size: 16px;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+:root {
+  --amber:   #b06820;
+  --amber2:  #d4842a;
+  --amber3:  #f0a84e;
+  --slate:   #1c2b38;
+  --slate2:  #273d50;
+  --slate3:  #344f66;
+  --sand:    #f5f3f0;
+  --warm:    #fdfaf6;
+  --muted:   #5a4e40;
+  --border:  #ddd5c8;
+  --shadow:  0 2px 20px rgba(30,20,10,.09);
+  --r:       12px;
+}
+
+.topbar {
+  background: var(--slate);
+  padding: 0 48px; height: 54px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  border-bottom: 3px solid var(--amber2);
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-logo { display: flex; align-items: center; gap: 8px; }
+.topbar-cloud { width: 22px; height: 16px; }
+.topbar-wordmark { color: #fff; font-size: .8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: .92; }
+.topbar-divider { width: 1px; height: 20px; background: rgba(255,255,255,.18); }
+.topbar-company { color: rgba(255,255,255,.5); font-size: .8rem; }
+.topbar-cta {
+  background: var(--amber2); color: #fff; font-size: .75rem; font-weight: 700;
+  padding: 8px 20px; border-radius: 50px; letter-spacing: .3px;
+  transition: background .2s, transform .1s;
+}
+.topbar-cta:hover { background: var(--amber3); color: var(--slate); transform: translateY(-1px); }
+
+.hero {
+  position: relative; min-height: 620px;
+  display: flex; align-items: center; overflow: hidden;
+  background: var(--slate);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1800&q=80');
+  background-size: cover; background-position: center 40%;
+  opacity: .65;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, rgba(28,43,56,.97) 42%, rgba(28,43,56,.55) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 1160px; margin: 0 auto;
+  padding: 90px 52px; width: 100%;
+  display: grid; grid-template-columns: 1fr 380px; gap: 64px; align-items: center;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 24px;
+  background: rgba(176,104,32,.2); border: 1px solid rgba(176,104,32,.45);
+  border-radius: 50px; padding: 6px 16px 6px 11px;
+}
+.hero-eyebrow-dot { width: 8px; height: 8px; background: var(--amber3); border-radius: 50%; animation: pulse 2.2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+.hero-eyebrow span { font-size: .72rem; font-weight: 700; color: var(--amber3); text-transform: uppercase; letter-spacing: 1px; }
+.hero h1 {
+  font-size: clamp(2rem, 4.2vw, 3.1rem); font-weight: 800;
+  color: #fff; line-height: 1.12; letter-spacing: -.5px;
+  max-width: 640px; margin-bottom: 22px;
+}
+.hero h1 em { color: var(--amber3); font-style: normal; }
+.hero-sub {
+  font-size: 1.05rem; color: rgba(255,255,255,.7);
+  max-width: 540px; line-height: 1.75; margin-bottom: 38px;
+}
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--amber2); color: #fff; font-weight: 700; font-size: .95rem;
+  padding: 14px 28px; border-radius: 8px;
+  box-shadow: 0 4px 22px rgba(176,104,32,.45);
+  transition: background .2s, transform .15s, box-shadow .2s;
+}
+.btn-primary:hover { background: var(--amber3); color: var(--slate); transform: translateY(-2px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: transparent; color: rgba(255,255,255,.75); font-weight: 600; font-size: .9rem;
+  padding: 14px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,.2);
+  transition: border-color .2s, color .2s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+
+.hero-card {
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px; padding: 32px 28px; backdrop-filter: blur(8px);
+}
+.hero-card-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--amber3); margin-bottom: 20px; }
+.hero-card-stat { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,.1); }
+.hero-card-stat:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.hcs-num { font-size: 2.2rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px; }
+.hcs-num span { color: var(--amber3); }
+.hcs-label { font-size: .8rem; color: rgba(255,255,255,.5); line-height: 1.4; }
+
+.strip { background: var(--slate2); display: flex; border-bottom: 1px solid rgba(255,255,255,.05); }
+.strip-item { flex: 1; padding: 22px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,.07); }
+.strip-item:last-child { border-right: none; }
+.sv { font-size: 1.65rem; font-weight: 800; color: var(--amber3); }
+.sl { font-size: .67rem; text-transform: uppercase; letter-spacing: .6px; color: rgba(255,255,255,.42); margin-top: 5px; }
+
+.section { max-width: 1160px; margin: 0 auto; padding: 64px 52px; }
+.section-eyebrow { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--amber2); margin-bottom: 10px; }
+.section-title { font-size: clamp(1.5rem, 2.8vw, 2.1rem); font-weight: 800; color: var(--slate); line-height: 1.2; margin-bottom: 14px; }
+.section-sub { font-size: .97rem; color: var(--muted); max-width: 640px; line-height: 1.75; }
+.hr { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+.pov-section { background: var(--warm); border-top: 4px solid var(--amber2); }
+.pov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-top: 44px; }
+.pov-statement {
+  background: linear-gradient(145deg, var(--slate) 0%, var(--slate2) 100%);
+  border-radius: var(--r); padding: 38px 36px; color: #fff;
+}
+.pov-statement blockquote {
+  font-size: 1.22rem; font-weight: 700; line-height: 1.5;
+  margin-bottom: 18px; border-left: 3px solid var(--amber3); padding-left: 18px;
+}
+.pov-statement blockquote em { color: var(--amber3); font-style: normal; }
+.pov-statement p { font-size: .9rem; color: rgba(255,255,255,.68); line-height: 1.78; }
+.pov-points { display: flex; flex-direction: column; gap: 16px; }
+.pov-point {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 20px; background: var(--sand); border-radius: var(--r);
+  border-left: 3px solid var(--amber2);
+}
+.pov-point-icon { font-size: 1.35rem; flex-shrink: 0; margin-top: 1px; }
+.pov-point-body strong { display: block; font-size: .92rem; font-weight: 700; color: var(--slate); margin-bottom: 5px; }
+.pov-point-body p { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+
+/* ERP REFRAME CALLOUT */
+.erp-section { background: var(--slate); color: #fff; }
+.erp-inner {
+  max-width: 1160px; margin: 0 auto; padding: 64px 52px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.erp-eyebrow { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--amber3); margin-bottom: 10px; }
+.erp-title { font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 16px; }
+.erp-title em { color: var(--amber3); font-style: normal; }
+.erp-sub { font-size: .95rem; color: rgba(255,255,255,.68); line-height: 1.75; margin-bottom: 28px; }
+.erp-points { display: flex; flex-direction: column; gap: 14px; }
+.erp-point {
+  display: flex; gap: 14px; align-items: flex-start;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+  border-radius: 10px; padding: 16px 18px;
+}
+.erp-point-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+.erp-point strong { display: block; font-size: .88rem; font-weight: 700; color: #fff; margin-bottom: 3px; }
+.erp-point p { font-size: .82rem; color: rgba(255,255,255,.58); line-height: 1.6; }
+.erp-card-group { display: flex; flex-direction: column; gap: 16px; }
+.erp-stat-card {
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+  border-radius: var(--r); padding: 24px 26px;
+  border-left: 4px solid var(--amber2); transition: background .2s;
+}
+.erp-stat-card:hover { background: rgba(255,255,255,.12); }
+.erp-stat-num { font-size: 2.4rem; font-weight: 800; color: var(--amber3); line-height: 1; margin-bottom: 6px; }
+.erp-stat-headline { font-size: .9rem; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.erp-stat-body { font-size: .82rem; color: rgba(255,255,255,.58); line-height: 1.65; }
+.erp-tag {
+  display: inline-block; margin-top: 10px;
+  background: rgba(176,104,32,.3); color: var(--amber3);
+  font-size: .62rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .6px; padding: 3px 10px; border-radius: 50px;
+}
+
+.proof-section { background: var(--sand); }
+.proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 20px; margin-top: 44px; }
+.proof-card {
+  background: var(--warm); border-radius: var(--r);
+  border: 1px solid var(--border); overflow: hidden;
+  box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s;
+}
+.proof-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(30,20,10,.12); }
+.proof-card-top {
+  background: linear-gradient(135deg, var(--slate), var(--slate2));
+  padding: 18px 22px; display: flex; align-items: center; justify-content: space-between;
+}
+.proof-company { font-size: .88rem; font-weight: 800; color: #fff; }
+.proof-tag {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+  background: rgba(176,104,32,.35); color: var(--amber3); border-radius: 50px; padding: 3px 10px;
+}
+.proof-body { padding: 20px 22px; }
+.proof-stat { font-size: 2rem; font-weight: 800; color: var(--amber2); margin-bottom: 5px; }
+.proof-desc { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+.proof-industry { font-size: .68rem; text-transform: uppercase; letter-spacing: .5px; color: #9a8060; font-weight: 600; margin-top: 12px; }
+
+.products-section { background: var(--warm); }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 24px; margin-top: 44px; }
+.product-card {
+  border-radius: var(--r); border: 1px solid var(--border);
+  overflow: hidden; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s;
+}
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(30,20,10,.1); }
+.product-card-top { background: linear-gradient(145deg, var(--slate), var(--slate3)); padding: 26px 24px; }
+.product-cloud-tag {
+  display: inline-block; background: rgba(176,104,32,.3); color: var(--amber3);
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px;
+  padding: 3px 11px; border-radius: 50px; margin-bottom: 12px;
+}
+.product-title { font-size: 1.15rem; font-weight: 800; color: #fff; line-height: 1.3; margin-bottom: 7px; }
+.product-sub { font-size: .84rem; color: rgba(255,255,255,.6); line-height: 1.6; }
+.product-card-body { padding: 22px 24px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+.product-anchor {
+  background: var(--sand); border-radius: 8px; padding: 14px 16px;
+  border-left: 3px solid var(--amber2);
+}
+.product-anchor-label { font-size: .65rem; text-transform: uppercase; letter-spacing: .8px; color: var(--amber2); font-weight: 700; margin-bottom: 3px; }
+.product-anchor-val { font-size: 1.5rem; font-weight: 800; color: var(--slate); line-height: 1.1; }
+.product-anchor-sub { font-size: .76rem; color: var(--muted); margin-top: 2px; }
+.product-bullets { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.product-bullets li {
+  font-size: .84rem; color: var(--muted);
+  display: flex; align-items: flex-start; gap: 9px; line-height: 1.5;
+}
+.product-bullets li::before { content: '→'; color: var(--amber2); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+.impact-section { background: var(--amber2); color: #fff; }
+.impact-inner { max-width: 1160px; margin: 0 auto; padding: 60px 52px; }
+.impact-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 40px; background: rgba(0,0,0,.12); border-radius: var(--r); overflow: hidden; }
+.impact-item { background: rgba(255,255,255,.08); padding: 28px 24px; text-align: center; }
+.impact-item:hover { background: rgba(255,255,255,.14); }
+.impact-num { font-size: 2.4rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 8px; }
+.impact-label { font-size: .78rem; color: rgba(255,255,255,.8); line-height: 1.5; }
+
+.about-section { background: var(--slate); color: #fff; }
+.about-section .section-eyebrow { color: var(--amber3); }
+.about-grid { display: grid; grid-template-columns: 210px 1fr; gap: 56px; align-items: center; margin-top: 40px; }
+.about-photo-wrap { position: relative; }
+.about-photo {
+  width: 190px; height: 190px; border-radius: 50%;
+  object-fit: cover; object-position: center top;
+  border: 4px solid var(--amber2); box-shadow: 0 8px 40px rgba(0,0,0,.4);
+}
+.about-photo-placeholder {
+  width: 190px; height: 190px; border-radius: 50%;
+  background: var(--slate2); border: 4px solid var(--amber2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.4rem; color: rgba(255,255,255,.3);
+}
+.about-badge {
+  position: absolute; bottom: 8px; right: 4px;
+  background: var(--amber2); color: #fff; font-size: .6rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .5px; padding: 3px 10px; border-radius: 50px;
+}
+.about-name { font-size: 1.75rem; font-weight: 800; margin-bottom: 4px; }
+.about-role { font-size: .88rem; color: var(--amber3); font-weight: 600; margin-bottom: 18px; }
+.about-body { font-size: .94rem; color: rgba(255,255,255,.68); line-height: 1.8; margin-bottom: 28px; max-width: 660px; }
+.about-body strong { color: #fff; }
+.about-cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-white {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; color: var(--amber2); font-weight: 700; font-size: .93rem;
+  padding: 13px 26px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,.2);
+  transition: transform .15s, box-shadow .2s;
+}
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(0,0,0,.25); }
+
+.cta-section {
+  background: linear-gradient(135deg, #8a4e18 0%, #1c2b38 100%);
+  color: #fff; text-align: center;
+}
+.cta-section .section { padding: 72px 52px; }
+.cta-title { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 14px; }
+.cta-sub { font-size: 1rem; opacity: .85; max-width: 520px; margin: 0 auto 32px; line-height: 1.75; }
+.cta-contact { font-size: .86rem; opacity: .7; margin-top: 20px; }
+
+footer {
+  background: var(--slate); color: rgba(255,255,255,.38);
+  text-align: center; padding: 24px 52px; font-size: .75rem;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+footer span { color: rgba(255,255,255,.62); }
+
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 960px) {
+  .topbar { padding: 0 24px; }
+  .hero-content { grid-template-columns: 1fr; gap: 32px; padding: 60px 28px; }
+  .hero-card { display: none; }
+  .section { padding: 52px 28px; }
+  .erp-inner { grid-template-columns: 1fr; gap: 32px; padding: 52px 28px; }
+  .pov-grid { grid-template-columns: 1fr; gap: 28px; }
+  .about-grid { grid-template-columns: 1fr; gap: 28px; text-align: center; }
+  .about-photo-wrap { display: flex; justify-content: center; }
+  .about-body { max-width: 100%; }
+  .about-cta-row { justify-content: center; }
+  .impact-grid { grid-template-columns: repeat(2,1fr); }
+  .strip { flex-wrap: wrap; }
+  .strip-item { flex: 1 1 calc(33% - 1px); min-width: 100px; }
+}
+@media (max-width: 580px) {
+  .hero h1 { font-size: 1.85rem; }
+  .topbar-company { display: none; }
+  .impact-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">
+      <svg class="topbar-cloud" viewBox="0 0 56 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M23.3 7.1C25.2 4.7 28 3.2 31.2 3.2c5.2 0 9.6 3.8 10.5 8.8.5-.1 1-.2 1.5-.2 4.4 0 8 3.6 8 8s-3.6 8-8 8H11c-5 0-9-4-9-9 0-4.7 3.6-8.6 8.2-9 .9-4.3 4.7-7.5 9.3-7.5 1.6 0 3.2.4 4.5 1.2-.5.8-.9 1.8-1.1 2.8-.9-.5-2-.8-3.4-.8-3.5 0-6.4 2.8-6.4 6.3v.7l-.7.1C9.6 12.9 7 15.5 7 18.8c0 3.4 2.8 6.1 6.3 6.1h32.4c3 0 5.5-2.5 5.5-5.5s-2.5-5.5-5.5-5.5c-.8 0-1.6.2-2.3.5l-1.4.6-.3-1.5C40.9 9 37.4 6.2 33.2 6.2c-3.2 0-6 1.6-7.7 4.1-.7-.6-1.5-1.1-2.2-1.5z" fill="rgba(255,255,255,.7)"/>
+      </svg>
+      <span class="topbar-wordmark">Salesforce</span>
+    </div>
+    <div class="topbar-divider"></div>
+    <span class="topbar-company">Stevens Industries</span>
+  </div>
+  <a href="mailto:atroggio@salesforce.com" class="topbar-cta">Talk to Anthony</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content fade-in">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span>Prepared exclusively for Stevens Industries · July 2026</span>
+      </div>
+      <h1>40 Reps. 3 Groups.<br>One <em>Intelligent</em><br>Customer Layer.</h1>
+      <p class="hero-sub">Stevens Industries has built a strong custom manufacturing business on craftsmanship and customer relationships. The challenge that comes with 40 reps across 3 sales groups isn't effort — it's coordination. When customer intelligence lives in individual inboxes and rep notes, every territory transition is a relationship at risk.</p>
+      <div class="hero-actions">
+        <a href="mailto:atroggio@salesforce.com?subject=Stevens Industries — Salesforce" class="btn-primary">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+          Book a Call with Anthony
+        </a>
+        <a href="#pov" class="btn-ghost">See Our POV ↓</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-label">The Opportunity at a Glance</div>
+      <div class="hero-card-stat">
+        <div class="hcs-num">40<span>+</span></div>
+        <div class="hcs-label">Sales reps across 3 groups — customer intelligence currently siloed by rep, not shared across the business</div>
+      </div>
+      <div class="hero-card-stat">
+        <div class="hcs-num">3<span>×</span></div>
+        <div class="hcs-label">Sales groups operating independently — no unified view of customer history, pipeline, or at-risk accounts</div>
+      </div>
+      <div class="hero-card-stat">
+        <div class="hcs-num">100<span>%</span></div>
+        <div class="hcs-label">Of manual outreach work eliminated for a comparable manufacturer after activating agentic marketing journeys</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item"><div class="sv">$108M</div><div class="sl">Annual Revenue</div></div>
+  <div class="strip-item"><div class="sv">500</div><div class="sl">Employees</div></div>
+  <div class="strip-item"><div class="sv">40</div><div class="sl">Sales Reps</div></div>
+  <div class="strip-item"><div class="sv">3</div><div class="sl">Sales Groups</div></div>
+  <div class="strip-item"><div class="sv">Custom</div><div class="sl">Manufacturer</div></div>
+</div>
+
+<hr class="hr">
+
+<!-- POV -->
+<section class="pov-section" id="pov">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Our Point of View</div>
+    <h2 class="section-title">The ERP Runs the Business.<br>This Runs the Customer Relationship.</h2>
+    <p class="section-sub">Stevens already has the right instinct — the question of whether to add a customer engagement layer isn't new. The hesitation has been about duplication: why add something that overlaps with what the ERP already tracks? The answer is that an ERP and a customer engagement platform aren't competitors. They solve completely different problems.</p>
+
+    <div class="pov-grid">
+      <div class="pov-statement">
+        <blockquote>"Your ERP knows every order Stevens has ever shipped. But it has no idea that a prospect in your pipeline went quiet three weeks ago, that a rep just left and took their contact history with them, or that <em>a key account hasn't been touched in 60 days.</em>"</blockquote>
+        <p>That's not an ERP problem — it's a customer relationship problem, and it requires a different layer. The platform we're proposing sits on top of your ERP, not instead of it. It reads your order history and uses it to drive intelligent, automated outreach — re-engaging prospects before they go cold, keeping customers warm between rep visits, and giving management a unified view across all three sales groups without asking anyone to duplicate data entry.</p>
+      </div>
+      <div class="pov-points">
+        <div class="pov-point">
+          <div class="pov-point-icon">🚪</div>
+          <div class="pov-point-body">
+            <strong>Every rep transition is a relationship at risk</strong>
+            <p>When a rep changes territory or leaves, the contacts and conversations they managed go with them — unless they live in a system. A unified customer record means the next rep picks up exactly where the last one left off, with full context and no relationship gap.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">🤖</div>
+          <div class="pov-point-body">
+            <strong>Prospects go cold between rep touchpoints — agents don't let that happen</strong>
+            <p>Custom manufacturing sales cycles are long. A prospect who's engaged today but doesn't hear back for three weeks is at risk. AI agents keep the conversation alive autonomously — sending the right follow-up at the right cadence, so reps re-engage warm prospects instead of cold ones.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">👁️</div>
+          <div class="pov-point-body">
+            <strong>Three sales groups, zero unified visibility</strong>
+            <p>Management currently has no single view across casework, millwork, and other product groups — who's active, who's at risk, which accounts are overlapping. A unified customer layer gives leadership the cross-group visibility to make better decisions without asking reps to file more reports.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">🔗</div>
+          <div class="pov-point-body">
+            <strong>ERP data becomes a marketing asset, not just an operations record</strong>
+            <p>Order history sitting in an ERP is operational data. The same data connected to an agentic outreach layer becomes a signal: a customer who bought casework 18 months ago and hasn't reordered is a re-engagement opportunity. That intelligence requires bridging the ERP — not replacing it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- ERP REFRAME -->
+<section class="erp-section">
+  <div class="erp-inner fade-in">
+    <div>
+      <div class="erp-eyebrow">Addressing the ERP Question Directly</div>
+      <h2 class="erp-title">Not a Replacement.<br><em>The Layer on Top.</em></h2>
+      <p class="erp-sub">The most common concern we hear from manufacturers with a strong ERP is: "We don't want to duplicate our data." That's the right instinct — and it's exactly what we're designed to prevent. The platform connects to your ERP rather than competing with it.</p>
+      <p class="erp-sub" style="margin-top:0">Your ERP owns transactions. This owns the customer relationship. They do different jobs, and together they're more powerful than either one alone.</p>
+      <div class="erp-points">
+        <div class="erp-point">
+          <div class="erp-point-icon">📦</div>
+          <div>
+            <strong>ERP: what was ordered, when, and for how much</strong>
+            <p>Transactions, fulfillment, inventory, invoicing — the ERP does this better than anything else. We don't touch it.</p>
+          </div>
+        </div>
+        <div class="erp-point">
+          <div class="erp-point-icon">🤝</div>
+          <div>
+            <strong>Customer layer: who the relationship is with and where it's going</strong>
+            <p>Prospect conversations, follow-up cadences, territory history, cross-group account visibility, and automated outreach — none of this lives in an ERP, and it shouldn't.</p>
+          </div>
+        </div>
+        <div class="erp-point">
+          <div class="erp-point-icon">🔄</div>
+          <div>
+            <strong>The integration is the value — not the duplication</strong>
+            <p>When order history from the ERP flows into the customer layer, it becomes actionable: a lapsed account triggers an outreach, a rep sees full purchase context before a call, and AI identifies cross-sell based on what comparable customers have bought. No manual entry. No duplication.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="erp-card-group">
+      <div class="erp-stat-card">
+        <div class="erp-stat-num">100%</div>
+        <div class="erp-stat-headline">Manual Campaign Work Eliminated — Kitchen Magic</div>
+        <div class="erp-stat-body">A comparable manufacturer with an existing ERP replaced all manual outreach with automated, agentic journeys — without touching their ERP or duplicating data. Their team focuses on closing, not on managing lists and follow-up reminders.</div>
+        <span class="erp-tag">Agentic Marketing + ERP Integration</span>
+      </div>
+      <div class="erp-stat-card">
+        <div class="erp-stat-num count-up" data-target="4" data-suffix="×">4×</div>
+        <div class="erp-stat-headline">Order Growth — Sutton Tools</div>
+        <div class="erp-stat-body">A 4th-generation family manufacturer unified their customer data on top of their existing systems and activated agentic outreach — without replacing their operational infrastructure. Orders quadrupled and reps spent more time selling.</div>
+        <span class="erp-tag">Unified Data + Agentic Outreach</span>
+      </div>
+      <div class="erp-stat-card">
+        <div class="erp-stat-num count-up" data-target="289" data-suffix="%">289%</div>
+        <div class="erp-stat-headline">ROI — Forrester TEI Study 2024</div>
+        <div class="erp-stat-body">Forrester's 2024 study on a composite manufacturer found 289% ROI and $9.6M NPV over 3 years — on the same platform, integrated with an existing ERP, without replacing it.</div>
+        <span class="erp-tag">Forrester TEI Study 2024</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- PROOF -->
+<section class="proof-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Customer Proof</div>
+    <h2 class="section-title">What Manufacturers Like Stevens Are Building</h2>
+    <p class="section-sub">Results from custom manufacturers and B2B companies with similar sales structures, ERP environments, and multi-group coordination challenges.</p>
+    <div class="proof-grid">
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Sutton Tools</span>
+          <span class="proof-tag">Agentic Marketing + AI</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat count-up" data-target="4" data-suffix="×">4×</div>
+          <div class="proof-desc">A 4th-generation family manufacturer unified customer data across their sales teams and deployed agentic outreach — online orders quadrupled and reps shifted from reactive follow-up to intelligence-driven selling. Same play for Stevens across 3 sales groups.</div>
+          <div class="proof-industry">Custom Manufacturer · Agentic Marketing + Unified Data</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Kitchen Magic</span>
+          <span class="proof-tag">Automated Outreach</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">100%</div>
+          <div class="proof-desc">Replaced all manual outreach with autonomous agentic journeys — prospect follow-up, customer re-engagement, and cross-sell all running without human intervention. Their reps close deals; the platform manages the in-between.</div>
+          <div class="proof-industry">Custom Manufacturer · Autonomous Outreach Journeys</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Forrester TEI 2024</span>
+          <span class="proof-tag">Platform ROI</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat count-up" data-target="289" data-suffix="%">289%</div>
+          <div class="proof-desc">Forrester's independently commissioned study on a composite manufacturer found 289% ROI and $9.6M NPV over 3 years — integrated on top of an existing ERP, without replacing it. A shareable business case is available.</div>
+          <div class="proof-industry">Composite Manufacturer · Forrester TEI Study 2024</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">EJOT Manufacturing</span>
+          <span class="proof-tag">AI for Sales</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">$2M+</div>
+          <div class="proof-desc">A family-owned mid-market manufacturer deployed agentic AI across their sales team — surfacing the right accounts, automating follow-up cadences, and giving management unified pipeline visibility across business units. Direct parallel to Stevens' multi-group coordination challenge.</div>
+          <div class="proof-industry">Family-Owned Mfg · Agentic AI for Sales Teams</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- CAPABILITIES -->
+<section class="products-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">What We're Building Together</div>
+    <h2 class="section-title">Two Capabilities. Built for a Multi-Group Sales Org.</h2>
+    <p class="section-sub">Agentic marketing and unified customer data work together — the data makes every outreach smarter, and every autonomous interaction feeds back into the same intelligence layer. Your reps spend their time selling, not managing follow-up queues.</p>
+
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <span class="product-cloud-tag">Agentic Marketing</span>
+          <div class="product-title">Every Prospect Followed Up. Every Customer Kept Warm.</div>
+          <div class="product-sub">AI agents manage the in-between — the follow-ups, re-engagement touches, and prospect nurture that reps intend to do but don't always get to. Autonomous, consistent, and always on.</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-anchor">
+            <div class="product-anchor-label">Comparable Result</div>
+            <div class="product-anchor-val">100% manual work eliminated</div>
+            <div class="product-anchor-sub">Kitchen Magic after deploying autonomous outreach</div>
+          </div>
+          <ul class="product-bullets">
+            <li>AI agents follow up with prospects on a defined cadence autonomously — no rep action required until the prospect responds</li>
+            <li>Customers who haven't been touched in 60 days get a personalized re-engagement sequence triggered automatically from order history</li>
+            <li>Territory transitions handled gracefully — when a rep changes, the new rep inherits a warm, active sequence, not a cold contact list</li>
+            <li>Cross-sell journeys fire when a customer's purchase history suggests an adjacent product they haven't bought yet</li>
+            <li>Each of the 3 sales groups runs its own segment-specific journeys — unified platform, distinct outreach strategies per group</li>
+            <li>Reps get a daily AI-surfaced priority list: who to call, why, and what context to bring</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <span class="product-cloud-tag">Data Cloud</span>
+          <div class="product-title">One Customer Record. Across All Three Groups.</div>
+          <div class="product-sub">Unify contact history, ERP order data, and sales activity into a single customer record — so every rep and every agent always has the full picture, regardless of which group owns the account.</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-anchor">
+            <div class="product-anchor-label">Core Capability</div>
+            <div class="product-anchor-val">ERP-connected, not ERP-replacing</div>
+            <div class="product-anchor-sub">Order history flows in — no manual entry, no duplication</div>
+          </div>
+          <ul class="product-bullets">
+            <li>ERP integration pulls order history directly — reps see full purchase context without leaving the platform</li>
+            <li>Contact records survive rep transitions — territory changes update ownership, history stays intact</li>
+            <li>Cross-group account visibility: management sees the full Stevens relationship, not just one group's slice</li>
+            <li>AI propensity scoring identifies which dormant accounts are most likely to re-engage this quarter</li>
+            <li>Duplicate detection across groups — if two reps are touching the same account, the platform flags it before it becomes a conflict</li>
+            <li>Real-time segment updates — a prospect who just opened a proposal moves instantly to priority outreach</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<section style="background:#f0ebe4; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="section fade-in" style="padding-top:52px; padding-bottom:52px;">
+    <div class="section-eyebrow">Why Now</div>
+    <h2 class="section-title">The Cost of Waiting Is Already Accumulating</h2>
+    <p class="section-sub" style="max-width:720px;">This isn't a future problem. The relationship gaps, rep transition risks, and missed follow-ups are happening today — on every shift, across all three sales groups.</p>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin-top:36px;">
+
+      <div style="background:var(--warm); border-radius:var(--r); border:1px solid var(--border); border-left:4px solid var(--amber2); padding:24px 26px;">
+        <div style="font-size:1.4rem; margin-bottom:10px;">🏃</div>
+        <div style="font-size:.88rem; font-weight:700; color:var(--slate); margin-bottom:8px;">HubSpot and Dynamics were evaluated — the gap is wider now</div>
+        <div style="font-size:.84rem; color:var(--muted); line-height:1.65;">Stevens has already recognized the need and evaluated solutions. Every quarter without one is a quarter where prospect follow-up is inconsistent, rep transitions create relationship gaps, and management is making decisions without full cross-group visibility. The case was already made internally — the question is just execution.</div>
+      </div>
+
+      <div style="background:var(--warm); border-radius:var(--r); border:1px solid var(--border); border-left:4px solid var(--amber2); padding:24px 26px;">
+        <div style="font-size:1.4rem; margin-bottom:10px;">🔄</div>
+        <div style="font-size:.88rem; font-weight:700; color:var(--slate); margin-bottom:8px;">The next rep transition is already coming</div>
+        <div style="font-size:.84rem; color:var(--muted); line-height:1.65;">With 40 reps across 3 groups, territory changes and turnover are a regular reality. Every transition without a unified customer record is a period where institutional knowledge walks out the door. The sooner the platform is live, the sooner that risk is mitigated — for the next transition, and every one after it.</div>
+      </div>
+
+      <div style="background:var(--warm); border-radius:var(--r); border:1px solid var(--border); border-left:4px solid var(--amber2); padding:24px 26px;">
+        <div style="font-size:1.4rem; margin-bottom:10px;">🚀</div>
+        <div style="font-size:.88rem; font-weight:700; color:var(--slate); margin-bottom:8px;">Start with one group — prove it, then expand</div>
+        <div style="font-size:.84rem; color:var(--muted); line-height:1.65;">We're not proposing a big-bang rollout across all three sales groups at once. A focused pilot scoped to casework services — Stevens' core — gets the platform live, the ERP integrated, and results measurable without disrupting the other groups. Expand when it's proven, not before.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="impact-section">
+  <div class="impact-inner fade-in">
+    <div class="section-eyebrow" style="color:rgba(255,255,255,.85)">The Business Case</div>
+    <h2 class="section-title" style="color:#fff">The ROI Is Already Proven in Custom Manufacturing</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,.8); max-width:700px">Benchmarks from Forrester's 2024 Total Economic Impact study and comparable manufacturer deployments on the Salesforce platform.</p>
+    <div class="impact-grid">
+      <div class="impact-item">
+        <div class="impact-num count-up" data-target="289" data-suffix="%">289%</div>
+        <div class="impact-label">Return on Investment<br>over 3 years</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num">$9.6M</div>
+        <div class="impact-label">Net Present Value<br>composite manufacturer</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num count-up" data-target="4" data-suffix="×">4×</div>
+        <div class="impact-label">Order growth<br>Sutton Tools</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num">100%</div>
+        <div class="impact-label">Manual outreach eliminated<br>Kitchen Magic</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Who You're Talking To</div>
+    <h2 class="section-title" style="color:#fff">A Peer, Not a Pitch.</h2>
+    <div class="about-grid">
+      <div class="about-photo-wrap">
+        <img src="anthony.png" alt="Anthony Troggio" class="about-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="about-photo-placeholder" style="display:none">AT</div>
+        <span class="about-badge">MFG &amp; Auto · West</span>
+      </div>
+      <div>
+        <div class="about-name">Anthony Troggio</div>
+        <div class="about-role">Digital Transformation Executive — Manufacturing &amp; Automotive | Salesforce</div>
+        <div class="about-body">
+          I work with manufacturers who already have an ERP and aren't sure where a customer engagement layer fits. <strong>The answer is always the same: it's not a replacement — it's what goes on top.</strong> The ERP runs your operations. This runs your customer relationships. They solve completely different problems, and together they're more powerful than either one alone.<br><br>
+          When we meet, I'll show you exactly how the ERP integration works, walk through what the platform would look like for Stevens' three sales groups, and give you an honest read on what a scoped pilot would involve. No big-bang rollout, no disruption to what's working. Dad, family man, straight shooter.
+        </div>
+        <div class="about-cta-row">
+          <a href="mailto:atroggio@salesforce.com?subject=Stevens Industries — Let's Talk" class="btn-white">
+            <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+            atroggio@salesforce.com
+          </a>
+          <a href="tel:7654307903" class="btn-ghost" style="color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.2)">
+            <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            765-430-7903
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section fade-in">
+    <div class="cta-title">Ready to see what this looks like for Stevens?</div>
+    <p class="cta-sub">30 minutes. I'll show you the ERP integration, walk through what agentic outreach looks like across your sales groups, and give you an honest picture of a scoped pilot starting with casework.</p>
+    <a href="mailto:atroggio@salesforce.com?subject=Stevens Industries — Let's Talk" class="btn-white">
+      <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="var(--amber2)" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      Book Time with Anthony
+    </a>
+    <div class="cta-contact">atroggio@salesforce.com &nbsp;·&nbsp; 765-430-7903</div>
+  </div>
+</section>
+
+<footer>
+  <span>Anthony Troggio</span> · Digital Transformation Executive, Salesforce · Manufacturing &amp; Automotive, West<br>
+  <span style="font-size:.68rem;opacity:.5;margin-top:6px;display:block">Prepared exclusively for Stevens Industries · July 2026 · Confidential</span>
+</footer>
+
+<script>
+const fadeObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); fadeObserver.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+function animateCount(el) {
+  const raw = el.dataset.target;
+  const isFloat = raw && raw.includes('.');
+  const suffix = el.dataset.suffix || '';
+  const target = parseFloat(raw);
+  if (isNaN(target)) return;
+  const duration = 1800;
+  const start = performance.now();
+  function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const value = target * ease(progress);
+    el.textContent = (isFloat ? value.toFixed(1) : Math.floor(value).toLocaleString()) + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = (isFloat ? target.toFixed(1) : target.toLocaleString()) + suffix;
+  }
+  requestAnimationFrame(step);
+}
+const countObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { animateCount(e.target); countObserver.unobserve(e.target); }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
+</script>
+</body>
+</html>
