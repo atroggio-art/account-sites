@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Meissner Filtration × Salesforce | A Custom Brief from Anthony Troggio</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #f0f2f8;
+  color: #0d1428;
+  line-height: 1.6;
+  font-size: 16px;
+}
+a { color: inherit; text-decoration: none; }
+
+:root {
+  --indigo:  #1e2d6b;
+  --indigo2: #2a3e90;
+  --indigo3: #3a54b8;
+  --violet:  #6d28d9;
+  --violet2: #7c3aed;
+  --violet3: #a78bfa;
+  --slate:   #f0f2f8;
+  --warm:    #f8f9fc;
+  --muted:   #3a4570;
+  --border:  #c8ceea;
+  --shadow:  0 2px 20px rgba(30,45,107,.09);
+  --r:       12px;
+}
+
+.topbar {
+  background: var(--indigo);
+  padding: 0 48px; height: 54px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  border-bottom: 3px solid var(--violet2);
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-logo { display: flex; align-items: center; gap: 8px; }
+.topbar-cloud { width: 22px; height: 16px; }
+.topbar-wordmark { color: #fff; font-size: .8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: .92; }
+.topbar-divider { width: 1px; height: 20px; background: rgba(255,255,255,.18); }
+.topbar-company { color: rgba(255,255,255,.5); font-size: .8rem; }
+.topbar-cta {
+  background: var(--violet2); color: #fff; font-size: .75rem; font-weight: 700;
+  padding: 8px 20px; border-radius: 50px; letter-spacing: .3px;
+  transition: background .2s, transform .1s;
+}
+.topbar-cta:hover { background: var(--violet3); color: var(--indigo); transform: translateY(-1px); }
+
+.hero {
+  position: relative; min-height: 620px;
+  display: flex; align-items: center; overflow: hidden;
+  background: var(--indigo);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1582719471384-894fbb16e074?auto=format&fit=crop&w=1800&q=80');
+  background-size: cover; background-position: center 45%;
+  opacity: .65;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, rgba(30,45,107,.97) 42%, rgba(30,45,107,.5) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 1160px; margin: 0 auto;
+  padding: 90px 52px; width: 100%;
+  display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: center;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 24px;
+  background: rgba(109,40,217,.2); border: 1px solid rgba(109,40,217,.45);
+  border-radius: 50px; padding: 6px 16px 6px 11px;
+}
+.hero-eyebrow-dot { width: 8px; height: 8px; background: var(--violet3); border-radius: 50%; animation: pulse 2.2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+.hero-eyebrow span { font-size: .72rem; font-weight: 700; color: var(--violet3); text-transform: uppercase; letter-spacing: 1px; }
+.hero h1 {
+  font-size: clamp(2rem, 4.2vw, 3.1rem); font-weight: 800;
+  color: #fff; line-height: 1.12; letter-spacing: -.5px;
+  max-width: 640px; margin-bottom: 22px;
+}
+.hero h1 em { color: var(--violet3); font-style: normal; }
+.hero-sub {
+  font-size: 1.05rem; color: rgba(255,255,255,.7);
+  max-width: 540px; line-height: 1.75; margin-bottom: 38px;
+}
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--violet2); color: #fff; font-weight: 700; font-size: .95rem;
+  padding: 14px 28px; border-radius: 8px;
+  box-shadow: 0 4px 22px rgba(109,40,217,.4);
+  transition: background .2s, transform .15s, box-shadow .2s;
+}
+.btn-primary:hover { background: var(--violet3); color: var(--indigo); transform: translateY(-2px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: transparent; color: rgba(255,255,255,.75); font-weight: 600; font-size: .9rem;
+  padding: 14px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,.2);
+  transition: border-color .2s, color .2s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+
+.hero-card {
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px; padding: 32px 28px; backdrop-filter: blur(8px);
+}
+.hero-card-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--violet3); margin-bottom: 20px; }
+.hero-card-stat { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,.1); }
+.hero-card-stat:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.hcs-num { font-size: 2.2rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px; }
+.hcs-num span { color: var(--violet3); }
+.hcs-label { font-size: .8rem; color: rgba(255,255,255,.5); line-height: 1.4; }
+
+.strip { background: var(--indigo2); display: flex; border-bottom: 1px solid rgba(255,255,255,.05); }
+.strip-item { flex: 1; padding: 22px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,.07); }
+.strip-item:last-child { border-right: none; }
+.sv { font-size: 1.65rem; font-weight: 800; color: var(--violet3); }
+.sl { font-size: .67rem; text-transform: uppercase; letter-spacing: .6px; color: rgba(255,255,255,.42); margin-top: 5px; }
+
+.section { max-width: 1160px; margin: 0 auto; padding: 64px 52px; }
+.section-eyebrow { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--indigo2); margin-bottom: 10px; }
+.section-title { font-size: clamp(1.5rem, 2.8vw, 2.1rem); font-weight: 800; color: var(--indigo); line-height: 1.2; margin-bottom: 14px; }
+.section-sub { font-size: .97rem; color: var(--muted); max-width: 640px; line-height: 1.75; }
+.hr { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+.pov-section { background: var(--warm); border-top: 4px solid var(--violet2); }
+.pov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-top: 44px; }
+.pov-statement {
+  background: linear-gradient(145deg, var(--indigo) 0%, var(--indigo2) 100%);
+  border-radius: var(--r); padding: 38px 36px; color: #fff;
+}
+.pov-statement blockquote {
+  font-size: 1.22rem; font-weight: 700; line-height: 1.5;
+  margin-bottom: 18px; border-left: 3px solid var(--violet3); padding-left: 18px;
+}
+.pov-statement blockquote em { color: var(--violet3); font-style: normal; }
+.pov-statement p { font-size: .9rem; color: rgba(255,255,255,.68); line-height: 1.78; }
+.pov-points { display: flex; flex-direction: column; gap: 16px; }
+.pov-point {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 20px; background: var(--slate); border-radius: var(--r);
+  border-left: 3px solid var(--violet2);
+}
+.pov-point-icon { font-size: 1.35rem; flex-shrink: 0; margin-top: 1px; }
+.pov-point-body strong { display: block; font-size: .92rem; font-weight: 700; color: var(--indigo); margin-bottom: 5px; }
+.pov-point-body p { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+
+.proof-section { background: var(--slate); }
+.proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 20px; margin-top: 44px; }
+.proof-card {
+  background: var(--warm); border-radius: var(--r);
+  border: 1px solid var(--border); overflow: hidden;
+  box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s;
+}
+.proof-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(30,45,107,.12); }
+.proof-card-top {
+  background: linear-gradient(135deg, var(--indigo), var(--indigo2));
+  padding: 18px 22px; display: flex; align-items: center; justify-content: space-between;
+}
+.proof-company { font-size: .88rem; font-weight: 800; color: #fff; }
+.proof-tag {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+  background: rgba(109,40,217,.35); color: var(--violet3); border-radius: 50px; padding: 3px 10px;
+}
+.proof-body { padding: 20px 22px; }
+.proof-stat { font-size: 2rem; font-weight: 800; color: var(--violet2); margin-bottom: 5px; }
+.proof-desc { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+.proof-industry { font-size: .68rem; text-transform: uppercase; letter-spacing: .5px; color: #6070a0; font-weight: 600; margin-top: 12px; }
+
+.products-section { background: var(--warm); }
+.products-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-top: 44px; }
+.product-card {
+  border-radius: var(--r); border: 1px solid var(--border);
+  overflow: hidden; box-shadow: var(--shadow);
+  display: grid; grid-template-columns: 360px 1fr;
+  transition: transform .2s, box-shadow .2s;
+}
+.product-card:hover { transform: translateY(-3px); box-shadow: 0 10px 36px rgba(30,45,107,.1); }
+.product-card-top { background: linear-gradient(145deg, var(--indigo), var(--indigo3)); padding: 36px 32px; }
+.product-cloud-tag {
+  display: inline-block; background: rgba(109,40,217,.3); color: var(--violet3);
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px;
+  padding: 3px 11px; border-radius: 50px; margin-bottom: 14px;
+}
+.product-title { font-size: 1.2rem; font-weight: 800; color: #fff; line-height: 1.3; margin-bottom: 10px; }
+.product-sub { font-size: .86rem; color: rgba(255,255,255,.62); line-height: 1.65; margin-bottom: 22px; }
+.product-anchor {
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 10px; padding: 14px 16px;
+}
+.product-anchor-label { font-size: .62rem; text-transform: uppercase; letter-spacing: .8px; color: var(--violet3); font-weight: 700; margin-bottom: 4px; }
+.product-anchor-val { font-size: 1.4rem; font-weight: 800; color: #fff; line-height: 1.2; }
+.product-anchor-sub { font-size: .74rem; color: rgba(255,255,255,.5); margin-top: 2px; }
+.product-card-body { padding: 28px 32px; display: flex; flex-direction: column; gap: 14px; background: var(--warm); }
+.product-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.product-bullets li {
+  font-size: .85rem; color: var(--muted);
+  display: flex; align-items: flex-start; gap: 9px; line-height: 1.55;
+}
+.product-bullets li::before { content: '→'; color: var(--violet2); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.product-section-label { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--indigo2); margin-bottom: 4px; }
+
+.impact-section { background: var(--indigo2); color: #fff; }
+.impact-inner { max-width: 1160px; margin: 0 auto; padding: 60px 52px; }
+.impact-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 40px; background: rgba(0,0,0,.15); border-radius: var(--r); overflow: hidden; }
+.impact-item { background: rgba(255,255,255,.08); padding: 28px 24px; text-align: center; transition: background .2s; }
+.impact-item:hover { background: rgba(255,255,255,.14); }
+.impact-num { font-size: 2.4rem; font-weight: 800; color: var(--violet3); line-height: 1; margin-bottom: 8px; }
+.impact-label { font-size: .78rem; color: rgba(255,255,255,.8); line-height: 1.5; }
+
+.about-section { background: var(--indigo); color: #fff; }
+.about-section .section-eyebrow { color: var(--violet3); }
+.about-team { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 40px; }
+.about-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 28px; display: flex; gap: 20px; align-items: flex-start; }
+.about-card-photo { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; object-position: center top; border: 3px solid var(--violet2); flex-shrink: 0; }
+.about-card-photo-placeholder { width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,.1); border: 3px solid var(--violet2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: rgba(255,255,255,.3); }
+.about-card-info { flex: 1; }
+.about-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 2px; }
+.about-contact { font-size: .78rem; color: var(--violet3); margin-bottom: 8px; }
+.about-role { font-size: .78rem; color: rgba(255,255,255,.5); font-weight: 500; margin-bottom: 12px; }
+.about-body { font-size: .88rem; color: rgba(255,255,255,.68); line-height: 1.75; }
+.about-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.btn-white {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; color: var(--indigo); font-weight: 700; font-size: .93rem;
+  padding: 13px 26px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,.2);
+  transition: transform .15s, box-shadow .2s;
+}
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(0,0,0,.25); }
+
+.cta-section {
+  background: linear-gradient(135deg, #0a0f28 0%, #1e2d6b 100%);
+  color: #fff; text-align: center;
+}
+.cta-section .section { padding: 72px 52px; }
+.cta-title { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 14px; }
+.cta-sub { font-size: 1rem; opacity: .85; max-width: 520px; margin: 0 auto 32px; line-height: 1.75; }
+.cta-contact { font-size: .86rem; opacity: .7; margin-top: 20px; }
+
+footer {
+  background: var(--indigo); color: rgba(255,255,255,.38);
+  text-align: center; padding: 24px 52px; font-size: .75rem;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+footer span { color: rgba(255,255,255,.62); }
+
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 960px) {
+  .topbar { padding: 0 24px; }
+  .hero-content { grid-template-columns: 1fr; gap: 32px; padding: 60px 28px; }
+  .hero-card { display: none; }
+  .section { padding: 52px 28px; }
+  .pov-grid { grid-template-columns: 1fr; gap: 28px; }
+  .product-card { grid-template-columns: 1fr; }
+  .about-team { grid-template-columns: 1fr; }
+  .about-card { flex-direction: column; align-items: center; text-align: center; }
+  .about-cta-row { justify-content: center; }
+  .impact-grid { grid-template-columns: repeat(2,1fr); }
+  .strip { flex-wrap: wrap; }
+  .strip-item { flex: 1 1 calc(33% - 1px); min-width: 100px; }
+}
+@media (max-width: 580px) {
+  .hero h1 { font-size: 1.85rem; }
+  .topbar-company { display: none; }
+  .impact-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="topbar-left">
+    <div class="topbar-logo">
+      <svg class="topbar-cloud" viewBox="0 0 56 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M23.3 7.1C25.2 4.7 28 3.2 31.2 3.2c5.2 0 9.6 3.8 10.5 8.8.5-.1 1-.2 1.5-.2 4.4 0 8 3.6 8 8s-3.6 8-8 8H11c-5 0-9-4-9-9 0-4.7 3.6-8.6 8.2-9 .9-4.3 4.7-7.5 9.3-7.5 1.6 0 3.2.4 4.5 1.2-.5.8-.9 1.8-1.1 2.8-.9-.5-2-.8-3.4-.8-3.5 0-6.4 2.8-6.4 6.3v.7l-.7.1C9.6 12.9 7 15.5 7 18.8c0 3.4 2.8 6.1 6.3 6.1h32.4c3 0 5.5-2.5 5.5-5.5s-2.5-5.5-5.5-5.5c-.8 0-1.6.2-2.3.5l-1.4.6-.3-1.5C40.9 9 37.4 6.2 33.2 6.2c-3.2 0-6 1.6-7.7 4.1-.7-.6-1.5-1.1-2.2-1.5z" fill="rgba(255,255,255,.7)"/>
+      </svg>
+      <span class="topbar-wordmark">Salesforce</span>
+    </div>
+    <div class="topbar-divider"></div>
+    <span class="topbar-company">Meissner Filtration Products</span>
+  </div>
+  <a href="mailto:atroggio@salesforce.com" class="topbar-cta">Talk to Anthony</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content fade-in">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span>Prepared exclusively for Meissner Filtration · July 2026</span>
+      </div>
+      <h1>Precision Products<br>Deserve a <em>Precision</em><br>Commercial Platform.</h1>
+      <p class="hero-sub">Meissner builds single-use systems and microfiltration products that go into the world's most regulated manufacturing environments — including nearly every COVID-19 vaccine facility at peak production. Every quote is a configured assembly built from validated components, every account is a long-term pharma or biotech relationship, and every commercial decision carries regulatory weight. A generic CRM wasn't built for this. A purpose-built manufacturing platform was.</p>
+      <div class="hero-actions">
+        <a href="mailto:atroggio@salesforce.com?subject=Meissner Filtration — Manufacturing Cloud" class="btn-primary">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+          Book a Call with Anthony
+        </a>
+        <a href="#pov" class="btn-ghost">See Our POV ↓</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-label">The Opportunity at a Glance</div>
+      <div class="hero-card-stat">
+        <div class="hcs-num">$250<span>M</span></div>
+        <div class="hcs-label">Athens, GA campus investment — a major expansion that demands commercial systems capable of scaling with the business, not against it</div>
+      </div>
+      <div class="hero-card-stat">
+        <div class="hcs-num">5L<span>–2,000L</span></div>
+        <div class="hcs-label">Configured single-use assembly range — fully customer-specified from a validated component library. This is a CPQ problem that generic CRMs cannot solve well.</div>
+      </div>
+      <div class="hero-card-stat">
+        <div class="hcs-num count-up" data-target="40" data-suffix="%">40%</div>
+        <div class="hcs-label">Faster quote-to-order for precision manufacturers after deploying purpose-built CPQ — accuracy on first submission, no revision cycles</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item"><div class="sv">1984</div><div class="sl">Family-Owned Since</div></div>
+  <div class="strip-item"><div class="sv">Camarillo</div><div class="sl">HQ, California</div></div>
+  <div class="strip-item"><div class="sv">~$197M</div><div class="sl">Est. Revenue</div></div>
+  <div class="strip-item"><div class="sv">Athens, GA</div><div class="sl">$250M Expansion</div></div>
+  <div class="strip-item"><div class="sv">Biopharma</div><div class="sl">Single-Use Systems</div></div>
+</div>
+
+<hr class="hr">
+
+<!-- POV -->
+<section class="pov-section" id="pov">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Our Point of View</div>
+    <h2 class="section-title">The Most Precise Bioprocessing Products<br>in the World Run on a Generic CRM. That's the Problem.</h2>
+    <p class="section-sub">Meissner's commercial team sells configured products into pharmaceutical and biotech manufacturing environments where precision, compliance, and traceability aren't optional. Microsoft Dynamics is a generic platform built for generic commercial processes. The mismatch isn't a minor inconvenience — it's a daily friction tax on the people doing the most specialized technical selling in the industry.</p>
+
+    <div class="pov-grid">
+      <div class="pov-statement">
+        <blockquote>"When a biopharma process engineer configures a custom single-use assembly for a new drug manufacturing line, the quote needs to be right the first time. A revision cycle in a regulated environment isn't a delay — <em>it's a compliance event.</em>"</blockquote>
+        <p>Meissner's commercial complexity is structural: every configured assembly is built from validated building blocks in a specific size range (5L–2,000L), sold into accounts with long-standing supply agreements and strict documentation requirements. The Athens expansion makes this more acute, not less — scaling a commercial operation built on a generic CRM into a larger organization creates compounding risk at exactly the moment the business needs the most clarity.<br><br>What we're proposing replaces Dynamics with a purpose-built commercial platform: manufacturing-specific forecasting, run-rate tracking for consumable reorders, supply agreement management, and CPQ built for configured products. One platform, built for the complexity Meissner already lives every day.</p>
+      </div>
+      <div class="pov-points">
+        <div class="pov-point">
+          <div class="pov-point-icon">🧬</div>
+          <div class="pov-point-body">
+            <strong>Configured assembly quoting is a CPQ problem — Dynamics doesn't solve it</strong>
+            <p>Every Meissner order is a custom configuration — membrane type, housing, size, sterile connector specifications — all drawn from a validated component library. Quoting this in a generic CRM means manual configuration, manual validation, and revision cycles that slow down pharma customers running on tight manufacturing schedules. Purpose-built CPQ eliminates that entirely: the configuration is built once, validated automatically, and quoted accurately every time.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">📈</div>
+          <div class="pov-point-body">
+            <strong>The Athens expansion demands commercial infrastructure that can scale</strong>
+            <p>A $250M campus investment in Athens, GA represents a step-change in Meissner's production capacity and commercial footprint. Scaling a business of this magnitude requires commercial systems that grow with it — account-based forecasting that reflects both new wins and recurring consumable volume, and sales agreement management that can handle a broader account base without manual overhead. This is the forcing function for getting off Dynamics.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">🔬</div>
+          <div class="pov-point-body">
+            <strong>Consumable reorder revenue needs its own forecasting model</strong>
+            <p>Filtration membranes and single-use consumables are a predictable recurring revenue stream — bioprocessing facilities reorder on production schedules, not on impulse. Generic CRM pipeline forecasting treats these accounts the same as new business. Manufacturing Cloud's run-rate account model separates recurring consumable revenue from new project wins — giving the CCO and sales leadership a forecast that reflects how the business actually works.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">📋</div>
+          <div class="pov-point-body">
+            <strong>Supply agreements are not contracts — they need their own system</strong>
+            <p>Meissner's long-standing relationships with pharma and biotech accounts are governed by supply agreements with pricing, volume commitments, and compliance documentation. Managing these in Dynamics means living in spreadsheets attached to CRM records. Purpose-built sales agreement management gives the commercial team visibility into terms, compliance status, and renewal windows — without manual tracking.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- PROOF -->
+<section class="proof-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Customer Proof</div>
+    <h2 class="section-title">What Happens When Precision Manufacturers<br>Move to a Purpose-Built Commercial Platform</h2>
+    <p class="section-sub">Results from regulated, specification-driven manufacturers who replaced generic CRMs with manufacturing-specific commercial infrastructure.</p>
+    <div class="proof-grid">
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Belden</span>
+          <span class="proof-tag">Manufacturing Cloud</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">500K+</div>
+          <div class="proof-desc">A precision industrial manufacturer replaced a generic commercial stack with Manufacturing Cloud — handling over 500,000 service cases per year with 98% routing accuracy. The same mismatch Meissner faces between a generic CRM and a precision manufacturing commercial motion was solved with a purpose-built platform.</div>
+          <div class="proof-industry">Precision Industrial · Manufacturing Cloud + Agentforce Service</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Thermo Fisher Scientific</span>
+          <span class="proof-tag">Revenue Cloud CPQ</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat count-up" data-target="35" data-suffix="%">35%</div>
+          <div class="proof-desc">A global life sciences and biopharma equipment manufacturer deployed Revenue Cloud CPQ for complex configured product quoting — 35% reduction in quote cycle time and a material reduction in configuration errors that previously created revision cycles with pharma customers on tight production schedules.</div>
+          <div class="proof-industry">Life Sciences · Configured Product CPQ</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Pall Corporation</span>
+          <span class="proof-tag">Manufacturing Cloud</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">2×</div>
+          <div class="proof-desc">A global filtration and separation company in the life sciences and industrial space deployed Manufacturing Cloud to replace fragmented commercial systems — doubling sales team productivity on account management and supply agreement tracking while eliminating the spreadsheet-based forecasting that couldn't separate recurring consumable revenue from new project wins.</div>
+          <div class="proof-industry">Filtration / Life Sciences · Commercial Platform Replacement</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Forrester TEI 2024</span>
+          <span class="proof-tag">Platform ROI</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat count-up" data-target="312" data-suffix="%">312%</div>
+          <div class="proof-desc">Forrester's 2024 Total Economic Impact study on Manufacturing Cloud found 312% ROI over 3 years for a composite precision manufacturer replacing a generic CRM — with payback period under 6 months. A shareable business case built for Meissner's specific situation is available on request.</div>
+          <div class="proof-industry">Composite Precision Manufacturer · Forrester TEI 2024</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- CAPABILITIES -->
+<section class="products-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">What We're Building Together</div>
+    <h2 class="section-title">A Commercial Platform Built for<br>the Way Meissner Actually Sells.</h2>
+    <p class="section-sub">Purpose-built for regulated manufacturing — configured product CPQ, run-rate account forecasting, supply agreement management, and a unified view of every pharma and biotech relationship across the commercial team.</p>
+
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-card-top">
+          <span class="product-cloud-tag">Manufacturing Cloud</span>
+          <div class="product-title">Manufacturing-Specific Commercial Infrastructure to Replace Dynamics</div>
+          <div class="product-sub">Account-based forecasting, run-rate revenue tracking, and sales agreement management built for precision manufacturing — replacing generic CRM workflows that were never designed for Meissner's commercial complexity.</div>
+          <div class="product-anchor">
+            <div class="product-anchor-label">Core Capability</div>
+            <div class="product-anchor-val">Forecast · Agree · Manage · Grow</div>
+            <div class="product-anchor-sub">One platform for every commercial motion at Meissner</div>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <div>
+            <div class="product-section-label">Account-Based Forecasting — Separate Recurring Revenue from New Wins</div>
+            <ul class="product-bullets">
+              <li>Run-rate account model tracks recurring consumable revenue by account separately from new project pipeline — the CCO finally sees a forecast that reflects how the business actually works</li>
+              <li>Sales account plans give account managers a structured view of each pharma and biotech relationship — production schedules, upcoming projects, competitive exposure, and growth opportunities in one place</li>
+              <li>Demand signals from production and supply data feed into forecasting — visible pipeline across new configurations, consumable reorders, and expansion programs at the Athens campus</li>
+            </ul>
+          </div>
+          <div>
+            <div class="product-section-label">Supply Agreement Management — Out of Spreadsheets, Into the Platform</div>
+            <ul class="product-bullets">
+              <li>Long-term supply agreements with pricing terms, volume commitments, and compliance documentation managed natively — not attached as PDFs to CRM records</li>
+              <li>Renewal visibility and alert triggers ensure no supply agreement expires without an active conversation — critical for accounts that depend on guaranteed supply for regulated manufacturing</li>
+              <li>Amendment tracking manages pricing adjustments and scope changes without breaking the original agreement record or creating version-control confusion</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <span class="product-cloud-tag">Revenue Cloud — CPQ</span>
+          <div class="product-title">Configured Assembly Quoting Built for Validated Component Libraries</div>
+          <div class="product-sub">CPQ purpose-built for the 5L–2,000L configured single-use assembly range — accurate quotes from a validated building block library, every time, with no manual configuration errors and no revision cycles.</div>
+          <div class="product-anchor">
+            <div class="product-anchor-label">Core Differentiator vs. Dynamics</div>
+            <div class="product-anchor-val">Configure → Validate → Quote → Order</div>
+            <div class="product-anchor-sub">First submission accuracy in a compliance-sensitive environment</div>
+          </div>
+        </div>
+        <div class="product-card-body">
+          <div>
+            <div class="product-section-label">Configured Product CPQ — Accuracy on First Submission</div>
+            <ul class="product-bullets">
+              <li>Validated component library built into the CPQ engine — reps and application engineers configure assemblies from pre-approved building blocks, eliminating the manual validation step that creates revision cycles</li>
+              <li>Customer-specific pricing rules, volume commitments, and contract terms applied automatically at configuration — no manual lookup, no pricing errors discovered after the quote is out</li>
+              <li>Quote-to-order in a single flow — approved configuration converts to an order record without re-keying, maintaining the documentation trail required in regulated manufacturing environments</li>
+              <li>Mobile quoting capability for field application engineers — accurate configurations generated on-site during customer technical reviews, not back at the office two days later</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<section style="background:#eaecf8; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="section fade-in" style="padding-top:52px; padding-bottom:52px;">
+    <div class="section-eyebrow">Why Now</div>
+    <h2 class="section-title">The Athens Expansion Is the Forcing Function.<br>Don't Scale Dynamics — Replace It.</h2>
+    <p class="section-sub" style="max-width:720px;">Every commercial system decision made during an expansion gets locked in for years. The window to do this right is before the Athens campus comes online — not after.</p>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin-top:36px;">
+
+      <div style="background:var(--warm); border-radius:var(--r); border:1px solid var(--border); border-left:4px solid var(--violet2); padding:24px 26px;">
+        <div style="font-size:1.4rem; margin-bottom:10px;">🏗️</div>
+        <div style="font-size:.88rem; font-weight:700; color:var(--indigo); margin-bottom:8px;">The Athens campus is a $250M bet on growth — the commercial platform needs to match</div>
+        <div style="font-size:.84rem; color:var(--muted); line-height:1.65;">Scaling a commercial operation built on Dynamics into a larger, more complex organization doesn't make the platform's limitations smaller — it makes them larger. The time to replace the commercial infrastructure is before the expansion adds accounts, adds complexity, and adds the institutional memory that makes migration harder. Right now is the easiest this decision will ever be.</div>
+      </div>
+
+      <div style="background:var(--warm); border-radius:var(--r); border:1px solid var(--border); border-left:4px solid var(--violet2); padding:24px 26px;">
+        <div style="font-size:1.4rem; margin-bottom:10px;">⏱️</div>
+        <div style="font-size:.88rem; font-weight:700; color:var(--indigo); margin-bottom:8px;">The August re-evaluation window is the moment — get ahead of the formal process</div>
+        <div style="font-size:.84rem; color:var(--muted); line-height:1.65;">Formal CRM evaluations are won before they start — by the vendor who helped define what "good" looks like before the scoring matrix was built. The pre-evaluation conversation is where we shape the criteria, address the specific Dynamics pain points, and demonstrate why a purpose-built manufacturing platform scores differently than another generic CRM. August is the window; July is the work.</div>
+      </div>
+
+      <div style="background:var(--warm); border-radius:var(--r); border:1px solid var(--border); border-left:4px solid var(--violet2); padding:24px 26px;">
+        <div style="font-size:1.4rem; margin-bottom:10px;">🚀</div>
+        <div style="font-size:.88rem; font-weight:700; color:var(--indigo); margin-bottom:8px;">A scoped pilot on CPQ proves the value before the full platform decision</div>
+        <div style="font-size:.84rem; color:var(--muted); line-height:1.65;">We don't need a multi-year implementation to prove ROI. A focused deployment of CPQ for configured single-use assembly quoting — the most differentiated and highest-friction part of the current Dynamics setup — demonstrates measurable impact on quote accuracy and cycle time within a single quarter. Prove the model on CPQ, then expand to the full commercial platform. Fast, low risk, high visibility.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="impact-section">
+  <div class="impact-inner fade-in">
+    <div class="section-eyebrow" style="color:rgba(255,255,255,.85)">The Business Case</div>
+    <h2 class="section-title" style="color:#fff">The ROI Is Documented. The Business Case Is Shareable.</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,.8); max-width:680px">Benchmarks from Forrester's 2024 Total Economic Impact study and comparable precision manufacturing and life sciences company deployments.</p>
+    <div class="impact-grid">
+      <div class="impact-item">
+        <div class="impact-num count-up" data-target="312" data-suffix="%">312%</div>
+        <div class="impact-label">ROI over 3 years<br>Forrester TEI · MFG Cloud</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num count-up" data-target="40" data-suffix="%">40%</div>
+        <div class="impact-label">Faster quote-to-order<br>configured product CPQ</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num">&lt;6 mo</div>
+        <div class="impact-label">Payback period<br>composite precision manufacturer</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num">2×</div>
+        <div class="impact-label">Sales team productivity<br>Pall Corporation deployment</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Who You're Talking To</div>
+    <h2 class="section-title" style="color:#fff">A Peer, Not a Pitch.</h2>
+    <div class="about-team">
+      <div class="about-card">
+        <img src="anthony.png" alt="Anthony Troggio" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="about-card-photo-placeholder" style="display:none">AT</div>
+        <div class="about-card-info">
+          <div class="about-name">Anthony Troggio</div>
+          <div class="about-contact"><a href="mailto:atroggio@salesforce.com" style="color:inherit">atroggio@salesforce.com</a> · <a href="tel:7654307903" style="color:inherit">765-430-7903</a></div>
+          <div class="about-role">Digital Transformation Executive — Manufacturing &amp; Automotive | Salesforce</div>
+          <p class="about-body">I work with precision and specialty manufacturers who have outgrown generic commercial platforms. The Meissner story is one I know well — technical products, spec-driven sales, supply agreements, and a commercial team that deserves tools built for the complexity they live every day. I'll give you a straight read on what the platform actually does and what a realistic pilot looks like. Dad, family man, no fluff.</p>
+        </div>
+      </div>
+      <div class="about-card">
+        <img src="kennedy-wenz.png" alt="Kennedy Wenz" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="about-card-photo-placeholder" style="display:none">KW</div>
+        <div class="about-card-info">
+          <div class="about-name">Kennedy Wenz</div>
+          <div class="about-contact"><a href="mailto:kwenz@salesforce.com" style="color:inherit">kwenz@salesforce.com</a></div>
+          <div class="about-role">Digital Transformation Executive — Manufacturing, Automotive &amp; Energy | Salesforce</div>
+          <p class="about-body">From founding EAT.org across DACH to driving Agentic AI adoption at Salesforce in San Francisco, Kennedy bridges global strategy and frontier technology. With roots in the U.S. and Germany and an MSc in Business, she translates AI and platform capabilities into outcomes precision manufacturers can implement.</p>
+        </div>
+      </div>
+    </div>
+    <div class="about-cta-row">
+      <a href="mailto:atroggio@salesforce.com?subject=Meissner Filtration — Manufacturing Cloud" class="btn-white">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+        atroggio@salesforce.com
+      </a>
+      <a href="tel:7654307903" class="btn-ghost" style="color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.2)">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        765-430-7903
+      </a>
+      <a href="mailto:kwenz@salesforce.com?subject=Meissner Filtration — Salesforce" class="btn-white">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+        kwenz@salesforce.com
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section fade-in">
+    <div class="cta-title">Ready to build a commercial platform that matches your products?</div>
+    <p class="cta-sub">30 minutes. I'll walk through what configured CPQ looks like for Meissner's assembly business, show you what Pall and Thermo Fisher built, and give you an honest picture of what a scoped pilot would involve before the August evaluation window.</p>
+    <a href="mailto:atroggio@salesforce.com?subject=Meissner Filtration — Let's Talk Before August" class="btn-white">
+      <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="var(--indigo)" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      Book Time with Anthony
+    </a>
+    <div class="cta-contact">atroggio@salesforce.com &nbsp;·&nbsp; 765-430-7903</div>
+  </div>
+</section>
+
+<footer>
+  <span>Anthony Troggio</span> · Digital Transformation Executive, Salesforce · Manufacturing &amp; Automotive, West<br>
+  <span style="font-size:.68rem;opacity:.5;margin-top:6px;display:block">Prepared exclusively for Meissner Filtration Products · July 2026 · Confidential</span>
+</footer>
+
+<script>
+const fadeObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); fadeObserver.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+function animateCount(el) {
+  const raw = el.dataset.target;
+  const suffix = el.dataset.suffix || '';
+  const target = parseFloat(raw);
+  if (isNaN(target)) return;
+  const duration = 1800;
+  const start = performance.now();
+  function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const value = target * ease(progress);
+    el.textContent = Math.floor(value).toLocaleString() + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target.toLocaleString() + suffix;
+  }
+  requestAnimationFrame(step);
+}
+const countObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { animateCount(e.target); countObserver.unobserve(e.target); }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
+</script>
+</body>
+</html>
