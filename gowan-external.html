@@ -32,24 +32,74 @@ a { color: inherit; text-decoration: none; }
 }
 
 .topbar {
-  background: var(--earth);
-  padding: 0 48px; height: 54px;
+  background: linear-gradient(135deg, #071524 0%, var(--navy) 100%);
+  padding: 0 48px; height: 72px;
   display: flex; align-items: center; justify-content: space-between;
   position: sticky; top: 0; z-index: 100;
-  border-bottom: 3px solid var(--green2);
+  box-shadow: 0 1px 0 rgba(255,255,255,.05), 0 4px 24px rgba(0,0,0,.35);
 }
-.topbar-left { display: flex; align-items: center; gap: 14px; }
-.topbar-logo { display: flex; align-items: center; gap: 8px; }
-.topbar-cloud { width: 22px; height: 16px; }
-.topbar-wordmark { color: #fff; font-size: .8rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: .92; }
-.topbar-divider { width: 1px; height: 20px; background: rgba(255,255,255,.18); }
-.topbar-company { color: rgba(255,255,255,.5); font-size: .8rem; }
+.topbar::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, #00A1E0 0%, var(--green2) 50%, var(--green3) 100%);
+}
+.topbar-partnership {
+  display: flex; align-items: center; gap: 0;
+}
+.topbar-brand {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 16px 6px 0;
+}
+.topbar-brand-sf {
+  display: flex; align-items: center; gap: 9px;
+}
+.topbar-cloud {
+  width: 34px; height: 24px; flex-shrink: 0;
+  filter: drop-shadow(0 0 8px rgba(0,161,224,.4));
+}
+.topbar-wordmark {
+  color: #fff; font-size: .95rem; font-weight: 800;
+  letter-spacing: .5px; line-height: 1;
+  text-shadow: 0 0 20px rgba(0,161,224,.3);
+}
+.topbar-x {
+  width: 1px; height: 28px;
+  background: rgba(255,255,255,.18);
+  margin: 0 18px;
+  flex-shrink: 0;
+}
+.topbar-company-group {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 0 6px 0;
+}
+.topbar-company-icon {
+  width: 28px; height: 28px; border-radius: 7px;
+  background: linear-gradient(135deg, var(--green2), var(--green3));
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; font-weight: 800; color: #fff;
+  flex-shrink: 0; letter-spacing: -.5px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.3);
+}
+.topbar-company-name {
+  display: flex; flex-direction: column; gap: 1px;
+}
+.topbar-company-label {
+  font-size: .62rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 1.2px; color: var(--green3); line-height: 1;
+}
+.topbar-company-text {
+  font-size: .88rem; font-weight: 700; color: #fff;
+  letter-spacing: .2px; line-height: 1;
+}
 .topbar-cta {
-  background: var(--green2); color: #fff; font-size: .75rem; font-weight: 700;
-  padding: 8px 20px; border-radius: 50px; letter-spacing: .3px;
-  transition: background .2s, transform .1s;
+  background: linear-gradient(135deg, var(--green2), var(--green3));
+  color: #fff; font-size: .75rem; font-weight: 700;
+  padding: 9px 22px; border-radius: 50px; letter-spacing: .3px;
+  box-shadow: 0 3px 16px rgba(0,0,0,.3);
+  transition: transform .15s, box-shadow .2s, opacity .15s;
+  white-space: nowrap;
 }
-.topbar-cta:hover { background: var(--green3); transform: translateY(-1px); }
+.topbar-cta:hover { transform: translateY(-1px); box-shadow: 0 5px 22px rgba(0,0,0,.4); opacity: .95; }
 
 .hero {
   position: relative; min-height: 620px;
@@ -255,7 +305,10 @@ footer span { color: rgba(255,255,255,.62); }
 .fade-in.visible { opacity: 1; transform: translateY(0); }
 
 @media (max-width: 960px) {
-  .topbar { padding: 0 24px; }
+  .topbar { padding: 0 24px; height: 64px; }
+  .topbar-wordmark { font-size: .85rem; }
+  .topbar-company-text { font-size: .8rem; }
+  .topbar-company-label { display: none; }
   .hero-content { grid-template-columns: 1fr; gap: 32px; padding: 60px 28px; }
   .hero-card { display: none; }
   .section { padding: 52px 28px; }
@@ -270,7 +323,8 @@ footer span { color: rgba(255,255,255,.62); }
 }
 @media (max-width: 580px) {
   .hero h1 { font-size: 1.85rem; }
-  .topbar-company { display: none; }
+  .topbar-company-group { display: none; }
+  .topbar-x { display: none; }
   .impact-grid { grid-template-columns: 1fr 1fr; }
 }
 </style>
@@ -279,17 +333,23 @@ footer span { color: rgba(255,255,255,.62); }
 
 <!-- TOPBAR -->
 <nav class="topbar">
-  <div class="topbar-left">
-    <div class="topbar-logo">
+  <div class="topbar-partnership">
+    <div class="topbar-brand topbar-brand-sf">
       <svg class="topbar-cloud" viewBox="0 0 56 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M23.3 7.1C25.2 4.7 28 3.2 31.2 3.2c5.2 0 9.6 3.8 10.5 8.8.5-.1 1-.2 1.5-.2 4.4 0 8 3.6 8 8s-3.6 8-8 8H11c-5 0-9-4-9-9 0-4.7 3.6-8.6 8.2-9 .9-4.3 4.7-7.5 9.3-7.5 1.6 0 3.2.4 4.5 1.2-.5.8-.9 1.8-1.1 2.8-.9-.5-2-.8-3.4-.8-3.5 0-6.4 2.8-6.4 6.3v.7l-.7.1C9.6 12.9 7 15.5 7 18.8c0 3.4 2.8 6.1 6.3 6.1h32.4c3 0 5.5-2.5 5.5-5.5s-2.5-5.5-5.5-5.5c-.8 0-1.6.2-2.3.5l-1.4.6-.3-1.5C40.9 9 37.4 6.2 33.2 6.2c-3.2 0-6 1.6-7.7 4.1-.7-.6-1.5-1.1-2.2-1.5z" fill="rgba(255,255,255,.7)"/>
+        <path d="M23.3 7.1C25.2 4.7 28 3.2 31.2 3.2c5.2 0 9.6 3.8 10.5 8.8.5-.1 1-.2 1.5-.2 4.4 0 8 3.6 8 8s-3.6 8-8 8H11c-5 0-9-4-9-9 0-4.7 3.6-8.6 8.2-9 .9-4.3 4.7-7.5 9.3-7.5 1.6 0 3.2.4 4.5 1.2-.5.8-.9 1.8-1.1 2.8-.9-.5-2-.8-3.4-.8-3.5 0-6.4 2.8-6.4 6.3v.7l-.7.1C9.6 12.9 7 15.5 7 18.8c0 3.4 2.8 6.1 6.3 6.1h32.4c3 0 5.5-2.5 5.5-5.5s-2.5-5.5-5.5-5.5c-.8 0-1.6.2-2.3.5l-1.4.6-.3-1.5C40.9 9 37.4 6.2 33.2 6.2c-3.2 0-6 1.6-7.7 4.1-.7-.6-1.5-1.1-2.2-1.5z" fill="#00A1E0"/>
       </svg>
       <span class="topbar-wordmark">Salesforce</span>
     </div>
-    <div class="topbar-divider"></div>
-    <span class="topbar-company">Gowan Company</span>
+    <div class="topbar-x"></div>
+    <div class="topbar-company-group">
+      <div class="topbar-company-icon">GO</div>
+      <div class="topbar-company-name">
+        <span class="topbar-company-label">Prepared for</span>
+        <span class="topbar-company-text">Gowan Company</span>
+      </div>
+    </div>
   </div>
-  <a href="mailto:atroggio@salesforce.com" class="topbar-cta">Talk to Anthony</a>
+  <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="topbar-cta">Book Time with Anthony</a>
 </nav>
 
 <!-- HERO -->
@@ -319,7 +379,7 @@ footer span { color: rgba(255,255,255,.62); }
         </div>
       </div>
       <div class="hero-actions">
-        <a href="mailto:atroggio@salesforce.com?subject=Gowan Company — Revenue Cloud" class="btn-primary">
+        <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="btn-primary">
           <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
           Book 30 Minutes with Anthony
         </a>
@@ -600,7 +660,7 @@ footer span { color: rgba(255,255,255,.62); }
       </div>
     </div>
     <div class="about-cta-row">
-      <a href="mailto:atroggio@salesforce.com?subject=Gowan Company — Revenue Cloud" class="btn-white">
+      <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="btn-white">
         <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
         atroggio@salesforce.com
       </a>
@@ -621,7 +681,7 @@ footer span { color: rgba(255,255,255,.62); }
   <div class="section fade-in">
     <div class="cta-title">Ready to close faster before next season?</div>
     <p class="cta-sub">30 minutes. I'll walk through what the platform looks like for Gowan's three channels, show you what Syngenta built, and give you an honest picture of what a scoped pilot would involve before the next planting window.</p>
-    <a href="mailto:atroggio@salesforce.com?subject=Gowan Company — Let's Talk Revenue Cloud" class="btn-white">
+    <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="btn-white">
       <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="var(--green2)" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
       Book Time with Anthony
     </a>
