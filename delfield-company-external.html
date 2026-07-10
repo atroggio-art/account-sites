@@ -43,45 +43,42 @@ img { display: block; max-width: 100%; }
   display: flex; align-items: center; gap: 0;
 }
 .topbar-brand {
-  display: flex; align-items: center; gap: 10px;
-  padding: 6px 16px 6px 0;
+  display: flex; align-items: center; gap: 12px;
+  padding: 6px 20px 6px 0;
 }
 .topbar-brand-sf {
-  display: flex; align-items: center; gap: 9px;
+  display: flex; align-items: center; gap: 11px;
 }
 .topbar-cloud {
-  width: 34px; height: 24px; flex-shrink: 0;
-  filter: drop-shadow(0 0 8px rgba(0,161,224,.4));
+  width: 40px; height: 28px; flex-shrink: 0;
+  filter: drop-shadow(0 0 10px rgba(0,161,224,.5));
+}
+.topbar-sf-text {
+  display: flex; flex-direction: column; gap: 2px;
 }
 .topbar-wordmark {
-  color: #fff; font-size: .95rem; font-weight: 800;
-  letter-spacing: .5px; line-height: 1;
+  color: #fff; font-size: 1.05rem; font-weight: 800;
+  letter-spacing: .3px; line-height: 1;
   text-shadow: 0 0 20px rgba(0,161,224,.3);
+}
+.topbar-sf-sub {
+  font-size: .58rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 1.4px; color: rgba(255,255,255,.45); line-height: 1;
 }
 .topbar-x {
   width: 1px; height: 28px;
-  background: rgba(255,255,255,.18);
-  margin: 0 18px;
+  background: rgba(255,255,255,.15);
+  margin: 0 20px;
   flex-shrink: 0;
 }
 .topbar-company-group {
   display: flex; align-items: center; gap: 10px;
-  padding: 6px 0 6px 0;
+  padding: 6px 0;
+  opacity: .7;
 }
-.topbar-logo-wrap {
-  background: rgba(255,255,255,.95);
-  border-radius: 8px;
-  width: 36px; height: 36px;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 1px 6px rgba(0,0,0,.25);
-  overflow: hidden;
+.topbar-company-name {
+  display: flex; align-items: center;
 }
-.topbar-company-logo {
-  width: 24px; height: 24px;
-  object-fit: contain; display: block;
-}
-.topbar-company-name { display: flex; align-items: center; }
 .topbar-company-text {
   font-size: .88rem; font-weight: 700; color: #fff;
   letter-spacing: .2px; line-height: 1;
@@ -210,7 +207,10 @@ footer span { color: rgba(255,255,255,.65); }
       <svg class="topbar-cloud" viewBox="0 0 56 36" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M23.3 7.1C25.2 4.7 28 3.2 31.2 3.2c5.2 0 9.6 3.8 10.5 8.8.5-.1 1-.2 1.5-.2 4.4 0 8 3.6 8 8s-3.6 8-8 8H11c-5 0-9-4-9-9 0-4.7 3.6-8.6 8.2-9 .9-4.3 4.7-7.5 9.3-7.5 1.6 0 3.2.4 4.5 1.2-.5.8-.9 1.8-1.1 2.8-.9-.5-2-.8-3.4-.8-3.5 0-6.4 2.8-6.4 6.3v.7l-.7.1C9.6 12.9 7 15.5 7 18.8c0 3.4 2.8 6.1 6.3 6.1h32.4c3 0 5.5-2.5 5.5-5.5s-2.5-5.5-5.5-5.5c-.8 0-1.6.2-2.3.5l-1.4.6-.3-1.5C40.9 9 37.4 6.2 33.2 6.2c-3.2 0-6 1.6-7.7 4.1-.7-.6-1.5-1.1-2.2-1.5z" fill="#00A1E0"/>
       </svg>
-      <span class="topbar-wordmark">Salesforce</span>
+      <div class="topbar-sf-text">
+        <span class="topbar-wordmark">Salesforce</span>
+        <span class="topbar-sf-sub">Manufacturing &amp; Automotive</span>
+      </div>
     </div>
     <div class="topbar-x"></div>
     <div class="topbar-company-group">
