@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Grimco × Salesforce | An Executive Briefing from Anthony Troggio</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #f4f4f4;
+  color: #1a1a1a;
+  line-height: 1.6;
+  font-size: 16px;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+:root {
+  --black:   #111111;
+  --black2:  #1c1c1c;
+  --black3:  #2a2a2a;
+  --red:     #c8102e;
+  --red2:    #e01530;
+  --red3:    #f03050;
+  --slate:   #f4f4f4;
+  --warm:    #fafafa;
+  --muted:   #555;
+  --border:  #ddd;
+  --shadow:  0 2px 20px rgba(0,0,0,.08);
+  --r:       12px;
+}
+
+/* ANNOUNCEMENT BAR */
+.announcement-bar {
+  background: #00A1E0;
+  color: #fff;
+  text-align: center;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .6px;
+  padding: 8px 48px;
+  position: sticky;
+  top: 0;
+  z-index: 101;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.announcement-bar strong { font-weight: 800; letter-spacing: .3px; }
+.announcement-bar .ab-dot {
+  display: inline-block;
+  width: 3px; height: 3px;
+  background: rgba(255,255,255,.6);
+  border-radius: 50%;
+  margin: 0 10px;
+  vertical-align: middle;
+  position: relative; top: -1px;
+}
+
+.topbar {
+  background: linear-gradient(135deg, #0d0d0d 0%, var(--black) 100%);
+  padding: 0 48px; height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 34px; z-index: 100;
+  box-shadow: 0 1px 0 rgba(255,255,255,.05), 0 4px 24px rgba(0,0,0,.35);
+}
+.topbar::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, #00A1E0 0%, var(--red) 60%, var(--red3) 100%);
+}
+.topbar-partnership { display: flex; align-items: center; gap: 0; }
+.topbar-brand { display: flex; align-items: center; gap: 12px; padding: 6px 20px 6px 0; }
+.topbar-brand-sf { display: flex; align-items: center; gap: 11px; }
+.topbar-cloud { width: 40px; height: 28px; flex-shrink: 0; filter: drop-shadow(0 0 10px rgba(0,161,224,.5)); }
+.topbar-wordmark { color: #fff; font-size: 1.05rem; font-weight: 800; letter-spacing: .3px; line-height: 1; }
+.topbar-x { width: 1px; height: 28px; background: rgba(255,255,255,.15); margin: 0 20px; flex-shrink: 0; }
+.topbar-company-group { display: flex; align-items: center; gap: 10px; padding: 6px 0; opacity: .7; }
+.topbar-logo-wrap { background: rgba(255,255,255,.95); border-radius: 8px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.topbar-company-logo { width: 24px; height: 24px; object-fit: contain; }
+.topbar-company-text { font-size: .88rem; font-weight: 700; color: #fff; letter-spacing: .2px; line-height: 1; }
+.topbar-cta {
+  background: var(--red);
+  color: #fff; font-size: .75rem; font-weight: 700;
+  padding: 9px 22px; border-radius: 50px; letter-spacing: .3px;
+  box-shadow: 0 3px 16px rgba(200,16,46,.4);
+  transition: transform .15s, box-shadow .2s, background .15s;
+  white-space: nowrap;
+}
+.topbar-cta:hover { transform: translateY(-1px); background: var(--red2); box-shadow: 0 5px 22px rgba(200,16,46,.5); }
+
+/* HERO */
+.hero {
+  position: relative; min-height: 640px;
+  display: flex; align-items: center; overflow: hidden;
+  background: var(--black);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?auto=format&fit=crop&w=1800&q=80');
+  background-size: cover; background-position: center 40%;
+  opacity: .65;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, rgba(17,17,17,.92) 40%, rgba(17,17,17,.35) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 1160px; margin: 0 auto;
+  padding: 90px 52px; width: 100%;
+  display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: center;
+}
+.hero-content > * { min-width: 0; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 24px;
+  background: rgba(200,16,46,.18); border: 1px solid rgba(200,16,46,.4);
+  border-radius: 50px; padding: 6px 16px 6px 11px;
+}
+.hero-eyebrow-dot { width: 8px; height: 8px; background: var(--red3); border-radius: 50%; animation: pulse 2.2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+.hero-eyebrow span { font-size: .72rem; font-weight: 700; color: var(--red3); text-transform: uppercase; letter-spacing: 1px; }
+.hero h1 {
+  font-size: clamp(2rem, 4.2vw, 3.1rem); font-weight: 800;
+  color: #fff; line-height: 1.12; letter-spacing: -.5px;
+  max-width: 640px; margin-bottom: 22px;
+}
+.hero h1 em { color: var(--red3); font-style: normal; }
+.hero-sub {
+  font-size: 1.05rem; color: rgba(255,255,255,.7);
+  max-width: 540px; line-height: 1.75; margin-bottom: 32px;
+}
+.hero-stats { display: flex; flex-direction: column; gap: 10px; margin-bottom: 34px; }
+.hero-stat-row {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px; padding: 12px 16px;
+}
+.hero-stat-num { font-size: 1.4rem; font-weight: 800; color: var(--red3); min-width: 80px; flex-shrink: 0; }
+.hero-stat-desc { font-size: .84rem; color: rgba(255,255,255,.7); line-height: 1.4; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--red); color: #fff; font-weight: 700; font-size: .95rem;
+  padding: 14px 28px; border-radius: 8px;
+  box-shadow: 0 4px 22px rgba(200,16,46,.45);
+  transition: background .2s, transform .15s;
+}
+.btn-primary:hover { background: var(--red2); transform: translateY(-2px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: transparent; color: rgba(255,255,255,.75); font-weight: 600; font-size: .9rem;
+  padding: 14px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,.2);
+  transition: border-color .2s, color .2s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+
+.hero-card {
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px; padding: 32px 28px; backdrop-filter: blur(8px);
+}
+.hero-card-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--red3); margin-bottom: 20px; }
+.hero-card-stat { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,.1); }
+.hero-card-stat:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.hcs-num { font-size: 2.2rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px; }
+.hcs-num span { color: var(--red3); }
+.hcs-label { font-size: .8rem; color: rgba(255,255,255,.5); line-height: 1.4; }
+
+.strip { background: var(--black2); display: flex; border-bottom: 1px solid rgba(255,255,255,.05); }
+.strip-item { flex: 1; padding: 22px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,.07); }
+.strip-item:last-child { border-right: none; }
+.sv { font-size: 1.65rem; font-weight: 800; color: var(--red3); }
+.sl { font-size: .67rem; text-transform: uppercase; letter-spacing: .6px; color: rgba(255,255,255,.42); margin-top: 5px; }
+
+.section { max-width: 1160px; margin: 0 auto; padding: 64px 52px; }
+.section-eyebrow { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--red); margin-bottom: 10px; }
+.section-title { font-size: clamp(1.5rem, 2.8vw, 2.1rem); font-weight: 800; color: var(--black); line-height: 1.2; margin-bottom: 14px; }
+.section-sub { font-size: .97rem; color: var(--muted); max-width: 640px; line-height: 1.75; }
+.hr { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* POV */
+.pov-section { background: var(--warm); border-top: 4px solid var(--red); }
+.pov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-top: 44px; }
+.pov-statement {
+  background: linear-gradient(145deg, var(--black) 0%, var(--black2) 100%);
+  border-radius: var(--r); padding: 38px 36px; color: #fff;
+}
+.pov-statement blockquote {
+  font-size: 1.22rem; font-weight: 700; line-height: 1.5;
+  margin-bottom: 18px; border-left: 3px solid var(--red3); padding-left: 18px;
+}
+.pov-statement blockquote em { color: var(--red3); font-style: normal; }
+.pov-statement p { font-size: .9rem; color: rgba(255,255,255,.68); line-height: 1.78; }
+.pov-statement p + p { margin-top: 12px; }
+.pov-points { display: flex; flex-direction: column; gap: 16px; }
+.pov-point {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 20px; background: var(--slate); border-radius: var(--r);
+  border-left: 3px solid var(--red);
+}
+.pov-point-icon { font-size: 1.35rem; flex-shrink: 0; margin-top: 1px; }
+.pov-point-body strong { display: block; font-size: .92rem; font-weight: 700; color: var(--black); margin-bottom: 5px; }
+.pov-point-body p { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+
+/* PROOF */
+.proof-section { background: var(--slate); }
+.proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 20px; margin-top: 44px; }
+.proof-card {
+  background: var(--warm); border-radius: var(--r);
+  border: 1px solid var(--border); overflow: hidden;
+  box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s;
+}
+.proof-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(0,0,0,.1); }
+.proof-card-top {
+  background: linear-gradient(135deg, var(--black), var(--black3));
+  padding: 18px 22px; display: flex; align-items: center; justify-content: space-between;
+}
+.proof-company { font-size: .88rem; font-weight: 800; color: #fff; }
+.proof-tag {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+  background: rgba(200,16,46,.3); color: #ff7070; border-radius: 50px; padding: 3px 10px;
+}
+.proof-body { padding: 20px 22px; }
+.proof-stat { font-size: 2rem; font-weight: 800; color: var(--red); margin-bottom: 5px; }
+.proof-desc { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+.proof-industry { font-size: .68rem; text-transform: uppercase; letter-spacing: .5px; color: #999; font-weight: 600; margin-top: 12px; }
+
+/* PRODUCTS */
+.products-section { background: var(--warm); }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 24px; margin-top: 44px; }
+.product-card {
+  border-radius: var(--r); border: 1px solid var(--border);
+  overflow: hidden; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s;
+}
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(0,0,0,.1); }
+.product-card-top { background: linear-gradient(145deg, var(--black), var(--black3)); padding: 26px 24px; }
+.product-cloud-tag {
+  display: inline-block; background: rgba(200,16,46,.25); color: #ff7070;
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px;
+  padding: 3px 11px; border-radius: 50px; margin-bottom: 12px;
+}
+.product-title { font-size: 1.15rem; font-weight: 800; color: #fff; line-height: 1.3; margin-bottom: 7px; }
+.product-sub { font-size: .84rem; color: rgba(255,255,255,.6); line-height: 1.6; }
+.product-card-body { padding: 22px 24px; flex: 1; display: flex; flex-direction: column; gap: 14px; background: #fff; }
+.product-anchor {
+  background: var(--slate); border-radius: 8px; padding: 14px 16px;
+  border-left: 3px solid var(--red);
+}
+.product-anchor-label { font-size: .65rem; text-transform: uppercase; letter-spacing: .8px; color: var(--red); font-weight: 700; margin-bottom: 3px; }
+.product-anchor-val { font-size: 1.5rem; font-weight: 800; color: var(--black); line-height: 1.1; }
+.product-anchor-sub { font-size: .76rem; color: var(--muted); margin-top: 2px; }
+.product-bullets { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.product-bullets li {
+  font-size: .84rem; color: var(--muted);
+  display: flex; align-items: flex-start; gap: 9px; line-height: 1.5;
+}
+.product-bullets li::before { content: '→'; color: var(--red); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+/* URGENCY */
+.urgency-section { background: #fdf2f2; border-top: 1px solid #f0d0d4; border-bottom: 1px solid #f0d0d4; }
+.urgency-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 16px; margin-top: 36px; }
+.urgency-card {
+  background: #fff; border-radius: var(--r); border: 1px solid #e8c8cc;
+  border-left: 4px solid var(--red); padding: 24px 26px;
+}
+.urgency-card-icon { font-size: 1.4rem; margin-bottom: 10px; }
+.urgency-card-title { font-size: .88rem; font-weight: 700; color: var(--black); margin-bottom: 8px; }
+.urgency-card-body { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+
+/* IMPACT */
+.impact-section { background: var(--black); color: #fff; }
+.impact-inner { max-width: 1160px; margin: 0 auto; padding: 60px 52px; }
+.impact-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 40px; background: rgba(0,0,0,.2); border-radius: var(--r); overflow: hidden; }
+.impact-item { background: rgba(255,255,255,.07); padding: 28px 24px; text-align: center; transition: background .2s; }
+.impact-item:hover { background: rgba(255,255,255,.12); }
+.impact-num { font-size: 2.4rem; font-weight: 800; color: var(--red3); line-height: 1; margin-bottom: 8px; }
+.impact-label { font-size: .78rem; color: rgba(255,255,255,.72); line-height: 1.5; }
+
+/* ABOUT */
+.about-section { background: var(--black); color: #fff; border-top: 1px solid rgba(255,255,255,.07); }
+.about-section .section-eyebrow { color: var(--red3); }
+.about-team { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 40px; }
+.about-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 28px; display: flex; gap: 20px; align-items: flex-start; }
+.about-card-photo { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; object-position: center top; border: 3px solid var(--red2); flex-shrink: 0; }
+.about-card-photo-placeholder { width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,.1); border: 3px solid var(--red2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: rgba(255,255,255,.3); }
+.about-card-info { flex: 1; }
+.about-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 2px; }
+.about-contact { font-size: .78rem; color: var(--red3); margin-bottom: 8px; }
+.about-role { font-size: .78rem; color: rgba(255,255,255,.5); font-weight: 500; margin-bottom: 12px; }
+.about-body { font-size: .88rem; color: rgba(255,255,255,.68); line-height: 1.75; }
+.about-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.btn-white {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; color: var(--red); font-weight: 700; font-size: .93rem;
+  padding: 13px 26px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,.2);
+  transition: transform .15s, box-shadow .2s;
+}
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(0,0,0,.25); }
+
+/* CTA */
+.cta-section { background: linear-gradient(135deg, #0d0000 0%, #1a0005 60%, #111 100%); color: #fff; text-align: center; }
+.cta-section .section { padding: 72px 52px; }
+.cta-title { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 14px; }
+.cta-sub { font-size: 1rem; opacity: .85; max-width: 520px; margin: 0 auto 32px; line-height: 1.75; }
+.cta-contact { font-size: .86rem; opacity: .7; margin-top: 20px; }
+
+footer {
+  background: var(--black); color: rgba(255,255,255,.38);
+  text-align: center; padding: 24px 52px; font-size: .75rem;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+footer span { color: rgba(255,255,255,.62); }
+
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 960px) {
+  .topbar { padding: 0 24px; height: 64px; }
+  .hero-content { grid-template-columns: 1fr; gap: 32px; padding: 60px 28px; }
+  .hero-card { display: none; }
+  .section { padding: 52px 28px; }
+  .pov-grid { grid-template-columns: 1fr; gap: 28px; }
+  .about-team { grid-template-columns: 1fr; }
+  .about-card { flex-direction: column; align-items: center; text-align: center; }
+  .about-cta-row { justify-content: center; }
+  .impact-grid { grid-template-columns: repeat(2,1fr); }
+  .strip { flex-wrap: wrap; }
+  .strip-item { flex: 1 1 calc(33% - 1px); min-width: 100px; }
+}
+@media (max-width: 580px) {
+  .hero h1 { font-size: 1.85rem; }
+  .topbar-company-group { display: none; }
+  .topbar-x { display: none; }
+  .impact-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  An Executive Briefing by Anthony Troggio &amp; Team<span class="ab-dot"></span>Digital Transformation Executive<span class="ab-dot"></span><strong>Salesforce</strong>
+</div>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="topbar-partnership">
+    <div class="topbar-brand topbar-brand-sf">
+      <svg class="topbar-cloud" viewBox="0 0 56 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M23.3 7.1C25.2 4.7 28 3.2 31.2 3.2c5.2 0 9.6 3.8 10.5 8.8.5-.1 1-.2 1.5-.2 4.4 0 8 3.6 8 8s-3.6 8-8 8H11c-5 0-9-4-9-9 0-4.7 3.6-8.6 8.2-9 .9-4.3 4.7-7.5 9.3-7.5 1.6 0 3.2.4 4.5 1.2-.5.8-.9 1.8-1.1 2.8-.9-.5-2-.8-3.4-.8-3.5 0-6.4 2.8-6.4 6.3v.7l-.7.1C9.6 12.9 7 15.5 7 18.8c0 3.4 2.8 6.1 6.3 6.1h32.4c3 0 5.5-2.5 5.5-5.5s-2.5-5.5-5.5-5.5c-.8 0-1.6.2-2.3.5l-1.4.6-.3-1.5C40.9 9 37.4 6.2 33.2 6.2c-3.2 0-6 1.6-7.7 4.1-.7-.6-1.5-1.1-2.2-1.5z" fill="#00A1E0"/>
+      </svg>
+      <span class="topbar-wordmark">Salesforce</span>
+    </div>
+    <div class="topbar-x"></div>
+    <div class="topbar-company-group">
+      <div class="topbar-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=grimco.com&sz=64" class="topbar-company-logo" alt="Grimco"></div>
+      <span class="topbar-company-text">Grimco</span>
+    </div>
+  </div>
+  <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="topbar-cta">Book Time with Anthony</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content fade-in">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span>Prepared exclusively for Grimco · July 2026</span>
+      </div>
+      <h1>You Got to 55% Online.<br><em>Here's How You Get to 90.</em></h1>
+      <p class="hero-sub">Grimco is already the most digitally forward sign supply distributor in North America. More than half your orders go online. Your sign shop customers know how to buy from you. The question now is what happens to the other 45%. And what happens when you connect your online ordering data to how you market, price, and sell.</p>
+      <div class="hero-stats">
+        <div class="hero-stat-row">
+          <div class="hero-stat-num">55%</div>
+          <div class="hero-stat-desc">of Grimco orders already placed online. You built that. Now the opportunity is connecting that behavior to your marketing and account data to drive the next 35%.</div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-num">100k+</div>
+          <div class="hero-stat-desc">contacts in your system. HubSpot in the US, Constant Contact in Canada. Two platforms, two databases, no unified view of customer behavior across your full base.</div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-num">$60k+</div>
+          <div class="hero-stat-desc">monthly in ad spend. Connected to customer order history, that budget becomes precision targeting. Without it, it's spray and pray across a fragmented channel.</div>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="btn-primary">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          Book 30 Minutes with Anthony
+        </a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-label">The Opportunity at Grimco</div>
+      <div class="hero-card-stat">
+        <div class="hcs-num">45<span>%</span></div>
+        <div class="hcs-label">of orders still going through reps, phone, or email. Each one is a data point your marketing team never sees and your commerce system never learns from.</div>
+      </div>
+      <div class="hero-card-stat">
+        <div class="hcs-num">2<span> platforms</span></div>
+        <div class="hcs-label">HubSpot + Constant Contact. Your sign shop customers have no idea you're running two separate email databases. But you feel it every time you try to run a unified campaign.</div>
+      </div>
+      <div class="hero-card-stat">
+        <div class="hcs-num">1<span> platform</span></div>
+        <div class="hcs-label">is all it takes to unify ordering, customer data, and marketing. That's the conversation we want to have.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="strip">
+  <div class="strip-item"><div class="sv">$105M+</div><div class="sl">Annual Revenue</div></div>
+  <div class="strip-item"><div class="sv">837</div><div class="sl">Employees</div></div>
+  <div class="strip-item"><div class="sv">55%</div><div class="sl">Already Online</div></div>
+  <div class="strip-item"><div class="sv">100k+</div><div class="sl">Customer Contacts</div></div>
+  <div class="strip-item"><div class="sv">Fenton, MO</div><div class="sl">Headquarters</div></div>
+</div>
+
+<hr class="hr">
+
+<!-- POV -->
+<section class="pov-section" id="pov">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Our Point of View</div>
+    <h2 class="section-title">You Built the Digital Foundation.<br>Now Connect It.</h2>
+    <p class="section-sub">Grimco did the hard part: you convinced sign shops to order online. Most distributors are still trying to do that. Your gap now is that your online ordering, your customer data, and your marketing engine are running in separate systems. When those three things connect, everything changes.</p>
+
+    <div class="pov-grid">
+      <div class="pov-statement">
+        <blockquote>"55% online is a remarkable achievement for a specialty distributor. But the next 35% doesn't come from better UX. <em>It comes from knowing what your customers are about to need before they know it themselves.</em>"</blockquote>
+        <p>A sign shop that ordered vinyl wrap last month is about to run out. A print shop that bought a new wide-format printer three months ago needs ink and media. A fabricator who hasn't ordered in 60 days has probably found another source. These are all signals sitting in your order data right now that nobody is acting on.</p>
+        <p>Connect that order history to a marketing platform that can send the right message to the right shop at the right time. Connect it to a B2B commerce experience that surfaces the right products on login. That's how you get from 55% to 90. Not by asking customers to change their behavior. By meeting them exactly where they already are.</p>
+      </div>
+      <div class="pov-points">
+        <div class="pov-point">
+          <div class="pov-point-icon">📦</div>
+          <div class="pov-point-body">
+            <strong>Order data is your most valuable marketing asset. It's sitting unused.</strong>
+            <p>Every sign shop that orders from Grimco leaves a behavioral fingerprint. What they buy, how often, in what quantities, with what seasonality. Right now that data lives in your commerce system and never touches your marketing platform. When it does, you can trigger replenishment emails before a shop runs out, surface complementary products at checkout, and identify at-risk accounts before they churn.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">🗄️</div>
+          <div class="pov-point-body">
+            <strong>Two email platforms means two customer universes. That's a structural problem.</strong>
+            <p>HubSpot in the US, Constant Contact in Canada. 100k contacts split across two systems with no unified profile. When a sign shop customer in Toronto moves their business to Seattle, your teams have no way to connect that. A rewards program or loyalty initiative has no hope of working across a fragmented database. One platform, one customer record, one view of the relationship across every touchpoint.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">📣</div>
+          <div class="pov-point-body">
+            <strong>$60k a month in ads is a lot to spend without knowing who converted</strong>
+            <p>You're running Google, Facebook, and LinkedIn ads to drive sign shops to grimco.com. But when one of those shops clicks an ad and places an order, does your ad platform know? Does your email platform? Right now those are disconnected events. Connect ad spend to order history and you'll know exactly which campaigns are driving revenue and which are burning budget. That's the conversation your marketing team wants to have but doesn't have the data to drive.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">🏆</div>
+          <div class="pov-point-body">
+            <strong>The rewards program is the unlock. One platform makes it possible.</strong>
+            <p>Grimco has been working toward a rewards or loyalty program for years. The reason it hasn't launched at scale isn't marketing budget or creative. It's data infrastructure. A loyalty program that runs off a unified customer record, connected to real-time order history across every DC and channel, is an entirely different product than one built on top of a fragmented CRM. The platform decision you make now determines whether the rewards program is a real retention tool or a one-off campaign.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- PROOF -->
+<section class="proof-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Customer Proof</div>
+    <h2 class="section-title">Distributors Who Closed the Loop Between Commerce and Marketing</h2>
+    <p class="section-sub">These are specialty distributors and B2B companies who connected their digital ordering channel to their marketing and customer data. The consistent result: higher repeat purchase rates, better campaign ROI, and customer retention that compounds over time.</p>
+
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Airgas</span>
+          <span class="proof-tag">Commerce + Marketing</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">25%</div>
+          <div class="proof-desc">A national industrial gas and supplies distributor built a connected B2B portal with unified customer data and targeted marketing automation. Repeat order rates increased 25%, and the sales team shifted from transactional calls to consultative conversations. The parallel to Grimco's sign shop base is direct.</div>
+          <div class="proof-industry">Industrial Distribution · B2B Commerce + Marketing Cloud</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Certus</span>
+          <span class="proof-tag">Email to Revenue</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">760%</div>
+          <div class="proof-desc">A B2B company with a large subscriber base consolidated fragmented email tools onto Marketing Cloud and connected send behavior to purchase data. Revenue from email grew 760%. The key change: triggered journeys based on what customers actually bought, not just what they clicked. Grimco's 100k contacts and existing purchase history is the same starting point.</div>
+          <div class="proof-industry">B2B Commerce · Marketing Cloud · Data Unification</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Sutton Tools</span>
+          <span class="proof-tag">B2B Commerce</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">4×</div>
+          <div class="proof-desc">A specialty distributor launched a direct B2B ordering portal with account-specific pricing and unified customer data. Online orders quadrupled. The insight: customers who can self-serve on routine orders buy more, not less. Grimco already has proof of this at 55%. The 4x result shows there's still room to run.</div>
+          <div class="proof-industry">Specialty Distribution · B2B Commerce</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Constellation Brands</span>
+          <span class="proof-tag">Loyalty Program</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">40%</div>
+          <div class="proof-desc">A consumer and B2B brand built a loyalty program on a unified customer data platform. Engaged loyalty members bought 40% more frequently than non-members. The program worked because purchase history, email behavior, and loyalty points all lived in one record. A fragmented database makes this impossible to execute at scale.</div>
+          <div class="proof-industry">B2B Distribution · Loyalty + Marketing Cloud</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- PRODUCTS -->
+<section class="products-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">What We're Building Together</div>
+    <h2 class="section-title">The Connected Platform Your Commerce Engine Has Been Missing.</h2>
+    <p class="section-sub">One platform for B2B ordering, customer data, and marketing automation. Everything connected. Every sign shop customer with one unified record, from first order to loyalty member to at-risk account.</p>
+
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <span class="product-cloud-tag">Commerce Cloud B2B</span>
+          <div class="product-title">Your Online Channel, Built on a Platform That Actually Learns</div>
+          <div class="product-sub">Account-specific pricing for every sign shop. Real-time inventory. Reorder lists by product category. And every order connected to a customer record that your marketing team can act on.</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-anchor">
+            <div class="product-anchor-label">Where Grimco Is Today</div>
+            <div class="product-anchor-val">55% online</div>
+            <div class="product-anchor-sub">The foundation is built. Now connect it to everything else.</div>
+          </div>
+          <ul class="product-bullets">
+            <li>Every order creates a customer data event that your marketing platform can act on. A sign shop that orders wide-format media today gets a replenishment trigger in 30 days.</li>
+            <li>Account pricing on login. No rep needed for a repeat customer to see their negotiated rate.</li>
+            <li>Product catalog segmented by shop type: vinyl and wide-format shops see their SKUs. LED and digital signage shops see theirs.</li>
+            <li>Reorder from history with one click. A shop ordering the same substrate every three weeks shouldn't have to search for it.</li>
+            <li>Every cart abandonment, every session, every product view feeds back into a unified customer profile your team can see and act on.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <span class="product-cloud-tag">Marketing Cloud</span>
+          <div class="product-title">One Platform for 100k Contacts, Not Two</div>
+          <div class="product-sub">Replace HubSpot and Constant Contact with a single system that connects email, SMS, ad targeting, and loyalty to real order history. Send the right message to the right shop at exactly the right time.</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-anchor">
+            <div class="product-anchor-label">Comparable Result</div>
+            <div class="product-anchor-val">760% revenue from email</div>
+            <div class="product-anchor-sub">When email is connected to purchase behavior, not just opens and clicks</div>
+          </div>
+          <ul class="product-bullets">
+            <li>One unified customer record for every sign shop. US and Canada. One view of every email, order, ad click, and loyalty point.</li>
+            <li>Triggered replenishment journeys: a shop that ordered UV-resistant vinyl 45 days ago gets an automated outreach before they run out and call a competitor.</li>
+            <li>Ad audience sync: your $60k/mo in paid media targets existing customers who haven't ordered in 60 days and new prospects who look like your best accounts.</li>
+            <li>Loyalty program infrastructure: points, tiers, redemption, all connected to order history and email behavior in one platform.</li>
+            <li>Canada + US finally on the same system. Same customer who shows up at a trade show in both markets? One record, not two.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <span class="product-cloud-tag">Data Cloud + Agentforce</span>
+          <div class="product-title">Turn Your Order Data Into a Predictive Sales Signal</div>
+          <div class="product-sub">Unified profiles across every order, email, ad, and rep interaction. An AI agent that surfaces at-risk accounts, recommends the right product at checkout, and handles routine customer questions so your team focuses on the conversations that matter.</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-anchor">
+            <div class="product-anchor-label">Core Use Case</div>
+            <div class="product-anchor-val">Churn prevention before it happens</div>
+            <div class="product-anchor-sub">60-day no-order alert triggers rep outreach automatically</div>
+          </div>
+          <ul class="product-bullets">
+            <li>At-risk account detection: any sign shop that drops 30% below their average order frequency gets flagged to their rep before they churn.</li>
+            <li>Next-best-product recommendations at checkout: a shop buying laminate gets shown the matching applicator tools and squeegees they're likely to need.</li>
+            <li>"Do you have this in stock?" answered instantly, 24/7, without a rep picking up the phone.</li>
+            <li>Your senior data scientist (Matthew McGuirk) has the skills to build on top of this. Data Cloud is the clean foundation he needs.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<section class="urgency-section">
+  <div class="section fade-in" style="padding-top:52px; padding-bottom:52px;">
+    <div class="section-eyebrow">Why Now</div>
+    <h2 class="section-title">The Sign Supply Market Is Consolidating. Grimco's Digital Edge Is the Moat.</h2>
+    <p class="section-sub" style="max-width:720px;">The distributors who own the digital relationship with their customers in the next two years will be very hard to displace in 2028. The ones who don't will compete on price.</p>
+    <div class="urgency-grid">
+      <div class="urgency-card">
+        <div class="urgency-card-icon">🔁</div>
+        <div class="urgency-card-title">Sign shops who reorder online buy more than those who call</div>
+        <div class="urgency-card-body">Every sign shop on your digital channel is stickier, orders more frequently, and costs less to serve than one who calls or emails. You already know this at 55%. The question is: what are you doing to convert the other 45%? A connected marketing platform that triggers replenishment before a shop runs out is the most direct path to moving that number.</div>
+      </div>
+      <div class="urgency-card">
+        <div class="urgency-card-icon">📊</div>
+        <div class="urgency-card-title">Your marketing stack is holding your rewards program hostage</div>
+        <div class="urgency-card-body">The loyalty and rewards program Grimco has been building toward requires unified customer data to work. HubSpot in the US and Constant Contact in Canada can't be the foundation of a loyalty program that's supposed to build long-term retention. The platform decision is the prerequisite. Every month that decision is deferred is a month the rewards program can't launch at its full potential.</div>
+      </div>
+      <div class="urgency-card">
+        <div class="urgency-card-icon">🚀</div>
+        <div class="urgency-card-title">A phased migration has you live on one platform before Q1 2027</div>
+        <div class="urgency-card-body">We don't move 100k contacts and your full commerce catalog on day one. A migration plan that starts with your US email base, integrates order data in phase two, and brings Canada onto the same system in phase three has you fully unified before your next planning cycle. The rewards program launches in phase three with a real data foundation under it. We scope it before we sell it.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="impact-section">
+  <div class="impact-inner fade-in">
+    <div class="section-eyebrow" style="color:rgba(255,255,255,.75)">The Business Case</div>
+    <h2 class="section-title" style="color:#fff">The ROI Is Already Proven in Specialty Distribution</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,.72); max-width:700px">Benchmarks from comparable specialty distributor deployments on the Salesforce B2B Commerce and Marketing Cloud platform.</p>
+    <div class="impact-grid">
+      <div class="impact-item">
+        <div class="impact-num">760%</div>
+        <div class="impact-label">Revenue growth from email<br>when connected to purchase data</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num count-up" data-target="4" data-suffix="×">4×</div>
+        <div class="impact-label">Online order growth<br>Sutton Tools B2B portal</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num count-up" data-target="40" data-suffix="%">40%</div>
+        <div class="impact-label">More frequent purchases<br>from loyalty members</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num count-up" data-target="25" data-suffix="%">25%</div>
+        <div class="impact-label">Repeat order rate increase<br>Airgas connected commerce</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Who You're Talking To</div>
+    <h2 class="section-title" style="color:#fff">A Peer, Not a Pitch.</h2>
+    <div class="about-team">
+      <div class="about-card">
+        <img src="anthony.png" alt="Anthony Troggio" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="about-card-photo-placeholder" style="display:none">AT</div>
+        <div class="about-card-info">
+          <div class="about-name">Anthony Troggio</div>
+          <div class="about-contact"><a href="mailto:atroggio@salesforce.com" style="color:inherit">atroggio@salesforce.com</a> · <a href="tel:7654307903" style="color:inherit">765-430-7903</a></div>
+          <div class="about-role">Digital Transformation Executive, Manufacturing &amp; Automotive | Salesforce</div>
+          <p class="about-body">I work with specialty distributors across the West who've built strong digital channels and are ready to connect them. The conversation I want to have is about your 100k customer contacts and what you're doing with them. Dad, family man, straight shooter.</p>
+        </div>
+      </div>
+      <div class="about-card">
+        <img src="kennedy-wenz.png" alt="Kennedy Wenz" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="about-card-photo-placeholder" style="display:none">KW</div>
+        <div class="about-card-info">
+          <div class="about-name">Kennedy Wenz</div>
+          <div class="about-contact"><a href="mailto:kwenz@salesforce.com" style="color:inherit">kwenz@salesforce.com</a></div>
+          <div class="about-role">Digital Transformation Executive, Manufacturing, Automotive &amp; Energy | Salesforce</div>
+          <p class="about-body">From founding EAT.org across DACH to driving Agentic AI adoption at Salesforce in San Francisco, Kennedy bridges global strategy and frontier technology. She translates AI and data capabilities into outcomes distribution leaders can implement and measure.</p>
+        </div>
+      </div>
+    </div>
+    <div class="about-cta-row">
+      <a href="mailto:atroggio@salesforce.com" class="btn-white">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+        atroggio@salesforce.com
+      </a>
+      <a href="tel:7654307903" class="btn-ghost" style="color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.2)">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        765-430-7903
+      </a>
+      <a href="mailto:kwenz@salesforce.com?subject=Grimco — Salesforce" class="btn-white">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+        kwenz@salesforce.com
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section fade-in">
+    <div class="cta-title">Ready to see what 90% online looks like for Grimco?</div>
+    <p class="cta-sub">30 minutes. I'll show you what a connected commerce and marketing platform looks like for a distributor at your scale, and we'll talk about your rewards program as a real near-term outcome.</p>
+    <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="btn-white">
+      <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="var(--red)" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      Book Time with Anthony
+    </a>
+    <div class="cta-contact">atroggio@salesforce.com &nbsp;·&nbsp; 765-430-7903</div>
+  </div>
+</section>
+
+<footer>
+  <span>Anthony Troggio</span> · Digital Transformation Executive, Salesforce · Manufacturing &amp; Automotive, West<br>
+  <span style="font-size:.68rem;opacity:.5;margin-top:6px;display:block">Prepared exclusively for Grimco · July 2026 · Confidential</span>
+</footer>
+
+<script>
+const fadeObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); fadeObserver.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+function animateCount(el) {
+  const target = parseFloat(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  if (isNaN(target)) return;
+  const duration = 1800;
+  const start = performance.now();
+  function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+  function step(now) {
+    const progress = Math.min((now - start) / duration, 1);
+    el.textContent = Math.floor(target * ease(progress)).toLocaleString() + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target.toLocaleString() + suffix;
+  }
+  requestAnimationFrame(step);
+}
+const countObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { animateCount(e.target); countObserver.unobserve(e.target); }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
+</script>
+</body>
+</html>
