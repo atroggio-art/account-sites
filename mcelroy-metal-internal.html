@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>McElroy Metal — Internal Account Brief</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #0f1117;
+  color: #e2e8f0;
+  line-height: 1.6;
+  font-size: 15px;
+}
+a { color: #60a5fa; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+:root {
+  --bg:      #0f1117;
+  --bg2:     #161b26;
+  --bg3:     #1e2535;
+  --border:  rgba(255,255,255,.08);
+  --border2: rgba(255,255,255,.13);
+  --text:    #e2e8f0;
+  --muted:   #8899aa;
+  --red:     #f05060;
+  --red2:    #e01530;
+  --green:   #34d399;
+  --blue:    #60a5fa;
+  --yellow:  #fbbf24;
+  --orange:  #fb923c;
+  --purple:  #a78bfa;
+  --r:       10px;
+}
+
+.topbar {
+  background: #0a0d14;
+  border-bottom: 1px solid var(--border);
+  padding: 14px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-badge {
+  background: rgba(251,191,36,.12); border: 1px solid rgba(251,191,36,.3);
+  color: #fbbf24; font-size: .65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  padding: 3px 10px; border-radius: 50px;
+}
+.topbar-title { font-size: .88rem; font-weight: 700; color: var(--text); }
+.topbar-sub { font-size: .72rem; color: var(--muted); margin-top: 1px; }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.topbar-btn {
+  font-size: .72rem; font-weight: 700; padding: 6px 14px; border-radius: 6px;
+  border: 1px solid var(--border2); color: var(--muted);
+  transition: color .15s, border-color .15s; cursor: pointer;
+}
+.topbar-btn:hover { color: var(--text); border-color: rgba(255,255,255,.25); }
+.topbar-btn.primary { background: var(--red2); border-color: transparent; color: #fff; }
+.topbar-btn.primary:hover { background: var(--red); }
+
+.layout {
+  max-width: 1200px; margin: 0 auto;
+  padding: 32px 40px 80px;
+  display: grid; grid-template-columns: 260px 1fr;
+  gap: 32px; align-items: start;
+}
+
+.sidebar { position: sticky; top: 72px; }
+.sidebar-section { margin-bottom: 28px; }
+.sidebar-label {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.2px; color: var(--muted); margin-bottom: 10px;
+}
+.nav-item {
+  display: block; padding: 7px 12px; border-radius: 6px;
+  font-size: .82rem; color: var(--muted);
+  transition: background .15s, color .15s; cursor: pointer;
+}
+.nav-item:hover, .nav-item.active { background: var(--bg3); color: var(--text); }
+.nav-item.active { font-weight: 600; }
+
+.account-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 16px;
+}
+.account-logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.account-logo-wrap {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; flex-shrink: 0;
+}
+.account-logo { width: 24px; height: 24px; object-fit: contain; }
+.account-name { font-size: .9rem; font-weight: 800; color: var(--text); }
+.account-domain { font-size: .72rem; color: var(--muted); }
+.account-stat {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 5px 0; border-bottom: 1px solid var(--border); font-size: .78rem;
+}
+.account-stat:last-child { border-bottom: none; }
+.account-stat-label { color: var(--muted); }
+.account-stat-val { font-weight: 700; color: var(--text); }
+
+.main { min-width: 0; display: flex; flex-direction: column; gap: 28px; }
+
+.card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); overflow: hidden;
+}
+.card-header {
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.card-title { font-size: .88rem; font-weight: 700; color: var(--text); }
+.card-sub { font-size: .75rem; color: var(--muted); margin-top: 2px; }
+.card-body { padding: 20px; }
+
+.card-tag {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px;
+  padding: 3px 10px; border-radius: 50px;
+}
+.tag-green  { background: rgba(52,211,153,.1);  color: var(--green);  border: 1px solid rgba(52,211,153,.2); }
+.tag-blue   { background: rgba(96,165,250,.1);  color: var(--blue);   border: 1px solid rgba(96,165,250,.2); }
+.tag-yellow { background: rgba(251,191,36,.1);  color: var(--yellow); border: 1px solid rgba(251,191,36,.2); }
+.tag-red    { background: rgba(240,80,96,.1);   color: var(--red);    border: 1px solid rgba(240,80,96,.2); }
+.tag-orange { background: rgba(251,146,60,.1);  color: var(--orange); border: 1px solid rgba(251,146,60,.2); }
+.tag-purple { background: rgba(167,139,250,.1); color: var(--purple); border: 1px solid rgba(167,139,250,.2); }
+.tag-gray   { background: rgba(255,255,255,.05);color: var(--muted);  border: 1px solid var(--border); }
+
+/* ACCOUNT STATUS BANNER */
+.status-banner {
+  background: linear-gradient(135deg, rgba(251,146,60,.07), rgba(240,80,96,.04));
+  border: 1px solid rgba(251,146,60,.2); border-radius: var(--r);
+  padding: 18px 22px;
+  display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: center;
+}
+.sb-icon { font-size: 1.8rem; }
+.sb-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--orange); margin-bottom: 3px; }
+.sb-name { font-size: .95rem; font-weight: 700; color: var(--text); }
+.sb-detail { font-size: .78rem; color: var(--muted); margin-top: 3px; }
+.sb-stat { text-align: right; }
+.sb-stat-val { font-size: 1.1rem; font-weight: 800; color: var(--orange); }
+.sb-stat-label { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+
+/* CONTACT GRID */
+.contact-grid { display: flex; flex-direction: column; gap: 12px; }
+.contact-row {
+  display: grid; grid-template-columns: 44px 1fr auto;
+  gap: 14px; align-items: start;
+  padding: 14px 16px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--bg3);
+  transition: border-color .15s;
+}
+.contact-row:hover { border-color: var(--border2); }
+.contact-tier {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; font-weight: 800; color: #fff;
+}
+.tier-1 { background: linear-gradient(135deg, #2a3f5c, #e01530); }
+.tier-2 { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+.tier-3 { background: linear-gradient(135deg, #6366f1, #a78bfa); }
+.contact-name { font-size: .92rem; font-weight: 700; color: var(--text); }
+.contact-title { font-size: .78rem; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+.contact-meta { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.contact-link {
+  font-size: .72rem; color: var(--blue);
+  display: flex; align-items: center; gap: 4px;
+}
+.contact-why { font-size: .78rem; color: var(--text); line-height: 1.6; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.contact-why strong { color: var(--green); }
+.contact-why strong.warn { color: var(--orange); }
+.contact-actions { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; flex-shrink: 0; }
+.pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+/* TALK TRACK */
+.talk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.talk-card {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px;
+}
+.talk-card-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
+.talk-card-body { font-size: .82rem; color: #c8d8e8; line-height: 1.75; }
+.talk-card-body p + p { margin-top: 8px; }
+.talk-card-body ul { margin-top: 4px; margin-left: 16px; }
+.talk-card-body li { margin-bottom: 4px; }
+
+/* BASHO EMAILS */
+.email-block {
+  border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; margin-bottom: 16px;
+}
+.email-block:last-child { margin-bottom: 0; }
+.email-header {
+  background: var(--bg3); padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.email-to { font-size: .82rem; color: var(--text); }
+.email-to strong { font-weight: 700; }
+.email-subject { font-size: .75rem; color: var(--muted); margin-top: 2px; }
+.email-subject span { color: var(--text); font-weight: 600; }
+.email-body {
+  padding: 16px 18px; font-size: .84rem; color: #c8d8e8;
+  line-height: 1.85; white-space: pre-wrap; font-family: 'Georgia', serif;
+}
+.copy-btn {
+  font-size: .68rem; font-weight: 700; padding: 5px 12px; border-radius: 5px;
+  background: rgba(255,255,255,.06); border: 1px solid var(--border2);
+  color: var(--muted); cursor: pointer; white-space: nowrap;
+  transition: background .15s, color .15s;
+}
+.copy-btn:hover { background: rgba(255,255,255,.12); color: var(--text); }
+.copy-btn.copied { background: rgba(52,211,153,.12); border-color: rgba(52,211,153,.3); color: var(--green); }
+
+/* OBJECTIONS */
+.objection-list { display: flex; flex-direction: column; gap: 10px; }
+.objection-item { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.objection-q {
+  padding: 12px 14px; font-size: .82rem; font-weight: 700; color: var(--text);
+  display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border);
+}
+.objection-q::before {
+  content: '?'; width: 20px; height: 20px;
+  background: rgba(251,191,36,.15); color: var(--yellow); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 800; flex-shrink: 0;
+}
+.objection-a { padding: 12px 14px; font-size: .82rem; color: #c8d8e8; line-height: 1.75; }
+
+/* OPP HISTORY */
+.opp-list { display: flex; flex-direction: column; gap: 8px; }
+.opp-item {
+  display: grid; grid-template-columns: 1fr auto auto;
+  gap: 12px; align-items: start;
+  padding: 10px 14px; border-radius: 7px;
+  background: var(--bg3); border: 1px solid var(--border); font-size: .8rem;
+}
+.opp-item.opp-won {
+  background: rgba(52,211,153,.04); border-color: rgba(52,211,153,.18);
+}
+.opp-item.opp-attrition {
+  background: rgba(251,146,60,.04); border-color: rgba(251,146,60,.2);
+}
+.opp-name { font-weight: 600; color: var(--text); }
+.opp-detail { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+.opp-amount { font-weight: 700; color: var(--text); white-space: nowrap; }
+.opp-notes {
+  grid-column: 1 / -1;
+  margin-top: 8px; padding: 10px 12px;
+  background: rgba(251,146,60,.06); border: 1px solid rgba(251,146,60,.2);
+  border-radius: 6px; font-size: .75rem; color: #c8d8e8; line-height: 1.7;
+}
+.opp-notes-label { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; color: var(--orange); margin-bottom: 4px; }
+
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; padding: 20px; }
+  .sidebar { position: static; }
+  .talk-grid { grid-template-columns: 1fr; }
+  .contact-row { grid-template-columns: 44px 1fr; }
+  .contact-actions { flex-direction: row; grid-column: 1 / -1; }
+  .status-banner { grid-template-columns: auto 1fr; }
+  .sb-stat { grid-column: 1 / -1; text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div>
+      <div class="topbar-title">McElroy Metal Mill — Account Brief</div>
+      <div class="topbar-sub">Internal use only · Anthony Troggio &amp; Team · July 2026</div>
+    </div>
+    <span class="topbar-badge">Internal</span>
+  </div>
+  <div class="topbar-right">
+    <a href="https://atroggio-art.github.io/account-sites/mcelroy-metal-internal.html" target="_blank" class="topbar-btn">Share Link</a>
+    <a href="https://na168.salesforce.com/0013000000ZkuQjAAJ" target="_blank" class="topbar-btn primary">Open in SF</a>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="account-card">
+      <div class="account-logo-row">
+        <div class="account-logo-wrap">
+          <img src="https://www.google.com/s2/favicons?domain=mcelroymetal.com&sz=64" class="account-logo" alt="McElroy Metal">
+        </div>
+        <div>
+          <div class="account-name">McElroy Metal Mill</div>
+          <div class="account-domain">mcelroymetal.com</div>
+        </div>
+      </div>
+      <div class="account-stat"><span class="account-stat-label">Revenue</span><span class="account-stat-val">$362M</span></div>
+      <div class="account-stat"><span class="account-stat-label">Employees</span><span class="account-stat-val">750</span></div>
+      <div class="account-stat"><span class="account-stat-label">HQ</span><span class="account-stat-val">Bossier City, LA</span></div>
+      <div class="account-stat"><span class="account-stat-label">Industry</span><span class="account-stat-val">Metal Roofing Mfg</span></div>
+      <div class="account-stat"><span class="account-stat-label">Existing</span><span class="account-stat-val" style="color:var(--orange)">MuleSoft (churned)</span></div>
+      <div class="account-stat"><span class="account-stat-label">Open Deal</span><span class="account-stat-val" style="color:var(--muted)">None</span></div>
+    </div>
+
+    <div class="sidebar-section" style="margin-top:20px;">
+      <div class="sidebar-label">Play</div>
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <span class="card-tag tag-red"    style="width:fit-content;">Configurator / Commerce</span>
+        <span class="card-tag tag-blue"   style="width:fit-content;">Manufacturing Cloud</span>
+        <span class="card-tag tag-orange" style="width:fit-content;">Re-engagement</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Navigate</div>
+      <a class="nav-item active" href="#status">Account Status</a>
+      <a class="nav-item" href="#context">Account Context</a>
+      <a class="nav-item" href="#contacts">Priority Contacts</a>
+      <a class="nav-item" href="#basho">BASHO Emails</a>
+      <a class="nav-item" href="#talktrack">Talk Track</a>
+      <a class="nav-item" href="#objections">Objection Handling</a>
+      <a class="nav-item" href="#history">Opportunity History</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Key Dates</div>
+      <div style="font-size:.75rem; color:var(--muted); line-height:1.8;">
+        Last activity: <span style="color:var(--text)">Jun 24, 2026</span><br>
+        MuleSoft won: <span style="color:var(--green)">Jan 31, 2024</span><br>
+        MuleSoft churned: <span style="color:var(--orange)">Aug 13, 2024</span><br>
+        SF Account ID: <span style="color:var(--muted); font-size:.68rem;">0013000000ZkuQjAAJ</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ACCOUNT STATUS -->
+    <div class="card" id="status">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Account Status</div>
+          <div class="card-sub">Existing Salesforce customer, no active deal — re-engagement required</div>
+        </div>
+        <span class="card-tag tag-orange">No Live Deal</span>
+      </div>
+      <div class="card-body">
+        <div class="status-banner">
+          <div class="sb-icon">🏭</div>
+          <div>
+            <div class="sb-label">Re-engagement Account</div>
+            <div class="sb-name">McElroy Metal Mill, Inc.</div>
+            <div class="sb-detail">Metal roofing and wall panel manufacturer · Make-to-order · Bossier City, LA · Dealer network + direct to contractors</div>
+          </div>
+          <div class="sb-stat">
+            <div class="sb-stat-val">$362M</div>
+            <div class="sb-stat-label">Annual Revenue</div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px; display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div style="padding:14px; background:rgba(52,211,153,.05); border:1px solid rgba(52,211,153,.18); border-radius:8px;">
+            <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:var(--green); margin-bottom:6px;">What they've bought</div>
+            <div style="font-size:.82rem; color:#c8d8e8; line-height:1.7;">MuleSoft Order Automation closed won January 2024 at $40,008. They are a Salesforce customer. There is an existing relationship.</div>
+          </div>
+          <div style="padding:14px; background:rgba(251,146,60,.06); border:1px solid rgba(251,146,60,.2); border-radius:8px;">
+            <div style="font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:var(--orange); margin-bottom:6px;">The complication</div>
+            <div style="font-size:.82rem; color:#c8d8e8; line-height:1.7;">The MuleSoft renewal churned in August 2024. Notes say "low utilization due to new implementation. Stated they'll renew" and they did not. This is the most important context in the account.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px; padding:14px; background:rgba(96,165,250,.05); border:1px solid rgba(96,165,250,.18); border-radius:8px;">
+          <div style="font-size:.78rem; font-weight:700; color:var(--blue); margin-bottom:6px;">How to approach this account</div>
+          <div style="font-size:.8rem; color:#c8d8e8; line-height:1.75;">This is not a cold account but it requires careful re-entry. Acknowledge the MuleSoft history directly, especially with Howell Hicks (CIO). Do not pretend the churn did not happen. The re-engagement angle is a customer-facing configurator for contractors and dealers, which is a fundamentally different problem from the backend order routing MuleSoft was solving. Lead with the difference, not the similarity.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCOUNT CONTEXT -->
+    <div class="card" id="context">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Account Context</div>
+          <div class="card-sub">Why the standard CRM pitch has failed here and what the right angle looks like</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="talk-grid">
+          <div class="talk-card">
+            <div class="talk-card-label">Who they are</div>
+            <div class="talk-card-body">
+              <p>McElroy Metal makes metal roofing panels and wall panels. Make-to-order. They sell through a dealer network and direct to roofing contractors. $362M revenue, 750 employees, headquartered in Bossier City, LA.</p>
+              <p>Their business lives in the spec decision. A contractor building a bid chooses a panel profile, gauge, coating, and color. That decision drives the order. Right now, most of that decision-making happens over the phone or by calling a dealer.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The MuleSoft failure signal</div>
+            <div class="talk-card-body">
+              <p>They bought MuleSoft Order Automation in January 2024. The implementation had low utilization and they churned eight months later. They told the rep they'd renew. They did not.</p>
+              <p>This is not a "we don't care about digital" signal. It's a "we tried to solve this problem and the solution did not fit the people who needed to use it." The backend integration did not change anything the contractor or dealer experienced.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The pattern in the history</div>
+            <div class="talk-card-body">
+              <p>Sales Cloud, Service Cloud, Slack, and Manufacturing Cloud have all gone No Decision or Lost. The internal CRM pitch has been tried multiple times across multiple people since 2013. It has not landed.</p>
+              <p>The $300K Manufacturing Cloud Big Bet in 2021 went No Decision. They evaluated it seriously. Four years later the business has grown and the platform is more mature. Worth revisiting but do not lead with it.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The fresh angle</div>
+            <div class="talk-card-body">
+              <p>The pitch that has not been tried is customer-facing: a digital configurator that lets contractors spec panels, get pricing, and confirm lead times without calling anyone. That solves a contractor problem, not an internal workflow problem.</p>
+              <p>Adoption is built in because the user is the contractor who wants to find McElroy's product. Compare that to MuleSoft, where adoption required internal team behavior change. This is a fundamentally different deployment dynamic.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIORITY CONTACTS -->
+    <div class="card" id="contacts">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Priority Contacts</div>
+          <div class="card-sub">Ranked by fit for the configurator and digital channel play</div>
+        </div>
+        <span class="card-tag tag-red">7 Targets</span>
+      </div>
+      <div class="card-body">
+        <div class="contact-grid">
+
+          <!-- TIER 1 -->
+
+          <div class="contact-row">
+            <div class="contact-tier tier-1">KM</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Kathi Miller</div>
+              <div class="contact-title">Director of Marketing &amp; Sales Training</div>
+              <div class="contact-meta">
+                <a href="mailto:kmiller@mcelroymetal.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  kmiller@mcelroymetal.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(217) 935-9421</span>
+              </div>
+              <div class="contact-why"><strong>Owns marketing and sales training together.</strong> That is the exact intersection where a configurator lives. She thinks about both how contractors find McElroy and how reps help them spec the right product. A digital configurator is both a marketing asset and a sales enablement tool, and she understands both sides of that. Most recently active June 24, 2026 alongside Slone. Start here.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-red">Champion candidate</span>
+                <span class="card-tag tag-yellow">Last active Jun 24</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-red">Tier 1</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-1">SS</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Scott Slone</div>
+              <div class="contact-title">Senior Director of Sales</div>
+              <div class="contact-meta">
+                <a href="mailto:sslone@mcelroymetal.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  sslone@mcelroymetal.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">1 318 747 8030</span>
+              </div>
+              <div class="contact-why"><strong>He runs the dealer and contractor sales team.</strong> He knows exactly how dealers and contractors are ordering today and where deals fall through. If there is a champion for a digital channel, it's Slone. He will also know the answer to the most important discovery question: how many quote requests come in after business hours when no rep is available. Most recently active June 24, 2026.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-red">Core champion target</span>
+                <span class="card-tag tag-yellow">Last active Jun 24</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-red">Tier 1</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-1">HH</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Howell Hicks</div>
+              <div class="contact-title">Chief Information Officer</div>
+              <div class="contact-meta">
+                <a href="mailto:howell@mcelroymetal.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  howell@mcelroymetal.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(318) 773-7752</span>
+              </div>
+              <div class="contact-why"><strong class="warn">Most important and most delicate conversation in the account.</strong> He owned the MuleSoft implementation. He knows exactly why adoption was low. Approach this conversation by acknowledging the MuleSoft history directly before pivoting to how a customer-facing configurator is a different kind of project. Last active April 22, 2026.</div>
+              <div style="margin-top:8px; padding:8px 10px; background:rgba(251,146,60,.06); border:1px solid rgba(251,146,60,.2); border-radius:6px; font-size:.74rem; color:var(--orange); line-height:1.65;">
+                <strong style="color:var(--orange);">Duplicate records flag:</strong> Howell Hicks appears three times in Salesforce with different email addresses: howell@mcelroymetal.com, hicks_howell@mcelroymetal.com, and a third duplicate. Use howell@mcelroymetal.com as the primary. The duplicates should be merged by your Salesforce admin.
+              </div>
+              <div class="pill-row">
+                <span class="card-tag tag-orange">MuleSoft owner</span>
+                <span class="card-tag tag-yellow">Last active Apr 22</span>
+                <span class="card-tag tag-red">3 SF records</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-red">Tier 1</span>
+            </div>
+          </div>
+
+          <!-- TIER 2 -->
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">AH</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Amanda Haskins</div>
+              <div class="contact-title">Chief Financial Officer</div>
+              <div class="contact-meta">
+                <a href="mailto:ahaskins@mcelroymetal.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  ahaskins@mcelroymetal.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(318) 747-8000</span>
+              </div>
+              <div class="contact-why">Owns the financial case. Good for the ROI conversation once you have internal momentum. Do not cold outreach here. Get introduced through Miller or Slone after the first conversation. Last active December 2025.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">ROI conversation</span>
+                <span class="card-tag tag-gray">Last active Dec 2025</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 2</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">ML</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Mark Lawson</div>
+              <div class="contact-title">VP Sales</div>
+              <div class="contact-meta">
+                <a href="mailto:mlawson@mcelroymetal.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  mlawson@mcelroymetal.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">1 870 536 0161</span>
+              </div>
+              <div class="contact-why">VP of Sales and higher rank than Slone. May be the ultimate sales decision-maker. Approach after Slone is warm. If Slone is the champion, Lawson is the executive who can greenlight. Last active November 2025.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">Executive decision-maker</span>
+                <span class="card-tag tag-gray">Last active Nov 2025</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 2</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">CB</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Cliff Barnes</div>
+              <div class="contact-title">Manager, Business Systems</div>
+              <div class="contact-meta">
+                <a href="mailto:cbarnes@mcelroymetal.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  cbarnes@mcelroymetal.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(318) 747-8000</span>
+              </div>
+              <div class="contact-why">He likely ran the MuleSoft implementation day-to-day. Critical for understanding what actually broke. He has the business systems context that makes him the right person to scope what a new implementation involves. Mention his name to Hicks when framing the scoping conversation. Last active November 2025.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-orange">MuleSoft history</span>
+                <span class="card-tag tag-gray">Last active Nov 2025</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 2</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">JH</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Jessica Hall</div>
+              <div class="contact-title">Marketing Manager</div>
+              <div class="contact-meta">
+                <a href="mailto:jlhall@mcelroymetal.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  jlhall@mcelroymetal.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(318) 747-8000</span>
+              </div>
+              <div class="contact-why">Supports Kathi Miller. Good supporting contact for the marketing and configurator angle. Reach her if Miller is unresponsive — she may be a path to the right conversation. Last active June 2, 2026.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">Supporting contact</span>
+                <span class="card-tag tag-yellow">Last active Jun 2</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 2</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- BASHO EMAILS -->
+    <div class="card" id="basho">
+      <div class="card-header">
+        <div>
+          <div class="card-title">BASHO Emails</div>
+          <div class="card-sub">Research-based, 4 sentences max. Click to copy.</div>
+        </div>
+        <span class="card-tag tag-yellow">3 Ready</span>
+      </div>
+      <div class="card-body">
+
+        <div class="email-block" id="email-slone">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>Scott Slone</strong> — Senior Director of Sales</div>
+              <div class="email-subject">Subject: <span>How McElroy dealers are quoting today</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-slone', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-slone-body">Scott,
+
+You run the dealer and contractor sales team at a make-to-order metal panel manufacturer — which means you know exactly how much time your reps spend answering "what's your lead time on 29-gauge Galvalume in Standing Seam?" before a contractor will commit to a bid.
+
+A digital configurator that lets contractors spec profiles, get pricing, and confirm lead times without calling a rep captures that demand at the moment it happens, including at 9pm when they're building bids.
+
+We built this for a comparable building components manufacturer and dealer quote volume increased fourfold.
+
+Worth 20 minutes to see what it looks like for McElroy?
+
+Anthony Troggio
+Salesforce | Digital Transformation Executive
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+        <div class="email-block" id="email-miller">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>Kathi Miller</strong> — Director of Marketing &amp; Sales Training</div>
+              <div class="email-subject">Subject: <span>The McElroy spec decision</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-miller', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-miller-body">Kathi,
+
+You own marketing and sales training at a metal panel manufacturer — which means you're thinking about both how contractors find McElroy and how your reps help them spec the right product.
+
+Those two problems have the same solution: a digital configurator that gives contractors a way to find, spec, and price McElroy panels on their own, and gives your reps a shared tool that makes the follow-up conversation more productive.
+
+I'd like to show you what a manufacturer with your product complexity built for their dealer and contractor channel.
+
+20 minutes?
+
+Anthony Troggio
+Salesforce | Digital Transformation Executive
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+        <div class="email-block" id="email-hicks">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>Howell Hicks</strong> — CIO</div>
+              <div class="email-subject">Subject: <span>Different conversation than the MuleSoft one</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-hicks', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-hicks-body">Howell,
+
+I know McElroy bought MuleSoft Order Automation in early 2024 and the implementation had a rough time getting adoption — that's not an uncommon outcome when the integration solves a backend problem but doesn't change what contractors and dealers actually experience.
+
+The conversation I want to have is different: a customer-facing configurator that lets contractors spec panels and get lead times without calling anyone, which is where the adoption problem goes away because the tool serves the person placing the order, not just the system receiving it.
+
+That's a product decision, not an infrastructure project, and it's something your sales and marketing teams can champion internally.
+
+Worth 20 minutes to see if the angle makes sense?
+
+Anthony Troggio
+Salesforce | Digital Transformation Executive
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TALK TRACK -->
+    <div class="card" id="talktrack">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Talk Track</div>
+          <div class="card-sub">Calibrated for a re-engagement conversation with an account that has a MuleSoft history</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="talk-grid">
+          <div class="talk-card">
+            <div class="talk-card-label">Opener</div>
+            <div class="talk-card-body">
+              <p>"McElroy made a real investment in order automation a couple of years ago. I'd like to understand what you learned from that experience, and whether a customer-facing configurator for contractors and dealers is a conversation that's on your radar."</p>
+              <p>Let them answer before you say anything else. The answer to that question tells you everything you need to know about how to frame the next 30 minutes.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">Discovery Questions</div>
+            <div class="talk-card-body">
+              <ul>
+                <li>What was the primary reason MuleSoft adoption was low — was it the dealers, the contractors, or the internal workflow?</li>
+                <li>How do roofing contractors spec McElroy panels today before calling a dealer?</li>
+                <li>What percentage of your dealer quote requests come in after business hours?</li>
+                <li>How do you track committed volumes from your top dealers against production capacity?</li>
+              </ul>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The Value Pivot</div>
+            <div class="talk-card-body">
+              <p>"The MuleSoft order automation solved a plumbing problem — connecting systems. The configurator solves a customer problem — giving contractors a way to spec and order at 9pm. Those are different things."</p>
+              <p>"One creates internal efficiency. The other captures demand you're currently missing. And the adoption dynamic is completely different because the user is the contractor who wants to find your product."</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The Ask</div>
+            <div class="talk-card-body">
+              <p>A 30-minute demo of what a building materials configurator looks like for a make-to-order manufacturer with complex product options.</p>
+              <p>"I want to show you a comparable manufacturer who built this for their dealer and contractor channel. After that, you'll know whether it's a conversation worth having internally. That's all I'm asking for today."</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJECTIONS -->
+    <div class="card" id="objections">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Objection Handling</div>
+          <div class="card-sub">Five responses for the five things this account will say</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="objection-list">
+
+          <div class="objection-item">
+            <div class="objection-q">We already tried Salesforce (MuleSoft) and it didn't work out.</div>
+            <div class="objection-a">You're right, and I appreciate you being direct about that. The MuleSoft implementation was trying to solve a backend order routing problem. This is a customer-facing configurator that gives contractors a way to spec your panels and get lead times before they call anyone. Different problem, different solution, different adoption curve — because the person using the tool is the contractor who wants to find your product, not an internal team being asked to change their workflow.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">Our dealers handle the contractor relationships.</div>
+            <div class="objection-a">They do, and this doesn't change that. The configurator serves contractors at the moment they're building a bid — at 9pm when the dealer is closed. When the contractor calls the dealer the next morning, they already have a spec and a preliminary quote. The dealer's job gets easier, not harder.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">We evaluated Manufacturing Cloud in 2021 and didn't move forward.</div>
+            <div class="objection-a">A lot has changed since then. The platform is significantly more mature, the implementation cost is lower, and the use cases for a make-to-order manufacturer — production run visibility, dealer volume tracking, lead time accuracy — are better proven. I'd rather show you what's different now than try to relitigate 2021.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">IT doesn't have bandwidth for another implementation.</div>
+            <div class="objection-a">The configurator is a hosted SaaS product, not an on-premise build. The implementation is configuration, not development. And critically, Cliff Barnes has the business systems context from the MuleSoft work that makes him the right person to scope what's actually involved. I'd like to get his read on it.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">We're not making any platform decisions right now.</div>
+            <div class="objection-a">Understood. Can I ask what the threshold is for getting something on the roadmap? Because the contractor spec problem — bids being built after hours without a digital tool — is a revenue leak that compounds every quarter. I'm not asking for a decision today. I'm asking for 30 minutes to show you what the problem looks like solved.</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- OPP HISTORY -->
+    <div class="card" id="history">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Opportunity History</div>
+          <div class="card-sub">Full Salesforce history — know what has been tried and what the relationship looks like</div>
+        </div>
+        <span class="card-tag tag-orange">0 Live · 9 Prior</span>
+      </div>
+      <div class="card-body">
+        <div class="opp-list">
+
+          <div class="opp-item opp-won">
+            <div>
+              <div class="opp-name">MuleSoft Order Automation</div>
+              <div class="opp-detail">Closed Won · Jan 31, 2024 · The existing Salesforce relationship. They invested in digitizing their ordering process.</div>
+            </div>
+            <span class="card-tag tag-green">Won</span>
+            <div class="opp-amount" style="color:var(--green)">$40,008</div>
+          </div>
+
+          <div class="opp-item opp-attrition">
+            <div>
+              <div class="opp-name">MuleSoft Renewal 3</div>
+              <div class="opp-detail">Dead Attrition · Aug 13, 2024 · The renewal churned. Most critical intel in this account.</div>
+            </div>
+            <span class="card-tag tag-orange">Attrition</span>
+            <div class="opp-amount" style="color:var(--orange)">$0</div>
+            <div class="opp-notes">
+              <div class="opp-notes-label">Salesforce Notes — Read This</div>
+              "Low utilization due to new implementation. Stated they'll renew." They did not. This is the signal that tells you everything: they tried, it did not work, they said they would come back, and they walked. Approach Howell Hicks with full acknowledgment of this history. Do not pretend it did not happen.
+            </div>
+          </div>
+
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Slack Business — 225 Seats</div>
+              <div class="opp-detail">Dead No Decision · Feb 27, 2026 · Created Nov 2025</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$40,500</div>
+          </div>
+
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Slack BizPlus — 200 Seats</div>
+              <div class="opp-detail">Dead Lost · Aug 2024</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$50,000</div>
+          </div>
+
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Sales Cloud — 25 Seats</div>
+              <div class="opp-detail">Dead No Decision · Oct 2024</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$50,000</div>
+          </div>
+
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Sales + Service Cloud — 16 Enterprise Edition</div>
+              <div class="opp-detail">Dead Lost · Feb 2024</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$17,600</div>
+          </div>
+
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Big Bet Manufacturing Cloud — 300 Enterprise Edition</div>
+              <div class="opp-detail">Dead No Decision · Jan 2021 · They evaluated a $300K deal seriously and did not proceed. Worth revisiting now that the platform has matured — do not lead with it.</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$300,000</div>
+          </div>
+
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Service Cloud — 58 Enterprise Edition</div>
+              <div class="opp-detail">Dead No Decision · Dec 2017</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$50,000</div>
+          </div>
+
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Sales Cloud Phases + 80 EE SFA</div>
+              <div class="opp-detail">Various outcomes · 2013, 2014, 2015 · The CRM pitch has been tried since the beginning. It has not landed.</div>
+            </div>
+            <span class="card-tag tag-gray">Historical</span>
+            <div class="opp-amount" style="color:var(--muted)">Multiple</div>
+          </div>
+
+        </div>
+
+        <div style="margin-top:16px; padding:14px; background:rgba(251,191,36,.06); border:1px solid rgba(251,191,36,.2); border-radius:8px;">
+          <div style="font-size:.78rem; font-weight:700; color:var(--yellow); margin-bottom:6px;">Read on the history</div>
+          <div style="font-size:.8rem; color:#c8d8e8; line-height:1.75;">McElroy has been in Salesforce conversations since 2013. Sales Cloud has been pitched repeatedly and has never closed. They came within range of a $300K Manufacturing Cloud deal in 2021 and walked. They bought MuleSoft in January 2024, struggled with it, and churned in August 2024. The internal CRM angle is exhausted. The customer-facing digital channel is the angle that has not been tried. Use the MuleSoft history as your opening conversation, not your baggage.</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function copyEmail(blockId, btn) {
+  const bodyEl = document.getElementById(blockId + '-body');
+  if (!bodyEl) return;
+  navigator.clipboard.writeText(bodyEl.textContent.trim()).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy Email'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    link.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
