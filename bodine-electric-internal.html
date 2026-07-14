@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Bodine Electric — Internal Account Brief</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #0f1117;
+  color: #e2e8f0;
+  line-height: 1.6;
+  font-size: 15px;
+}
+a { color: #38bdf8; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+:root {
+  --bg:      #0f1117;
+  --bg2:     #161b26;
+  --bg3:     #1e2535;
+  --border:  rgba(255,255,255,.08);
+  --border2: rgba(255,255,255,.13);
+  --text:    #e2e8f0;
+  --muted:   #8899aa;
+  --red:     #f05060;
+  --red2:    #e01530;
+  --green:   #34d399;
+  --blue:    #38bdf8;
+  --blue2:   #0ea5e9;
+  --yellow:  #fbbf24;
+  --orange:  #fb923c;
+  --purple:  #a78bfa;
+  --r:       10px;
+}
+
+.topbar {
+  background: #0a0d14;
+  border-bottom: 1px solid var(--border);
+  padding: 14px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-badge {
+  background: rgba(251,191,36,.12); border: 1px solid rgba(251,191,36,.3);
+  color: #fbbf24; font-size: .65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  padding: 3px 10px; border-radius: 50px;
+}
+.topbar-title { font-size: .88rem; font-weight: 700; color: var(--text); }
+.topbar-sub { font-size: .72rem; color: var(--muted); margin-top: 1px; }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.topbar-btn {
+  font-size: .72rem; font-weight: 700; padding: 6px 14px; border-radius: 6px;
+  border: 1px solid var(--border2); color: var(--muted);
+  transition: color .15s, border-color .15s; cursor: pointer;
+}
+.topbar-btn:hover { color: var(--text); border-color: rgba(255,255,255,.25); }
+.topbar-btn.primary { background: var(--blue2); border-color: transparent; color: #fff; }
+.topbar-btn.primary:hover { background: var(--blue); }
+
+.layout {
+  max-width: 1200px; margin: 0 auto;
+  padding: 32px 40px 80px;
+  display: grid; grid-template-columns: 260px 1fr;
+  gap: 32px; align-items: start;
+}
+
+.sidebar { position: sticky; top: 72px; }
+.sidebar-section { margin-bottom: 28px; }
+.sidebar-label {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.2px; color: var(--muted); margin-bottom: 10px;
+}
+.nav-item {
+  display: block; padding: 7px 12px; border-radius: 6px;
+  font-size: .82rem; color: var(--muted);
+  transition: background .15s, color .15s; cursor: pointer;
+}
+.nav-item:hover, .nav-item.active { background: var(--bg3); color: var(--text); }
+.nav-item.active { font-weight: 600; }
+
+.account-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 16px;
+}
+.account-logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.account-logo-wrap {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; flex-shrink: 0;
+}
+.account-logo { width: 24px; height: 24px; object-fit: contain; }
+.account-name { font-size: .9rem; font-weight: 800; color: var(--text); }
+.account-domain { font-size: .72rem; color: var(--muted); }
+.account-stat {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 5px 0; border-bottom: 1px solid var(--border); font-size: .78rem;
+}
+.account-stat:last-child { border-bottom: none; }
+.account-stat-label { color: var(--muted); }
+.account-stat-val { font-weight: 700; color: var(--text); }
+
+.main { min-width: 0; display: flex; flex-direction: column; gap: 28px; }
+
+.card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); overflow: hidden;
+}
+.card-header {
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.card-title { font-size: .88rem; font-weight: 700; color: var(--text); }
+.card-sub { font-size: .75rem; color: var(--muted); margin-top: 2px; }
+.card-body { padding: 20px; }
+
+.card-tag {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px;
+  padding: 3px 10px; border-radius: 50px;
+}
+.tag-green  { background: rgba(52,211,153,.1);  color: var(--green);  border: 1px solid rgba(52,211,153,.2); }
+.tag-blue   { background: rgba(56,189,248,.1);  color: var(--blue);   border: 1px solid rgba(56,189,248,.25); }
+.tag-yellow { background: rgba(251,191,36,.1);  color: var(--yellow); border: 1px solid rgba(251,191,36,.2); }
+.tag-red    { background: rgba(240,80,96,.1);   color: var(--red);    border: 1px solid rgba(240,80,96,.2); }
+.tag-orange { background: rgba(251,146,60,.1);  color: var(--orange); border: 1px solid rgba(251,146,60,.2); }
+.tag-purple { background: rgba(167,139,250,.1); color: var(--purple); border: 1px solid rgba(167,139,250,.2); }
+.tag-gray   { background: rgba(255,255,255,.05);color: var(--muted);  border: 1px solid var(--border); }
+
+/* CONTACT GRID */
+.contact-grid { display: flex; flex-direction: column; gap: 12px; }
+.contact-row {
+  display: grid; grid-template-columns: 44px 1fr auto;
+  gap: 14px; align-items: start;
+  padding: 14px 16px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--bg3);
+  transition: border-color .15s;
+}
+.contact-row:hover { border-color: var(--border2); }
+.contact-tier {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; font-weight: 800; color: #fff;
+}
+.tier-1 { background: linear-gradient(135deg, #0284c7, #38bdf8); }
+.tier-2 { background: linear-gradient(135deg, #3b82f6, #818cf8); }
+.contact-info-main { min-width: 0; }
+.contact-name { font-size: .92rem; font-weight: 700; color: var(--text); }
+.contact-title { font-size: .78rem; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+.contact-meta { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; align-items: center; }
+.contact-link {
+  font-size: .72rem; color: var(--blue);
+  display: flex; align-items: center; gap: 4px;
+}
+.contact-why { font-size: .78rem; color: var(--text); line-height: 1.6; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.contact-why strong { color: var(--blue); }
+.contact-actions { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; flex-shrink: 0; }
+.pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+/* TALK TRACK */
+.talk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.talk-card {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px;
+}
+.talk-card-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
+.talk-card-body { font-size: .82rem; color: #c8d8e8; line-height: 1.75; }
+.talk-card-body p + p { margin-top: 8px; }
+
+/* BASHO EMAILS */
+.email-block {
+  border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; margin-bottom: 16px;
+}
+.email-block:last-child { margin-bottom: 0; }
+.email-header {
+  background: var(--bg3); padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.email-to { font-size: .82rem; color: var(--text); }
+.email-to strong { font-weight: 700; }
+.email-subject { font-size: .75rem; color: var(--muted); margin-top: 2px; }
+.email-subject span { color: var(--text); font-weight: 600; }
+.email-body {
+  padding: 16px 18px; font-size: .84rem; color: #c8d8e8;
+  line-height: 1.85; white-space: pre-wrap; font-family: 'Georgia', serif;
+}
+.copy-btn {
+  font-size: .68rem; font-weight: 700; padding: 5px 12px; border-radius: 5px;
+  background: rgba(255,255,255,.06); border: 1px solid var(--border2);
+  color: var(--muted); cursor: pointer; white-space: nowrap;
+  transition: background .15s, color .15s;
+}
+.copy-btn:hover { background: rgba(255,255,255,.12); color: var(--text); }
+.copy-btn.copied { background: rgba(56,189,248,.12); border-color: rgba(56,189,248,.3); color: var(--blue); }
+
+/* OBJECTIONS */
+.objection-list { display: flex; flex-direction: column; gap: 10px; }
+.objection-item { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.objection-q {
+  padding: 12px 14px; font-size: .82rem; font-weight: 700; color: var(--text);
+  display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border);
+}
+.objection-q::before {
+  content: '?'; width: 20px; height: 20px;
+  background: rgba(251,191,36,.15); color: var(--yellow); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 800; flex-shrink: 0;
+}
+.objection-a { padding: 12px 14px; font-size: .82rem; color: #c8d8e8; line-height: 1.75; }
+
+/* OPP HISTORY */
+.opp-list { display: flex; flex-direction: column; gap: 8px; }
+.opp-item {
+  display: grid; grid-template-columns: 1fr auto auto;
+  gap: 12px; align-items: center;
+  padding: 10px 14px; border-radius: 7px;
+  background: var(--bg3); border: 1px solid var(--border); font-size: .8rem;
+}
+.opp-item.dead-lost {
+  background: rgba(240,80,96,.05); border-color: rgba(240,80,96,.3);
+}
+.opp-name { font-weight: 600; color: var(--text); }
+.opp-detail { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+.opp-amount { font-weight: 700; color: var(--text); white-space: nowrap; }
+
+/* CALLOUT BOXES */
+.note-callout {
+  background: rgba(251,191,36,.06); border: 1px solid rgba(251,191,36,.2);
+  border-radius: 8px; padding: 14px 16px; margin-top: 16px;
+}
+.note-callout-label { font-size: .72rem; font-weight: 700; color: var(--yellow); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .8px; }
+.note-callout-body { font-size: .8rem; color: #c8d8e8; line-height: 1.75; }
+
+.warning-callout {
+  background: rgba(240,80,96,.07); border: 1px solid rgba(240,80,96,.35);
+  border-radius: 8px; padding: 14px 16px; margin-top: 12px;
+}
+.warning-callout-label { font-size: .72rem; font-weight: 700; color: var(--red); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .8px; }
+.warning-callout-body { font-size: .8rem; color: #c8d8e8; line-height: 1.75; }
+
+.tier-divider {
+  font-size: .72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .8px; margin-bottom: 10px; margin-top: 20px;
+}
+
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; padding: 20px; }
+  .sidebar { position: static; }
+  .talk-grid { grid-template-columns: 1fr; }
+  .contact-row { grid-template-columns: 44px 1fr; }
+  .contact-actions { flex-direction: row; grid-column: 1 / -1; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div>
+      <div class="topbar-title">Bodine Electric Company &mdash; Account Brief</div>
+      <div class="topbar-sub">Internal use only &middot; Anthony Troggio &amp; Team &middot; July 2026</div>
+    </div>
+    <span class="topbar-badge">Internal</span>
+  </div>
+  <div class="topbar-right">
+    <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" class="topbar-btn primary">Book Time</a>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="account-card">
+      <div class="account-logo-row">
+        <div class="account-logo-wrap">
+          <img src="https://www.google.com/s2/favicons?domain=bodine-electric.com&sz=64" class="account-logo" alt="Bodine Electric">
+        </div>
+        <div>
+          <div class="account-name">Bodine Electric</div>
+          <div class="account-domain">bodine-electric.com</div>
+        </div>
+      </div>
+      <div class="account-stat"><span class="account-stat-label">Revenue</span><span class="account-stat-val">$122M</span></div>
+      <div class="account-stat"><span class="account-stat-label">Employees</span><span class="account-stat-val">450</span></div>
+      <div class="account-stat"><span class="account-stat-label">HQ</span><span class="account-stat-val">Chicago, IL</span></div>
+      <div class="account-stat"><span class="account-stat-label">Industry</span><span class="account-stat-val">Frac HP Motors</span></div>
+      <div class="account-stat"><span class="account-stat-label">Ownership</span><span class="account-stat-val">Family (Bodine)</span></div>
+      <div class="account-stat"><span class="account-stat-label">Status</span><span class="account-stat-val" style="color:var(--orange)">Prospect</span></div>
+      <div class="account-stat"><span class="account-stat-label">SF Account ID</span><span class="account-stat-val" style="font-size:.68rem; color:var(--muted)">00130000002xVw7AAE</span></div>
+    </div>
+
+    <div class="sidebar-section" style="margin-top:20px;">
+      <div class="sidebar-label">Play</div>
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <span class="card-tag tag-blue"   style="width:fit-content;">B2B Commerce</span>
+        <span class="card-tag tag-purple" style="width:fit-content;">Manufacturing Cloud</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Navigate</div>
+      <a class="nav-item active" href="#context">Account Context</a>
+      <a class="nav-item" href="#contacts">Priority Contacts</a>
+      <a class="nav-item" href="#basho">BASHO Emails</a>
+      <a class="nav-item" href="#talktrack">Talk Track</a>
+      <a class="nav-item" href="#objections">Objection Handling</a>
+      <a class="nav-item" href="#history">Opportunity History</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Key Dates</div>
+      <div style="font-size:.75rem; color:var(--muted); line-height:1.8;">
+        Most recent contact: <span style="color:var(--text)">Jun 15, 2026</span><br>
+        Last opp closed: <span style="color:var(--red)">Sep 2025 (Dead Lost)</span><br>
+        Mfg Cloud pitches: <span style="color:var(--yellow)">3 times, all dead</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ACCOUNT CONTEXT -->
+    <div class="card" id="context">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Account Context</div>
+          <div class="card-sub">What you need to know before you pick up the phone</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="talk-grid">
+          <div class="talk-card">
+            <div class="talk-card-label">Who they are</div>
+            <div class="talk-card-body">
+              <p>Family-owned manufacturer of fractional horsepower motors and motor controls. Chicago, IL. Jeffrey Bodine is CEO. The Bodine family has run this company for generations and the name is literally on the product.</p>
+              <p>$122M revenue, 450 employees. Products span AC motors, DC motors, servo motors, brushless DC, gear motors, torque motors, and motor controls. OEM customers are in medical, machine tool, factory automation, office equipment, food processing, graphic arts, and packaging machinery.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The real opportunity</div>
+            <div class="talk-card-body">
+              <p>Bodine has one of the deepest fractional HP motor catalogs in North America. The problem is that OEM engineers finding the right motor spec is a phone call or a PDF search. When that process is harder than navigating a competitor's digital catalog, the spec goes to the competitor and every repeat order for the life of that production run goes with it.</p>
+              <p>A B2B Commerce motor configurator for OEM buyers is the lead. Let engineers filter by HP, torque, voltage, enclosure, and mounting style and get availability and lead times in real time. This is something Bodine's competitors do not have yet.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">Why the prior plays went dead</div>
+            <div class="talk-card-body">
+              <p>Manufacturing Cloud has been pitched three times: 2023, 2024, and 2025. The first two were No Decision. The 2025 pitch got all the way to 50 seats and $83K and then went Dead Lost. Not No Decision. Lost. That means they evaluated and made a deliberate call to say no or go with something else.</p>
+              <p>The prior pitches were framed as internal tools for reps or back-office run rates. That is the wrong frame for a family-owned manufacturer. They care about what serves their OEM customers and protects revenue, not what makes their sales ops team more efficient.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">What makes this play different</div>
+            <div class="talk-card-body">
+              <p>B2B Commerce as the lead has never been pitched to Bodine. A digital motor configurator is a customer-facing product decision, not an IT infrastructure project. It serves the OEM engineers who are your customer's buyers. That story resonates with Kevin Machalek (sales win rates), Terry Auchstetter (product experience), and even the CEO because it builds a competitive moat in a market where catalog depth only wins if buyers can find what they need.</p>
+              <p>Manufacturing Cloud as the complement, not the headline, handles run rate forecasting and volume agreements for the OEM accounts that commit to long production runs.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIORITY CONTACTS -->
+    <div class="card" id="contacts">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Priority Contacts</div>
+          <div class="card-sub">Ranked by fit for the B2B Commerce motor configurator play</div>
+        </div>
+        <span class="card-tag tag-blue">7 Targets</span>
+      </div>
+      <div class="card-body">
+
+        <div class="tier-divider" style="color:var(--blue);">Tier 1 &mdash; Primary Outreach</div>
+        <div class="contact-grid">
+
+          <div class="contact-row">
+            <div class="contact-tier tier-1">KM</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Kevin Machalek</div>
+              <div class="contact-title">VP Sales &amp; Marketing</div>
+              <div class="contact-meta">
+                <a href="mailto:kevin.machalek@bodine-electric.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  kevin.machalek@bodine-electric.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(773) 478-3515</span>
+              </div>
+              <div class="contact-why"><strong>The spec call problem is his problem.</strong> Machalek owns the sales team and the OEM customer relationships. His reps are fielding spec calls from OEM engineers who just want to know if Bodine makes a motor that fits their application. Every one of those calls that goes to a competitor because the catalog process is harder than a competitor's digital tool is a loss that compounds across the production run. The motor configurator is a sales enablement story: his reps stop being spec consultants and start being strategic account managers. Last active Jun 15, 2026.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">Champion candidate</span>
+                <span class="card-tag tag-yellow">Last active Jun 15</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 1</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-1">TA</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Terry Auchstetter</div>
+              <div class="contact-title">Director of Marketing &amp; Product Development</div>
+              <div class="contact-meta">
+                <a href="mailto:terry.auchstetter@bodine-electric.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  terry.auchstetter@bodine-electric.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(847) 999-1224</span>
+              </div>
+              <div class="contact-why"><strong>Product development is in his title.</strong> A digital configurator is a product experience play. He is the person most likely to see this as building a competitive moat, not just buying software. Bodine's catalog depth is a genuine competitive advantage that a well-built configurator turns into a conversion advantage. The OEM engineer who can filter by HP, torque, enclosure, and mounting style in 10 minutes is the one who specs Bodine instead of a competitor. Auchstetter understands that. Last active Jun 15, 2026.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">Product moat angle</span>
+                <span class="card-tag tag-yellow">Last active Jun 15</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 1</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-1">DS</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Dave Sturgeon</div>
+              <div class="contact-title">VP of Information Technology</div>
+              <div class="contact-meta">
+                <a href="mailto:dave.sturgeon@bodine-electric.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  dave.sturgeon@bodine-electric.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">773-478-3515 x5938</span>
+              </div>
+              <div class="contact-why"><strong>Approach carefully. He knows the Salesforce history.</strong> Sturgeon was in the room for the prior Manufacturing Cloud evaluations. He knows those conversations went dead. Do not pretend otherwise. The direct move is to acknowledge it: "You've evaluated Manufacturing Cloud at least twice and it went dead both times. This conversation is different." The lead is a customer-facing motor configurator, not internal CRM or infrastructure. That is a product decision, not an IT project, and that distinction matters to him. Last active May 29, 2026.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-yellow">Handle with care</span>
+                <span class="card-tag tag-yellow">Last active May 29</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 1</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="tier-divider" style="color:var(--purple);">Tier 2 &mdash; Supporting Cast</div>
+        <div class="contact-grid">
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">JB</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Jeffrey Bodine</div>
+              <div class="contact-title">Chief Executive Officer</div>
+              <div class="contact-meta">
+                <a href="mailto:jpb@bodine-electric.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  jpb@bodine-electric.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(773) 478-3515 x5913</span>
+              </div>
+              <div class="contact-why">Family-owned company. The CEO is the ultimate decision-maker and the family name is on the product. Do not cold outreach here. Get introduced through Machalek or Auchstetter. Once you have a champion, the CEO conversation is about competitive position: the companies with the deepest catalogs win when their buyers can find what they need fastest. Last active Apr 22, 2026.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-purple">Get introduced first</span>
+                <span class="card-tag tag-yellow">Last active Apr 22</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-purple">Tier 2</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">JS</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Jeffrey Stahl</div>
+              <div class="contact-title">Chief Financial Officer</div>
+              <div class="contact-meta">
+                <a href="mailto:jeff.stahl@bodine-electric.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  jeff.stahl@bodine-electric.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">773-478-3515</span>
+              </div>
+              <div class="contact-why">Owns the financial case. Bring him in once you have a champion and a business case built. The ROI story for the motor configurator is spec win rate plus repeat order revenue for production runs that never went to a competitor. Once the champion can articulate that, Stahl is the person who makes it a number. Last active May 20, 2026.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-purple">ROI conversation</span>
+                <span class="card-tag tag-yellow">Last active May 20</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-purple">Tier 2</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">LS</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Leroy Soppe</div>
+              <div class="contact-title">VP Manufacturing</div>
+              <div class="contact-meta">
+                <a href="mailto:leroy.soppe@bodine-electric.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  leroy.soppe@bodine-electric.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(773) 478-3515</span>
+              </div>
+              <div class="contact-why">Owns the production floor. Manufacturing Cloud run rate and volume forecasting lives in his world, specifically the OEM volume commitments that drive production planning. He is relevant once the configurator conversation establishes the OEM ordering flow. When a medical OEM commits to a motor for a new device, Soppe owns what happens next. Last active Jan 29, 2026.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-purple">Mfg Cloud angle</span>
+                <span class="card-tag tag-yellow">Last active Jan 29</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-purple">Tier 2</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">JW</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Jack Wallace</div>
+              <div class="contact-title">Sr. Application Engineer &amp; Area Marketing Manager</div>
+              <div class="contact-meta">
+                <a href="mailto:jack.wallace@bodine-electric.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  jack.wallace@bodine-electric.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(847) 999-1216</span>
+              </div>
+              <div class="contact-why">This title is unusual and worth paying attention to. An application engineer who also does area marketing is the person doing spec calls with OEM engineers today and thinking about how to reach those engineers at scale. If anyone knows where the spec process breaks down, it is Jack Wallace. He is a strong source of discovery data and potentially a vocal internal advocate for a tool that gets OEM buyers to the right application faster. Last active Jun 15, 2026.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">Key discovery source</span>
+                <span class="card-tag tag-yellow">Last active Jun 15</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-purple">Tier 2</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- BASHO EMAILS -->
+    <div class="card" id="basho">
+      <div class="card-header">
+        <div>
+          <div class="card-title">BASHO Emails</div>
+          <div class="card-sub">Research-based, 4 sentences max. Click to copy.</div>
+        </div>
+        <span class="card-tag tag-yellow">3 Ready</span>
+      </div>
+      <div class="card-body">
+
+        <div class="email-block" id="email-machalek">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>Kevin Machalek</strong> &mdash; VP Sales &amp; Marketing</div>
+              <div class="email-subject">Subject: <span>OEM spec decisions at Bodine</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-machalek', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-machalek-body">Kevin,
+
+The spec decision for a fractional HP motor happens when an engineer is designing a machine. If Bodine's catalog isn't the easiest one to navigate online, the spec goes to a competitor and stays there for the life of that production run.
+
+We helped a comparable industrial manufacturer build a digital configurator that let OEM buyers find and spec motors without calling. Their application engineers shifted to complex configurations and their spec win rate improved.
+
+Worth 20 minutes to show you what that looks like?
+
+Anthony Troggio
+Salesforce | Digital Transformation Executive
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+        <div class="email-block" id="email-auchstetter">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>Terry Auchstetter</strong> &mdash; Director of Marketing &amp; Product Development</div>
+              <div class="email-subject">Subject: <span>Bodine's catalog as a competitive weapon</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-auchstetter', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-auchstetter-body">Terry,
+
+Bodine has one of the deepest fractional HP motor catalogs in North America. The question is whether OEM engineers can navigate it fast enough to spec your motor before they spec a competitor's.
+
+A digital configurator that lets an automation engineer filter by HP, voltage, torque, and mounting style and get availability and lead times in real time turns your catalog depth into a conversion advantage.
+
+I'd like to show you what that looks like built for a manufacturer with your product complexity. 20 minutes?
+
+Anthony Troggio
+Salesforce | Digital Transformation Executive
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+        <div class="email-block" id="email-sturgeon">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>Dave Sturgeon</strong> &mdash; VP of Information Technology</div>
+              <div class="email-subject">Subject: <span>Different conversation than the last few</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-sturgeon', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-sturgeon-body">Dave,
+
+You've evaluated Salesforce Manufacturing Cloud at least twice in the last three years, and it went dead both times. I know that history.
+
+This conversation is different: the lead is a customer-facing motor configurator for OEM buyers, not an internal CRM for your reps, and Manufacturing Cloud is the backend that makes run rate tracking and volume agreements work once you have the customer data flowing.
+
+A digital configurator is a product decision, not an IT infrastructure project, and it's something your competitors don't have yet.
+
+Worth 20 minutes to see if the angle makes more sense this time?
+
+Anthony Troggio
+Salesforce | Digital Transformation Executive
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TALK TRACK -->
+    <div class="card" id="talktrack">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Talk Track</div>
+          <div class="card-sub">Opener, discovery, the value pivot, and the ask</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="talk-grid">
+          <div class="talk-card">
+            <div class="talk-card-label">The Opener</div>
+            <div class="talk-card-body">
+              <p>"Bodine has an exceptional motor catalog. The question I want to ask is how an OEM engineer at a packaging company finds the right Bodine motor today, and what happens when that process is harder than finding the same spec at a competitor."</p>
+              <p>That is the whole frame. Let them tell you what the process looks like in their own words before you say anything about what you sell.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">Discovery Questions</div>
+            <div class="talk-card-body">
+              <p>How do OEM engineers typically start a spec at Bodine?</p>
+              <p>What is the ratio of spec calls that convert to an order?</p>
+              <p>When a medical OEM commits to a motor for a new device, what does the ongoing order relationship look like?</p>
+              <p>How do you track volume commitments from top OEM accounts?</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The Value Pivot</div>
+            <div class="talk-card-body">
+              <p>"The spec decision is winner-take-all for a production run. If your catalog isn't as easy to navigate as your competitor's, you lose the spec and every repeat order for the life of that machine."</p>
+              <p>"A configurator doesn't replace your application engineers. It gets the right OEM buyers to the right engineer faster, with the preliminary spec already done. Your engineers' time goes to the applications where their expertise actually matters."</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The Ask</div>
+            <div class="talk-card-body">
+              <p>"I'd like to give you a 30-minute demo of what a motor configurator looks like for an industrial manufacturer with complex product configurations. Not a general platform demo, a configurator built for the kind of spec decisions your OEM buyers are making."</p>
+              <p>If they engage, follow with: who else at Bodine should be in that conversation? Getting Machalek and Auchstetter in the same room is the goal.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJECTIONS -->
+    <div class="card" id="objections">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Objection Handling</div>
+          <div class="card-sub">The five objections you will hear and how to move through them</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="objection-list">
+
+          <div class="objection-item">
+            <div class="objection-q">We already looked at Manufacturing Cloud and it didn't work out.</div>
+            <div class="objection-a">The prior pitches were internal tools: Sales Cloud and Service Cloud for reps, and Manufacturing Cloud for back-office run rates. This is a customer-facing digital configurator for OEM buyers. It is a product that OEM engineers use, not one your reps use. Different value proposition, different stakeholders, different business case. The fact that Manufacturing Cloud went dead three times does not say anything about whether a digital catalog configurator creates value for Bodine's OEM customers.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">Our customers prefer to work with our application engineers directly.</div>
+            <div class="objection-a">They prefer getting the right motor fast. Application engineers are the reason OEM buyers come to Bodine and they are a genuine competitive advantage. The configurator does not replace them. It handles the "do you make a motor that fits these parameters" question so the engineer's time goes to the applications where their expertise actually matters: complex configurations, edge cases, and the accounts where the relationship is the sale. The engineers' jobs get better, not smaller.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">Our catalog is too complex for a digital tool.</div>
+            <div class="objection-a">The complexity is exactly why the digital tool creates value. A packaging OEM engineer who needs to filter by HP, torque, enclosure, and mounting configuration in 10 minutes has no patience for a PDF catalog. The manufacturers with the deepest catalogs benefit the most from a good configurator because the search problem is hardest for their buyers. Bodine's catalog complexity is not a barrier to building this. It is the reason this creates a competitive moat that a simpler catalog manufacturer cannot replicate.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">We're not ready to make a platform decision right now.</div>
+            <div class="objection-a">Fair. Let me ask a different question: how are OEM engineers finding and speccing Bodine motors today compared to three years ago? If the answer is "the same way," that is the risk. The process your competitors are using has changed. I am not asking for a platform decision. I am asking for 30 minutes to show you what the competitive landscape looks like and let you tell me if it is relevant to Bodine or not.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">We went with a different solution last time.</div>
+            <div class="objection-a">What was the deciding factor? That is genuinely useful to know. If it was price, I can work on that. If it was fit, I want to understand where the fit broke. If it was internal prioritization, I want to understand what changed. The fact that Bodine and Salesforce have had multiple conversations over the years tells me there is real interest here. I just want to understand what makes this one land differently. That conversation alone is worth 20 minutes.</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- OPP HISTORY -->
+    <div class="card" id="history">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Opportunity History</div>
+          <div class="card-sub">Full Salesforce history. Know what has been tried before. The 2025 close is critical.</div>
+        </div>
+        <span class="card-tag tag-red">All Dead</span>
+      </div>
+      <div class="card-body">
+        <div class="opp-list">
+
+          <div class="opp-item dead-lost">
+            <div>
+              <div class="opp-name">Bodine Electric +50 MFG UE</div>
+              <div class="opp-detail">DEAD LOST &middot; Closed Sep 2025 &middot; Created Apr 2025 &middot; 50 Manufacturing Cloud seats</div>
+            </div>
+            <span class="card-tag tag-red">Dead Lost</span>
+            <div class="opp-amount">$83,750</div>
+          </div>
+
+          <div class="warning-callout">
+            <div class="warning-callout-label">This is Dead Lost, not No Decision. Read this carefully.</div>
+            <div class="warning-callout-body">This opp got to 50 seats and $83,750 and then went <strong style="color:var(--red)">Dead Lost</strong>, not Dead No Decision. Those are different outcomes. No Decision means the evaluation stalled or the internal priority dropped. Lost means Bodine evaluated the options and made a deliberate choice to say no or go elsewhere. Something specific happened in 2025 to kill this. Before you re-engage, you need to know what that was. Ask Dave Sturgeon directly and ask early. If you do not address the 2025 outcome head-on, you will walk into the same conversation and get the same result. This is the single most important piece of context in this entire brief.</div>
+          </div>
+
+          <div class="opp-item" style="margin-top:8px;">
+            <div>
+              <div class="opp-name">Bodine Electric (30) +15 SVC EE + 15 SC EE</div>
+              <div class="opp-detail">Dead No Decision &middot; Closed Dec 2024 &middot; Sales Cloud + Service Cloud 15+15</div>
+            </div>
+            <span class="card-tag tag-gray">No Decision</span>
+            <div class="opp-amount">$32,175</div>
+          </div>
+
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Bodine Electric - 10 (10) Manufacturing Cloud</div>
+              <div class="opp-detail">Dead No Decision &middot; Closed Jan 2024 &middot; 10 Manufacturing Cloud seats</div>
+            </div>
+            <span class="card-tag tag-gray">No Decision</span>
+            <div class="opp-amount">$24,000</div>
+          </div>
+
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Bodine Electric - PRO</div>
+              <div class="opp-detail">Lost &middot; 2011</div>
+            </div>
+            <span class="card-tag tag-red">Lost</span>
+            <div class="opp-amount">$12,000</div>
+          </div>
+
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Bodine Electric Company (+20) 20 PE</div>
+              <div class="opp-detail">Dead No Decision &middot; 2012</div>
+            </div>
+            <span class="card-tag tag-gray">No Decision</span>
+            <div class="opp-amount">$9,360</div>
+          </div>
+
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Bodine Electric -(+20) 20PE</div>
+              <div class="opp-detail">Dead No Decision &middot; 2011</div>
+            </div>
+            <span class="card-tag tag-gray">No Decision</span>
+            <div class="opp-amount">$13,600</div>
+          </div>
+
+        </div>
+
+        <div class="note-callout">
+          <div class="note-callout-label">Read on the history</div>
+          <div class="note-callout-body">Bodine has been in Salesforce conversations since 2011. The pattern is consistent: internal-facing plays (Sales Cloud, Service Cloud, Manufacturing Cloud for back-office) and they all went dead. Manufacturing Cloud has been pitched three times in three years. The 2023 and 2024 pitches went No Decision. The 2025 pitch went all the way to 50 seats and $83K and came back as Dead Lost. The fresh angle is B2B Commerce as a customer-facing motor configurator for OEM buyers. This has never been pitched to Bodine. It is a product decision, not an IT project, and it serves the OEM engineers who are Bodine's actual customers. That is a genuinely different story with genuinely different stakeholders. Do not re-pitch what has already been pitched.</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function copyEmail(blockId, btn) {
+  const bodyEl = document.getElementById(blockId + '-body');
+  if (!bodyEl) return;
+  navigator.clipboard.writeText(bodyEl.textContent.trim()).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy Email'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    link.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

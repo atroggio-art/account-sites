@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Bodine Electric × Salesforce | An Executive Briefing from Anthony Troggio</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #f1f5f9;
+  color: #111827;
+  line-height: 1.6;
+  font-size: 16px;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+:root {
+  --charcoal:  #111827;
+  --charcoal2: #1f2937;
+  --charcoal3: #2d3a4a;
+  --electric:  #0ea5e9;
+  --electric2: #38bdf8;
+  --electric3: #7dd3fc;
+  --slate:     #f1f5f9;
+  --warm:      #f8fafc;
+  --muted:     #4b6070;
+  --border:    #dde5ed;
+  --shadow:    0 2px 20px rgba(17,24,39,.08);
+  --r:         12px;
+}
+
+/* ANNOUNCEMENT BAR */
+.announcement-bar {
+  background: #00A1E0;
+  color: #fff;
+  text-align: center;
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .6px;
+  padding: 8px 48px;
+  position: sticky;
+  top: 0;
+  z-index: 101;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.announcement-bar strong { font-weight: 800; letter-spacing: .3px; }
+.announcement-bar .ab-dot {
+  display: inline-block;
+  width: 3px; height: 3px;
+  background: rgba(255,255,255,.6);
+  border-radius: 50%;
+  margin: 0 10px;
+  vertical-align: middle;
+  position: relative; top: -1px;
+}
+
+/* TOPBAR */
+.topbar {
+  background: linear-gradient(135deg, #080d14 0%, var(--charcoal) 100%);
+  padding: 0 48px; height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 34px; z-index: 100;
+  box-shadow: 0 1px 0 rgba(255,255,255,.05), 0 4px 24px rgba(0,0,0,.35);
+}
+.topbar::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, #00A1E0 0%, var(--electric) 55%, var(--electric3) 100%);
+}
+.topbar-partnership { display: flex; align-items: center; gap: 0; }
+.topbar-brand { display: flex; align-items: center; gap: 12px; padding: 6px 20px 6px 0; }
+.topbar-brand-sf { display: flex; align-items: center; gap: 11px; }
+.topbar-cloud { width: 40px; height: 28px; flex-shrink: 0; filter: drop-shadow(0 0 10px rgba(0,161,224,.5)); }
+.topbar-wordmark { color: #fff; font-size: 1.05rem; font-weight: 800; letter-spacing: .3px; line-height: 1; }
+.topbar-x { width: 1px; height: 28px; background: rgba(255,255,255,.15); margin: 0 20px; flex-shrink: 0; }
+.topbar-company-group { display: flex; align-items: center; gap: 10px; padding: 6px 0; opacity: .7; }
+.topbar-logo-wrap { background: rgba(255,255,255,.95); border-radius: 8px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.topbar-company-logo { width: 24px; height: 24px; object-fit: contain; }
+.topbar-company-text { font-size: .88rem; font-weight: 700; color: #fff; letter-spacing: .2px; line-height: 1; }
+.topbar-cta {
+  background: var(--electric);
+  color: #fff; font-size: .75rem; font-weight: 700;
+  padding: 9px 22px; border-radius: 50px; letter-spacing: .3px;
+  box-shadow: 0 3px 16px rgba(14,165,233,.4);
+  transition: transform .15s, box-shadow .2s, background .15s;
+  white-space: nowrap;
+}
+.topbar-cta:hover { transform: translateY(-1px); background: var(--electric2); box-shadow: 0 5px 22px rgba(14,165,233,.5); }
+
+/* HERO */
+.hero {
+  position: relative; min-height: 640px;
+  display: flex; align-items: center; overflow: hidden;
+  background: var(--charcoal);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?auto=format&fit=crop&w=1800&q=80');
+  background-size: cover; background-position: center 40%;
+  opacity: .65;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, rgba(17,24,39,.92) 40%, rgba(17,24,39,.35) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 1160px; margin: 0 auto;
+  padding: 90px 52px; width: 100%;
+  display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: center;
+}
+.hero-content > * { min-width: 0; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 24px;
+  background: rgba(14,165,233,.18); border: 1px solid rgba(14,165,233,.4);
+  border-radius: 50px; padding: 6px 16px 6px 11px;
+}
+.hero-eyebrow-dot { width: 8px; height: 8px; background: var(--electric3); border-radius: 50%; animation: pulse 2.2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+.hero-eyebrow span { font-size: .72rem; font-weight: 700; color: var(--electric3); text-transform: uppercase; letter-spacing: 1px; }
+.hero h1 {
+  font-size: clamp(2rem, 4.2vw, 3.1rem); font-weight: 800;
+  color: #fff; line-height: 1.12; letter-spacing: -.5px;
+  max-width: 640px; margin-bottom: 22px;
+}
+.hero h1 em { color: var(--electric3); font-style: normal; }
+.hero-sub {
+  font-size: 1.05rem; color: rgba(255,255,255,.7);
+  max-width: 540px; line-height: 1.75; margin-bottom: 32px;
+}
+.hero-stats { display: flex; flex-direction: column; gap: 10px; margin-bottom: 34px; }
+.hero-stat-row {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px; padding: 12px 16px;
+}
+.hero-stat-num { font-size: 1.4rem; font-weight: 800; color: var(--electric3); min-width: 80px; flex-shrink: 0; }
+.hero-stat-desc { font-size: .84rem; color: rgba(255,255,255,.7); line-height: 1.4; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--electric); color: #fff; font-weight: 700; font-size: .95rem;
+  padding: 14px 28px; border-radius: 8px;
+  box-shadow: 0 4px 22px rgba(14,165,233,.45);
+  transition: background .2s, transform .15s;
+}
+.btn-primary:hover { background: var(--electric2); transform: translateY(-2px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: transparent; color: rgba(255,255,255,.75); font-weight: 600; font-size: .9rem;
+  padding: 14px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,.2);
+  transition: border-color .2s, color .2s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+
+.hero-card {
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px; padding: 32px 28px; backdrop-filter: blur(8px);
+}
+.hero-card-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--electric3); margin-bottom: 20px; }
+.hero-card-stat { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,.1); }
+.hero-card-stat:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.hcs-num { font-size: 2.2rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px; }
+.hcs-num span { color: var(--electric3); }
+.hcs-label { font-size: .8rem; color: rgba(255,255,255,.5); line-height: 1.4; }
+
+/* STATS STRIP */
+.strip { background: var(--charcoal2); display: flex; border-bottom: 1px solid rgba(255,255,255,.05); }
+.strip-item { flex: 1; padding: 22px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,.07); }
+.strip-item:last-child { border-right: none; }
+.sv { font-size: 1.65rem; font-weight: 800; color: var(--electric3); }
+.sl { font-size: .67rem; text-transform: uppercase; letter-spacing: .6px; color: rgba(255,255,255,.42); margin-top: 5px; }
+
+/* SECTION DEFAULTS */
+.section { max-width: 1160px; margin: 0 auto; padding: 64px 52px; }
+.section-eyebrow { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--electric); margin-bottom: 10px; }
+.section-title { font-size: clamp(1.5rem, 2.8vw, 2.1rem); font-weight: 800; color: var(--charcoal); line-height: 1.2; margin-bottom: 14px; }
+.section-sub { font-size: .97rem; color: var(--muted); max-width: 640px; line-height: 1.75; }
+.hr { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* POV */
+.pov-section { background: var(--warm); border-top: 4px solid var(--electric); }
+.pov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-top: 44px; }
+.pov-statement {
+  background: linear-gradient(145deg, var(--charcoal) 0%, var(--charcoal2) 100%);
+  border-radius: var(--r); padding: 38px 36px; color: #fff;
+}
+.pov-statement blockquote {
+  font-size: 1.22rem; font-weight: 700; line-height: 1.5;
+  margin-bottom: 18px; border-left: 3px solid var(--electric3); padding-left: 18px;
+}
+.pov-statement blockquote em { color: var(--electric3); font-style: normal; }
+.pov-statement p { font-size: .9rem; color: rgba(255,255,255,.68); line-height: 1.78; }
+.pov-statement p + p { margin-top: 12px; }
+.pov-points { display: flex; flex-direction: column; gap: 16px; }
+.pov-point {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 20px; background: var(--slate); border-radius: var(--r);
+  border-left: 3px solid var(--electric);
+}
+.pov-point-icon { font-size: 1.35rem; flex-shrink: 0; margin-top: 1px; }
+.pov-point-body strong { display: block; font-size: .92rem; font-weight: 700; color: var(--charcoal); margin-bottom: 5px; }
+.pov-point-body p { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+
+/* PROOF */
+.proof-section { background: var(--slate); }
+.proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 20px; margin-top: 44px; }
+.proof-card {
+  background: var(--warm); border-radius: var(--r);
+  border: 1px solid var(--border); overflow: hidden;
+  box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s;
+}
+.proof-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(17,24,39,.1); }
+.proof-card-top {
+  background: linear-gradient(135deg, var(--charcoal), var(--charcoal3));
+  padding: 18px 22px; display: flex; align-items: center; justify-content: space-between;
+}
+.proof-company { font-size: .88rem; font-weight: 800; color: #fff; }
+.proof-tag {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+  background: rgba(14,165,233,.3); color: var(--electric3); border-radius: 50px; padding: 3px 10px;
+}
+.proof-body { padding: 20px 22px; }
+.proof-stat { font-size: 2rem; font-weight: 800; color: var(--electric); margin-bottom: 5px; }
+.proof-desc { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+.proof-industry { font-size: .68rem; text-transform: uppercase; letter-spacing: .5px; color: #8a9aaa; font-weight: 600; margin-top: 12px; }
+
+/* PRODUCTS */
+.products-section { background: var(--warm); }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 24px; margin-top: 44px; }
+.product-card {
+  border-radius: var(--r); border: 1px solid var(--border);
+  overflow: hidden; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s;
+}
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(17,24,39,.1); }
+.product-card-top { background: linear-gradient(145deg, var(--charcoal), var(--charcoal3)); padding: 26px 24px; }
+.product-cloud-tag {
+  display: inline-block; background: rgba(14,165,233,.25); color: var(--electric3);
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px;
+  padding: 3px 11px; border-radius: 50px; margin-bottom: 12px;
+}
+.product-title { font-size: 1.15rem; font-weight: 800; color: #fff; line-height: 1.3; margin-bottom: 7px; }
+.product-sub { font-size: .84rem; color: rgba(255,255,255,.6); line-height: 1.6; }
+.product-card-body { padding: 22px 24px; flex: 1; display: flex; flex-direction: column; gap: 14px; background: #fff; }
+.product-anchor {
+  background: var(--slate); border-radius: 8px; padding: 14px 16px;
+  border-left: 3px solid var(--electric);
+}
+.product-anchor-label { font-size: .65rem; text-transform: uppercase; letter-spacing: .8px; color: var(--electric); font-weight: 700; margin-bottom: 3px; }
+.product-anchor-val { font-size: 1.5rem; font-weight: 800; color: var(--charcoal); line-height: 1.1; }
+.product-anchor-sub { font-size: .76rem; color: var(--muted); margin-top: 2px; }
+.product-bullets { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.product-bullets li {
+  font-size: .84rem; color: var(--muted);
+  display: flex; align-items: flex-start; gap: 9px; line-height: 1.5;
+}
+.product-bullets li::before { content: '→'; color: var(--electric); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+/* URGENCY */
+.urgency-section { background: #eef6fd; border-top: 1px solid #b8d9f0; border-bottom: 1px solid #b8d9f0; }
+.urgency-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 16px; margin-top: 36px; }
+.urgency-card {
+  background: #fff; border-radius: var(--r); border: 1px solid #b8d4ee;
+  border-left: 4px solid var(--electric); padding: 24px 26px;
+}
+.urgency-card-icon { font-size: 1.4rem; margin-bottom: 10px; }
+.urgency-card-title { font-size: .88rem; font-weight: 700; color: var(--charcoal); margin-bottom: 8px; }
+.urgency-card-body { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+
+/* IMPACT */
+.impact-section { background: var(--charcoal); color: #fff; }
+.impact-inner { max-width: 1160px; margin: 0 auto; padding: 60px 52px; }
+.impact-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 40px; background: rgba(0,0,0,.2); border-radius: var(--r); overflow: hidden; }
+.impact-item { background: rgba(255,255,255,.07); padding: 28px 24px; text-align: center; transition: background .2s; }
+.impact-item:hover { background: rgba(255,255,255,.12); }
+.impact-num { font-size: 2.4rem; font-weight: 800; color: var(--electric3); line-height: 1; margin-bottom: 8px; }
+.impact-label { font-size: .78rem; color: rgba(255,255,255,.72); line-height: 1.5; }
+
+/* ABOUT */
+.about-section { background: var(--charcoal); color: #fff; border-top: 1px solid rgba(255,255,255,.07); }
+.about-section .section-eyebrow { color: var(--electric3); }
+.about-team { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 40px; }
+.about-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 28px; display: flex; gap: 20px; align-items: flex-start; }
+.about-card-photo { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; object-position: center top; border: 3px solid var(--electric2); flex-shrink: 0; }
+.about-card-photo-placeholder { width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,.1); border: 3px solid var(--electric2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: rgba(255,255,255,.3); }
+.about-card-info { flex: 1; }
+.about-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 2px; }
+.about-contact { font-size: .78rem; color: var(--electric3); margin-bottom: 8px; }
+.about-role { font-size: .78rem; color: rgba(255,255,255,.5); font-weight: 500; margin-bottom: 12px; }
+.about-body { font-size: .88rem; color: rgba(255,255,255,.68); line-height: 1.75; }
+.about-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.btn-white {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; color: var(--electric); font-weight: 700; font-size: .93rem;
+  padding: 13px 26px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,.2);
+  transition: transform .15s, box-shadow .2s;
+}
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(0,0,0,.25); }
+
+/* CTA */
+.cta-section { background: linear-gradient(135deg, #060c14 0%, var(--charcoal) 60%, var(--charcoal2) 100%); color: #fff; text-align: center; }
+.cta-section .section { padding: 72px 52px; }
+.cta-title { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 14px; }
+.cta-sub { font-size: 1rem; opacity: .85; max-width: 520px; margin: 0 auto 32px; line-height: 1.75; }
+.cta-contact { font-size: .86rem; opacity: .7; margin-top: 20px; }
+
+footer {
+  background: var(--charcoal); color: rgba(255,255,255,.38);
+  text-align: center; padding: 24px 52px; font-size: .75rem;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+footer span { color: rgba(255,255,255,.62); }
+
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 960px) {
+  .topbar { padding: 0 24px; height: 64px; }
+  .topbar-wordmark { font-size: .85rem; }
+  .topbar-company-text { font-size: .8rem; }
+  .hero-content { grid-template-columns: 1fr; gap: 32px; padding: 60px 28px; }
+  .hero-card { display: none; }
+  .section { padding: 52px 28px; }
+  .pov-grid { grid-template-columns: 1fr; gap: 28px; }
+  .about-team { grid-template-columns: 1fr; }
+  .about-card { flex-direction: column; align-items: center; text-align: center; }
+  .about-cta-row { justify-content: center; }
+  .impact-grid { grid-template-columns: repeat(2,1fr); }
+  .strip { flex-wrap: wrap; }
+  .strip-item { flex: 1 1 calc(33% - 1px); min-width: 100px; }
+}
+@media (max-width: 580px) {
+  .hero h1 { font-size: 1.85rem; }
+  .topbar-company-group { display: none; }
+  .topbar-x { display: none; }
+  .impact-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  An Executive Briefing by Anthony Troggio &amp; Team<span class="ab-dot"></span>Digital Transformation Executive<span class="ab-dot"></span><strong>Salesforce</strong>
+</div>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="topbar-partnership">
+    <div class="topbar-brand topbar-brand-sf">
+      <svg class="topbar-cloud" viewBox="0 0 56 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M23.3 7.1C25.2 4.7 28 3.2 31.2 3.2c5.2 0 9.6 3.8 10.5 8.8.5-.1 1-.2 1.5-.2 4.4 0 8 3.6 8 8s-3.6 8-8 8H11c-5 0-9-4-9-9 0-4.7 3.6-8.6 8.2-9 .9-4.3 4.7-7.5 9.3-7.5 1.6 0 3.2.4 4.5 1.2-.5.8-.9 1.8-1.1 2.8-.9-.5-2-.8-3.4-.8-3.5 0-6.4 2.8-6.4 6.3v.7l-.7.1C9.6 12.9 7 15.5 7 18.8c0 3.4 2.8 6.1 6.3 6.1h32.4c3 0 5.5-2.5 5.5-5.5s-2.5-5.5-5.5-5.5c-.8 0-1.6.2-2.3.5l-1.4.6-.3-1.5C40.9 9 37.4 6.2 33.2 6.2c-3.2 0-6 1.6-7.7 4.1-.7-.6-1.5-1.1-2.2-1.5z" fill="#00A1E0"/>
+      </svg>
+      <span class="topbar-wordmark">Salesforce</span>
+    </div>
+    <div class="topbar-x"></div>
+    <div class="topbar-company-group">
+      <div class="topbar-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=bodine-electric.com&sz=64" class="topbar-company-logo" alt="Bodine Electric"></div>
+      <span class="topbar-company-text">Bodine Electric</span>
+    </div>
+  </div>
+  <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="topbar-cta">Book Time with Anthony</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content fade-in">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span>Prepared exclusively for Bodine Electric · July 2026</span>
+      </div>
+      <h1>Your OEM Customers Are Spec'ing Motors Right Now.<br><em>Are They Finding You or Your Competitor?</em></h1>
+      <p class="hero-sub">An engineer at a packaging OEM needs a 1/4 HP gear motor. She goes online, filters by specs, gets three options, and requests quotes from whoever has a digital configurator. Bodine's catalog is deep. More than 500 SKUs across every motor family an OEM engineer could need. But if that catalog lives in a PDF and the only way to get a quote is to call an application engineer, Bodine loses spec decisions before the conversation ever starts.</p>
+      <div class="hero-stats">
+        <div class="hero-stat-row">
+          <div class="hero-stat-num">500+</div>
+          <div class="hero-stat-desc">Motor and gearmotor SKUs in the Bodine catalog. An OEM engineer speccing a drive system needs to find the right one without calling an application engineer first.</div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-num">6–8 wks</div>
+          <div class="hero-stat-desc">Typical lead time on custom motor configurations. OEM buyers who can confirm availability and spec online commit faster than those who wait for a quote callback.</div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-num">7</div>
+          <div class="hero-stat-desc">Verticals served: medical, automation, packaging, food processing, machine tool, office equipment, graphic arts. Every one of these OEM buyers specs motors differently. A configurator built for their workflow wins the spec.</div>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="btn-primary">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          Book 30 Minutes with Anthony
+        </a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-label">The Opportunity at Bodine Electric</div>
+      <div class="hero-card-stat">
+        <div class="hcs-num">Lost</div>
+        <div class="hcs-label">The most recent opportunity (Manufacturing Cloud, 50 seats, $83K) went Dead-Lost in Sep 2025. Not No Decision. Lost. That means Bodine evaluated and chose something. This conversation needs a fresh angle.</div>
+      </div>
+      <div class="hero-card-stat">
+        <div class="hcs-num">PDF<span> catalogs</span></div>
+        <div class="hcs-label">How OEM engineers spec Bodine motors today. That is the gap. The spec decision happens before the phone call. If the catalog is not filterable online, the spec goes elsewhere.</div>
+      </div>
+      <div class="hero-card-stat">
+        <div class="hcs-num">Chicago<span>, IL</span></div>
+        <div class="hcs-label">Bodine's headquarters, where the company has been building fractional horsepower motors since its founding. Deep product heritage. The digital channel is the missing piece.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div class="strip">
+  <div class="strip-item"><div class="sv">$122M</div><div class="sl">Annual Revenue</div></div>
+  <div class="strip-item"><div class="sv">450</div><div class="sl">Employees</div></div>
+  <div class="strip-item"><div class="sv">500+</div><div class="sl">Motor SKUs</div></div>
+  <div class="strip-item"><div class="sv">7</div><div class="sl">OEM Verticals</div></div>
+  <div class="strip-item"><div class="sv">Chicago, IL</div><div class="sl">Headquarters</div></div>
+</div>
+
+<hr class="hr">
+
+<!-- POV -->
+<section class="pov-section" id="pov">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Our Point of View</div>
+    <h2 class="section-title">The Spec Decision Happens Online Now.<br>If Your Catalog Isn't Interactive, Your Competitor's Is.</h2>
+    <p class="section-sub">OEM engineers in automation and packaging don't call vendors to start a spec anymore. They go online, filter by specs, compare options, and request quotes from whoever made it easy. Bodine has the product depth to win those specs. The question is whether the discovery experience matches the product quality.</p>
+
+    <div class="pov-grid">
+      <div class="pov-statement">
+        <blockquote>"OEM engineers don't start the spec process with a phone call anymore. They go online, filter, compare, and shortlist. <em>Bodine has the products to win those specs. The catalog experience is what decides whether they ever see those products.</em>"</blockquote>
+        <p>A machine tool OEM in the Chicago suburbs is speccing a motor for a new axis. The engineer pulls up three options online, filters by HP, voltage, and enclosure type, and submits quote requests to two of them. The third supplier isn't in the running because their catalog is a 200-page PDF. This is happening right now, across all seven of Bodine's OEM verticals, every business day.</p>
+        <p>Bodine has been making fractional horsepower motors for OEM customers for decades. The product knowledge embedded in Bodine's application engineering team is genuinely hard to replicate. The problem isn't the products. It's that the spec discovery experience doesn't match the product quality. Competitors with digital configurators are winning spec decisions Bodine never even sees. The path forward is closing that gap before more production runs are locked in elsewhere.</p>
+      </div>
+      <div class="pov-points">
+        <div class="pov-point">
+          <div class="pov-point-icon">⚙️</div>
+          <div class="pov-point-body">
+            <strong>Application engineers are a competitive advantage. They are not an order desk.</strong>
+            <p>When OEM buyers can self-serve the initial spec online, application engineers spend their time on the complex configurations where they add real value. Not answering "do you make a 1/3 HP 90VDC gear motor?" A digital configurator routes the right questions to the right people. The complex, high-value configurations go to your engineers. The standard specs get answered before the buyer ever picks up the phone.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">🏆</div>
+          <div class="pov-point-body">
+            <strong>The spec decision is winner-take-all for a production run.</strong>
+            <p>When an OEM engineer specs a Bodine motor into a machine design, that motor gets ordered for every unit of that machine for years. Losing the spec decision doesn't cost one sale. It costs the entire production run. That's the real stakes of the PDF catalog problem. Every spec that goes to a competitor with a digital configurator is a production run Bodine will never recover. The spec window is open right now.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">📊</div>
+          <div class="pov-point-body">
+            <strong>Volume agreement tracking is manual today.</strong>
+            <p>Repeat OEM customers who order the same SKU every quarter are being managed by reps in spreadsheets. When a top account's order pace drops below their committed run rate, your team finds out late. Run rate visibility means you see a production ramp before it hits your shop floor, and you see a pullback before the account has already made other arrangements.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">📋</div>
+          <div class="pov-point-body">
+            <strong>Medical and automation OEMs have strict documentation requirements.</strong>
+            <p>A connected platform means compliance documentation, spec sheets, and order history live in one place for the OEM's procurement and engineering teams. Right now those are emailed PDFs that live in someone's inbox. When an OEM needs to requalify a motor supplier or pull historical order data for an audit, the experience they have with Bodine matters. Make it easy and you're the default supplier. Make it painful and you're at risk on the next design cycle.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- PROOF -->
+<section class="proof-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Customer Proof</div>
+    <h2 class="section-title">Industrial Manufacturers Who Built the Digital Spec and Order Experience</h2>
+    <p class="section-sub">These are industrial manufacturers who built digital channels for OEM buyers and connected their commercial operations to production planning. The outcomes are consistent: faster spec cycles, higher win rates on OEM design-ins, and operations that finally have the demand signal they need.</p>
+
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Roper Technologies</span>
+          <span class="proof-tag">B2B Commerce</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">Self-serve</div>
+          <div class="proof-desc">A B2B industrial manufacturer built a digital configurator for OEM buyers. Engineers can spec, compare, and request quotes without calling a rep. Application engineer time shifted to complex, high-value configurations. Standard spec questions are answered before the phone rings. The parallel to Bodine's OEM engineer workflow is direct.</div>
+          <div class="proof-industry">Industrial Manufacturing · B2B Commerce</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Eaton</span>
+          <span class="proof-tag">Manufacturing Cloud</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">Real-time</div>
+          <div class="proof-desc">A global power management manufacturer deployed run rate tracking with OEM volume accounts. Production planning is now connected to committed OEM volumes, not lagging spreadsheet reviews. Sales and operations share one live view of what customers have committed to versus what they are actually ordering. That is what Bodine's top repeat OEM accounts need.</div>
+          <div class="proof-industry">Industrial Mfg · Manufacturing Cloud</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Forrester TEI 2024</span>
+          <span class="proof-tag">Platform ROI</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">289%</div>
+          <div class="proof-desc">Forrester's 2024 Total Economic Impact study found 289% ROI and $9.6M NPV over three years for a composite industrial manufacturer on the Salesforce platform. Inside sales and order management efficiency covers platform cost in year one. A business case built to Bodine's revenue profile and OEM account structure is available on request.</div>
+          <div class="proof-industry">Industrial Manufacturer · Platform ROI</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Sutton Tools</span>
+          <span class="proof-tag">B2B Commerce</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">4×</div>
+          <div class="proof-desc">A B2B manufacturer and distributor built a direct ordering portal for OEM and distributor customers. Standard orders shifted to self-serve, and reps moved to strategic account management. Online orders quadrupled. The insight: OEM buyers who can self-serve routine reorders buy more, not less. Bodine's repeat motor SKU customers are the same profile.</div>
+          <div class="proof-industry">Manufacturing · B2B Commerce</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- PRODUCTS -->
+<section class="products-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">What We're Building Together</div>
+    <h2 class="section-title">A Digital Spec Experience and Connected Operations Platform Built for How Bodine's OEM Customers Actually Buy.</h2>
+    <p class="section-sub">A motor configurator OEM engineers will use before they call. Run rate visibility for your top repeat accounts. An AI agent that answers spec questions instantly and escalates to your application engineers when it matters. Three products, one platform, built around the way OEM machine builders actually spec and order motors.</p>
+
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <span class="product-cloud-tag">Commerce Cloud B2B</span>
+          <div class="product-title">A Motor Configurator Your OEM Customers Will Use Before They Call</div>
+          <div class="product-sub">Filter by HP, torque, voltage, speed, enclosure type, and mounting configuration. Real-time lead times. Quote request with bill of materials. Every spec session creates a customer data record you can act on.</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-anchor">
+            <div class="product-anchor-label">The Gap Today</div>
+            <div class="product-anchor-val">PDF catalogs</div>
+            <div class="product-anchor-sub">How OEM engineers currently spec Bodine motors. That is what a configurator replaces.</div>
+          </div>
+          <ul class="product-bullets">
+            <li>Filter by HP, voltage, torque, speed, enclosure type, and mounting configuration. OEM engineers find the right motor without calling an application engineer.</li>
+            <li>Real-time lead times displayed at the product level. An OEM buyer who needs a motor in 4 weeks knows immediately whether Bodine can hit that window.</li>
+            <li>Quote request with bill of materials. The engineer submits specs, gets a formal quote, and shares it with procurement without a phone call.</li>
+            <li>Every spec session creates a customer data record. You see which OEM buyers are actively speccing, which product families are getting the most attention, and where to focus your application engineering resources.</li>
+            <li>Account-specific pricing for your distributor partners and direct OEM accounts. No rep call needed to confirm the rate on a routine reorder.</li>
+            <li>Mobile-accessible. OEM engineers spec on laptops, tablets, and phones. The configurator works across all of them.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <span class="product-cloud-tag">Manufacturing Cloud</span>
+          <div class="product-title">Run Rate Visibility for Your Top OEM Accounts</div>
+          <div class="product-sub">Volume agreement tracking, production-aligned forecasting, and deviation alerts for your repeat OEM accounts. Your team stops managing the largest customers out of spreadsheets and starts seeing their production ramps before they hit your shop floor.</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-anchor">
+            <div class="product-anchor-label">Core Capability</div>
+            <div class="product-anchor-val">Run rate in real time</div>
+            <div class="product-anchor-sub">Connected to production schedules, not lagging quarterly spreadsheet reviews</div>
+          </div>
+          <ul class="product-bullets">
+            <li>Volume agreement tracking at the account level. When a top OEM drops below their committed quarterly run rate, your rep knows before it becomes a production shortfall.</li>
+            <li>Production-aligned forecasting. Connect confirmed OEM volumes to your shop floor schedule weeks before orders arrive, not the week they are due.</li>
+            <li>Deviation alerts: if an account's order pace is running 20% below commitment, your commercial team has the conversation in Q2, not Q4.</li>
+            <li>Account health connected to fulfillment performance. If a delivery delay is causing an OEM to pull back on volume, your reps see it in real time.</li>
+            <li>Cross-sell signals: an OEM ordering a drive motor but not a matched speed regulator or motor control is a conversation your rep can have before a competitor does.</li>
+            <li>Distributor sell-through visibility. Track which distribution partners are moving volume and which are sitting on inventory.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <span class="product-cloud-tag">Agentforce</span>
+          <div class="product-title">An AI Agent That Answers Spec Questions Instantly</div>
+          <div class="product-sub">"Do you make a 1/4 HP 90VDC parallel shaft gear motor with a NEMA 56C face?" Answered instantly from the product catalog. Escalates to an application engineer for complex configurations. Available around the clock.</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-anchor">
+            <div class="product-anchor-label">Core Use Case</div>
+            <div class="product-anchor-val">Spec questions, answered instantly</div>
+            <div class="product-anchor-sub">24/7 without pulling an application engineer off a complex design consultation</div>
+          </div>
+          <ul class="product-bullets">
+            <li>"Do you make a 1/4 HP 90VDC parallel shaft gear motor with a NEMA 56C face?" Answered in seconds from the product catalog. No application engineer pulled off a complex design review.</li>
+            <li>Escalates to a human for configurations that need real expertise: custom torque curves, unusual environmental specs, multi-motor drive systems, or medical-grade documentation requirements.</li>
+            <li>Available around the clock. An OEM engineer in California working Friday afternoon gets an answer, not a voicemail. A spec that gets answered wins the shortlist slot.</li>
+            <li>Every interaction is a customer data record. The AI sees which specs engineers are searching for. Your product team sees where the catalog has gaps and where demand is concentrating.</li>
+            <li>Works inside your existing Salesforce environment. No separate platform to stand up or maintain.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<section class="urgency-section">
+  <div class="section fade-in" style="padding-top:52px; padding-bottom:52px;">
+    <div class="section-eyebrow">Why Now</div>
+    <h2 class="section-title">The Spec Window Is Open. OEM Engineers Are Making Design Decisions Right Now.</h2>
+    <p class="section-sub" style="max-width:720px;">Production runs get locked in during the spec process. The manufacturers who make that process digital in the next 12 months are the ones who win the runs their competitors will never see.</p>
+    <div class="urgency-grid">
+      <div class="urgency-card">
+        <div class="urgency-card-icon">⏱️</div>
+        <div class="urgency-card-title">OEM engineers who spec your competitor's motor into a machine design are gone for the life of that production run</div>
+        <div class="urgency-card-body">The spec window is right now, not next quarter. When an OEM machine builder chooses a motor for a new platform, that decision drives orders for every unit of that machine for the next several years. A digital configurator that puts Bodine in the spec process is the only way to win those runs. A PDF catalog that requires a phone call puts Bodine out of the running before the conversation starts. Every week this gap stays open is another set of production runs that go to a competitor with a better digital experience.</div>
+      </div>
+      <div class="urgency-card">
+        <div class="urgency-card-icon">⚡</div>
+        <div class="urgency-card-title">Industrial automation demand is accelerating and machine builders are under pressure to reduce design cycle time</div>
+        <div class="urgency-card-body">OEMs building automation and packaging machinery are being asked to deliver faster. Design cycles that used to take 18 months are being compressed to 12. A digital configurator that cuts the spec-to-quote cycle from 3 days to 3 hours is a real competitive edge for Bodine. It makes Bodine the easiest motor supplier to work with at exactly the moment OEM engineers are most time-constrained. That is how you win the spec and the relationship. Not on price. On speed and ease.</div>
+      </div>
+      <div class="urgency-card">
+        <div class="urgency-card-icon">🚀</div>
+        <div class="urgency-card-title">A scoped pilot starting with your top 20 OEM accounts and your most commonly configured motor families can be live before year-end</div>
+        <div class="urgency-card-body">We don't start with every SKU and every account on day one. A pilot focused on your top 20 OEM accounts, with your highest-volume motor families loaded in the configurator, and run rate tracking turned on for those accounts gets Bodine live and measuring before the end of this year. The spec decisions your top accounts make in Q4 and Q1 will be decided by whoever has the best digital experience. We can build the math together before we scope anything. The question is whether Bodine wants to be live in Q4 or still deciding in Q1.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="impact-section">
+  <div class="impact-inner fade-in">
+    <div class="section-eyebrow" style="color:rgba(255,255,255,.75)">The Business Case</div>
+    <h2 class="section-title" style="color:#fff">The ROI Is Already Proven in Industrial Manufacturing</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,.72); max-width:700px">Benchmarks from Forrester's 2024 Total Economic Impact study and comparable industrial manufacturer deployments on the Salesforce platform.</p>
+    <div class="impact-grid">
+      <div class="impact-item">
+        <div class="impact-num count-up" data-target="289" data-suffix="%">289%</div>
+        <div class="impact-label">ROI over 3 years<br>Forrester TEI industrial manufacturer</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num count-up" data-target="4" data-suffix="×">4×</div>
+        <div class="impact-label">Online order growth<br>B2B manufacturer portal</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num count-up" data-target="40" data-suffix="%">40%</div>
+        <div class="impact-label">Faster spec-to-quote cycle<br>digital configurator deployment</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num">Year 1</div>
+        <div class="impact-label">Application engineer productivity<br>covers platform cost</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Who You're Talking To</div>
+    <h2 class="section-title" style="color:#fff">A Peer, Not a Pitch.</h2>
+    <div class="about-team">
+      <div class="about-card">
+        <img src="anthony.png" alt="Anthony Troggio" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="about-card-photo-placeholder" style="display:none">AT</div>
+        <div class="about-card-info">
+          <div class="about-name">Anthony Troggio</div>
+          <div class="about-contact"><a href="mailto:atroggio@salesforce.com" style="color:inherit">atroggio@salesforce.com</a> · <a href="tel:7654307903" style="color:inherit">765-430-7903</a></div>
+          <div class="about-role">Digital Transformation Executive, Manufacturing &amp; Automotive | Salesforce</div>
+          <p class="about-body">I work with industrial manufacturers across the West who have deep product catalogs and OEM customer bases that buy on spec. The conversation I want to have is about your application engineering team and what it would take to get Bodine into more spec decisions before your competitors do. Dad, family man, straight shooter.</p>
+        </div>
+      </div>
+      <div class="about-card">
+        <img src="kennedy-wenz.png" alt="Kennedy Wenz" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="about-card-photo-placeholder" style="display:none">KW</div>
+        <div class="about-card-info">
+          <div class="about-name">Kennedy Wenz</div>
+          <div class="about-contact"><a href="mailto:kwenz@salesforce.com" style="color:inherit">kwenz@salesforce.com</a></div>
+          <div class="about-role">Digital Transformation Executive, Manufacturing, Automotive &amp; Energy | Salesforce</div>
+          <p class="about-body">From founding EAT.org across DACH to driving Agentic AI adoption at Salesforce in San Francisco, Kennedy bridges global strategy and frontier technology. She translates digital configurator and connected manufacturing capabilities into outcomes that industrial OEM suppliers can implement and measure.</p>
+        </div>
+      </div>
+    </div>
+    <div class="about-cta-row">
+      <a href="mailto:atroggio@salesforce.com" class="btn-white">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+        atroggio@salesforce.com
+      </a>
+      <a href="tel:7654307903" class="btn-ghost" style="color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.2)">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        765-430-7903
+      </a>
+      <a href="mailto:kwenz@salesforce.com?subject=Bodine Electric — Salesforce" class="btn-white">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+        kwenz@salesforce.com
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section fade-in">
+    <div class="cta-title">Ready to see what this looks like for Bodine Electric?</div>
+    <p class="cta-sub">30 minutes. I'll show you what a digital motor configurator looks like for an OEM buyer, walk through how run rate tracking works for your top repeat accounts, and give you an honest picture of what a pilot scoped to your highest-volume OEM families looks like on timeline and cost.</p>
+    <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="btn-white">
+      <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="var(--electric)" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      Book Time with Anthony
+    </a>
+    <div class="cta-contact">atroggio@salesforce.com &nbsp;·&nbsp; 765-430-7903</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>Anthony Troggio</span> · Digital Transformation Executive, Salesforce · Manufacturing &amp; Automotive, West<br>
+  <span style="font-size:.68rem;opacity:.5;margin-top:6px;display:block">Prepared exclusively for Bodine Electric Company · July 2026 · Confidential</span>
+</footer>
+
+<script>
+const fadeObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); fadeObserver.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+function animateCount(el) {
+  const raw = el.dataset.target;
+  const suffix = el.dataset.suffix || '';
+  const target = parseFloat(raw);
+  if (isNaN(target)) return;
+  const duration = 1800;
+  const start = performance.now();
+  function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const value = target * ease(progress);
+    el.textContent = Math.floor(value).toLocaleString() + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target.toLocaleString() + suffix;
+  }
+  requestAnimationFrame(step);
+}
+const countObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { animateCount(e.target); countObserver.unobserve(e.target); }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
+</script>
+</body>
+</html>
