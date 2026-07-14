@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mid-Am Building Supply — Internal Account Brief</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #0f1117;
+  color: #e2e8f0;
+  line-height: 1.6;
+  font-size: 15px;
+}
+a { color: #60a5fa; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+:root {
+  --bg:      #0f1117;
+  --bg2:     #161b26;
+  --bg3:     #1e2535;
+  --border:  rgba(255,255,255,.08);
+  --border2: rgba(255,255,255,.13);
+  --text:    #e2e8f0;
+  --muted:   #8899aa;
+  --green:   #34d399;
+  --green2:  #10b981;
+  --blue:    #60a5fa;
+  --yellow:  #fbbf24;
+  --orange:  #fb923c;
+  --orange2: #f59e0b;
+  --red:     #f87171;
+  --purple:  #a78bfa;
+  --r:       10px;
+}
+
+.topbar {
+  background: #0a0d14;
+  border-bottom: 1px solid var(--border);
+  padding: 14px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-badge {
+  background: rgba(251,191,36,.12);
+  border: 1px solid rgba(251,191,36,.3);
+  color: #fbbf24;
+  font-size: .65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 50px;
+}
+.topbar-title { font-size: .88rem; font-weight: 700; color: var(--text); }
+.topbar-sub { font-size: .72rem; color: var(--muted); margin-top: 1px; }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.topbar-btn {
+  font-size: .72rem; font-weight: 700;
+  padding: 6px 14px; border-radius: 6px;
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  transition: color .15s, border-color .15s;
+  cursor: pointer;
+}
+.topbar-btn:hover { color: var(--text); border-color: rgba(255,255,255,.25); }
+.topbar-btn.primary {
+  background: #d97706; border-color: transparent; color: #fff;
+}
+.topbar-btn.primary:hover { background: var(--orange2); }
+
+.layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 40px 80px;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* SIDEBAR */
+.sidebar { position: sticky; top: 72px; }
+.sidebar-section { margin-bottom: 28px; }
+.sidebar-label {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.2px; color: var(--muted); margin-bottom: 10px;
+}
+.nav-item {
+  display: block; padding: 7px 12px; border-radius: 6px;
+  font-size: .82rem; color: var(--muted);
+  transition: background .15s, color .15s;
+  cursor: pointer;
+}
+.nav-item:hover, .nav-item.active { background: var(--bg3); color: var(--text); }
+.nav-item.active { font-weight: 600; }
+
+.account-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 16px;
+}
+.account-logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.account-logo-wrap {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; flex-shrink: 0;
+}
+.account-logo { width: 24px; height: 24px; object-fit: contain; }
+.account-name { font-size: .9rem; font-weight: 800; color: var(--text); }
+.account-domain { font-size: .72rem; color: var(--muted); }
+.account-stat { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--border); font-size: .78rem; }
+.account-stat:last-child { border-bottom: none; }
+.account-stat-label { color: var(--muted); }
+.account-stat-val { font-weight: 700; color: var(--text); }
+
+/* MAIN */
+.main { min-width: 0; display: flex; flex-direction: column; gap: 28px; }
+
+.card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); overflow: hidden;
+}
+.card-header {
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.card-title { font-size: .88rem; font-weight: 700; color: var(--text); }
+.card-sub { font-size: .75rem; color: var(--muted); margin-top: 2px; }
+.card-body { padding: 20px; }
+.card-tag {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px;
+  padding: 3px 10px; border-radius: 50px;
+}
+.tag-green  { background: rgba(52,211,153,.1);  color: var(--green);  border: 1px solid rgba(52,211,153,.2); }
+.tag-blue   { background: rgba(96,165,250,.1);  color: var(--blue);   border: 1px solid rgba(96,165,250,.2); }
+.tag-yellow { background: rgba(251,191,36,.1);  color: var(--yellow); border: 1px solid rgba(251,191,36,.2); }
+.tag-red    { background: rgba(248,113,113,.1); color: var(--red);    border: 1px solid rgba(248,113,113,.2); }
+.tag-orange { background: rgba(251,146,60,.1);  color: var(--orange); border: 1px solid rgba(251,146,60,.2); }
+.tag-purple { background: rgba(167,139,250,.1); color: var(--purple); border: 1px solid rgba(167,139,250,.2); }
+.tag-gray   { background: rgba(255,255,255,.05);color: var(--muted);  border: 1px solid var(--border); }
+
+/* CONTACT GRID */
+.contact-grid { display: flex; flex-direction: column; gap: 12px; }
+.contact-row {
+  display: grid; grid-template-columns: 44px 1fr auto;
+  gap: 14px; align-items: start;
+  padding: 14px 16px; border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg3);
+  transition: border-color .15s;
+}
+.contact-row:hover { border-color: var(--border2); }
+.contact-tier {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; font-weight: 800; color: #fff;
+}
+.tier-1 { background: linear-gradient(135deg, #d97706, #fb923c); }
+.tier-2 { background: linear-gradient(135deg, #1e40af, #3b82f6); }
+.tier-3 { background: linear-gradient(135deg, #6366f1, #a78bfa); }
+.contact-info-main { min-width: 0; }
+.contact-name { font-size: .92rem; font-weight: 700; color: var(--text); }
+.contact-title { font-size: .78rem; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+.contact-meta { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; align-items: center; }
+.contact-link {
+  font-size: .72rem; color: var(--blue);
+  display: flex; align-items: center; gap: 4px;
+}
+.contact-why { font-size: .78rem; color: var(--text); line-height: 1.6; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.contact-why strong { color: var(--yellow); }
+.contact-actions { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; flex-shrink: 0; }
+.pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+/* BASHO EMAILS */
+.email-block {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.email-block:last-child { margin-bottom: 0; }
+.email-header {
+  background: var(--bg3);
+  padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.email-to { font-size: .82rem; color: var(--text); }
+.email-to strong { font-weight: 700; }
+.email-subject { font-size: .75rem; color: var(--muted); margin-top: 2px; }
+.email-subject span { color: var(--text); font-weight: 600; }
+.email-body {
+  padding: 16px 18px;
+  font-size: .84rem;
+  color: #c8d8e8;
+  line-height: 1.85;
+  white-space: pre-wrap;
+  font-family: 'Georgia', serif;
+}
+.copy-btn {
+  font-size: .68rem; font-weight: 700; padding: 5px 12px; border-radius: 5px;
+  background: rgba(255,255,255,.06); border: 1px solid var(--border2);
+  color: var(--muted); cursor: pointer; white-space: nowrap;
+  transition: background .15s, color .15s;
+}
+.copy-btn:hover { background: rgba(255,255,255,.12); color: var(--text); }
+.copy-btn.copied { background: rgba(251,146,60,.12); border-color: rgba(251,146,60,.3); color: var(--orange); }
+
+/* TALK TRACK */
+.talk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.talk-card {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px;
+}
+.talk-card-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
+.talk-card-body { font-size: .82rem; color: #c8d8e8; line-height: 1.75; }
+.talk-card-body p + p { margin-top: 8px; }
+
+/* OBJECTIONS */
+.objection-list { display: flex; flex-direction: column; gap: 10px; }
+.objection-item { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.objection-q {
+  padding: 12px 14px; font-size: .82rem; font-weight: 700; color: var(--text);
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.objection-q::before { content: '?'; width: 20px; height: 20px; background: rgba(251,191,36,.15); color: var(--yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .7rem; font-weight: 800; flex-shrink: 0; }
+.objection-a { padding: 12px 14px; font-size: .82rem; color: #c8d8e8; line-height: 1.75; }
+
+/* OPP HISTORY */
+.opp-list { display: flex; flex-direction: column; gap: 8px; }
+.opp-item {
+  display: grid; grid-template-columns: 1fr auto auto;
+  gap: 12px; align-items: center;
+  padding: 10px 14px; border-radius: 7px; background: var(--bg3);
+  border: 1px solid var(--border); font-size: .8rem;
+}
+.opp-name { font-weight: 600; color: var(--text); }
+.opp-detail { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+.opp-amount { font-weight: 700; color: var(--text); white-space: nowrap; }
+
+/* FLAG CALLOUT */
+.flag-callout {
+  background: rgba(251,146,60,.06); border: 1px solid rgba(251,146,60,.25);
+  border-radius: 8px; padding: 14px 16px; margin-top: 16px;
+}
+.flag-callout-label { font-size: .72rem; font-weight: 700; color: var(--orange); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .8px; }
+.flag-callout-body { font-size: .8rem; color: #c8d8e8; line-height: 1.75; }
+
+/* UTILITY */
+.pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; padding: 20px; }
+  .sidebar { position: static; }
+  .talk-grid { grid-template-columns: 1fr; }
+  .contact-row { grid-template-columns: 44px 1fr; }
+  .contact-actions { flex-direction: row; grid-column: 1 / -1; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div>
+      <div class="topbar-title">Mid-Am Building Supply — Account Brief</div>
+      <div class="topbar-sub">Internal use only &middot; Anthony Troggio &amp; Team &middot; July 2026</div>
+    </div>
+    <span class="topbar-badge">Internal</span>
+  </div>
+  <div class="topbar-right">
+    <a href="mid-am-building-external.html" target="_blank" class="topbar-btn">View External Site</a>
+    <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" class="topbar-btn primary">Book Time</a>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="account-card">
+      <div class="account-logo-row">
+        <div class="account-logo-wrap">
+          <img src="https://www.google.com/s2/favicons?domain=midambuilding.com&sz=64" class="account-logo" alt="Mid-Am Building Supply">
+        </div>
+        <div>
+          <div class="account-name">Mid-Am Building Supply</div>
+          <div class="account-domain">midambuilding.com</div>
+        </div>
+      </div>
+      <div class="account-stat"><span class="account-stat-label">Revenue</span><span class="account-stat-val">$235M</span></div>
+      <div class="account-stat"><span class="account-stat-label">Employees</span><span class="account-stat-val">400</span></div>
+      <div class="account-stat"><span class="account-stat-label">HQ</span><span class="account-stat-val">Moberly, MO</span></div>
+      <div class="account-stat"><span class="account-stat-label">Industry</span><span class="account-stat-val">Building Materials Dist.</span></div>
+      <div class="account-stat"><span class="account-stat-label">Status</span><span class="account-stat-val" style="color:var(--orange)">Prospect</span></div>
+      <div class="account-stat"><span class="account-stat-label">Salesforce ID</span><span class="account-stat-val" style="font-size:.7rem; color:var(--muted)">00130000002xYqGAAU</span></div>
+    </div>
+
+    <div class="sidebar-section" style="margin-top:20px;">
+      <div class="sidebar-label">Play</div>
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <span class="card-tag tag-blue"   style="width:fit-content;">B2B Commerce</span>
+        <span class="card-tag tag-orange" style="width:fit-content;">Manufacturing Cloud</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Navigate</div>
+      <a class="nav-item active" href="#context">Account Context</a>
+      <a class="nav-item" href="#contacts">Priority Contacts</a>
+      <a class="nav-item" href="#basho">BASHO Emails</a>
+      <a class="nav-item" href="#talktrack">Talk Track</a>
+      <a class="nav-item" href="#objections">Objection Handling</a>
+      <a class="nav-item" href="#history">Opportunity History</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Key Dates</div>
+      <div style="font-size:.75rem; color:var(--muted); line-height:1.8;">
+        Last opps closed: <span style="color:var(--text)">Nov &ndash; Dec 2024</span><br>
+        Most recent contact: <span style="color:var(--text)">Jun 2, 2026</span><br>
+        Prior opps went dead: <span style="color:var(--red)">All No Decision</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ACCOUNT CONTEXT -->
+    <div class="card" id="context">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Account Context</div>
+          <div class="card-sub">What you need to know before you pick up the phone</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="talk-grid">
+          <div class="talk-card">
+            <div class="talk-card-label">Who they are</div>
+            <div class="talk-card-body">
+              <p>Third-generation family business, founded 1967, Moberly MO. The Knaebel family built a regional wholesale distributor of windows, doors, siding, roofing, and cabinets serving lumber dealers across Illinois, Iowa, Kansas, and Missouri.</p>
+              <p>$235M revenue, 400 employees, six distribution centers, and four door-fabrication warehouses that build custom doors. This is a serious regional operation with nearly 60 years of dealer trust behind it.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The real opportunity</div>
+            <div class="talk-card-body">
+              <p>Lumber dealers across the Midwest call their Mid-Am rep to check inventory and place orders. Every one of those calls is capacity the operation absorbs manually. The door-fab side adds complexity: dealers need production timelines before committing to a job estimate, and today that means a phone call.</p>
+              <p>A dealer ordering portal with real-time inventory visibility and door-fab lead time data is the play. It serves the dealer better and recaptures rep time at the same time.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">Why the prior plays went dead</div>
+            <div class="talk-card-body">
+              <p>Three opps went No Decision in late 2024. The December opp notes say it plainly: never got HQ leadership aligned, never built the business case. The prior play was internal CRM for reps (Sales Cloud plus Service Cloud for 40+40 employees).</p>
+              <p>Family businesses don't get excited about software for their sales reps. They get excited about things that serve their dealer customers and protect revenue. The play was wrong and it went to the wrong stakeholders.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">What makes this play different</div>
+            <div class="talk-card-body">
+              <p>B2B Commerce (dealer portal) plus Manufacturing Cloud (door-fab run rates) is a customer-facing revenue play. That gets HQ attention at a family business in a way that internal CRM never will.</p>
+              <p>Sean Hughes is the COO, which means he IS the HQ alignment the prior opp said it needed. The opp notes said "need engagement with HQ leadership." Hughes is that person. Start there.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIORITY CONTACTS -->
+    <div class="card" id="contacts">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Priority Contacts</div>
+          <div class="card-sub">Ranked by fit for the Commerce plus Manufacturing Cloud play</div>
+        </div>
+        <span class="card-tag tag-orange">7 Targets</span>
+      </div>
+      <div class="card-body">
+        <div style="font-size:.72rem; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:.8px; margin-bottom:10px;">Tier 1</div>
+        <div class="contact-grid">
+
+          <div class="contact-row">
+            <div class="contact-tier tier-1">SH</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Sean Hughes</div>
+              <div class="contact-title">Chief Operating Officer</div>
+              <div class="contact-meta">
+                <a href="mailto:sean.hughes@midambuilding.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  sean.hughes@midambuilding.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">+1.660.263.2140</span>
+              </div>
+              <div class="contact-why"><strong>Start here.</strong> He is the HQ alignment the prior opp said it needed. Door fab, the DC network, and dealer fulfillment all report to him. The business case for a dealer portal lives entirely in his world: rep time recaptured, dealer ordering friction eliminated, door-fab capacity visible. He is the operator. He will understand the problem instantly because he lives it. Last active January 6, 2026.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-orange">HQ alignment target</span>
+                <span class="card-tag tag-yellow">Last active Jan 6, 2026</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-orange">Tier 1</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-1">RK</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Richard Knaebel</div>
+              <div class="contact-title">VP Operations</div>
+              <div class="contact-meta">
+                <a href="mailto:rich.knaebel@midambuilding.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  rich.knaebel@midambuilding.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">+1.660.263.2140</span>
+              </div>
+              <div class="contact-why"><strong>Family buy-in is essential.</strong> Third-generation family. At a closely held business like this, no platform decision gets made without the family supporting it. His most recent activity was April 13, 2026, the most current family-side contact on the account. The framing that works with him is not ROI or efficiency. It is: the next chapter of what the Knaebels built. His dealers are changing. The question is whether Mid-Am grows with them or watches a competitor fill the gap.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-orange">Family buy-in required</span>
+                <span class="card-tag tag-yellow">Last active Apr 13, 2026</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-orange">Tier 1</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-1">LS</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Larry Stanfield</div>
+              <div class="contact-title">Director of Sales</div>
+              <div class="contact-meta">
+                <a href="mailto:larry.stanfield@midambuilding.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  larry.stanfield@midambuilding.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">+1.660.263.2140</span>
+              </div>
+              <div class="contact-why"><strong>Owns the dealer relationships.</strong> He knows exactly how dealers order today, probably because he hears about it when the process breaks. He also knows what percentage of his reps' time goes to reorders from dealers who already know what they want. That number is the business case. Ask him directly: what is the ratio of reorder calls to new dealer development? When he answers, that is your ROI conversation. Last active January 15, 2026.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">Sales time-to-value case</span>
+                <span class="card-tag tag-yellow">Last active Jan 15, 2026</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-orange">Tier 1</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="font-size:.72rem; font-weight:700; color:var(--blue); text-transform:uppercase; letter-spacing:.8px; margin-top:20px; margin-bottom:10px;">Tier 2</div>
+        <div class="contact-grid">
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">AH</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Audra Hernandez</div>
+              <div class="contact-title">Manager, Marketing &amp; Brand Communications</div>
+              <div class="contact-meta">
+                <a href="mailto:audra.hernandez@midambuilding.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  audra.hernandez@midambuilding.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(660) 263-2140</span>
+              </div>
+              <div class="contact-why">The most recently active contact on the account overall, last touched June 2, 2026. She may be running digital initiatives or brand work that points toward a dealer-facing digital investment. Worth a conversation to understand what the company is thinking about on the digital and dealer communication front. Could be an unexpected internal advocate if the portal play resonates with her roadmap.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-green">Most recent activity</span>
+                <span class="card-tag tag-yellow">Last active Jun 2, 2026</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 2</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">NP</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Nathan Powell</div>
+              <div class="contact-title">Manager of Sales</div>
+              <div class="contact-meta">
+                <a href="mailto:nathan.powell@midambuilding.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  nathan.powell@midambuilding.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(660) 353-1383</span>
+              </div>
+              <div class="contact-why">Day-to-day sales management. He manages the rep workflow and knows the operational reality of how orders move through the team. A good source of discovery data on what percentage of rep activity is reorder handling versus relationship work. If Stanfield is unavailable, Powell is a direct line into the same conversation. Last active January 7, 2026.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">Rep workflow owner</span>
+                <span class="card-tag tag-yellow">Last active Jan 7, 2026</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 2</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">PT</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Peter Trapani</div>
+              <div class="contact-title">IT Project Coordinator</div>
+              <div class="contact-meta">
+                <a href="mailto:peter.trapani@midambuilding.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  peter.trapani@midambuilding.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">+1.660.263.2140</span>
+              </div>
+              <div class="contact-why">The technical evaluator. He would run any platform implementation. Know going in that he may have bandwidth concerns: address it before he raises it. A hosted SaaS portal requires configuration, not infrastructure development. His job is to configure and deploy, not to build and maintain. Last active March 26, 2025, so less warm but still in the record.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-purple">Technical evaluator</span>
+                <span class="card-tag tag-yellow">Last active Mar 26, 2025</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 2</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">PE</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Pam Eckart</div>
+              <div class="contact-title">SVP and CFO</div>
+              <div class="contact-meta">
+                <a href="mailto:peckart@dillinggroup.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  peckart@dillinggroup.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">319-385-8747</span>
+                <span class="card-tag tag-orange" style="font-size:.6rem;">Flag: dillinggroup.com</span>
+              </div>
+              <div class="contact-why">Owns the financial case. Her email is @dillinggroup.com, not @midambuilding.com. This is worth investigating before you reach out. The Dilling Group may be an investor, affiliated entity, or parent company with influence over platform decisions at Mid-Am. If there is a parent company in the picture, they may have a say in any significant technology investment. Do not reach out cold until you know the relationship. Last active January 6, 2026.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-orange">Investigate first</span>
+                <span class="card-tag tag-yellow">Last active Jan 6, 2026</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 2</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="flag-callout">
+          <div class="flag-callout-label">Flag: Pam Eckart's dillinggroup.com Email</div>
+          <div class="flag-callout-body">Pam Eckart holds SVP and CFO at Mid-Am, but her email domain is @dillinggroup.com, not @midambuilding.com. The Dilling Group appears to be a separate entity, possibly a parent company or investment group with ownership ties to Mid-Am. If this is a parent-company relationship, any large platform decision at Mid-Am may require sign-off beyond the Moberly leadership team. Worth a LinkedIn search or a casual question to another contact before including Eckart in outreach. Do not assume you can reach her directly through the midambuilding.com network.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BASHO EMAILS -->
+    <div class="card" id="basho">
+      <div class="card-header">
+        <div>
+          <div class="card-title">BASHO Emails</div>
+          <div class="card-sub">Research-based, 4 sentences max. Click to copy.</div>
+        </div>
+        <span class="card-tag tag-yellow">3 Ready</span>
+      </div>
+      <div class="card-body">
+
+        <!-- EMAIL 1 - HUGHES -->
+        <div class="email-block" id="email-hughes">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>Sean Hughes</strong> &mdash; Chief Operating Officer</div>
+              <div class="email-subject">Subject: <span>Dealer ordering at Mid-Am</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-hughes', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-hughes-body">Sean,
+
+You run the operations for a distributor network that serves lumber dealers across five states, which means every time a dealer calls to check inventory or place a reorder, that call lands somewhere in your operation and someone handles it by hand.
+
+Westlake Royal built a direct dealer portal and their dealer channel shifted to self-serve for routine orders, which meant the reps who used to take those calls started spending that time on dealer relationships and new account development instead.
+
+I'd like to show you what that looks like for a distributor at Mid-Am's scale, including how door-fab lead times and production capacity become visible to dealers before they call.
+
+20 minutes?
+
+Anthony Troggio
+Salesforce | Digital Transformation Executive
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+        <!-- EMAIL 2 - KNAEBEL -->
+        <div class="email-block" id="email-knaebel">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>Richard Knaebel</strong> &mdash; VP Operations</div>
+              <div class="email-subject">Subject: <span>The next chapter for Mid-Am</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-knaebel', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-knaebel-body">Richard,
+
+What the Knaebel family built in Moberly over three generations, the kind of trust that keeps lumber dealers calling the same distributor for decades, is not something most companies can replicate.
+
+The next generation of dealer buyers is also a generation that expects to check inventory and place orders without calling, and the distributors who build that capability are capturing demand their competitors never see.
+
+Building material distributors at Mid-Am's scale have built dealer portals that made it easier for long-standing accounts to keep ordering, and added volume from dealers who wanted self-serve but did not have it.
+
+Worth 20 minutes to look at what that could mean for your dealer channel?
+
+Anthony Troggio
+Salesforce | Digital Transformation Executive
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+        <!-- EMAIL 3 - STANFIELD -->
+        <div class="email-block" id="email-stanfield">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>Larry Stanfield</strong> &mdash; Director of Sales</div>
+              <div class="email-subject">Subject: <span>Rep time at Mid-Am</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-stanfield', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-stanfield-body">Larry,
+
+One question worth sitting with: what percentage of your reps' day is spent on orders from dealers who already know exactly what they want and just need someone to take the order?
+
+Distributors who built a self-serve ordering channel for routine reorders saw their reps shift that time to new dealer development and conversations with accounts that were at risk, the kind of work that actually grows the business.
+
+The dealers who have been ordering from Mid-Am for 20 years do not need a rep to place a reorder. They need your reps focused on the dealers who are not ordering yet.
+
+I would like to show you what that looks like in practice. 20 minutes?
+
+Anthony Troggio
+Salesforce | Digital Transformation Executive
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TALK TRACK -->
+    <div class="card" id="talktrack">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Talk Track</div>
+          <div class="card-sub">Opener, discovery, the value pivot, and the ask</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="talk-grid">
+          <div class="talk-card">
+            <div class="talk-card-label">The Opener</div>
+            <div class="talk-card-body">
+              <p>"Mid-Am has been serving lumber dealers for nearly 60 years. The question I want to ask is how those dealers place an order today, and whether there's a better way."</p>
+              <p>That is the whole frame. Do not overcomplicate the open. The simplicity of the question is the point. Let them tell you what the process looks like. You want to hear it in their words before you say anything about what you sell.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">Discovery Questions</div>
+            <div class="talk-card-body">
+              <p>What percentage of your reps' time is reorder activity versus new dealer development?</p>
+              <p>How do dealers check inventory before committing to a project estimate?</p>
+              <p>How do you track door-fab commitments against production capacity across four warehouses?</p>
+              <p>When a dealer places a large door order, what happens on the mid-am side between that call and the delivery confirmation?</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The Value Pivot</div>
+            <div class="talk-card-body">
+              <p>"The dealers placing the same order every two weeks do not need a rep. They need a portal. Your reps need to be spending their time on the dealer relationships that are at risk or the new dealers you have not landed yet."</p>
+              <p>"The door-fab side of this is actually the part that differentiates you. If a dealer can see lead times and production availability in real time, they stop calling to check. They commit faster because they have the information they need."</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The Ask</div>
+            <div class="talk-card-body">
+              <p>"I would like to show you what Westlake Royal built for their dealer and contractor channel. It is the closest structural analog to what Mid-Am could build for its lumber dealer base. 30 minutes. You tell me if it is directionally right or completely off."</p>
+              <p>Send the external briefing as the leave-behind after the call: <span style="color:var(--blue); font-size:.78rem;">atroggio-art.github.io/account-sites/mid-am-building-external.html</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJECTIONS -->
+    <div class="card" id="objections">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Objection Handling</div>
+          <div class="card-sub">The five objections you will hear and how to move through them</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="objection-list">
+
+          <div class="objection-item">
+            <div class="objection-q">Our dealers prefer to call their rep. That is the relationship.</div>
+            <div class="objection-a">The portal handles routine orders. The rep handles the relationship. Those are not the same thing. A dealer who calls to place a reorder on window units they order every month does not need a relationship conversation. A dealer who is bidding a large job and needs production lead times, pricing guidance, and someone they trust is exactly who the rep should be talking to. The distributors who have built self-serve channels consistently report that reps like it more, not less, because their conversations become higher value. The rep's job gets better.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">We looked at Salesforce before and it did not go anywhere.</div>
+            <div class="objection-a">The prior play was internal CRM for your sales reps, which is a different conversation with different stakeholders and a different business case. This is a customer-facing dealer ordering portal. The people who need to get excited about it are Sean Hughes and your dealer-facing leadership, not your sales ops team. A portal that makes it easier for your best lumber dealer accounts to place orders is a revenue and retention story, not a software adoption story. Those are genuinely different conversations.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">We are a family business. We make decisions slowly and carefully.</div>
+            <div class="objection-a">Respect that completely. A scoped pilot with your top 20 dealer accounts does not require a company-wide decision. It requires three people to agree to a 90-day test. You pick 20 of your highest-volume dealers who you already have strong relationships with, you give them a portal, and you measure whether they use it for routine orders. If they do not, you learned something in 90 days at low cost. If they do, you have the data to make the larger decision with confidence. That is how a careful organization tests something new.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">IT does not have bandwidth for a platform project right now.</div>
+            <div class="objection-a">Peter Trapani is your IT Project Coordinator, which means this lands on his plate. Here is what I want you to hear clearly: a hosted SaaS portal does not require IT to build and maintain infrastructure. It requires configuration, not development. Trapani's job is to configure workflows, connect to your existing ERP and inventory systems, and deploy. He is not standing up servers or writing custom code. The bandwidth question is real, but the actual lift for IT on this is much smaller than the word "platform" implies.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">We do not have budget for this right now.</div>
+            <div class="objection-a">The ROI case is straightforward to build. If your top 50 dealer accounts shift even 30 percent of their reorders to self-serve, the rep time savings alone covers the platform cost. I can build that model using your actual numbers, your rep headcount, your average order volume, before we ever talk about a dollar figure. Let me put that together and bring it back to you. If the math does not work, I will tell you. If it does, you have something to bring into the budget conversation with a number attached to it.</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- OPP HISTORY -->
+    <div class="card" id="history">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Opportunity History</div>
+          <div class="card-sub">Prior Salesforce opportunities and what they tell you about this account</div>
+        </div>
+        <span class="card-tag tag-red">All Dead</span>
+      </div>
+      <div class="card-body">
+        <div class="opp-list">
+
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">/TAB - Mid-Am Building - NL</div>
+              <div class="opp-detail">Dead - No Decision &middot; Closed Nov 2024 &middot; Created Nov 2024</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$107,100</div>
+          </div>
+
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Mid-Am - NL TAB</div>
+              <div class="opp-detail">Dead - No Decision &middot; Closed Nov 2024 &middot; Created Oct 2024</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$5,400</div>
+          </div>
+
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Mid-Am - +40 Sales EE +40 Service EE</div>
+              <div class="opp-detail">Dead - No Decision &middot; Closed Dec 2024 &middot; Created Oct 2024 &middot; Notes: Never got HQ alignment; business case not built</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$96,000</div>
+          </div>
+
+        </div>
+        <div style="margin-top:16px; padding:14px; background:rgba(251,191,36,.06); border:1px solid rgba(251,191,36,.2); border-radius:8px;">
+          <div style="font-size:.78rem; font-weight:700; color:var(--yellow); margin-bottom:6px;">Read on the history</div>
+          <div style="font-size:.8rem; color:#c8d8e8; line-height:1.75;">Three dead opps in two months in late 2024. All No Decision, not No Opportunity. The December opp notes are the most useful thing in this record: "Consensus Vendor of Choice? N. Aligned on Written Mutual Plan? N. Aligned on Signer, IT and LOB Leaders? N. Some alignment on LOB. Need engagement with HQ leadership. Business case not built." That is an honest post-mortem. The play went after line-of-business alignment and never got to HQ. The right play now goes to HQ first with a customer-facing revenue story, not internal CRM for reps. That is a fundamentally different conversation. Do not treat this as a re-pitch. Treat it as a first conversation with the right people about the right thing.</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function copyEmail(blockId, btn) {
+  const bodyEl = document.getElementById(blockId + '-body');
+  if (!bodyEl) return;
+  const text = bodyEl.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy Email';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    link.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
