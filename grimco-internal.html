@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Grimco — Internal Account Brief</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #0f1117;
+  color: #e2e8f0;
+  line-height: 1.6;
+  font-size: 15px;
+}
+a { color: #60a5fa; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+:root {
+  --bg:      #0f1117;
+  --bg2:     #161b26;
+  --bg3:     #1e2535;
+  --border:  rgba(255,255,255,.08);
+  --border2: rgba(255,255,255,.13);
+  --text:    #e2e8f0;
+  --muted:   #8899aa;
+  --red:     #f05060;
+  --red2:    #e01530;
+  --green:   #34d399;
+  --blue:    #60a5fa;
+  --yellow:  #fbbf24;
+  --orange:  #fb923c;
+  --purple:  #a78bfa;
+  --r:       10px;
+}
+
+.topbar {
+  background: #0a0d14;
+  border-bottom: 1px solid var(--border);
+  padding: 14px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-badge {
+  background: rgba(251,191,36,.12); border: 1px solid rgba(251,191,36,.3);
+  color: #fbbf24; font-size: .65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  padding: 3px 10px; border-radius: 50px;
+}
+.live-badge {
+  background: rgba(52,211,153,.12); border: 1px solid rgba(52,211,153,.3);
+  color: var(--green); font-size: .65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  padding: 3px 10px; border-radius: 50px;
+  display: flex; align-items: center; gap: 5px;
+}
+.live-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+.topbar-title { font-size: .88rem; font-weight: 700; color: var(--text); }
+.topbar-sub { font-size: .72rem; color: var(--muted); margin-top: 1px; }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.topbar-btn {
+  font-size: .72rem; font-weight: 700; padding: 6px 14px; border-radius: 6px;
+  border: 1px solid var(--border2); color: var(--muted);
+  transition: color .15s, border-color .15s; cursor: pointer;
+}
+.topbar-btn:hover { color: var(--text); border-color: rgba(255,255,255,.25); }
+.topbar-btn.primary { background: var(--red2); border-color: transparent; color: #fff; }
+.topbar-btn.primary:hover { background: var(--red); }
+
+.layout {
+  max-width: 1200px; margin: 0 auto;
+  padding: 32px 40px 80px;
+  display: grid; grid-template-columns: 260px 1fr;
+  gap: 32px; align-items: start;
+}
+
+.sidebar { position: sticky; top: 72px; }
+.sidebar-section { margin-bottom: 28px; }
+.sidebar-label {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.2px; color: var(--muted); margin-bottom: 10px;
+}
+.nav-item {
+  display: block; padding: 7px 12px; border-radius: 6px;
+  font-size: .82rem; color: var(--muted);
+  transition: background .15s, color .15s; cursor: pointer;
+}
+.nav-item:hover, .nav-item.active { background: var(--bg3); color: var(--text); }
+.nav-item.active { font-weight: 600; }
+
+.account-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 16px;
+}
+.account-logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.account-logo-wrap {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; flex-shrink: 0;
+}
+.account-logo { width: 24px; height: 24px; object-fit: contain; }
+.account-name { font-size: .9rem; font-weight: 800; color: var(--text); }
+.account-domain { font-size: .72rem; color: var(--muted); }
+.account-stat {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 5px 0; border-bottom: 1px solid var(--border); font-size: .78rem;
+}
+.account-stat:last-child { border-bottom: none; }
+.account-stat-label { color: var(--muted); }
+.account-stat-val { font-weight: 700; color: var(--text); }
+
+.main { min-width: 0; display: flex; flex-direction: column; gap: 28px; }
+
+.card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); overflow: hidden;
+}
+.card-header {
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.card-title { font-size: .88rem; font-weight: 700; color: var(--text); }
+.card-sub { font-size: .75rem; color: var(--muted); margin-top: 2px; }
+.card-body { padding: 20px; }
+
+.card-tag {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px;
+  padding: 3px 10px; border-radius: 50px;
+}
+.tag-green  { background: rgba(52,211,153,.1);  color: var(--green);  border: 1px solid rgba(52,211,153,.2); }
+.tag-blue   { background: rgba(96,165,250,.1);  color: var(--blue);   border: 1px solid rgba(96,165,250,.2); }
+.tag-yellow { background: rgba(251,191,36,.1);  color: var(--yellow); border: 1px solid rgba(251,191,36,.2); }
+.tag-red    { background: rgba(240,80,96,.1);   color: var(--red);    border: 1px solid rgba(240,80,96,.2); }
+.tag-orange { background: rgba(251,146,60,.1);  color: var(--orange); border: 1px solid rgba(251,146,60,.2); }
+.tag-purple { background: rgba(167,139,250,.1); color: var(--purple); border: 1px solid rgba(167,139,250,.2); }
+.tag-gray   { background: rgba(255,255,255,.05);color: var(--muted);  border: 1px solid var(--border); }
+
+/* LIVE DEAL BANNER */
+.live-deal-banner {
+  background: linear-gradient(135deg, rgba(52,211,153,.08), rgba(52,211,153,.04));
+  border: 1px solid rgba(52,211,153,.25); border-radius: var(--r);
+  padding: 18px 22px;
+  display: grid; grid-template-columns: auto 1fr auto; gap: 18px; align-items: center;
+}
+.ldb-icon { font-size: 1.8rem; }
+.ldb-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--green); margin-bottom: 3px; }
+.ldb-name { font-size: .95rem; font-weight: 700; color: var(--text); }
+.ldb-detail { font-size: .78rem; color: var(--muted); margin-top: 3px; }
+.ldb-amount { font-size: 1.6rem; font-weight: 800; color: var(--green); }
+.ldb-close { font-size: .72rem; color: var(--muted); text-align: right; margin-top: 2px; }
+
+/* CONTACT GRID */
+.contact-grid { display: flex; flex-direction: column; gap: 12px; }
+.contact-row {
+  display: grid; grid-template-columns: 44px 1fr auto;
+  gap: 14px; align-items: start;
+  padding: 14px 16px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--bg3);
+  transition: border-color .15s;
+}
+.contact-row:hover { border-color: var(--border2); }
+.contact-tier {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; font-weight: 800; color: #fff;
+}
+.tier-1 { background: linear-gradient(135deg, #e01530, #f05060); }
+.tier-2 { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+.tier-3 { background: linear-gradient(135deg, #6366f1, #a78bfa); }
+.contact-name { font-size: .92rem; font-weight: 700; color: var(--text); }
+.contact-title { font-size: .78rem; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+.contact-meta { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.contact-link {
+  font-size: .72rem; color: var(--blue);
+  display: flex; align-items: center; gap: 4px;
+}
+.contact-why { font-size: .78rem; color: var(--text); line-height: 1.6; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.contact-why strong { color: var(--green); }
+.contact-actions { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; flex-shrink: 0; }
+.pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+/* TALK TRACK */
+.talk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.talk-card {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px;
+}
+.talk-card-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
+.talk-card-body { font-size: .82rem; color: #c8d8e8; line-height: 1.75; }
+.talk-card-body p + p { margin-top: 8px; }
+
+/* BASHO EMAILS */
+.email-block {
+  border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; margin-bottom: 16px;
+}
+.email-block:last-child { margin-bottom: 0; }
+.email-header {
+  background: var(--bg3); padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.email-to { font-size: .82rem; color: var(--text); }
+.email-to strong { font-weight: 700; }
+.email-subject { font-size: .75rem; color: var(--muted); margin-top: 2px; }
+.email-subject span { color: var(--text); font-weight: 600; }
+.email-body {
+  padding: 16px 18px; font-size: .84rem; color: #c8d8e8;
+  line-height: 1.85; white-space: pre-wrap; font-family: 'Georgia', serif;
+}
+.copy-btn {
+  font-size: .68rem; font-weight: 700; padding: 5px 12px; border-radius: 5px;
+  background: rgba(255,255,255,.06); border: 1px solid var(--border2);
+  color: var(--muted); cursor: pointer; white-space: nowrap;
+  transition: background .15s, color .15s;
+}
+.copy-btn:hover { background: rgba(255,255,255,.12); color: var(--text); }
+.copy-btn.copied { background: rgba(52,211,153,.12); border-color: rgba(52,211,153,.3); color: var(--green); }
+
+/* OBJECTIONS */
+.objection-list { display: flex; flex-direction: column; gap: 10px; }
+.objection-item { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.objection-q {
+  padding: 12px 14px; font-size: .82rem; font-weight: 700; color: var(--text);
+  display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border);
+}
+.objection-q::before {
+  content: '?'; width: 20px; height: 20px;
+  background: rgba(251,191,36,.15); color: var(--yellow); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 800; flex-shrink: 0;
+}
+.objection-a { padding: 12px 14px; font-size: .82rem; color: #c8d8e8; line-height: 1.75; }
+
+/* OPP HISTORY */
+.opp-list { display: flex; flex-direction: column; gap: 8px; }
+.opp-item {
+  display: grid; grid-template-columns: 1fr auto auto;
+  gap: 12px; align-items: center;
+  padding: 10px 14px; border-radius: 7px;
+  background: var(--bg3); border: 1px solid var(--border); font-size: .8rem;
+}
+.opp-item.live {
+  background: rgba(52,211,153,.05); border-color: rgba(52,211,153,.2);
+}
+.opp-name { font-weight: 600; color: var(--text); }
+.opp-detail { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+.opp-amount { font-weight: 700; color: var(--text); white-space: nowrap; }
+
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; padding: 20px; }
+  .sidebar { position: static; }
+  .talk-grid { grid-template-columns: 1fr; }
+  .contact-row { grid-template-columns: 44px 1fr; }
+  .contact-actions { flex-direction: row; grid-column: 1 / -1; }
+  .live-deal-banner { grid-template-columns: auto 1fr; }
+  .ldb-amount { grid-column: 1 / -1; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div>
+      <div class="topbar-title">Grimco — Account Brief</div>
+      <div class="topbar-sub">Internal use only · Anthony Troggio &amp; Team · July 2026</div>
+    </div>
+    <span class="topbar-badge">Internal</span>
+    <div class="live-badge"><div class="live-dot"></div>Live Deal</div>
+  </div>
+  <div class="topbar-right">
+    <a href="grimco-external.html" target="_blank" class="topbar-btn">View External Site</a>
+    <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" class="topbar-btn primary">Book Time</a>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="account-card">
+      <div class="account-logo-row">
+        <div class="account-logo-wrap">
+          <img src="https://www.google.com/s2/favicons?domain=grimco.com&sz=64" class="account-logo" alt="Grimco">
+        </div>
+        <div>
+          <div class="account-name">Grimco Inc.</div>
+          <div class="account-domain">grimco.com</div>
+        </div>
+      </div>
+      <div class="account-stat"><span class="account-stat-label">Revenue</span><span class="account-stat-val">$105M+</span></div>
+      <div class="account-stat"><span class="account-stat-label">Employees</span><span class="account-stat-val">837</span></div>
+      <div class="account-stat"><span class="account-stat-label">HQ</span><span class="account-stat-val">Fenton, MO</span></div>
+      <div class="account-stat"><span class="account-stat-label">Industry</span><span class="account-stat-val">Sign Supply Dist.</span></div>
+      <div class="account-stat"><span class="account-stat-label">Online Orders</span><span class="account-stat-val" style="color:var(--green)">55%</span></div>
+      <div class="account-stat"><span class="account-stat-label">Open Deal</span><span class="account-stat-val" style="color:var(--green)">$129K · Stage 03</span></div>
+    </div>
+
+    <div class="sidebar-section" style="margin-top:20px;">
+      <div class="sidebar-label">Play</div>
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <span class="card-tag tag-red"   style="width:fit-content;">B2B Commerce</span>
+        <span class="card-tag tag-blue"  style="width:fit-content;">Marketing Cloud</span>
+        <span class="card-tag tag-purple" style="width:fit-content;">Data Cloud</span>
+        <span class="card-tag tag-green" style="width:fit-content;">Agentforce</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Navigate</div>
+      <a class="nav-item active" href="#deal">Live Deal</a>
+      <a class="nav-item" href="#context">Account Context</a>
+      <a class="nav-item" href="#contacts">Priority Contacts</a>
+      <a class="nav-item" href="#basho">BASHO Emails</a>
+      <a class="nav-item" href="#talktrack">Talk Track</a>
+      <a class="nav-item" href="#objections">Objection Handling</a>
+      <a class="nav-item" href="#history">Opportunity History</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Key Dates</div>
+      <div style="font-size:.75rem; color:var(--muted); line-height:1.8;">
+        Open deal close: <span style="color:var(--yellow)">Jan 22, 2027</span><br>
+        Last activity: <span style="color:var(--text)">Jun 11, 2026</span><br>
+        Deal stage: <span style="color:var(--green)">03 - Validating Benefits</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- LIVE DEAL -->
+    <div class="card" id="deal">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Active Opportunity</div>
+          <div class="card-sub">There is a live deal in Salesforce right now — this is not a cold account</div>
+        </div>
+        <span class="card-tag tag-green">Stage 03</span>
+      </div>
+      <div class="card-body">
+        <div class="live-deal-banner">
+          <div class="ldb-icon">📋</div>
+          <div>
+            <div class="ldb-label">Open Opportunity</div>
+            <div class="ldb-name">Grimco || +240 SPIFF</div>
+            <div class="ldb-detail">Stage 03 — Validating Benefits &amp; Value · Close date Jan 22, 2027 · Created Mar 12, 2026</div>
+          </div>
+          <div>
+            <div class="ldb-amount">$129,144</div>
+            <div class="ldb-close">Close Jan 2027</div>
+          </div>
+        </div>
+        <div style="margin-top:16px; padding:14px; background:rgba(251,191,36,.06); border:1px solid rgba(251,191,36,.2); border-radius:8px;">
+          <div style="font-size:.78rem; font-weight:700; color:var(--yellow); margin-bottom:6px;">What this means for your approach</div>
+          <div style="font-size:.8rem; color:#c8d8e8; line-height:1.75;">Grimco is in Stage 03. They're past discovery — they're validating the value. The external briefing site and internal brief are tools to accelerate that validation, not to start a new conversation. Use the site as a leave-behind after your next call to crystallize the ROI case. The talk track and objection handling below are calibrated for a deal in progress, not a cold open.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACCOUNT CONTEXT -->
+    <div class="card" id="context">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Account Context</div>
+          <div class="card-sub">What makes Grimco different from a typical distributor pitch</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="talk-grid">
+          <div class="talk-card">
+            <div class="talk-card-label">Who they are</div>
+            <div class="talk-card-body">
+              <p>North America's leading sign supply distributor. Vinyl, wide-format media, LED, digital signage hardware, and substrates. They serve sign shops, print shops, and fabricators across the US and Canada from a network of distribution centers.</p>
+              <p>$105M+ revenue, 837 employees, HQ in Fenton, MO. They also acquired Graphic Solutions Group (Dallas, $100M) — more scale than the primary record shows.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The key insight</div>
+            <div class="talk-card-body">
+              <p>55% of orders already go online. That's exceptional for a specialty distributor. They built that. The pitch is NOT "go digital" — they're already there. The pitch is "connect what you built."</p>
+              <p>Their own 2020 opp notes said: "55% of our orders go online — there is a lot of data that we could leverage but we have historically been very old school." That's still the gap. Nothing has changed. They know it.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The data stack problem</div>
+            <div class="talk-card-body">
+              <p>HubSpot in the US. Constant Contact in Canada. 100k+ contacts. No unified customer record. $60k/month in ad spend with no loop back to order data.</p>
+              <p>Mohammad Masoud has "E-commerce" and "Marketing" in his title. That fragmented stack is his daily operational reality. He knows it's broken.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The loyalty program angle</div>
+            <div class="talk-card-body">
+              <p>In 2020 they were "about ready to launch a rewards program." It's 2026. It still hasn't launched at scale. The reason is the data infrastructure, not the marketing strategy.</p>
+              <p>A unified platform is the prerequisite. If you can connect the platform decision to the rewards program they've been trying to launch for six years, that's a compelling internal urgency driver they can take to the CEO.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIORITY CONTACTS -->
+    <div class="card" id="contacts">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Priority Contacts</div>
+          <div class="card-sub">Ranked by fit for the Commerce + Marketing Cloud play</div>
+        </div>
+        <span class="card-tag tag-red">7 Targets</span>
+      </div>
+      <div class="card-body">
+        <div class="contact-grid">
+
+          <div class="contact-row">
+            <div class="contact-tier tier-1">KK</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Kelly Kunkel</div>
+              <div class="contact-title">Ecommerce Manager / Ecommerce Project Lead</div>
+              <div class="contact-meta">
+                <a href="mailto:kkunkel@grimco.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  kkunkel@grimco.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">573-437-2115</span>
+              </div>
+              <div class="contact-why"><strong>Your most direct champion.</strong> Ecommerce Manager and Ecommerce Project Lead — that's the person who owns the platform Grimco built to get to 55% online. She knows what's working, what's not, and what would need to change to push the number higher. She also knows the pain of operating without a unified data layer. If there's a platform evaluation in progress, she's running it or influencing it. Start here.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-red">Champion candidate</span>
+                <span class="card-tag tag-yellow">Last active May 12</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-red">Tier 1</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-1">MM</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Mohammad Masoud</div>
+              <div class="contact-title">Director of Marketing &amp; E-commerce</div>
+              <div class="contact-meta">
+                <a href="mailto:mmasoud@grimco.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  mmasoud@grimco.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(800) 542-9941</span>
+              </div>
+              <div class="contact-why"><strong>Owns both marketing and e-commerce.</strong> That's the exact intersection this play lives in. He's managing HubSpot and Constant Contact as separate systems while trying to run a coherent marketing and commerce strategy. The fragmented stack is his problem. The rewards program that hasn't launched is on his list. He's the person most motivated to solve what a unified platform solves.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-red">Core decision-maker</span>
+                <span class="card-tag tag-yellow">Last active Apr 30</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-red">Tier 1</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-1">JB</div>
+            <div class="contact-info-main">
+              <div class="contact-name">John Burkemper</div>
+              <div class="contact-title">Chief Strategy Officer</div>
+              <div class="contact-meta">
+                <a href="mailto:jburkemper@grimco.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  jburkemper@grimco.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(414) 526-8265</span>
+              </div>
+              <div class="contact-why"><strong>Executive with a strategy mandate.</strong> The CSO is the person thinking about where Grimco's competitive moat comes from in five years. The answer to that question is the digital channel. If he's not already part of the Commerce conversation, he should be. A connected commerce and marketing platform isn't an IT project at this stage — it's a strategic asset. That's his language.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">Executive sponsor</span>
+                <span class="card-tag tag-yellow">Last active Apr 30</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-red">Tier 1</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">MK</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Michael Kerber</div>
+              <div class="contact-title">Director — Marketing &amp; Product Development</div>
+              <div class="contact-meta">
+                <a href="mailto:mkerber@grimco.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  mkerber@grimco.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">636-651-3234</span>
+              </div>
+              <div class="contact-why">Owns marketing and product development together — which means he's thinking about how the product catalog is presented to sign shops and what drives product adoption. Personalized product recommendations at checkout and segmented catalog experiences by shop type are squarely in his domain. Good supporting voice in the evaluation.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">Product + marketing overlap</span>
+                <span class="card-tag tag-yellow">Last active Jun 2</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 2</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">MM2</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Matthew McGuirk</div>
+              <div class="contact-title">Senior Data Scientist</div>
+              <div class="contact-meta">
+                <a href="mailto:matthew.mcguirk@grimco.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  matthew.mcguirk@grimco.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">573-437-2115</span>
+              </div>
+              <div class="contact-why">The most recently active contact on the account (Jun 11). A senior data scientist at a distributor is a strong signal — they're serious about connecting data to outcomes. He has the skills to build on top of Data Cloud once it's the foundation. Worth a direct conversation about what he's working with today and what he's limited by. He's a technical champion if he believes in the infrastructure.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-purple">Technical champion</span>
+                <span class="card-tag tag-green">Most recent activity</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 2</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">BF</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Bill Flynn</div>
+              <div class="contact-title">Sales and Marketing Director</div>
+              <div class="contact-meta">
+                <a href="mailto:bflynn@grimco.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  bflynn@grimco.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">573-437-2115</span>
+              </div>
+              <div class="contact-why">Sales and Marketing Director — has visibility into both the rep-assisted order flow and the marketing funnel. He knows exactly what percentage of his team's time goes to reorder activity. Good angle: "When one of your reps takes a reorder call, what's that costing you in time that could have gone to a new account?" He's been active through May 2026.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">Sales efficiency case</span>
+                <span class="card-tag tag-yellow">Last active May 18</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 2</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-3">KP</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Keith Pittillo</div>
+              <div class="contact-title">Chief Executive Officer</div>
+              <div class="contact-meta">
+                <a href="mailto:kpittillo@grimco.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  kpittillo@grimco.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(314) 390-1623</span>
+              </div>
+              <div class="contact-why">CEO. Don't cold outreach here. Get introduced through Burkemper or Masoud once the value case is built. The CEO conversation is about competitive moat — digital channel as a structural advantage that compounds over time. If you can get a referral from the CSO, that's the path in.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-purple">Get introduced</span>
+                <span class="card-tag tag-yellow">Last active May 23</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-purple">Tier 3</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- BASHO EMAILS -->
+    <div class="card" id="basho">
+      <div class="card-header">
+        <div>
+          <div class="card-title">BASHO Emails</div>
+          <div class="card-sub">Research-based, 4 sentences max. Click to copy.</div>
+        </div>
+        <span class="card-tag tag-yellow">3 Ready</span>
+      </div>
+      <div class="card-body">
+
+        <div class="email-block" id="email-kunkel">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>Kelly Kunkel</strong> — Ecommerce Manager / Ecommerce Project Lead</div>
+              <div class="email-subject">Subject: <span>Grimco's ecommerce platform</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-kunkel', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-kunkel-body">Kelly,
+
+You built the platform that gets 55% of Grimco's orders placed online. I want to understand what's standing between that number and 90.
+
+My read is that the gap isn't UX or product catalog. It's that your order data isn't connected to your marketing platform — so you can't trigger a replenishment campaign for a shop that ordered wide-format media 45 days ago, and you can't retarget lapsed accounts with their own purchase history. That's a solvable infrastructure problem, not a customer behavior problem.
+
+20 minutes to show you what that connection looks like in practice?
+
+Anthony Troggio
+Salesforce | Digital Transformation Executive
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+        <div class="email-block" id="email-masoud">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>Mohammad Masoud</strong> — Director of Marketing &amp; E-commerce</div>
+              <div class="email-subject">Subject: <span>HubSpot + Constant Contact at Grimco</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-masoud', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-masoud-body">Mohammad,
+
+Running HubSpot in the US and Constant Contact in Canada means you have 100k customer contacts with no unified view of behavior across both markets. Every campaign you want to run at scale hits that wall.
+
+The rewards program Grimco has been building toward needs a single customer record to work — one that connects email behavior, order history, and loyalty in one place. That's not a marketing problem. It's a platform decision.
+
+I'd like to show you what that unified record looks like for a comparable distributor. 20 minutes?
+
+Anthony Troggio
+Salesforce | Digital Transformation Executive
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+        <div class="email-block" id="email-burkemper">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>John Burkemper</strong> — Chief Strategy Officer</div>
+              <div class="email-subject">Subject: <span>Grimco's digital channel as a competitive moat</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-burkemper', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-burkemper-body">John,
+
+Grimco built something real: 55% of orders placed online in a specialty distribution category where most competitors are still relying on phone and rep relationships. That's a structural advantage — but only if the data from those orders is connected to how you market, retain, and grow accounts.
+
+Right now, that connection doesn't exist. Your online order data and your marketing platform are in separate systems. The distributors who close that gap in the next 18 months will have an account retention advantage that compounds. The ones who don't will compete on price.
+
+Worth 20 minutes to talk through what that looks like for Grimco at your scale?
+
+Anthony Troggio
+Salesforce | Digital Transformation Executive
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TALK TRACK -->
+    <div class="card" id="talktrack">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Talk Track</div>
+          <div class="card-sub">Calibrated for Stage 03 — you're past discovery, you're validating value</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="talk-grid">
+          <div class="talk-card">
+            <div class="talk-card-label">The Stage 03 Framing</div>
+            <div class="talk-card-body">
+              <p>"You've seen the platform. The question I want to answer today is: what does success look like for Grimco specifically? Not what the platform can do in general — what are the two or three things that, if they were working differently six months from now, would make this investment clearly worth it?"</p>
+              <p>Get them to name their own success metrics. Then connect those metrics to the platform capabilities.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">Discovery Questions (if needed)</div>
+            <div class="talk-card-body">
+              <p>What's the biggest thing holding the rewards program back right now?</p>
+              <p>When a sign shop who orders online goes 60 days without an order, what happens today?</p>
+              <p>How do you currently connect ad spend to the orders it generates?</p>
+              <p>What does a unified customer record across the US and Canada look like today, if it exists at all?</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The ROI Frame</div>
+            <div class="talk-card-body">
+              <p>"Grimco already has 100k customer contacts and 55% of orders online. That's not a startup investment — that's infrastructure you've already built. What we're talking about is connecting it so it actually compounds."</p>
+              <p>"The math is simple: if a triggered replenishment email converts 5% of your lapsed accounts back to active, at average order values in your category, that number covers the platform cost in the first year. Want me to build that model with your actual data?"</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The Close</div>
+            <div class="talk-card-body">
+              <p>"Here's what I want to propose: a scoped pilot that starts with your US email base and your online order data — just those two connected. No full migration, no Canada yet, no big infrastructure project. We get that live, you see the triggered campaign results, and you have real Grimco data to bring to the internal conversation."</p>
+              <p>Send the external briefing as a leave-behind after the call. It's built around their specific numbers and situation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJECTIONS -->
+    <div class="card" id="objections">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Objection Handling</div>
+          <div class="card-sub">The responses that keep a Stage 03 deal moving forward</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="objection-list">
+
+          <div class="objection-item">
+            <div class="objection-q">We're happy with HubSpot. It does what we need.</div>
+            <div class="objection-a">HubSpot is a great marketing tool. The gap isn't what it does for email — it's what it can't see. HubSpot doesn't know what your customers ordered last week, which sign shops are trending down in purchase frequency, or which ad click turned into a $5k order. When your marketing platform can see your order data, it stops being a campaign tool and starts being a retention engine. That's the conversation.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">Migrating 100k contacts is a huge project. We don't have the bandwidth.</div>
+            <div class="objection-a">You don't start with 100k contacts. You start with the US base, connected to your order data, with three automated journeys: replenishment for lapsed accounts, cross-sell at checkout, and a welcome series for new sign shops. That's a 90-day scoped deployment. Canada comes later, and it comes after you've seen the results from the US. The migration is a phase, not a prerequisite.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">We already looked at Salesforce Marketing Cloud before and it didn't go anywhere.</div>
+            <div class="objection-a">I know — two conversations went to No Decision since 2020. What I want to understand is what "no decision" actually meant. Was it budget, was it integration complexity, was it that the internal case didn't land? Because the platform has changed significantly since 2020, and more importantly, what Grimco has built since then — the 55% online, the customer data at scale, the data science function — means the ROI case is materially different today. I'm not asking you to re-evaluate what you evaluated before. I'm asking you to evaluate what's possible now.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">Our sign shop customers don't engage with automated email.</div>
+            <div class="objection-a">That's true for generic batch-and-blast email. It's not true for a replenishment trigger that tells a sign shop their usual vinyl is back in stock at their nearest DC, or a message that shows them the laminate that pairs with the substrate they ordered two weeks ago. The open rates on behavior-triggered email in B2B distribution run 3-4x higher than batch campaigns. The difference is the data connection — which is exactly what this conversation is about.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">We need to get internal alignment before we can move forward.</div>
+            <div class="objection-a">That's fair. Let me help you build the case. If I put together a one-page ROI model using Grimco's actual numbers — 100k contacts, current order frequency, average order value — you'll have something concrete to bring to the conversation. The rewards program angle is particularly compelling internally because it's a visible customer-facing outcome, not just a backend infrastructure project. Who else needs to be in the room when you have that conversation?</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- OPP HISTORY -->
+    <div class="card" id="history">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Opportunity History</div>
+          <div class="card-sub">Full Salesforce opportunity history — know what's been tried before</div>
+        </div>
+        <span class="card-tag tag-green">1 Live · 9 Prior</span>
+      </div>
+      <div class="card-body">
+        <div class="opp-list">
+          <div class="opp-item live">
+            <div>
+              <div class="opp-name">Grimco || +240 SPIFF</div>
+              <div class="opp-detail">Stage 03 — Validating Benefits &amp; Value · Close Jan 22, 2027 · Created Mar 2026</div>
+            </div>
+            <span class="card-tag tag-green">Live</span>
+            <div class="opp-amount">$129,144</div>
+          </div>
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">DIG &amp; MC — Commerce Cloud + MCE Growth</div>
+              <div class="opp-detail">Dead - No Opportunity · Closed Dec 2025 · Created Mar 2025</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$98,000</div>
+          </div>
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">MFG Cloud + B2B Commerce Big Bet</div>
+              <div class="opp-detail">Dead - Lost · Closed Jun 2025 · Created Mar 2025</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$187,500</div>
+          </div>
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Grimco Inc. Renewal 1 SFA</div>
+              <div class="opp-detail">Dead Attrition · Closed Jun 2024</div>
+            </div>
+            <span class="card-tag tag-red">Attrition</span>
+            <div class="opp-amount">$0</div>
+          </div>
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Grimco (+1) Sales Cloud</div>
+              <div class="opp-detail">Closed Won · Jan 2024</div>
+            </div>
+            <span class="card-tag tag-green">Won</span>
+            <div class="opp-amount">$480</div>
+          </div>
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">MC - NB - Grimco - IS</div>
+              <div class="opp-detail">Dead - No Decision · Closed Jan 2021 · Created Nov 2020</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$54,000</div>
+          </div>
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">MC — CS + AS + SS + Datorama</div>
+              <div class="opp-detail">Dead - No Decision · Closed Sep 2020 · Notes: 55% online, 100k contacts, $60k/mo ad spend</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$101,120</div>
+          </div>
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Grimco FSL IA — CSG</div>
+              <div class="opp-detail">Dead - Lost · Closed May 2020</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$110,000</div>
+          </div>
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Grimco Phase 2 — CPQ and Pardot Add-On</div>
+              <div class="opp-detail">Dead - No Decision · Closed Aug 2019</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$111,600</div>
+          </div>
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Grimco Inc (+200) 200 UE</div>
+              <div class="opp-detail">Dead - No Decision · Closed Aug 2019</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$250,000</div>
+          </div>
+        </div>
+        <div style="margin-top:16px; padding:14px; background:rgba(251,191,36,.06); border:1px solid rgba(251,191,36,.2); border-radius:8px;">
+          <div style="font-size:.78rem; font-weight:700; color:var(--yellow); margin-bottom:6px;">Read on the history</div>
+          <div style="font-size:.8rem; color:#c8d8e8; line-height:1.75;">Grimco has been in Salesforce conversations since 2019. Multiple No Decisions across Marketing Cloud, Commerce, and FSL. The 2020 opp notes are gold — they told us exactly what their situation was (55% online, 100k contacts, HubSpot/Constant Contact split, $60k ad spend, rewards program in the works). That information is still current six years later. The live deal at Stage 03 means something changed in March 2026 — the current conversation is warm. Don't pitch the history. Pitch the present state and what's possible now.</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function copyEmail(blockId, btn) {
+  const bodyEl = document.getElementById(blockId + '-body');
+  if (!bodyEl) return;
+  navigator.clipboard.writeText(bodyEl.textContent).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy Email'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    link.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
