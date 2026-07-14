@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Hugg & Hall Equipment | Internal Brief — Anthony Troggio</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #0f1117;
+  color: #e2e8f0;
+  line-height: 1.6;
+  font-size: 15px;
+  display: flex;
+  min-height: 100vh;
+}
+
+:root {
+  --orange:  #d97706;
+  --orange2: #f59e0b;
+  --orange3: #fcd34d;
+  --dark:    #0f1117;
+  --card:    #161b26;
+  --inner:   #1e2535;
+  --border:  rgba(255,255,255,.08);
+  --muted:   #8899aa;
+  --live:    #22c55e;
+  --warn:    #f59e0b;
+  --red:     #ef4444;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 280px; min-width: 280px;
+  background: #0b0e16;
+  border-right: 1px solid var(--border);
+  padding: 28px 20px;
+  position: sticky; top: 0; height: 100vh;
+  overflow-y: auto;
+  display: flex; flex-direction: column; gap: 28px;
+}
+.sidebar-logo {
+  display: flex; align-items: center; gap: 10px;
+  padding-bottom: 20px; border-bottom: 1px solid var(--border);
+}
+.sidebar-logo-icon {
+  width: 36px; height: 36px;
+  background: var(--orange);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; font-weight: 900; color: #fff; flex-shrink: 0;
+}
+.sidebar-logo-text { font-size: .82rem; font-weight: 700; color: #fff; line-height: 1.3; }
+.sidebar-logo-sub { font-size: .66rem; color: var(--muted); }
+
+.nodecision-badge {
+  background: rgba(239,68,68,.08);
+  border: 1px solid rgba(239,68,68,.22);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.nodecision-badge-label {
+  font-size: .62rem; font-weight: 800; text-transform: uppercase; letter-spacing: .8px;
+  color: #fca5a5; margin-bottom: 6px;
+}
+.nodecision-badge-body { font-size: .76rem; color: rgba(255,255,255,.6); line-height: 1.55; }
+.nodecision-badge-num { font-size: 1.6rem; font-weight: 900; color: #fca5a5; line-height: 1; margin-bottom: 3px; }
+
+.sidebar-section-label {
+  font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px;
+  color: var(--muted); margin-bottom: 10px;
+}
+.stat-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.04); font-size: .78rem;
+}
+.stat-row:last-child { border-bottom: none; }
+.stat-label { color: var(--muted); }
+.stat-val { color: #fff; font-weight: 600; text-align: right; max-width: 145px; }
+
+.sidebar-nav { display: flex; flex-direction: column; gap: 3px; }
+.nav-link {
+  display: block; padding: 8px 12px; border-radius: 7px;
+  font-size: .78rem; font-weight: 500; color: var(--muted);
+  text-decoration: none; transition: background .15s, color .15s;
+}
+.nav-link:hover { background: rgba(255,255,255,.06); color: #fff; }
+.nav-link.active { background: rgba(217,119,6,.15); color: var(--orange3); }
+
+/* MAIN */
+.main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+.topbar {
+  background: #0b0e16; border-bottom: 1px solid var(--border);
+  padding: 16px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-badge {
+  background: rgba(217,119,6,.15); border: 1px solid rgba(217,119,6,.35);
+  color: var(--orange3); font-size: .62rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .8px; padding: 3px 10px; border-radius: 50px;
+}
+.topbar-title { font-size: .9rem; font-weight: 700; color: #fff; }
+.topbar-right { font-size: .72rem; color: var(--muted); }
+
+.content { padding: 40px; display: flex; flex-direction: column; gap: 36px; }
+
+.section-header { margin-bottom: 20px; }
+.section-eyebrow {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px;
+  color: var(--orange); margin-bottom: 6px;
+}
+.section-title { font-size: 1.22rem; font-weight: 800; color: #fff; line-height: 1.25; }
+.section-sub { font-size: .84rem; color: var(--muted); line-height: 1.7; margin-top: 6px; max-width: 720px; }
+
+/* ALERT */
+.alert-banner {
+  background: rgba(239,68,68,.07); border: 1px solid rgba(239,68,68,.2);
+  border-left: 4px solid var(--red); border-radius: 10px;
+  padding: 16px 20px; display: flex; gap: 14px; align-items: flex-start;
+}
+.alert-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+.alert-body { font-size: .84rem; color: rgba(255,255,255,.8); line-height: 1.65; }
+.alert-body strong { color: #fff; font-weight: 700; }
+
+/* PATTERN CARD */
+.pattern-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-top: 3px solid var(--orange); border-radius: 12px; padding: 28px;
+}
+.pattern-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 20px; }
+.pattern-stat { background: var(--inner); border-radius: 8px; padding: 14px 16px; }
+.pattern-stat-label { font-size: .62rem; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); margin-bottom: 5px; }
+.pattern-stat-val { font-size: 1.1rem; font-weight: 800; color: #fff; }
+.pattern-stat-val.warn { color: var(--orange3); }
+.pattern-stat-val.red { color: #fca5a5; }
+.pattern-body { font-size: .84rem; color: rgba(255,255,255,.65); line-height: 1.72; }
+.pattern-body + .pattern-body { margin-top: 12px; }
+
+/* CONTACTS */
+.contacts-grid { display: flex; flex-direction: column; gap: 14px; }
+.contact-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 12px; padding: 22px 24px;
+  display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: start;
+}
+.contact-card.tier1 { border-left: 3px solid var(--orange); }
+.contact-card.tier2 { border-left: 3px solid rgba(255,255,255,.15); }
+.contact-name { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 3px; }
+.contact-title { font-size: .78rem; color: var(--orange3); margin-bottom: 8px; font-weight: 600; }
+.contact-meta { font-size: .76rem; color: var(--muted); line-height: 1.8; }
+.contact-meta a { color: var(--muted); text-decoration: none; }
+.contact-meta a:hover { color: #fff; }
+.contact-notes { font-size: .8rem; color: rgba(255,255,255,.6); line-height: 1.65; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+.contact-tag {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .6px;
+  padding: 3px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;
+}
+.tag-champion { background: rgba(34,197,94,.12); color: #86efac; border: 1px solid rgba(34,197,94,.25); }
+.tag-decision { background: rgba(239,68,68,.12); color: #fca5a5; border: 1px solid rgba(239,68,68,.25); }
+.tag-exec { background: rgba(14,165,233,.12); color: #7dd3fc; border: 1px solid rgba(14,165,233,.25); }
+.tag-technical { background: rgba(139,92,246,.12); color: #c4b5fd; border: 1px solid rgba(139,92,246,.25); }
+.tag-family { background: rgba(217,119,6,.12); color: var(--orange3); border: 1px solid rgba(217,119,6,.25); }
+
+/* BASHO */
+.email-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 14px; }
+.email-header {
+  background: var(--inner); padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+}
+.email-to { font-size: .78rem; color: var(--muted); }
+.email-to strong { color: #fff; font-weight: 700; }
+.email-subject { font-size: .88rem; font-weight: 700; color: var(--orange3); }
+.copy-btn {
+  background: rgba(217,119,6,.15); border: 1px solid rgba(217,119,6,.3);
+  color: var(--orange3); font-size: .68rem; font-weight: 700;
+  padding: 5px 12px; border-radius: 6px; cursor: pointer; transition: background .15s; white-space: nowrap;
+}
+.copy-btn:hover { background: rgba(217,119,6,.25); }
+.copy-btn.copied { background: rgba(34,197,94,.15); border-color: rgba(34,197,94,.3); color: #86efac; }
+.email-body { padding: 20px; font-size: .84rem; color: rgba(255,255,255,.78); line-height: 1.8; white-space: pre-wrap; }
+
+/* TALK TRACK */
+.talk-grid { display: flex; flex-direction: column; gap: 14px; }
+.talk-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px 22px; }
+.talk-num {
+  display: inline-flex; width: 26px; height: 26px;
+  background: rgba(217,119,6,.15); border: 1px solid rgba(217,119,6,.25);
+  color: var(--orange3); border-radius: 50%;
+  align-items: center; justify-content: center;
+  font-size: .72rem; font-weight: 800; margin-bottom: 10px; flex-shrink: 0;
+}
+.talk-question { font-size: .9rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.talk-answer { font-size: .84rem; color: rgba(255,255,255,.65); line-height: 1.72; }
+.talk-answer strong { color: rgba(255,255,255,.9); }
+
+/* OBJECTIONS */
+.obj-grid { display: flex; flex-direction: column; gap: 12px; }
+.obj-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; }
+.obj-q { font-size: .86rem; font-weight: 700; color: var(--warn); margin-bottom: 8px; }
+.obj-q::before { content: '❝ '; }
+.obj-a { font-size: .83rem; color: rgba(255,255,255,.65); line-height: 1.7; }
+.obj-a strong { color: rgba(255,255,255,.85); }
+
+/* OPP TABLE */
+.opp-table-wrap { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.opp-table { width: 100%; border-collapse: collapse; }
+.opp-table th {
+  text-align: left; font-size: .65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .7px; color: var(--muted); padding: 10px 14px;
+  border-bottom: 1px solid var(--border); background: var(--inner);
+}
+.opp-table td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,.04); font-size: .8rem; color: rgba(255,255,255,.75); vertical-align: top; }
+.opp-table tr:last-child td { border-bottom: none; }
+.opp-table tr:hover td { background: rgba(255,255,255,.02); }
+.opp-name { color: #fff; font-weight: 600; }
+.stage-badge { font-size: .65rem; font-weight: 700; padding: 2px 8px; border-radius: 50px; white-space: nowrap; }
+.stage-lost { background: rgba(239,68,68,.1); color: #fca5a5; border: 1px solid rgba(239,68,68,.2); }
+.stage-nodecision { background: rgba(148,163,184,.1); color: #94a3b8; border: 1px solid rgba(148,163,184,.2); }
+.stage-other { background: rgba(148,163,184,.08); color: #64748b; border: 1px solid rgba(148,163,184,.15); }
+
+.page-footer {
+  padding: 24px 40px; border-top: 1px solid var(--border);
+  font-size: .72rem; color: var(--muted); margin-top: auto;
+}
+
+@media (max-width: 1000px) {
+  body { flex-direction: column; }
+  .sidebar { width: 100%; min-width: unset; height: auto; position: static; }
+  .content { padding: 24px; }
+  .pattern-grid { grid-template-columns: repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div>
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">HH</div>
+      <div>
+        <div class="sidebar-logo-text">Hugg &amp; Hall Equipment</div>
+        <div class="sidebar-logo-sub">Internal Sales Brief</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nodecision-badge">
+    <div class="nodecision-badge-label">Pattern Warning</div>
+    <div class="nodecision-badge-num">14</div>
+    <div class="nodecision-badge-body">opportunities since 2013. Zero closed wins. Every single one: Dead — No Decision. This account evaluates, engages, and does not buy. Find out why before you sell anything.</div>
+  </div>
+
+  <div>
+    <div class="sidebar-section-label">Account Stats</div>
+    <div class="stat-row"><span class="stat-label">Revenue</span><span class="stat-val">$235M</span></div>
+    <div class="stat-row"><span class="stat-label">Employees</span><span class="stat-val">751</span></div>
+    <div class="stat-row"><span class="stat-label">HQ</span><span class="stat-val">Little Rock, AR</span></div>
+    <div class="stat-row"><span class="stat-label">Industry</span><span class="stat-val">Equipment Sales &amp; Rental</span></div>
+    <div class="stat-row"><span class="stat-label">Ownership</span><span class="stat-val">Family-owned (Hugg family)</span></div>
+    <div class="stat-row"><span class="stat-label">Current SF</span><span class="stat-val">None confirmed</span></div>
+    <div class="stat-row"><span class="stat-label">Open Opps</span><span class="stat-val">None</span></div>
+  </div>
+
+  <div>
+    <div class="sidebar-section-label">Navigate</div>
+    <nav class="sidebar-nav">
+      <a href="#pattern" class="nav-link">The No-Decision Pattern</a>
+      <a href="#contacts" class="nav-link">Key Contacts</a>
+      <a href="#basho" class="nav-link">BASHO Emails</a>
+      <a href="#talk-track" class="nav-link">Talk Track</a>
+      <a href="#objections" class="nav-link">Objections</a>
+      <a href="#opp-history" class="nav-link">Opp History</a>
+    </nav>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-badge">Internal Only</span>
+      <span class="topbar-title">Hugg &amp; Hall Equipment Company</span>
+    </div>
+    <div class="topbar-right">Prepared by Anthony Troggio &nbsp;·&nbsp; July 2026</div>
+  </div>
+
+  <div class="content">
+
+    <!-- ALERT -->
+    <div class="alert-banner">
+      <div class="alert-icon">🔴</div>
+      <div class="alert-body">
+        <strong>14 deals. Zero wins. The pattern matters more than the pitch.</strong> Before you sell anything to Hugg &amp; Hall, you need to understand what has killed every prior deal since 2013. The most recent: 320-seat Field Service at $41.4K went No Decision in February 2026. Sales Cloud + Agentforce at $100K went No Decision in November 2025. This is not a prospect who doesn't see value. This is a prospect who evaluates and stops. Find the stopper first.
+      </div>
+    </div>
+
+    <!-- THE PATTERN -->
+    <div id="pattern">
+      <div class="section-header">
+        <div class="section-eyebrow">The No-Decision Pattern</div>
+        <div class="section-title">13 Years of Evaluations. No Closed Business.</div>
+        <div class="section-sub">Every deal since 2013 has ended in No Decision or No Opportunity. There is no single deal this account has taken across the finish line. Understanding why is the prerequisite for any conversation with this account.</div>
+      </div>
+
+      <div class="pattern-card">
+        <div class="pattern-grid">
+          <div class="pattern-stat">
+            <div class="pattern-stat-label">Total Opportunities</div>
+            <div class="pattern-stat-val red">14</div>
+          </div>
+          <div class="pattern-stat">
+            <div class="pattern-stat-label">Closed Won</div>
+            <div class="pattern-stat-val red">0</div>
+          </div>
+          <div class="pattern-stat">
+            <div class="pattern-stat-label">Most Recent Loss</div>
+            <div class="pattern-stat-val warn">Feb 2026</div>
+          </div>
+        </div>
+        <div class="pattern-body">
+          <strong style="color:#fff">The plays that have been tried:</strong> Sales Cloud Enterprise (multiple times, 2015-2025), Manufacturing/Marketing Cloud (2017, 2022), Field Service (2025-2026), Agentforce and Data Cloud (2025), MuleSoft Anypoint (never got traction). Every product family. Every angle. All No Decision.
+        </div>
+        <div class="pattern-body" style="margin-top:12px">
+          <strong style="color:#fff">What the 2016 opp notes tell you:</strong> The contact at the time described the rental sales reps as needing a tool to log activity in the field. He said a prior demo was "overwhelming." He wanted to start with 15 outside rental reps and 4 rental managers. That is a very specific, modest scope. The deal still died. That tells you something about internal decision-making at this company. Either the decision authority is fragmented, the budget approval process is long, or there is someone in the organization who consistently blocks technology spending. You need to find out which.
+        </div>
+        <div class="pattern-body" style="margin-top:12px">
+          <strong style="color:#fff">What to do differently:</strong> Do not pitch a platform. Do not run a discovery call that ends with a proposal. The first conversation should be explicit about the pattern: "I can see from our history that we've had a number of conversations that didn't go anywhere. Before I waste your time or mine, I want to understand what has gotten in the way. Is it budget approval, internal alignment, something about the product, or something else?" Name the elephant. The accounts that never close are almost always the ones where no one is willing to have that conversation.
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACTS -->
+    <div id="contacts">
+      <div class="section-header">
+        <div class="section-eyebrow">Key Contacts</div>
+        <div class="section-title">Who to Engage First</div>
+        <div class="section-sub">Chris DeMoss owns aftermarket operations — the service side of the business is where Field Service plays, and that was the most recent deal. Rick Vollmer owns growth and strategy, which is the right executive sponsor angle. Dan Bowlin is IT. John Hugg is the president and a family owner.</div>
+      </div>
+
+      <div class="contacts-grid">
+
+        <div class="contact-card tier1">
+          <div>
+            <div class="contact-name">Chris DeMoss</div>
+            <div class="contact-title">Vice President of Aftermarket Operations</div>
+            <div class="contact-meta">
+              <a href="mailto:chrisd@hugghall.com">chrisd@hugghall.com</a><br>
+              <a href="tel:4793619305">(479) 361-9305</a>
+            </div>
+            <div class="contact-notes">The aftermarket VP is the single best entry point for a Field Service conversation. "Aftermarket operations" at an equipment dealer means service, parts, warranty, and maintenance — exactly what Field Service Lightning was built for. Two records in the system (Chris De Moss and Chris DeMoss); use chrisd@hugghall.com and (479) 361-9305. The 320-seat FSL deal that died in February 2026 was almost certainly anchored here. Find out what killed it. Was it budget? Scope? A competing solution? The answer shapes everything about how you re-enter.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <span class="contact-tag tag-champion">Best Entry Point</span>
+          </div>
+        </div>
+
+        <div class="contact-card tier1">
+          <div>
+            <div class="contact-name">Rick Vollmer</div>
+            <div class="contact-title">Vice President, Growth &amp; Strategy</div>
+            <div class="contact-meta">
+              <a href="mailto:rickv@hugghall.com">rickv@hugghall.com</a><br>
+              <a href="tel:4793619302">(479) 361-9302</a>
+            </div>
+            <div class="contact-notes">Growth and strategy VP. This title at an equipment dealer covers new market expansion, rental fleet strategy, and competitive positioning. If Hugg &amp; Hall is looking at any kind of digital channel (online rental booking, dealer portal, customer self-service), Vollmer is involved. He is also the right person for a strategic conversation about why the No Decision pattern exists — he is close enough to the business to have an opinion on what has blocked technology decisions in the past.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <span class="contact-tag tag-decision">Strategic Sponsor</span>
+          </div>
+        </div>
+
+        <div class="contact-card tier1">
+          <div>
+            <div class="contact-name">Dan Bowlin</div>
+            <div class="contact-title">Manager, Information Technology</div>
+            <div class="contact-meta">
+              <a href="mailto:danb@hugghall.com">danb@hugghall.com</a><br>
+              +1.501.562.1262
+            </div>
+            <div class="contact-notes">The IT manager. He owns the technical evaluation and implementation side of any Salesforce deployment. At a $235M equipment company, the IT manager's opinion carries significant weight on "will this work" questions. If prior deals died in IT evaluation, he knows why. He is worth a direct conversation specifically about technical fit: what does their current tech stack look like, what integrations would be required, and what has made past evaluations technically complicated.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <span class="contact-tag tag-technical">Technical Buyer</span>
+          </div>
+        </div>
+
+        <div class="contact-card tier1">
+          <div>
+            <div class="contact-name">John Hugg</div>
+            <div class="contact-title">President</div>
+            <div class="contact-meta">
+              <a href="mailto:johnh@hugghall.com">johnh@hugghall.com</a><br>
+              <a href="tel:5018233700">+1 (501) 823-3700</a>
+            </div>
+            <div class="contact-notes">The president, and the family name on the building. This is a family-owned business. John Hugg is not the person to cold-call about a product — he is the person to have a peer-level conversation with about where the company is going and what is getting in the way. If 14 deals have died without a single close, there is a chance the stopper is at the ownership level — someone who is skeptical of the investment, the vendor, or both. Understanding his posture toward technology spend is critical before you push anything up the chain.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <span class="contact-tag tag-family">Family Owner</span>
+            <span class="contact-tag tag-exec">President</span>
+          </div>
+        </div>
+
+        <div class="contact-card tier2">
+          <div>
+            <div class="contact-name">Joseph Miller</div>
+            <div class="contact-title">Director of Business Analytics</div>
+            <div class="contact-meta">
+              <a href="mailto:joseph.miller@hugghall.com">joseph.miller@hugghall.com</a><br>
+              +1.501.562.1262
+            </div>
+            <div class="contact-notes">Business Analytics director. Relevant for Data Cloud and reporting conversations. If the problem they are trying to solve is data visibility — service history, rental utilization, customer profitability — Miller is involved in defining what "better" looks like. The $100K Sales Cloud + Data Cloud + Agentforce deal from 2025 may have had his involvement. Worth engaging if the angle connects to data and analytics outcomes.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <span class="contact-tag tag-technical">Analytics</span>
+          </div>
+        </div>
+
+        <div class="contact-card tier2">
+          <div>
+            <div class="contact-name">Keith Cotten</div>
+            <div class="contact-title">Manager, Management Information Systems</div>
+            <div class="contact-meta">
+              <a href="mailto:keithc@hugghall.com">keithc@hugghall.com</a><br>
+              <a href="tel:5015621262">(501) 562-1262</a>
+            </div>
+            <div class="contact-notes">MIS manager. The person who owns the systems that run day-to-day operations — likely the ERP, rental management system, and any existing CRM or service platform. He has been in the system for years. If there are integration dependencies (connecting Salesforce to their rental management or DMS), this is who you need aligned. He is also a likely source of institutional knowledge on why prior deals didn't close from a systems standpoint.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <span class="contact-tag tag-technical">MIS / Systems</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BASHO EMAILS -->
+    <div id="basho">
+      <div class="section-header">
+        <div class="section-eyebrow">BASHO Emails</div>
+        <div class="section-title">Three Targeted Outreach Emails</div>
+        <div class="section-sub">Each email names the history directly. This account has seen enough Salesforce pitches to know when they are getting another one. The hook has to be different.</div>
+      </div>
+
+      <!-- BASHO 1: Chris DeMoss -->
+      <div class="email-card">
+        <div class="email-header">
+          <div>
+            <div class="email-to">To: <strong>Chris DeMoss</strong> — VP Aftermarket Operations</div>
+            <div class="email-subject">The Field Service deal that didn't close in February — what stopped it</div>
+          </div>
+          <button class="copy-btn" onclick="copyEmail(this, 'email1')">Copy Email</button>
+        </div>
+        <div class="email-body" id="email1">Chris,
+
+I can see that a Field Service project for your aftermarket team was in evaluation earlier this year and didn't move forward. 320 service seats is a significant scope — that kind of project doesn't die because of disinterest.
+
+I'd like to understand what actually stopped it. Was it the business case, the implementation timeline, internal alignment, budget approval, something about the product? I'm not asking to restart the sales process. I'm asking because if the problem your field service team has is still there, I want to know whether it's worth having a different kind of conversation.
+
+Would you be open to a 20-minute call?
+
+Anthony Troggio
+Digital Transformation Executive, Salesforce — Manufacturing & Automotive West
+atroggio@salesforce.com | 765-430-7903</div>
+      </div>
+
+      <!-- BASHO 2: Rick Vollmer -->
+      <div class="email-card">
+        <div class="email-header">
+          <div>
+            <div class="email-to">To: <strong>Rick Vollmer</strong> — VP Growth &amp; Strategy</div>
+            <div class="email-subject">Hugg &amp; Hall and Salesforce — a question before I make another pitch</div>
+          </div>
+          <button class="copy-btn" onclick="copyEmail(this, 'email2')">Copy Email</button>
+        </div>
+        <div class="email-body" id="email2">Rick,
+
+Hugg & Hall has evaluated Salesforce more than a dozen times since 2013. Service, sales, marketing, data, field operations. Every evaluation ended without a decision.
+
+I'm not here to start another one. I'm here to ask a direct question: what has gotten in the way? Because either the problem we've been trying to solve isn't real, or there is something about the way these projects get evaluated and approved at Hugg & Hall that I don't understand.
+
+You own growth and strategy. That conversation is worth having with you before anyone builds another business case or runs another demo.
+
+20 minutes?
+
+Anthony Troggio
+Digital Transformation Executive, Salesforce — Manufacturing & Automotive West
+atroggio@salesforce.com | 765-430-7903</div>
+      </div>
+
+      <!-- BASHO 3: Dan Bowlin -->
+      <div class="email-card">
+        <div class="email-header">
+          <div>
+            <div class="email-to">To: <strong>Dan Bowlin</strong> — Manager, Information Technology</div>
+            <div class="email-subject">The technical side of why prior Salesforce projects didn't close</div>
+          </div>
+          <button class="copy-btn" onclick="copyEmail(this, 'email3')">Copy Email</button>
+        </div>
+        <div class="email-body" id="email3">Dan,
+
+Your team has evaluated Salesforce a number of times over the years — across sales, service, field operations, and data. Each time the project went to No Decision.
+
+I work with equipment dealers across the West and I know that the reason these evaluations stall is usually something specific: integration complexity with the rental management system, concerns about implementation scope, data migration from legacy systems, or something about the support model. I don't know which of those applies here, and I don't want to guess.
+
+Would you be willing to tell me directly what the technical barrier has been? I'm not trying to re-open a sales process. I want to understand the constraint before I come back with anything.
+
+Anthony Troggio
+Digital Transformation Executive, Salesforce — Manufacturing & Automotive West
+atroggio@salesforce.com | 765-430-7903</div>
+      </div>
+    </div>
+
+    <!-- TALK TRACK -->
+    <div id="talk-track">
+      <div class="section-header">
+        <div class="section-eyebrow">Talk Track</div>
+        <div class="section-title">How to Navigate This Account</div>
+        <div class="section-sub">The normal discovery-to-proposal motion will not work here. This account has been through it more than a dozen times. The only conversation worth having is the one that names the pattern and diagnoses the stopper.</div>
+      </div>
+
+      <div class="talk-grid">
+        <div class="talk-card">
+          <div class="talk-num">1</div>
+          <div class="talk-question">Name the history before they do.</div>
+          <div class="talk-answer">"I want to be upfront with you. I can see that Hugg and Hall has evaluated Salesforce many times, and none of those conversations resulted in a project. I'm not here to run the same process again. I'm here to understand what has gotten in the way, because I don't think it's indifference to the problem." Starting here signals you have done your homework and you are not going to waste their time with the same pitch.</div>
+        </div>
+
+        <div class="talk-card">
+          <div class="talk-num">2</div>
+          <div class="talk-question">Ask for the stopper, not the pain.</div>
+          <div class="talk-answer">The standard discovery question is "what problem are you trying to solve?" That question will get you a polite answer and another No Decision. The better question for this account: <strong>"What specifically has stopped the past projects from moving forward?"</strong> Listen for: budget approval process, lack of executive champion, competing internal priorities, integration concerns, prior bad experience with implementations, or a key stakeholder who is opposed. The answer is your roadmap.</div>
+        </div>
+
+        <div class="talk-card">
+          <div class="talk-num">3</div>
+          <div class="talk-question">Understand the equipment dealer business model before the call.</div>
+          <div class="talk-answer">Hugg &amp; Hall sells and rents heavy equipment (likely forklifts, aerial work platforms, cranes, and construction equipment) across Arkansas and surrounding states. Their revenue model has three legs: <strong>new/used equipment sales</strong>, <strong>equipment rental</strong>, and <strong>aftermarket/service</strong> (parts, maintenance, warranty). The service and rental sides have the most repetitive operational complexity — field technicians, preventive maintenance scheduling, rental availability and utilization, contract billing. That is where the FSL and Sales Cloud plays live.</div>
+        </div>
+
+        <div class="talk-card">
+          <div class="talk-num">4</div>
+          <div class="talk-question">If they are open to continuing, scope very small.</div>
+          <div class="talk-answer">The 2016 opp notes said the contact found a prior demo "overwhelming" and wanted to start with 15 outside rental reps. A 320-seat FSL deal is the opposite of that instinct. If there is re-engagement interest, propose a pilot: 20-30 field service technicians in one region, one use case (preventive maintenance scheduling or work order management), 90-day timeline. Make it easy to say yes. Big deals have never closed here. A small, defined pilot that delivers a result is the path to anything larger.</div>
+        </div>
+
+        <div class="talk-card">
+          <div class="talk-num">5</div>
+          <div class="talk-question">Get to the ownership level if you can.</div>
+          <div class="talk-answer">This is a family-owned business. John Hugg is the president and his name is on the sign. In family-owned companies, technology decisions frequently require the owner's personal comfort with the investment, not just a business case that clears a financial hurdle. If you get traction at the VP level, ask directly: "Is this the kind of decision that John Hugg would want to understand personally before it moves forward?" The answer tells you whether you need an executive conversation or whether it can close at the VP level.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJECTIONS -->
+    <div id="objections">
+      <div class="section-header">
+        <div class="section-eyebrow">Objection Handling</div>
+        <div class="section-title">What You Will Hear and How to Respond</div>
+      </div>
+
+      <div class="obj-grid">
+        <div class="obj-card">
+          <div class="obj-q">We've looked at Salesforce many times. It's never been the right fit.</div>
+          <div class="obj-a">That is exactly what I want to understand. "Not the right fit" can mean the product wasn't right, the timing wasn't right, the price wasn't right, or the internal process for approving the investment wasn't right. Those are four different problems with four different solutions. Which one is it? I can't help you if I don't know.</div>
+        </div>
+
+        <div class="obj-card">
+          <div class="obj-q">We're happy with what we have right now.</div>
+          <div class="obj-a">What are you using for field service management and rental sales activity tracking? I'm genuinely curious, because one of two things is true: either you found something that works and you are right to stay with it, or you are living with a workaround that nobody wants to admit is a workaround. I'd like to know which.</div>
+        </div>
+
+        <div class="obj-card">
+          <div class="obj-q">The implementation is too complex and would take too long.</div>
+          <div class="obj-a">That concern has been justified before, and I'm not going to dismiss it. What would a project scope look like that felt manageable to your team? If we started with 25 field technicians in one district, one use case, 90 days — what would that require from your IT team, and is that level of commitment something that could get approved?</div>
+        </div>
+
+        <div class="obj-card">
+          <div class="obj-q">Budget is the issue. We can't get approval for this size of investment.</div>
+          <div class="obj-a">At what size does it become approvable? I'm serious — if we can scope a pilot that fits within your discretionary spend authority, we bypass the budget approval process entirely and you get a result you can use to justify the larger investment. Tell me the number and I'll build the scope around it.</div>
+        </div>
+
+        <div class="obj-card">
+          <div class="obj-q">We need to integrate with our rental management / DMS system first.</div>
+          <div class="obj-a">That is a real constraint and I appreciate you naming it. What rental management system are you running? The integration question is solvable — it is a scope and timeline question, not a technical impossibility. If I can show you that the integration is a defined, bounded piece of work, does the rest of the business case hold up?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPP HISTORY -->
+    <div id="opp-history">
+      <div class="section-header">
+        <div class="section-eyebrow">Opportunity History</div>
+        <div class="section-title">Every Deal Since 2013 — All 14</div>
+        <div class="section-sub">This is the full record. Study it before any call. The pattern across 13 years is consistent: they engage, they evaluate, they don't buy.</div>
+      </div>
+
+      <div class="opp-table-wrap">
+        <table class="opp-table">
+          <thead>
+            <tr>
+              <th>Opportunity</th>
+              <th>Stage</th>
+              <th>Amount</th>
+              <th>Close Date</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="opp-name">H&amp;H (+320) 320 Field Service</span></td>
+              <td><span class="stage-badge stage-nodecision">Dead — No Decision</span></td>
+              <td>$41,400</td>
+              <td>Feb 2026</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">H&amp;H (+50) Sales Cloud + Data Cloud + Agentforce</span></td>
+              <td><span class="stage-badge stage-nodecision">Dead — No Decision</span></td>
+              <td>$100,000</td>
+              <td>Nov 2025</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">H&amp;H — Data Cloud + Agentforce</span></td>
+              <td><span class="stage-badge stage-other">Dead — Duplicate</span></td>
+              <td>$45,000</td>
+              <td>Sep 2025</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">H&amp;H — (+25) Service Cloud Phase 2</span></td>
+              <td><span class="stage-badge stage-other">Dead — Duplicate</span></td>
+              <td>$48,000</td>
+              <td>Jul 2025</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">MC — Hugg &amp; Hall — NB — Marketing Cloud</span></td>
+              <td><span class="stage-badge stage-nodecision">Dead — No Decision</span></td>
+              <td>$45,000</td>
+              <td>Dec 2022</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Hugg &amp; Hall Equipment — (+10) 10 EE</span></td>
+              <td><span class="stage-badge stage-nodecision">Dead — No Decision</span></td>
+              <td>$18,000</td>
+              <td>Nov 2019</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Hugg and Hall (+50) 50 EE</span></td>
+              <td><span class="stage-badge stage-nodecision">Dead — No Decision</span></td>
+              <td>$70,000</td>
+              <td>Jul 2017</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">MC — Hugg &amp; Hall — NB — TBD</span></td>
+              <td><span class="stage-badge stage-nodecision">Dead — No Decision</span></td>
+              <td>$20,000</td>
+              <td>May 2017</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Hugg and Hall (+20) 20EE + Premier</span></td>
+              <td><span class="stage-badge stage-nodecision">Dead — No Decision</span></td>
+              <td>$28,000</td>
+              <td>Jun 2016</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Hugg and Hall (+15) 15 EE</span></td>
+              <td><span class="stage-badge stage-nodecision">Dead — No Decision</span></td>
+              <td>$21,000</td>
+              <td>Mar 2016</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">PHASE 2 — (+15) 15 EE CSS + PSA + Pardot</span></td>
+              <td><span class="stage-badge stage-nodecision">Dead — No Decision</span></td>
+              <td>$41,295</td>
+              <td>Oct 2015</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">PHASE 1 — (+55) 55 EE + PSA</span></td>
+              <td><span class="stage-badge stage-nodecision">Dead — No Decision</span></td>
+              <td>$100,815</td>
+              <td>Oct 2015</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Hugg and Hall (+50) 50 EE + PSP</span></td>
+              <td><span class="stage-badge stage-other">Dead — No Opportunity</span></td>
+              <td>—</td>
+              <td>Jan 2015</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Hugg &amp; Hall — Placeholder</span></td>
+              <td><span class="stage-badge stage-other">Dead — No Opportunity</span></td>
+              <td>—</td>
+              <td>Jun 2013</td>
+              <td>New Business</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <div class="page-footer">
+    Internal use only &nbsp;·&nbsp; Anthony Troggio, Digital Transformation Executive, Salesforce Manufacturing &amp; Automotive West &nbsp;·&nbsp; atroggio@salesforce.com &nbsp;·&nbsp; 765-430-7903
+  </div>
+</div><!-- /main -->
+
+<script>
+function copyEmail(btn, id) {
+  const text = document.getElementById(id).textContent.trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy Email'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+const sections = document.querySelectorAll('[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.3, rootMargin: '-100px 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
