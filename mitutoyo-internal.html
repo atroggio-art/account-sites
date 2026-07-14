@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Mitutoyo America | Internal Brief — Anthony Troggio</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #0f1117;
+  color: #e2e8f0;
+  line-height: 1.6;
+  font-size: 15px;
+  display: flex;
+  min-height: 100vh;
+}
+
+:root {
+  --red:    #cc0000;
+  --red2:   #e53e3e;
+  --red3:   #fc8181;
+  --dark:   #0f1117;
+  --card:   #161b26;
+  --inner:  #1e2535;
+  --border: rgba(255,255,255,.08);
+  --muted:  #8899aa;
+  --live:   #22c55e;
+  --warn:   #f59e0b;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 280px;
+  min-width: 280px;
+  background: #0b0e16;
+  border-right: 1px solid var(--border);
+  padding: 28px 20px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-logo-icon {
+  width: 36px; height: 36px;
+  background: var(--red);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; font-weight: 900; color: #fff;
+  flex-shrink: 0;
+}
+.sidebar-logo-text { font-size: .82rem; font-weight: 700; color: #fff; line-height: 1.3; }
+.sidebar-logo-sub { font-size: .66rem; color: var(--muted); }
+
+.live-deal-badge {
+  background: rgba(34,197,94,.1);
+  border: 1px solid rgba(34,197,94,.3);
+  border-radius: 10px;
+  padding: 14px 16px;
+}
+.live-badge-top {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+}
+.live-dot {
+  width: 8px; height: 8px;
+  background: var(--live);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+.live-badge-label { font-size: .62rem; font-weight: 800; text-transform: uppercase; letter-spacing: .8px; color: var(--live); }
+.live-deal-name { font-size: .78rem; font-weight: 700; color: #fff; margin-bottom: 5px; line-height: 1.4; }
+.live-deal-meta { font-size: .7rem; color: rgba(255,255,255,.55); line-height: 1.6; }
+.live-deal-stage { font-size: .68rem; font-weight: 700; color: var(--live); margin-top: 6px; }
+
+.sidebar-section-label {
+  font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px;
+  color: var(--muted); margin-bottom: 10px;
+}
+.stat-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.04);
+  font-size: .78rem;
+}
+.stat-row:last-child { border-bottom: none; }
+.stat-label { color: var(--muted); }
+.stat-val { color: #fff; font-weight: 600; text-align: right; max-width: 140px; }
+
+.sidebar-nav { display: flex; flex-direction: column; gap: 3px; }
+.nav-link {
+  display: block; padding: 8px 12px; border-radius: 7px;
+  font-size: .78rem; font-weight: 500; color: var(--muted);
+  text-decoration: none; transition: background .15s, color .15s;
+}
+.nav-link:hover { background: rgba(255,255,255,.06); color: #fff; }
+.nav-link.active { background: rgba(204,0,0,.15); color: var(--red3); }
+
+/* MAIN */
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* TOPBAR */
+.topbar {
+  background: #0b0e16;
+  border-bottom: 1px solid var(--border);
+  padding: 16px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-badge {
+  background: rgba(204,0,0,.15);
+  border: 1px solid rgba(204,0,0,.35);
+  color: var(--red3);
+  font-size: .62rem; font-weight: 800; text-transform: uppercase; letter-spacing: .8px;
+  padding: 3px 10px; border-radius: 50px;
+}
+.topbar-title { font-size: .9rem; font-weight: 700; color: #fff; }
+.topbar-right { font-size: .72rem; color: var(--muted); }
+
+/* CONTENT */
+.content { padding: 40px; display: flex; flex-direction: column; gap: 36px; }
+
+/* SECTION HEADERS */
+.section-header { margin-bottom: 20px; }
+.section-eyebrow {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px;
+  color: var(--red); margin-bottom: 6px;
+}
+.section-title { font-size: 1.22rem; font-weight: 800; color: #fff; line-height: 1.25; }
+.section-sub { font-size: .84rem; color: var(--muted); line-height: 1.7; margin-top: 6px; max-width: 720px; }
+
+/* ALERT BANNER */
+.alert-banner {
+  background: rgba(245,158,11,.08);
+  border: 1px solid rgba(245,158,11,.25);
+  border-left: 4px solid var(--warn);
+  border-radius: 10px;
+  padding: 16px 20px;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.alert-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+.alert-body { font-size: .84rem; color: rgba(255,255,255,.8); line-height: 1.65; }
+.alert-body strong { color: #fff; font-weight: 700; }
+
+/* LIVE DEAL CARD */
+.live-deal-card {
+  background: var(--card);
+  border: 1px solid rgba(34,197,94,.25);
+  border-top: 3px solid var(--live);
+  border-radius: 12px;
+  padding: 28px;
+}
+.live-deal-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
+}
+.live-deal-title { font-size: 1.05rem; font-weight: 800; color: #fff; }
+.live-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(34,197,94,.12); border: 1px solid rgba(34,197,94,.3);
+  border-radius: 50px; padding: 4px 12px 4px 8px;
+  font-size: .68rem; font-weight: 800; color: var(--live); text-transform: uppercase; letter-spacing: .6px;
+}
+.live-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px;
+}
+.live-stat {
+  background: var(--inner);
+  border-radius: 8px; padding: 14px 16px;
+}
+.live-stat-label { font-size: .62rem; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); margin-bottom: 5px; }
+.live-stat-val { font-size: 1.1rem; font-weight: 800; color: #fff; }
+.live-stat-val.green { color: var(--live); }
+.live-context { font-size: .84rem; color: rgba(255,255,255,.65); line-height: 1.7; }
+
+/* CONTACTS */
+.contacts-grid { display: flex; flex-direction: column; gap: 14px; }
+.contact-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px 24px;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 16px; align-items: start;
+}
+.contact-card.tier1 { border-left: 3px solid var(--red); }
+.contact-card.tier2 { border-left: 3px solid rgba(255,255,255,.2); }
+.contact-name { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 3px; }
+.contact-title { font-size: .78rem; color: var(--red3); margin-bottom: 8px; font-weight: 600; }
+.contact-meta { font-size: .76rem; color: var(--muted); line-height: 1.8; }
+.contact-meta a { color: var(--muted); text-decoration: none; }
+.contact-meta a:hover { color: #fff; }
+.contact-notes { font-size: .8rem; color: rgba(255,255,255,.6); line-height: 1.65; margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); }
+.contact-tag {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .6px;
+  padding: 3px 10px; border-radius: 50px; white-space: nowrap; flex-shrink: 0;
+}
+.tag-champion { background: rgba(34,197,94,.12); color: var(--live); border: 1px solid rgba(34,197,94,.25); }
+.tag-decision { background: rgba(204,0,0,.12); color: var(--red3); border: 1px solid rgba(204,0,0,.25); }
+.tag-exec { background: rgba(14,165,233,.12); color: #7dd3fc; border: 1px solid rgba(14,165,233,.25); }
+.tag-technical { background: rgba(139,92,246,.12); color: #c4b5fd; border: 1px solid rgba(139,92,246,.25); }
+.tag-handle { background: rgba(245,158,11,.12); color: var(--warn); border: 1px solid rgba(245,158,11,.25); }
+
+/* BASHO EMAILS */
+.email-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+.email-header {
+  background: var(--inner);
+  padding: 14px 20px;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+}
+.email-to { font-size: .78rem; color: var(--muted); }
+.email-to strong { color: #fff; font-weight: 700; }
+.email-subject { font-size: .88rem; font-weight: 700; color: var(--red3); }
+.copy-btn {
+  background: rgba(204,0,0,.15); border: 1px solid rgba(204,0,0,.3);
+  color: var(--red3); font-size: .68rem; font-weight: 700;
+  padding: 5px 12px; border-radius: 6px; cursor: pointer;
+  transition: background .15s; white-space: nowrap;
+}
+.copy-btn:hover { background: rgba(204,0,0,.25); }
+.copy-btn.copied { background: rgba(34,197,94,.15); border-color: rgba(34,197,94,.3); color: var(--live); }
+.email-body {
+  padding: 20px;
+  font-size: .84rem; color: rgba(255,255,255,.78); line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+/* TALK TRACK */
+.talk-grid { display: flex; flex-direction: column; gap: 14px; }
+.talk-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px 22px;
+}
+.talk-num {
+  display: inline-flex; width: 26px; height: 26px;
+  background: rgba(204,0,0,.15); border: 1px solid rgba(204,0,0,.25);
+  color: var(--red3); border-radius: 50%;
+  align-items: center; justify-content: center;
+  font-size: .72rem; font-weight: 800;
+  margin-bottom: 10px; flex-shrink: 0;
+}
+.talk-question { font-size: .9rem; font-weight: 700; color: #fff; margin-bottom: 8px; }
+.talk-answer { font-size: .84rem; color: rgba(255,255,255,.65); line-height: 1.72; }
+.talk-answer strong { color: rgba(255,255,255,.9); }
+
+/* OBJECTIONS */
+.obj-grid { display: flex; flex-direction: column; gap: 12px; }
+.obj-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+.obj-q { font-size: .86rem; font-weight: 700; color: var(--warn); margin-bottom: 8px; }
+.obj-q::before { content: '❝ '; }
+.obj-a { font-size: .83rem; color: rgba(255,255,255,.65); line-height: 1.7; }
+.obj-a strong { color: rgba(255,255,255,.85); }
+
+/* OPP HISTORY */
+.opp-table { width: 100%; border-collapse: collapse; }
+.opp-table th {
+  text-align: left; font-size: .65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .7px; color: var(--muted); padding: 10px 14px;
+  border-bottom: 1px solid var(--border); background: var(--inner);
+}
+.opp-table td {
+  padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,.04);
+  font-size: .8rem; color: rgba(255,255,255,.75); vertical-align: top;
+}
+.opp-table tr:last-child td { border-bottom: none; }
+.opp-table tr:hover td { background: rgba(255,255,255,.02); }
+.opp-name { color: #fff; font-weight: 600; }
+.stage-badge {
+  font-size: .65rem; font-weight: 700; padding: 2px 8px; border-radius: 50px;
+  white-space: nowrap;
+}
+.stage-live { background: rgba(34,197,94,.15); color: var(--live); border: 1px solid rgba(34,197,94,.25); }
+.stage-lost { background: rgba(239,68,68,.1); color: #fca5a5; border: 1px solid rgba(239,68,68,.2); }
+.stage-nodecision { background: rgba(148,163,184,.1); color: #94a3b8; border: 1px solid rgba(148,163,184,.2); }
+.stage-won { background: rgba(34,197,94,.1); color: var(--live); border: 1px solid rgba(34,197,94,.2); }
+.stage-attrition { background: rgba(245,158,11,.1); color: var(--warn); border: 1px solid rgba(245,158,11,.2); }
+.stage-other { background: rgba(148,163,184,.08); color: #64748b; border: 1px solid rgba(148,163,184,.15); }
+
+.opp-table-wrap {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* FOOTER */
+.page-footer {
+  padding: 24px 40px;
+  border-top: 1px solid var(--border);
+  font-size: .72rem; color: var(--muted);
+  margin-top: auto;
+}
+
+@media (max-width: 1000px) {
+  body { flex-direction: column; }
+  .sidebar { width: 100%; min-width: unset; height: auto; position: static; flex-direction: row; flex-wrap: wrap; gap: 16px; }
+  .content { padding: 24px; }
+  .live-grid { grid-template-columns: repeat(2,1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div>
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">MI</div>
+      <div>
+        <div class="sidebar-logo-text">Mitutoyo America</div>
+        <div class="sidebar-logo-sub">Internal Sales Brief</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="live-deal-badge">
+    <div class="live-badge-top">
+      <div class="live-dot"></div>
+      <div class="live-badge-label">Live Deal</div>
+    </div>
+    <div class="live-deal-name">MS-Mitutoyo-Integration-[L1]</div>
+    <div class="live-deal-meta">$75,000 &nbsp;·&nbsp; Close Oct 2026</div>
+    <div class="live-deal-stage">Stage 02 — Determining Problem</div>
+  </div>
+
+  <div>
+    <div class="sidebar-section-label">Account Stats</div>
+    <div class="stat-row"><span class="stat-label">Revenue</span><span class="stat-val">$168M</span></div>
+    <div class="stat-row"><span class="stat-label">Employees</span><span class="stat-val">450</span></div>
+    <div class="stat-row"><span class="stat-label">HQ</span><span class="stat-val">Aurora, IL</span></div>
+    <div class="stat-row"><span class="stat-label">Industry</span><span class="stat-val">Precision Measurement Mfg</span></div>
+    <div class="stat-row"><span class="stat-label">Ownership</span><span class="stat-val">Subsidiary of Mitutoyo Corp (Japan)</span></div>
+    <div class="stat-row"><span class="stat-label">Current SF</span><span class="stat-val">Starter (3 seats)</span></div>
+    <div class="stat-row"><span class="stat-label">Open Opps</span><span class="stat-val">1 (Live)</span></div>
+  </div>
+
+  <div>
+    <div class="sidebar-section-label">Navigate</div>
+    <nav class="sidebar-nav">
+      <a href="#live-deal" class="nav-link">Live Deal</a>
+      <a href="#contacts" class="nav-link">Key Contacts</a>
+      <a href="#basho" class="nav-link">BASHO Emails</a>
+      <a href="#talk-track" class="nav-link">Talk Track</a>
+      <a href="#objections" class="nav-link">Objections</a>
+      <a href="#opp-history" class="nav-link">Opp History</a>
+    </nav>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-badge">Internal Only</span>
+      <span class="topbar-title">Mitutoyo America Corporation</span>
+    </div>
+    <div class="topbar-right">Prepared by Anthony Troggio &nbsp;·&nbsp; July 2026</div>
+  </div>
+
+  <div class="content">
+
+    <!-- ALERT -->
+    <div class="alert-banner">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-body">
+        <strong>Handle with care.</strong> Two large deals just died in June 2026: a $640K Agentforce + Sales EE play and a $91.8K Marketing + AF deal, both Dead-Lost within weeks of each other. The live integration deal at $75K is Stage 02, early discovery. Go in to understand, not to pitch. Every big play this account has seen has ended badly. The one thing that closed was $900 Starter. Credibility is built here by solving the integration problem first.
+      </div>
+    </div>
+
+    <!-- LIVE DEAL -->
+    <div id="live-deal">
+      <div class="section-header">
+        <div class="section-eyebrow">Active Opportunity</div>
+        <div class="section-title">MS-Mitutoyo-Integration-[L1]</div>
+        <div class="section-sub">A MuleSoft integration deal at Level 1, currently in Stage 02 — discovery mode. This is the right entry point after the recent commercial losses. Earn the relationship through execution here before expanding the conversation.</div>
+      </div>
+
+      <div class="live-deal-card">
+        <div class="live-deal-header">
+          <div class="live-deal-title">MuleSoft Integration — Level 1</div>
+          <div class="live-pill"><div class="live-dot"></div>Active Pipeline</div>
+        </div>
+        <div class="live-grid">
+          <div class="live-stat">
+            <div class="live-stat-label">Amount</div>
+            <div class="live-stat-val green">$75,000</div>
+          </div>
+          <div class="live-stat">
+            <div class="live-stat-label">Stage</div>
+            <div class="live-stat-val">02 — Discovery</div>
+          </div>
+          <div class="live-stat">
+            <div class="live-stat-label">Close Date</div>
+            <div class="live-stat-val">Oct 16, 2026</div>
+          </div>
+          <div class="live-stat">
+            <div class="live-stat-label">Type</div>
+            <div class="live-stat-val">New Business</div>
+          </div>
+        </div>
+        <div class="live-context">
+          <strong style="color:#fff">What this deal is:</strong> A MuleSoft integration engagement at Level 1, meaning this is the initial connectivity scoping. Mitutoyo America sits at the intersection of precision measurement hardware, service operations, and a large customer base of manufacturers who integrate Mitutoyo instruments into their quality management and production systems. The integration problem here is likely the connection between their CRM, service platform, ERP, and potentially their instrument data layer.
+          <br><br>
+          <strong style="color:#fff">Where you are:</strong> Stage 02 is "Determining Problem, Impact, Ideal" — this is discovery. The right posture is questions, not demos. What system is creating the integration pain? Is it the service side (instrument calibration scheduling, service history)? The sales side (order management to ERP)? Or the digital channel (customer portal to order fulfillment)? You need to know before you can scope.
+          <br><br>
+          <strong style="color:#fff">Context from prior deals:</strong> A MuleSoft Customer360 + Anypoint deal went "Dead - No Opportunity" in 2022 at $125K. That one never got traction. This one is further along with an actual stage. Find out what is different now and what is driving the urgency.
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTACTS -->
+    <div id="contacts">
+      <div class="section-header">
+        <div class="section-eyebrow">Key Contacts</div>
+        <div class="section-title">Who to Engage and How</div>
+        <div class="section-sub">Prioritize Dan Rogers for the integration deal — he is the Digital Solutions PM and the most likely internal champion. Mike Thomas owns IT and the budget. Matt Dye is executive cover if you need it.</div>
+      </div>
+
+      <div class="contacts-grid">
+
+        <div class="contact-card tier1">
+          <div>
+            <div class="contact-name">Dan Rogers</div>
+            <div class="contact-title">Digital Solutions Project Manager</div>
+            <div class="contact-meta">
+              <a href="mailto:daniel.rogers@mitutoyo.com">daniel.rogers@mitutoyo.com</a><br>
+              <a href="tel:3312903420">331-290-3420</a>
+            </div>
+            <div class="contact-notes">Your most likely champion on the integration deal. He is a PM for digital solutions, which means he owns the delivery side of technology projects. He's not the budget holder, but he is the person who will define the problem statement, scope the project, and make or break implementation success. The discovery conversation should start here: what systems is he trying to connect, what is the current workaround, and what has he already tried. If this deal moves, he will be your day-to-day contact throughout.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <span class="contact-tag tag-champion">Champion</span>
+          </div>
+        </div>
+
+        <div class="contact-card tier1">
+          <div>
+            <div class="contact-name">Mike Thomas</div>
+            <div class="contact-title">Vice President, Information Technology and Logistics</div>
+            <div class="contact-meta">
+              <a href="mailto:michael.thomas@mitutoyo.com">michael.thomas@mitutoyo.com</a><br>
+              <a href="tel:6307233533">(630) 723-3533</a>
+            </div>
+            <div class="contact-notes">The VP who owns IT and logistics. This means he controls both the technology budget and the operational side of order fulfillment and distribution. He has two duplicate records in the system — use michael.thomas@mitutoyo.com, which appears on both. He has been part of prior deal conversations going back several years and has seen multiple pitches come and go. Approach with credibility and specificity about the integration problem, not a broad platform pitch. He's heard the platform pitch before.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <span class="contact-tag tag-decision">Decision Maker</span>
+          </div>
+        </div>
+
+        <div class="contact-card tier1">
+          <div>
+            <div class="contact-name">Matt Dye</div>
+            <div class="contact-title">President</div>
+            <div class="contact-meta">
+              <a href="mailto:mdye@mitutoyo.com">mdye@mitutoyo.com</a><br>
+              <a href="tel:5137540709">(513) 754-0709</a>
+            </div>
+            <div class="contact-notes">President of Mitutoyo America. Executive sponsor level. The Cincinnati area code (513) on his number is worth noting — he may be managing multiple locations or working out of a regional office. Do not go over Mike Thomas's head to Matt Dye without a clear reason. Use him for executive-level business case conversations once the integration scoping is more defined. His email is mdye@ not matthew or matt — use the short form.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <span class="contact-tag tag-exec">Executive</span>
+          </div>
+        </div>
+
+        <div class="contact-card tier2">
+          <div>
+            <div class="contact-name">Allen Cius</div>
+            <div class="contact-title">Vice President of Sales and Marketing</div>
+            <div class="contact-meta">
+              <a href="mailto:allen.cius@mitutoyo.com">allen.cius@mitutoyo.com</a><br>
+              630.820.9666
+            </div>
+            <div class="contact-notes">VP Sales and Marketing. Relevant if the integration story connects to the commercial side — customer data, distributor channel visibility, or sales pipeline. The $640K Agentforce + Sales EE play that just died was likely anchored here. Approach cautiously given that loss — he may be skeptical of large Salesforce commitments right now.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <span class="contact-tag tag-handle">Handle Carefully</span>
+          </div>
+        </div>
+
+        <div class="contact-card tier2">
+          <div>
+            <div class="contact-name">Malvika Singh</div>
+            <div class="contact-title">IT Business Analyst</div>
+            <div class="contact-meta">
+              <a href="mailto:malvika.singh@mitutoyo.com">malvika.singh@mitutoyo.com</a><br>
+              +1.630.820.9666
+            </div>
+            <div class="contact-notes">IT Business Analyst — likely the person who translates business requirements into technical specs for projects like this integration. Two duplicate records in the system; use malvika.singh@mitutoyo.com. She can be a strong technical advocate if she sees this integration solving a real problem she deals with day to day. Good contact for discovery-level conversations about current system pain.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+            <span class="contact-tag tag-technical">Technical</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BASHO EMAILS -->
+    <div id="basho">
+      <div class="section-header">
+        <div class="section-eyebrow">BASHO Emails</div>
+        <div class="section-title">Three Targeted Outreach Emails</div>
+        <div class="section-sub">Short, specific, hook-first. Each email is written for a single recipient. Do not send these as-is without verifying any account-specific details.</div>
+      </div>
+
+      <!-- BASHO 1: Dan Rogers -->
+      <div class="email-card">
+        <div class="email-header">
+          <div>
+            <div class="email-to">To: <strong>Dan Rogers</strong> — Digital Solutions Project Manager</div>
+            <div class="email-subject">The integration layer between Mitutoyo's service data and everything else</div>
+          </div>
+          <button class="copy-btn" onclick="copyEmail(this, 'email1')">Copy Email</button>
+        </div>
+        <div class="email-body" id="email1">Dan,
+
+Mitutoyo instruments end up connected to dozens of different customer systems — quality management platforms, ERP, statistical analysis tools. The data flowing from those instruments and from your service records has to get somewhere. That integration layer is usually where the friction is.
+
+I understand you are working through an integration project right now. I'd like to spend 20 minutes understanding what you're trying to connect and where the current approach is falling short — before I say anything about what we can do.
+
+Worth a quick call this week or next?
+
+Anthony Troggio
+Digital Transformation Executive, Salesforce — Manufacturing & Automotive West
+atroggio@salesforce.com | 765-430-7903</div>
+      </div>
+
+      <!-- BASHO 2: Mike Thomas -->
+      <div class="email-card">
+        <div class="email-header">
+          <div>
+            <div class="email-to">To: <strong>Mike Thomas</strong> — VP Information Technology and Logistics</div>
+            <div class="email-subject">IT and logistics at a precision measurement company — the integration problem</div>
+          </div>
+          <button class="copy-btn" onclick="copyEmail(this, 'email2')">Copy Email</button>
+        </div>
+        <div class="email-body" id="email2">Mike,
+
+You own both IT and logistics at Mitutoyo America. That combination means you are managing the connection between instrument service records, order management, distribution systems, and whatever customer-facing platforms your team has built. Those systems rarely talk to each other cleanly.
+
+I work with manufacturers across the West on exactly this kind of integration problem. I know there is a project in motion and I want to understand what you are trying to solve at the IT level — not pitch you a platform.
+
+Do you have 20 minutes in the next week or two?
+
+Anthony Troggio
+Digital Transformation Executive, Salesforce — Manufacturing & Automotive West
+atroggio@salesforce.com | 765-430-7903</div>
+      </div>
+
+      <!-- BASHO 3: Matt Dye -->
+      <div class="email-card">
+        <div class="email-header">
+          <div>
+            <div class="email-to">To: <strong>Matt Dye</strong> — President</div>
+            <div class="email-subject">Mitutoyo America and the systems connecting your service business to your customers</div>
+          </div>
+          <button class="copy-btn" onclick="copyEmail(this, 'email3')">Copy Email</button>
+        </div>
+        <div class="email-body" id="email3">Matt,
+
+Mitutoyo's strength is the precision of its instruments and the depth of its service organization. The gap I see consistently at companies like yours is between that service depth and the visibility customers have into it — calibration schedules, service history, instrument status. That connection is usually managed by spreadsheets and email threads.
+
+I work with manufacturers on the technology side of that problem. I know your team is looking at an integration project and I wanted to connect briefly to understand what the business is trying to accomplish — not to walk you through a slide deck.
+
+Worth 20 minutes?
+
+Anthony Troggio
+Digital Transformation Executive, Salesforce — Manufacturing & Automotive West
+atroggio@salesforce.com | 765-430-7903</div>
+      </div>
+    </div>
+
+    <!-- TALK TRACK -->
+    <div id="talk-track">
+      <div class="section-header">
+        <div class="section-eyebrow">Talk Track</div>
+        <div class="section-title">How to Navigate This Conversation</div>
+        <div class="section-sub">You are at Stage 02. The goal of the next conversation is to understand the problem, not to explain the product. These questions are sequenced to build context before you say anything about capability.</div>
+      </div>
+
+      <div class="talk-grid">
+        <div class="talk-card">
+          <div class="talk-num">1</div>
+          <div class="talk-question">Open with what you know, not what you're selling.</div>
+          <div class="talk-answer">"I know there is an integration project in motion and I want to make sure I understand the actual problem before I say anything about what we do. Can you tell me what you're trying to connect and where the current approach breaks down?" This signals that you have done homework and you are not there to run a generic discovery script.</div>
+        </div>
+
+        <div class="talk-card">
+          <div class="talk-num">2</div>
+          <div class="talk-question">Map the systems they are trying to connect.</div>
+          <div class="talk-answer">Mitutoyo America runs a service business (calibration and repair), a direct sales business, and distributes through channel partners. The integration pain could be in any of these: <strong>service data to CRM</strong>, <strong>order management to ERP</strong>, <strong>customer portal to fulfillment</strong>, or <strong>instrument data to customer QMS</strong>. Ask: "Which systems are you trying to get talking to each other right now?" Map the answer before you scope anything.</div>
+        </div>
+
+        <div class="talk-card">
+          <div class="talk-num">3</div>
+          <div class="talk-question">Understand what they tried before and why it didn't work.</div>
+          <div class="talk-answer">A MuleSoft deal was in the system as "Dead - No Opportunity" in 2022 at $125K. Something killed it before it started. Ask Dan Rogers: "Has your team looked at integration projects before? What happened?" The answer tells you whether the prior failure was budget, internal priority, technical complexity, or something else. Don't assume you know.</div>
+        </div>
+
+        <div class="talk-card">
+          <div class="talk-num">4</div>
+          <div class="talk-question">Do not mention the commercial deals that just died unless they bring it up.</div>
+          <div class="talk-answer">The $640K Agentforce + Sales EE deal and the $91.8K Marketing + AF deal both died in June 2026 — Dead-Lost. These were likely separate conversations with Allen Cius on the commercial side. Dan Rogers and Mike Thomas on the IT side may or may not have been involved. Do not reference them. If they come up, acknowledge the history honestly: "I know we have had some big conversations that didn't move forward. I'm not here to revisit those. I want to focus on what you are actually trying to solve right now."</div>
+        </div>
+
+        <div class="talk-card">
+          <div class="talk-num">5</div>
+          <div class="talk-question">Close on a defined next step, not a general follow-up.</div>
+          <div class="talk-answer">Stage 02 should exit into a clear problem statement and a scoping session. Don't leave the call with "I'll send some materials." Leave with: "Let me put together a scoping document based on what you've told me. Can we get 45 minutes on the calendar in the next two weeks to walk through it?" Specificity builds credibility that generic follow-up destroys.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJECTIONS -->
+    <div id="objections">
+      <div class="section-header">
+        <div class="section-eyebrow">Objection Handling</div>
+        <div class="section-title">Responses to the Likely Pushback</div>
+      </div>
+
+      <div class="obj-grid">
+        <div class="obj-card">
+          <div class="obj-q">We've looked at Salesforce a lot and it never went anywhere.</div>
+          <div class="obj-a">That is exactly why I want to take a different approach here. Every prior conversation was about large platform deployments. This one is about a specific integration problem. If we can solve that problem and you see real value, then maybe a bigger conversation makes sense eventually. But I'm not asking you to trust a platform right now. I'm asking you to let me understand one problem.</div>
+        </div>
+
+        <div class="obj-card">
+          <div class="obj-q">We already use MuleSoft / we've looked at MuleSoft before.</div>
+          <div class="obj-a"><strong>If they already use it:</strong> "Then we're talking about making it work better, not convincing you to adopt something new. Tell me what you have and where it's falling short." <strong>If they looked and passed:</strong> "What stopped it? I want to understand what was missing, because the product has changed and the scoping approach has changed. If the same problem is still there, it's worth a fresh look."</div>
+        </div>
+
+        <div class="obj-card">
+          <div class="obj-q">Our IT resources are stretched thin right now.</div>
+          <div class="obj-a">That is the exact reason to scope the integration correctly before building anything. A poorly scoped integration project consumes IT time indefinitely. A well-scoped one delivers a defined outcome in a defined window. What would it take to get to a point where you could evaluate whether this is worth the resource investment?</div>
+        </div>
+
+        <div class="obj-card">
+          <div class="obj-q">We're a subsidiary. Big technology decisions go through Japan.</div>
+          <div class="obj-a">That is worth understanding — at what dollar threshold does a technology investment require parent company approval? If we can scope this to a Level 1 engagement that stays within your authority, can you move on it? And if it does need parent approval, who would you bring in from the Japan side, and what do they need to see to say yes?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPP HISTORY -->
+    <div id="opp-history">
+      <div class="section-header">
+        <div class="section-eyebrow">Opportunity History</div>
+        <div class="section-title">Full Deal Timeline — 2020 to Present</div>
+        <div class="section-sub">Nearly every large deal has ended in Dead-Lost or Dead-No Decision. The only closed win was a $900 Starter. The pattern: big platform pitches fail, small tactical plays either die or barely close. The live integration deal at $75K is the right size and scope to rebuild credibility.</div>
+      </div>
+
+      <div class="opp-table-wrap">
+        <table class="opp-table">
+          <thead>
+            <tr>
+              <th>Opportunity</th>
+              <th>Stage</th>
+              <th>Amount</th>
+              <th>Close Date</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="opp-name">MS-Mitutoyo-Integration-[L1]</span></td>
+              <td><span class="stage-badge stage-live">Live — Stage 02</span></td>
+              <td>$75,000</td>
+              <td>Oct 2026</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Mitutoyo Marketing and AF</span></td>
+              <td><span class="stage-badge stage-lost">Dead — Lost</span></td>
+              <td>$91,800</td>
+              <td>Jun 2026</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Mitutoyo AF &amp; Sales EE (+200)</span></td>
+              <td><span class="stage-badge stage-lost">Dead — Lost</span></td>
+              <td>$640,000</td>
+              <td>Jun 2026</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">MC - Mitutoyo - NB - B2B Commerce</span></td>
+              <td><span class="stage-badge stage-lost">Dead — Lost</span></td>
+              <td>$60,000</td>
+              <td>Jun 2026</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Mitutoyo America - (+200 Sales &amp; Service) Premier</span></td>
+              <td><span class="stage-badge stage-lost">Dead — Lost</span></td>
+              <td>$254,940</td>
+              <td>Dec 2025</td>
+              <td>Renewal</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Mitutoyo - Agentforce</span></td>
+              <td><span class="stage-badge stage-lost">Dead — Lost</span></td>
+              <td>$24,900</td>
+              <td>Dec 2025</td>
+              <td>Upgrade</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">BB: Mitutoyo - (+200 Sales EE + 75 FSL) + Premier</span></td>
+              <td><span class="stage-badge stage-lost">Dead — Lost</span></td>
+              <td>$372,266</td>
+              <td>Jun 2025</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Mitutoyo - Sales Cloud EE (+5)</span></td>
+              <td><span class="stage-badge stage-lost">Dead — Lost</span></td>
+              <td>$1,866</td>
+              <td>Jul 2025</td>
+              <td>Upgrade</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Mitutoyo - Commerce #DICENewLogo</span></td>
+              <td><span class="stage-badge stage-nodecision">Dead — No Decision</span></td>
+              <td>$60,020</td>
+              <td>Aug 2025</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Mitutoyo - Starter (+3)</span></td>
+              <td><span class="stage-badge stage-won">Closed Won</span></td>
+              <td>$900</td>
+              <td>Jan 2025</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Mitutoyo America Corp Einstein 1</span></td>
+              <td><span class="stage-badge stage-lost">Dead — Lost</span></td>
+              <td>$459,000</td>
+              <td>Sep 2024</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Mitutoyo America - Sales &amp; Service (200) + FSL (75)</span></td>
+              <td><span class="stage-badge stage-other">Dead — Duplicate</span></td>
+              <td>$231,480</td>
+              <td>May 2025</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Mitutoyo America Corporation Renewal 3 Full CRM</span></td>
+              <td><span class="stage-badge stage-attrition">Dead — Attrition</span></td>
+              <td>—</td>
+              <td>Feb 2026</td>
+              <td>Renewal</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">MS - Mitutoyo America - Customer360 - Anypoint</span></td>
+              <td><span class="stage-badge stage-other">Dead — No Opportunity</span></td>
+              <td>$124,999</td>
+              <td>Jul 2022</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">#BigBet Mitutoyo - MFG Cloud + TCRM + FSL</span></td>
+              <td><span class="stage-badge stage-nodecision">Dead — No Decision</span></td>
+              <td>$180,000</td>
+              <td>Oct 2022</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Mitutoyo (+150 EE MFG Cloud + FSL)</span></td>
+              <td><span class="stage-badge stage-nodecision">Dead — No Decision</span></td>
+              <td>$250,000</td>
+              <td>Jan 2022</td>
+              <td>New Business</td>
+            </tr>
+            <tr>
+              <td><span class="opp-name">Mitutoyo America - Jump Start</span></td>
+              <td><span class="stage-badge stage-lost">Dead — Lost</span></td>
+              <td>$5,000</td>
+              <td>Apr 2020</td>
+              <td>Jump Start</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <div class="page-footer">
+    Internal use only &nbsp;·&nbsp; Anthony Troggio, Digital Transformation Executive, Salesforce Manufacturing &amp; Automotive West &nbsp;·&nbsp; atroggio@salesforce.com &nbsp;·&nbsp; 765-430-7903
+  </div>
+</div><!-- /main -->
+
+<script>
+function copyEmail(btn, id) {
+  const text = document.getElementById(id).textContent.trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy Email'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// Highlight active nav on scroll
+const sections = document.querySelectorAll('[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.3, rootMargin: '-100px 0px -60% 0px' });
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
