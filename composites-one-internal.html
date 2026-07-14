@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Composites One — Internal Account Brief</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #0f1117;
+  color: #e2e8f0;
+  line-height: 1.6;
+  font-size: 15px;
+}
+a { color: #60a5fa; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+:root {
+  --bg:      #0f1117;
+  --bg2:     #161b26;
+  --bg3:     #1e2535;
+  --border:  rgba(255,255,255,.08);
+  --border2: rgba(255,255,255,.13);
+  --text:    #e2e8f0;
+  --muted:   #8899aa;
+  --green:   #34d399;
+  --green2:  #10b981;
+  --blue:    #60a5fa;
+  --yellow:  #fbbf24;
+  --red:     #f87171;
+  --purple:  #a78bfa;
+  --r:       10px;
+}
+
+.topbar {
+  background: #0a0d14;
+  border-bottom: 1px solid var(--border);
+  padding: 14px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-badge {
+  background: rgba(251,191,36,.12);
+  border: 1px solid rgba(251,191,36,.3);
+  color: #fbbf24;
+  font-size: .65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 50px;
+}
+.topbar-title { font-size: .88rem; font-weight: 700; color: var(--text); }
+.topbar-sub { font-size: .72rem; color: var(--muted); margin-top: 1px; }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.topbar-btn {
+  font-size: .72rem; font-weight: 700;
+  padding: 6px 14px; border-radius: 6px;
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  transition: color .15s, border-color .15s;
+  cursor: pointer;
+}
+.topbar-btn:hover { color: var(--text); border-color: rgba(255,255,255,.25); }
+.topbar-btn.primary {
+  background: var(--green2); border-color: transparent; color: #fff;
+}
+.topbar-btn.primary:hover { background: var(--green); }
+
+.layout {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 40px 80px;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* SIDEBAR */
+.sidebar { position: sticky; top: 72px; }
+.sidebar-section { margin-bottom: 28px; }
+.sidebar-label {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.2px; color: var(--muted); margin-bottom: 10px;
+}
+.nav-item {
+  display: block; padding: 7px 12px; border-radius: 6px;
+  font-size: .82rem; color: var(--muted);
+  transition: background .15s, color .15s;
+  cursor: pointer;
+}
+.nav-item:hover, .nav-item.active { background: var(--bg3); color: var(--text); }
+.nav-item.active { font-weight: 600; }
+
+.account-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 16px;
+}
+.account-logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.account-logo-wrap {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; flex-shrink: 0;
+}
+.account-logo { width: 24px; height: 24px; object-fit: contain; }
+.account-name { font-size: .9rem; font-weight: 800; color: var(--text); }
+.account-domain { font-size: .72rem; color: var(--muted); }
+.account-stat { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid var(--border); font-size: .78rem; }
+.account-stat:last-child { border-bottom: none; }
+.account-stat-label { color: var(--muted); }
+.account-stat-val { font-weight: 700; color: var(--text); }
+
+/* MAIN */
+.main { min-width: 0; display: flex; flex-direction: column; gap: 28px; }
+
+.card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); overflow: hidden;
+}
+.card-header {
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.card-title { font-size: .88rem; font-weight: 700; color: var(--text); }
+.card-sub { font-size: .75rem; color: var(--muted); margin-top: 2px; }
+.card-body { padding: 20px; }
+.card-tag {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px;
+  padding: 3px 10px; border-radius: 50px;
+}
+.tag-green { background: rgba(52,211,153,.1); color: var(--green); border: 1px solid rgba(52,211,153,.2); }
+.tag-blue  { background: rgba(96,165,250,.1); color: var(--blue);  border: 1px solid rgba(96,165,250,.2); }
+.tag-yellow{ background: rgba(251,191,36,.1); color: var(--yellow);border: 1px solid rgba(251,191,36,.2); }
+.tag-red   { background: rgba(248,113,113,.1);color: var(--red);   border: 1px solid rgba(248,113,113,.2); }
+.tag-purple{ background: rgba(167,139,250,.1);color: var(--purple);border: 1px solid rgba(167,139,250,.2); }
+.tag-gray  { background: rgba(255,255,255,.05);color: var(--muted);border: 1px solid var(--border); }
+
+/* CONTACT GRID */
+.contact-grid { display: flex; flex-direction: column; gap: 12px; }
+.contact-row {
+  display: grid; grid-template-columns: 44px 1fr auto;
+  gap: 14px; align-items: start;
+  padding: 14px 16px; border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg3);
+  transition: border-color .15s;
+}
+.contact-row:hover { border-color: var(--border2); }
+.contact-tier {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; font-weight: 800; color: #fff;
+}
+.tier-1 { background: linear-gradient(135deg, #10b981, #34d399); }
+.tier-2 { background: linear-gradient(135deg, #3b82f6, #60a5fa); }
+.tier-3 { background: linear-gradient(135deg, #6366f1, #a78bfa); }
+.contact-info-main { min-width: 0; }
+.contact-name { font-size: .92rem; font-weight: 700; color: var(--text); }
+.contact-title { font-size: .78rem; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+.contact-meta { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.contact-link {
+  font-size: .72rem; color: var(--blue);
+  display: flex; align-items: center; gap: 4px;
+}
+.contact-why { font-size: .78rem; color: var(--text); line-height: 1.6; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.contact-why strong { color: var(--green); }
+.contact-actions { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; flex-shrink: 0; }
+
+/* BASHO EMAILS */
+.email-block {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+.email-block:last-child { margin-bottom: 0; }
+.email-header {
+  background: var(--bg3);
+  padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.email-to { font-size: .82rem; color: var(--text); }
+.email-to strong { font-weight: 700; }
+.email-subject { font-size: .75rem; color: var(--muted); margin-top: 2px; }
+.email-subject span { color: var(--text); font-weight: 600; }
+.email-body {
+  padding: 16px 18px;
+  font-size: .84rem;
+  color: #c8d8e8;
+  line-height: 1.85;
+  white-space: pre-wrap;
+  font-family: 'Georgia', serif;
+}
+.email-body em { color: var(--green); font-style: normal; font-weight: 600; }
+.copy-btn {
+  font-size: .68rem; font-weight: 700; padding: 5px 12px; border-radius: 5px;
+  background: rgba(255,255,255,.06); border: 1px solid var(--border2);
+  color: var(--muted); cursor: pointer; white-space: nowrap;
+  transition: background .15s, color .15s;
+}
+.copy-btn:hover { background: rgba(255,255,255,.12); color: var(--text); }
+.copy-btn.copied { background: rgba(52,211,153,.12); border-color: rgba(52,211,153,.3); color: var(--green); }
+
+/* TALK TRACK */
+.talk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.talk-card {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px;
+}
+.talk-card-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
+.talk-card-body { font-size: .82rem; color: #c8d8e8; line-height: 1.75; }
+.talk-card-body p + p { margin-top: 8px; }
+
+/* OBJECTIONS */
+.objection-list { display: flex; flex-direction: column; gap: 10px; }
+.objection-item { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.objection-q {
+  padding: 12px 14px; font-size: .82rem; font-weight: 700; color: var(--text);
+  display: flex; align-items: center; gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.objection-q::before { content: '?'; width: 20px; height: 20px; background: rgba(251,191,36,.15); color: var(--yellow); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .7rem; font-weight: 800; flex-shrink: 0; }
+.objection-a { padding: 12px 14px; font-size: .82rem; color: #c8d8e8; line-height: 1.75; }
+
+/* OPP HISTORY */
+.opp-list { display: flex; flex-direction: column; gap: 8px; }
+.opp-item {
+  display: grid; grid-template-columns: 1fr auto auto;
+  gap: 12px; align-items: center;
+  padding: 10px 14px; border-radius: 7px; background: var(--bg3);
+  border: 1px solid var(--border); font-size: .8rem;
+}
+.opp-name { font-weight: 600; color: var(--text); }
+.opp-detail { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+.opp-amount { font-weight: 700; color: var(--text); white-space: nowrap; }
+
+/* UTILITY */
+.section-divider { height: 1px; background: var(--border); margin: 4px 0; }
+.pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; padding: 20px; }
+  .sidebar { position: static; }
+  .talk-grid { grid-template-columns: 1fr; }
+  .contact-row { grid-template-columns: 44px 1fr; }
+  .contact-actions { flex-direction: row; grid-column: 1 / -1; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div>
+      <div class="topbar-title">Composites One — Account Brief</div>
+      <div class="topbar-sub">Internal use only · Anthony Troggio &amp; Team · July 2026</div>
+    </div>
+    <span class="topbar-badge">Internal</span>
+  </div>
+  <div class="topbar-right">
+    <a href="composites-one-external.html" target="_blank" class="topbar-btn">View External Site</a>
+    <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" class="topbar-btn primary">Book Time</a>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="account-card">
+      <div class="account-logo-row">
+        <div class="account-logo-wrap">
+          <img src="https://www.google.com/s2/favicons?domain=compositesone.com&sz=64" class="account-logo" alt="Composites One">
+        </div>
+        <div>
+          <div class="account-name">Composites One</div>
+          <div class="account-domain">compositesone.com</div>
+        </div>
+      </div>
+      <div class="account-stat"><span class="account-stat-label">Revenue</span><span class="account-stat-val">$554M</span></div>
+      <div class="account-stat"><span class="account-stat-label">Employees</span><span class="account-stat-val">451</span></div>
+      <div class="account-stat"><span class="account-stat-label">HQ</span><span class="account-stat-val">Arlington Heights, IL</span></div>
+      <div class="account-stat"><span class="account-stat-label">Industry</span><span class="account-stat-val">Composites Distribution</span></div>
+      <div class="account-stat"><span class="account-stat-label">Status</span><span class="account-stat-val" style="color:var(--yellow)">Prospect</span></div>
+      <div class="account-stat"><span class="account-stat-label">Salesforce ID</span><span class="account-stat-val" style="font-size:.7rem; color:var(--muted)">001000000027wGN</span></div>
+    </div>
+
+    <div class="sidebar-section" style="margin-top:20px;">
+      <div class="sidebar-label">Play</div>
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <span class="card-tag tag-green" style="width:fit-content;">B2B Commerce</span>
+        <span class="card-tag tag-blue"  style="width:fit-content;">Manufacturing Cloud</span>
+        <span class="card-tag tag-purple" style="width:fit-content;">Agentforce</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Navigate</div>
+      <a class="nav-item active" href="#contacts">Priority Contacts</a>
+      <a class="nav-item" href="#basho">BASHO Emails</a>
+      <a class="nav-item" href="#talktrack">Talk Track</a>
+      <a class="nav-item" href="#objections">Objection Handling</a>
+      <a class="nav-item" href="#history">Opportunity History</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Key Dates</div>
+      <div style="font-size:.75rem; color:var(--muted); line-height:1.8;">
+        Last opp created: <span style="color:var(--text)">Jun 2026</span><br>
+        Last activity: <span style="color:var(--text)">Jul 7, 2026</span><br>
+        Prior opp went dead: <span style="color:var(--red)">Jun 2026</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ACCOUNT CONTEXT -->
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Account Context</div>
+          <div class="card-sub">What you need to know before you pick up the phone</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="talk-grid">
+          <div class="talk-card">
+            <div class="talk-card-label">Who they are</div>
+            <div class="talk-card-body">
+              <p>North America's leading specialty distributor of composite materials. Fiberglass, carbon fiber, resins, tooling. 60+ distribution centers. Serving marine, wind energy, aerospace, automotive, and construction fabricators.</p>
+              <p>$554M revenue, 451 employees. HQ in Arlington Heights, IL. Family of brands includes Stratus (their marketing arm).</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The real problem</div>
+            <div class="talk-card-body">
+              <p>Fabricators in their key verticals order by phone and email. Inside sales reps are an order desk. When a boat yard needs 50 gallons of resin at midnight, they call whoever answers first in the morning.</p>
+              <p>Account-specific pricing, volume agreements, and stocking deals are managed manually today. No self-serve ordering. No real-time inventory visibility for customers.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">Why the prior pitches went dead</div>
+            <div class="talk-card-body">
+              <p>Two Commerce Cloud + MCA opportunities have gone "Dead - No Decision" since 2025. Not "No Opportunity" — No Decision. The play is real.</p>
+              <p>Most likely cause: internal champion couldn't build the business case or the deal got deprioritized. A Digital Transformation Program Lead (Rustagi) was added to Salesforce records in mid-2024. He may be the person who can move it this time.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">What's different now</div>
+            <div class="talk-card-body">
+              <p>Jeff Benensohn came in as CIO in June 2025. New CIOs establish their platform roadmap in months 6-18. We're in that window.</p>
+              <p>Christina Chatfield has "eCommerce" in her marketing title — that's a signal the company is thinking about digital commerce. That role doesn't exist if there isn't a mandate somewhere.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIORITY CONTACTS -->
+    <div class="card" id="contacts">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Priority Contacts</div>
+          <div class="card-sub">Ranked by fit for the Commerce + Manufacturing Cloud play</div>
+        </div>
+        <span class="card-tag tag-green">6 Targets</span>
+      </div>
+      <div class="card-body">
+        <div class="contact-grid">
+
+          <div class="contact-row">
+            <div class="contact-tier tier-1">DR</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Dhiraj Rustagi</div>
+              <div class="contact-title">Digital Transformation Program Lead</div>
+              <div class="contact-meta">
+                <a href="mailto:dhiraj.rustagi@compositesone.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  dhiraj.rustagi@compositesone.com
+                </a>
+              </div>
+              <div class="contact-why"><strong>Start here.</strong> His title is the job. Digital Transformation Program Lead is the internal owner of exactly this kind of initiative. He was added to Salesforce records in July 2024. If anyone is building the internal case for a commerce platform, it's him. He either ran the previous conversations that went dead or he inherited the aftermath. Either way, he knows the history and has the mandate to fix it.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-green">Champion candidate</span>
+                <span class="card-tag tag-yellow">Last active Jun 2</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-green">Tier 1</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-1">CC</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Christina Chatfield</div>
+              <div class="contact-title">Head of Growth Marketing (eCommerce / Marketing Communications)</div>
+              <div class="contact-meta">
+                <a href="mailto:christina.chatfield@compositesone.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  christina.chatfield@compositesone.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">847-437-0200</span>
+              </div>
+              <div class="contact-why"><strong>eCommerce is in her title.</strong> That's a specific mandate at a $554M distributor. She either owns the digital commerce roadmap or is close to the person who does. She's been active at Composites One since 2023 — long enough to know why the previous Commerce conversations stalled. Could be the reason it stalled or the person who can finally move it. Worth a direct ask: "What's the status of the digital ordering initiative?"</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">eCommerce mandate</span>
+                <span class="card-tag tag-yellow">Last active Jun 29</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-green">Tier 1</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-1">JB</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Jeff Benensohn</div>
+              <div class="contact-title">Chief Information Officer</div>
+              <div class="contact-meta">
+                <a href="mailto:jeff.benensohn@compositesone.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  jeff.benensohn@compositesone.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">847-437-0200</span>
+              </div>
+              <div class="contact-why"><strong>New CIO, right timing.</strong> Added to Salesforce records June 2025 — he's roughly 12 months into the role. New CIOs build their platform roadmap in months 6-18. We're in that window right now. He will own the decision on whether B2B Commerce sits on Salesforce or somewhere else. Getting in front of him before that decision is made is the move. He's active (last touch Jun 12).</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">Platform decision-maker</span>
+                <span class="card-tag tag-yellow">CIO · 12 months in role</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-green">Tier 1</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">AD</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Al Dobbeck</div>
+              <div class="contact-title">EVP and Chief Operating Officer</div>
+              <div class="contact-meta">
+                <a href="mailto:al.dobbeck@compositesone.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  al.dobbeck@compositesone.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(847) 871-1347</span>
+              </div>
+              <div class="contact-why">EVP and COO. He owns the operational efficiency case: inside sales time freed from manual order entry, DC inventory connected to what customers are actually ordering, fulfillment predictability. If you can get a CIO referral to him, this becomes an executive conversation fast. Don't cold outreach here — get introduced.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-purple">Executive sponsor target</span>
+                <span class="card-tag tag-gray">Get introduced</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 2</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">JG</div>
+            <div class="contact-info-main">
+              <div class="contact-name">JB Garoufalis</div>
+              <div class="contact-title">Director of Finance, Pricing and Data Analytics</div>
+              <div class="contact-meta">
+                <a href="mailto:jb.garoufalis@compositesone.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  jb.garoufalis@compositesone.com
+                </a>
+              </div>
+              <div class="contact-why">Pricing and data analytics. The hardest part of a B2B Commerce deployment for a distributor is getting account-specific pricing surfaced correctly online. That's his problem. He's also the person who can validate the business case numbers. Added November 2025 — relatively new, still building his remit.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">Pricing problem owner</span>
+                <span class="card-tag tag-yellow">Last active Jun 24</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 2</span>
+            </div>
+          </div>
+
+          <div class="contact-row">
+            <div class="contact-tier tier-2">PJ</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Pierre Janelle</div>
+              <div class="contact-title">Director of Sales</div>
+              <div class="contact-meta">
+                <a href="mailto:pierre.janelle@compositesone.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  pierre.janelle@compositesone.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(847) 437-0200</span>
+              </div>
+              <div class="contact-why">Runs sales. His team is the one taking reorders manually today. He has the most to gain when reps stop being an order desk and start working actual sales conversations. Good angle: "What percentage of your team's time goes to reorder activity?" If he answers honestly, that number is the ROI conversation.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">Sales time-to-value case</span>
+                <span class="card-tag tag-yellow">Last active Jun 24</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 2</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- BASHO EMAILS -->
+    <div class="card" id="basho">
+      <div class="card-header">
+        <div>
+          <div class="card-title">BASHO Emails</div>
+          <div class="card-sub">Research-based, 4 sentences max. Click to copy.</div>
+        </div>
+        <span class="card-tag tag-yellow">3 Ready</span>
+      </div>
+      <div class="card-body">
+
+        <!-- EMAIL 1 - RUSTAGI -->
+        <div class="email-block" id="email-rustagi">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>Dhiraj Rustagi</strong> — Digital Transformation Program Lead</div>
+              <div class="email-subject">Subject: <span>Digital ordering at Composites One</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-rustagi', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-rustagi-body">Dhiraj,
+
+Your title says Digital Transformation Program Lead. I want to understand what that means for how Composites One's fabricator customers place orders today.
+
+We helped a comparable specialty distributor move their top accounts to a self-serve portal with account-specific pricing and real-time DC inventory. Their inside sales team stopped taking reorders and started working relationships.
+
+20 minutes to show you what that looks like in practice?
+
+Anthony Troggio
+Salesforce | Digital Transformation Executive
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+        <!-- EMAIL 2 - CHATFIELD -->
+        <div class="email-block" id="email-chatfield">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>Christina Chatfield</strong> — Head of Growth Marketing (eCommerce)</div>
+              <div class="email-subject">Subject: <span>eCommerce at Composites One</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-chatfield', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-chatfield-body">Christina,
+
+You have eCommerce in your title at a $554M composites distributor. That's a specific mandate. I want to understand what's in the way of executing on it.
+
+We built a direct B2B ordering portal for Westlake Royal Building Products. Contractors log in, see their negotiated pricing, and check out with a PO number. No rep in the loop. Online order volume quadrupled at a comparable distributor when they made the same shift.
+
+Worth 20 minutes?
+
+Anthony Troggio
+Salesforce | Digital Transformation Executive
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+        <!-- EMAIL 3 - BENENSOHN -->
+        <div class="email-block" id="email-benensohn">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>Jeff Benensohn</strong> — Chief Information Officer</div>
+              <div class="email-subject">Subject: <span>Platform roadmap at Composites One</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-benensohn', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-benensohn-body">Jeff,
+
+A year into a new CIO role is when the platform decisions get made. I want to earn 20 minutes in that conversation before the roadmap is set.
+
+Composites One's fabricator customers order by phone and email today. That's a platform gap with a clear fix: a self-serve ordering channel connected directly to account pricing, DC inventory, and volume agreements. One platform. No middleware. We've built it for distributors at your scale.
+
+Are you the right person to have this conversation with, or should I be talking to someone on your team?
+
+Anthony Troggio
+Salesforce | Digital Transformation Executive
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TALK TRACK -->
+    <div class="card" id="talktrack">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Talk Track</div>
+          <div class="card-sub">Opener, discovery, and the pivot to value</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="talk-grid">
+          <div class="talk-card">
+            <div class="talk-card-label">The Opener (30 seconds)</div>
+            <div class="talk-card-body">
+              <p>"I work with specialty distributors across the West. The consistent problem I see is that fabricators who trust a distributor for 15 years still order through whoever is easiest to reach at midnight. I want to understand if that's a problem at Composites One, and whether it's something that's on your radar to fix."</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">Discovery Questions</div>
+            <div class="talk-card-body">
+              <p>What percentage of your inside sales team's time goes to reorder activity versus new account or cross-sell conversations?</p>
+              <p>How do your top fabricator accounts place reorders today?</p>
+              <p>Do customers have visibility into your DC inventory before they commit to a production run date?</p>
+              <p>What does your largest account's stocking agreement look like today, and who manages it?</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The Value Pivot</div>
+            <div class="talk-card-body">
+              <p>"What you're describing is essentially your inside sales team acting as an order desk for accounts that already know what they want. Every one of those calls is time not spent on the conversations that actually grow the relationship."</p>
+              <p>"A portal that lets them log in, see their pricing, and place a PO with real-time inventory visibility handles all of that. The rep gets a notification. The order confirms. The rep's time goes to the accounts that need attention."</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The Ask</div>
+            <div class="talk-card-body">
+              <p>"I'd like to show you what Westlake Royal built for their dealer and contractor channel. It's the closest structural analog to what Composites One could build for its fabricator base. 30 minutes. You tell me if it's directionally right or completely off."</p>
+              <p>Send the external briefing link as the pre-read: <span style="color:var(--blue); font-size:.78rem;">atroggio-art.github.io/account-sites/composites-one-external.html</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJECTIONS -->
+    <div class="card" id="objections">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Objection Handling</div>
+          <div class="card-sub">The responses that keep the conversation moving</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="objection-list">
+
+          <div class="objection-item">
+            <div class="objection-q">We've looked at this before and it didn't go anywhere.</div>
+            <div class="objection-a">I know. Two conversations went to No Decision. That tells me the play is real but the business case didn't land internally. My ask is different: I want to show you what it looks like when it's working at a distributor your size, and let you tell me what's actually in the way. It might be budget, it might be integration complexity, it might be something I can help you solve. But "looked at it before" isn't a no from me.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">Our fabricators prefer to call their rep. They like the relationship.</div>
+            <div class="objection-a">That's true for complex orders. It's not true at midnight for a reorder they've placed 20 times. The portal doesn't replace the rep. It handles the transactional work so the rep can do the relationship work. Sutton Tools found that when they gave customers a self-serve option, customers used the portal for routine orders and called the rep when they had a real question. Reps liked it more, not less.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">We have our own eCommerce initiative in progress already.</div>
+            <div class="objection-a">Tell me more about where that's headed. Because the question I'd ask is whether account-specific pricing is connected to the ordering experience, or whether it's a catalog with generic pricing. That's the part most distributors build wrong the first time, and it's the part that determines whether your fabricators actually use it or keep calling.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">Budget isn't there right now.</div>
+            <div class="objection-a">Understood. Can I ask where it sits on the priority list for next planning cycle? Because the math on this tends to be simple: if each of your top 100 fabricator accounts places one additional self-serve order per week, that number pays for the platform before you hit 12 months. I can put a business case together with your actual numbers if that would be useful for the internal conversation.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">We don't want to disintermediate our sales team.</div>
+            <div class="objection-a">That's exactly the right concern to have. The distributors who get this wrong build a portal that competes with their reps. The ones who get it right build a portal that makes their reps look better: the customer gets an instant answer on inventory and pricing, the rep gets a notification when the PO is placed, and the rep's time goes to the orders that actually need a conversation. Pierre Janelle's team would be better off with this, not threatened by it.</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- OPP HISTORY -->
+    <div class="card" id="history">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Opportunity History</div>
+          <div class="card-sub">Prior Salesforce opportunities — context for the conversation</div>
+        </div>
+        <span class="card-tag tag-red">All Dead</span>
+      </div>
+      <div class="card-body">
+        <div class="opp-list">
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Commerce Cloud Advanced</div>
+              <div class="opp-detail">Dead - No Decision · Closed June 2026</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$150,000</div>
+          </div>
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">B2B Commerce + Manufacturing Cloud Accelerator</div>
+              <div class="opp-detail">Dead - No Decision · Closed January 2025</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$45,000</div>
+          </div>
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Sales Cloud Expansion</div>
+              <div class="opp-detail">Dead · Prior year</div>
+            </div>
+            <span class="card-tag tag-red">Dead</span>
+            <div class="opp-amount">$229,000</div>
+          </div>
+        </div>
+        <div style="margin-top:16px; padding:14px; background:rgba(251,191,36,.06); border:1px solid rgba(251,191,36,.2); border-radius:8px;">
+          <div style="font-size:.78rem; font-weight:700; color:var(--yellow); margin-bottom:6px;">Read on the history</div>
+          <div style="font-size:.8rem; color:#c8d8e8; line-height:1.75;">Three dead opportunities, including two direct Commerce + MCA plays. All went "No Decision" not "No Opportunity." The play is right. The prior conversations didn't build enough internal urgency or didn't find the right champion. Dhiraj Rustagi's title (Digital Transformation Program Lead) and Jeff Benensohn's arrival as CIO in 2025 are both signals that the internal landscape has changed. Don't treat this as a re-pitch. Treat it as a first conversation with a new team.</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function copyEmail(blockId, btn) {
+  const bodyEl = document.getElementById(blockId + '-body');
+  if (!bodyEl) return;
+  const text = bodyEl.textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = 'Copy Email';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// Smooth scroll for sidebar nav
+document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    link.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
