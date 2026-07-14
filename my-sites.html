@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Anthony Troggio — Account Briefings</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #0b1424;
+  color: #fff;
+  line-height: 1.6;
+  font-size: 16px;
+  min-height: 100vh;
+}
+a { color: inherit; text-decoration: none; }
+
+header {
+  background: linear-gradient(135deg, #071524 0%, #0b1f3a 100%);
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  padding: 32px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.sf-cloud {
+  width: 44px; height: 30px;
+  filter: drop-shadow(0 0 12px rgba(0,161,224,.6));
+  flex-shrink: 0;
+}
+.header-text h1 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -.2px;
+}
+.header-text p {
+  font-size: .8rem;
+  color: rgba(255,255,255,.45);
+  margin-top: 2px;
+}
+.header-cta {
+  background: #00A1E0;
+  color: #fff;
+  font-size: .8rem;
+  font-weight: 700;
+  padding: 10px 22px;
+  border-radius: 50px;
+  letter-spacing: .3px;
+  white-space: nowrap;
+  transition: opacity .15s;
+}
+.header-cta:hover { opacity: .85; }
+
+.toolbar {
+  padding: 20px 48px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+  flex-wrap: wrap;
+}
+.count-badge {
+  font-size: .72rem;
+  font-weight: 700;
+  color: rgba(255,255,255,.4);
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+.filter-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+.pill {
+  font-size: .7rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,.15);
+  color: rgba(255,255,255,.55);
+  cursor: pointer;
+  transition: all .15s;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+}
+.pill:hover, .pill.active {
+  border-color: #00A1E0;
+  color: #00A1E0;
+  background: rgba(0,161,224,.08);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  padding: 32px 48px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.card {
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform .2s, box-shadow .2s, border-color .2s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0,0,0,.4);
+  border-color: rgba(255,255,255,.16);
+}
+.card-top {
+  padding: 20px 20px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.logo-wrap {
+  background: rgba(255,255,255,.95);
+  border-radius: 10px;
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.logo-wrap img {
+  width: 28px; height: 28px;
+  object-fit: contain;
+  display: block;
+}
+.card-name {
+  font-size: .97rem;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+}
+.card-industry {
+  font-size: .72rem;
+  color: rgba(255,255,255,.38);
+  margin-top: 3px;
+  font-weight: 500;
+}
+.card-body {
+  padding: 14px 20px 18px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.tag-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.tag {
+  font-size: .62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  padding: 3px 10px;
+  border-radius: 50px;
+  border: 1px solid;
+}
+.tag-commerce  { color: #38bdf8; border-color: rgba(56,189,248,.3); background: rgba(56,189,248,.08); }
+.tag-mca       { color: #a78bfa; border-color: rgba(167,139,250,.3); background: rgba(167,139,250,.08); }
+.tag-revenue   { color: #34d399; border-color: rgba(52,211,153,.3); background: rgba(52,211,153,.08); }
+.tag-marketing { color: #fb923c; border-color: rgba(251,146,60,.3); background: rgba(251,146,60,.08); }
+.tag-agentforce{ color: #f472b6; border-color: rgba(244,114,182,.3); background: rgba(244,114,182,.08); }
+.tag-data      { color: #facc15; border-color: rgba(250,204,21,.3); background: rgba(250,204,21,.08); }
+.tag-default   { color: rgba(255,255,255,.5); border-color: rgba(255,255,255,.15); background: transparent; }
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .75rem;
+  font-weight: 700;
+  color: #00A1E0;
+  margin-top: auto;
+  padding-top: 6px;
+  transition: gap .15s;
+}
+.card:hover .card-link { gap: 10px; }
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 20px;
+  color: rgba(255,255,255,.3);
+  font-size: 1rem;
+}
+
+footer {
+  text-align: center;
+  padding: 32px 48px;
+  font-size: .75rem;
+  color: rgba(255,255,255,.2);
+  border-top: 1px solid rgba(255,255,255,.05);
+  margin-top: 16px;
+}
+
+@media (max-width: 640px) {
+  header, .toolbar, .grid { padding: 20px 20px; }
+  .grid { grid-template-columns: 1fr; }
+  .filter-pills { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <svg class="sf-cloud" viewBox="0 0 56 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M23.3 7.1C25.2 4.7 28 3.2 31.2 3.2c5.2 0 9.6 3.8 10.5 8.8.5-.1 1-.2 1.5-.2 4.4 0 8 3.6 8 8s-3.6 8-8 8H11c-5 0-9-4-9-9 0-4.7 3.6-8.6 8.2-9 .9-4.3 4.7-7.5 9.3-7.5 1.6 0 3.2.4 4.5 1.2-.5.8-.9 1.8-1.1 2.8-.9-.5-2-.8-3.4-.8-3.5 0-6.4 2.8-6.4 6.3v.7l-.7.1C9.6 12.9 7 15.5 7 18.8c0 3.4 2.8 6.1 6.3 6.1h32.4c3 0 5.5-2.5 5.5-5.5s-2.5-5.5-5.5-5.5c-.8 0-1.6.2-2.3.5l-1.4.6-.3-1.5C40.9 9 37.4 6.2 33.2 6.2c-3.2 0-6 1.6-7.7 4.1-.7-.6-1.5-1.1-2.2-1.5z" fill="#00A1E0"/>
+    </svg>
+    <div class="header-text">
+      <h1>Account Briefings</h1>
+      <p>Anthony Troggio · Digital Transformation Executive · Salesforce</p>
+    </div>
+  </div>
+  <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="header-cta">Book Time with Anthony</a>
+</header>
+
+<div class="toolbar">
+  <span class="count-badge" id="count-label">28 Briefings</span>
+  <div class="filter-pills">
+    <span class="pill active" data-filter="all">All</span>
+    <span class="pill" data-filter="commerce">Commerce</span>
+    <span class="pill" data-filter="mca">Manufacturing Cloud</span>
+    <span class="pill" data-filter="marketing">Marketing Cloud</span>
+    <span class="pill" data-filter="agentforce">Agentforce</span>
+    <span class="pill" data-filter="revenue">Revenue Cloud</span>
+  </div>
+</div>
+
+<div class="grid" id="grid">
+
+  <a href="arizona-tile-external.html" target="_blank" class="card" data-tags="commerce,marketing,data">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=arizonatile.com&sz=64" alt="Arizona Tile"></div>
+      <div>
+        <div class="card-name">Arizona Tile</div>
+        <div class="card-industry">Building Materials Distribution</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-commerce">B2B Commerce</span>
+        <span class="tag tag-marketing">Marketing Cloud</span>
+        <span class="tag tag-data">Data Cloud</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="bad-boy-mowers-external.html" target="_blank" class="card" data-tags="commerce,mca,agentforce">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=badboymowers.com&sz=64" alt="Bad Boy Mowers"></div>
+      <div>
+        <div class="card-name">Bad Boy Mowers</div>
+        <div class="card-industry">Outdoor Power Equipment OEM</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-commerce">B2B Commerce</span>
+        <span class="tag tag-mca">Manufacturing Cloud</span>
+        <span class="tag tag-agentforce">Agentforce</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="basden-steel-external.html" target="_blank" class="card" data-tags="mca,revenue">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=basdensteel.com&sz=64" alt="Basden Steel"></div>
+      <div>
+        <div class="card-name">Basden Steel</div>
+        <div class="card-industry">Steel Fabrication</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-mca">Manufacturing Cloud</span>
+        <span class="tag tag-revenue">Revenue Cloud</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="csi-closures-external.html" target="_blank" class="card" data-tags="mca,agentforce,revenue">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=csiclosures.com&sz=64" alt="CSI Closures"></div>
+      <div>
+        <div class="card-name">CSI Closures</div>
+        <div class="card-industry">F&amp;B Packaging Manufacturing</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-mca">Manufacturing Cloud</span>
+        <span class="tag tag-agentforce">Agentforce</span>
+        <span class="tag tag-revenue">Revenue Intelligence</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="daiichi-jitsugyo-america-external.html" target="_blank" class="card" data-tags="mca,commerce">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=djiamerica.com&sz=64" alt="Daiichi Jitsugyo America"></div>
+      <div>
+        <div class="card-name">Daiichi Jitsugyo America</div>
+        <div class="card-industry">Industrial Equipment Distribution</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-mca">Manufacturing Cloud</span>
+        <span class="tag tag-commerce">B2B Commerce</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="delfield-company-external.html" target="_blank" class="card" data-tags="mca,revenue">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=delfield.com&sz=64" alt="Delfield Company"></div>
+      <div>
+        <div class="card-name">Delfield Company</div>
+        <div class="card-industry">Commercial Refrigeration Mfg</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-mca">Manufacturing Cloud</span>
+        <span class="tag tag-revenue">Revenue Cloud</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="diamond-plastics-external.html" target="_blank" class="card" data-tags="marketing">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=diamondplastics.com&sz=64" alt="Diamond Plastics"></div>
+      <div>
+        <div class="card-name">Diamond Plastics</div>
+        <div class="card-industry">PVC Pipe Manufacturing</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-marketing">Marketing Cloud Advanced</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="garratt-callahan-external.html" target="_blank" class="card" data-tags="marketing">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=garattcallahan.com&sz=64" alt="Garratt-Callahan"></div>
+      <div>
+        <div class="card-name">Garratt-Callahan</div>
+        <div class="card-industry">Water Treatment Distribution</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-marketing">Marketing Cloud Advanced</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="gowan-external.html" target="_blank" class="card" data-tags="revenue">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=gowanco.com&sz=64" alt="Gowan Company"></div>
+      <div>
+        <div class="card-name">Gowan Company</div>
+        <div class="card-industry">Ag Chemical Distribution</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-revenue">Revenue Cloud Advanced</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="inpro-corporation-external.html" target="_blank" class="card" data-tags="mca,agentforce,data">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=inprocorp.com&sz=64" alt="Inpro Corporation"></div>
+      <div>
+        <div class="card-name">Inpro Corporation</div>
+        <div class="card-industry">Architectural Products Mfg</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-mca">Manufacturing Cloud</span>
+        <span class="tag tag-agentforce">Agentforce</span>
+        <span class="tag tag-data">Data Cloud</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="kps-global-external.html" target="_blank" class="card" data-tags="mca,revenue">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=kpsglobal.com&sz=64" alt="KPS Global"></div>
+      <div>
+        <div class="card-name">KPS Global</div>
+        <div class="card-industry">Insulated Panel Manufacturing</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-mca">Manufacturing Cloud</span>
+        <span class="tag tag-revenue">Revenue Cloud</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="life-line-emergency-vehicles-external.html" target="_blank" class="card" data-tags="mca,revenue">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=lifelineambulance.com&sz=64" alt="Life Line Emergency Vehicles"></div>
+      <div>
+        <div class="card-name">Life Line Emergency Vehicles</div>
+        <div class="card-industry">Emergency Vehicle Manufacturing</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-mca">Manufacturing Cloud</span>
+        <span class="tag tag-revenue">Revenue Cloud</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="ls-electric-external.html" target="_blank" class="card" data-tags="marketing">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=lselectric.us&sz=64" alt="LS Electric America"></div>
+      <div>
+        <div class="card-name">LS Electric America</div>
+        <div class="card-industry">Power Equipment Manufacturing</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-marketing">Marketing Cloud Advanced</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="meissner-external.html" target="_blank" class="card" data-tags="mca,revenue">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=meissner.com&sz=64" alt="Meissner Filtration"></div>
+      <div>
+        <div class="card-name">Meissner Filtration</div>
+        <div class="card-industry">Bioprocessing Filtration Mfg</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-mca">Manufacturing Cloud</span>
+        <span class="tag tag-revenue">Revenue Cloud CPQ</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="mitutoyo-america-external.html" target="_blank" class="card" data-tags="commerce,mca,agentforce">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=mitutoyo.com&sz=64" alt="Mitutoyo America"></div>
+      <div>
+        <div class="card-name">Mitutoyo America</div>
+        <div class="card-industry">Precision Measurement Instruments</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-commerce">B2B Commerce</span>
+        <span class="tag tag-mca">Manufacturing Cloud</span>
+        <span class="tag tag-agentforce">Agentforce</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="nekter-juice-bar-external.html" target="_blank" class="card" data-tags="marketing,data">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=nekterjuicebar.com&sz=64" alt="Nekter Juice Bar"></div>
+      <div>
+        <div class="card-name">Nekter Juice Bar</div>
+        <div class="card-industry">F&amp;B / Franchise Retail</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-marketing">Marketing Cloud</span>
+        <span class="tag tag-data">Data Cloud</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="ontic-external.html" target="_blank" class="card" data-tags="mca,revenue">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=ontic.com&sz=64" alt="Ontic"></div>
+      <div>
+        <div class="card-name">Ontic</div>
+        <div class="card-industry">Aerospace Parts Manufacturing</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-mca">Manufacturing Cloud</span>
+        <span class="tag tag-revenue">Revenue Cloud</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="rs-hughes-external.html" target="_blank" class="card" data-tags="commerce,data,agentforce">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=rshughes.com&sz=64" alt="R.S. Hughes"></div>
+      <div>
+        <div class="card-name">R.S. Hughes</div>
+        <div class="card-industry">Industrial Distribution</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-commerce">B2B Commerce</span>
+        <span class="tag tag-data">Data Cloud</span>
+        <span class="tag tag-agentforce">Agentforce</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="smead-external.html" target="_blank" class="card" data-tags="commerce,marketing,data,agentforce">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=smead.com&sz=64" alt="Smead Manufacturing"></div>
+      <div>
+        <div class="card-name">Smead Manufacturing</div>
+        <div class="card-industry">Office Products Manufacturing</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-commerce">Commerce Cloud</span>
+        <span class="tag tag-marketing">Agentic Marketing</span>
+        <span class="tag tag-data">Data Cloud</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="standard-plumbing-supply-external.html" target="_blank" class="card" data-tags="commerce,agentforce,data">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=standardplumbing.com&sz=64" alt="Standard Plumbing Supply"></div>
+      <div>
+        <div class="card-name">Standard Plumbing Supply</div>
+        <div class="card-industry">Plumbing Distribution</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-commerce">B2B Commerce</span>
+        <span class="tag tag-agentforce">Agentforce</span>
+        <span class="tag tag-data">Data Cloud</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="stevens-industries-external.html" target="_blank" class="card" data-tags="marketing,data,agentforce">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=stevensindustries.com&sz=64" alt="Stevens Industries"></div>
+      <div>
+        <div class="card-name">Stevens Industries</div>
+        <div class="card-industry">Custom Millwork / Contract Mfg</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-marketing">Agentic Marketing</span>
+        <span class="tag tag-data">Data Cloud</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="stolle-machinery-external.html" target="_blank" class="card" data-tags="mca,revenue">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=stollemachinery.com&sz=64" alt="Stolle Machinery"></div>
+      <div>
+        <div class="card-name">Stolle Machinery</div>
+        <div class="card-industry">Can Making Equipment Mfg</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-mca">Manufacturing Cloud</span>
+        <span class="tag tag-revenue">Revenue Cloud</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="texas-pipe-supply-external.html" target="_blank" class="card" data-tags="commerce,data">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=texaspipe.com&sz=64" alt="Texas Pipe &amp; Supply"></div>
+      <div>
+        <div class="card-name">Texas Pipe &amp; Supply</div>
+        <div class="card-industry">Industrial Pipe Distribution</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-commerce">B2B Commerce</span>
+        <span class="tag tag-data">Data Cloud</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="twin-disc-external.html" target="_blank" class="card" data-tags="mca,revenue,agentforce">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=twindisc.com&sz=64" alt="Twin Disc"></div>
+      <div>
+        <div class="card-name">Twin Disc</div>
+        <div class="card-industry">Power Transmission / Defense</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-mca">Manufacturing Cloud</span>
+        <span class="tag tag-revenue">Revenue Cloud</span>
+        <span class="tag tag-agentforce">Agentforce</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="wholesale-electric-external.html" target="_blank" class="card" data-tags="marketing,data,agentforce">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=wholesaleelectric.com&sz=64" alt="Wholesale Electric Supply"></div>
+      <div>
+        <div class="card-name">Wholesale Electric Supply</div>
+        <div class="card-industry">Electrical Distribution</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-marketing">Agentic Marketing</span>
+        <span class="tag tag-data">Data Cloud</span>
+        <span class="tag tag-agentforce">Agentforce</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="williams-comfort-external.html" target="_blank" class="card" data-tags="marketing">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=williamscomfort.com&sz=64" alt="Williams Comfort Air"></div>
+      <div>
+        <div class="card-name">Williams Comfort Air</div>
+        <div class="card-industry">HVAC Services</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-marketing">Marketing Cloud Advanced</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+  <a href="wilson-tool-external.html" target="_blank" class="card" data-tags="mca,revenue">
+    <div class="card-top">
+      <div class="logo-wrap"><img src="https://www.google.com/s2/favicons?domain=wilsontool.com&sz=64" alt="Wilson Tool"></div>
+      <div>
+        <div class="card-name">Wilson Tool</div>
+        <div class="card-industry">Precision Tooling Manufacturing</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="tag-row">
+        <span class="tag tag-mca">Manufacturing Cloud</span>
+        <span class="tag tag-revenue">Revenue Cloud</span>
+      </div>
+      <span class="card-link">Open Briefing <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+    </div>
+  </a>
+
+</div>
+
+<footer>
+  Anthony Troggio · atroggio@salesforce.com · 765-430-7903 · July 2026
+</footer>
+
+<script>
+const pills = document.querySelectorAll('.pill');
+const cards = document.querySelectorAll('.card');
+const countLabel = document.getElementById('count-label');
+
+pills.forEach(pill => {
+  pill.addEventListener('click', () => {
+    pills.forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    const filter = pill.dataset.filter;
+    let visible = 0;
+    cards.forEach(card => {
+      const tags = card.dataset.tags || '';
+      const show = filter === 'all' || tags.includes(filter);
+      card.style.display = show ? '' : 'none';
+      if (show) visible++;
+    });
+    countLabel.textContent = visible + (visible === 1 ? ' Briefing' : ' Briefings');
+  });
+});
+</script>
+</body>
+</html>
