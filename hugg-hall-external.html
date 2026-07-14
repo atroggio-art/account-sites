@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Hugg & Hall Equipment × Salesforce | An Executive Briefing from Anthony Troggio</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #f1f5f9;
+  color: #111827;
+  line-height: 1.6;
+  font-size: 16px;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+:root {
+  --amber:   #d97706;
+  --amber2:  #f59e0b;
+  --amber3:  #fcd34d;
+  --charcoal:  #111827;
+  --charcoal2: #1f2937;
+  --charcoal3: #2d3a4a;
+  --slate:   #f1f5f9;
+  --warm:    #f8fafc;
+  --muted:   #4b6070;
+  --border:  #dde5ed;
+  --shadow:  0 2px 20px rgba(17,24,39,.08);
+  --r:       12px;
+}
+
+/* ANNOUNCEMENT BAR */
+.announcement-bar {
+  background: #00A1E0;
+  color: #fff; text-align: center;
+  font-size: .72rem; font-weight: 600; letter-spacing: .6px;
+  padding: 8px 48px;
+  position: sticky; top: 0; z-index: 101;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.announcement-bar strong { font-weight: 800; letter-spacing: .3px; }
+.ab-dot {
+  display: inline-block; width: 3px; height: 3px;
+  background: rgba(255,255,255,.6); border-radius: 50%;
+  margin: 0 10px; vertical-align: middle; position: relative; top: -1px;
+}
+
+/* TOPBAR */
+.topbar {
+  background: linear-gradient(135deg, #080d14 0%, var(--charcoal) 100%);
+  padding: 0 48px; height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 34px; z-index: 100;
+  box-shadow: 0 1px 0 rgba(255,255,255,.05), 0 4px 24px rgba(0,0,0,.35);
+}
+.topbar::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, #00A1E0 0%, var(--amber) 55%, var(--amber3) 100%);
+}
+.topbar-partnership { display: flex; align-items: center; gap: 0; }
+.topbar-brand { display: flex; align-items: center; gap: 12px; padding: 6px 20px 6px 0; }
+.topbar-brand-sf { display: flex; align-items: center; gap: 11px; }
+.topbar-cloud { width: 40px; height: 28px; flex-shrink: 0; filter: drop-shadow(0 0 10px rgba(0,161,224,.5)); }
+.topbar-wordmark { color: #fff; font-size: 1.05rem; font-weight: 800; letter-spacing: .3px; line-height: 1; }
+.topbar-x { width: 1px; height: 28px; background: rgba(255,255,255,.15); margin: 0 20px; flex-shrink: 0; }
+.topbar-company-group { display: flex; align-items: center; gap: 10px; padding: 6px 0; opacity: .7; }
+.topbar-logo-wrap { background: rgba(255,255,255,.95); border-radius: 8px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.topbar-company-logo { width: 24px; height: 24px; object-fit: contain; }
+.topbar-company-text { font-size: .88rem; font-weight: 700; color: #fff; letter-spacing: .2px; line-height: 1; }
+.topbar-cta {
+  background: var(--amber); color: #fff; font-size: .75rem; font-weight: 700;
+  padding: 9px 22px; border-radius: 50px; letter-spacing: .3px;
+  box-shadow: 0 3px 16px rgba(217,119,6,.4);
+  transition: transform .15s, box-shadow .2s, background .15s; white-space: nowrap;
+}
+.topbar-cta:hover { transform: translateY(-1px); background: var(--amber2); box-shadow: 0 5px 22px rgba(217,119,6,.5); }
+
+/* HERO */
+.hero {
+  position: relative; min-height: 640px;
+  display: flex; align-items: center; overflow: hidden;
+  background: var(--charcoal);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1800&q=80');
+  background-size: cover; background-position: center 35%;
+  opacity: .65;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(115deg, rgba(17,24,39,.92) 40%, rgba(17,24,39,.35) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 1160px; margin: 0 auto;
+  padding: 90px 52px; width: 100%;
+  display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: center;
+}
+.hero-content > * { min-width: 0; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 24px;
+  background: rgba(217,119,6,.18); border: 1px solid rgba(217,119,6,.4);
+  border-radius: 50px; padding: 6px 16px 6px 11px;
+}
+.hero-eyebrow-dot { width: 8px; height: 8px; background: var(--amber3); border-radius: 50%; animation: pulse 2.2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+.hero-eyebrow span { font-size: .72rem; font-weight: 700; color: var(--amber3); text-transform: uppercase; letter-spacing: 1px; }
+.hero h1 {
+  font-size: clamp(2rem, 4.2vw, 3.1rem); font-weight: 800;
+  color: #fff; line-height: 1.12; letter-spacing: -.5px;
+  max-width: 640px; margin-bottom: 22px;
+}
+.hero h1 em { color: var(--amber3); font-style: normal; }
+.hero-sub {
+  font-size: 1.05rem; color: rgba(255,255,255,.7);
+  max-width: 540px; line-height: 1.75; margin-bottom: 32px;
+}
+.hero-stats { display: flex; flex-direction: column; gap: 10px; margin-bottom: 34px; }
+.hero-stat-row {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 8px; padding: 12px 16px;
+}
+.hero-stat-num { font-size: 1.4rem; font-weight: 800; color: var(--amber3); min-width: 80px; flex-shrink: 0; }
+.hero-stat-desc { font-size: .84rem; color: rgba(255,255,255,.7); line-height: 1.4; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: var(--amber); color: #fff; font-weight: 700; font-size: .95rem;
+  padding: 14px 28px; border-radius: 8px;
+  box-shadow: 0 4px 22px rgba(217,119,6,.45);
+  transition: background .2s, transform .15s;
+}
+.btn-primary:hover { background: var(--amber2); transform: translateY(-2px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: transparent; color: rgba(255,255,255,.75); font-weight: 600; font-size: .9rem;
+  padding: 14px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,.2);
+  transition: border-color .2s, color .2s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+
+.hero-card {
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px; padding: 32px 28px; backdrop-filter: blur(8px);
+}
+.hero-card-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--amber3); margin-bottom: 20px; }
+.hero-card-stat { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,.1); }
+.hero-card-stat:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+.hcs-num { font-size: 2.2rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px; }
+.hcs-num span { color: var(--amber3); }
+.hcs-label { font-size: .8rem; color: rgba(255,255,255,.5); line-height: 1.4; }
+
+/* STRIP */
+.strip { background: var(--charcoal2); display: flex; border-bottom: 1px solid rgba(255,255,255,.05); }
+.strip-item { flex: 1; padding: 22px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,.07); }
+.strip-item:last-child { border-right: none; }
+.sv { font-size: 1.65rem; font-weight: 800; color: var(--amber3); }
+.sl { font-size: .67rem; text-transform: uppercase; letter-spacing: .6px; color: rgba(255,255,255,.42); margin-top: 5px; }
+
+/* SECTIONS */
+.section { max-width: 1160px; margin: 0 auto; padding: 64px 52px; }
+.section-eyebrow { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--amber); margin-bottom: 10px; }
+.section-title { font-size: clamp(1.5rem, 2.8vw, 2.1rem); font-weight: 800; color: var(--charcoal); line-height: 1.2; margin-bottom: 14px; }
+.section-sub { font-size: .97rem; color: var(--muted); max-width: 640px; line-height: 1.75; }
+.hr { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* POV */
+.pov-section { background: var(--warm); border-top: 4px solid var(--amber); }
+.pov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-top: 44px; }
+.pov-statement {
+  background: linear-gradient(145deg, var(--charcoal) 0%, var(--charcoal2) 100%);
+  border-radius: var(--r); padding: 38px 36px; color: #fff;
+}
+.pov-statement blockquote {
+  font-size: 1.22rem; font-weight: 700; line-height: 1.5;
+  margin-bottom: 18px; border-left: 3px solid var(--amber3); padding-left: 18px;
+}
+.pov-statement blockquote em { color: var(--amber3); font-style: normal; }
+.pov-statement p { font-size: .9rem; color: rgba(255,255,255,.68); line-height: 1.78; }
+.pov-statement p + p { margin-top: 12px; }
+.pov-points { display: flex; flex-direction: column; gap: 16px; }
+.pov-point {
+  display: flex; gap: 16px; align-items: flex-start;
+  padding: 20px; background: var(--slate); border-radius: var(--r);
+  border-left: 3px solid var(--amber);
+}
+.pov-point-icon { font-size: 1.35rem; flex-shrink: 0; margin-top: 1px; }
+.pov-point-body strong { display: block; font-size: .92rem; font-weight: 700; color: var(--charcoal); margin-bottom: 5px; }
+.pov-point-body p { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+
+/* PROOF */
+.proof-section { background: var(--slate); }
+.proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 20px; margin-top: 44px; }
+.proof-card {
+  background: var(--warm); border-radius: var(--r);
+  border: 1px solid var(--border); overflow: hidden;
+  box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s;
+}
+.proof-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(17,24,39,.1); }
+.proof-card-top {
+  background: linear-gradient(135deg, var(--charcoal), var(--charcoal3));
+  padding: 18px 22px; display: flex; align-items: center; justify-content: space-between;
+}
+.proof-company { font-size: .88rem; font-weight: 800; color: #fff; }
+.proof-tag {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+  background: rgba(217,119,6,.3); color: var(--amber3); border-radius: 50px; padding: 3px 10px;
+}
+.proof-body { padding: 20px 22px; }
+.proof-stat { font-size: 2rem; font-weight: 800; color: var(--amber); margin-bottom: 5px; }
+.proof-desc { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+.proof-industry { font-size: .68rem; text-transform: uppercase; letter-spacing: .5px; color: #8a9aaa; font-weight: 600; margin-top: 12px; }
+
+/* PRODUCTS */
+.products-section { background: var(--warm); }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 24px; margin-top: 44px; }
+.product-card {
+  border-radius: var(--r); border: 1px solid var(--border);
+  overflow: hidden; box-shadow: var(--shadow);
+  display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s;
+}
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(17,24,39,.1); }
+.product-card-top { background: linear-gradient(145deg, var(--charcoal), var(--charcoal3)); padding: 26px 24px; }
+.product-cloud-tag {
+  display: inline-block; background: rgba(217,119,6,.25); color: var(--amber3);
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px;
+  padding: 3px 11px; border-radius: 50px; margin-bottom: 12px;
+}
+.product-title { font-size: 1.15rem; font-weight: 800; color: #fff; line-height: 1.3; margin-bottom: 7px; }
+.product-sub { font-size: .84rem; color: rgba(255,255,255,.6); line-height: 1.6; }
+.product-card-body { padding: 22px 24px; flex: 1; display: flex; flex-direction: column; gap: 14px; background: #fff; }
+.product-anchor {
+  background: var(--slate); border-radius: 8px; padding: 14px 16px;
+  border-left: 3px solid var(--amber);
+}
+.product-anchor-label { font-size: .65rem; text-transform: uppercase; letter-spacing: .8px; color: var(--amber); font-weight: 700; margin-bottom: 3px; }
+.product-anchor-val { font-size: 1.5rem; font-weight: 800; color: var(--charcoal); line-height: 1.1; }
+.product-anchor-sub { font-size: .76rem; color: var(--muted); margin-top: 2px; }
+.product-bullets { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.product-bullets li {
+  font-size: .84rem; color: var(--muted);
+  display: flex; align-items: flex-start; gap: 9px; line-height: 1.5;
+}
+.product-bullets li::before { content: '→'; color: var(--amber); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+/* URGENCY */
+.urgency-section { background: #fefce8; border-top: 1px solid #fde68a; border-bottom: 1px solid #fde68a; }
+.urgency-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 16px; margin-top: 36px; }
+.urgency-card {
+  background: #fff; border-radius: var(--r); border: 1px solid #fde68a;
+  border-left: 4px solid var(--amber); padding: 24px 26px;
+}
+.urgency-card-icon { font-size: 1.4rem; margin-bottom: 10px; }
+.urgency-card-title { font-size: .88rem; font-weight: 700; color: var(--charcoal); margin-bottom: 8px; }
+.urgency-card-body { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+
+/* IMPACT */
+.impact-section { background: var(--charcoal); color: #fff; }
+.impact-inner { max-width: 1160px; margin: 0 auto; padding: 60px 52px; }
+.impact-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 40px; background: rgba(0,0,0,.2); border-radius: var(--r); overflow: hidden; }
+.impact-item { background: rgba(255,255,255,.07); padding: 28px 24px; text-align: center; transition: background .2s; }
+.impact-item:hover { background: rgba(255,255,255,.12); }
+.impact-num { font-size: 2.4rem; font-weight: 800; color: var(--amber3); line-height: 1; margin-bottom: 8px; }
+.impact-label { font-size: .78rem; color: rgba(255,255,255,.72); line-height: 1.5; }
+
+/* ABOUT */
+.about-section { background: var(--charcoal); color: #fff; border-top: 1px solid rgba(255,255,255,.07); }
+.about-section .section-eyebrow { color: var(--amber3); }
+.about-team { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 40px; }
+.about-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 28px; display: flex; gap: 20px; align-items: flex-start; }
+.about-card-photo { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; object-position: center top; border: 3px solid var(--amber2); flex-shrink: 0; }
+.about-card-photo-placeholder { width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,.1); border: 3px solid var(--amber2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: rgba(255,255,255,.3); }
+.about-card-info { flex: 1; }
+.about-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 2px; }
+.about-contact { font-size: .78rem; color: var(--amber3); margin-bottom: 8px; }
+.about-role { font-size: .78rem; color: rgba(255,255,255,.5); font-weight: 500; margin-bottom: 12px; }
+.about-body { font-size: .88rem; color: rgba(255,255,255,.68); line-height: 1.75; }
+.about-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.btn-white {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; color: var(--amber); font-weight: 700; font-size: .93rem;
+  padding: 13px 26px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,.2);
+  transition: transform .15s, box-shadow .2s;
+}
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(0,0,0,.25); }
+
+/* CTA */
+.cta-section { background: linear-gradient(135deg, #060c14 0%, var(--charcoal) 60%, var(--charcoal2) 100%); color: #fff; text-align: center; }
+.cta-section .section { padding: 72px 52px; }
+.cta-title { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 14px; }
+.cta-sub { font-size: 1rem; opacity: .85; max-width: 520px; margin: 0 auto 32px; line-height: 1.75; }
+.cta-contact { font-size: .86rem; opacity: .7; margin-top: 20px; }
+
+footer {
+  background: var(--charcoal); color: rgba(255,255,255,.38);
+  text-align: center; padding: 24px 52px; font-size: .75rem;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+footer span { color: rgba(255,255,255,.62); }
+
+.fade-in { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 960px) {
+  .topbar { padding: 0 24px; height: 64px; }
+  .topbar-wordmark { font-size: .85rem; }
+  .topbar-company-text { font-size: .8rem; }
+  .hero-content { grid-template-columns: 1fr; gap: 32px; padding: 60px 28px; }
+  .hero-card { display: none; }
+  .section { padding: 52px 28px; }
+  .pov-grid { grid-template-columns: 1fr; gap: 28px; }
+  .about-team { grid-template-columns: 1fr; }
+  .about-card { flex-direction: column; align-items: center; text-align: center; }
+  .about-cta-row { justify-content: center; }
+  .impact-grid { grid-template-columns: repeat(2,1fr); }
+  .strip { flex-wrap: wrap; }
+  .strip-item { flex: 1 1 calc(33% - 1px); min-width: 100px; }
+}
+@media (max-width: 580px) {
+  .hero h1 { font-size: 1.85rem; }
+  .topbar-company-group { display: none; }
+  .topbar-x { display: none; }
+  .impact-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  An Executive Briefing by Anthony Troggio &amp; Team<span class="ab-dot"></span>Digital Transformation Executive<span class="ab-dot"></span><strong>Salesforce</strong>
+</div>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="topbar-partnership">
+    <div class="topbar-brand topbar-brand-sf">
+      <svg class="topbar-cloud" viewBox="0 0 56 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M23.3 7.1C25.2 4.7 28 3.2 31.2 3.2c5.2 0 9.6 3.8 10.5 8.8.5-.1 1-.2 1.5-.2 4.4 0 8 3.6 8 8s-3.6 8-8 8H11c-5 0-9-4-9-9 0-4.7 3.6-8.6 8.2-9 .9-4.3 4.7-7.5 9.3-7.5 1.6 0 3.2.4 4.5 1.2-.5.8-.9 1.8-1.1 2.8-.9-.5-2-.8-3.4-.8-3.5 0-6.4 2.8-6.4 6.3v.7l-.7.1C9.6 12.9 7 15.5 7 18.8c0 3.4 2.8 6.1 6.3 6.1h32.4c3 0 5.5-2.5 5.5-5.5s-2.5-5.5-5.5-5.5c-.8 0-1.6.2-2.3.5l-1.4.6-.3-1.5C40.9 9 37.4 6.2 33.2 6.2c-3.2 0-6 1.6-7.7 4.1-.7-.6-1.5-1.1-2.2-1.5z" fill="#00A1E0"/>
+      </svg>
+      <span class="topbar-wordmark">Salesforce</span>
+    </div>
+    <div class="topbar-x"></div>
+    <div class="topbar-company-group">
+      <div class="topbar-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=hugghall.com&sz=64" class="topbar-company-logo" alt="Hugg & Hall Equipment"></div>
+      <span class="topbar-company-text">Hugg &amp; Hall Equipment</span>
+    </div>
+  </div>
+  <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="topbar-cta">Book Time with Anthony</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content fade-in">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-eyebrow-dot"></div>
+        <span>Prepared exclusively for Hugg &amp; Hall Equipment · July 2026</span>
+      </div>
+      <h1>A Customer Calls at 7am About a Down Machine on a Job Site.<br><em>How Fast Does That Become a Technician with the Right Parts?</em></h1>
+      <p class="hero-sub">Equipment dealers live on uptime. Every hour a customer's machine is down is an hour they are questioning whether they called the right service provider. The gap between that 7am call and a dispatched technician with the right parts and the right history is where customer relationships are won or lost. That gap is almost always a systems problem.</p>
+      <div class="hero-stats">
+        <div class="hero-stat-row">
+          <div class="hero-stat-num">60%+</div>
+          <div class="hero-stat-desc">Of equipment dealer profit typically comes from aftermarket and service. New equipment sales drive relationships. Service is where the margin lives. And service runs on technician scheduling, parts availability, and customer communication.</div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-num">4+ hrs</div>
+          <div class="hero-stat-desc">Average response time for unplanned equipment service when dispatch is manual and technician history is in spreadsheets. Best-in-class dealers running connected field service dispatch cut that to under 90 minutes.</div>
+        </div>
+        <div class="hero-stat-row">
+          <div class="hero-stat-num">751</div>
+          <div class="hero-stat-desc">People across Hugg &amp; Hall's operations. Sales, rental, service, and parts teams working across Arkansas and surrounding states. Connected data means every one of them has the same view of every customer and every machine.</div>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="btn-primary">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+          Book 30 Minutes with Anthony
+        </a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-label">Hugg &amp; Hall at a Glance</div>
+      <div class="hero-card-stat">
+        <div class="hcs-num">$235<span>M</span></div>
+        <div class="hcs-label">Annual revenue across equipment sales, rental, and aftermarket service operations in Arkansas and the surrounding region.</div>
+      </div>
+      <div class="hero-card-stat">
+        <div class="hcs-num">3<span> revenue lines</span></div>
+        <div class="hcs-label">Sales, rental, and service. Each one depends on a different customer relationship and a different operational motion. Connected data means one view of every account across all three.</div>
+      </div>
+      <div class="hero-card-stat">
+        <div class="hcs-num">Little Rock<span>, AR</span></div>
+        <div class="hcs-label">Hugg &amp; Hall's headquarters, where the company has been serving the equipment needs of Arkansas businesses for decades. Deep regional roots and customer relationships.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item"><div class="sv">$235M</div><div class="sl">Annual Revenue</div></div>
+  <div class="strip-item"><div class="sv">751</div><div class="sl">Employees</div></div>
+  <div class="strip-item"><div class="sv">3</div><div class="sl">Revenue Lines</div></div>
+  <div class="strip-item"><div class="sv">Multi-state</div><div class="sl">Service Coverage</div></div>
+  <div class="strip-item"><div class="sv">Little Rock</div><div class="sl">Headquarters</div></div>
+</div>
+
+<hr class="hr">
+
+<!-- POV -->
+<section class="pov-section" id="pov">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Our Point of View</div>
+    <h2 class="section-title">The Equipment Dealer's Competitive Advantage Is Service Speed.<br>Speed Requires Connected Systems.</h2>
+    <p class="section-sub">Customers choose their equipment dealer based on price once and service forever. The dealer who gets a technician on-site fastest, with the right parts and the full service history, keeps the account. That capability is a systems problem, not a people problem.</p>
+
+    <div class="pov-grid">
+      <div class="pov-statement">
+        <blockquote>"Customers don't leave equipment dealers because of price. <em>They leave because they called at 7am and a technician showed up at 2pm without the right part. That is a systems problem disguised as a service problem.</em>"</blockquote>
+        <p>An equipment rental customer has a telehandler down on a commercial construction site. The operator calls your service line. A dispatcher takes the call, tries to find the right technician in the field, checks parts availability from a different system, and eventually gets someone dispatched two hours later. The technician arrives, diagnoses the problem, and realizes the part they need isn't on the truck. Another two hours. The customer calls a competitor for their next rental.</p>
+        <p>That sequence happens because dispatch, technician location, service history, and parts inventory are in separate systems or in someone's head. A connected field service platform puts all of it in one place: the right technician with the right history and the right parts gets dispatched from a single screen. The 7am call becomes a 90-minute resolution. That is how you keep the account.</p>
+      </div>
+      <div class="pov-points">
+        <div class="pov-point">
+          <div class="pov-point-icon">🔧</div>
+          <div class="pov-point-body">
+            <strong>Technician productivity is limited by dispatch and information, not by skill.</strong>
+            <p>Your field technicians are skilled. What slows them down is the information gap: arriving without the full service history, spending time on the phone with dispatch to get parts ordered, manually logging work orders at the end of the day. A connected field service platform closes those gaps. Technicians spend more time turning wrenches and less time on administrative work that a system should be doing for them.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">📋</div>
+          <div class="pov-point-body">
+            <strong>Rental utilization is managed reactively without connected data.</strong>
+            <p>Rental fleet management without real-time utilization data means you find out a piece of equipment is sitting idle after the fact, not before. A connected rental operations platform shows you utilization rates by asset, by customer, and by region in real time. The rental manager who can see which assets are underperforming can move them before the quarterly review. That is the difference between managing the fleet and optimizing it.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">📊</div>
+          <div class="pov-point-body">
+            <strong>Sales, rental, and service are three separate relationships with the same customer.</strong>
+            <p>A customer who bought equipment from Hugg &amp; Hall three years ago, rents supplemental equipment seasonally, and calls your service line twice a year is one account. If the rep managing their equipment sale doesn't know about the two service calls, and the rental manager doesn't know the account is up for a major equipment replacement, you're leaving expansion revenue on the table. A unified customer view changes that conversation.</p>
+          </div>
+        </div>
+        <div class="pov-point">
+          <div class="pov-point-icon">🤖</div>
+          <div class="pov-point-body">
+            <strong>After-hours service and availability questions don't have to wait for a person.</strong>
+            <p>A contractor calling Saturday morning about equipment availability or service status shouldn't go to voicemail. An AI agent connected to your rental inventory and service dispatch can answer availability questions, confirm service appointment status, and escalate to a human for anything that requires judgment. Your team gets the complex calls. Routine inquiries get answered in under a minute, any time of day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- PROOF -->
+<section class="proof-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Customer Proof</div>
+    <h2 class="section-title">Equipment Dealers and Industrial Service Organizations Who Built the Connected Operations Platform</h2>
+    <p class="section-sub">These are companies with field service teams, rental operations, and aftermarket businesses who connected their service dispatch, customer data, and rental management on one platform. The pattern is consistent: faster response times, higher technician productivity, and better customer retention.</p>
+
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Sunbelt Rentals</span>
+          <span class="proof-tag">Field Service</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">25%</div>
+          <div class="proof-desc">A large equipment rental company reduced equipment downtime by 25% after connecting field service dispatch, technician scheduling, and preventive maintenance tracking on one platform. Service calls that previously required multiple system lookups and phone calls were handled from a single screen. The result was faster dispatch and fewer repeat service calls on the same issue.</div>
+          <div class="proof-industry">Equipment Rental · Field Service</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Titan Machinery</span>
+          <span class="proof-tag">Service Cloud</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">40%</div>
+          <div class="proof-desc">An agricultural and construction equipment dealer with multi-state operations connected their sales, service, and parts teams on one customer platform. Service reps went from average 4-hour response times to under 90 minutes after deployment. 40% improvement in first-call resolution. Customer satisfaction scores climbed in the first two quarters. This is the same sales-service-parts model Hugg &amp; Hall runs.</div>
+          <div class="proof-industry">Equipment Dealer · Service Cloud</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">Forrester TEI 2024</span>
+          <span class="proof-tag">Platform ROI</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">289%</div>
+          <div class="proof-desc">Forrester's 2024 Total Economic Impact study found 289% ROI over three years for a service-intensive industrial company on the Salesforce platform. Technician productivity improvements and reduced administrative overhead covered platform cost in year one. A business case built specifically to Hugg &amp; Hall's service volume and technician headcount is available on request.</div>
+          <div class="proof-industry">Industrial Services · Platform ROI</div>
+        </div>
+      </div>
+
+      <div class="proof-card">
+        <div class="proof-card-top">
+          <span class="proof-company">BlueLine Rental</span>
+          <span class="proof-tag">Rental Operations</span>
+        </div>
+        <div class="proof-body">
+          <div class="proof-stat">18%</div>
+          <div class="proof-desc">A regional equipment rental company connected rental availability, customer contract management, and field service dispatch on one platform. Fleet utilization improved 18% in the first year as idle equipment was identified and repositioned in real time rather than in quarterly reviews. Rental reps had live availability across all locations, eliminating the "let me check and call you back" that costs deals to competitors who can answer instantly.</div>
+          <div class="proof-industry">Equipment Rental · Connected Operations</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- PRODUCTS -->
+<section class="products-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">What We're Building Together</div>
+    <h2 class="section-title">Connected Field Service, Rental Operations, and Customer Intelligence Built for an Equipment Dealer.</h2>
+    <p class="section-sub">Three capabilities. One platform. Field service technicians dispatched with the right history and the right parts. Rental reps with live fleet availability. An AI agent that handles after-hours inquiries and routes the ones that need a human. Built around the way Hugg &amp; Hall's customers actually call, rent, and need service.</p>
+
+    <div class="products-grid">
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <span class="product-cloud-tag">Field Service</span>
+          <div class="product-title">Service Dispatch That Gets the Right Technician There with the Right Parts</div>
+          <div class="product-sub">Intelligent dispatch based on technician location, skill set, and parts inventory. Full service history on every work order. Real-time job status for your service coordinators and your customers.</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-anchor">
+            <div class="product-anchor-label">The Gap Today</div>
+            <div class="product-anchor-val">Manual dispatch</div>
+            <div class="product-anchor-sub">Technician location and parts availability in separate systems or someone's memory</div>
+          </div>
+          <ul class="product-bullets">
+            <li>Intelligent dispatch routing based on technician location, skill certification, and parts on the truck. The right person gets the call every time, not just the available person.</li>
+            <li>Full equipment service history on every work order. The technician arrives knowing what has been done to that machine before they open the hood.</li>
+            <li>Mobile work order management. Technicians close jobs from their phone. No end-of-day paperwork. Service history updates in real time.</li>
+            <li>Parts inventory connected to dispatch. If the job requires a part, the system checks availability before the technician is dispatched. No more truck rolls that turn into return visits.</li>
+            <li>Customer-facing job status. The customer who called at 7am can see that a technician is 20 minutes away. That visibility reduces callbacks to your service line and sets expectations before they become frustration.</li>
+            <li>Preventive maintenance scheduling. Your top rental and owned equipment accounts get proactive maintenance outreach before they call you with a breakdown. That is how you become the service provider they renew without shopping.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <span class="product-cloud-tag">Service Cloud</span>
+          <div class="product-title">One View of Every Customer Across Sales, Rental, and Service</div>
+          <div class="product-sub">Sales activity, rental history, service calls, and open work orders in a single customer record. Your reps stop asking customers for information they should already have, and start having the conversations that expand the relationship.</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-anchor">
+            <div class="product-anchor-label">Core Capability</div>
+            <div class="product-anchor-val">Unified customer record</div>
+            <div class="product-anchor-sub">Sales, rental, and service data in one place, visible to every team</div>
+          </div>
+          <ul class="product-bullets">
+            <li>Every customer interaction across sales, rental, and service in one record. The service tech, the rental coordinator, and the account rep all see the same history when they pull up an account.</li>
+            <li>Service case management with SLA tracking. When a customer has a down machine, your coordinator has a tracked case, not a sticky note. Response time compliance becomes measurable and improvable.</li>
+            <li>Rental contract management. Active rentals, upcoming returns, and extension requests in one view. No more calls asking customers about their own contract terms.</li>
+            <li>Expansion signals. When a customer's service history shows repeated breakdowns on aging equipment, your rep gets an alert. That is the right time for a replacement conversation, not a cold call.</li>
+            <li>One platform for customer data, service history, and rental records. No separate systems to reconcile or maintain.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-top">
+          <span class="product-cloud-tag">Agentforce</span>
+          <div class="product-title">After-Hours Service and Availability Questions Answered Instantly</div>
+          <div class="product-sub">"Is that 60-foot boom lift available next Tuesday?" Answered instantly from live rental inventory. Service appointment status confirmed without calling the service line. Escalates to your team for anything that needs a human decision.</div>
+        </div>
+        <div class="product-card-body">
+          <div class="product-anchor">
+            <div class="product-anchor-label">Core Use Case</div>
+            <div class="product-anchor-val">24/7 availability</div>
+            <div class="product-anchor-sub">Rental inquiries and service status answered without pulling a rep off a live call</div>
+          </div>
+          <ul class="product-bullets">
+            <li>"Is that 60-foot boom lift available next Tuesday in your Fayetteville yard?" Answered in seconds from live rental inventory. No hold music. No callback needed.</li>
+            <li>Service appointment confirmations and status updates available around the clock. A customer who called Friday afternoon to schedule service can check status Saturday morning without waiting for Monday.</li>
+            <li>Escalates to your team for anything that requires a human: pricing negotiations, urgent breakdowns, complex rental configurations, or accounts that need a rep's personal attention.</li>
+            <li>Every interaction is a data record. Your rental team sees which equipment types are getting the most inquiry volume. Your service team sees which accounts are calling after hours. Both are signals for how to staff and what to stock.</li>
+            <li>Handles routine customer inquiries so your rental coordinators and service dispatchers are freed for the complex situations that actually need their expertise.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<section class="urgency-section">
+  <div class="section fade-in" style="padding-top:52px; padding-bottom:52px;">
+    <div class="section-eyebrow">Why Now</div>
+    <h2 class="section-title">The Equipment Dealer Market Is Consolidating Around the Ones Who Can Respond Fastest.</h2>
+    <p class="section-sub" style="max-width:720px;">National rental chains are investing in digital operations. Independent dealers who can match their response time and customer experience keep the relationships nationals can't replicate. The window to build that advantage is now.</p>
+    <div class="urgency-grid">
+      <div class="urgency-card">
+        <div class="urgency-card-icon">⏱️</div>
+        <div class="urgency-card-title">National rental chains have connected field service operations. Regional dealers who respond slower are losing accounts they've held for years</div>
+        <div class="urgency-card-body">United Rentals, Sunbelt, and BlueLine have invested heavily in connected dispatch and mobile field service. Their technicians have full asset history on a tablet. Their customers get real-time ETAs. An independent dealer with manual dispatch can't match that experience on the response metrics that matter most: first-call resolution and time-to-dispatch. Every account that goes to a national chain because of a bad service experience is an account that does not come back. Building the operational capability now is the path to keeping the regional relationships that national chains can't replicate through technology alone.</div>
+      </div>
+      <div class="urgency-card">
+        <div class="urgency-card-icon">⚡</div>
+        <div class="urgency-card-title">Technician retention is harder when the tools are worse than what they could get elsewhere</div>
+        <div class="urgency-card-body">Experienced service technicians are in short supply across every equipment category. When they have a choice between an employer with connected mobile tools and one with paper work orders and end-of-day phone call check-ins, the tools matter. Modern field service platforms are as much a technician retention investment as they are a customer experience investment. The dealers who make technicians' jobs easier keep the experienced people longer, and experienced technicians are the ones your customers actually want working on their machines.</div>
+      </div>
+      <div class="urgency-card">
+        <div class="urgency-card-icon">🚀</div>
+        <div class="urgency-card-title">A scoped pilot starting with your field service technicians and top service accounts can show measurable results before year-end</div>
+        <div class="urgency-card-body">A pilot doesn't require connecting every system on day one. Start with your field service technicians and your top 30 service accounts. Connect dispatch, work orders, and service history for that subset. Measure response time, first-call resolution, and technician billable hours before and after. The business case for the rest of the organization writes itself from those numbers. We can build the pilot scope and the ROI math together in one meeting. The question is whether the first results come in Q4 or Q2 of next year.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section class="impact-section">
+  <div class="impact-inner fade-in">
+    <div class="section-eyebrow" style="color:rgba(255,255,255,.75)">The Business Case</div>
+    <h2 class="section-title" style="color:#fff">The ROI Is Already Proven in Equipment and Industrial Services</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,.72); max-width:700px">Benchmarks from Forrester's 2024 Total Economic Impact study and comparable equipment dealer and field service deployments.</p>
+    <div class="impact-grid">
+      <div class="impact-item">
+        <div class="impact-num count-up" data-target="289" data-suffix="%">289%</div>
+        <div class="impact-label">ROI over 3 years<br>Forrester TEI industrial services</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num count-up" data-target="40" data-suffix="%">40%</div>
+        <div class="impact-label">Faster first-call resolution<br>connected field service deployment</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num count-up" data-target="18" data-suffix="%">18%</div>
+        <div class="impact-label">Rental fleet utilization improvement<br>connected rental operations</div>
+      </div>
+      <div class="impact-item">
+        <div class="impact-num">Year 1</div>
+        <div class="impact-label">Technician productivity gains<br>cover platform cost</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Who You're Talking To</div>
+    <h2 class="section-title" style="color:#fff">A Peer, Not a Pitch.</h2>
+    <div class="about-team">
+      <div class="about-card">
+        <img src="anthony.png" alt="Anthony Troggio" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="about-card-photo-placeholder" style="display:none">AT</div>
+        <div class="about-card-info">
+          <div class="about-name">Anthony Troggio</div>
+          <div class="about-contact"><a href="mailto:atroggio@salesforce.com" style="color:inherit">atroggio@salesforce.com</a> · <a href="tel:7654307903" style="color:inherit">765-430-7903</a></div>
+          <div class="about-role">Digital Transformation Executive, Manufacturing &amp; Automotive | Salesforce</div>
+          <p class="about-body">I work with equipment dealers and industrial service companies across the West who run service, rental, and sales operations as separate motions. The conversation I want to have is about your field service response times and what it would take to get your technicians and your customers the information they need faster. Dad, family man, straight shooter.</p>
+        </div>
+      </div>
+      <div class="about-card">
+        <img src="kennedy-wenz.png" alt="Kennedy Wenz" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="about-card-photo-placeholder" style="display:none">KW</div>
+        <div class="about-card-info">
+          <div class="about-name">Kennedy Wenz</div>
+          <div class="about-contact"><a href="mailto:kwenz@salesforce.com" style="color:inherit">kwenz@salesforce.com</a></div>
+          <div class="about-role">Digital Transformation Executive, Manufacturing, Automotive &amp; Energy | Salesforce</div>
+          <p class="about-body">From founding EAT.org across DACH to driving Agentic AI adoption at Salesforce in San Francisco, Kennedy bridges global strategy and frontier technology. She translates field service, rental operations, and customer intelligence capabilities into outcomes that equipment dealers can implement and measure from day one.</p>
+        </div>
+      </div>
+    </div>
+    <div class="about-cta-row">
+      <a href="mailto:atroggio@salesforce.com" class="btn-white">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+        atroggio@salesforce.com
+      </a>
+      <a href="tel:7654307903" class="btn-ghost" style="color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.2)">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+        765-430-7903
+      </a>
+      <a href="mailto:kwenz@salesforce.com?subject=Hugg %26 Hall — Salesforce" class="btn-white">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+        kwenz@salesforce.com
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="section fade-in">
+    <div class="cta-title">Ready to see what this looks like for Hugg &amp; Hall?</div>
+    <p class="cta-sub">30 minutes. I'll show you what connected field service dispatch looks like for an equipment dealer, walk through how rental operations visibility works in real time, and give you an honest picture of what a pilot scoped to your field service team looks like on timeline and cost.</p>
+    <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="btn-white">
+      <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="var(--amber)" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      Book Time with Anthony
+    </a>
+    <div class="cta-contact">atroggio@salesforce.com &nbsp;·&nbsp; 765-430-7903</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>Anthony Troggio</span> · Digital Transformation Executive, Salesforce · Manufacturing &amp; Automotive, West<br>
+  <span style="font-size:.68rem;opacity:.5;margin-top:6px;display:block">Prepared exclusively for Hugg &amp; Hall Equipment Company · July 2026 · Confidential</span>
+</footer>
+
+<script>
+const fadeObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); fadeObserver.unobserve(e.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
+
+function animateCount(el) {
+  const raw = el.dataset.target;
+  const suffix = el.dataset.suffix || '';
+  const target = parseFloat(raw);
+  if (isNaN(target)) return;
+  const duration = 1800;
+  const start = performance.now();
+  function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const value = target * ease(progress);
+    el.textContent = Math.floor(value).toLocaleString() + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target.toLocaleString() + suffix;
+  }
+  requestAnimationFrame(step);
+}
+const countObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { animateCount(e.target); countObserver.unobserve(e.target); }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
+</script>
+</body>
+</html>
