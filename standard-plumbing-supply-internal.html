@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Standard Plumbing Supply — Internal Account Brief</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #0f1117;
+  color: #e2e8f0;
+  line-height: 1.6;
+  font-size: 15px;
+}
+a { color: #60a5fa; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+:root {
+  --bg:      #0f1117;
+  --bg2:     #161b26;
+  --bg3:     #1e2535;
+  --border:  rgba(255,255,255,.08);
+  --border2: rgba(255,255,255,.13);
+  --text:    #e2e8f0;
+  --muted:   #8899aa;
+  --red:     #f05060;
+  --red2:    #e01530;
+  --green:   #34d399;
+  --blue:    #60a5fa;
+  --yellow:  #fbbf24;
+  --orange:  #fb923c;
+  --purple:  #a78bfa;
+  --copper:  #d97706;
+  --navy:    #1e40af;
+  --r:       10px;
+}
+
+.topbar {
+  background: #0a0d14;
+  border-bottom: 1px solid var(--border);
+  padding: 14px 40px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 50;
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-badge {
+  background: rgba(251,191,36,.12); border: 1px solid rgba(251,191,36,.3);
+  color: #fbbf24; font-size: .65rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px;
+  padding: 3px 10px; border-radius: 50px;
+}
+.topbar-badge.prospect {
+  background: rgba(217,119,6,.12); border: 1px solid rgba(217,119,6,.3);
+  color: var(--copper);
+}
+.topbar-title { font-size: .88rem; font-weight: 700; color: var(--text); }
+.topbar-sub { font-size: .72rem; color: var(--muted); margin-top: 1px; }
+.topbar-right { display: flex; align-items: center; gap: 10px; }
+.topbar-btn {
+  font-size: .72rem; font-weight: 700; padding: 6px 14px; border-radius: 6px;
+  border: 1px solid var(--border2); color: var(--muted);
+  transition: color .15s, border-color .15s; cursor: pointer;
+}
+.topbar-btn:hover { color: var(--text); border-color: rgba(255,255,255,.25); }
+.topbar-btn.primary { background: #1e3a8a; border-color: transparent; color: #fff; }
+.topbar-btn.primary:hover { background: #1e40af; }
+
+.layout {
+  max-width: 1200px; margin: 0 auto;
+  padding: 32px 40px 80px;
+  display: grid; grid-template-columns: 260px 1fr;
+  gap: 32px; align-items: start;
+}
+
+.sidebar { position: sticky; top: 72px; }
+.sidebar-section { margin-bottom: 28px; }
+.sidebar-label {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.2px; color: var(--muted); margin-bottom: 10px;
+}
+.nav-item {
+  display: block; padding: 7px 12px; border-radius: 6px;
+  font-size: .82rem; color: var(--muted);
+  transition: background .15s, color .15s; cursor: pointer;
+}
+.nav-item:hover, .nav-item.active { background: var(--bg3); color: var(--text); }
+.nav-item.active { font-weight: 600; }
+
+.account-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 16px;
+}
+.account-logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.account-logo-wrap {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: #fff; display: flex; align-items: center; justify-content: center;
+  overflow: hidden; flex-shrink: 0;
+}
+.account-logo { width: 24px; height: 24px; object-fit: contain; }
+.account-name { font-size: .9rem; font-weight: 800; color: var(--text); }
+.account-domain { font-size: .72rem; color: var(--muted); }
+.account-stat {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 5px 0; border-bottom: 1px solid var(--border); font-size: .78rem;
+}
+.account-stat:last-child { border-bottom: none; }
+.account-stat-label { color: var(--muted); }
+.account-stat-val { font-weight: 700; color: var(--text); }
+
+.main { min-width: 0; display: flex; flex-direction: column; gap: 28px; }
+
+.card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); overflow: hidden;
+}
+.card-header {
+  padding: 16px 20px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.card-title { font-size: .88rem; font-weight: 700; color: var(--text); }
+.card-sub { font-size: .75rem; color: var(--muted); margin-top: 2px; }
+.card-body { padding: 20px; }
+
+.card-tag {
+  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px;
+  padding: 3px 10px; border-radius: 50px;
+}
+.tag-green  { background: rgba(52,211,153,.1);  color: var(--green);  border: 1px solid rgba(52,211,153,.2); }
+.tag-blue   { background: rgba(96,165,250,.1);  color: var(--blue);   border: 1px solid rgba(96,165,250,.2); }
+.tag-yellow { background: rgba(251,191,36,.1);  color: var(--yellow); border: 1px solid rgba(251,191,36,.2); }
+.tag-red    { background: rgba(240,80,96,.1);   color: var(--red);    border: 1px solid rgba(240,80,96,.2); }
+.tag-orange { background: rgba(217,119,6,.1);   color: var(--copper); border: 1px solid rgba(217,119,6,.25); }
+.tag-purple { background: rgba(167,139,250,.1); color: var(--purple); border: 1px solid rgba(167,139,250,.2); }
+.tag-gray   { background: rgba(255,255,255,.05);color: var(--muted);  border: 1px solid var(--border); }
+
+/* CONTACT GRID */
+.contact-grid { display: flex; flex-direction: column; gap: 12px; }
+.contact-row {
+  display: grid; grid-template-columns: 44px 1fr auto;
+  gap: 14px; align-items: start;
+  padding: 14px 16px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--bg3);
+  transition: border-color .15s;
+}
+.contact-row:hover { border-color: var(--border2); }
+.contact-tier {
+  width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; font-weight: 800; color: #fff;
+}
+.tier-1 { background: linear-gradient(135deg, #92400e, #d97706); }
+.tier-2 { background: linear-gradient(135deg, #1e3a8a, #3b82f6); }
+.tier-3 { background: linear-gradient(135deg, #6366f1, #a78bfa); }
+.contact-name { font-size: .92rem; font-weight: 700; color: var(--text); }
+.contact-title { font-size: .78rem; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+.contact-meta { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.contact-link {
+  font-size: .72rem; color: var(--blue);
+  display: flex; align-items: center; gap: 4px;
+}
+.contact-why { font-size: .78rem; color: var(--text); line-height: 1.6; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.contact-why strong { color: var(--green); }
+.contact-actions { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; flex-shrink: 0; }
+.pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.domain-flag {
+  margin-top: 7px; padding: 5px 10px;
+  background: rgba(251,191,36,.07); border: 1px solid rgba(251,191,36,.2);
+  border-radius: 5px; font-size: .72rem; color: var(--yellow); line-height: 1.5;
+}
+.domain-flag strong { font-weight: 700; }
+
+/* TALK TRACK */
+.talk-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.talk-card {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 8px; padding: 16px;
+}
+.talk-card-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
+.talk-card-body { font-size: .82rem; color: #c8d8e8; line-height: 1.75; }
+.talk-card-body p + p { margin-top: 8px; }
+
+/* BASHO EMAILS */
+.email-block {
+  border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; margin-bottom: 16px;
+}
+.email-block:last-child { margin-bottom: 0; }
+.email-header {
+  background: var(--bg3); padding: 12px 16px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.email-to { font-size: .82rem; color: var(--text); }
+.email-to strong { font-weight: 700; }
+.email-subject { font-size: .75rem; color: var(--muted); margin-top: 2px; }
+.email-subject span { color: var(--text); font-weight: 600; }
+.email-body {
+  padding: 16px 18px; font-size: .84rem; color: #c8d8e8;
+  line-height: 1.85; white-space: pre-wrap; font-family: 'Georgia', serif;
+}
+.copy-btn {
+  font-size: .68rem; font-weight: 700; padding: 5px 12px; border-radius: 5px;
+  background: rgba(255,255,255,.06); border: 1px solid var(--border2);
+  color: var(--muted); cursor: pointer; white-space: nowrap;
+  transition: background .15s, color .15s;
+}
+.copy-btn:hover { background: rgba(255,255,255,.12); color: var(--text); }
+.copy-btn.copied { background: rgba(52,211,153,.12); border-color: rgba(52,211,153,.3); color: var(--green); }
+
+/* OBJECTIONS */
+.objection-list { display: flex; flex-direction: column; gap: 10px; }
+.objection-item { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.objection-q {
+  padding: 12px 14px; font-size: .82rem; font-weight: 700; color: var(--text);
+  display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border);
+}
+.objection-q::before {
+  content: '?'; width: 20px; height: 20px;
+  background: rgba(251,191,36,.15); color: var(--yellow); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 800; flex-shrink: 0;
+}
+.objection-a { padding: 12px 14px; font-size: .82rem; color: #c8d8e8; line-height: 1.75; }
+
+/* OPP HISTORY */
+.opp-list { display: flex; flex-direction: column; gap: 8px; }
+.opp-item {
+  display: grid; grid-template-columns: 1fr auto auto;
+  gap: 12px; align-items: center;
+  padding: 10px 14px; border-radius: 7px;
+  background: var(--bg3); border: 1px solid var(--border); font-size: .8rem;
+}
+.opp-name { font-weight: 600; color: var(--text); }
+.opp-detail { font-size: .72rem; color: var(--muted); margin-top: 2px; }
+.opp-amount { font-weight: 700; color: var(--text); white-space: nowrap; }
+
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; padding: 20px; }
+  .sidebar { position: static; }
+  .talk-grid { grid-template-columns: 1fr; }
+  .contact-row { grid-template-columns: 44px 1fr; }
+  .contact-actions { flex-direction: row; grid-column: 1 / -1; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div>
+      <div class="topbar-title">Standard Plumbing Supply — Account Brief</div>
+      <div class="topbar-sub">Internal use only &middot; Anthony Troggio &amp; Team &middot; July 2026</div>
+    </div>
+    <span class="topbar-badge">Internal</span>
+    <span class="topbar-badge prospect">Prospect</span>
+  </div>
+  <div class="topbar-right">
+    <a href="https://standardplumbing.com" target="_blank" class="topbar-btn">standardplumbing.com</a>
+    <a href="https://na1.salesforce.com/00130000002xdiKAAQ" target="_blank" class="topbar-btn primary">Open in Salesforce</a>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="account-card">
+      <div class="account-logo-row">
+        <div class="account-logo-wrap">
+          <img src="https://www.google.com/s2/favicons?domain=standardplumbing.com&sz=64" class="account-logo" alt="Standard Plumbing Supply">
+        </div>
+        <div>
+          <div class="account-name">Standard Plumbing</div>
+          <div class="account-domain">standardplumbing.com</div>
+        </div>
+      </div>
+      <div class="account-stat"><span class="account-stat-label">Revenue</span><span class="account-stat-val">$364M</span></div>
+      <div class="account-stat"><span class="account-stat-label">Employees</span><span class="account-stat-val">644</span></div>
+      <div class="account-stat"><span class="account-stat-label">HQ</span><span class="account-stat-val">Sandy, UT</span></div>
+      <div class="account-stat"><span class="account-stat-label">Industry</span><span class="account-stat-val">Plumbing Dist.</span></div>
+      <div class="account-stat"><span class="account-stat-label">Ownership</span><span class="account-stat-val">Reese Family</span></div>
+      <div class="account-stat"><span class="account-stat-label">Status</span><span class="account-stat-val" style="color:var(--yellow)">Prospect</span></div>
+      <div class="account-stat"><span class="account-stat-label">Prior Opp</span><span class="account-stat-val" style="color:var(--red)">Dead Lost</span></div>
+    </div>
+
+    <div class="sidebar-section" style="margin-top:20px;">
+      <div class="sidebar-label">The Play</div>
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <span class="card-tag tag-blue"   style="width:fit-content;">B2B Commerce</span>
+        <span class="card-tag tag-green"  style="width:fit-content;">Agentforce</span>
+        <span class="card-tag tag-purple" style="width:fit-content;">Data Cloud</span>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Navigate</div>
+      <a class="nav-item active" href="#context">Account Context</a>
+      <a class="nav-item" href="#contacts">Priority Contacts</a>
+      <a class="nav-item" href="#basho">BASHO Emails</a>
+      <a class="nav-item" href="#talktrack">Talk Track</a>
+      <a class="nav-item" href="#objections">Objection Handling</a>
+      <a class="nav-item" href="#history">Opportunity History</a>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Key Signals</div>
+      <div style="font-size:.75rem; color:var(--muted); line-height:1.9;">
+        Champion: <span style="color:var(--copper)">Devon Chandler</span><br>
+        Last activity: <span style="color:var(--text)">Jul 2, 2026</span><br>
+        Prior close: <span style="color:var(--red)">Apr 16, 2025</span><br>
+        SF Account: <span style="color:var(--text)">00130000002xdiKAAQ</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- ACCOUNT CONTEXT -->
+    <div class="card" id="context">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Account Context</div>
+          <div class="card-sub">What makes Standard Plumbing a real platform opportunity right now</div>
+        </div>
+        <span class="card-tag tag-orange">Prospect</span>
+      </div>
+      <div class="card-body">
+        <div class="talk-grid">
+          <div class="talk-card">
+            <div class="talk-card-label">Who They Are</div>
+            <div class="talk-card-body">
+              <p>Standard Plumbing Supply Company, Inc. is a $364M, 644-person wholesale plumbing distributor headquartered in Sandy, UT. They serve contractors, builders, and showroom customers across the West through both a contractor supply business and branded showrooms.</p>
+              <p>Family-owned by the Reese family: Richard Reese is President, Jacob Reese is VP, Benjamin Reese is Director. This is a multi-generational business where platform decisions require family buy-in, not just a budget approval.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The Changed Signal</div>
+            <div class="talk-card-body">
+              <p>Devon Chandler now holds the title Director of E-Commerce at a $364M plumbing distributor. That role did not exist when the prior Salesforce conversation happened. It is a direct signal that Standard Plumbing is actively working on a digital channel strategy.</p>
+              <p>He is not a stakeholder to introduce to digital commerce. He is already working on it. The question is whether Salesforce becomes the platform behind what he is building, or whether he builds it on something else.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The Competitive Threat</div>
+            <div class="talk-card-body">
+              <p>Ferguson is the primary competitor Standard Plumbing calls out on their own external site. Ferguson has a fully digital ordering channel at national scale: account pricing, real-time inventory, 24/7 self-service.</p>
+              <p>Standard Plumbing's competitive edge is relationships and service depth. But that edge erodes when a contractor can get similar products with a better ordering experience at 6am before the counter opens. The relationship advantage is real but it is not permanent without a digital layer.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">Why Now</div>
+            <div class="talk-card-body">
+              <p>Devon Chandler's title is new. There is a window to engage before he commits to a platform. Once a decision is made elsewhere, it is a multi-year lock-in.</p>
+              <p>Loyd Steffensen (VP of Marketing and IT, most recently active Jul 2, 2026) owns both the marketing stack and technology decisions. He is active right now. The prior opp was a small $18,750 "GetOnTheBoard" test, not a real evaluation. This conversation starts fresh with the right people and the right scope.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIORITY CONTACTS -->
+    <div class="card" id="contacts">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Priority Contacts</div>
+          <div class="card-sub">Ranked by fit for the B2B Commerce + Agentforce play</div>
+        </div>
+        <span class="card-tag tag-orange">6 Targets</span>
+      </div>
+      <div class="card-body">
+        <div class="contact-grid">
+
+          <!-- Devon Chandler -->
+          <div class="contact-row">
+            <div class="contact-tier tier-1">DC</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Devon Chandler</div>
+              <div class="contact-title">Director of E-Commerce</div>
+              <div class="contact-meta">
+                <a href="mailto:devon.chandler@standardplumbing.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  devon.chandler@standardplumbing.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(253) 880-5069</span>
+              </div>
+              <div class="contact-why"><strong>This is your champion. Start here.</strong> Director of E-Commerce at a $364M plumbing distributor is a specific mandate in a category where most regional distributors still run counter sales and phone orders. He knows what is missing, what the platform gaps are, and what would make his job easier. He is already working on the digital channel. The conversation does not need to start with "why digital" — it needs to start with "what are you building and where is the platform falling short."</div>
+              <div class="pill-row">
+                <span class="card-tag tag-orange">Champion</span>
+                <span class="card-tag tag-yellow">Last active Jun 18, 2026</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-orange">Tier 1</span>
+            </div>
+          </div>
+
+          <!-- Loyd Steffensen -->
+          <div class="contact-row">
+            <div class="contact-tier tier-1">LS</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Loyd Steffensen</div>
+              <div class="contact-title">VP / Marketing-IT Manager</div>
+              <div class="contact-meta">
+                <a href="mailto:steffensen@standardsupply.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  steffensen@standardsupply.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">+1 (801) 486-3371 x3147</span>
+              </div>
+              <div class="domain-flag">
+                <strong>Domain flag:</strong> His email is @standardsupply.com, not @standardplumbing.com. This may be a parent entity, a separate division, or an older address. Verify before outreach. Try both domains if needed.
+              </div>
+              <div class="contact-why"><strong>Owns both marketing and IT together.</strong> That combination is unusual and it means he sees both where the customer experience breaks down and who has to fix it. Platform decisions flow through him. He is the most recently active contact on the account (Jul 2, 2026). If Devon Chandler is the champion, Steffensen is the technical authority who controls whether the platform gets approved.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-orange">Decision authority</span>
+                <span class="card-tag tag-green">Most recent activity</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-orange">Tier 1</span>
+            </div>
+          </div>
+
+          <!-- Brad Chamberlain -->
+          <div class="contact-row">
+            <div class="contact-tier tier-1">BC</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Brad Chamberlain</div>
+              <div class="contact-title">Director of Strategic Initiatives</div>
+              <div class="contact-meta">
+                <a href="mailto:brad.chamberlain@standardplumbing.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  brad.chamberlain@standardplumbing.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(801) 485-2304</span>
+              </div>
+              <div class="contact-why"><strong>The person who owns cross-functional transformation at a family business.</strong> "Strategic Initiatives" is the role that exists specifically for projects that do not fit neatly into one department. A contractor ordering portal that touches IT, marketing, operations, and the showroom business is exactly that project. He is the internal champion for anything that crosses lines. If you can get his buy-in, he can socialize it upward to the Reese family without you needing to cold-reach Jacob.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">Cross-functional champion</span>
+                <span class="card-tag tag-yellow">Last active Oct 2025</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-orange">Tier 1</span>
+            </div>
+          </div>
+
+          <!-- Jacob Reese -->
+          <div class="contact-row">
+            <div class="contact-tier tier-2">JR</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Jacob Reese</div>
+              <div class="contact-title">Vice President</div>
+              <div class="contact-meta">
+                <a href="mailto:jacob.reese@standardplumbing.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  jacob.reese@standardplumbing.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(801) 233-4098</span>
+              </div>
+              <div class="contact-why">Reese family VP. His buy-in is required for any platform decision at a family-owned business. Do not cold-reach him. The right path is an introduction through Chandler or Steffensen after the business case is built. Once you have a champion and a value case, he becomes the executive sponsor who closes the deal internally.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">Get introduced</span>
+                <span class="card-tag tag-yellow">Last active Jun 18, 2026</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 2</span>
+            </div>
+          </div>
+
+          <!-- Joe Gray -->
+          <div class="contact-row">
+            <div class="contact-tier tier-2">JG</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Joe Gray</div>
+              <div class="contact-title">Director of Corporate Purchasing</div>
+              <div class="contact-meta">
+                <a href="mailto:joey@standardplumbing.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  joey@standardplumbing.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(801) 233-2912</span>
+              </div>
+              <div class="contact-why">Owns procurement relationships. A contractor ordering portal that connects to purchase orders and contractor account pricing is directly in his domain. He understands the pain of manual PO processing and the value of self-service reordering. Good supporting voice once the platform conversation is live.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">Procurement angle</span>
+                <span class="card-tag tag-yellow">Last active Oct 2025</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 2</span>
+            </div>
+          </div>
+
+          <!-- Jill Brown -->
+          <div class="contact-row">
+            <div class="contact-tier tier-2">JB</div>
+            <div class="contact-info-main">
+              <div class="contact-name">Jill Brown</div>
+              <div class="contact-title">Director of Showroom Operations</div>
+              <div class="contact-meta">
+                <a href="mailto:jill.brown@standardplumbing.com" class="contact-link">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8"/></svg>
+                  jill.brown@standardplumbing.com
+                </a>
+                <span style="font-size:.72rem; color:var(--muted)">(801) 599-7001</span>
+              </div>
+              <div class="contact-why">Standard Plumbing operates showrooms in addition to contractor supply. A unified contractor record that connects showroom interactions and contractor ordering behavior is a cross-sell opportunity she cares about. A contractor who buys fixtures in the showroom and materials through the portal is a more valuable customer than one who does only one or the other. Data Cloud makes that connection visible.</div>
+              <div class="pill-row">
+                <span class="card-tag tag-blue">Showroom cross-sell</span>
+                <span class="card-tag tag-yellow">Last active Jun 24, 2026</span>
+              </div>
+            </div>
+            <div class="contact-actions">
+              <span class="card-tag tag-blue">Tier 2</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- BASHO EMAILS -->
+    <div class="card" id="basho">
+      <div class="card-header">
+        <div>
+          <div class="card-title">BASHO Emails</div>
+          <div class="card-sub">Research-based, 4 sentences max. Click to copy.</div>
+        </div>
+        <span class="card-tag tag-yellow">3 Ready</span>
+      </div>
+      <div class="card-body">
+
+        <div class="email-block" id="email-chandler">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>Devon Chandler</strong> &mdash; Director of E-Commerce</div>
+              <div class="email-subject">Subject: <span>The contractor ordering channel at Standard Plumbing</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-chandler', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-chandler-body">Devon,
+
+You have an e-commerce title at a $364M plumbing distributor -- that's a specific mandate in a category where most competitors are still running counter sales and phone orders. I want to understand what you're building and where the platform gaps are, because the piece most regional distributors get wrong is connecting contractor account pricing and job-site inventory visibility to the online ordering experience. We built that for a comparable building products distributor -- their contractor channel shifted to self-serve for routine orders and their inside team freed up for the complex jobs. Worth 20 minutes?
+
+Anthony Troggio
+Salesforce | Digital AE, MFG &amp; Automotive West
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+        <div class="email-block" id="email-steffensen">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>Loyd Steffensen</strong> &mdash; VP Marketing-IT</div>
+              <div class="email-subject">Subject: <span>Standard Plumbing's digital channel</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-steffensen', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-steffensen-body">Loyd,
+
+You own both marketing and IT at a $364M regional distributor -- that combination means you see where the customer experience breaks down and who has to fix it. The gap I see from the outside is that Standard Plumbing's contractor customers have a great relationship with your team but limited options when it's 6am and the counter isn't open yet. A contractor ordering portal with account pricing and real-time inventory captures that demand under your brand instead of sending it to Ferguson. Worth 20 minutes to see what that looks like?
+
+Anthony Troggio
+Salesforce | Digital AE, MFG &amp; Automotive West
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+        <div class="email-block" id="email-chamberlain">
+          <div class="email-header">
+            <div>
+              <div class="email-to">To: <strong>Brad Chamberlain</strong> &mdash; Director of Strategic Initiatives</div>
+              <div class="email-subject">Subject: <span>Standard Plumbing's next chapter</span></div>
+            </div>
+            <button class="copy-btn" onclick="copyEmail('email-chamberlain', this)">Copy Email</button>
+          </div>
+          <div class="email-body" id="email-chamberlain-body">Brad,
+
+Your title tells me you're the person at Standard Plumbing who owns the projects that don't fit neatly into one department. I want to put one on your radar: a contractor ordering portal that gives your 644-person organization a digital channel that doesn't depend on counter hours or rep availability. Ferguson has built this at national scale. The question for Standard Plumbing is whether your service reputation and relationship depth, which Ferguson cannot match, gets amplified by a digital channel or undercut by not having one. 20 minutes?
+
+Anthony Troggio
+Salesforce | Digital AE, MFG &amp; Automotive West
+atroggio@salesforce.com | 765-430-7903</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TALK TRACK -->
+    <div class="card" id="talktrack">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Talk Track</div>
+          <div class="card-sub">Calibrated for a first real conversation with the right stakeholders</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="talk-grid">
+          <div class="talk-card">
+            <div class="talk-card-label">Opener</div>
+            <div class="talk-card-body">
+              <p>"Standard Plumbing has built something real: contractor relationships and service depth that a national distributor like Ferguson genuinely cannot replicate. I want to understand what your digital channel looks like today, because I think that is where the competitive battle is being fought right now."</p>
+              <p>Lead with respect for what they have built. Do not start with a problem. Start with an observation that proves you did your homework.</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">Discovery Questions</div>
+            <div class="talk-card-body">
+              <p>How do your contractor customers place orders today: phone, counter, or online?</p>
+              <p>Does Devon Chandler's e-commerce initiative have a platform decision made, or is it still in evaluation?</p>
+              <p>How does account pricing work for contractors ordering online versus at the counter?</p>
+              <p>What happens when a contractor needs to check inventory at 6am before a job starts?</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">Value Pivot</div>
+            <div class="talk-card-body">
+              <p>"Ferguson has a 24/7 ordering platform with account pricing. Your contractors know that. The ones who stay with you do it because of the relationship and service. But if placing a standard order is easier with Ferguson, the relationship advantage starts to erode."</p>
+              <p>"A contractor portal does not replace your counter team. It captures the demand that was going to Ferguson at 6am. The counter team handles the complex orders and the relationship work they were hired to do."</p>
+            </div>
+          </div>
+          <div class="talk-card">
+            <div class="talk-card-label">The Ask</div>
+            <div class="talk-card-body">
+              <p>Show the Westlake Royal dealer portal as the structural analog. It demonstrates contractor account pricing, real-time inventory, and job-based ordering in a building products distributor context.</p>
+              <p>Send the external briefing as a leave-behind after the call. Ask for a second meeting that includes Loyd Steffensen or Jacob Reese if Devon Chandler wants to move forward.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBJECTIONS -->
+    <div class="card" id="objections">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Objection Handling</div>
+          <div class="card-sub">The five objections most likely to come up with this account</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="objection-list">
+
+          <div class="objection-item">
+            <div class="objection-q">Our contractors prefer the counter experience.</div>
+            <div class="objection-a">For complex orders and technical questions, yes. For a routine reorder of a SKU they have ordered 20 times? They prefer whatever is fastest. The portal handles the routine. The counter handles the relationship. Counter staff generally like it because they stop being order entry clerks and start being service advisors. You are not replacing the counter. You are freeing it up.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">We are already building something in-house or with another vendor.</div>
+            <div class="objection-a">Tell me more about where that is headed. The question I would ask is whether contractor account pricing is connected to the online experience, or whether it is a catalog with generic pricing. That is the piece most regional distributors build wrong the first time, and it is the difference between a portal your contractors actually use and one they do not. If you are mid-build, it is worth a 20-minute look at how we solved that problem for a comparable distributor before you lock in an architecture.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">Ferguson is too big to compete with on digital.</div>
+            <div class="objection-a">You are not trying to out-Ferguson Ferguson on price or product breadth. You are trying to give your contractors, the ones who chose you for service and relationships, a digital experience that is as good as Ferguson's for the transactions that do not need a relationship. The contractors who are loyal to Standard Plumbing will use your portal if it exists. Right now they are using Ferguson's because it is the only one available at 6am.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">We do not have budget for a platform project right now.</div>
+            <div class="objection-a">The ROI math for a contractor portal is straightforward. If your top 100 contractor accounts shift 20% of their reorders to self-serve, the counter labor savings and order capture from off-hours demand pays for the platform in year one. I can build that model using your actual order volumes before we talk about budget. Give me a number to work with and I will come back with a model you can take to leadership.</div>
+          </div>
+
+          <div class="objection-item">
+            <div class="objection-q">The prior Salesforce conversation did not go anywhere.</div>
+            <div class="objection-a">The prior conversation was a small starter at $18,750. It was a relationship test, not a real platform evaluation. This is a different ask: a contractor ordering portal scoped to your top accounts with account pricing and real-time inventory. Different scope, different stakeholders, different business case. Devon Chandler's title did not exist when that conversation happened. That role is the signal that this conversation is different.</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- OPP HISTORY -->
+    <div class="card" id="history">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Opportunity History</div>
+          <div class="card-sub">Know what was tried before and why this conversation is different</div>
+        </div>
+        <span class="card-tag tag-red">1 Prior</span>
+      </div>
+      <div class="card-body">
+
+        <div style="margin-bottom:16px; padding:16px 18px; background:rgba(217,119,6,.07); border:1px solid rgba(217,119,6,.22); border-radius:8px;">
+          <div style="font-size:.78rem; font-weight:700; color:var(--copper); margin-bottom:8px;">Read on the prior opp before you mention Salesforce</div>
+          <div style="font-size:.8rem; color:#c8d8e8; line-height:1.8;">The only prior opportunity was $18,750, created March 5 and closed Dead-Lost April 16, 2025 -- about six weeks. The opp name includes "#GetOnTheBoard" and "#PF," which are pipeline flag hashtags that indicate this was a small first-deal attempt, not a real platform evaluation. "SLK" likely stands for Slack. It died fast because there was no serious business case behind it and the right stakeholders were not in the conversation. Devon Chandler's Director of E-Commerce role did not exist yet. This is a fresh start with the right scope and the right people. Do not treat the prior conversation as history that needs to be overcome. Treat it as a test that was too small to succeed.</div>
+        </div>
+
+        <div class="opp-list">
+          <div class="opp-item">
+            <div>
+              <div class="opp-name">Standard Plumbing Supply (SLK New Logo) #GetOnTheBoard #PF</div>
+              <div class="opp-detail">Dead Lost &middot; Closed Apr 16, 2025 &middot; Created Mar 5, 2025 &middot; ~6 weeks in pipeline</div>
+            </div>
+            <span class="card-tag tag-red">Dead Lost</span>
+            <div class="opp-amount">$18,750</div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px; padding:14px; background:rgba(96,165,250,.06); border:1px solid rgba(96,165,250,.18); border-radius:8px;">
+          <div style="font-size:.78rem; font-weight:700; color:var(--blue); margin-bottom:6px;">What is different this time</div>
+          <div style="font-size:.8rem; color:#c8d8e8; line-height:1.75;">Devon Chandler now exists in that org with a title that says "E-Commerce." That is a mandate. The right play today is B2B Commerce for contractor ordering, Agentforce for self-serve inventory and order status, and Data Cloud for a unified contractor record. That is a real business case at a size that matches a $364M distributor. The prior $18,750 conversation was never going to succeed because it was too small to matter. This one can.</div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+function copyEmail(blockId, btn) {
+  const bodyEl = document.getElementById(blockId + '-body');
+  if (!bodyEl) return;
+  // Convert HTML entities in the email body to plain text for clipboard
+  const tmp = document.createElement('div');
+  tmp.innerHTML = bodyEl.innerHTML;
+  const text = tmp.innerText || tmp.textContent;
+  navigator.clipboard.writeText(text.trim()).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy Email'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+document.querySelectorAll('.nav-item[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    link.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
