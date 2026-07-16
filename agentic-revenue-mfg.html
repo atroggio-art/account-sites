@@ -149,6 +149,206 @@ img { display: block; max-width: 100%; }
   padding: 4px 12px; font-size: .74rem; font-weight: 700; color: var(--orange2);
 }
 
+/* BROWSER FRAME + SF UI MOCKUP */
+:root {
+  --sf-blue:   #0176d3;
+  --sf-blue2:  #014486;
+  --sf-nav:    #032d60;
+  --sf-light:  #f3f3f3;
+  --sf-border: #e5e5e5;
+  --sf-text:   #181818;
+  --sf-muted:  #706e6b;
+  --sf-orange: #dd7a01;
+  --sf-green:  #2e844a;
+  --sf-r:      6px;
+}
+
+.sfui-tabs {
+  display: flex; gap: 4px; margin-bottom: 0;
+}
+.sfui-tab {
+  background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+  color: rgba(255,255,255,.55); font-size: .78rem; font-weight: 600;
+  padding: 9px 22px; border-radius: 6px 6px 0 0; border-bottom: none;
+  cursor: pointer; transition: background .15s, color .15s;
+  font-family: inherit;
+}
+.sfui-tab.active {
+  background: #fff; color: var(--sf-text); border-color: #fff;
+}
+.sfui-tab:not(.active):hover { background: rgba(255,255,255,.14); color: rgba(255,255,255,.8); }
+
+.browser-frame {
+  border-radius: 0 8px 8px 8px; overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.07);
+}
+.browser-chrome {
+  background: #2a2a2e; padding: 10px 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.browser-dots { display: flex; gap: 6px; flex-shrink: 0; }
+.bd { width: 12px; height: 12px; border-radius: 50%; }
+.bd-red    { background: #ff5f57; }
+.bd-yellow { background: #febc2e; }
+.bd-green  { background: #28c840; }
+.browser-address {
+  flex: 1; background: #1a1a1e; color: rgba(255,255,255,.4);
+  font-size: .72rem; padding: 5px 12px; border-radius: 6px;
+  font-family: 'Consolas', monospace; text-align: center;
+}
+.browser-menu { color: rgba(255,255,255,.3); font-size: 1.1rem; flex-shrink: 0; }
+
+.sfui-wrap { background: var(--sf-light); }
+
+.sfui-nav {
+  background: var(--sf-nav); padding: 0 20px; height: 44px;
+  display: flex; align-items: center; gap: 0;
+}
+.sfui-nav-logo {
+  color: #fff; font-size: .82rem; font-weight: 800; letter-spacing: .5px;
+  padding-right: 24px; border-right: 1px solid rgba(255,255,255,.15); margin-right: 20px;
+}
+.sfui-nav-links { display: flex; gap: 2px; flex: 1; }
+.sfui-nav-link {
+  color: rgba(255,255,255,.6); font-size: .76rem; font-weight: 600;
+  padding: 0 14px; height: 44px; display: flex; align-items: center;
+  border-bottom: 3px solid transparent; cursor: default;
+}
+.sfui-nav-link.active { color: #fff; border-bottom-color: #fff; }
+.sfui-nav-user {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--sf-blue); color: #fff;
+  font-size: .65rem; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  margin-left: 16px;
+}
+
+.sfui-tab-panel { display: none; }
+.sfui-tab-panel.active { display: block; }
+
+.sfui-header {
+  background: #fff; padding: 12px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid var(--sf-border);
+}
+.sfui-breadcrumb { font-size: .76rem; color: var(--sf-muted); }
+.sfui-breadcrumb strong { color: var(--sf-text); }
+.sfui-header-actions { display: flex; align-items: center; gap: 8px; }
+.sfui-badge {
+  font-size: .64rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .5px; padding: 3px 10px; border-radius: 50px;
+}
+.sfui-badge-draft   { background: #f3edff; color: #5a3fc0; }
+.sfui-badge-pending { background: #fff3e0; color: #865800; }
+.sfui-badge-active  { background: #ebf7ee; color: #2e844a; }
+.sfui-btn-primary {
+  background: var(--sf-blue); color: #fff; border: none;
+  font-size: .74rem; font-weight: 600; padding: 6px 14px;
+  border-radius: var(--sf-r); cursor: default; font-family: inherit;
+}
+.sfui-btn-secondary {
+  background: #fff; color: var(--sf-blue);
+  border: 1px solid var(--sf-blue);
+  font-size: .74rem; font-weight: 600; padding: 6px 14px;
+  border-radius: var(--sf-r); cursor: default; font-family: inherit;
+}
+.sfui-btn-ghost-sm {
+  background: rgba(255,255,255,.15); color: #fff; border: 1px solid rgba(255,255,255,.3);
+  font-size: .72rem; font-weight: 600; padding: 5px 12px;
+  border-radius: var(--sf-r); cursor: default; font-family: inherit; white-space: nowrap;
+}
+
+.sfui-body { display: grid; grid-template-columns: 1fr 220px; min-height: 380px; }
+.sfui-main { padding: 20px; border-right: 1px solid var(--sf-border); }
+.sfui-sidebar { padding: 16px; background: #fafafa; }
+
+.sfui-section-label {
+  font-size: .68rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1px; color: var(--sf-muted); margin-bottom: 12px;
+}
+.sfui-table { width: 100%; border-collapse: collapse; font-size: .78rem; }
+.sfui-table th {
+  text-align: left; padding: 8px 10px; background: #f7f7f7;
+  border: 1px solid var(--sf-border); color: var(--sf-muted);
+  font-weight: 600; font-size: .7rem; text-transform: uppercase; letter-spacing: .5px;
+}
+.sfui-table td { padding: 10px; border: 1px solid var(--sf-border); color: var(--sf-text); vertical-align: top; }
+.sfui-sub { font-size: .7rem; color: var(--sf-muted); margin-top: 2px; }
+.sfui-discount { background: #fff3e0; color: var(--sf-orange); font-weight: 700; font-size: .72rem; padding: 2px 7px; border-radius: 4px; }
+.sfui-total-row td { background: #f7f7f7; font-size: .82rem; }
+
+.sfui-agent-banner {
+  display: flex; align-items: center; gap: 12px; margin-top: 16px;
+  background: linear-gradient(135deg, #032d60 0%, #014486 100%);
+  border-radius: var(--sf-r); padding: 14px 16px;
+}
+.sfui-agent-icon {
+  width: 30px; height: 30px; border-radius: 8px; background: var(--sf-blue);
+  color: #fff; font-size: .62rem; font-weight: 800;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.sfui-agent-text { flex: 1; font-size: .76rem; color: rgba(255,255,255,.85); line-height: 1.5; }
+.sfui-agent-text strong { color: #fff; }
+
+.sfui-sidebar-section { margin-bottom: 12px; }
+.sfui-sidebar-label { font-size: .67rem; text-transform: uppercase; letter-spacing: .6px; color: var(--sf-muted); margin-bottom: 3px; }
+.sfui-sidebar-val { font-size: .82rem; font-weight: 600; color: var(--sf-text); }
+.sfui-sidebar-divider { border: none; border-top: 1px solid var(--sf-border); margin: 14px 0; }
+.sfui-progress-wrap { display: flex; align-items: center; gap: 8px; }
+.sfui-progress { flex: 1; height: 6px; background: var(--sf-border); border-radius: 3px; overflow: hidden; }
+.sfui-progress-fill { height: 100%; background: var(--sf-blue); border-radius: 3px; }
+.sfui-progress-label { font-size: .72rem; font-weight: 700; color: var(--sf-blue); }
+
+/* APPROVAL CHAIN */
+.sfui-approval-chain { display: flex; flex-direction: column; }
+.sfui-approval-step { display: flex; align-items: flex-start; gap: 14px; }
+.sfui-approval-connector { width: 2px; height: 28px; margin-left: 14px; background: var(--sf-border); }
+.sfui-approval-connector.done { background: var(--sf-green); }
+.sfui-approval-connector.active { background: linear-gradient(to bottom, var(--sf-green), var(--sf-border)); }
+.sfui-step-node {
+  width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .72rem; font-weight: 800; border: 2px solid var(--sf-border);
+  background: #fff; color: var(--sf-muted);
+}
+.sfui-step-node.done   { background: var(--sf-green); border-color: var(--sf-green); color: #fff; }
+.sfui-step-node.active { background: var(--sf-orange); border-color: var(--sf-orange); color: #fff; animation: pulse 2s infinite; }
+.sfui-step-body { padding-top: 4px; padding-bottom: 10px; }
+.sfui-step-title { font-size: .8rem; font-weight: 700; color: var(--sf-text); }
+.sfui-step-meta { font-size: .72rem; color: var(--sf-muted); margin-top: 2px; }
+
+/* CONTRACT TIMELINE */
+.sfui-timeline { display: flex; flex-direction: column; gap: 0; }
+.sfui-tl-item {
+  display: grid; grid-template-columns: 28px 1fr auto;
+  gap: 12px; align-items: start; padding-bottom: 20px;
+  position: relative;
+}
+.sfui-tl-item:not(:last-child)::before {
+  content: ''; position: absolute; left: 13px; top: 28px; bottom: 0;
+  width: 2px; background: var(--sf-border);
+}
+.sfui-tl-item.done::before, .sfui-tl-item.current::before { background: var(--sf-blue); }
+.sfui-tl-dot {
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--sf-border); background: #fff;
+  flex-shrink: 0; position: relative; z-index: 1;
+}
+.sfui-tl-dot.active  { background: var(--sf-green); border-color: var(--sf-green); }
+.sfui-tl-dot.done    { background: var(--sf-blue); border-color: var(--sf-blue); }
+.sfui-tl-dot.current { background: var(--sf-orange); border-color: var(--sf-orange); animation: pulse 2s infinite; }
+.sfui-tl-dot.renewal { background: #fff; border-color: var(--sf-blue); border-style: dashed; }
+.sfui-tl-title { font-size: .8rem; font-weight: 700; color: var(--sf-text); margin-bottom: 2px; }
+.sfui-tl-meta  { font-size: .72rem; color: var(--sf-muted); }
+.sfui-tl-val   { font-size: .84rem; font-weight: 700; color: var(--sf-text); padding-top: 4px; }
+
+@media (max-width: 860px) {
+  .sfui-body { grid-template-columns: 1fr; }
+  .sfui-sidebar { border-top: 1px solid var(--sf-border); }
+  .sfui-nav-links { display: none; }
+  .sfui-tabs { flex-wrap: wrap; }
+}
+
 /* QUOTE IN CHAT SECTION */
 .chat-section { background: var(--navy); }
 .chat-section .section-eyebrow { color: var(--orange2); }
@@ -465,6 +665,284 @@ footer span { color: rgba(255,255,255,.62); }
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- SCREEN DEMO -->
+<section style="background:var(--navy2); padding: 0;">
+  <div class="section fade-in" style="padding-top:72px;padding-bottom:72px;">
+    <div class="section-eyebrow" style="color:var(--orange2);">See It In Action</div>
+    <div class="section-title section-title-white" style="max-width:680px;">The Quote Builder, Approval Flow, and Contract View. All in one system.</div>
+    <div class="section-sub" style="color:rgba(255,255,255,.55);margin-bottom:40px;">When you have a real screenshot, drop it in here. Until then this shows the exact layout your team would work in every day.</div>
+
+    <!-- TAB NAV -->
+    <div class="sfui-tabs">
+      <button class="sfui-tab active" onclick="showTab(this,'tab-quote')">Quote Builder</button>
+      <button class="sfui-tab" onclick="showTab(this,'tab-approval')">Approval Flow</button>
+      <button class="sfui-tab" onclick="showTab(this,'tab-contract')">Contract View</button>
+    </div>
+
+    <!-- BROWSER FRAME -->
+    <div class="browser-frame">
+      <div class="browser-chrome">
+        <div class="browser-dots">
+          <span class="bd bd-red"></span>
+          <span class="bd bd-yellow"></span>
+          <span class="bd bd-green"></span>
+        </div>
+        <div class="browser-address">salesforce.com / revenue-cloud / quotes</div>
+        <div class="browser-menu">&#8942;</div>
+      </div>
+
+      <!-- SALESFORCE APP CHROME -->
+      <div class="sfui-wrap">
+        <div class="sfui-nav">
+          <div class="sfui-nav-logo">Salesforce</div>
+          <div class="sfui-nav-links">
+            <span class="sfui-nav-link active">Revenue Cloud</span>
+            <span class="sfui-nav-link">Accounts</span>
+            <span class="sfui-nav-link">Contacts</span>
+            <span class="sfui-nav-link">Reports</span>
+          </div>
+          <div class="sfui-nav-user">AT</div>
+        </div>
+
+        <!-- QUOTE BUILDER TAB -->
+        <div id="tab-quote" class="sfui-tab-panel active">
+          <div class="sfui-header">
+            <div class="sfui-breadcrumb">Quotes / <strong>Q-2026-4471 &mdash; Acme Industrials</strong></div>
+            <div class="sfui-header-actions">
+              <span class="sfui-badge sfui-badge-draft">Draft</span>
+              <button class="sfui-btn-secondary">Preview PDF</button>
+              <button class="sfui-btn-primary">Send to Customer</button>
+            </div>
+          </div>
+          <div class="sfui-body">
+            <div class="sfui-main">
+              <div class="sfui-section-label">Products &amp; Pricing</div>
+              <table class="sfui-table">
+                <thead>
+                  <tr><th>Product</th><th>Qty</th><th>List Price</th><th>Discount</th><th>Net Price</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>HX-400 Series</strong><div class="sfui-sub">Standard Configuration</div></td>
+                    <td>50</td><td>$1,750</td>
+                    <td><span class="sfui-discount">12%</span></td>
+                    <td><strong>$77,000</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Standard Warranty</strong><div class="sfui-sub">12-month coverage</div></td>
+                    <td>50</td><td>$0</td><td>—</td><td>$0</td>
+                  </tr>
+                  <tr class="sfui-total-row">
+                    <td colspan="4"><strong>Quote Total</strong></td>
+                    <td><strong>$77,000</strong></td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="sfui-agent-banner">
+                <div class="sfui-agent-icon">AI</div>
+                <div class="sfui-agent-text">
+                  <strong>Deal Agent suggests:</strong> Acme Industrials added extended warranty on their last 3 orders. Adding it here increases win probability by 18% based on similar accounts.
+                </div>
+                <button class="sfui-btn-ghost-sm">Add to Quote</button>
+              </div>
+            </div>
+            <div class="sfui-sidebar">
+              <div class="sfui-sidebar-section">
+                <div class="sfui-sidebar-label">Account</div>
+                <div class="sfui-sidebar-val">Acme Industrials</div>
+              </div>
+              <div class="sfui-sidebar-section">
+                <div class="sfui-sidebar-label">Tier</div>
+                <div class="sfui-sidebar-val">Platinum</div>
+              </div>
+              <div class="sfui-sidebar-section">
+                <div class="sfui-sidebar-label">Expiry</div>
+                <div class="sfui-sidebar-val">Aug 14, 2026</div>
+              </div>
+              <div class="sfui-sidebar-section">
+                <div class="sfui-sidebar-label">Rep</div>
+                <div class="sfui-sidebar-val">Jordan Rivera</div>
+              </div>
+              <div class="sfui-sidebar-divider"></div>
+              <div class="sfui-sidebar-label">Win Probability</div>
+              <div class="sfui-progress-wrap">
+                <div class="sfui-progress"><div class="sfui-progress-fill" style="width:74%"></div></div>
+                <span class="sfui-progress-label">74%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- APPROVAL FLOW TAB -->
+        <div id="tab-approval" class="sfui-tab-panel">
+          <div class="sfui-header">
+            <div class="sfui-breadcrumb">Approvals / <strong>APR-2026-0218 &mdash; Westlake Regional, 18% discount</strong></div>
+            <div class="sfui-header-actions">
+              <span class="sfui-badge sfui-badge-pending">Pending VP</span>
+            </div>
+          </div>
+          <div class="sfui-body">
+            <div class="sfui-main">
+              <div class="sfui-section-label">Approval Chain</div>
+              <div class="sfui-approval-chain">
+                <div class="sfui-approval-step done">
+                  <div class="sfui-step-node done">&#10003;</div>
+                  <div class="sfui-step-body">
+                    <div class="sfui-step-title">Rep Submitted</div>
+                    <div class="sfui-step-meta">Jordan Rivera &middot; Jul 15, 10:22 AM</div>
+                  </div>
+                </div>
+                <div class="sfui-approval-connector done"></div>
+                <div class="sfui-approval-step done">
+                  <div class="sfui-step-node done">&#10003;</div>
+                  <div class="sfui-step-body">
+                    <div class="sfui-step-title">Deal Desk Reviewed</div>
+                    <div class="sfui-step-meta">Sarah M. &middot; Auto-routed by Deal Agent &middot; 10:22 AM</div>
+                  </div>
+                </div>
+                <div class="sfui-approval-connector active"></div>
+                <div class="sfui-approval-step active">
+                  <div class="sfui-step-node active"></div>
+                  <div class="sfui-step-body">
+                    <div class="sfui-step-title">VP West Approval</div>
+                    <div class="sfui-step-meta">Greg Fiorindo &middot; Notified via Slack &middot; Awaiting</div>
+                  </div>
+                </div>
+                <div class="sfui-approval-connector"></div>
+                <div class="sfui-approval-step">
+                  <div class="sfui-step-node"></div>
+                  <div class="sfui-step-body">
+                    <div class="sfui-step-title">Quote Released to Rep</div>
+                    <div class="sfui-step-meta">Pending</div>
+                  </div>
+                </div>
+              </div>
+              <div class="sfui-agent-banner" style="margin-top:24px;">
+                <div class="sfui-agent-icon">AI</div>
+                <div class="sfui-agent-text">
+                  <strong>Policy check:</strong> 18% exceeds the 15% no-approval threshold for Platinum accounts. Alternatively, approve at 15% ($45,900) without VP sign-off.
+                </div>
+                <button class="sfui-btn-ghost-sm">Counter at 15%</button>
+              </div>
+            </div>
+            <div class="sfui-sidebar">
+              <div class="sfui-sidebar-section">
+                <div class="sfui-sidebar-label">Account</div>
+                <div class="sfui-sidebar-val">Westlake Regional</div>
+              </div>
+              <div class="sfui-sidebar-section">
+                <div class="sfui-sidebar-label">Requested Discount</div>
+                <div class="sfui-sidebar-val" style="color:var(--sf-orange);">18%</div>
+              </div>
+              <div class="sfui-sidebar-section">
+                <div class="sfui-sidebar-label">Policy Max</div>
+                <div class="sfui-sidebar-val">15% (no approval)</div>
+              </div>
+              <div class="sfui-sidebar-section">
+                <div class="sfui-sidebar-label">Net Price</div>
+                <div class="sfui-sidebar-val">$44,280</div>
+              </div>
+              <div class="sfui-sidebar-divider"></div>
+              <div class="sfui-sidebar-section">
+                <div class="sfui-sidebar-label">SLA</div>
+                <div class="sfui-sidebar-val">Expires in <strong style="color:var(--sf-orange);">4h 12m</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTRACT VIEW TAB -->
+        <div id="tab-contract" class="sfui-tab-panel">
+          <div class="sfui-header">
+            <div class="sfui-breadcrumb">Contracts / <strong>CTR-2024-1102 &mdash; Standex International, 3-Year MSA</strong></div>
+            <div class="sfui-header-actions">
+              <span class="sfui-badge sfui-badge-active">Active</span>
+              <button class="sfui-btn-secondary">View Recognition Schedule</button>
+              <button class="sfui-btn-primary">Initiate Renewal</button>
+            </div>
+          </div>
+          <div class="sfui-body">
+            <div class="sfui-main">
+              <div class="sfui-section-label">Contract Timeline</div>
+              <div class="sfui-timeline">
+                <div class="sfui-tl-item">
+                  <div class="sfui-tl-dot active"></div>
+                  <div class="sfui-tl-body">
+                    <div class="sfui-tl-title">Contract Executed</div>
+                    <div class="sfui-tl-meta">Aug 1, 2024 &middot; Signed via DocuSign</div>
+                  </div>
+                  <div class="sfui-tl-val"></div>
+                </div>
+                <div class="sfui-tl-item">
+                  <div class="sfui-tl-dot done"></div>
+                  <div class="sfui-tl-body">
+                    <div class="sfui-tl-title">Year 1 Revenue Recognized</div>
+                    <div class="sfui-tl-meta">Aug 2024 &ndash; Jul 2025 &middot; Auto-scheduled</div>
+                  </div>
+                  <div class="sfui-tl-val">$148,000</div>
+                </div>
+                <div class="sfui-tl-item">
+                  <div class="sfui-tl-dot done"></div>
+                  <div class="sfui-tl-body">
+                    <div class="sfui-tl-title">Year 2 Price Escalator Applied</div>
+                    <div class="sfui-tl-meta">Aug 2025 &middot; 4% increase, auto-calculated</div>
+                  </div>
+                  <div class="sfui-tl-val">$153,920</div>
+                </div>
+                <div class="sfui-tl-item current">
+                  <div class="sfui-tl-dot current"></div>
+                  <div class="sfui-tl-body">
+                    <div class="sfui-tl-title">Year 3 In Progress</div>
+                    <div class="sfui-tl-meta">Aug 2026 &ndash; Jul 2027 &middot; 4% escalator pending</div>
+                  </div>
+                  <div class="sfui-tl-val" style="color:var(--sf-orange);">$160,077</div>
+                </div>
+                <div class="sfui-tl-item renewal">
+                  <div class="sfui-tl-dot renewal"></div>
+                  <div class="sfui-tl-body">
+                    <div class="sfui-tl-title">Renewal Window Opens</div>
+                    <div class="sfui-tl-meta">May 1, 2027 &middot; Deal Agent will notify rep 90 days prior</div>
+                  </div>
+                  <div class="sfui-tl-val"></div>
+                </div>
+              </div>
+            </div>
+            <div class="sfui-sidebar">
+              <div class="sfui-sidebar-section">
+                <div class="sfui-sidebar-label">Contract Value</div>
+                <div class="sfui-sidebar-val" style="font-size:1.15rem;font-weight:800;">$461,997</div>
+              </div>
+              <div class="sfui-sidebar-section">
+                <div class="sfui-sidebar-label">Term</div>
+                <div class="sfui-sidebar-val">3 Years (36 months)</div>
+              </div>
+              <div class="sfui-sidebar-section">
+                <div class="sfui-sidebar-label">Billing</div>
+                <div class="sfui-sidebar-val">Annual, Net 30</div>
+              </div>
+              <div class="sfui-sidebar-section">
+                <div class="sfui-sidebar-label">Recognized YTD</div>
+                <div class="sfui-sidebar-val">$301,920</div>
+              </div>
+              <div class="sfui-sidebar-divider"></div>
+              <div class="sfui-sidebar-label" style="margin-bottom:8px;">Recognition Health</div>
+              <div class="sfui-progress-wrap">
+                <div class="sfui-progress"><div class="sfui-progress-fill" style="width:65%"></div></div>
+                <span class="sfui-progress-label">65%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /sfui-wrap -->
+    </div><!-- /browser-frame -->
+
+    <p style="font-size:.72rem;color:rgba(255,255,255,.3);margin-top:16px;text-align:center;">Representative UI. Replace with a live screenshot when available.</p>
   </div>
 </section>
 
@@ -823,6 +1301,12 @@ footer span { color: rgba(255,255,255,.62); }
 </footer>
 
 <script>
+function showTab(btn, id) {
+  document.querySelectorAll('.sfui-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.sfui-tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
 }, { threshold: 0.08 });
