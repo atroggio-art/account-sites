@@ -379,9 +379,20 @@
     gap: 48px;
     align-items: start;
   }
+  .ae-photo-wrap { position: relative; flex-shrink: 0; }
+  .ae-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid rgba(255,255,255,0.4);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    display: block;
+  }
   .ae-avatar {
-    width: 90px;
-    height: 90px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     background: rgba(255,255,255,0.2);
     display: flex;
@@ -456,6 +467,7 @@
     .stat-item { padding: 10px 18px; border-right: none; border-bottom: 1px solid var(--border); }
     .stat-item:last-child { border-bottom: none; }
     .ae-inner { grid-template-columns: 1fr; }
+    .ae-photo-wrap { display: flex; justify-content: center; }
     .ae-avatar { margin: 0 auto; }
     section { padding: 52px 20px; }
     nav { padding: 12px 20px; }
@@ -720,7 +732,10 @@
 <!-- AE SECTION -->
 <section class="ae-section">
   <div class="ae-inner">
-    <div class="ae-avatar">AT</div>
+    <div class="ae-photo-wrap">
+      <img src="anthony.png" alt="Anthony Troggio" class="ae-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="ae-avatar" style="display:none">AT</div>
+    </div>
     <div>
       <div class="ae-meta">MFG &amp; Auto · West</div>
       <div class="ae-name">Anthony Troggio</div>
