@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Agentic Revenue for Manufacturers | Anthony Troggio, Salesforce</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #f4f6f9;
+  color: #1a2535;
+  line-height: 1.6;
+  font-size: 16px;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+:root {
+  --navy:    #0b1929;
+  --navy2:   #122035;
+  --steel:   #1a3a5c;
+  --orange:  #c94a00;
+  --orange2: #e86820;
+  --light:   #f4f6f9;
+  --white:   #ffffff;
+  --border:  #dde4ed;
+  --muted:   #5a6e85;
+  --r:       12px;
+  --shadow:  0 2px 16px rgba(11,25,41,.08);
+}
+
+.topbar {
+  background: var(--navy); padding: 0 48px; height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--orange);
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-wordmark { color: #fff; font-size: .78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: .9; }
+.topbar-divider { width: 1px; height: 18px; background: rgba(255,255,255,.2); }
+.topbar-tag { color: rgba(255,255,255,.5); font-size: .78rem; }
+.topbar-cta { background: var(--orange); color: #fff; font-size: .75rem; font-weight: 700; padding: 7px 18px; border-radius: 50px; letter-spacing: .3px; transition: background .2s; }
+.topbar-cta:hover { background: var(--orange2); }
+
+.hero {
+  position: relative; min-height: 600px; display: flex; align-items: center;
+  overflow: hidden; background: var(--navy);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80');
+  background-size: cover; background-position: center 40%; opacity: .65;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(110deg, rgba(11,25,41,.97) 45%, rgba(11,25,41,.65) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2; max-width: 1120px; margin: 0 auto;
+  padding: 100px 48px; width: 100%;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px;
+  background: rgba(201,74,0,.15); border: 1px solid rgba(201,74,0,.35);
+  border-radius: 50px; padding: 5px 14px 5px 10px;
+}
+.hero-eyebrow-dot { width: 8px; height: 8px; background: var(--orange); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.hero-eyebrow span { font-size: .72rem; font-weight: 700; color: var(--orange2); text-transform: uppercase; letter-spacing: 1px; }
+.hero h1 { font-size: clamp(2rem, 4.8vw, 3.4rem); font-weight: 800; color: #fff; line-height: 1.1; letter-spacing: -.5px; max-width: 820px; margin-bottom: 22px; }
+.hero h1 em { color: var(--orange2); font-style: normal; }
+.hero-sub { font-size: 1.07rem; color: rgba(255,255,255,.72); max-width: 600px; line-height: 1.8; margin-bottom: 40px; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--orange); color: #fff; font-weight: 700; font-size: .95rem;
+  padding: 14px 28px; border-radius: 8px; box-shadow: 0 4px 20px rgba(201,74,0,.4);
+  transition: background .2s, transform .15s;
+}
+.btn-primary:hover { background: var(--orange2); transform: translateY(-2px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: rgba(255,255,255,.75); font-weight: 600; font-size: .9rem;
+  padding: 14px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,.2);
+  transition: border-color .2s, color .2s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+
+.strip { background: var(--navy2); display: flex; border-bottom: 1px solid rgba(255,255,255,.06); }
+.strip-item { flex: 1; padding: 20px 24px; text-align: center; border-right: 1px solid rgba(255,255,255,.07); }
+.strip-item:last-child { border-right: none; }
+.sv { font-size: 1.6rem; font-weight: 800; color: var(--orange2); min-width: 80px; flex-shrink: 0; }
+.sl { font-size: .67rem; text-transform: uppercase; letter-spacing: .6px; color: rgba(255,255,255,.45); margin-top: 4px; }
+
+.section { max-width: 1120px; margin: 0 auto; padding: 64px 48px; }
+.section-eyebrow { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--orange); margin-bottom: 10px; }
+.section-title { font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 800; color: var(--navy); line-height: 1.2; margin-bottom: 12px; }
+.section-title-white { color: #fff; }
+.section-sub { font-size: .97rem; color: var(--muted); max-width: 660px; line-height: 1.8; }
+.hr { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+.disconnect-section { background: var(--white); border-top: 4px solid var(--orange); }
+.disconnect-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; }
+.disconnect-card {
+  background: var(--light); border-radius: var(--r); border: 1px solid var(--border);
+  padding: 28px; box-shadow: var(--shadow);
+}
+.disconnect-icon { font-size: 1.8rem; margin-bottom: 14px; }
+.disconnect-title { font-size: .96rem; font-weight: 800; color: var(--navy); margin-bottom: 10px; line-height: 1.3; }
+.disconnect-text { font-size: .84rem; color: var(--muted); line-height: 1.75; }
+
+.platform-section { background: var(--light); }
+.platform-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; margin-top: 36px; }
+.platform-card {
+  background: var(--white); border-radius: var(--r); border: 1px solid var(--border);
+  overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column;
+  transition: transform .2s, box-shadow .2s;
+}
+.platform-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(11,25,41,.12); }
+.platform-card-top { background: linear-gradient(135deg, var(--navy), var(--steel)); padding: 22px 24px; }
+.platform-card-tag { display: inline-block; background: rgba(201,74,0,.25); color: var(--orange2); font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; padding: 3px 10px; border-radius: 50px; margin-bottom: 12px; }
+.platform-card-title { font-size: 1.15rem; font-weight: 800; color: #fff; line-height: 1.3; margin-bottom: 6px; }
+.platform-card-sub { font-size: .84rem; color: rgba(255,255,255,.6); line-height: 1.65; }
+.platform-card-body { padding: 20px 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+.platform-card-stat { font-size: 1.9rem; font-weight: 800; color: var(--orange); line-height: 1; }
+.platform-card-stat-label { font-size: .78rem; color: var(--muted); margin-top: 2px; }
+.platform-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.platform-bullets li { font-size: .84rem; color: var(--muted); display: flex; gap: 9px; align-items: flex-start; line-height: 1.55; }
+.platform-bullets li::before { content: '→'; color: var(--orange); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+.plays-section { background: var(--navy); }
+.plays-section .section-eyebrow { color: var(--orange2); }
+.plays-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 20px; margin-top: 36px; }
+.play-card {
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--r); padding: 26px;
+  transition: background .2s, border-color .2s;
+}
+.play-card:hover { background: rgba(255,255,255,.08); border-color: rgba(201,74,0,.35); }
+.play-num { font-size: .65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--orange2); margin-bottom: 10px; }
+.play-title { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 10px; line-height: 1.3; }
+.play-text { font-size: .85rem; color: rgba(255,255,255,.6); line-height: 1.75; }
+.play-text strong { color: rgba(255,255,255,.85); }
+.play-result {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 16px; background: rgba(201,74,0,.15);
+  border: 1px solid rgba(201,74,0,.25); border-radius: 50px;
+  padding: 4px 12px; font-size: .74rem; font-weight: 700; color: var(--orange2);
+}
+
+.urgency-section { background: var(--white); }
+.urgency-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; }
+.urgency-card {
+  background: var(--light); border-radius: var(--r); border: 1px solid var(--border);
+  padding: 28px; box-shadow: var(--shadow); border-top: 3px solid var(--orange);
+}
+.urgency-icon { font-size: 1.6rem; margin-bottom: 14px; }
+.urgency-title { font-size: .96rem; font-weight: 800; color: var(--navy); margin-bottom: 10px; line-height: 1.35; }
+.urgency-text { font-size: .84rem; color: var(--muted); line-height: 1.8; }
+
+.stories-section { background: var(--light); }
+.stories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 20px; margin-top: 36px; }
+.story-card {
+  background: var(--white); border-radius: var(--r); border: 1px solid var(--border);
+  overflow: hidden; box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s;
+}
+.story-card:hover { transform: translateY(-3px); box-shadow: 0 8px 26px rgba(11,25,41,.1); }
+.story-card-top {
+  background: linear-gradient(135deg, var(--navy), var(--steel));
+  padding: 16px 20px; display: flex; align-items: center; justify-content: space-between;
+}
+.story-company { font-size: .88rem; font-weight: 800; color: #fff; }
+.story-tag { font-size: .61rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; background: rgba(201,74,0,.3); color: var(--orange2); border-radius: 50px; padding: 3px 9px; white-space: nowrap; }
+.story-body { padding: 18px 20px; }
+.story-stat { font-size: 2rem; font-weight: 800; color: var(--orange); margin-bottom: 4px; }
+.story-headline { font-size: .88rem; font-weight: 700; color: var(--navy); margin-bottom: 7px; line-height: 1.4; }
+.story-text { font-size: .83rem; color: var(--muted); line-height: 1.65; }
+
+.about-section { background: var(--navy); color: #fff; }
+.about-section .section-eyebrow { color: var(--orange2); }
+.about-grid { display: grid; grid-template-columns: 220px 1fr; gap: 52px; align-items: center; margin-top: 36px; }
+.about-photo-wrap { position: relative; }
+.about-photo { width: 190px; height: 190px; border-radius: 50%; object-fit: cover; object-position: center top; border: 4px solid var(--orange); box-shadow: 0 8px 36px rgba(0,0,0,.4); }
+.about-photo-placeholder { width: 190px; height: 190px; border-radius: 50%; background: var(--steel); border: 4px solid var(--orange); display: flex; align-items: center; justify-content: center; font-size: 2.4rem; color: rgba(255,255,255,.3); }
+.about-badge { position: absolute; bottom: 8px; right: 4px; background: var(--orange); color: #fff; font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 3px 9px; border-radius: 50px; }
+.about-name { font-size: 1.7rem; font-weight: 800; margin-bottom: 3px; }
+.about-role { font-size: .88rem; color: var(--orange2); font-weight: 600; margin-bottom: 18px; }
+.about-body { font-size: .94rem; color: rgba(255,255,255,.68); line-height: 1.85; margin-bottom: 24px; max-width: 640px; }
+.about-body strong { color: #fff; }
+.about-cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-white { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--orange); font-weight: 700; font-size: .93rem; padding: 13px 26px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,.2); transition: transform .15s; }
+.btn-white:hover { transform: translateY(-2px); }
+
+.cta-section { background: linear-gradient(135deg, var(--orange) 0%, #8f3000 100%); color: #fff; text-align: center; }
+.cta-section .section { padding: 72px 48px; }
+.cta-title { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 800; margin-bottom: 14px; line-height: 1.2; }
+.cta-sub { font-size: .97rem; opacity: .85; max-width: 520px; margin: 0 auto 30px; line-height: 1.8; }
+.cta-contact { font-size: .86rem; opacity: .72; margin-top: 18px; }
+
+footer { background: var(--navy); color: rgba(255,255,255,.4); text-align: center; padding: 22px 48px; font-size: .73rem; border-top: 1px solid rgba(255,255,255,.07); }
+footer span { color: rgba(255,255,255,.62); }
+
+.fade-in { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 860px) {
+  .topbar { padding: 0 20px; }
+  .hero-content, .section { padding-left: 24px; padding-right: 24px; }
+  .disconnect-grid, .urgency-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 24px; text-align: center; }
+  .about-photo-wrap { display: flex; justify-content: center; }
+  .about-body { max-width: 100%; }
+  .about-cta-row { justify-content: center; }
+  .strip { flex-wrap: wrap; }
+  .strip-item { flex: 1 1 calc(33% - 1px); min-width: 100px; }
+}
+@media (max-width: 540px) {
+  .hero h1 { font-size: 1.85rem; }
+  .topbar-tag { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-wordmark">Salesforce</span>
+    <div class="topbar-divider"></div>
+    <span class="topbar-tag">Agentic Revenue for Manufacturers</span>
+  </div>
+  <a class="topbar-cta" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Talk to Anthony</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-dot"></div>
+      <span>Manufacturing Revenue · 2026</span>
+    </div>
+    <h1>Your sales team is spending days on quotes<br><em>that used to take weeks — and it is still not fast enough.</em></h1>
+    <p class="hero-sub">Complex product configurations. Custom pricing across channels. Multi-level approvals. Revenue recognition spread across three systems. The quote-to-cash process in manufacturing was never designed for the speed your customers now expect. The manufacturers closing fastest have automated it. This is what that looks like.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">&#128197; Talk to Anthony</a>
+      <a class="btn-ghost" href="#capabilities">See the Platform ↓</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="strip-item"><div class="sv">80%+</div><div class="sl">Reduction in Manual Effort</div></div>
+  <div class="strip-item"><div class="sv">289%</div><div class="sl">Avg Mfg ROI (Forrester)</div></div>
+  <div class="strip-item"><div class="sv">$9.6M</div><div class="sl">NPV Over 3 Years</div></div>
+  <div class="strip-item"><div class="sv">#1</div><div class="sl">Revenue Platform, Gartner</div></div>
+  <div class="strip-item"><div class="sv">Multi-BU</div><div class="sl">Scales Across Regions</div></div>
+</div>
+
+<hr class="hr">
+
+<!-- THE REAL PROBLEM -->
+<section class="disconnect-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">The Real Problem</div>
+    <div class="section-title">Why Quote-to-Cash Breaks Down in Manufacturing</div>
+    <div class="section-sub">Manufacturing has the most complex revenue motion of any industry. Engineered-to-order products. Tiered channel pricing. Multi-year contracts with escalators. Your quote-to-cash process carries that complexity — and usually carries it manually.</div>
+
+    <div class="disconnect-grid">
+      <div class="disconnect-card">
+        <div class="disconnect-icon">📋</div>
+        <div class="disconnect-title">Quoting complex products takes days when customers expect hours</div>
+        <div class="disconnect-text">An engineer-to-order quote that requires configuration input from three departments, pricing sign-off from a regional VP, and margin approval from finance does not move at the speed a competitive deal requires. By the time the quote goes out, your competitor has already followed up twice. Speed to quote is increasingly a competitive differentiator — not just a process improvement.</div>
+      </div>
+      <div class="disconnect-card">
+        <div class="disconnect-icon">💸</div>
+        <div class="disconnect-title">Pricing inconsistency across channels is costing you margin every quarter</div>
+        <div class="disconnect-text">Direct sales, dealer network, distributor agreements, national accounts — each with different pricing tiers, discount authorities, and contract terms. When those price books live in spreadsheets and individual rep judgment, you get inconsistency. Reps who discount more close faster but leave margin on the table. Reps who hold price lose deals to teammates who bend the rules. Neither outcome is what you want.</div>
+      </div>
+      <div class="disconnect-card">
+        <div class="disconnect-icon">🔄</div>
+        <div class="disconnect-title">Revenue recognition across long-term contracts is a manual reconciliation nightmare</div>
+        <div class="disconnect-text">A three-year contract with milestone billing, service components, and price escalators generates a revenue recognition schedule that someone has to maintain, update, and audit manually. When that contract amends, the schedule has to be rebuilt. Most finance teams are doing this in Excel, which means every audit is a fire drill and every amendment is a risk.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- CAPABILITIES -->
+<section class="platform-section" id="capabilities">
+  <div class="section fade-in">
+    <div class="section-eyebrow">The Platform</div>
+    <div class="section-title">Intelligent Quoting, Automated Contracts, Clean Revenue.</div>
+    <div class="section-sub">Automated quoting, unified contract management, and AI-guided deal execution built into your CRM. The full revenue motion — from first quote to final recognition — running in one connected system instead of four disconnected ones.</div>
+
+    <div class="platform-grid">
+      <div class="platform-card">
+        <div class="platform-card-top">
+          <span class="platform-card-tag">Revenue Cloud Advanced</span>
+          <div class="platform-card-title">Intelligent Quoting</div>
+          <div class="platform-card-sub">Automated configure-price-quote built for manufacturing complexity. Guided selling, dynamic pricing rules, and approval workflows that move at deal speed — not committee speed.</div>
+        </div>
+        <div class="platform-card-body">
+          <div>
+            <div class="platform-card-stat">80%+</div>
+            <div class="platform-card-stat-label">Reduction in manual quoting effort — Eaton deployment</div>
+          </div>
+          <ul class="platform-bullets">
+            <li>Product configurator: rules-based configuration prevents incompatible selections and eliminates re-work</li>
+            <li>Dynamic pricing: contract tiers, channel discounts, and volume breaks enforced automatically</li>
+            <li>Approval automation: routes to the right approver at the right threshold, no manual routing required</li>
+            <li>Quote-to-contract in one click — no re-entry, no formatting, no missed terms</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-card-top">
+          <span class="platform-card-tag">Data Cloud</span>
+          <div class="platform-card-title">Unified Deal Intelligence</div>
+          <div class="platform-card-sub">Contract data, order history, service activity, and renewal signals unified into one account view. Sales knows what to quote before the customer asks. Finance knows what to recognize before the quarter closes.</div>
+        </div>
+        <div class="platform-card-body">
+          <div>
+            <div class="platform-card-stat">360°</div>
+            <div class="platform-card-stat-label">Unified contract, order, and service history per account</div>
+          </div>
+          <ul class="platform-bullets">
+            <li>Contract lifecycle signals: amendments, expirations, and renewals surfaced automatically to the right rep</li>
+            <li>Upsell and cross-sell scoring based on what similar accounts have purchased</li>
+            <li>Revenue forecasting that pulls from committed contracts, not just pipeline estimates</li>
+            <li>Multi-BU and multi-region visibility: one consolidated view across your full book of business</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-card-top">
+          <span class="platform-card-tag">Agentforce</span>
+          <div class="platform-card-title">AI Deal Agents</div>
+          <div class="platform-card-sub">AI agents that guide reps to the right configuration, flag margin risk before a quote goes out, and handle contract renewals without waiting for a human to initiate. Your best rep's judgment, available to your whole team.</div>
+        </div>
+        <div class="platform-card-body">
+          <div>
+            <div class="platform-card-stat">Auto</div>
+            <div class="platform-card-stat-label">Renewal initiation, margin flagging, and deal guidance without manual triggers</div>
+          </div>
+          <ul class="platform-bullets">
+            <li>Quote assist agent: recommends optimal configuration and pricing based on deal context and win history</li>
+            <li>Margin guard: flags discount requests that fall outside policy before they reach an approver</li>
+            <li>Renewal agent: initiates renewal outreach 90 days out, prepares contract summary, routes to rep</li>
+            <li>Contract agent: drafts amendments and addenda based on approved templates — legal reviews, not drafts</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- PLAYS -->
+<section class="plays-section" id="plays">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Tactical Playbook</div>
+    <div class="section-title section-title-white">5 Plays Manufacturing Revenue Teams Are Running Right Now</div>
+    <div class="section-sub" style="color:rgba(255,255,255,.6)">These are not concepts. These are specific motions live at manufacturing companies today, mapped to the capabilities that run them.</div>
+
+    <div class="plays-grid">
+      <div class="play-card">
+        <div class="play-num">Play 01</div>
+        <div class="play-title">Complex Quotes Built and Out the Door in Under an Hour</div>
+        <div class="play-text">A rep opens a new quote, selects a product family, and the configurator walks them through compatible options based on the customer's account tier and prior purchases. Pricing populates from the correct price book automatically. Discounts within policy require no approval. <strong>What used to take two days of back-and-forth across three departments takes 45 minutes.</strong> The rep spends the rest of the day selling.</div>
+        <div class="play-result">&#127981; Intelligent Quoting + AI Deal Agents</div>
+      </div>
+
+      <div class="play-card">
+        <div class="play-num">Play 02</div>
+        <div class="play-title">Channel Pricing Enforced Automatically — No More Margin Leakage</div>
+        <div class="play-text">Direct accounts see direct pricing. Dealer network sees dealer pricing. Distributor tiers see distributor pricing. Volume breaks apply when they should apply. <strong>No rep manually deciding which price book to use, no manager approving discounts that never should have been offered.</strong> Unified deal intelligence tracks every discount by rep, region, and account tier so you can see exactly where margin walks out the door.</div>
+        <div class="play-result">&#127981; Intelligent Quoting + Unified Deal Intelligence</div>
+      </div>
+
+      <div class="play-card">
+        <div class="play-num">Play 03</div>
+        <div class="play-title">Contract Renewals Initiated 90 Days Early — Without Anyone Remembering to Do It</div>
+        <div class="play-text">An AI agent monitors every contract expiration date across your full book. At 90 days, it prepares a renewal summary — contract terms, product usage, any open service issues — and routes it to the rep with a suggested renewal offer pre-populated. <strong>No renewal slips through because someone forgot to check a spreadsheet.</strong> The rep shows up to the renewal conversation already prepared, not scrambling.</div>
+        <div class="play-result">&#127981; AI Deal Agents + Unified Deal Intelligence</div>
+      </div>
+
+      <div class="play-card">
+        <div class="play-num">Play 04</div>
+        <div class="play-title">Revenue Recognition That Updates Itself When Contracts Change</div>
+        <div class="play-text">A three-year contract with milestone billing and a price escalator in year two generates a recognition schedule automatically when the contract is executed. When the customer requests an amendment, the schedule updates. <strong>Finance stops rebuilding spreadsheets every time a contract changes.</strong> Audit preparation goes from a two-week scramble to a report run. Every recognized dollar is traceable back to a contract line without a manual lookup.</div>
+        <div class="play-result">&#127981; Intelligent Quoting + Unified Deal Intelligence</div>
+      </div>
+
+      <div class="play-card">
+        <div class="play-num">Play 05</div>
+        <div class="play-title">Expansion Deals Surfaced Before the Customer Even Asks</div>
+        <div class="play-text">Unified deal intelligence scores every active account for expansion readiness based on product usage, order frequency, service health, and what similar accounts have added. The rep gets a prioritized list of accounts most likely to buy more and a recommended starting point for the conversation. <strong>Your best expansion opportunities are already in your book of business. Most teams are just not looking for them systematically.</strong></div>
+        <div class="play-result">&#127981; Unified Deal Intelligence + AI Deal Agents</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- WHY NOW -->
+<section class="urgency-section" id="why-now">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Why Now</div>
+    <div class="section-title">Three Reasons This Is Not a "Later" Decision</div>
+    <div class="section-sub">Quote-to-cash is not a back-office problem. It is a competitive surface. And the gap between manufacturers who have automated it and those who have not is widening every quarter.</div>
+
+    <div class="urgency-grid">
+      <div class="urgency-card">
+        <div class="urgency-icon">&#9889;</div>
+        <div class="urgency-title">Competitors with faster quotes are winning deals you are not even losing — you are just not hearing about them</div>
+        <div class="urgency-text">When a buyer gets two quotes in the same week and one arrives in two hours while yours arrives in three days, the deal is often decided before your quote lands. Speed-to-quote is a silent competitive disadvantage that does not show up in your CRM as a lost deal. It shows up as deals that never started. Manufacturers who have invested in automated quoting are closing at a speed you cannot match manually.</div>
+      </div>
+      <div class="urgency-card">
+        <div class="urgency-icon">&#128184;</div>
+        <div class="urgency-title">Margin leakage from inconsistent discounting is a current, ongoing cost</div>
+        <div class="urgency-text">Without pricing guardrails in place, every deal your team closes without approval is a data point you are not collecting. Most manufacturers who audit their discount patterns for the first time find 10 to 15 percent of deals were discounted beyond policy with no documentation. That is not a past problem. It is happening in your pipeline right now, on deals your team is working today.</div>
+      </div>
+      <div class="urgency-card">
+        <div class="urgency-icon">&#128640;</div>
+        <div class="urgency-title">A focused deployment can transform one revenue motion in one quarter</div>
+        <div class="urgency-text">You do not have to automate your entire quote-to-cash process at once. A scoped engagement targeting your highest-volume quote type — the product configuration your team quotes most often — can go live in a single quarter and show measurable results before your next planning cycle. Eaton started with one BU and expanded once the first deployment proved the model. You can do the same.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- STORIES -->
+<section class="stories-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Customer Stories</div>
+    <div class="section-title">What Manufacturers Are Actually Seeing</div>
+    <div class="section-sub">Results from manufacturers who automated their revenue motion. Measured and published.</div>
+
+    <div class="stories-grid">
+      <div class="story-card">
+        <div class="story-card-top">
+          <span class="story-company">Eaton</span>
+          <span class="story-tag">Intelligent Quoting</span>
+        </div>
+        <div class="story-body">
+          <div class="story-stat">80%+</div>
+          <div class="story-headline">Reduction in manual effort in the initial deployment</div>
+          <div class="story-text">Eaton deployed automated intelligent quoting starting with a single business unit. Over 80% of the manual effort in their quote-to-cash process was eliminated in the first phase. The deployment was built to scale — designed from day one to expand across regions and BUs without rebuilding.</div>
+        </div>
+      </div>
+
+      <div class="story-card">
+        <div class="story-card-top">
+          <span class="story-company">Global Mfg. Manufacturer</span>
+          <span class="story-tag">Multi-BU Deployment</span>
+        </div>
+        <div class="story-body">
+          <div class="story-stat">Multi-BU</div>
+          <div class="story-headline">Single quote-to-cash platform deployed across regions and business units</div>
+          <div class="story-text">A large global manufacturer standardized their entire revenue motion — quoting, contracting, and revenue recognition — onto one platform across multiple business units and geographies. Finance closed the books faster. Sales closed deals faster. Legal reviewed fewer manual drafts.</div>
+        </div>
+      </div>
+
+      <div class="story-card">
+        <div class="story-card-top">
+          <span class="story-company">Forrester TEI Study 2024</span>
+          <span class="story-tag">Composite $1B Mfg Co.</span>
+        </div>
+        <div class="story-body">
+          <div class="story-stat">289%</div>
+          <div class="story-headline">ROI over three years for a composite $1B manufacturer</div>
+          <div class="story-text">Forrester's Total Economic Impact study modeled a manufacturing company running intelligent quoting, automated contracts, and AI deal agents. $9.6M NPV over three years. The full study is available as a shareable asset for your internal business case conversation.</div>
+        </div>
+      </div>
+
+      <div class="story-card">
+        <div class="story-card-top">
+          <span class="story-company">CIECH Agro</span>
+          <span class="story-tag">Mfg Cloud + Commerce</span>
+        </div>
+        <div class="story-body">
+          <div class="story-stat">3 mo</div>
+          <div class="story-headline">Live in three months with a focused partner-led deployment</div>
+          <div class="story-text">A chemical and fertilizer manufacturer went from decision to live in three months through a scoped engagement with a Salesforce partner. The deployment covered sales planning, distributor ordering, and contract management. Three months from kickoff to first transactions on the platform.</div>
+        </div>
+      </div>
+
+      <div class="story-card">
+        <div class="story-card-top">
+          <span class="story-company">Continental</span>
+          <span class="story-tag">AI Agents + Revenue</span>
+        </div>
+        <div class="story-body">
+          <div class="story-stat">Auto</div>
+          <div class="story-headline">AI agents close the loop from order intake through ERP — no human required</div>
+          <div class="story-text">Continental deployed AI agents that handle order-to-ERP entry autonomously. The same AI infrastructure that handles order completion is now being extended into quoting and contract workflows. The pattern — agent-assisted, human-approved — is becoming their standard for every revenue motion.</div>
+        </div>
+      </div>
+
+      <div class="story-card">
+        <div class="story-card-top">
+          <span class="story-company">Gartner Magic Quadrant</span>
+          <span class="story-tag">CPQ · 2024</span>
+        </div>
+        <div class="story-body">
+          <div class="story-stat">#1</div>
+          <div class="story-headline">Leader in Configure-Price-Quote, Gartner Magic Quadrant</div>
+          <div class="story-text">Named a Leader in the Gartner Magic Quadrant for Configure-Price-Quote Application Suites. Positioned furthest for completeness of vision among all vendors evaluated. Available as a reference asset for your vendor selection or internal business case process.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- ABOUT -->
+<section class="about-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Who Sent This</div>
+    <div class="section-title section-title-white">Anthony Troggio, Salesforce Manufacturing Specialist</div>
+
+    <div class="about-grid">
+      <div class="about-photo-wrap">
+        <img src="anthony.png" alt="Anthony Troggio" class="about-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="about-photo-placeholder" style="display:none">AT</div>
+        <span class="about-badge">MFG &amp; Auto · West</span>
+      </div>
+      <div>
+        <div class="about-name">Anthony Troggio</div>
+        <div class="about-role">Digital Account Executive, Manufacturing &amp; Automotive, Salesforce</div>
+        <div class="about-body">
+          I work exclusively with manufacturers across the Western US. The revenue conversation I have most often is with a VP of Sales or CFO who knows their quote-to-cash process is slower and less consistent than it should be — but has not had time to build the case for fixing it.
+          <br><br>
+          I am not going to walk you through a generic demo. When we talk, I will show you a manufacturer in your space, what they automated, how long it took, and what changed for their sales and finance teams. <strong>Real results and an honest read on where to start.</strong>
+        </div>
+        <div class="about-cta-row">
+          <a class="btn-white" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">&#128197; Book 30 Minutes</a>
+          <a class="btn-ghost" href="tel:7654307903">&#128222; 765-430-7903</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="section fade-in">
+    <div class="cta-title">Ready to See What This Looks Like for Your Team?</div>
+    <div class="cta-sub">30 minutes. I will walk through a manufacturer in your space and give you an honest read on what a deployment would actually involve.</div>
+    <a class="btn-white" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">&#128197; Book Time with Anthony</a>
+    <div class="cta-contact">Or reach out directly: 765-430-7903 &nbsp;·&nbsp; atroggio@salesforce.com</div>
+  </div>
+</section>
+
+<footer>
+  <span>Anthony Troggio</span> · Digital Account Executive, Salesforce · Manufacturing &amp; Automotive, West · July 2026
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
