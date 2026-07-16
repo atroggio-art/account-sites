@@ -95,7 +95,7 @@ img { display: block; max-width: 100%; }
 .sl { font-size: .67rem; text-transform: uppercase; letter-spacing: .6px; color: rgba(255,255,255,.45); margin-top: 4px; }
 
 .section { max-width: 1120px; margin: 0 auto; padding: 64px 48px; }
-.section-eyebrow { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--orange); margin-bottom: 10px; }
+.section-eyebrow { font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--orange); margin-bottom: 14px; }
 .section-title { font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 800; color: var(--navy); line-height: 1.2; margin-bottom: 12px; }
 .section-title-white { color: #fff; }
 .section-sub { font-size: .97rem; color: var(--muted); max-width: 660px; line-height: 1.8; }
@@ -105,9 +105,8 @@ img { display: block; max-width: 100%; }
 .disconnect-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; }
 .disconnect-card {
   background: var(--light); border-radius: var(--r); border: 1px solid var(--border);
-  padding: 28px; box-shadow: var(--shadow);
+  padding: 28px; box-shadow: var(--shadow); border-top: 3px solid var(--orange); position: relative;
 }
-.disconnect-icon { font-size: 1.8rem; margin-bottom: 14px; }
 .disconnect-title { font-size: .96rem; font-weight: 800; color: var(--navy); margin-bottom: 10px; line-height: 1.3; }
 .disconnect-text { font-size: .84rem; color: var(--muted); line-height: 1.75; }
 
@@ -238,9 +237,8 @@ img { display: block; max-width: 100%; }
 .urgency-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; }
 .urgency-card {
   background: var(--light); border-radius: var(--r); border: 1px solid var(--border);
-  padding: 28px; box-shadow: var(--shadow); border-top: 3px solid var(--orange);
+  padding: 28px; box-shadow: var(--shadow); border-top: 3px solid var(--orange); position: relative;
 }
-.urgency-icon { font-size: 1.6rem; margin-bottom: 14px; }
 .urgency-title { font-size: .96rem; font-weight: 800; color: var(--navy); margin-bottom: 10px; line-height: 1.35; }
 .urgency-text { font-size: .84rem; color: var(--muted); line-height: 1.8; }
 
@@ -304,6 +302,34 @@ footer span { color: rgba(255,255,255,.62); }
   .hero h1 { font-size: 1.85rem; }
   .topbar-tag { display: none; }
 }
+
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+  flex-shrink: 0;
+  opacity: .8;
+}
+.card-accent-num {
+  position: absolute;
+  bottom: 14px;
+  right: 18px;
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--orange);
+  opacity: .055;
+  line-height: 1;
+  letter-spacing: -3px;
+  pointer-events: none;
+  user-select: none;
+}
 </style>
 </head>
 <body>
@@ -314,7 +340,7 @@ footer span { color: rgba(255,255,255,.62); }
     <div class="topbar-divider"></div>
     <span class="topbar-tag">Agentic Revenue for Manufacturers</span>
   </div>
-  <a class="topbar-cta" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Talk to Anthony</a>
+  <a class="topbar-cta" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Talk to Anthony &rarr;</a>
 </nav>
 
 <section class="hero">
@@ -328,7 +354,7 @@ footer span { color: rgba(255,255,255,.62); }
     <h1>Your sales team is spending days on quotes<br><em>that used to take weeks. And it is still not fast enough.</em></h1>
     <p class="hero-sub">Complex product configurations. Custom pricing across channels. Multi-level approvals. Revenue recognition spread across three systems. The quote-to-cash process in manufacturing was never designed for the speed your customers now expect. The manufacturers closing fastest have automated it. This is what that looks like.</p>
     <div class="hero-actions">
-      <a class="btn-primary" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">&#128197; Talk to Anthony</a>
+      <a class="btn-primary" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Talk to Anthony &rarr;</a>
       <a class="btn-ghost" href="#capabilities">See the Platform ↓</a>
     </div>
   </div>
@@ -353,17 +379,14 @@ footer span { color: rgba(255,255,255,.62); }
 
     <div class="disconnect-grid">
       <div class="disconnect-card">
-        <div class="disconnect-icon">📋</div>
         <div class="disconnect-title">Quoting complex products takes days when customers expect hours</div>
         <div class="disconnect-text">An engineer-to-order quote that requires configuration input from three departments, pricing sign-off from a regional VP, and margin approval from finance does not move at the speed a competitive deal requires. By the time the quote goes out, your competitor has already followed up twice. Speed to quote is increasingly a competitive differentiator, not just a process improvement.</div>
       </div>
       <div class="disconnect-card">
-        <div class="disconnect-icon">💸</div>
         <div class="disconnect-title">Pricing inconsistency across channels is costing you margin every quarter</div>
         <div class="disconnect-text">Direct sales, dealer network, distributor agreements, national accounts. Each has different pricing tiers, discount authorities, and contract terms. When those price books live in spreadsheets and individual rep judgment, you get inconsistency. Reps who discount more close faster but leave margin on the table. Reps who hold price lose deals to teammates who bend the rules. Neither outcome is what you want.</div>
       </div>
       <div class="disconnect-card">
-        <div class="disconnect-icon">🔄</div>
         <div class="disconnect-title">Revenue recognition across long-term contracts is a manual reconciliation nightmare</div>
         <div class="disconnect-text">A three-year contract with milestone billing, service components, and price escalators generates a revenue recognition schedule that someone has to maintain, update, and audit manually. When that contract amends, the schedule has to be rebuilt. Most finance teams are doing this in Excel, which means every audit is a fire drill and every amendment is a risk.</div>
       </div>
@@ -459,42 +482,42 @@ footer span { color: rgba(255,255,255,.62); }
         <div class="play-num">Play 01</div>
         <div class="play-title">Complex Quotes Built and Out the Door in Under an Hour</div>
         <div class="play-text">A rep opens a new quote, selects a product family, and the configurator walks them through compatible options based on the customer's account tier and prior purchases. Pricing populates from the correct price book automatically. Discounts within policy require no approval. <strong>What used to take two days of back-and-forth across three departments takes 45 minutes.</strong> The rep spends the rest of the day selling.</div>
-        <div class="play-result">&#127981; Intelligent Quoting + AI Deal Agents</div>
+        <div class="play-result">Intelligent Quoting + AI Deal Agents</div>
       </div>
 
       <div class="play-card">
         <div class="play-num">Play 02</div>
         <div class="play-title">Channel Pricing Enforced Automatically. No More Margin Leakage.</div>
         <div class="play-text">Direct accounts see direct pricing. Dealer network sees dealer pricing. Distributor tiers see distributor pricing. Volume breaks apply when they should apply. <strong>No rep manually deciding which price book to use, no manager approving discounts that never should have been offered.</strong> Unified deal intelligence tracks every discount by rep, region, and account tier so you can see exactly where margin walks out the door.</div>
-        <div class="play-result">&#127981; Intelligent Quoting + Unified Deal Intelligence</div>
+        <div class="play-result">Intelligent Quoting + Unified Deal Intelligence</div>
       </div>
 
       <div class="play-card">
         <div class="play-num">Play 03</div>
         <div class="play-title">Contract Renewals Initiated 90 Days Early. No One Has to Remember.</div>
         <div class="play-text">An AI agent monitors every contract expiration date across your full book. At 90 days, it prepares a renewal summary: contract terms, product usage, any open service issues. Then it routes to the rep with a suggested renewal offer pre-populated. <strong>No renewal slips through because someone forgot to check a spreadsheet.</strong> The rep shows up to the renewal conversation already prepared, not scrambling.</div>
-        <div class="play-result">&#127981; AI Deal Agents + Unified Deal Intelligence</div>
+        <div class="play-result">AI Deal Agents + Unified Deal Intelligence</div>
       </div>
 
       <div class="play-card">
         <div class="play-num">Play 04</div>
         <div class="play-title">Revenue Recognition That Updates Itself When Contracts Change</div>
         <div class="play-text">A three-year contract with milestone billing and a price escalator in year two generates a recognition schedule automatically when the contract is executed. When the customer requests an amendment, the schedule updates. <strong>Finance stops rebuilding spreadsheets every time a contract changes.</strong> Audit preparation goes from a two-week scramble to a report run. Every recognized dollar is traceable back to a contract line without a manual lookup.</div>
-        <div class="play-result">&#127981; Intelligent Quoting + Unified Deal Intelligence</div>
+        <div class="play-result">Intelligent Quoting + Unified Deal Intelligence</div>
       </div>
 
       <div class="play-card">
         <div class="play-num">Play 05</div>
         <div class="play-title">Expansion Deals Surfaced Before the Customer Even Asks</div>
         <div class="play-text">Unified deal intelligence scores every active account for expansion readiness based on product usage, order frequency, service health, and what similar accounts have added. The rep gets a prioritized list of accounts most likely to buy more and a recommended starting point for the conversation. <strong>Your best expansion opportunities are already in your book of business. Most teams are just not looking for them systematically.</strong></div>
-        <div class="play-result">&#127981; Unified Deal Intelligence + AI Deal Agents</div>
+        <div class="play-result">Unified Deal Intelligence + AI Deal Agents</div>
       </div>
 
       <div class="play-card">
         <div class="play-num">Play 06</div>
         <div class="play-title">Reps Quote From Slack or Teams. They Never Leave the Conversation.</div>
         <div class="play-text">A rep is in a Slack thread with their manager when a customer texts asking for a quick quote. They type a slash command: account name, product, quantity. The AI deal agent pulls the correct price book, applies the right tier, and returns a formatted draft quote in the same thread. The rep reviews, approves, and sends. <strong>The entire quote happens inside the tool your team is already in, without switching to a browser, logging into a separate system, or waiting for someone in ops to pull the pricing.</strong> Deals that used to stall waiting for a quote now close in the same conversation they started in.</div>
-        <div class="play-result">&#127981; AI Deal Agents + Intelligent Quoting</div>
+        <div class="play-result">AI Deal Agents + Intelligent Quoting</div>
       </div>
 
     </div>
@@ -515,7 +538,7 @@ footer span { color: rgba(255,255,255,.62); }
       <!-- SLACK DEMO -->
       <div class="chat-demo">
         <div class="chat-demo-header">
-          <div class="chat-demo-logo">💬</div>
+          <div class="chat-demo-logo" style="font-size:.65rem;font-weight:900;letter-spacing:.8px;color:#E01E5A;text-transform:uppercase;">SL</div>
           <div class="chat-demo-name">Slack: #deals-acme-industrials</div>
           <div class="chat-demo-status">live</div>
         </div>
@@ -571,7 +594,7 @@ footer span { color: rgba(255,255,255,.62); }
       <!-- TEAMS DEMO -->
       <div class="chat-demo">
         <div class="chat-demo-header">
-          <div class="chat-demo-logo">🟦</div>
+          <div class="chat-demo-logo" style="font-size:.65rem;font-weight:900;letter-spacing:.8px;color:#5B5EA6;text-transform:uppercase;">MS</div>
           <div class="chat-demo-name">Teams: Deal Desk · General</div>
           <div class="chat-demo-status">live</div>
         </div>
@@ -655,17 +678,14 @@ footer span { color: rgba(255,255,255,.62); }
 
     <div class="urgency-grid">
       <div class="urgency-card">
-        <div class="urgency-icon">&#9889;</div>
         <div class="urgency-title">Competitors with faster quotes are winning deals you are not even losing. You are just not hearing about them</div>
         <div class="urgency-text">When a buyer gets two quotes in the same week and one arrives in two hours while yours arrives in three days, the deal is often decided before your quote lands. Speed-to-quote is a silent competitive disadvantage that does not show up in your CRM as a lost deal. It shows up as deals that never started. Manufacturers who have invested in automated quoting are closing at a speed you cannot match manually.</div>
       </div>
       <div class="urgency-card">
-        <div class="urgency-icon">&#128184;</div>
         <div class="urgency-title">Margin leakage from inconsistent discounting is a current, ongoing cost</div>
         <div class="urgency-text">Without pricing guardrails in place, every deal your team closes without approval is a data point you are not collecting. Most manufacturers who audit their discount patterns for the first time find 10 to 15 percent of deals were discounted beyond policy with no documentation. That is not a past problem. It is happening in your pipeline right now, on deals your team is working today.</div>
       </div>
       <div class="urgency-card">
-        <div class="urgency-icon">&#128640;</div>
         <div class="urgency-title">A focused deployment can transform one revenue motion in one quarter</div>
         <div class="urgency-text">You do not have to automate your entire quote-to-cash process at once. A scoped engagement targeting your highest-volume quote type, the product configuration your team quotes most often, can go live in a single quarter and show measurable results before your next planning cycle. Eaton started with one BU and expanded once the first deployment proved the model. You can do the same.</div>
       </div>
@@ -781,8 +801,8 @@ footer span { color: rgba(255,255,255,.62); }
           I am not going to walk you through a generic demo. When we talk, I will show you a manufacturer in your space, what they automated, how long it took, and what changed for their sales and finance teams. <strong>Real results and an honest read on where to start.</strong>
         </div>
         <div class="about-cta-row">
-          <a class="btn-white" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">&#128197; Book 30 Minutes</a>
-          <a class="btn-ghost" href="tel:7654307903">&#128222; 765-430-7903</a>
+          <a class="btn-white" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Book 30 Minutes &rarr;</a>
+          <a class="btn-ghost" href="tel:7654307903">765-430-7903</a>
         </div>
       </div>
     </div>
@@ -793,7 +813,7 @@ footer span { color: rgba(255,255,255,.62); }
   <div class="section fade-in">
     <div class="cta-title">Ready to See What This Looks Like for Your Team?</div>
     <div class="cta-sub">30 minutes. I will walk through a manufacturer in your space and give you an honest read on what a deployment would actually involve.</div>
-    <a class="btn-white" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">&#128197; Book Time with Anthony</a>
+    <a class="btn-white" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Book Time with Anthony &rarr;</a>
     <div class="cta-contact">Or reach out directly: 765-430-7903 &nbsp;·&nbsp; atroggio@salesforce.com</div>
   </div>
 </section>
@@ -806,6 +826,16 @@ footer span { color: rgba(255,255,255,.62); }
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
 }, { threshold: 0.08 });
+
+document.querySelectorAll('.disconnect-grid, .urgency-grid').forEach(function(grid) {
+  Array.from(grid.children).forEach(function(card, i) {
+    var n = document.createElement('span');
+    n.className = 'card-accent-num';
+    n.textContent = String(i + 1).padStart(2, '0');
+    card.appendChild(n);
+  });
+});
+
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 </body>

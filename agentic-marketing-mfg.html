@@ -99,7 +99,7 @@ img { display: block; max-width: 100%; }
 
 /* SECTION */
 .section { max-width: 1120px; margin: 0 auto; padding: 64px 48px; }
-.section-eyebrow { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--orange); margin-bottom: 10px; }
+.section-eyebrow { font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--orange); margin-bottom: 14px; }
 .section-title { font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 800; color: var(--navy); line-height: 1.2; margin-bottom: 12px; }
 .section-title-white { color: #fff; }
 .section-sub { font-size: .97rem; color: var(--muted); max-width: 660px; line-height: 1.8; }
@@ -110,9 +110,8 @@ img { display: block; max-width: 100%; }
 .disconnect-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; }
 .disconnect-card {
   background: var(--light); border-radius: var(--r); border: 1px solid var(--border);
-  padding: 28px; box-shadow: var(--shadow);
+  padding: 28px; box-shadow: var(--shadow); border-top: 3px solid var(--orange); position: relative;
 }
-.disconnect-icon { font-size: 1.8rem; margin-bottom: 14px; }
 .disconnect-title { font-size: .96rem; font-weight: 800; color: var(--navy); margin-bottom: 10px; line-height: 1.3; }
 .disconnect-text { font-size: .84rem; color: var(--muted); line-height: 1.75; }
 
@@ -162,9 +161,8 @@ img { display: block; max-width: 100%; }
 .urgency-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; }
 .urgency-card {
   background: var(--light); border-radius: var(--r); border: 1px solid var(--border);
-  padding: 28px; box-shadow: var(--shadow); border-top: 3px solid var(--orange);
+  padding: 28px; box-shadow: var(--shadow); border-top: 3px solid var(--orange); position: relative;
 }
-.urgency-icon { font-size: 1.6rem; margin-bottom: 14px; }
 .urgency-title { font-size: .96rem; font-weight: 800; color: var(--navy); margin-bottom: 10px; line-height: 1.35; }
 .urgency-text { font-size: .84rem; color: var(--muted); line-height: 1.8; }
 
@@ -231,6 +229,34 @@ footer span { color: rgba(255,255,255,.62); }
   .hero h1 { font-size: 1.85rem; }
   .topbar-tag { display: none; }
 }
+
+.section-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+  flex-shrink: 0;
+  opacity: .8;
+}
+.card-accent-num {
+  position: absolute;
+  bottom: 14px;
+  right: 18px;
+  font-size: 4rem;
+  font-weight: 900;
+  color: var(--orange);
+  opacity: .055;
+  line-height: 1;
+  letter-spacing: -3px;
+  pointer-events: none;
+  user-select: none;
+}
 </style>
 </head>
 <body>
@@ -241,7 +267,7 @@ footer span { color: rgba(255,255,255,.62); }
     <div class="topbar-divider"></div>
     <span class="topbar-tag">Agentic Marketing for Manufacturers</span>
   </div>
-  <a class="topbar-cta" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Talk to Anthony</a>
+  <a class="topbar-cta" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Talk to Anthony &rarr;</a>
 </nav>
 
 <section class="hero">
@@ -255,7 +281,7 @@ footer span { color: rgba(255,255,255,.62); }
     <h1>Your ERP knows everything about your customers.<br><em>Your marketing team knows almost nothing.</em></h1>
     <p class="hero-sub">Order history. Contract dates. Product affinity. Renewal windows. It is all sitting in your system of record right now. The best manufacturing marketing teams are connecting that data to AI-powered campaigns that run on their own. This is what that looks like in practice.</p>
     <div class="hero-actions">
-      <a class="btn-primary" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">&#128197; Talk to Anthony</a>
+      <a class="btn-primary" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Talk to Anthony &rarr;</a>
       <a class="btn-ghost" href="#capabilities">See the Platform ↓</a>
     </div>
   </div>
@@ -280,17 +306,14 @@ footer span { color: rgba(255,255,255,.62); }
 
     <div class="disconnect-grid">
       <div class="disconnect-card">
-        <div class="disconnect-icon">📦</div>
         <div class="disconnect-title">Your most valuable signals are locked in your ERP</div>
         <div class="disconnect-text">Every order, every contract date, every product line a customer has ever bought. It is in SAP or Dynamics. Your marketing tool has none of it. So campaigns go to the wrong people at the wrong time, based on who opened an email last month. Not on who is actually buying and what they are buying next.</div>
       </div>
       <div class="disconnect-card">
-        <div class="disconnect-icon">🏭</div>
         <div class="disconnect-title">You are marketing to accounts, not contacts</div>
         <div class="disconnect-text">B2B manufacturing deals involve 5 to 15 stakeholders per account. A procurement manager is not the same as a plant manager or VP of Operations. Most marketing tools treat them as one contact on a list. That mismatch kills relevance and tanks engagement before a single email lands.</div>
       </div>
       <div class="disconnect-card">
-        <div class="disconnect-icon">⏳</div>
         <div class="disconnect-title">Long sales cycles need nurture that actually keeps running</div>
         <div class="disconnect-text">Manufacturing deals take 6 to 18 months. No team can manually manage a nurture sequence over that timeline. Most leads either get pounded in week one or forgotten by month three. Automated journeys tied to real account behavior close that gap without adding headcount.</div>
       </div>
@@ -385,35 +408,35 @@ footer span { color: rgba(255,255,255,.62); }
         <div class="play-num">Play 01</div>
         <div class="play-title">Lapsed Buyer Reactivation, Running Automatically</div>
         <div class="play-text">A customer who has not ordered in 90 days triggers an automated journey: a personalized email referencing their last order category, a follow-up SMS from their rep, and a task for inside sales if there is still no response at day 14. <strong>Zero manual effort. Runs 24 hours a day.</strong> Most manufacturing teams lose this revenue silently because nobody has time to pull the list every week.</div>
-        <div class="play-result">&#127981; Agentic Marketing + Unified Buyer Data</div>
+        <div class="play-result">Agentic Marketing + Unified Buyer Data</div>
       </div>
 
       <div class="play-card">
         <div class="play-num">Play 02</div>
         <div class="play-title">Contract Renewal Runway: 90/60/30 Day Sequence</div>
         <div class="play-text">Unified buyer data ingests contract dates from your ERP. When a contract hits 90 days out, a renewal journey launches automatically. Value summary at 90 days. Case study at 60. Direct outreach from the AE at 30. <strong>Marketing and sales moving as one coordinated motion</strong>, not a last-minute scramble driven by whoever remembered to check the spreadsheet.</div>
-        <div class="play-result">&#127981; Agentic Marketing + Unified Buyer Data + CRM</div>
+        <div class="play-result">Agentic Marketing + Unified Buyer Data + CRM</div>
       </div>
 
       <div class="play-card">
         <div class="play-num">Play 03</div>
         <div class="play-title">New Product Launch to a Relevant Audience Only</div>
         <div class="play-text">Instead of blasting a product announcement to your full list, unified buyer data segments by purchase history, industry, and product affinity. <strong>Customers who buy related products get the launch email. Everyone else does not.</strong> Engagement goes up. Unsubscribes go down. The product actually launches to the buyers most likely to care about it.</div>
-        <div class="play-result">&#127981; Agentic Marketing + Unified Buyer Data</div>
+        <div class="play-result">Agentic Marketing + Unified Buyer Data</div>
       </div>
 
       <div class="play-card">
         <div class="play-num">Play 04</div>
         <div class="play-title">Inbound Inquiries Answered Overnight, Without a Person</div>
         <div class="play-text">A prospect fills out a quote request at 9pm. An AI agent responds immediately. It answers product questions, qualifies the opportunity, and either books a meeting or routes to inside sales with a full summary. <strong>No lead sits cold overnight.</strong> GE Appliances is resolving 25% of all customer interactions this way with no human involved at all.</div>
-        <div class="play-result">&#127981; AI Agents + Agentic Marketing</div>
+        <div class="play-result">AI Agents + Agentic Marketing</div>
       </div>
 
       <div class="play-card">
         <div class="play-num">Play 05</div>
         <div class="play-title">Account-Based Marketing for Your Top 50 Accounts</div>
         <div class="play-text">Your top 50 accounts get a fundamentally different experience than the rest of your list. Unified buyer data scores engagement and opportunity signals. Automated journeys trigger personalized content based on what that account is actually doing: visiting pricing pages, opening service emails, ordering new SKUs. <strong>Marketing becomes a revenue signal, not just brand noise.</strong></div>
-        <div class="play-result">&#127981; Unified Buyer Data + Agentic Marketing</div>
+        <div class="play-result">Unified Buyer Data + Agentic Marketing</div>
       </div>
     </div>
   </div>
@@ -430,17 +453,14 @@ footer span { color: rgba(255,255,255,.62); }
 
     <div class="urgency-grid">
       <div class="urgency-card">
-        <div class="urgency-icon">&#9889;</div>
         <div class="urgency-title">Your competitors are building this capability right now</div>
         <div class="urgency-text">HubSpot shipped AI campaign tools in 2024 and is actively selling into manufacturing. Your distributors and industrial peers who move first own the capability advantage. The ones who wait spend the next 12 months playing catch-up against teams that already perfected it. First-mover advantage in AI-powered marketing is real and the window is closing.</div>
       </div>
       <div class="urgency-card">
-        <div class="urgency-icon">&#128184;</div>
         <div class="urgency-title">You are losing revenue right now, not at some future date</div>
         <div class="urgency-text">Every week without contract dates connected to your marketing, you miss the 90-day renewal window. Every month without lapsed-buyer automation, you lose reorder revenue quietly. Every night without an AI agent covering inbound, cold leads cost you pipeline. These are not future risks. They are ongoing losses happening in your business right now, today.</div>
       </div>
       <div class="urgency-card">
-        <div class="urgency-icon">&#128640;</div>
         <div class="urgency-title">A focused pilot can show results in one campaign cycle</div>
         <div class="urgency-text">You do not need a full platform overhaul to see what this does for your team. A scoped engagement connecting your ERP data and launching your first three automated journeys can be live before your next QBR. Real results in the time it normally takes to finish a vendor evaluation. The goal is proof, not transformation on day one.</div>
       </div>
@@ -556,8 +576,8 @@ footer span { color: rgba(255,255,255,.62); }
           I am not going to pitch you generic slides. When we talk, I will show you deployments from manufacturers who look like your company. Similar size. Similar go-to-market. Similar data challenges. <strong>Real results and an honest read on what it would actually take to get there.</strong>
         </div>
         <div class="about-cta-row">
-          <a class="btn-white" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">&#128197; Book 30 Minutes</a>
-          <a class="btn-ghost" href="tel:7654307903">&#128222; 765-430-7903</a>
+          <a class="btn-white" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Book 30 Minutes &rarr;</a>
+          <a class="btn-ghost" href="tel:7654307903">765-430-7903</a>
         </div>
       </div>
     </div>
@@ -568,7 +588,7 @@ footer span { color: rgba(255,255,255,.62); }
   <div class="section fade-in">
     <div class="cta-title">Ready to See What This Looks Like for Your Team?</div>
     <div class="cta-sub">30 minutes. I will walk through a manufacturer in your space and give you an honest read on what a deployment would actually involve.</div>
-    <a class="btn-white" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">&#128197; Book Time with Anthony</a>
+    <a class="btn-white" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Book Time with Anthony &rarr;</a>
     <div class="cta-contact">Or reach out directly: 765-430-7903 &nbsp;·&nbsp; atroggio@salesforce.com</div>
   </div>
 </section>
@@ -581,6 +601,16 @@ footer span { color: rgba(255,255,255,.62); }
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
 }, { threshold: 0.08 });
+
+document.querySelectorAll('.disconnect-grid, .urgency-grid').forEach(function(grid) {
+  Array.from(grid.children).forEach(function(card, i) {
+    var n = document.createElement('span');
+    n.className = 'card-accent-num';
+    n.textContent = String(i + 1).padStart(2, '0');
+    card.appendChild(n);
+  });
+});
+
 document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 </script>
 </body>
