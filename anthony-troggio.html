@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anthony Troggio | Digital Account Executive, Salesforce</title>
+<meta name="description" content="Anthony Troggio helps manufacturers across the Western US use AI to grow faster, serve better, and run leaner. Salesforce Digital AE, Manufacturing and Automotive.">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0a1628;
+    --navy2: #0f2041;
+    --blue: #0176d3;
+    --blue2: #014486;
+    --ice: #e8f4fd;
+    --gold: #c8973a;
+    --gold2: #f0c060;
+    --text: #1c1c1c;
+    --muted: #5a5a5a;
+    --light: #f6f7f9;
+    --border: #e0dedd;
+    --white: #ffffff;
+    --max: 1080px;
+    --radius: 12px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: var(--text);
+    background: var(--white);
+    line-height: 1.7;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* TYPOGRAPHY SYSTEM */
+  .sans { font-family: 'Helvetica Neue', 'Arial', sans-serif; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 200;
+    background: rgba(10, 22, 40, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 0 40px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-name {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+  }
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+  }
+  .nav-links a {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: rgba(255,255,255,0.9); }
+  .nav-book {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold2) !important;
+    border: 1px solid rgba(200,151,58,0.4);
+    padding: 7px 18px;
+    border-radius: 3px;
+    transition: background 0.2s, border-color 0.2s !important;
+  }
+  .nav-book:hover { background: rgba(200,151,58,0.1) !important; border-color: var(--gold2) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .hero-gradient {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(1,118,211,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-gold-line {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, transparent 0%, var(--gold) 30%, var(--gold2) 70%, transparent 100%);
+  }
+  .hero-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 120px 48px 80px;
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+  }
+  .hero-eyebrow {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+  .hero h1 {
+    font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--white);
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+  .hero h1 strong {
+    font-weight: 700;
+    display: block;
+  }
+  .hero-rule {
+    width: 60px;
+    height: 3px;
+    background: var(--gold);
+    margin: 28px 0;
+  }
+  .hero-sub {
+    font-size: 1.08rem;
+    color: rgba(255,255,255,0.62);
+    line-height: 1.8;
+    max-width: 520px;
+    margin-bottom: 44px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 300;
+  }
+  .hero-sub strong { color: rgba(255,255,255,0.9); font-weight: 500; }
+  .hero-cta-row { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-gold {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: var(--gold);
+    color: var(--navy);
+    padding: 15px 32px;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+  .btn-gold:hover { background: var(--gold2); text-decoration: none; color: var(--navy); }
+  .btn-ghost {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    padding: 15px 32px;
+    border-radius: 3px;
+    text-decoration: none;
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.6); color: var(--white); text-decoration: none; }
+
+  /* HERO PHOTO CARD */
+  .hero-photo-card {
+    position: relative;
+  }
+  .hero-photo-frame {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .hero-photo-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.1);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .hero-photo-frame img {
+    width: 100%;
+    height: 460px;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter: grayscale(20%) contrast(1.05);
+  }
+  .hero-photo-frame .photo-fallback {
+    width: 100%;
+    height: 460px;
+    background: linear-gradient(180deg, var(--navy2) 0%, #0d1f3c 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 6rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.08);
+    letter-spacing: -4px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .hero-photo-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(0deg, rgba(10,22,40,0.95) 0%, transparent 60%);
+    padding: 32px 24px 24px;
+    border-radius: 0 0 var(--radius) var(--radius);
+    z-index: 3;
+  }
+  .hero-photo-name {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 3px;
+  }
+  .hero-photo-title {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.75rem;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .hero-corner-accent {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    width: 60px;
+    height: 60px;
+    border-top: 3px solid var(--gold);
+    border-right: 3px solid var(--gold);
+    border-radius: 0 var(--radius) 0 0;
+  }
+  .hero-corner-accent-bl {
+    position: absolute;
+    bottom: -12px;
+    left: -12px;
+    width: 60px;
+    height: 60px;
+    border-bottom: 3px solid rgba(200,151,58,0.35);
+    border-left: 3px solid rgba(200,151,58,0.35);
+    border-radius: 0 0 0 var(--radius);
+  }
+
+  /* SCROLL INDICATOR */
+  .scroll-hint {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .scroll-hint span {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+  }
+  .scroll-mouse {
+    width: 22px;
+    height: 34px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 11px;
+    display: flex;
+    justify-content: center;
+    padding-top: 6px;
+  }
+  .scroll-wheel {
+    width: 3px;
+    height: 6px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 2px;
+    animation: scrollWheel 1.8s ease-in-out infinite;
+  }
+  @keyframes scrollWheel {
+    0% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 0; transform: translateY(0); }
+  }
+
+  /* INTRO STRIP */
+  .intro-strip {
+    background: var(--gold);
+    padding: 20px 48px;
+  }
+  .intro-strip-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .intro-strip p {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.5;
+  }
+  .intro-strip p strong { font-weight: 800; }
+  .intro-strip-stats {
+    display: flex;
+    gap: 40px;
+    flex-shrink: 0;
+  }
+  .strip-stat { text-align: center; }
+  .strip-stat-num {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--navy);
+    line-height: 1;
+  }
+  .strip-stat-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: rgba(10,22,40,0.6);
+    margin-top: 3px;
+  }
+
+  /* SECTION BASE */
+  .section { padding: 96px 48px; }
+  .container { max-width: var(--max); margin: 0 auto; }
+  .eyebrow {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .eyebrow::before {
+    content: '';
+    display: block;
+    width: 22px;
+    height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3vw, 2.6rem);
+    font-weight: 400;
+    color: var(--navy);
+    line-height: 1.2;
+    margin-bottom: 18px;
+    letter-spacing: -0.3px;
+  }
+  .section-title strong { font-weight: 700; }
+  .section-body {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.85;
+    max-width: 600px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 300;
+  }
+
+  /* ABOUT SECTION */
+  .about-section { background: var(--white); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-top: 56px;
+  }
+  .about-pull {
+    font-size: clamp(1.25rem, 2vw, 1.55rem);
+    font-weight: 400;
+    color: var(--navy);
+    line-height: 1.55;
+    padding-left: 28px;
+    border-left: 3px solid var(--gold);
+    margin-bottom: 36px;
+    font-style: italic;
+  }
+  .about-body p {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.97rem;
+    color: var(--muted);
+    line-height: 1.9;
+    font-weight: 300;
+    margin-bottom: 20px;
+  }
+  .about-body p:last-child { margin-bottom: 0; }
+  .about-body strong { color: var(--text); font-weight: 600; }
+  .about-right {}
+  .about-detail-list { list-style: none; margin-bottom: 40px; }
+  .about-detail-list li {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.88rem;
+    color: var(--muted);
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+  }
+  .about-detail-list li:first-child { border-top: 1px solid var(--border); }
+  .about-detail-label {
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    color: var(--navy);
+    flex-shrink: 0;
+  }
+  .about-detail-val { text-align: right; line-height: 1.4; }
+
+  /* WHAT I DO */
+  .work-section { background: var(--navy); }
+  .work-section .eyebrow { color: var(--gold); }
+  .work-section .eyebrow::before { background: var(--gold); }
+  .work-section .section-title { color: var(--white); }
+  .work-section .section-body { color: rgba(255,255,255,0.5); }
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    margin-top: 56px;
+    background: rgba(255,255,255,0.06);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .work-card {
+    background: var(--navy2);
+    padding: 44px 36px;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .work-card:hover { background: #132540; }
+  .work-card-num {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.03);
+    position: absolute;
+    bottom: 16px;
+    right: 20px;
+    line-height: 1;
+    user-select: none;
+    letter-spacing: -4px;
+  }
+  .work-card-accent {
+    width: 36px;
+    height: 3px;
+    background: var(--gold);
+    margin-bottom: 24px;
+  }
+  .work-card h3 {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 14px;
+    line-height: 1.3;
+  }
+  .work-card p {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* APPROACH SECTION */
+  .approach-section { background: var(--light); }
+  .approach-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    margin-top: 56px;
+  }
+  .approach-items { display: flex; flex-direction: column; gap: 0; }
+  .approach-item {
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+  .approach-item:first-child { border-top: 1px solid var(--border); }
+  .approach-num {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--gold);
+    padding-top: 4px;
+  }
+  .approach-item h3 {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .approach-item p {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.87rem;
+    color: var(--muted);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+  .approach-statement {
+    background: var(--navy);
+    border-radius: var(--radius);
+    padding: 52px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  .approach-statement::before {
+    content: '\201C';
+    font-size: 14rem;
+    color: rgba(255,255,255,0.03);
+    position: absolute;
+    top: -30px;
+    left: 20px;
+    line-height: 1;
+    font-family: Georgia, serif;
+    pointer-events: none;
+  }
+  .approach-statement blockquote {
+    font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+    font-weight: 400;
+    color: rgba(255,255,255,0.88);
+    line-height: 1.65;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 28px;
+  }
+  .approach-statement cite {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .approach-statement cite::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  /* BUSINESSES I WORK WITH */
+  .who-section { background: var(--white); }
+  .who-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 56px;
+  }
+  .who-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+  .who-card:hover { box-shadow: 0 8px 40px rgba(0,0,0,0.08); border-color: rgba(200,151,58,0.3); }
+  .who-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--gold);
+  }
+  .who-card-num {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: rgba(10,22,40,0.04);
+    position: absolute;
+    bottom: 12px;
+    right: 20px;
+    line-height: 1;
+    letter-spacing: -3px;
+  }
+  .who-card h3 {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .who-card p {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* BOOK SECTION */
+  .book-section {
+    background: var(--navy);
+    position: relative;
+    overflow: hidden;
+  }
+  .book-bg-text {
+    position: absolute;
+    right: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 22rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.02);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -12px;
+  }
+  .book-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 96px 48px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 80px;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+  }
+  .book-eyebrow { color: var(--gold); }
+  .book-eyebrow::before { background: var(--gold); }
+  .book-title {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.2;
+    margin-bottom: 20px;
+    letter-spacing: -0.3px;
+  }
+  .book-title strong { font-weight: 700; }
+  .book-sub {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.97rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.85;
+    max-width: 500px;
+    font-weight: 300;
+    margin-bottom: 40px;
+  }
+  .book-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: var(--radius);
+    padding: 40px 36px;
+    text-align: center;
+    min-width: 280px;
+    flex-shrink: 0;
+  }
+  .book-card-photo {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 2px solid var(--gold);
+    margin: 0 auto 16px;
+    display: block;
+  }
+  .book-card-photo-fb {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 2px solid var(--gold);
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.3);
+  }
+  .book-card-name {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .book-card-role {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.75rem;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 28px;
+    letter-spacing: 0.3px;
+  }
+  .book-details { margin-bottom: 28px; }
+  .book-detail-row {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.45);
+    padding: 9px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  .book-detail-row:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+  .book-detail-row strong { color: rgba(255,255,255,0.8); font-weight: 600; }
+  .btn-gold-full {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    background: var(--gold);
+    color: var(--navy);
+    padding: 14px 28px;
+    border-radius: 3px;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    transition: background 0.2s;
+    width: 100%;
+  }
+  .btn-gold-full:hover { background: var(--gold2); text-decoration: none; color: var(--navy); }
+  .book-sub-link {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.77rem;
+    color: rgba(255,255,255,0.35);
+    margin-top: 12px;
+    text-align: center;
+    display: block;
+  }
+  .book-sub-link a { color: rgba(255,255,255,0.55); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.2); }
+  .book-sub-link a:hover { color: var(--white); border-color: var(--white); }
+
+  /* FOOTER */
+  footer {
+    background: #050e1a;
+    color: rgba(255,255,255,0.25);
+    padding: 36px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-name {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+  footer a { color: rgba(255,255,255,0.35); text-decoration: none; font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 0.78rem; }
+  footer a:hover { color: var(--gold); }
+  .footer-links { display: flex; gap: 24px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 52px; padding: 100px 28px 60px; }
+    .hero-photo-card { order: -1; max-width: 340px; margin: 0 auto; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .work-grid { grid-template-columns: 1fr; gap: 2px; }
+    .approach-grid { grid-template-columns: 1fr; gap: 48px; }
+    .who-grid { grid-template-columns: 1fr; }
+    .book-inner { grid-template-columns: 1fr; gap: 48px; padding: 72px 28px; }
+    .book-card { min-width: auto; max-width: 340px; }
+    .section { padding: 72px 28px; }
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    footer { padding: 28px 28px; flex-direction: column; text-align: center; }
+    .intro-strip { padding: 20px 28px; }
+  }
+  @media (max-width: 540px) {
+    .hero h1 { font-size: 2.2rem; }
+    .intro-strip-stats { gap: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-name">Anthony Troggio</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#work">What I Do</a>
+    <a href="#approach">Approach</a>
+    <a href="#book" class="nav-book">Book Time &rarr;</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-gradient"></div>
+  <div class="hero-gold-line"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Salesforce &middot; Manufacturing &amp; Automotive &middot; West</div>
+      <h1>Anthony<br><strong>Troggio</strong></h1>
+      <div class="hero-rule"></div>
+      <p class="hero-sub">
+        I help manufacturers across the Western US build the systems they need to <strong>grow faster, serve customers better, and run leaner.</strong> Not with a generic slide deck. With a clear plan, real proof, and an honest read on what it actually takes.
+      </p>
+      <div class="hero-cta-row">
+        <a class="btn-gold" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Book 30 Minutes &rarr;</a>
+        <a class="btn-ghost" href="#about">Read More &darr;</a>
+      </div>
+    </div>
+    <div class="hero-photo-card">
+      <div class="hero-corner-accent"></div>
+      <div class="hero-corner-accent-bl"></div>
+      <div class="hero-photo-frame">
+        <img src="anthony.png" alt="Anthony Troggio" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="photo-fallback" style="display:none">AT</div>
+        <div class="hero-photo-overlay">
+          <div class="hero-photo-name">Anthony Troggio</div>
+          <div class="hero-photo-title">Digital Account Executive &middot; Salesforce</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+  </div>
+</section>
+
+<!-- INTRO STRIP -->
+<div class="intro-strip">
+  <div class="intro-strip-inner">
+    <p>Serving <strong>manufacturers across the Western US</strong> with AI, automation, and the full Salesforce platform since 2021.</p>
+    <div class="intro-strip-stats">
+      <div class="strip-stat">
+        <div class="strip-stat-num">500+</div>
+        <div class="strip-stat-label">Connections</div>
+      </div>
+      <div class="strip-stat">
+        <div class="strip-stat-num">MFG</div>
+        <div class="strip-stat-label">Specialist</div>
+      </div>
+      <div class="strip-stat">
+        <div class="strip-stat-num">West</div>
+        <div class="strip-stat-label">Territory</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about-section section" id="about">
+  <div class="container">
+    <div class="eyebrow">About</div>
+    <h2 class="section-title">The person behind the <strong>title.</strong></h2>
+    <div class="about-grid">
+      <div class="about-left">
+        <p class="about-pull">I did not set out to sell software. I set out to solve problems. The two ended up being the same thing.</p>
+        <div class="about-body">
+          <p>I am a Digital Account Executive at Salesforce, focused exclusively on manufacturers across the Western US. Before that, I spent years in digital media sales, learning how to listen to business owners, understand what they actually need, and tell them what I honestly think. That habit did not change when I moved to enterprise software.</p>
+          <p>My background is in journalism, from Arizona State University. It taught me to ask better questions than most, write clearly, and never mistake a polished presentation for the truth. Those skills matter more in enterprise sales than most people expect.</p>
+          <p>I live in Phoenix, Arizona. I am a dad first. Everything else is second. That priority shapes how I work: directly, without wasting time, and with genuine care for the outcome on the other side of the conversation.</p>
+          <p>When I am working with a manufacturer, I am not trying to land a deal. I am trying to understand their business well enough to be <strong>genuinely useful to them</strong>, whether or not that leads anywhere in the short term.</p>
+        </div>
+      </div>
+      <div class="about-right">
+        <ul class="about-detail-list">
+          <li>
+            <span class="about-detail-label">Company</span>
+            <span class="about-detail-val">Salesforce</span>
+          </li>
+          <li>
+            <span class="about-detail-label">Role</span>
+            <span class="about-detail-val">Digital Account Executive</span>
+          </li>
+          <li>
+            <span class="about-detail-label">Focus</span>
+            <span class="about-detail-val">Manufacturing &amp; Automotive</span>
+          </li>
+          <li>
+            <span class="about-detail-label">Territory</span>
+            <span class="about-detail-val">Western United States</span>
+          </li>
+          <li>
+            <span class="about-detail-label">Based in</span>
+            <span class="about-detail-val">Phoenix, Arizona</span>
+          </li>
+          <li>
+            <span class="about-detail-label">Education</span>
+            <span class="about-detail-val">ASU &middot; Cronkite School of Journalism</span>
+          </li>
+          <li>
+            <span class="about-detail-label">LinkedIn</span>
+            <span class="about-detail-val"><a href="https://www.linkedin.com/in/anthony-troggio-80599290/" target="_blank">Connect &rarr;</a></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT I DO -->
+<section class="work-section section" id="work">
+  <div class="container">
+    <div class="eyebrow">What I Do</div>
+    <h2 class="section-title" style="color:var(--white);">Where I spend my <strong>time.</strong></h2>
+    <p class="section-body">I work with manufacturers who are trying to figure out how AI, automation, and connected data actually translate into results in their specific business. These are the three places where that conversation usually starts.</p>
+    <div class="work-grid">
+      <div class="work-card">
+        <div class="work-card-num">01</div>
+        <div class="work-card-accent"></div>
+        <h3>Revenue and Sales Operations</h3>
+        <p>Helping sales teams quote faster, price consistently, and close deals without losing margin to manual processes. Complex configure-price-quote, automated contract workflows, and AI agents that handle the work between deals so reps can focus on the deals themselves.</p>
+      </div>
+      <div class="work-card">
+        <div class="work-card-num">02</div>
+        <div class="work-card-accent"></div>
+        <h3>Field Service and Operations</h3>
+        <p>Helping operations teams get the right technician to the right job with the right parts, predict equipment failure before it happens, and build a service organization that runs on data instead of institutional memory and tribal knowledge.</p>
+      </div>
+      <div class="work-card">
+        <div class="work-card-num">03</div>
+        <div class="work-card-accent"></div>
+        <h3>AI and Agentforce</h3>
+        <p>Helping manufacturers understand what AI agents actually do in the real world, where they create leverage, and how to start with a focused deployment that proves the model before expanding it. Not a pilot. A production system with a clear return.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section class="approach-section section" id="approach">
+  <div class="container">
+    <div class="eyebrow">How I Work</div>
+    <h2 class="section-title">An approach built around <strong>honesty.</strong></h2>
+    <p class="section-body">The manufacturers I work with best are the ones who value a straight answer over a polished one. This is how I try to earn that kind of conversation.</p>
+    <div class="approach-grid">
+      <div class="approach-items">
+        <div class="approach-item">
+          <span class="approach-num">01</span>
+          <div>
+            <h3>I lead with your problem, not my product.</h3>
+            <p>Every conversation starts with what you are dealing with, not what I am selling. If there is a fit, it surfaces naturally. If there is not, I will tell you that too.</p>
+          </div>
+        </div>
+        <div class="approach-item">
+          <span class="approach-num">02</span>
+          <div>
+            <h3>I show you manufacturers who look like you.</h3>
+            <p>Not generic case studies. Companies in your space, your size, your go-to-market. What they deployed, how long it took, and what changed for the people doing the work.</p>
+          </div>
+        </div>
+        <div class="approach-item">
+          <span class="approach-num">03</span>
+          <div>
+            <h3>I give you the honest version of what deployment looks like.</h3>
+            <p>Every project has complexity. I would rather tell you that upfront than have you find it out three months into an implementation. The conversation is more useful when it is accurate.</p>
+          </div>
+        </div>
+        <div class="approach-item">
+          <span class="approach-num">04</span>
+          <div>
+            <h3>I stay in contact because I think it matters, not to fill a cadence.</h3>
+            <p>I reach out when I have something worth your attention. A result from a company in your space. A capability that just got released. Something that connects to a conversation we already had.</p>
+          </div>
+        </div>
+      </div>
+      <div class="approach-statement">
+        <blockquote>"Most AEs show me the same deck. Anthony showed up with a story from a company that looked exactly like ours. That was the meeting that made us want to go further."</blockquote>
+        <cite>Manufacturing Operations Leader, Western US</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO I WORK WITH -->
+<section class="who-section section">
+  <div class="container">
+    <div class="eyebrow">Who I Work With</div>
+    <h2 class="section-title">The businesses where I can <strong>add the most value.</strong></h2>
+    <p class="section-body">Not every company is the right fit, and I would rather tell you that than waste your time. Here is where I tend to create the most value.</p>
+    <div class="who-grid">
+      <div class="who-card">
+        <div class="who-card-num">01</div>
+        <h3>Mid-market and enterprise manufacturers in the Western US</h3>
+        <p>Companies with 200 to 5,000 employees, a real sales team, and operational complexity that has outgrown spreadsheets and disconnected systems. You have the scale to get meaningful return from automation and the urgency to move.</p>
+      </div>
+      <div class="who-card">
+        <div class="who-card-num">02</div>
+        <h3>VPs and Directors of Sales, Operations, and Finance</h3>
+        <p>The leaders who own quote-to-cash, field service, or revenue operations and already know there is a better way to run it. You have the authority to build the case internally and the context to evaluate whether what I am showing you is real or just a demo.</p>
+      </div>
+      <div class="who-card">
+        <div class="who-card-num">03</div>
+        <h3>Companies evaluating AI seriously, not just watching it</h3>
+        <p>Manufacturers who have moved past "we should look at AI" and are asking "what does this actually look like in our environment?" That is the conversation I am best equipped to have, and it is where I can point you toward the fastest path to a real result.</p>
+      </div>
+      <div class="who-card">
+        <div class="who-card-num">04</div>
+        <h3>Teams that value a direct conversation over a formal sales process</h3>
+        <p>If you want someone to listen, do their homework, and give you a straight read rather than a scripted presentation, that is what I do. The best work I have done has come from relationships that started with a single honest conversation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOK -->
+<div class="book-section" id="book">
+  <div class="book-bg-text">30</div>
+  <div class="book-inner">
+    <div class="book-left">
+      <div class="eyebrow book-eyebrow">Book Time</div>
+      <h2 class="book-title">Thirty minutes.<br><strong>No pitch. Just a conversation.</strong></h2>
+      <p class="book-sub">If something on this page connected to a problem you are sitting with, the fastest way to find out whether I can help is a direct conversation. I will come prepared with context on your business and an honest take on where AI and automation could create the most leverage for you specifically.</p>
+      <a class="btn-gold" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Book on My Calendar &rarr;</a>
+    </div>
+    <div class="book-right">
+      <div class="book-card">
+        <img src="anthony.png" alt="Anthony Troggio" class="book-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="book-card-photo-fb" style="display:none">AT</div>
+        <div class="book-card-name">Anthony Troggio</div>
+        <div class="book-card-role">Digital AE &middot; Salesforce MFG &amp; Auto West</div>
+        <div class="book-details">
+          <div class="book-detail-row"><span>Format</span><strong>30-min video or phone</strong></div>
+          <div class="book-detail-row"><span>Agenda</span><strong>Your business first</strong></div>
+          <div class="book-detail-row"><span>Location</span><strong>Phoenix, AZ (Remote)</strong></div>
+          <div class="book-detail-row"><span>Best for</span><strong>MFG &middot; Western US</strong></div>
+        </div>
+        <a class="btn-gold-full" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Pick a Time &rarr;</a>
+        <span class="book-sub-link">Or reach out directly: <a href="tel:7654307903">765-430-7903</a></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Anthony Troggio &middot; Salesforce</div>
+  <div class="footer-links">
+    <a href="tel:7654307903">765-430-7903</a>
+    <a href="mailto:atroggio@salesforce.com">atroggio@salesforce.com</a>
+    <a href="https://www.linkedin.com/in/anthony-troggio-80599290/" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+</body>
+</html>
