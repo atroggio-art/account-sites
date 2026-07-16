@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Anthony Troggio | Digital Transformation Architect, Salesforce</title>
-<meta name="description" content="Anthony Troggio is a Digital Transformation Architect at Salesforce specializing in Agentic Marketing, Quote to Cash, Agentic Commerce, and AI for manufacturers.">
+<meta name="description" content="Anthony Troggio helps manufacturers modernize how they sell, quote, and serve customers. Digital Transformation Architect at Salesforce.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
@@ -17,14 +17,12 @@
     --blue: #0176d3;
     --gold: #c8973a;
     --gold2: #e8b84b;
-    --gold3: rgba(200,151,58,0.12);
-    --silver: rgba(255,255,255,0.06);
     --text: #1a1a2e;
-    --muted: #556;
+    --muted: #666;
     --light: #f5f6fa;
     --border: #e2e4ec;
     --white: #ffffff;
-    --max: 1120px;
+    --max: 1080px;
     --r: 14px;
   }
 
@@ -41,11 +39,10 @@
 
   a { color: inherit; text-decoration: none; }
 
-  /* ─── FADE-IN ANIMATION ─── */
   .reveal {
     opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.7s cubic-bezier(.22,.61,.36,1), transform 0.7s cubic-bezier(.22,.61,.36,1);
+    transform: translateY(24px);
+    transition: opacity 0.65s cubic-bezier(.22,.61,.36,1), transform 0.65s cubic-bezier(.22,.61,.36,1);
   }
   .reveal.visible { opacity: 1; transform: none; }
   .reveal-d1 { transition-delay: 0.1s; }
@@ -53,291 +50,189 @@
   .reveal-d3 { transition-delay: 0.3s; }
   .reveal-d4 { transition-delay: 0.4s; }
 
-  /* ─── NAV ─── */
+  /* ── NAV ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 300;
-    height: 64px;
-    background: rgba(8,14,26,0.88);
+    height: 62px;
+    background: rgba(8,14,26,0.92);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255,255,255,0.05);
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 48px;
-    transition: background 0.3s;
+    padding: 0 52px;
   }
   .nav-logo {
-    font-size: 0.82rem;
-    font-weight: 800;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.9);
+    font-size: 0.8rem; font-weight: 800;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
   }
   .nav-logo span { color: var(--gold); }
   .nav-right { display: flex; gap: 36px; align-items: center; }
   .nav-right a {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 1.8px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.45);
+    font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 1.8px; text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
     transition: color 0.2s;
   }
-  .nav-right a:hover { color: rgba(255,255,255,0.9); }
+  .nav-right a:hover { color: rgba(255,255,255,0.85); }
   .nav-cta {
     background: var(--gold) !important;
     color: var(--ink) !important;
-    padding: 9px 22px !important;
+    padding: 9px 20px !important;
     border-radius: 6px !important;
     font-weight: 700 !important;
-    letter-spacing: 1px !important;
-    font-size: 0.75rem !important;
     transition: background 0.2s !important;
   }
   .nav-cta:hover { background: var(--gold2) !important; }
 
-  /* ─── HERO ─── */
+  /* ── HERO ── */
   .hero {
     min-height: 100vh;
     background: var(--ink);
     position: relative;
     overflow: hidden;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: center;
   }
-
-  /* Animated orbs */
   .orb {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    pointer-events: none;
+    position: absolute; border-radius: 50%;
+    filter: blur(80px); pointer-events: none;
   }
   .orb-1 {
-    width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(1,118,211,0.18) 0%, transparent 70%);
-    top: -200px; right: -100px;
-    animation: orbFloat1 12s ease-in-out infinite;
+    width: 680px; height: 680px;
+    background: radial-gradient(circle, rgba(1,118,211,0.16) 0%, transparent 70%);
+    top: -180px; right: -80px;
+    animation: f1 13s ease-in-out infinite;
   }
   .orb-2 {
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, rgba(200,151,58,0.1) 0%, transparent 70%);
-    bottom: -100px; left: -50px;
-    animation: orbFloat2 15s ease-in-out infinite;
+    width: 460px; height: 460px;
+    background: radial-gradient(circle, rgba(200,151,58,0.09) 0%, transparent 70%);
+    bottom: -80px; left: -40px;
+    animation: f2 16s ease-in-out infinite;
   }
-  .orb-3 {
-    width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(1,118,211,0.08) 0%, transparent 70%);
-    top: 40%; left: 40%;
-    animation: orbFloat3 10s ease-in-out infinite;
-  }
-  @keyframes orbFloat1 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(-40px, 40px) scale(1.05); }
-  }
-  @keyframes orbFloat2 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(30px, -30px) scale(0.95); }
-  }
-  @keyframes orbFloat3 {
-    0%, 100% { transform: translate(0, 0); }
-    33% { transform: translate(20px, -20px); }
-    66% { transform: translate(-20px, 10px); }
-  }
+  @keyframes f1 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(-36px,36px); } }
+  @keyframes f2 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(28px,-28px); } }
 
-  /* Grid overlay */
   .hero-grid {
     position: absolute; inset: 0;
     background-image:
-      linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      linear-gradient(rgba(255,255,255,0.016) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.016) 1px, transparent 1px);
     background-size: 72px 72px;
     pointer-events: none;
   }
-
-  /* Vertical accent lines */
   .hero-vline {
-    position: absolute;
-    top: 0; bottom: 0;
-    width: 1px;
-    background: linear-gradient(180deg, transparent 0%, rgba(200,151,58,0.5) 40%, rgba(200,151,58,0.5) 60%, transparent 100%);
+    position: absolute; top: 0; bottom: 0; width: 1px;
+    background: linear-gradient(180deg, transparent 0%, rgba(200,151,58,0.45) 40%, rgba(200,151,58,0.45) 60%, transparent 100%);
     pointer-events: none;
   }
-  .hero-vline-1 { left: 48px; }
-  .hero-vline-2 { right: 48px; }
+  .hero-vline-l { left: 52px; }
+  .hero-vline-r { right: 52px; }
 
   .hero-inner {
-    max-width: var(--max);
-    width: 100%;
+    max-width: var(--max); width: 100%;
     margin: 0 auto;
     padding: 140px 80px 100px;
     display: grid;
-    grid-template-columns: 1fr 400px;
+    grid-template-columns: 1fr 380px;
     gap: 80px;
     align-items: center;
-    position: relative;
-    z-index: 2;
+    position: relative; z-index: 2;
   }
 
   .hero-eyebrow {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 3.5px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 28px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
+    font-size: 0.66rem; font-weight: 700;
+    letter-spacing: 3.5px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 28px;
+    display: flex; align-items: center; gap: 14px;
   }
-  .hero-eyebrow::before {
-    content: '';
-    width: 32px; height: 1px;
-    background: var(--gold);
-    display: block;
-  }
+  .hero-eyebrow::before { content: ''; width: 30px; height: 1px; background: var(--gold); display: block; }
 
   .hero-name {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(3.5rem, 7vw, 6.5rem);
+    font-size: clamp(3.4rem, 7vw, 6.2rem);
     font-weight: 700;
     line-height: 0.95;
     color: var(--white);
     letter-spacing: -2px;
-    margin-bottom: 6px;
+    margin-bottom: 28px;
   }
-  .hero-name .first { display: block; font-weight: 400; font-style: italic; color: rgba(255,255,255,0.7); font-size: 0.7em; letter-spacing: -1px; }
-  .hero-name .last { display: block; }
+  .hero-name .first {
+    display: block; font-weight: 400;
+    font-style: italic; color: rgba(255,255,255,0.65);
+    font-size: 0.68em; letter-spacing: -1px;
+  }
 
-  .hero-title-line {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin: 24px 0 32px;
-  }
-  .hero-title-bar { width: 40px; height: 2px; background: var(--gold); flex-shrink: 0; }
-  .hero-title-text {
-    font-size: 0.85rem;
-    font-weight: 500;
+  .hero-rule { width: 40px; height: 2px; background: var(--gold); margin-bottom: 24px; }
+
+  .hero-position {
+    font-size: 0.82rem; font-weight: 600;
     color: rgba(255,255,255,0.5);
-    letter-spacing: 0.5px;
+    letter-spacing: 0.3px; margin-bottom: 20px;
   }
-  .hero-title-text strong { color: rgba(255,255,255,0.85); font-weight: 600; }
+  .hero-position strong { color: rgba(255,255,255,0.85); font-weight: 700; }
 
-  .hero-headline {
+  .hero-line {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
     font-weight: 400;
     font-style: italic;
-    color: rgba(255,255,255,0.75);
-    line-height: 1.55;
-    max-width: 520px;
+    color: rgba(255,255,255,0.68);
+    line-height: 1.5;
+    max-width: 500px;
     margin-bottom: 44px;
-  }
-  .hero-headline strong {
-    font-style: normal;
-    font-weight: 700;
-    color: var(--white);
-    font-family: 'Inter', sans-serif;
-    font-size: 0.9em;
   }
 
   .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
   .btn-primary {
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    background: var(--gold);
-    color: var(--ink);
-    padding: 16px 32px;
-    border-radius: 6px;
+    font-size: 0.76rem; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    background: var(--gold); color: var(--ink);
+    padding: 16px 32px; border-radius: 6px;
     display: inline-block;
     transition: background 0.2s, transform 0.15s;
   }
   .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
   .btn-outline {
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    background: transparent;
-    color: rgba(255,255,255,0.65);
-    padding: 16px 32px;
-    border-radius: 6px;
+    font-size: 0.76rem; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    background: transparent; color: rgba(255,255,255,0.55);
+    padding: 16px 32px; border-radius: 6px;
     display: inline-block;
-    border: 1px solid rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.16);
     transition: border-color 0.2s, color 0.2s, transform 0.15s;
   }
-  .btn-outline:hover { border-color: rgba(255,255,255,0.6); color: var(--white); transform: translateY(-2px); }
+  .btn-outline:hover { border-color: rgba(255,255,255,0.5); color: var(--white); transform: translateY(-2px); }
 
-  /* Photo card */
+  /* Hero photo */
   .hero-photo-wrap { position: relative; }
+  .corner { position: absolute; width: 44px; height: 44px; pointer-events: none; z-index: 3; }
+  .corner-tr { top: -8px; right: -8px; border-top: 2px solid var(--gold); border-right: 2px solid var(--gold); border-radius: 0 20px 0 0; }
+  .corner-bl { bottom: -8px; left: -8px; border-bottom: 2px solid rgba(200,151,58,0.35); border-left: 2px solid rgba(200,151,58,0.35); border-radius: 0 0 0 20px; }
   .hero-photo-card {
+    border-radius: 20px; overflow: hidden;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.05);
     position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.06);
   }
   .hero-photo-card img {
-    width: 100%;
-    height: 520px;
-    object-fit: cover;
-    object-position: center top;
-    display: block;
-    filter: contrast(1.05) saturate(0.9);
+    width: 100%; height: 500px;
+    object-fit: cover; object-position: center top;
+    display: block; filter: contrast(1.04) saturate(0.92);
   }
   .hero-photo-card .photo-fb {
-    width: 100%; height: 520px;
+    width: 100%; height: 500px;
     background: linear-gradient(160deg, #0d1830 0%, #0a1628 100%);
     display: flex; align-items: center; justify-content: center;
     font-family: 'Playfair Display', serif;
-    font-size: 8rem; font-weight: 700;
-    color: rgba(255,255,255,0.05);
+    font-size: 8rem; font-weight: 700; color: rgba(255,255,255,0.04);
   }
   .hero-photo-overlay {
     position: absolute; bottom: 0; left: 0; right: 0;
-    background: linear-gradient(0deg, rgba(8,14,26,0.97) 0%, transparent 65%);
-    padding: 40px 28px 28px;
-    z-index: 2;
+    background: linear-gradient(0deg, rgba(8,14,26,0.96) 0%, transparent 60%);
+    padding: 40px 28px 26px; z-index: 2;
   }
-  .hero-photo-name {
-    font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 4px;
-  }
-  .hero-photo-role {
-    font-size: 0.72rem; font-weight: 600; color: var(--gold);
-    letter-spacing: 0.5px;
-  }
-  /* Gold frame corners */
-  .corner { position: absolute; width: 48px; height: 48px; pointer-events: none; z-index: 3; }
-  .corner-tr { top: -8px; right: -8px; border-top: 2px solid var(--gold); border-right: 2px solid var(--gold); border-radius: 0 20px 0 0; }
-  .corner-bl { bottom: -8px; left: -8px; border-bottom: 2px solid rgba(200,151,58,0.4); border-left: 2px solid rgba(200,151,58,0.4); border-radius: 0 0 0 20px; }
-
-  /* Floating badge */
-  .hero-badge {
-    position: absolute;
-    top: 32px;
-    left: -28px;
-    background: var(--ink2);
-    border: 1px solid rgba(200,151,58,0.3);
-    border-radius: 10px;
-    padding: 14px 20px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    z-index: 4;
-  }
-  .hero-badge-label {
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 4px;
-  }
-  .hero-badge-val {
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: rgba(255,255,255,0.8);
-  }
+  .hero-photo-name { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+  .hero-photo-role { font-size: 0.7rem; font-weight: 600; color: var(--gold); letter-spacing: 0.3px; }
 
   /* Scroll indicator */
   .scroll-down {
@@ -345,527 +240,417 @@
     display: flex; align-items: center; gap: 12px;
   }
   .scroll-line {
-    width: 1px; height: 56px;
-    background: linear-gradient(180deg, transparent, rgba(255,255,255,0.3));
-    animation: scrollPulse 2s ease-in-out infinite;
+    width: 1px; height: 52px;
+    background: linear-gradient(180deg, transparent, rgba(255,255,255,0.28));
+    animation: sp 2.2s ease-in-out infinite;
   }
-  @keyframes scrollPulse {
-    0%, 100% { opacity: 0.3; } 50% { opacity: 0.8; }
-  }
+  @keyframes sp { 0%,100% { opacity: 0.3; } 50% { opacity: 0.75; } }
   .scroll-label {
-    font-size: 0.6rem; font-weight: 700; letter-spacing: 3px;
-    text-transform: uppercase; color: rgba(255,255,255,0.3);
+    font-size: 0.58rem; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: rgba(255,255,255,0.25);
     writing-mode: vertical-lr;
   }
 
-  /* ─── TICKER ─── */
-  .ticker {
-    background: var(--gold);
-    overflow: hidden;
-    padding: 14px 0;
-    white-space: nowrap;
-  }
-  .ticker-track {
-    display: inline-flex;
-    animation: tickerScroll 28s linear infinite;
-  }
-  .ticker-item {
-    font-size: 0.7rem;
-    font-weight: 800;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--ink);
-    padding: 0 48px;
-    display: inline-flex;
-    align-items: center;
-    gap: 48px;
-  }
-  .ticker-dot {
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: rgba(8,14,26,0.35);
-    display: inline-block;
-  }
-  @keyframes tickerScroll {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
-
-  /* ─── SECTIONS ─── */
-  .section { padding: 108px 80px; }
+  /* ── SHARED SECTION STYLES ── */
+  .section { padding: 104px 80px; }
   .container { max-width: var(--max); margin: 0 auto; }
 
   .eyebrow {
-    font-size: 0.66rem;
-    font-weight: 800;
-    letter-spacing: 3.5px;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 18px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    font-size: 0.64rem; font-weight: 800;
+    letter-spacing: 3.5px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
   }
-  .eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); display: block; }
+  .eyebrow::before { content: ''; width: 18px; height: 1px; background: var(--gold); display: block; }
 
   .section-hed {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1.15;
-    margin-bottom: 16px;
-    letter-spacing: -0.5px;
+    font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+    font-weight: 700; color: var(--text);
+    line-height: 1.15; margin-bottom: 14px; letter-spacing: -0.4px;
   }
-  .section-hed em { font-style: italic; font-weight: 400; color: var(--muted); }
+  .section-hed em { font-style: italic; font-weight: 400; color: #999; }
+
   .section-sub {
-    font-size: 0.97rem;
-    color: #666;
-    line-height: 1.85;
-    max-width: 580px;
-    font-weight: 300;
+    font-size: 0.96rem; color: var(--muted);
+    line-height: 1.85; max-width: 560px; font-weight: 300;
   }
 
-  /* ─── ABOUT ─── */
+  /* ── WHAT I HELP SOLVE ── */
+  .solve-section { background: var(--light); border-top: 1px solid var(--border); }
+  .solve-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    margin-top: 52px;
+    background: var(--border);
+    border-radius: var(--r);
+    overflow: hidden;
+  }
+  .solve-card {
+    background: var(--white);
+    padding: 36px 28px 40px;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .solve-card:hover { background: #fafbfe; }
+  .solve-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--gold); opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .solve-card:hover::before { opacity: 1; }
+  .solve-num {
+    font-size: 0.58rem; font-weight: 800;
+    letter-spacing: 2px; color: var(--gold);
+    margin-bottom: 14px; display: block;
+  }
+  .solve-card h3 {
+    font-size: 0.95rem; font-weight: 700;
+    color: var(--text); margin-bottom: 12px; line-height: 1.3;
+  }
+  .solve-card p {
+    font-size: 0.84rem; color: var(--muted);
+    line-height: 1.75; font-weight: 300;
+  }
+
+  /* ── ABOUT ── */
   .about-section { background: var(--white); }
   .about-layout {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 1.15fr 0.85fr;
     gap: 100px;
     align-items: start;
-    margin-top: 64px;
+    margin-top: 56px;
   }
-
   .pull-quote {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(1.3rem, 2.2vw, 1.7rem);
-    font-weight: 400;
-    font-style: italic;
-    color: var(--text);
-    line-height: 1.5;
+    font-size: clamp(1.2rem, 2vw, 1.55rem);
+    font-weight: 400; font-style: italic;
+    color: var(--text); line-height: 1.5;
     border-left: 3px solid var(--gold);
-    padding-left: 28px;
-    margin-bottom: 36px;
+    padding-left: 26px;
+    margin-bottom: 32px;
   }
-
   .about-paras p {
-    font-size: 0.96rem;
-    color: #555;
-    line-height: 1.95;
-    font-weight: 300;
-    margin-bottom: 20px;
+    font-size: 0.95rem; color: #555;
+    line-height: 1.95; font-weight: 300; margin-bottom: 18px;
   }
   .about-paras p:last-child { margin-bottom: 0; }
   .about-paras strong { color: var(--text); font-weight: 600; }
 
-  .about-sidebar {}
-  .fact-table { list-style: none; border-top: 1px solid var(--border); margin-bottom: 40px; }
+  .fact-table { list-style: none; border-top: 1px solid var(--border); }
   .fact-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 16px;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 0.86rem;
+    display: flex; justify-content: space-between;
+    align-items: baseline; gap: 16px;
+    padding: 15px 0; border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
   }
   .fact-key {
-    font-weight: 800;
-    font-size: 0.65rem;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: #999;
-    flex-shrink: 0;
+    font-weight: 800; font-size: 0.62rem;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: #aaa; flex-shrink: 0;
   }
   .fact-val { color: var(--text); font-weight: 400; text-align: right; line-height: 1.4; }
   .fact-val a { color: var(--blue); border-bottom: 1px solid transparent; transition: border-color 0.2s; }
   .fact-val a:hover { border-color: var(--blue); }
 
-  /* ─── SPECIALTIES ─── */
+  /* ── SPECIALTIES ── */
   .spec-section { background: var(--ink); position: relative; overflow: hidden; }
   .spec-section .section-hed { color: var(--white); }
-  .spec-section .section-hed em { color: rgba(255,255,255,0.35); }
-  .spec-section .section-sub { color: rgba(255,255,255,0.4); }
+  .spec-section .section-hed em { color: rgba(255,255,255,0.3); }
+  .spec-section .section-sub { color: rgba(255,255,255,0.38); }
   .spec-section .eyebrow { color: var(--gold); }
   .spec-section .eyebrow::before { background: var(--gold); }
-
-  /* Big background letters */
-  .spec-bg-word {
-    position: absolute;
-    bottom: -40px; right: -20px;
+  .spec-bg {
+    position: absolute; bottom: -60px; right: -30px;
     font-family: 'Playfair Display', serif;
-    font-size: 28rem;
-    font-weight: 700;
-    line-height: 1;
-    color: rgba(255,255,255,0.015);
-    pointer-events: none;
-    user-select: none;
-    letter-spacing: -12px;
+    font-size: 26rem; font-weight: 700; line-height: 1;
+    color: rgba(255,255,255,0.013);
+    pointer-events: none; user-select: none; letter-spacing: -10px;
   }
-
   .spec-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    margin-top: 64px;
+    gap: 1px; margin-top: 56px;
     background: rgba(255,255,255,0.05);
-    border-radius: var(--r);
-    overflow: hidden;
+    border-radius: var(--r); overflow: hidden;
   }
-
   .spec-card {
     background: var(--ink2);
-    padding: 48px 36px 56px;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.25s;
-    cursor: default;
+    padding: 44px 32px 52px;
+    position: relative; overflow: hidden;
+    transition: background 0.25s; cursor: default;
   }
   .spec-card:hover { background: #112040; }
   .spec-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 0;
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 0;
     background: var(--gold);
     transition: height 0.3s cubic-bezier(.22,.61,.36,1);
   }
   .spec-card:hover::after { height: 3px; }
-
-  .spec-num {
-    font-size: 6rem;
-    font-weight: 900;
-    color: rgba(255,255,255,0.028);
-    position: absolute;
-    bottom: 8px; right: 16px;
-    line-height: 1;
-    letter-spacing: -6px;
-    user-select: none;
-    font-family: 'Inter', sans-serif;
+  .spec-ghost {
+    font-size: 6rem; font-weight: 900;
+    color: rgba(255,255,255,0.025);
+    position: absolute; bottom: 8px; right: 14px;
+    line-height: 1; letter-spacing: -6px;
+    user-select: none; font-family: 'Inter', sans-serif;
   }
   .spec-accent {
-    width: 28px; height: 3px;
-    background: var(--gold);
-    margin-bottom: 24px;
+    width: 26px; height: 3px; background: var(--gold);
+    margin-bottom: 22px;
     transition: width 0.3s;
   }
-  .spec-card:hover .spec-accent { width: 48px; }
+  .spec-card:hover .spec-accent { width: 44px; }
   .spec-card h3 {
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 14px;
-    line-height: 1.3;
+    font-size: 1rem; font-weight: 700;
+    color: var(--white); margin-bottom: 14px; line-height: 1.3;
   }
   .spec-card p {
-    font-size: 0.86rem;
-    color: rgba(255,255,255,0.45);
-    line-height: 1.8;
-    font-weight: 300;
+    font-size: 0.84rem; color: rgba(255,255,255,0.42);
+    line-height: 1.8; font-weight: 300;
   }
 
-  /* ─── APPROACH ─── */
-  .approach-section { background: var(--light); }
-  .approach-layout {
+  /* ── HOW I WORK ── */
+  .work-section { background: var(--white); }
+  .work-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 100px;
     align-items: start;
-    margin-top: 64px;
+    margin-top: 56px;
   }
-
-  .principles {}
-  .principle {
-    display: grid;
-    grid-template-columns: 52px 1fr;
-    gap: 20px;
-    align-items: start;
-    padding: 28px 0;
+  .work-principles {}
+  .work-principle {
+    padding: 26px 0;
     border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 16px; align-items: start;
   }
-  .principle:first-child { border-top: 1px solid var(--border); }
-  .principle-num {
-    font-size: 0.62rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    color: var(--gold);
-    padding-top: 3px;
+  .work-principle:first-child { border-top: 1px solid var(--border); }
+  .work-num {
+    font-size: 0.6rem; font-weight: 800;
+    letter-spacing: 2px; color: var(--gold); padding-top: 3px;
   }
-  .principle h3 {
-    font-size: 0.94rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 8px;
-    line-height: 1.35;
-  }
-  .principle p {
-    font-size: 0.86rem;
-    color: #666;
-    line-height: 1.8;
-    font-weight: 300;
+  .work-principle p {
+    font-size: 1rem; font-weight: 600;
+    color: var(--text); line-height: 1.4;
   }
 
-  .quote-card {
+  .work-sidebar {
     background: var(--ink);
     border-radius: 20px;
-    padding: 56px 48px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 40px 80px rgba(8,14,26,0.15);
+    padding: 52px 44px;
+    position: relative; overflow: hidden;
   }
-  .quote-card::before {
+  .work-sidebar::before {
     content: '\201C';
     font-family: 'Playfair Display', serif;
-    font-size: 16rem;
-    color: rgba(255,255,255,0.025);
-    position: absolute;
-    top: -40px; left: 16px;
-    line-height: 1;
-    pointer-events: none;
+    font-size: 14rem; color: rgba(255,255,255,0.022);
+    position: absolute; top: -40px; left: 14px;
+    line-height: 1; pointer-events: none;
   }
-  .quote-card blockquote {
+  .work-sidebar-hed {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(1.05rem, 1.8vw, 1.3rem);
-    font-weight: 400;
-    font-style: italic;
-    color: rgba(255,255,255,0.85);
-    line-height: 1.7;
-    position: relative;
-    z-index: 1;
-    margin-bottom: 32px;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--white); margin-bottom: 24px;
+    line-height: 1.3; position: relative; z-index: 1;
   }
-  .quote-rule { width: 32px; height: 1px; background: var(--gold); margin-bottom: 16px; }
-  .quote-cite {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 1.8px;
-    text-transform: uppercase;
-    color: var(--gold);
+  .who-types { list-style: none; position: relative; z-index: 1; }
+  .who-types li {
+    font-size: 0.85rem; color: rgba(255,255,255,0.5);
+    padding: 11px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: flex; align-items: center; gap: 12px;
+    font-weight: 300; line-height: 1.3;
+    transition: color 0.2s;
+  }
+  .who-types li:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
+  .who-types li:hover { color: rgba(255,255,255,0.8); }
+  .who-types li::before {
+    content: '';
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--gold); flex-shrink: 0;
   }
 
-  /* ─── WHO I WORK WITH ─── */
-  .who-section { background: var(--white); }
+  /* ── WHO I WORK WITH ── */
+  .who-section { background: var(--light); }
   .who-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-top: 64px;
+    gap: 18px; margin-top: 56px;
   }
   .who-card {
+    background: var(--white);
     border: 1px solid var(--border);
     border-radius: var(--r);
-    padding: 40px 36px;
-    position: relative;
-    overflow: hidden;
-    transition: box-shadow 0.25s, border-color 0.25s, transform 0.2s;
+    padding: 36px 32px;
+    position: relative; overflow: hidden;
+    transition: box-shadow 0.2s, border-color 0.2s, transform 0.18s;
   }
   .who-card:hover {
-    box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-    border-color: rgba(200,151,58,0.4);
+    box-shadow: 0 16px 50px rgba(0,0,0,0.07);
+    border-color: rgba(200,151,58,0.35);
     transform: translateY(-3px);
   }
-  .who-card-top {
-    width: 100%; height: 3px;
-    background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
-    position: absolute; top: 0; left: 0; right: 0;
-    opacity: 0;
-    transition: opacity 0.3s;
+  .who-top-bar {
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--gold); opacity: 0; transition: opacity 0.3s;
   }
-  .who-card:hover .who-card-top { opacity: 1; }
+  .who-card:hover .who-top-bar { opacity: 1; }
   .who-ghost {
-    font-size: 6rem;
-    font-weight: 900;
+    font-size: 5.5rem; font-weight: 900;
     color: rgba(10,22,40,0.03);
-    position: absolute;
-    bottom: 8px; right: 16px;
+    position: absolute; bottom: 6px; right: 14px;
     line-height: 1; letter-spacing: -4px;
-    font-family: 'Inter', sans-serif;
-    user-select: none;
+    font-family: 'Inter', sans-serif; user-select: none;
   }
   .who-card h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text);
-    margin-bottom: 12px;
-    line-height: 1.3;
+    font-size: 0.97rem; font-weight: 700;
+    color: var(--text); margin-bottom: 12px; line-height: 1.3;
   }
   .who-card p {
-    font-size: 0.87rem;
-    color: #666;
-    line-height: 1.8;
-    font-weight: 300;
+    font-size: 0.85rem; color: var(--muted);
+    line-height: 1.8; font-weight: 300;
+  }
+  .who-card .disqualifier {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 0.82rem; color: #999;
+    font-style: italic; font-weight: 300;
   }
 
-  /* ─── BOOK CTA ─── */
-  .book-section {
-    background: var(--ink);
-    position: relative;
-    overflow: hidden;
-  }
+  /* ── BOOK CTA ── */
+  .book-section { background: var(--ink); position: relative; overflow: hidden; }
   .book-orb {
-    position: absolute;
-    width: 800px; height: 800px;
-    border-radius: 50%;
+    position: absolute; width: 700px; height: 700px; border-radius: 50%;
     background: radial-gradient(circle, rgba(200,151,58,0.07) 0%, transparent 65%);
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
     pointer-events: none;
   }
   .book-inner {
-    max-width: var(--max);
-    margin: 0 auto;
+    max-width: var(--max); margin: 0 auto;
     padding: 108px 80px;
     display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 80px;
-    align-items: center;
-    position: relative;
-    z-index: 2;
+    grid-template-columns: 1fr 300px;
+    gap: 80px; align-items: center;
+    position: relative; z-index: 2;
   }
-
   .book-eyebrow { color: var(--gold); }
   .book-eyebrow::before { background: var(--gold); }
-
   .book-hed {
     font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(2.2rem, 4vw, 3.4rem);
-    font-weight: 700;
-    color: var(--white);
-    line-height: 1.15;
-    margin-bottom: 20px;
-    letter-spacing: -0.5px;
+    font-size: clamp(2rem, 3.8vw, 3.2rem);
+    font-weight: 700; color: var(--white);
+    line-height: 1.15; margin-bottom: 20px; letter-spacing: -0.5px;
   }
-  .book-hed em { font-style: italic; font-weight: 400; color: rgba(255,255,255,0.5); }
-
+  .book-hed em { font-style: italic; font-weight: 400; color: rgba(255,255,255,0.45); }
   .book-body {
-    font-size: 0.97rem;
-    color: rgba(255,255,255,0.45);
-    line-height: 1.9;
-    font-weight: 300;
-    max-width: 500px;
-    margin-bottom: 44px;
+    font-size: 0.96rem; color: rgba(255,255,255,0.42);
+    line-height: 1.9; font-weight: 300;
+    max-width: 480px; margin-bottom: 40px;
   }
-  .book-body strong { color: rgba(255,255,255,0.8); font-weight: 600; }
+  .book-body strong { color: rgba(255,255,255,0.78); font-weight: 600; }
 
   .book-card {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 20px;
-    padding: 40px 32px;
-    text-align: center;
+    border-radius: 20px; padding: 36px 28px; text-align: center;
   }
   .book-photo {
-    width: 86px; height: 86px;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center top;
+    width: 80px; height: 80px; border-radius: 50%;
+    object-fit: cover; object-position: center top;
     border: 2px solid var(--gold);
-    margin: 0 auto 14px;
-    display: block;
+    margin: 0 auto 12px; display: block;
   }
   .book-photo-fb {
-    width: 86px; height: 86px;
-    border-radius: 50%;
+    width: 80px; height: 80px; border-radius: 50%;
     background: rgba(255,255,255,0.06);
     border: 2px solid var(--gold);
-    margin: 0 auto 14px;
+    margin: 0 auto 12px;
     display: flex; align-items: center; justify-content: center;
     font-family: 'Playfair Display', serif;
-    font-size: 1.8rem; color: rgba(255,255,255,0.25);
+    font-size: 1.6rem; color: rgba(255,255,255,0.22);
   }
-  .book-name {
-    font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 4px;
-  }
-  .book-role {
-    font-size: 0.7rem; font-weight: 600; color: var(--gold);
-    letter-spacing: 0.5px; margin-bottom: 28px;
-  }
-  .book-rows { margin-bottom: 28px; }
+  .book-name { font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+  .book-role { font-size: 0.68rem; font-weight: 600; color: var(--gold); letter-spacing: 0.3px; margin-bottom: 24px; }
+  .book-rows { margin-bottom: 24px; }
   .book-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    font-size: 0.79rem;
-    gap: 12px;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 0.77rem; gap: 12px;
   }
   .book-row:first-child { border-top: 1px solid rgba(255,255,255,0.06); }
-  .book-row span { color: rgba(255,255,255,0.4); }
-  .book-row strong { color: rgba(255,255,255,0.8); font-weight: 600; text-align: right; }
+  .book-row span { color: rgba(255,255,255,0.38); }
+  .book-row strong { color: rgba(255,255,255,0.78); font-weight: 600; text-align: right; }
   .btn-gold-block {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    background: var(--gold);
-    color: var(--ink);
-    padding: 14px 24px;
-    border-radius: 6px;
-    display: block;
-    text-align: center;
-    transition: background 0.2s;
-    width: 100%;
+    font-size: 0.74rem; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    background: var(--gold); color: var(--ink);
+    padding: 14px 20px; border-radius: 6px;
+    display: block; text-align: center;
+    transition: background 0.2s; width: 100%;
   }
   .btn-gold-block:hover { background: var(--gold2); }
   .book-direct {
-    font-size: 0.74rem;
-    color: rgba(255,255,255,0.3);
-    margin-top: 14px;
-    display: block;
-    text-align: center;
+    font-size: 0.72rem; color: rgba(255,255,255,0.28);
+    margin-top: 12px; display: block; text-align: center;
   }
-  .book-direct a { color: rgba(255,255,255,0.5); border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 1px; transition: color 0.2s, border-color 0.2s; }
+  .book-direct a {
+    color: rgba(255,255,255,0.46);
+    border-bottom: 1px solid rgba(255,255,255,0.18);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
   .book-direct a:hover { color: var(--white); border-color: var(--white); }
 
-  /* ─── FOOTER ─── */
+  /* ── FOOTER ── */
   footer {
-    background: #03070e;
-    padding: 36px 80px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 16px;
+    background: #030710;
+    padding: 32px 80px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 14px;
     border-top: 1px solid rgba(255,255,255,0.04);
   }
   .footer-id {
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.3);
+    font-size: 0.7rem; font-weight: 800;
+    letter-spacing: 2.5px; text-transform: uppercase;
+    color: rgba(255,255,255,0.28);
   }
-  .footer-id span { color: rgba(200,151,58,0.6); }
-  .footer-links { display: flex; gap: 28px; }
+  .footer-id span { color: rgba(200,151,58,0.55); }
+  .footer-links { display: flex; gap: 26px; }
   .footer-links a {
-    font-size: 0.75rem;
-    color: rgba(255,255,255,0.3);
+    font-size: 0.73rem; color: rgba(255,255,255,0.28);
     transition: color 0.2s;
   }
   .footer-links a:hover { color: var(--gold); }
 
-  /* ─── RESPONSIVE ─── */
+  /* ── RESPONSIVE ── */
   @media (max-width: 1024px) {
     .spec-grid { grid-template-columns: repeat(2, 1fr); }
+    .solve-grid { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 900px) {
-    .hero-inner { grid-template-columns: 1fr; gap: 60px; padding: 110px 32px 80px; }
-    .hero-photo-wrap { order: -1; max-width: 360px; margin: 0 auto; }
-    .hero-vline-1, .hero-vline-2, .scroll-down { display: none; }
-    .about-layout, .approach-layout { grid-template-columns: 1fr; gap: 56px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 56px; padding: 110px 32px 80px; }
+    .hero-photo-wrap { order: -1; max-width: 340px; margin: 0 auto; }
+    .hero-vline-l, .hero-vline-r, .scroll-down { display: none; }
+    .about-layout { grid-template-columns: 1fr; gap: 48px; }
+    .work-layout { grid-template-columns: 1fr; gap: 48px; }
     .who-grid { grid-template-columns: 1fr; }
     .book-inner { grid-template-columns: 1fr; gap: 48px; padding: 72px 32px; }
-    .book-card { max-width: 360px; }
-    .spec-grid { grid-template-columns: 1fr; }
+    .book-card { max-width: 340px; }
     .section { padding: 72px 32px; }
     nav { padding: 0 24px; }
     .nav-right { display: none; }
-    footer { padding: 28px 32px; flex-direction: column; text-align: center; }
-    .hero-badge { display: none; }
+    footer { padding: 26px 32px; flex-direction: column; text-align: center; }
   }
-  @media (max-width: 540px) {
-    .hero-name { font-size: 3.2rem; }
+  @media (max-width: 600px) {
+    .spec-grid { grid-template-columns: 1fr; }
+    .solve-grid { grid-template-columns: 1fr; }
+    .hero-name { font-size: 3rem; }
   }
 </style>
 </head>
@@ -875,10 +660,10 @@
 <nav>
   <div class="nav-logo">Anthony <span>Troggio</span></div>
   <div class="nav-right">
+    <a href="#solve">What I Help Solve</a>
     <a href="#about">About</a>
-    <a href="#specialties">What I Do</a>
-    <a href="#approach">Approach</a>
-    <a href="#book" class="nav-cta">Book Time &rarr;</a>
+    <a href="#work">How I Work</a>
+    <a href="#book" class="nav-cta">See If There's a Fit &rarr;</a>
   </div>
 </nav>
 
@@ -886,38 +671,31 @@
 <section class="hero">
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
-  <div class="orb orb-3"></div>
   <div class="hero-grid"></div>
-  <div class="hero-vline hero-vline-1"></div>
-  <div class="hero-vline hero-vline-2"></div>
+  <div class="hero-vline hero-vline-l"></div>
+  <div class="hero-vline hero-vline-r"></div>
 
   <div class="hero-inner">
     <div class="hero-text">
       <div class="hero-eyebrow reveal">Salesforce &middot; Manufacturing &amp; Automotive</div>
       <div class="hero-name reveal reveal-d1">
         <span class="first">Anthony</span>
-        <span class="last">Troggio</span>
+        Troggio
       </div>
-      <div class="hero-title-line reveal reveal-d2">
-        <div class="hero-title-bar"></div>
-        <div class="hero-title-text"><strong>Digital Transformation Architect</strong> at Salesforce</div>
-      </div>
-      <p class="hero-headline reveal reveal-d3">
-        I help manufacturers build the AI infrastructure their competitors <strong>wish they had thought of first.</strong>
+      <div class="hero-rule reveal reveal-d2"></div>
+      <p class="hero-position reveal reveal-d2"><strong>Digital Transformation Architect</strong> at Salesforce</p>
+      <p class="hero-line reveal reveal-d3">
+        I help manufacturers modernize how they sell, quote, and serve customers.
       </p>
       <div class="hero-btns reveal reveal-d4">
-        <a class="btn-primary" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Book 30 Minutes &rarr;</a>
-        <a class="btn-outline" href="#about">Read More &darr;</a>
+        <a class="btn-primary" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">See If There's a Fit &rarr;</a>
+        <a class="btn-outline" href="#solve">What I Help Solve &darr;</a>
       </div>
     </div>
 
     <div class="hero-photo-wrap">
       <div class="corner corner-tr"></div>
       <div class="corner corner-bl"></div>
-      <div class="hero-badge reveal reveal-d2">
-        <div class="hero-badge-label">Specialty</div>
-        <div class="hero-badge-val">AI &amp; Agentforce</div>
-      </div>
       <div class="hero-photo-card reveal reveal-d1">
         <img src="anthony.png" alt="Anthony Troggio" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <div class="photo-fb" style="display:none">AT</div>
@@ -935,26 +713,48 @@
   </div>
 </section>
 
-<!-- TICKER -->
-<div class="ticker">
-  <div class="ticker-track">
-    <div class="ticker-item">Agentic Marketing <span class="ticker-dot"></span> Quote to Cash <span class="ticker-dot"></span> Agentic Commerce <span class="ticker-dot"></span> AI &amp; Agentforce <span class="ticker-dot"></span> Manufacturing &amp; Automotive <span class="ticker-dot"></span> Salesforce Platform <span class="ticker-dot"></span></div>
-    <div class="ticker-item">Agentic Marketing <span class="ticker-dot"></span> Quote to Cash <span class="ticker-dot"></span> Agentic Commerce <span class="ticker-dot"></span> AI &amp; Agentforce <span class="ticker-dot"></span> Manufacturing &amp; Automotive <span class="ticker-dot"></span> Salesforce Platform <span class="ticker-dot"></span></div>
+<!-- WHAT I HELP SOLVE -->
+<section class="solve-section section" id="solve">
+  <div class="container">
+    <div class="eyebrow reveal">What I Help Solve</div>
+    <h2 class="section-hed reveal">Four problems manufacturers <em>bring to me most.</em></h2>
+    <div class="solve-grid">
+      <div class="solve-card reveal reveal-d1">
+        <span class="solve-num">01</span>
+        <h3>Slow, manual quote-to-cash</h3>
+        <p>Complex configurations, multi-tier pricing, and approval chains that stretch a quote from hours to days. Competitors with automated CPQ close while you are still routing approvals.</p>
+      </div>
+      <div class="solve-card reveal reveal-d2">
+        <span class="solve-num">02</span>
+        <h3>Dealer and distributor ordering that depends on reps</h3>
+        <p>Channel partners who have to call or email to place routine orders. Every one of those touches is friction you are paying for in rep time and order delays.</p>
+      </div>
+      <div class="solve-card reveal reveal-d3">
+        <span class="solve-num">03</span>
+        <h3>Marketing that does not connect to the commercial stack</h3>
+        <p>Campaigns running in one system, CRM in another, ERP in a third. Leads get dropped. Follow-up is manual. The handoff between marketing and sales is a spreadsheet.</p>
+      </div>
+      <div class="solve-card reveal reveal-d4">
+        <span class="solve-num">04</span>
+        <h3>AI interest with no clear starting point</h3>
+        <p>Leadership has decided AI matters. Nobody has a concrete answer for which process to automate first, what it costs, and what a realistic return looks like in year one.</p>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
 <!-- ABOUT -->
 <section class="about-section section" id="about">
   <div class="container">
     <div class="eyebrow reveal">About</div>
-    <h2 class="section-hed reveal">The person behind <em>the title.</em></h2>
+    <h2 class="section-hed reveal">The person <em>behind the title.</em></h2>
     <div class="about-layout">
       <div>
         <p class="pull-quote reveal">I did not set out to sell software. I set out to solve real problems for businesses that make real things.</p>
         <div class="about-paras reveal">
-          <p>I am a Digital Transformation Architect at Salesforce, focused on manufacturers building the next generation of how they sell, market, and operate. Before this, I spent years in digital media sales, sitting across from business owners and learning something that most enterprise AEs never do: how to listen first and pitch second.</p>
-          <p>My background is in journalism, from the Cronkite School at Arizona State. It trained me to ask sharper questions than most, write with precision, and treat a polished presentation with exactly the skepticism it deserves. Those instincts matter more in this role than any product certification I have earned.</p>
-          <p>I live in Phoenix, Arizona. I am a dad first. That shapes how I work: with urgency and without noise. When we talk, I am not going to walk you through a deck designed for a different company. I am going to come prepared on your business and give you a straight read on <strong>what the fastest path to a real result actually looks like.</strong></p>
+          <p>I am a Digital Transformation Architect at Salesforce focused on manufacturing and automotive. Before this, I spent years in digital media sales, which taught me something most enterprise sales roles do not: how to sit across from a business owner who has real problems and a limited budget, and tell them the truth about what will actually help.</p>
+          <p>My background is in journalism at ASU. It trained me to ask better questions and write with precision. Both matter more in this role than most people expect.</p>
+          <p>I live in Phoenix, Arizona. I am a dad first. That shapes how I work: with urgency, without noise. When we talk, I will come prepared on your business and give you a straight read on <strong>where the fastest path to a real result actually starts.</strong></p>
         </div>
       </div>
       <div>
@@ -995,82 +795,77 @@
 
 <!-- SPECIALTIES -->
 <section class="spec-section section" id="specialties">
-  <div class="spec-bg-word">AI</div>
+  <div class="spec-bg">AI</div>
   <div class="container">
-    <div class="eyebrow reveal">What I Do</div>
-    <h2 class="section-hed reveal">Four areas where I <em>create the most leverage.</em></h2>
-    <p class="section-sub reveal">These are not broad capabilities. These are the four specific conversations I have every week with manufacturers who are ready to move.</p>
+    <div class="eyebrow reveal">Specialties</div>
+    <h2 class="section-hed reveal">Four areas where I <em>spend most of my time.</em></h2>
+    <p class="section-sub reveal">These are not broad platform capabilities. These are specific motions I help manufacturing teams build and run.</p>
     <div class="spec-grid">
       <div class="spec-card reveal reveal-d1">
-        <div class="spec-num">01</div>
+        <div class="spec-ghost">01</div>
         <div class="spec-accent"></div>
         <h3>Agentic Marketing</h3>
-        <p>AI agents that run campaigns, segment audiences, and personalize at scale without a manual touch. Marketing that responds to buyer behavior in real time, not the next morning when someone checks a dashboard.</p>
+        <p>Use AI to qualify inbound faster, segment audiences based on real behavior, and trigger follow-up without waiting on a rep to notice a signal. Marketing that responds in hours, not the next morning when someone checks a dashboard.</p>
       </div>
       <div class="spec-card reveal reveal-d2">
-        <div class="spec-num">02</div>
+        <div class="spec-ghost">02</div>
         <div class="spec-accent"></div>
         <h3>Quote to Cash</h3>
-        <p>Automated configure-price-quote, contract management, and revenue recognition built for manufacturing complexity. The fastest manufacturers close quotes in under an hour. The rest are still waiting on approvals.</p>
+        <p>Remove manual steps from configuration, pricing approval, and contract execution in complex manufacturing sales. Reduce quoting cycles from days to hours. Enforce pricing policy without relying on rep judgment.</p>
       </div>
       <div class="spec-card reveal reveal-d3">
-        <div class="spec-num">03</div>
+        <div class="spec-ghost">03</div>
         <div class="spec-accent"></div>
         <h3>Agentic Commerce</h3>
-        <p>AI-powered B2B commerce that handles self-service ordering, guided product selection, and dynamic pricing for your dealer and distributor network. Revenue that runs while your team focuses elsewhere.</p>
+        <p>Help dealer and distributor channels place routine orders without rep intervention. Guided product selection, dynamic pricing by channel tier, and self-service reorders. Revenue that moves without a human in the middle of every transaction.</p>
       </div>
       <div class="spec-card reveal reveal-d4">
-        <div class="spec-num">04</div>
+        <div class="spec-ghost">04</div>
         <div class="spec-accent"></div>
         <h3>AI &amp; Agentforce</h3>
-        <p>Autonomous agents that handle the work between your people, freeing your best minds for the decisions that actually require judgment. Not a pilot program. A production system built to prove its return in a single quarter.</p>
+        <p>Identify one high-volume manual process, deploy an AI agent against it, and prove the return before expanding. Not a strategy workshop. A scoped production deployment with a clear outcome in the first quarter.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- APPROACH -->
-<section class="approach-section section" id="approach">
+<!-- HOW I WORK -->
+<section class="work-section section" id="work">
   <div class="container">
     <div class="eyebrow reveal">How I Work</div>
-    <h2 class="section-hed reveal">An approach built around <em>honesty over polish.</em></h2>
-    <p class="section-sub reveal">The best conversations I have are with leaders who are tired of sales theater. This is what I do instead.</p>
-    <div class="approach-layout">
-      <div class="principles">
-        <div class="principle reveal">
-          <span class="principle-num">01</span>
-          <div>
-            <h3>I lead with your problem, not my product.</h3>
-            <p>Every conversation starts with what you are dealing with. If there is a fit, it surfaces naturally. If there is not, I will tell you that too, and point you somewhere that might actually help.</p>
-          </div>
+    <h2 class="section-hed reveal">Four things I do <em>that most AEs do not.</em></h2>
+    <p class="section-sub reveal">I am not going to tell you I am different. I am going to show you.</p>
+    <div class="work-layout">
+      <div class="work-principles">
+        <div class="work-principle reveal">
+          <span class="work-num">01</span>
+          <p>I start with your business problem, not a product deck.</p>
         </div>
-        <div class="principle reveal reveal-d1">
-          <span class="principle-num">02</span>
-          <div>
-            <h3>I show you manufacturers who look exactly like you.</h3>
-            <p>Not generic case studies. Companies in your segment, your size range, your go-to-market. What they deployed, how the first 90 days went, and what changed for the people doing the daily work.</p>
-          </div>
+        <div class="work-principle reveal reveal-d1">
+          <span class="work-num">02</span>
+          <p>I tell you where Salesforce fits, and where it does not.</p>
         </div>
-        <div class="principle reveal reveal-d2">
-          <span class="principle-num">03</span>
-          <div>
-            <h3>I give you the real version of what deployment looks like.</h3>
-            <p>Every project has complexity. I would rather surface it before you sign than have you discover it three months into an implementation that is already behind schedule.</p>
-          </div>
+        <div class="work-principle reveal reveal-d2">
+          <span class="work-num">03</span>
+          <p>I show you companies that actually look like yours, not generic case studies.</p>
         </div>
-        <div class="principle reveal reveal-d3">
-          <span class="principle-num">04</span>
-          <div>
-            <h3>I reach out when I have something worth your time.</h3>
-            <p>Not to fill a cadence. When I contact you, there is a reason: a result from a company in your space, a new capability that connects to something we discussed, or a development worth your attention.</p>
-          </div>
+        <div class="work-principle reveal reveal-d3">
+          <span class="work-num">04</span>
+          <p>I do not hide implementation complexity to win the meeting.</p>
         </div>
       </div>
 
-      <div class="quote-card reveal reveal-d2">
-        <blockquote>"Most AEs show me the same deck. Anthony showed up with a story from a company that looked exactly like ours. That was the meeting that changed the conversation."</blockquote>
-        <div class="quote-rule"></div>
-        <div class="quote-cite">Manufacturing Operations Leader, Phoenix</div>
+      <div class="work-sidebar reveal reveal-d2">
+        <div class="work-sidebar-hed">The manufacturers I work with best tend to be in:</div>
+        <ul class="who-types">
+          <li>Industrial equipment and machinery</li>
+          <li>Electrical and power distribution</li>
+          <li>Building products and materials</li>
+          <li>Automotive and Tier 1 suppliers</li>
+          <li>Chemical and specialty manufacturing</li>
+          <li>Industrial distribution and wholesale</li>
+          <li>Food and beverage manufacturing</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -1080,32 +875,33 @@
 <section class="who-section section">
   <div class="container">
     <div class="eyebrow reveal">Who I Work With</div>
-    <h2 class="section-hed reveal">The right fit matters. <em>Here is what it looks like.</em></h2>
-    <p class="section-sub reveal">Not every company is the right match. I would rather tell you that upfront than spend both of our time on a conversation that goes nowhere.</p>
+    <h2 class="section-hed reveal">When there is a fit, <em>it usually looks like this.</em></h2>
+    <p class="section-sub reveal">Not every company is the right match. I would rather tell you that upfront.</p>
     <div class="who-grid">
       <div class="who-card reveal reveal-d1">
-        <div class="who-card-top"></div>
+        <div class="who-top-bar"></div>
         <div class="who-ghost">01</div>
         <h3>Mid-market and enterprise manufacturers ready to move</h3>
-        <p>Companies with 200 to 5,000 employees, a real revenue motion, and the organizational complexity that has outgrown spreadsheets and disconnected point solutions. You have the scale to get meaningful return and the urgency to actually do something about it.</p>
+        <p>Companies with 200 to 5,000 employees that have outgrown spreadsheets and disconnected point solutions. You have the operational complexity to benefit from automation and the urgency to actually do something about it this year.</p>
       </div>
       <div class="who-card reveal reveal-d2">
-        <div class="who-card-top"></div>
+        <div class="who-top-bar"></div>
         <div class="who-ghost">02</div>
-        <h3>Leaders who own the problem and have the authority to fix it</h3>
-        <p>VPs and Directors of Sales, Marketing, Operations, and Finance who already know their current process is slower or less consistent than it should be. You can build the internal case. You just need the right outside perspective to start.</p>
+        <h3>Leaders who own the problem and can move on it</h3>
+        <p>VPs and Directors of Sales, Marketing, Operations, and Finance who already know something is broken and have the authority to fix it. You do not need to be convinced the problem exists. You need a clear path and an honest view of what it takes.</p>
       </div>
       <div class="who-card reveal reveal-d3">
-        <div class="who-card-top"></div>
+        <div class="who-top-bar"></div>
         <div class="who-ghost">03</div>
-        <h3>Companies that have moved past "we should look at AI" to "what does this actually look like for us"</h3>
-        <p>You are not evaluating whether AI matters. You already know it does. What you need is someone who can show you a specific motion, in your industry, that has already proven itself, and tell you honestly what it would take to run it in your environment.</p>
+        <h3>Companies past "should we look at AI" and into "what does this actually look like"</h3>
+        <p>You are not debating whether AI matters. You already know it does. You want to see a specific motion, in your industry, that has already proven itself, and get an honest read on what it would take to run it in your environment.</p>
+        <div class="disqualifier">Not a fit if you are looking for a six-month exploration before naming a problem.</div>
       </div>
       <div class="who-card reveal reveal-d4">
-        <div class="who-card-top"></div>
+        <div class="who-top-bar"></div>
         <div class="who-ghost">04</div>
-        <h3>Teams that want a direct conversation, not a formal vendor process</h3>
-        <p>If you want someone to do their homework, come prepared, and give you a straight answer instead of a scripted pitch, that is what I do. The best work I have done started with a single honest 30-minute call.</p>
+        <h3>Teams that want a direct conversation, not a scripted sales process</h3>
+        <p>If you want someone to do their homework, come prepared, and give you a straight answer instead of a rehearsed pitch, that is what I do. The best work I have done started with a single 30-minute call where both sides said what they actually thought.</p>
       </div>
     </div>
   </div>
@@ -1118,8 +914,8 @@
     <div>
       <div class="eyebrow book-eyebrow reveal">Book Time</div>
       <h2 class="book-hed reveal">Thirty minutes.<br><em>No deck. No pitch.</em><br>Just the real conversation.</h2>
-      <p class="book-body reveal">If something on this page connected to a challenge you are sitting with, the fastest way to find out whether I can help is a direct call. I will <strong>come prepared on your business</strong> and give you an honest read on where the fastest path to a real result actually starts. No commitment required after the call.</p>
-      <a class="btn-primary reveal" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Book on My Calendar &rarr;</a>
+      <p class="book-body reveal">If something on this page connected to a problem you are sitting with, the fastest way to find out whether I can help is a direct call. I will come prepared on your business. <strong>You will leave with a straight answer, not a follow-up proposal.</strong></p>
+      <a class="btn-primary reveal" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Compare Notes &rarr;</a>
     </div>
     <div>
       <div class="book-card reveal reveal-d2">
@@ -1131,7 +927,7 @@
           <div class="book-row"><span>Format</span><strong>30 min &middot; Video or Phone</strong></div>
           <div class="book-row"><span>Agenda</span><strong>Your business first</strong></div>
           <div class="book-row"><span>Based in</span><strong>Phoenix, AZ</strong></div>
-          <div class="book-row"><span>Focus</span><strong>MFG &amp; Automotive</strong></div>
+          <div class="book-row"><span>Focus</span><strong>Manufacturing &amp; Automotive</strong></div>
         </div>
         <a class="btn-gold-block" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Pick a Time &rarr;</a>
         <span class="book-direct">Or call directly: <a href="tel:7654307903">765-430-7903</a></span>
@@ -1151,21 +947,15 @@
 </footer>
 
 <script>
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
+  const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -36px 0px' });
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-  // Trigger hero reveals immediately
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   document.querySelectorAll('.hero .reveal').forEach((el, i) => {
-    setTimeout(() => el.classList.add('visible'), 100 + i * 80);
+    setTimeout(() => el.classList.add('visible'), 80 + i * 80);
   });
 </script>
 </body>
