@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Agentic Marketing for Manufacturers | Anthony Troggio, Salesforce</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #f4f6f9;
+  color: #1a2535;
+  line-height: 1.6;
+  font-size: 16px;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+:root {
+  --navy:    #0b1929;
+  --navy2:   #122035;
+  --steel:   #1a3a5c;
+  --orange:  #c94a00;
+  --orange2: #e86820;
+  --light:   #f4f6f9;
+  --white:   #ffffff;
+  --border:  #dde4ed;
+  --muted:   #5a6e85;
+  --r:       12px;
+  --shadow:  0 2px 16px rgba(11,25,41,.08);
+}
+
+/* TOPBAR */
+.topbar {
+  background: var(--navy); padding: 0 48px; height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--orange);
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-wordmark { color: #fff; font-size: .78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: .9; }
+.topbar-divider { width: 1px; height: 18px; background: rgba(255,255,255,.2); }
+.topbar-tag { color: rgba(255,255,255,.5); font-size: .78rem; }
+.topbar-cta { background: var(--orange); color: #fff; font-size: .75rem; font-weight: 700; padding: 7px 18px; border-radius: 50px; letter-spacing: .3px; transition: background .2s; }
+.topbar-cta:hover { background: var(--orange2); }
+
+/* HERO */
+.hero {
+  position: relative; min-height: 600px; display: flex; align-items: center;
+  overflow: hidden; background: var(--navy);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1600&q=80');
+  background-size: cover; background-position: center 35%; opacity: .65;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(110deg, rgba(11,25,41,.97) 45%, rgba(11,25,41,.65) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2; max-width: 1120px; margin: 0 auto;
+  padding: 100px 48px; width: 100%;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px;
+  background: rgba(201,74,0,.15); border: 1px solid rgba(201,74,0,.35);
+  border-radius: 50px; padding: 5px 14px 5px 10px;
+}
+.hero-eyebrow-dot { width: 8px; height: 8px; background: var(--orange); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.hero-eyebrow span { font-size: .72rem; font-weight: 700; color: var(--orange2); text-transform: uppercase; letter-spacing: 1px; }
+.hero h1 { font-size: clamp(2rem, 4.8vw, 3.4rem); font-weight: 800; color: #fff; line-height: 1.1; letter-spacing: -.5px; max-width: 820px; margin-bottom: 22px; }
+.hero h1 em { color: var(--orange2); font-style: normal; }
+.hero-sub { font-size: 1.07rem; color: rgba(255,255,255,.72); max-width: 600px; line-height: 1.8; margin-bottom: 40px; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--orange); color: #fff; font-weight: 700; font-size: .95rem;
+  padding: 14px 28px; border-radius: 8px; box-shadow: 0 4px 20px rgba(201,74,0,.4);
+  transition: background .2s, transform .15s;
+}
+.btn-primary:hover { background: var(--orange2); transform: translateY(-2px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: rgba(255,255,255,.75); font-weight: 600; font-size: .9rem;
+  padding: 14px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,.2);
+  transition: border-color .2s, color .2s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+
+/* STRIP */
+.strip { background: var(--navy2); display: flex; border-bottom: 1px solid rgba(255,255,255,.06); }
+.strip-item { flex: 1; padding: 20px 24px; text-align: center; border-right: 1px solid rgba(255,255,255,.07); }
+.strip-item:last-child { border-right: none; }
+.sv { font-size: 1.6rem; font-weight: 800; color: var(--orange2); }
+.sl { font-size: .67rem; text-transform: uppercase; letter-spacing: .6px; color: rgba(255,255,255,.45); margin-top: 4px; }
+
+/* SECTION */
+.section { max-width: 1120px; margin: 0 auto; padding: 64px 48px; }
+.section-eyebrow { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--orange); margin-bottom: 10px; }
+.section-title { font-size: clamp(1.5rem, 2.8vw, 2rem); font-weight: 800; color: var(--navy); line-height: 1.2; margin-bottom: 12px; }
+.section-title-white { color: #fff; }
+.section-sub { font-size: .97rem; color: var(--muted); max-width: 660px; line-height: 1.8; }
+.hr { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* THE DISCONNECT */
+.disconnect-section { background: var(--white); border-top: 4px solid var(--orange); }
+.disconnect-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; }
+.disconnect-card {
+  background: var(--light); border-radius: var(--r); border: 1px solid var(--border);
+  padding: 28px; box-shadow: var(--shadow);
+}
+.disconnect-icon { font-size: 1.8rem; margin-bottom: 14px; }
+.disconnect-title { font-size: .96rem; font-weight: 800; color: var(--navy); margin-bottom: 10px; line-height: 1.3; }
+.disconnect-text { font-size: .84rem; color: var(--muted); line-height: 1.75; }
+
+/* PLATFORM */
+.platform-section { background: var(--light); }
+.platform-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; margin-top: 36px; }
+.platform-card {
+  background: var(--white); border-radius: var(--r); border: 1px solid var(--border);
+  overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column;
+  transition: transform .2s, box-shadow .2s;
+}
+.platform-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(11,25,41,.12); }
+.platform-card-top { background: linear-gradient(135deg, var(--navy), var(--steel)); padding: 22px 24px; }
+.platform-card-tag { display: inline-block; background: rgba(201,74,0,.25); color: var(--orange2); font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px; padding: 3px 10px; border-radius: 50px; margin-bottom: 12px; }
+.platform-card-title { font-size: 1.15rem; font-weight: 800; color: #fff; line-height: 1.3; margin-bottom: 6px; }
+.platform-card-sub { font-size: .84rem; color: rgba(255,255,255,.6); line-height: 1.65; }
+.platform-card-body { padding: 20px 24px; flex: 1; display: flex; flex-direction: column; gap: 12px; }
+.platform-card-stat { font-size: 1.9rem; font-weight: 800; color: var(--orange); line-height: 1; }
+.platform-card-stat-label { font-size: .78rem; color: var(--muted); margin-top: 2px; }
+.platform-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.platform-bullets li { font-size: .84rem; color: var(--muted); display: flex; gap: 9px; align-items: flex-start; line-height: 1.55; }
+.platform-bullets li::before { content: '→'; color: var(--orange); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+/* PLAYS */
+.plays-section { background: var(--navy); }
+.plays-section .section-eyebrow { color: var(--orange2); }
+.plays-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 20px; margin-top: 36px; }
+.play-card {
+  background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--r); padding: 26px;
+  transition: background .2s, border-color .2s;
+}
+.play-card:hover { background: rgba(255,255,255,.08); border-color: rgba(201,74,0,.35); }
+.play-num { font-size: .65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--orange2); margin-bottom: 10px; }
+.play-title { font-size: 1rem; font-weight: 800; color: #fff; margin-bottom: 10px; line-height: 1.3; }
+.play-text { font-size: .85rem; color: rgba(255,255,255,.6); line-height: 1.75; }
+.play-text strong { color: rgba(255,255,255,.85); }
+.play-result {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 16px; background: rgba(201,74,0,.15);
+  border: 1px solid rgba(201,74,0,.25); border-radius: 50px;
+  padding: 4px 12px; font-size: .74rem; font-weight: 700; color: var(--orange2);
+}
+
+/* WHY NOW */
+.urgency-section { background: var(--white); }
+.urgency-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; }
+.urgency-card {
+  background: var(--light); border-radius: var(--r); border: 1px solid var(--border);
+  padding: 28px; box-shadow: var(--shadow); border-top: 3px solid var(--orange);
+}
+.urgency-icon { font-size: 1.6rem; margin-bottom: 14px; }
+.urgency-title { font-size: .96rem; font-weight: 800; color: var(--navy); margin-bottom: 10px; line-height: 1.35; }
+.urgency-text { font-size: .84rem; color: var(--muted); line-height: 1.8; }
+
+/* STORIES */
+.stories-section { background: var(--light); }
+.stories-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 20px; margin-top: 36px; }
+.story-card {
+  background: var(--white); border-radius: var(--r); border: 1px solid var(--border);
+  overflow: hidden; box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s;
+}
+.story-card:hover { transform: translateY(-3px); box-shadow: 0 8px 26px rgba(11,25,41,.1); }
+.story-card-top {
+  background: linear-gradient(135deg, var(--navy), var(--steel));
+  padding: 16px 20px; display: flex; align-items: center; justify-content: space-between;
+}
+.story-company { font-size: .88rem; font-weight: 800; color: #fff; }
+.story-tag { font-size: .61rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; background: rgba(201,74,0,.3); color: var(--orange2); border-radius: 50px; padding: 3px 9px; white-space: nowrap; }
+.story-body { padding: 18px 20px; }
+.story-stat { font-size: 2rem; font-weight: 800; color: var(--orange); margin-bottom: 4px; }
+.story-headline { font-size: .88rem; font-weight: 700; color: var(--navy); margin-bottom: 7px; line-height: 1.4; }
+.story-text { font-size: .83rem; color: var(--muted); line-height: 1.65; }
+
+/* ABOUT */
+.about-section { background: var(--navy); color: #fff; }
+.about-section .section-eyebrow { color: var(--orange2); }
+.about-grid { display: grid; grid-template-columns: 220px 1fr; gap: 52px; align-items: center; margin-top: 36px; }
+.about-photo-wrap { position: relative; }
+.about-photo { width: 190px; height: 190px; border-radius: 50%; object-fit: cover; object-position: center top; border: 4px solid var(--orange); box-shadow: 0 8px 36px rgba(0,0,0,.4); }
+.about-photo-placeholder { width: 190px; height: 190px; border-radius: 50%; background: var(--steel); border: 4px solid var(--orange); display: flex; align-items: center; justify-content: center; font-size: 2.4rem; color: rgba(255,255,255,.3); }
+.about-badge { position: absolute; bottom: 8px; right: 4px; background: var(--orange); color: #fff; font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; padding: 3px 9px; border-radius: 50px; }
+.about-name { font-size: 1.7rem; font-weight: 800; margin-bottom: 3px; }
+.about-role { font-size: .88rem; color: var(--orange2); font-weight: 600; margin-bottom: 18px; }
+.about-body { font-size: .94rem; color: rgba(255,255,255,.68); line-height: 1.85; margin-bottom: 24px; max-width: 640px; }
+.about-body strong { color: #fff; }
+.about-cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-white { display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--orange); font-weight: 700; font-size: .93rem; padding: 13px 26px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,.2); transition: transform .15s; }
+.btn-white:hover { transform: translateY(-2px); }
+
+/* CTA */
+.cta-section { background: linear-gradient(135deg, var(--orange) 0%, #8f3000 100%); color: #fff; text-align: center; }
+.cta-section .section { padding: 72px 48px; }
+.cta-title { font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 800; margin-bottom: 14px; line-height: 1.2; }
+.cta-sub { font-size: .97rem; opacity: .85; max-width: 520px; margin: 0 auto 30px; line-height: 1.8; }
+.cta-contact { font-size: .86rem; opacity: .72; margin-top: 18px; }
+
+footer { background: var(--navy); color: rgba(255,255,255,.4); text-align: center; padding: 22px 48px; font-size: .73rem; border-top: 1px solid rgba(255,255,255,.07); }
+footer span { color: rgba(255,255,255,.62); }
+
+.fade-in { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 860px) {
+  .topbar { padding: 0 20px; }
+  .hero-content, .section { padding-left: 24px; padding-right: 24px; }
+  .disconnect-grid, .urgency-grid { grid-template-columns: 1fr; }
+  .about-grid { grid-template-columns: 1fr; gap: 24px; text-align: center; }
+  .about-photo-wrap { display: flex; justify-content: center; }
+  .about-body { max-width: 100%; }
+  .about-cta-row { justify-content: center; }
+  .strip { flex-wrap: wrap; }
+  .strip-item { flex: 1 1 calc(33% - 1px); min-width: 100px; }
+}
+@media (max-width: 540px) {
+  .hero h1 { font-size: 1.85rem; }
+  .topbar-tag { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-wordmark">Salesforce</span>
+    <div class="topbar-divider"></div>
+    <span class="topbar-tag">Agentic Marketing for Manufacturers</span>
+  </div>
+  <a class="topbar-cta" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">Talk to Anthony</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-dot"></div>
+      <span>Manufacturing Marketing · 2026</span>
+    </div>
+    <h1>Your ERP knows everything about your customers.<br><em>Your marketing team knows almost nothing.</em></h1>
+    <p class="hero-sub">Order history. Contract dates. Product affinity. Renewal windows. It is all sitting in your system of record right now. The best manufacturing marketing teams are connecting that data to AI-powered campaigns that run on their own. This is what that looks like in practice.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">&#128197; Talk to Anthony</a>
+      <a class="btn-ghost" href="#capabilities">See the Platform ↓</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="strip-item"><div class="sv">100%</div><div class="sl">Manual Work Eliminated</div></div>
+  <div class="strip-item"><div class="sv">4x</div><div class="sl">More Online Orders</div></div>
+  <div class="strip-item"><div class="sv">25%</div><div class="sl">Autonomous Resolution</div></div>
+  <div class="strip-item"><div class="sv">289%</div><div class="sl">Avg Mfg ROI (Forrester)</div></div>
+  <div class="strip-item"><div class="sv">#1</div><div class="sl">Mfg Marketing Platform</div></div>
+</div>
+
+<hr class="hr">
+
+<!-- THE DISCONNECT -->
+<section class="disconnect-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">The Real Problem</div>
+    <div class="section-title">Why Most Manufacturing Marketing Runs Blind</div>
+    <div class="section-sub">You have better data than any B2C company on the planet. Orders, contracts, product mix, service history. You just cannot get to it from your marketing tool. That is the entire problem.</div>
+
+    <div class="disconnect-grid">
+      <div class="disconnect-card">
+        <div class="disconnect-icon">📦</div>
+        <div class="disconnect-title">Your most valuable signals are locked in your ERP</div>
+        <div class="disconnect-text">Every order, every contract date, every product line a customer has ever bought — it is in SAP or Dynamics. Your marketing tool has none of it. So campaigns go to the wrong people at the wrong time, based on who opened an email last month. Not on who is actually buying and what they are buying next.</div>
+      </div>
+      <div class="disconnect-card">
+        <div class="disconnect-icon">🏭</div>
+        <div class="disconnect-title">You are marketing to accounts, not contacts</div>
+        <div class="disconnect-text">B2B manufacturing deals involve 5 to 15 stakeholders per account. A procurement manager is not the same as a plant manager or VP of Operations. Most marketing tools treat them as one contact on a list. That mismatch kills relevance and tanks engagement before a single email lands.</div>
+      </div>
+      <div class="disconnect-card">
+        <div class="disconnect-icon">⏳</div>
+        <div class="disconnect-title">Long sales cycles need nurture that actually keeps running</div>
+        <div class="disconnect-text">Manufacturing deals take 6 to 18 months. No team can manually manage a nurture sequence over that timeline. Most leads either get pounded in week one or forgotten by month three. Automated journeys tied to real account behavior close that gap without adding headcount.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- CAPABILITIES -->
+<section class="platform-section" id="capabilities">
+  <div class="section fade-in">
+    <div class="section-eyebrow">The Platform</div>
+    <div class="section-title">Three Layers. One Connected System.</div>
+    <div class="section-sub">Agentic Marketing, unified buyer data, and AI agents are built to work together. Data flows up. Intelligence flows down. Every campaign and customer interaction gets smarter over time without your team lifting a finger to make it happen.</div>
+
+    <div class="platform-grid">
+      <div class="platform-card">
+        <div class="platform-card-top">
+          <span class="platform-card-tag">Marketing Cloud Advanced</span>
+          <div class="platform-card-title">Agentic Marketing</div>
+          <div class="platform-card-sub">AI-powered campaigns across email, SMS, push, ads, and web. Built for teams that are done spending half their time on manual execution instead of strategy.</div>
+        </div>
+        <div class="platform-card-body">
+          <div>
+            <div class="platform-card-stat">100%</div>
+            <div class="platform-card-stat-label">Manual campaign work eliminated at Kitchen Magic</div>
+          </div>
+          <ul class="platform-bullets">
+            <li>Journey Builder: automated workflows triggered by any customer action or data event</li>
+            <li>Einstein Send Time: individualized timing based on when each contact actually opens and engages</li>
+            <li>Revenue attribution: connect campaigns to pipeline, not just open rates</li>
+            <li>Account-based marketing built for complex B2B buying groups</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-card-top">
+          <span class="platform-card-tag">Data Cloud</span>
+          <div class="platform-card-title">Unified Buyer Data</div>
+          <div class="platform-card-sub">Pulls ERP, CRM, web, and service data into one real-time customer profile. Marketing decisions start reflecting what is actually happening inside your accounts, not just what your email list looks like.</div>
+        </div>
+        <div class="platform-card-body">
+          <div>
+            <div class="platform-card-stat">360°</div>
+            <div class="platform-card-stat-label">Unified profile across orders, service, web, and email</div>
+          </div>
+          <ul class="platform-bullets">
+            <li>Pre-built connectors for SAP, Dynamics, Oracle, Salesforce CRM</li>
+            <li>Identity resolution: the same buyer across five systems becomes one clean record</li>
+            <li>Real-time segmentation: audiences update the moment something changes in an account</li>
+            <li>Predictive scoring: churn likelihood, next best offer, account health signals</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="platform-card">
+        <div class="platform-card-top">
+          <span class="platform-card-tag">Agentforce</span>
+          <div class="platform-card-title">AI Agents That Act</div>
+          <div class="platform-card-sub">AI agents that do not just recommend. They build campaigns, generate content, respond to inbound leads, and book meetings. Your team sets the strategy. The agent executes it.</div>
+        </div>
+        <div class="platform-card-body">
+          <div>
+            <div class="platform-card-stat">4x</div>
+            <div class="platform-card-stat-label">Online order growth with AI agents at Sutton Tools</div>
+          </div>
+          <ul class="platform-bullets">
+            <li>Campaign agent: brief it, it builds the audience, copy, and full journey</li>
+            <li>Personalization agent: individualized content at scale, not mail merge</li>
+            <li>Engagement agent: handles inbound inquiries, qualifies leads, routes to sales with full context</li>
+            <li>Operates within guardrails your team defines. Humans stay in control.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- 5 PLAYS -->
+<section class="plays-section" id="plays">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Tactical Playbook</div>
+    <div class="section-title section-title-white">5 Plays Manufacturing Marketers Are Running Right Now</div>
+    <div class="section-sub" style="color:rgba(255,255,255,.6)">These are not concepts. These are specific motions live at manufacturing companies today, mapped to the capabilities that run them.</div>
+
+    <div class="plays-grid">
+      <div class="play-card">
+        <div class="play-num">Play 01</div>
+        <div class="play-title">Lapsed Buyer Reactivation, Running Automatically</div>
+        <div class="play-text">A customer who has not ordered in 90 days triggers an automated journey: a personalized email referencing their last order category, a follow-up SMS from their rep, and a task for inside sales if there is still no response at day 14. <strong>Zero manual effort. Runs 24 hours a day.</strong> Most manufacturing teams lose this revenue silently because nobody has time to pull the list every week.</div>
+        <div class="play-result">&#127981; Agentic Marketing + Unified Buyer Data</div>
+      </div>
+
+      <div class="play-card">
+        <div class="play-num">Play 02</div>
+        <div class="play-title">Contract Renewal Runway: 90/60/30 Day Sequence</div>
+        <div class="play-text">Unified buyer data ingests contract dates from your ERP. When a contract hits 90 days out, a renewal journey launches automatically. Value summary at 90 days. Case study at 60. Direct outreach from the AE at 30. <strong>Marketing and sales moving as one coordinated motion</strong>, not a last-minute scramble driven by whoever remembered to check the spreadsheet.</div>
+        <div class="play-result">&#127981; Agentic Marketing + Unified Buyer Data + CRM</div>
+      </div>
+
+      <div class="play-card">
+        <div class="play-num">Play 03</div>
+        <div class="play-title">New Product Launch to a Relevant Audience Only</div>
+        <div class="play-text">Instead of blasting a product announcement to your full list, unified buyer data segments by purchase history, industry, and product affinity. <strong>Customers who buy related products get the launch email. Everyone else does not.</strong> Engagement goes up. Unsubscribes go down. The product actually launches to the buyers most likely to care about it.</div>
+        <div class="play-result">&#127981; Agentic Marketing + Unified Buyer Data</div>
+      </div>
+
+      <div class="play-card">
+        <div class="play-num">Play 04</div>
+        <div class="play-title">Inbound Inquiries Answered Overnight, Without a Person</div>
+        <div class="play-text">A prospect fills out a quote request at 9pm. An AI agent responds immediately. It answers product questions, qualifies the opportunity, and either books a meeting or routes to inside sales with a full summary. <strong>No lead sits cold overnight.</strong> GE Appliances is resolving 25% of all customer interactions this way with no human involved at all.</div>
+        <div class="play-result">&#127981; AI Agents + Agentic Marketing</div>
+      </div>
+
+      <div class="play-card">
+        <div class="play-num">Play 05</div>
+        <div class="play-title">Account-Based Marketing for Your Top 50 Accounts</div>
+        <div class="play-text">Your top 50 accounts get a fundamentally different experience than the rest of your list. Unified buyer data scores engagement and opportunity signals. Automated journeys trigger personalized content based on what that account is actually doing: visiting pricing pages, opening service emails, ordering new SKUs. <strong>Marketing becomes a revenue signal, not just brand noise.</strong></div>
+        <div class="play-result">&#127981; Unified Buyer Data + Agentic Marketing</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- WHY NOW -->
+<section class="urgency-section" id="why-now">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Why Now</div>
+    <div class="section-title">Three Reasons This Is Not a "Later" Decision</div>
+    <div class="section-sub">Most marketing investments can wait six months. This one is getting more expensive every quarter you delay.</div>
+
+    <div class="urgency-grid">
+      <div class="urgency-card">
+        <div class="urgency-icon">&#9889;</div>
+        <div class="urgency-title">Your competitors are building this capability right now</div>
+        <div class="urgency-text">HubSpot shipped AI campaign tools in 2024 and is actively selling into manufacturing. Your distributors and industrial peers who move first own the capability advantage. The ones who wait spend the next 12 months playing catch-up against teams that already perfected it. First-mover advantage in AI-powered marketing is real and the window is closing.</div>
+      </div>
+      <div class="urgency-card">
+        <div class="urgency-icon">&#128184;</div>
+        <div class="urgency-title">You are losing revenue right now, not at some future date</div>
+        <div class="urgency-text">Every week without contract dates connected to your marketing, you miss the 90-day renewal window. Every month without lapsed-buyer automation, you lose reorder revenue quietly. Every night without an AI agent covering inbound, cold leads cost you pipeline. These are not future risks. They are ongoing losses happening in your business right now, today.</div>
+      </div>
+      <div class="urgency-card">
+        <div class="urgency-icon">&#128640;</div>
+        <div class="urgency-title">A focused pilot can show results in one campaign cycle</div>
+        <div class="urgency-text">You do not need a full platform overhaul to see what this does for your team. A scoped engagement connecting your ERP data and launching your first three automated journeys can be live before your next QBR. Real results in the time it normally takes to finish a vendor evaluation. The goal is proof, not transformation on day one.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- STORIES -->
+<section class="stories-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Customer Stories</div>
+    <div class="section-title">What Manufacturers Are Actually Seeing</div>
+    <div class="section-sub">Results from manufacturers who deployed these capabilities. Measured and published.</div>
+
+    <div class="stories-grid">
+      <div class="story-card">
+        <div class="story-card-top">
+          <span class="story-company">Kitchen Magic</span>
+          <span class="story-tag">Agentic Marketing</span>
+        </div>
+        <div class="story-body">
+          <div class="story-stat">100%</div>
+          <div class="story-headline">Manual campaign work replaced with automated flows</div>
+          <div class="story-text">The marketing team went from spending most of their time on manual execution to launching full multi-touch campaigns independently. What used to take days now takes hours. The team shifted from execution to strategy.</div>
+        </div>
+      </div>
+
+      <div class="story-card">
+        <div class="story-card-top">
+          <span class="story-company">Sutton Tools</span>
+          <span class="story-tag">Unified Data + AI Agents</span>
+        </div>
+        <div class="story-body">
+          <div class="story-stat">4x</div>
+          <div class="story-headline">Online order growth after unifying data and deploying AI agents</div>
+          <div class="story-text">A 4th-generation family-owned tooling manufacturer unified Sales, Service, and Marketing data then deployed AI agents for commerce. Online orders quadrupled. Inbound calls dropped 20% on top of a prior 70% reduction from self-service. Two step-changes, one platform.</div>
+        </div>
+      </div>
+
+      <div class="story-card">
+        <div class="story-card-top">
+          <span class="story-company">GE Appliances</span>
+          <span class="story-tag">AI Agents</span>
+        </div>
+        <div class="story-body">
+          <div class="story-stat">25%</div>
+          <div class="story-headline">Customer interactions resolved end-to-end by AI, no human required</div>
+          <div class="story-text">1 in 4 customer engagements is now handled fully by an AI agent. The 75% that need a human get there faster, with full context already captured. A step-function change in what the team actually spends time on.</div>
+        </div>
+      </div>
+
+      <div class="story-card">
+        <div class="story-card-top">
+          <span class="story-company">Manitou Group</span>
+          <span class="story-tag">Agentic Marketing + Data</span>
+        </div>
+        <div class="story-body">
+          <div class="story-stat">Global</div>
+          <div class="story-headline">Unified dealer and customer marketing across regions and languages</div>
+          <div class="story-text">Global heavy equipment manufacturer running unified buyer data and AI-powered marketing across their dealer network and direct customers. Multi-language, multi-region campaigns from one platform. AI handles personalization at scale across the full dealer base.</div>
+        </div>
+      </div>
+
+      <div class="story-card">
+        <div class="story-card-top">
+          <span class="story-company">Continental</span>
+          <span class="story-tag">AI Agents + Commerce</span>
+        </div>
+        <div class="story-body">
+          <div class="story-stat">Automated</div>
+          <div class="story-headline">Complex orders from digital storefront through ERP, handled by AI</div>
+          <div class="story-text">An AI agent takes orders from Continental's digital storefront and completes ERP entry autonomously. Customers submit complex orders online. The agent closes the loop all the way through fulfillment without a sales handoff required.</div>
+        </div>
+      </div>
+
+      <div class="story-card">
+        <div class="story-card-top">
+          <span class="story-company">Forrester TEI Study 2024</span>
+          <span class="story-tag">Composite $1B Mfg Co.</span>
+        </div>
+        <div class="story-body">
+          <div class="story-stat">289%</div>
+          <div class="story-headline">ROI over three years for a composite $1B manufacturer</div>
+          <div class="story-text">Forrester modeled a manufacturing company running agentic marketing, unified buyer data, and AI agents. $9.6M NPV over three years. The full study is available as a shareable asset for your internal business case conversation.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr">
+
+<!-- ABOUT -->
+<section class="about-section">
+  <div class="section fade-in">
+    <div class="section-eyebrow">Who Sent This</div>
+    <div class="section-title section-title-white">Anthony Troggio, Salesforce Manufacturing Specialist</div>
+
+    <div class="about-grid">
+      <div class="about-photo-wrap">
+        <img src="anthony.png" alt="Anthony Troggio" class="about-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="about-photo-placeholder" style="display:none">AT</div>
+        <span class="about-badge">MFG &amp; Auto · West</span>
+      </div>
+      <div>
+        <div class="about-name">Anthony Troggio</div>
+        <div class="about-role">Digital Account Executive, Manufacturing &amp; Automotive, Salesforce</div>
+        <div class="about-body">
+          I work exclusively with manufacturers across the Western US. Every week I am in conversations with marketing leaders asking the same three questions: how do we stop doing this manually, how do we connect our ERP data to our marketing, and what does AI actually mean for a team our size.
+          <br><br>
+          I am not going to pitch you generic slides. When we talk, I will show you deployments from manufacturers who look like your company. Similar size. Similar go-to-market. Similar data challenges. <strong>Real results and an honest read on what it would actually take to get there.</strong>
+        </div>
+        <div class="about-cta-row">
+          <a class="btn-white" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">&#128197; Book 30 Minutes</a>
+          <a class="btn-ghost" href="tel:7654307903">&#128222; 765-430-7903</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="section fade-in">
+    <div class="cta-title">Ready to See What This Looks Like for Your Team?</div>
+    <div class="cta-sub">30 minutes. I will walk through a manufacturer in your space and give you an honest read on what a deployment would actually involve.</div>
+    <a class="btn-white" href="https://calendar.app.google/zSUUWHtb3RJBAKXY9" target="_blank">&#128197; Book Time with Anthony</a>
+    <div class="cta-contact">Or reach out directly: 765-430-7903 &nbsp;·&nbsp; atroggio@salesforce.com</div>
+  </div>
+</section>
+
+<footer>
+  <span>Anthony Troggio</span> · Digital Account Executive, Salesforce · Manufacturing &amp; Automotive, West · July 2026
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
