@@ -51,7 +51,7 @@ img { display: block; max-width: 100%; }
 .topbar {
   background: var(--navy); padding: 0 48px; height: 60px;
   display: flex; align-items: center; justify-content: space-between;
-  position: sticky; top: 38px; z-index: 100;
+  position: sticky; top: 0; z-index: 100;
   border-bottom: 2px solid var(--orange);
   box-shadow: 0 4px 24px rgba(0,0,0,.3);
 }
@@ -340,10 +340,6 @@ footer span { color: rgba(255,255,255,.6); }
 </head>
 <body>
 
-<div class="announcement-bar">
-  <strong>Signal Detected:</strong> Inpro Corporation breaking ground on a new 30,000 sq ft manufacturing facility in Muskego, WI &mdash; Spring 2026
-</div>
-
 <nav class="topbar">
   <div class="topbar-left">
     <span class="topbar-wordmark">Salesforce</span>
@@ -358,10 +354,6 @@ footer span { color: rgba(255,255,255,.6); }
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div>
-      <div class="hero-eyebrow">
-        <div class="hero-eyebrow-dot"></div>
-        <span>New Facility Signal &middot; January 2026</span>
-      </div>
       <h1>You are designing a facility from scratch.<br><em>Design the operations the same way.</em></h1>
       <p class="hero-sub">Craig, you said it yourself: "Designing our operations with intention allows us to run more efficiently." A new 30,000 sq ft facility gives you something most manufacturers never get. A clean slate. The question is whether the systems inside it are designed with the same intention as the building around them.</p>
       <div class="hero-actions">
@@ -369,57 +361,8 @@ footer span { color: rgba(255,255,255,.6); }
         <a class="btn-ghost" href="#pov">See the Opportunity &darr;</a>
       </div>
     </div>
-    <div class="hero-signal-card">
-      <div class="hsc-label">Facility Signal</div>
-      <div class="hsc-item">
-        <div class="hsc-title">What Happened</div>
-        <div class="hsc-val">New <em>30,000 sq ft</em> manufacturing and office facility announced for Muskego Industrial Park, WI</div>
-      </div>
-      <div class="hsc-item">
-        <div class="hsc-title">Timeline</div>
-        <div class="hsc-val">Groundbreaking <em>Spring 2026</em> &middot; Occupancy <em>Fall 2026</em></div>
-      </div>
-      <div class="hsc-item">
-        <div class="hsc-title">COO Statement</div>
-        <div class="hsc-val">"Designing our operations with intention allows us to run more efficiently."</div>
-      </div>
-      <div class="hsc-item">
-        <div class="hsc-title">Signal Strength</div>
-        <div class="hsc-val">4 / 5 &middot; <em>Greenfield Opportunity</em></div>
-      </div>
-    </div>
   </div>
 </section>
-
-<!-- SIGNAL STRIP -->
-<div class="signal-strip" style="background:var(--navy2);">
-  <div class="signal-inner">
-    <div class="signal-quote-block">
-      <div class="signal-q-mark">"</div>
-      <div>
-        <div class="signal-quote">
-          <strong>"Designing our operations with intention allows us to run more efficiently while creating a safer, more streamlined environment for our teams. This facility supports how we operate today while positioning us for future growth."</strong>
-        </div>
-        <div class="signal-attr">Craig Faust, COO &middot; Inpro Corporation &middot; January 2026</div>
-      </div>
-    </div>
-    <div class="signal-divider"></div>
-    <div class="signal-meta">
-      <div class="signal-meta-item">
-        <div class="signal-meta-val">30K</div>
-        <div class="signal-meta-label">Square Feet</div>
-      </div>
-      <div class="signal-meta-item">
-        <div class="signal-meta-val">F26</div>
-        <div class="signal-meta-label">Occupancy Target</div>
-      </div>
-      <div class="signal-meta-item">
-        <div class="signal-meta-val">4/5</div>
-        <div class="signal-meta-label">Signal Strength</div>
-      </div>
-    </div>
-  </div>
-</div>
 
 <hr class="hr">
 
