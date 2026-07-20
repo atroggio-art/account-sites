@@ -7,244 +7,78 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f3f8; color: #1a2535; font-size: 14px; line-height: 1.5; }
-
 :root {
   --bl: #0176d3; --bd: #014486; --gr: #2e844a; --or: #dd5a00;
   --tx: #1a2535; --mu: #5a6a7a; --br: #dde4ed; --bg: #f0f3f8;
   --white: #fff; --r: 8px;
 }
 
-/* STICKY HEADER */
-.hdr {
-  background: #0b1929;
-  color: #fff;
-  position: sticky;
-  top: 0;
-  z-index: 200;
-  box-shadow: 0 2px 12px rgba(0,0,0,.35);
-}
-.hdr-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 24px;
-  height: 40px;
-  border-bottom: 1px solid rgba(255,255,255,.1);
-}
-.hdr-title { font-size: .73rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
-.hdr-rep { font-size: .7rem; opacity: .5; }
-
-/* QUARTER STRIP */
-.q-strip {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
-.qs {
-  padding: 10px 20px;
-  border-right: 1px solid rgba(255,255,255,.08);
-  cursor: pointer;
-  transition: background .15s;
-  user-select: none;
-}
+/* ── STICKY HEADER ── */
+.hdr { background: #0b1929; color: #fff; position: sticky; top: 0; z-index: 200; box-shadow: 0 2px 14px rgba(0,0,0,.4); }
+.hdr-top { display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 38px; border-bottom: 1px solid rgba(255,255,255,.09); }
+.hdr-title { font-size: .72rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
+.hdr-rep { font-size: .68rem; opacity: .45; }
+.q-strip { display: grid; grid-template-columns: repeat(3,1fr); }
+.qs { padding: 9px 20px 11px; border-right: 1px solid rgba(255,255,255,.07); cursor: pointer; transition: background .15s; user-select: none; }
 .qs:last-child { border-right: none; }
 .qs:hover { background: rgba(255,255,255,.04); }
-.qs.active { background: rgba(1,118,211,.25); border-bottom: 2px solid #0176d3; }
-.qs-label {
-  font-size: .6rem;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  opacity: .45;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-.qs-nums { display: flex; gap: 20px; }
+.qs.active { background: rgba(1,118,211,.22); border-bottom: 3px solid #0176d3; }
+.qs-label { font-size: .58rem; text-transform: uppercase; letter-spacing: 1.2px; opacity: .4; font-weight: 700; margin-bottom: 5px; }
+.qs-nums { display: flex; gap: 18px; }
 .qs-num { display: flex; flex-direction: column; gap: 1px; }
-.qn-val { font-size: .88rem; font-weight: 800; }
-.qn-lbl { font-size: .58rem; text-transform: uppercase; letter-spacing: .5px; opacity: .45; }
-.v-green { color: #86efac; }
-.v-amber { color: #fde68a; }
-.v-blue  { color: #93c5fd; }
-.v-gray  { color: rgba(255,255,255,.35); }
+.qn-val { font-size: .84rem; font-weight: 800; }
+.qn-lbl { font-size: .56rem; text-transform: uppercase; letter-spacing: .4px; opacity: .4; }
+.v-green { color: #86efac; } .v-amber { color: #fde68a; } .v-blue { color: #93c5fd; } .v-gray { color: rgba(255,255,255,.28); }
 
-/* TAB BAR */
-.tab-bar {
-  background: var(--white);
-  border-bottom: 2px solid var(--br);
-  display: flex;
-  padding: 0 20px;
-  position: sticky;
-  top: 100px;
-  z-index: 100;
-}
-.tab {
-  padding: 10px 22px;
-  font-size: .8rem;
-  font-weight: 700;
-  color: var(--mu);
-  background: none;
-  border: none;
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  margin-bottom: -2px;
-  letter-spacing: .3px;
-  transition: color .15s, border-color .15s;
-}
+/* ── TAB BAR ── */
+.tab-bar { background: var(--white); border-bottom: 2px solid var(--br); display: flex; padding: 0 20px; position: sticky; top: 95px; z-index: 100; }
+.tab { padding: 9px 22px; font-size: .78rem; font-weight: 700; color: var(--mu); background: none; border: none; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; letter-spacing: .3px; transition: color .15s, border-color .15s; }
 .tab.active { color: var(--bl); border-bottom-color: var(--bl); }
 .tab:hover:not(.active) { color: var(--tx); }
 
-/* MAIN */
-.main { max-width: 1080px; margin: 0 auto; padding: 20px 18px 48px; }
+/* ── MAIN ── */
+.main { max-width: 1080px; margin: 0 auto; padding: 20px 18px 52px; }
+.panel { display: none; } .panel.active { display: block; }
+.q-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+.q-meta-title { font-size: 1.05rem; font-weight: 800; }
+.qchip { font-size: .67rem; font-weight: 700; padding: 2px 10px; border-radius: 50px; background: var(--bg); border: 1px solid var(--br); color: var(--mu); }
 
-/* PANELS */
-.panel { display: none; }
-.panel.active { display: block; }
-
-/* QUARTER META ROW */
-.q-meta {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 18px;
-}
-.q-meta-title { font-size: 1.1rem; font-weight: 800; }
-.chip {
-  font-size: .68rem;
-  font-weight: 700;
-  padding: 2px 10px;
-  border-radius: 50px;
-  background: var(--bg);
-  border: 1px solid var(--br);
-  color: var(--mu);
-}
-
-/* FORECAST SECTIONS */
-.fc { margin-bottom: 20px; }
-
-.fc-hdr {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 14px;
-  border-radius: var(--r) var(--r) 0 0;
-  border-left-width: 4px;
-  border-left-style: solid;
-}
-.fc-hdr.commit  { background: #f0fdf4; border-color: #22c55e; border-top: 1px solid #bbf7d0; border-right: 1px solid #bbf7d0; border-bottom: none; }
+/* ── FORECAST SECTIONS ── */
+.fc { margin-bottom: 18px; }
+.fc-hdr { display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: var(--r) var(--r) 0 0; border-left-width: 4px; border-left-style: solid; }
+.fc-hdr.closed  { background: #f0fdf4; border-color: #22c55e; border-top: 1px solid #bbf7d0; border-right: 1px solid #bbf7d0; border-bottom: none; }
 .fc-hdr.best    { background: #fffbeb; border-color: #f59e0b; border-top: 1px solid #fde68a; border-right: 1px solid #fde68a; border-bottom: none; }
 .fc-hdr.pipe    { background: #eff6ff; border-color: #3b82f6; border-top: 1px solid #bfdbfe; border-right: 1px solid #bfdbfe; border-bottom: none; }
+.fc-cat { font-size: .7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+.fc-cat.closed { color: #15803d; } .fc-cat.best { color: #b45309; } .fc-cat.pipe { color: #1d4ed8; }
+.fc-count { font-size: .68rem; color: var(--mu); font-weight: 600; }
+.fc-total { margin-left: auto; font-size: 1rem; font-weight: 800; }
+.fc-total.closed { color: #16a34a; } .fc-total.best { color: #d97706; } .fc-total.pipe { color: #2563eb; }
 
-.fc-cat {
-  font-size: .72rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-.fc-cat.commit { color: #15803d; }
-.fc-cat.best   { color: #b45309; }
-.fc-cat.pipe   { color: #1d4ed8; }
+/* ── DEAL TABLE ── */
+.deal-tbl { background: var(--white); border: 1px solid var(--br); border-left-width: 4px; border-top: none; border-radius: 0 0 var(--r) var(--r); overflow: hidden; }
+.deal-tbl.closed { border-left-color: #22c55e; } .deal-tbl.best { border-left-color: #f59e0b; } .deal-tbl.pipe { border-left-color: #3b82f6; }
 
-.fc-count { font-size: .7rem; color: var(--mu); font-weight: 600; }
-
-.fc-total {
-  margin-left: auto;
-  font-size: 1.05rem;
-  font-weight: 800;
-}
-.fc-total.commit { color: #16a34a; }
-.fc-total.best   { color: #d97706; }
-.fc-total.pipe   { color: #2563eb; }
-
-/* DEAL TABLE */
-.deal-tbl {
-  background: var(--white);
-  border: 1px solid var(--br);
-  border-left-width: 4px;
-  border-top: none;
-  border-radius: 0 0 var(--r) var(--r);
-  overflow: hidden;
-}
-.deal-tbl.commit { border-left-color: #22c55e; }
-.deal-tbl.best   { border-left-color: #f59e0b; }
-.deal-tbl.pipe   { border-left-color: #3b82f6; }
-
-/* MONTH SUB-HEADER */
-.mo-hdr {
-  background: #f8fafd;
-  border-bottom: 1px solid var(--br);
-  padding: 5px 14px;
-  font-size: .63rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--mu);
-  display: flex;
-  align-items: center;
-}
+/* ── MONTH SUB-HEADER ── */
+.mo-hdr { background: #f7f9fc; border-bottom: 1px solid var(--br); padding: 5px 14px; font-size: .6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; color: var(--mu); display: flex; align-items: center; }
 .mo-hdr:not(:first-child) { border-top: 1px solid var(--br); }
-.mo-subtotal {
-  margin-left: auto;
-  font-size: .67rem;
-  font-weight: 700;
-  color: var(--bd);
-  background: #e8f4fd;
-  padding: 1px 9px;
-  border-radius: 50px;
-}
+.mo-sub { margin-left: auto; font-size: .65rem; font-weight: 700; color: var(--bd); background: #e8f4fd; padding: 1px 9px; border-radius: 50px; }
 
-/* DEAL ROW */
-.dr {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 14px;
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--br);
-  align-items: start;
-  text-decoration: none;
-  color: inherit;
-  transition: background .1s;
-}
+/* ── DEAL ROW ── */
+.dr { display: grid; grid-template-columns: 1fr auto; gap: 14px; padding: 10px 14px; border-bottom: 1px solid var(--br); align-items: start; text-decoration: none; color: inherit; transition: background .1s; }
 .dr:last-child { border-bottom: none; }
-.dr:hover { background: #f6f9fc; }
-a.dr { cursor: pointer; }
-a.dr .da::after {
-  content: ' ↗';
-  font-size: .7rem;
-  opacity: .35;
-  font-weight: 400;
-}
-a.dr:hover .da::after { opacity: .7; }
-
-.dl {}
-.da { font-weight: 700; font-size: .9rem; color: var(--tx); margin-bottom: 2px; }
-.dd { font-size: .75rem; color: var(--mu); margin-bottom: 5px; }
+.dr:hover { background: #f5f8fc; }
+a.dr .da::after { content: ' ↗'; font-size: .68rem; opacity: .3; }
+a.dr:hover .da::after { opacity: .6; }
+.da { font-weight: 700; font-size: .88rem; color: var(--tx); margin-bottom: 2px; }
+.dd { font-size: .73rem; color: var(--mu); margin-bottom: 5px; }
 .dbadges { display: flex; gap: 5px; flex-wrap: wrap; }
+.dr-right { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 3px; min-width: 90px; flex-shrink: 0; }
+.amt { font-weight: 800; font-size: .98rem; color: #16a34a; white-space: nowrap; }
+.amt-sm { font-size: .82rem; color: var(--mu); white-space: nowrap; }
 
-.dr-right {
-  text-align: right;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 3px;
-  min-width: 80px;
-  flex-shrink: 0;
-}
-.amt { font-weight: 800; font-size: 1rem; color: #16a34a; white-space: nowrap; }
-.amt-tbd { font-size: .82rem; color: var(--mu); font-style: italic; }
-.amt-re  { font-size: .82rem; color: var(--mu); font-style: italic; }
-
-/* BADGES */
-.b {
-  display: inline-flex;
-  align-items: center;
-  font-size: .6rem;
-  font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 50px;
-  text-transform: uppercase;
-  letter-spacing: .3px;
-  white-space: nowrap;
-}
+/* ── BADGES ── */
+.b { display: inline-flex; align-items: center; font-size: .59rem; font-weight: 700; padding: 2px 7px; border-radius: 50px; text-transform: uppercase; letter-spacing: .3px; white-space: nowrap; }
 .b-s04 { background: #f0fdf4; color: #14532d; border: 1px solid #bbf7d0; }
 .b-s03 { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
 .b-s02 { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
@@ -255,28 +89,13 @@ a.dr:hover .da::after { opacity: .7; }
 .b-cmp { background: #fff1f2; color: #9f1239; border: 1px solid #fecdd3; }
 .b-big { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
 
-/* EMPTY STATE */
-.empty {
-  background: var(--white);
-  border: 1px solid var(--br);
-  border-radius: var(--r);
-  padding: 40px 24px;
-  text-align: center;
-}
-.empty-title { font-size: .95rem; font-weight: 700; color: var(--tx); margin-bottom: 6px; }
-.empty-sub { font-size: .8rem; color: var(--mu); }
+footer { text-align: center; padding: 20px; font-size: .68rem; color: #bbb; border-top: 1px solid var(--br); margin-top: 10px; }
 
-/* FOOTER */
-footer { text-align: center; padding: 20px; font-size: .7rem; color: #bbb; border-top: 1px solid var(--br); margin-top: 12px; }
-
-/* RESPONSIVE */
 @media (max-width: 640px) {
   .hdr-top, .main { padding-left: 12px; padding-right: 12px; }
   .q-strip { grid-template-columns: 1fr; }
   .qs { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
-  .qs.active { border-bottom-color: #0176d3; }
-  .tab-bar { padding: 0 12px; }
-  .tab { padding: 10px 14px; font-size: .75rem; }
+  .tab { padding: 9px 14px; font-size: .72rem; }
   .dr { grid-template-columns: 1fr; }
   .dr-right { align-items: flex-start; }
   .qs-nums { gap: 12px; }
@@ -296,34 +115,33 @@ footer { text-align: center; padding: 20px; font-size: .7rem; color: #bbb; borde
     <div class="qs" id="qs-q2" onclick="switchTab('q2')">
       <div class="qs-label">Q2 &nbsp;·&nbsp; May–Jul 2026</div>
       <div class="qs-nums">
-        <div class="qs-num"><span class="qn-val v-gray">—</span><span class="qn-lbl">Commit</span></div>
-        <div class="qs-num"><span class="qn-val v-gray">—</span><span class="qn-lbl">Best Case</span></div>
-        <div class="qs-num"><span class="qn-val v-gray">—</span><span class="qn-lbl">Total</span></div>
+        <div class="qs-num"><span class="qn-val v-green">$15K</span><span class="qn-lbl">Closed Won</span></div>
+        <div class="qs-num"><span class="qn-val v-blue">$80K</span><span class="qn-lbl">Pipeline</span></div>
+        <div class="qs-num"><span class="qn-val v-gray">$95K</span><span class="qn-lbl">Total</span></div>
       </div>
     </div>
 
     <div class="qs active" id="qs-q3" onclick="switchTab('q3')">
       <div class="qs-label">Q3 &nbsp;·&nbsp; Aug–Oct 2026</div>
       <div class="qs-nums">
-        <div class="qs-num"><span class="qn-val v-green">$203K</span><span class="qn-lbl">Commit</span></div>
-        <div class="qs-num"><span class="qn-val v-amber">$535K</span><span class="qn-lbl">Best Case</span></div>
-        <div class="qs-num"><span class="qn-val v-blue">$2.22M</span><span class="qn-lbl">Total</span></div>
+        <div class="qs-num"><span class="qn-val v-amber">$929K</span><span class="qn-lbl">Best Case</span></div>
+        <div class="qs-num"><span class="qn-val v-blue">$1.66M</span><span class="qn-lbl">Pipeline</span></div>
+        <div class="qs-num"><span class="qn-val v-gray">$2.59M</span><span class="qn-lbl">Total</span></div>
       </div>
     </div>
 
     <div class="qs" id="qs-q4" onclick="switchTab('q4')">
       <div class="qs-label">Q4 &nbsp;·&nbsp; Nov 2026–Jan 2027</div>
       <div class="qs-nums">
-        <div class="qs-num"><span class="qn-val v-gray">—</span><span class="qn-lbl">Commit</span></div>
-        <div class="qs-num"><span class="qn-val v-gray">—</span><span class="qn-lbl">Best Case</span></div>
-        <div class="qs-num"><span class="qn-val v-gray">—</span><span class="qn-lbl">Total</span></div>
+        <div class="qs-num"><span class="qn-val v-amber">$1.09M</span><span class="qn-lbl">Best Case</span></div>
+        <div class="qs-num"><span class="qn-val v-blue">$4.43M</span><span class="qn-lbl">Pipeline</span></div>
+        <div class="qs-num"><span class="qn-val v-gray">$5.53M</span><span class="qn-lbl">Total</span></div>
       </div>
     </div>
 
   </div>
 </div>
 
-<!-- ═══ TAB BAR ═══ -->
 <div class="tab-bar">
   <button class="tab" id="tab-q2" onclick="switchTab('q2')">Q2 — May–Jul</button>
   <button class="tab active" id="tab-q3" onclick="switchTab('q3')">Q3 — Aug–Oct</button>
@@ -332,88 +150,103 @@ footer { text-align: center; padding: 20px; font-size: .7rem; color: #bbb; borde
 
 <div class="main">
 
-  <!-- ═══ Q2 PANEL ═══ -->
+  <!-- ══════════════════════════════════════ Q2 ══════════════════════════════════════ -->
   <div class="panel" id="q2">
     <div class="q-meta">
       <span class="q-meta-title">Q2 FY27 — May–Jul 2026</span>
+      <span class="qchip">1 Closed Won · $15K</span>
+      <span class="qchip">1 Active · $80K</span>
     </div>
-    <div class="empty">
-      <div class="empty-title">Q2 deals not loaded</div>
-      <div class="empty-sub">Add your May–July 2026 SFRs here</div>
+
+    <!-- Closed Won -->
+    <div class="fc">
+      <div class="fc-hdr closed">
+        <span class="fc-cat closed">Closed Won</span>
+        <span class="fc-count">1 deal</span>
+        <span class="fc-total closed">$15,028</span>
+      </div>
+      <div class="deal-tbl closed">
+        <div class="mo-hdr">July 2026 <span class="mo-sub">$15K</span></div>
+        <div class="dr">
+          <div>
+            <div class="da">Bruegmann USA</div>
+            <div class="dd">Early Renewal</div>
+            <div class="dbadges">
+              <span class="b b-s04">08 - Closed</span>
+              <span class="b b-dt">Jul 14</span>
+              <span class="b b-add">Renewal</span>
+            </div>
+          </div>
+          <div class="dr-right"><div class="amt">$15,028</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pipeline -->
+    <div class="fc">
+      <div class="fc-hdr pipe">
+        <span class="fc-cat pipe">Pipeline</span>
+        <span class="fc-count">1 deal</span>
+        <span class="fc-total pipe">$80,000</span>
+      </div>
+      <div class="deal-tbl pipe">
+        <div class="mo-hdr">July 2026 <span class="mo-sub">$80K</span></div>
+        <div class="dr">
+          <div>
+            <div class="da">Nexeo Plastics, LLC</div>
+            <div class="dd">Qualified Pipeline Holder</div>
+            <div class="dbadges">
+              <span class="b b-s03">Stage 03</span>
+              <span class="b b-dt">Jul 31</span>
+              <span class="b b-new">New Business</span>
+            </div>
+          </div>
+          <div class="dr-right"><div class="amt">$80,000</div></div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- ═══ Q3 PANEL ═══ -->
+
+  <!-- ══════════════════════════════════════ Q3 ══════════════════════════════════════ -->
   <div class="panel active" id="q3">
     <div class="q-meta">
       <span class="q-meta-title">Q3 FY27 — Aug–Oct 2026</span>
-      <span class="chip">19 SFRs</span>
-      <span class="chip">$2.22M Total</span>
-      <span class="chip">1 Commit · 6 Best Case · 12 Pipeline</span>
+      <span class="qchip">15 SFRs</span>
+      <span class="qchip">$2.59M Total</span>
+      <span class="qchip">6 Best Case · 9 Pipeline</span>
     </div>
 
-    <!-- ── COMMIT ── -->
-    <div class="fc">
-      <div class="fc-hdr commit">
-        <span class="fc-cat commit">Commit</span>
-        <span class="fc-count">1 deal</span>
-        <span class="fc-total commit">$203,000</span>
-      </div>
-      <div class="deal-tbl commit">
-        <div class="mo-hdr">October 2026 <span class="mo-subtotal">$203K</span></div>
-
-        <a class="dr" href="q3-detail-teco-westinghouse.html">
-          <div class="dl">
-            <div class="da">TECO-Westinghouse Motor Co</div>
-            <div class="dd">MFG Cloud Sales + eCommerce (2 SFRs) &nbsp;·&nbsp; Round Rock, TX</div>
-            <div class="dbadges">
-              <span class="b b-s04">Stage 04</span>
-              <span class="b b-dt">Oct 20</span>
-              <span class="b b-new">New Business</span>
-              <span class="b b-cmp">Competition Identified</span>
-            </div>
-          </div>
-          <div class="dr-right">
-            <div class="amt">$203,000</div>
-          </div>
-        </a>
-
-      </div>
-    </div>
-
-    <!-- ── BEST CASE ── -->
+    <!-- Best Case -->
     <div class="fc">
       <div class="fc-hdr best">
         <span class="fc-cat best">Best Case</span>
-        <span class="fc-count">6 deals</span>
-        <span class="fc-total best">$535,000</span>
+        <span class="fc-count">6 deals — Stage 03</span>
+        <span class="fc-total best">$929,228</span>
       </div>
       <div class="deal-tbl best">
 
-        <div class="mo-hdr">August 2026 <span class="mo-subtotal">$75.6K</span></div>
+        <div class="mo-hdr">August 2026 <span class="mo-sub">$80K</span></div>
 
-        <a class="dr" href="q3-detail-eco-material.html">
-          <div class="dl">
-            <div class="da">ECO Material Technologies</div>
-            <div class="dd">Sales Cloud EE + Revenue Cloud Advanced (+70) &nbsp;·&nbsp; South Jordan, UT</div>
+        <a class="dr" href="q3-detail-nexeo.html">
+          <div>
+            <div class="da">Nexeo Plastics, LLC</div>
+            <div class="dd">Agentic Marketing Platform Premier Plan</div>
             <div class="dbadges">
               <span class="b b-s03">Stage 03</span>
               <span class="b b-dt">Aug 31</span>
               <span class="b b-new">New Business</span>
-              <span class="b b-cmp">Competition Active</span>
             </div>
           </div>
-          <div class="dr-right">
-            <div class="amt">$75,600</div>
-          </div>
+          <div class="dr-right"><div class="amt">$80,000</div></div>
         </a>
 
-        <div class="mo-hdr">September 2026 <span class="mo-subtotal">$324.4K</span></div>
+        <div class="mo-hdr">September 2026 <span class="mo-sub">$247K</span></div>
 
         <a class="dr" href="q3-detail-veseris.html">
-          <div class="dl">
+          <div>
             <div class="da">Veseris</div>
-            <div class="dd">MFG Cloud Sales EE (+100) &nbsp;·&nbsp; Redmond, WA</div>
+            <div class="dd">MFG Cloud Sales EE (+100)</div>
             <div class="dbadges">
               <span class="b b-s03">Stage 03</span>
               <span class="b b-dt">Sep 25</span>
@@ -421,31 +254,13 @@ footer { text-align: center; padding: 20px; font-size: .7rem; color: #bbb; borde
               <span class="b b-cmp">Dynamics (misconfigured)</span>
             </div>
           </div>
-          <div class="dr-right">
-            <div class="amt">$187,000</div>
-          </div>
-        </a>
-
-        <a class="dr" href="q3-detail-ls-electric-data.html">
-          <div class="dl">
-            <div class="da">LS Electric America — Data / Prospecting</div>
-            <div class="dd">Data Cloud / Prospecting (+25) &nbsp;·&nbsp; Lincolnshire, IL</div>
-            <div class="dbadges">
-              <span class="b b-s03">Stage 03</span>
-              <span class="b b-dt">Sep 17</span>
-              <span class="b b-new">New Business</span>
-              <span class="b b-cmp">ZoomInfo (contract expiring)</span>
-            </div>
-          </div>
-          <div class="dr-right">
-            <div class="amt">$77,400</div>
-          </div>
+          <div class="dr-right"><div class="amt">$187,000</div></div>
         </a>
 
         <a class="dr" href="q3-detail-pyrotek.html">
-          <div class="dl">
+          <div>
             <div class="da">Pyrotek Inc.</div>
-            <div class="dd">Marketing Cloud &nbsp;·&nbsp; Spokane Valley, WA</div>
+            <div class="dd">Marketing Cloud</div>
             <div class="dbadges">
               <span class="b b-s03">Stage 03</span>
               <span class="b b-dt">Sep 30</span>
@@ -453,17 +268,15 @@ footer { text-align: center; padding: 20px; font-size: .7rem; color: #bbb; borde
               <span class="b b-cmp">Competition Active</span>
             </div>
           </div>
-          <div class="dr-right">
-            <div class="amt">$60,000</div>
-          </div>
+          <div class="dr-right"><div class="amt">$60,000</div></div>
         </a>
 
-        <div class="mo-hdr">October 2026 <span class="mo-subtotal">$135K</span></div>
+        <div class="mo-hdr">October 2026 <span class="mo-sub">$602K</span></div>
 
         <a class="dr" href="q3-detail-ls-electric-ss.html">
-          <div class="dl">
+          <div>
             <div class="da">LS Electric America — Sales &amp; Service</div>
-            <div class="dd">Sales Cloud EE + Service Cloud EE + MCA (+90) &nbsp;·&nbsp; Lincolnshire, IL</div>
+            <div class="dd">Sales Cloud EE + Service Cloud EE + MCA (+90)</div>
             <div class="dbadges">
               <span class="b b-s03">Stage 03</span>
               <span class="b b-dt">Oct 23</span>
@@ -471,15 +284,26 @@ footer { text-align: center; padding: 20px; font-size: .7rem; color: #bbb; borde
               <span class="b b-cmp">HubSpot (contract expiring)</span>
             </div>
           </div>
-          <div class="dr-right">
-            <div class="amt">$135,000</div>
+          <div class="dr-right"><div class="amt">$350,000</div></div>
+        </a>
+
+        <a class="dr" href="q3-detail-ls-electric-data.html">
+          <div>
+            <div class="da">LS Electric America — Marketing</div>
+            <div class="dd">Data Cloud / Prospecting (+25)</div>
+            <div class="dbadges">
+              <span class="b b-s03">Stage 03</span>
+              <span class="b b-dt">Oct 30</span>
+              <span class="b b-new">New Business</span>
+            </div>
           </div>
+          <div class="dr-right"><div class="amt">$116,400</div></div>
         </a>
 
         <a class="dr" href="q3-detail-standex.html">
-          <div class="dl">
+          <div>
             <div class="da">Standex International Corporation</div>
-            <div class="dd">Sales Cloud EE + Service Cloud EE (+60) &nbsp;·&nbsp; Salem, NH</div>
+            <div class="dd">Sales Cloud EE + Service Cloud EE (+60)</div>
             <div class="dbadges">
               <span class="b b-s03">Stage 03</span>
               <span class="b b-dt">Oct 30</span>
@@ -487,169 +311,68 @@ footer { text-align: center; padding: 20px; font-size: .7rem; color: #bbb; borde
               <span class="b b-cmp">Competition Active</span>
             </div>
           </div>
-          <div class="dr-right">
-            <div class="amt-re">Re-engagement</div>
-          </div>
+          <div class="dr-right"><div class="amt">$135,828</div></div>
         </a>
 
       </div>
     </div>
 
-    <!-- ── PIPELINE ── -->
+    <!-- Pipeline -->
     <div class="fc">
       <div class="fc-hdr pipe">
         <span class="fc-cat pipe">Pipeline</span>
-        <span class="fc-count">12 deals</span>
-        <span class="fc-total pipe">$1.48M+</span>
+        <span class="fc-count">9 deals — Stage 02</span>
+        <span class="fc-total pipe">$1,658,050</span>
       </div>
       <div class="deal-tbl pipe">
 
-        <div class="mo-hdr">September 2026 <span class="mo-subtotal">$134K</span></div>
+        <div class="mo-hdr">September 2026 <span class="mo-sub">$174K</span></div>
 
         <a class="dr" href="q3-detail-puffer-sweiven-mfg.html">
-          <div class="dl">
+          <div>
             <div class="da">Puffer-Sweiven LP — MFG Cloud</div>
-            <div class="dd">MFG Cloud Placeholder &nbsp;·&nbsp; Stafford, TX</div>
+            <div class="dd">MFG Cloud Placeholder</div>
             <div class="dbadges">
               <span class="b b-s02">Stage 02</span>
               <span class="b b-dt">Sep 30</span>
               <span class="b b-new">New Business</span>
             </div>
           </div>
-          <div class="dr-right">
-            <div class="amt">$125,000</div>
-          </div>
+          <div class="dr-right"><div class="amt">$125,000</div></div>
         </a>
 
         <a class="dr" href="q3-detail-puffer-sweiven-mktg.html">
-          <div class="dl">
+          <div>
             <div class="da">Puffer-Sweiven LP — Marketing + Data</div>
-            <div class="dd">Marketing Cloud Growth + Data Cloud &nbsp;·&nbsp; Stafford, TX</div>
+            <div class="dd">Marketing Cloud Growth + Data Cloud</div>
             <div class="dbadges">
               <span class="b b-s02">Stage 02</span>
               <span class="b b-dt">Sep 30</span>
               <span class="b b-add">Add-On</span>
             </div>
           </div>
-          <div class="dr-right">
-            <div class="amt">$9,000</div>
-          </div>
+          <div class="dr-right"><div class="amt">$49,000</div></div>
         </a>
 
-        <div class="mo-hdr">October 2026 <span class="mo-subtotal">$1.35M+</span></div>
+        <div class="mo-hdr">October 2026 <span class="mo-sub">$1.48M</span></div>
 
-        <a class="dr" href="q3-detail-texas-pipe.html">
-          <div class="dl">
-            <div class="da">Texas Pipe and Supply</div>
-            <div class="dd">MFG Cloud (+200 seats) &nbsp;·&nbsp; Houston, TX</div>
+        <a class="dr" href="q3-detail-dee-zee.html">
+          <div>
+            <div class="da">DEE ZEE, INC.</div>
+            <div class="dd">MFG Cloud Sales (+15 seats)</div>
             <div class="dbadges">
               <span class="b b-s02">Stage 02</span>
-              <span class="b b-dt">Oct 30</span>
-              <span class="b b-new">New Business</span>
-              <span class="b b-big">Biggest Q3 Deal</span>
-            </div>
-          </div>
-          <div class="dr-right">
-            <div class="amt">$660,000</div>
-          </div>
-        </a>
-
-        <a class="dr" href="q3-detail-stolle-machinery.html">
-          <div class="dl">
-            <div class="da">Stolle Machinery Company</div>
-            <div class="dd">B2B Commerce Cloud (+40) &nbsp;·&nbsp; Can-Making Machinery, Global</div>
-            <div class="dbadges">
-              <span class="b b-s02">Stage 02</span>
-              <span class="b b-dt">Oct 30</span>
+              <span class="b b-dt">Oct 23</span>
               <span class="b b-new">New Business</span>
             </div>
           </div>
-          <div class="dr-right">
-            <div class="amt">$200,000</div>
-          </div>
-        </a>
-
-        <a class="dr" href="q3-detail-daiichi.html">
-          <div class="dl">
-            <div class="da">Daiichi Jitsugyo America Inc.</div>
-            <div class="dd">MFG Cloud (+50 seats) &nbsp;·&nbsp; Itasca, IL</div>
-            <div class="dbadges">
-              <span class="b b-s02">Stage 02</span>
-              <span class="b b-dt">Oct 31</span>
-              <span class="b b-add">Add-On</span>
-            </div>
-          </div>
-          <div class="dr-right">
-            <div class="amt">$165,000</div>
-          </div>
-        </a>
-
-        <a class="dr" href="q3-detail-architectural-surfaces.html">
-          <div class="dl">
-            <div class="da">Architectural Surfaces Group</div>
-            <div class="dd">Sales Cloud EE + Service Cloud EE (+100) &nbsp;·&nbsp; Fife, WA</div>
-            <div class="dbadges">
-              <span class="b b-s02">Stage 02</span>
-              <span class="b b-dt">Oct 30</span>
-              <span class="b b-new">New Business</span>
-              <span class="b b-cmp">Competition Identified</span>
-            </div>
-          </div>
-          <div class="dr-right">
-            <div class="amt">$105,500</div>
-          </div>
-        </a>
-
-        <a class="dr" href="q3-detail-meissner.html">
-          <div class="dl">
-            <div class="da">Meissner Filtration Products</div>
-            <div class="dd">MFG Cloud Sales EE (+35) &nbsp;·&nbsp; Camarillo, CA</div>
-            <div class="dbadges">
-              <span class="b b-s02">Stage 02</span>
-              <span class="b b-dt">Oct 31</span>
-              <span class="b b-new">New Business</span>
-              <span class="b b-cmp">Dynamics (incumbent)</span>
-            </div>
-          </div>
-          <div class="dr-right">
-            <div class="amt">$80,500</div>
-          </div>
-        </a>
-
-        <a class="dr" href="q3-detail-reinke.html">
-          <div class="dl">
-            <div class="da">Reinke Manufacturing Co., Inc.</div>
-            <div class="dd">MFG Cloud (+125 seats) &nbsp;·&nbsp; Deshler, NE</div>
-            <div class="dbadges">
-              <span class="b b-s02">Stage 02</span>
-              <span class="b b-dt">Oct 30</span>
-              <span class="b b-new">New Business</span>
-            </div>
-          </div>
-          <div class="dr-right">
-            <div class="amt">$48,750</div>
-          </div>
-        </a>
-
-        <a class="dr" href="q3-detail-rs-hughes.html">
-          <div class="dl">
-            <div class="da">R.S. Hughes</div>
-            <div class="dd">MFG Cloud EE (+50 seats) &nbsp;·&nbsp; Sunnyvale, CA</div>
-            <div class="dbadges">
-              <span class="b b-s02">Stage 02</span>
-              <span class="b b-dt">Oct 30</span>
-              <span class="b b-new">New Business</span>
-            </div>
-          </div>
-          <div class="dr-right">
-            <div class="amt">$41,400</div>
-          </div>
+          <div class="dr-right"><div class="amt">$28,800</div></div>
         </a>
 
         <a class="dr" href="q3-detail-fna-group.html">
-          <div class="dl">
+          <div>
             <div class="da">FNA Group</div>
-            <div class="dd">Sales Cloud EE + Account Engagement (+50) &nbsp;·&nbsp; Elk Grove Village, IL</div>
+            <div class="dd">Sales Cloud EE + Account Engagement (+50)</div>
             <div class="dbadges">
               <span class="b b-s02">Stage 02</span>
               <span class="b b-dt">Oct 27</span>
@@ -657,60 +380,519 @@ footer { text-align: center; padding: 20px; font-size: .7rem; color: #bbb; borde
               <span class="b b-cmp">SugarCRM (incumbent)</span>
             </div>
           </div>
-          <div class="dr-right">
-            <div class="amt">$33,000</div>
-          </div>
+          <div class="dr-right"><div class="amt">$138,000</div></div>
         </a>
 
-        <a class="dr" href="q3-detail-dee-zee.html">
-          <div class="dl">
-            <div class="da">DEE ZEE, INC.</div>
-            <div class="dd">MFG Cloud Sales (+15 seats) &nbsp;·&nbsp; Des Moines, IA</div>
-            <div class="dbadges">
-              <span class="b b-s02">Stage 02</span>
-              <span class="b b-dt">Oct 23</span>
-              <span class="b b-new">New Business</span>
-            </div>
-          </div>
-          <div class="dr-right">
-            <div class="amt">$14,400</div>
-          </div>
-        </a>
-
-        <a class="dr" href="q3-detail-nexeo.html">
-          <div class="dl">
-            <div class="da">Nexeo Plastics, LLC</div>
-            <div class="dd">Qualified — AI Inbound SDR &nbsp;·&nbsp; The Woodlands, TX</div>
+        <a class="dr" href="q3-detail-stolle-machinery.html">
+          <div>
+            <div class="da">Stolle Machinery Company</div>
+            <div class="dd">B2B Commerce Cloud (+40)</div>
             <div class="dbadges">
               <span class="b b-s02">Stage 02</span>
               <span class="b b-dt">Oct 30</span>
               <span class="b b-new">New Business</span>
             </div>
           </div>
-          <div class="dr-right">
-            <div class="amt-tbd">TBD</div>
+          <div class="dr-right"><div class="amt">$200,000</div></div>
+        </a>
+
+        <a class="dr" href="q3-detail-architectural-surfaces.html">
+          <div>
+            <div class="da">Architectural Surfaces Group</div>
+            <div class="dd">Sales Cloud EE + Service Cloud EE (+100)</div>
+            <div class="dbadges">
+              <span class="b b-s02">Stage 02</span>
+              <span class="b b-dt">Oct 30</span>
+              <span class="b b-new">New Business</span>
+              <span class="b b-cmp">Competition Identified</span>
+            </div>
           </div>
+          <div class="dr-right"><div class="amt">$211,000</div></div>
+        </a>
+
+        <a class="dr" href="q3-detail-texas-pipe.html">
+          <div>
+            <div class="da">Texas Pipe and Supply</div>
+            <div class="dd">MFG Cloud (+200 seats)</div>
+            <div class="dbadges">
+              <span class="b b-s02">Stage 02</span>
+              <span class="b b-dt">Oct 30</span>
+              <span class="b b-new">New Business</span>
+              <span class="b b-big">Largest Q3 Deal</span>
+            </div>
+          </div>
+          <div class="dr-right"><div class="amt">$660,000</div></div>
+        </a>
+
+        <a class="dr" href="q3-detail-reinke.html">
+          <div>
+            <div class="da">Reinke Manufacturing Co., Inc.</div>
+            <div class="dd">MFG Cloud (+125 seats)</div>
+            <div class="dbadges">
+              <span class="b b-s02">Stage 02</span>
+              <span class="b b-dt">Oct 30</span>
+              <span class="b b-new">New Business</span>
+            </div>
+          </div>
+          <div class="dr-right"><div class="amt">$81,250</div></div>
+        </a>
+
+        <a class="dr" href="q3-detail-daiichi.html">
+          <div>
+            <div class="da">Daiichi Jitsugyo America Inc.</div>
+            <div class="dd">MFG Cloud (+50 seats)</div>
+            <div class="dbadges">
+              <span class="b b-s02">Stage 02</span>
+              <span class="b b-dt">Oct 31</span>
+              <span class="b b-add">Add-On</span>
+            </div>
+          </div>
+          <div class="dr-right"><div class="amt">$165,000</div></div>
         </a>
 
       </div>
     </div>
+  </div>
 
-  </div><!-- /q3 -->
 
-  <!-- ═══ Q4 PANEL ═══ -->
+  <!-- ══════════════════════════════════════ Q4 ══════════════════════════════════════ -->
   <div class="panel" id="q4">
     <div class="q-meta">
       <span class="q-meta-title">Q4 FY27 — Nov 2026–Jan 2027</span>
+      <span class="qchip">40 SFRs</span>
+      <span class="qchip">$5.53M Total</span>
+      <span class="qchip">5 Best Case · 35 Pipeline</span>
     </div>
-    <div class="empty">
-      <div class="empty-title">Q4 deals not loaded</div>
-      <div class="empty-sub">Add your November 2026–January 2027 SFRs here</div>
+
+    <!-- Best Case -->
+    <div class="fc">
+      <div class="fc-hdr best">
+        <span class="fc-cat best">Best Case</span>
+        <span class="fc-count">5 deals — Stage 03</span>
+        <span class="fc-total best">$1,094,900</span>
+      </div>
+      <div class="deal-tbl best">
+
+        <div class="mo-hdr">November 2026 <span class="mo-sub">$552.5K</span></div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Wolter Inc.</div>
+            <div class="dd">FSL, Data Cloud, RCA + Tab</div>
+            <div class="dbadges">
+              <span class="b b-s03">Stage 03</span>
+              <span class="b b-dt">Nov 20</span>
+              <span class="b b-new">New Business</span>
+            </div>
+          </div>
+          <div class="dr-right"><div class="amt">$292,500</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Quanex Building Products Corporation</div>
+            <div class="dd">Manufacturing Cloud (+200 seats)</div>
+            <div class="dbadges">
+              <span class="b b-s03">Stage 03</span>
+              <span class="b b-dt">Nov 27</span>
+              <span class="b b-new">New Business</span>
+            </div>
+          </div>
+          <div class="dr-right"><div class="amt">$260,000</div></div>
+        </div>
+
+        <div class="mo-hdr">December 2026 <span class="mo-sub">$338.4K</span></div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Williams Comfort Products</div>
+            <div class="dd">MFG Cloud (+50) + PEM (+36) + Digital (+20)</div>
+            <div class="dbadges">
+              <span class="b b-s03">Stage 03</span>
+              <span class="b b-dt">Dec 31</span>
+              <span class="b b-new">New Business</span>
+            </div>
+          </div>
+          <div class="dr-right"><div class="amt">$158,400</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Unical Aviation, Inc.</div>
+            <div class="dd">MFG Cloud Sales &amp; Service EE (+75)</div>
+            <div class="dbadges">
+              <span class="b b-s03">Stage 03</span>
+              <span class="b b-dt">Dec 31</span>
+              <span class="b b-add">Add-On</span>
+            </div>
+          </div>
+          <div class="dr-right"><div class="amt">$180,000</div></div>
+        </div>
+
+        <div class="mo-hdr">January 2027 <span class="mo-sub">$204K</span></div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Nailor Industries</div>
+            <div class="dd">MFG Cloud Sales &amp; Service (+120)</div>
+            <div class="dbadges">
+              <span class="b b-s03">Stage 03</span>
+              <span class="b b-dt">Jan 22</span>
+              <span class="b b-new">New Business</span>
+            </div>
+          </div>
+          <div class="dr-right"><div class="amt">$204,000</div></div>
+        </div>
+
+      </div>
     </div>
-  </div>
 
-</div>
+    <!-- Pipeline -->
+    <div class="fc">
+      <div class="fc-hdr pipe">
+        <span class="fc-cat pipe">Pipeline</span>
+        <span class="fc-count">35 deals — Stage 02</span>
+        <span class="fc-total pipe">$4,431,842</span>
+      </div>
+      <div class="deal-tbl pipe">
 
-<footer>Anthony Troggio &nbsp;·&nbsp; Digital Transformation Executive, Salesforce &nbsp;·&nbsp; FY27 Q2–Q3–Q4 Forecast Pipeline &nbsp;·&nbsp; July 2026</footer>
+        <div class="mo-hdr">November 2026 <span class="mo-sub">$200.8K</span></div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Nexeo Plastics, LLC</div>
+            <div class="dd">Revenue Cloud Advanced</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Nov 16</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$20,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">R.S. Hughes</div>
+            <div class="dd">MFG Cloud EE (+50)</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Nov 27</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$82,800</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Gowan Company</div>
+            <div class="dd">Revenue Cloud Advanced</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Nov 30</span><span class="b b-add">Add-On</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$49,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Gowan Company</div>
+            <div class="dd">Revenue Cloud Advanced</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Nov 30</span><span class="b b-add">Add-On</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$49,000</div></div>
+        </div>
+
+        <div class="mo-hdr">December 2026 <span class="mo-sub">$972.7K</span></div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Pyrotek Inc.</div>
+            <div class="dd">Qualified</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Dec 18</span><span class="b b-add">Add-On</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$100,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Puffer-Sweiven LP</div>
+            <div class="dd">OMS — Order Management</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Dec 23</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$10,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">mSupply</div>
+            <div class="dd">Order Management</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Dec 29</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$120,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Buhler Group Consulting</div>
+            <div class="dd">Sales &amp; Service Cloud (+50)</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Dec 30</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$285,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Alto-Shaam, Inc.</div>
+            <div class="dd">Manufacturing Cloud (+60)</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Dec 30</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$210,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Composites One LLC</div>
+            <div class="dd">MCA + Data Bundles</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Dec 31</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$39,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Acme Construction Supply</div>
+            <div class="dd">MFG Cloud EE (+30)</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Dec 31</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$49,680</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">CSW Industrials, Inc.</div>
+            <div class="dd">Revenue Cloud Advanced</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Dec 31</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$120,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Wolter Inc.</div>
+            <div class="dd">Marketing Cloud Advanced + Data Bundles</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Dec 31</span><span class="b b-add">Add-On</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$39,000</div></div>
+        </div>
+
+        <div class="mo-hdr">January 2027 <span class="mo-sub">$3.26M</span></div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Smead Manufacturing Company</div>
+            <div class="dd">MCA + Data Bundles</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 5</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$39,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Wholesale Electric Supply</div>
+            <div class="dd">MCA + Data Bundles</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 6</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$39,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Unical Aviation, Inc.</div>
+            <div class="dd">Revenue Cloud Advanced</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 19</span><span class="b b-add">Add-On</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$200,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Nailor Industries</div>
+            <div class="dd">MFG Cloud Sales &amp; Service (+120) — Stage 03</div>
+            <div class="dbadges"><span class="b b-s03">Stage 03</span><span class="b b-dt">Jan 22</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt-sm">(see Best Case)</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Puffer-Sweiven LP</div>
+            <div class="dd">Revenue Cloud</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 29</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$252,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Ontic Engineering and Manufacturing</div>
+            <div class="dd">MFG Cloud Sales &amp; Service (+100)</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 29</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$190,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Fortune Electric</div>
+            <div class="dd">MFG Cloud (+100)</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 29</span><span class="b b-new">New Business</span><span class="b b-big">Largest Q4 Deal</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$360,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">MEC Aerial Work Platforms</div>
+            <div class="dd">MFG Cloud (+50) + Revenue Cloud Advanced (+50)</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 29</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$215,400</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Nekter Juice Bar</div>
+            <div class="dd">B2C Loyalty Starter</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 29</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$91,200</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">American International Industries</div>
+            <div class="dd">MFG Cloud EE (+25)</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 29</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$48,600</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Farwest Steel Corporation</div>
+            <div class="dd">MFG Sales &amp; Service EE (+60)</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 29</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$84,240</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Life Line Emergency Vehicles</div>
+            <div class="dd">Marketing Cloud Growth</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 29</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$50,400</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Concorde Battery Corporation</div>
+            <div class="dd">Marketing Cloud</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 29</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$33,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Puffer-Sweiven LP</div>
+            <div class="dd">Marketing Cloud — SMS / WhatsApp</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 29</span><span class="b b-add">Add-On</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$50,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Delfield Company</div>
+            <div class="dd">MFG Cloud EE (+89)</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 29</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$295,647</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Basden Steel Corporation</div>
+            <div class="dd">MFG Sales &amp; Service (+15) + Slack Business+</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 30</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$49,875</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Garratt-Callahan Company</div>
+            <div class="dd">MFG Sales &amp; Service (+200)</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 31</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$300,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">CSW Industrials, Inc. (2nd Org)</div>
+            <div class="dd">MFG Cloud (+50)</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 31</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$285,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Whitmore Manufacturing, LLC</div>
+            <div class="dd">MFG S&amp;S EE → UE Upgrade</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 31</span><span class="b b-add">Upgrade</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$110,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Marubeni Citizen-Cincom Inc.</div>
+            <div class="dd">Revenue Cloud Advanced</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 31</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$180,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">KPS Global LLC</div>
+            <div class="dd">MFG Sales &amp; Service EE (+100)</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 31</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$200,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Helena Agri-Enterprises, LLC</div>
+            <div class="dd">Qualified Placeholder</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 31</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$125,000</div></div>
+        </div>
+
+        <div class="dr">
+          <div>
+            <div class="da">Bad Boy Mowers, Inc.</div>
+            <div class="dd">Marketing Cloud Advanced</div>
+            <div class="dbadges"><span class="b b-s02">Stage 02</span><span class="b b-dt">Jan 31</span><span class="b b-new">New Business</span></div>
+          </div>
+          <div class="dr-right"><div class="amt">$60,000</div></div>
+        </div>
+
+      </div>
+    </div>
+  </div><!-- /q4 -->
+
+</div><!-- /main -->
+
+<footer>Anthony Troggio &nbsp;·&nbsp; Digital Transformation Executive, Salesforce &nbsp;·&nbsp; FY27 Q2–Q3–Q4 Forecast Pipeline &nbsp;·&nbsp; Live from Salesforce · July 20, 2026</footer>
 
 <script>
 function switchTab(q) {
@@ -722,6 +904,5 @@ function switchTab(q) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 </script>
-
 </body>
 </html>
