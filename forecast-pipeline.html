@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>FY27 Forecast Pipeline | Anthony Troggio</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f3f8; color: #1a2535; font-size: 14px; line-height: 1.5; }
+
+:root {
+  --bl: #0176d3; --bd: #014486; --gr: #2e844a; --or: #dd5a00;
+  --tx: #1a2535; --mu: #5a6a7a; --br: #dde4ed; --bg: #f0f3f8;
+  --white: #fff; --r: 8px;
+}
+
+/* STICKY HEADER */
+.hdr {
+  background: #0b1929;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 2px 12px rgba(0,0,0,.35);
+}
+.hdr-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 40px;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.hdr-title { font-size: .73rem; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase; }
+.hdr-rep { font-size: .7rem; opacity: .5; }
+
+/* QUARTER STRIP */
+.q-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.qs {
+  padding: 10px 20px;
+  border-right: 1px solid rgba(255,255,255,.08);
+  cursor: pointer;
+  transition: background .15s;
+  user-select: none;
+}
+.qs:last-child { border-right: none; }
+.qs:hover { background: rgba(255,255,255,.04); }
+.qs.active { background: rgba(1,118,211,.25); border-bottom: 2px solid #0176d3; }
+.qs-label {
+  font-size: .6rem;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  opacity: .45;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.qs-nums { display: flex; gap: 20px; }
+.qs-num { display: flex; flex-direction: column; gap: 1px; }
+.qn-val { font-size: .88rem; font-weight: 800; }
+.qn-lbl { font-size: .58rem; text-transform: uppercase; letter-spacing: .5px; opacity: .45; }
+.v-green { color: #86efac; }
+.v-amber { color: #fde68a; }
+.v-blue  { color: #93c5fd; }
+.v-gray  { color: rgba(255,255,255,.35); }
+
+/* TAB BAR */
+.tab-bar {
+  background: var(--white);
+  border-bottom: 2px solid var(--br);
+  display: flex;
+  padding: 0 20px;
+  position: sticky;
+  top: 100px;
+  z-index: 100;
+}
+.tab {
+  padding: 10px 22px;
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--mu);
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  letter-spacing: .3px;
+  transition: color .15s, border-color .15s;
+}
+.tab.active { color: var(--bl); border-bottom-color: var(--bl); }
+.tab:hover:not(.active) { color: var(--tx); }
+
+/* MAIN */
+.main { max-width: 1080px; margin: 0 auto; padding: 20px 18px 48px; }
+
+/* PANELS */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* QUARTER META ROW */
+.q-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.q-meta-title { font-size: 1.1rem; font-weight: 800; }
+.chip {
+  font-size: .68rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 50px;
+  background: var(--bg);
+  border: 1px solid var(--br);
+  color: var(--mu);
+}
+
+/* FORECAST SECTIONS */
+.fc { margin-bottom: 20px; }
+
+.fc-hdr {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  border-radius: var(--r) var(--r) 0 0;
+  border-left-width: 4px;
+  border-left-style: solid;
+}
+.fc-hdr.commit  { background: #f0fdf4; border-color: #22c55e; border-top: 1px solid #bbf7d0; border-right: 1px solid #bbf7d0; border-bottom: none; }
+.fc-hdr.best    { background: #fffbeb; border-color: #f59e0b; border-top: 1px solid #fde68a; border-right: 1px solid #fde68a; border-bottom: none; }
+.fc-hdr.pipe    { background: #eff6ff; border-color: #3b82f6; border-top: 1px solid #bfdbfe; border-right: 1px solid #bfdbfe; border-bottom: none; }
+
+.fc-cat {
+  font-size: .72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.fc-cat.commit { color: #15803d; }
+.fc-cat.best   { color: #b45309; }
+.fc-cat.pipe   { color: #1d4ed8; }
+
+.fc-count { font-size: .7rem; color: var(--mu); font-weight: 600; }
+
+.fc-total {
+  margin-left: auto;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+.fc-total.commit { color: #16a34a; }
+.fc-total.best   { color: #d97706; }
+.fc-total.pipe   { color: #2563eb; }
+
+/* DEAL TABLE */
+.deal-tbl {
+  background: var(--white);
+  border: 1px solid var(--br);
+  border-left-width: 4px;
+  border-top: none;
+  border-radius: 0 0 var(--r) var(--r);
+  overflow: hidden;
+}
+.deal-tbl.commit { border-left-color: #22c55e; }
+.deal-tbl.best   { border-left-color: #f59e0b; }
+.deal-tbl.pipe   { border-left-color: #3b82f6; }
+
+/* MONTH SUB-HEADER */
+.mo-hdr {
+  background: #f8fafd;
+  border-bottom: 1px solid var(--br);
+  padding: 5px 14px;
+  font-size: .63rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--mu);
+  display: flex;
+  align-items: center;
+}
+.mo-hdr:not(:first-child) { border-top: 1px solid var(--br); }
+.mo-subtotal {
+  margin-left: auto;
+  font-size: .67rem;
+  font-weight: 700;
+  color: var(--bd);
+  background: #e8f4fd;
+  padding: 1px 9px;
+  border-radius: 50px;
+}
+
+/* DEAL ROW */
+.dr {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--br);
+  align-items: start;
+  text-decoration: none;
+  color: inherit;
+  transition: background .1s;
+}
+.dr:last-child { border-bottom: none; }
+.dr:hover { background: #f6f9fc; }
+a.dr { cursor: pointer; }
+a.dr .da::after {
+  content: ' ↗';
+  font-size: .7rem;
+  opacity: .35;
+  font-weight: 400;
+}
+a.dr:hover .da::after { opacity: .7; }
+
+.dl {}
+.da { font-weight: 700; font-size: .9rem; color: var(--tx); margin-bottom: 2px; }
+.dd { font-size: .75rem; color: var(--mu); margin-bottom: 5px; }
+.dbadges { display: flex; gap: 5px; flex-wrap: wrap; }
+
+.dr-right {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+  min-width: 80px;
+  flex-shrink: 0;
+}
+.amt { font-weight: 800; font-size: 1rem; color: #16a34a; white-space: nowrap; }
+.amt-tbd { font-size: .82rem; color: var(--mu); font-style: italic; }
+.amt-re  { font-size: .82rem; color: var(--mu); font-style: italic; }
+
+/* BADGES */
+.b {
+  display: inline-flex;
+  align-items: center;
+  font-size: .6rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 50px;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+  white-space: nowrap;
+}
+.b-s04 { background: #f0fdf4; color: #14532d; border: 1px solid #bbf7d0; }
+.b-s03 { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+.b-s02 { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+.b-s01 { background: #f9fafb; color: #374151; border: 1px solid #e5e7eb; }
+.b-dt  { background: var(--bg); color: var(--mu); border: 1px solid var(--br); }
+.b-new { background: #f3f4f6; color: #374151; border: 1px solid #e5e7eb; }
+.b-add { background: #faf5ff; color: #6b21a8; border: 1px solid #e9d5ff; }
+.b-cmp { background: #fff1f2; color: #9f1239; border: 1px solid #fecdd3; }
+.b-big { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+
+/* EMPTY STATE */
+.empty {
+  background: var(--white);
+  border: 1px solid var(--br);
+  border-radius: var(--r);
+  padding: 40px 24px;
+  text-align: center;
+}
+.empty-title { font-size: .95rem; font-weight: 700; color: var(--tx); margin-bottom: 6px; }
+.empty-sub { font-size: .8rem; color: var(--mu); }
+
+/* FOOTER */
+footer { text-align: center; padding: 20px; font-size: .7rem; color: #bbb; border-top: 1px solid var(--br); margin-top: 12px; }
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .hdr-top, .main { padding-left: 12px; padding-right: 12px; }
+  .q-strip { grid-template-columns: 1fr; }
+  .qs { border-right: none; border-bottom: 1px solid rgba(255,255,255,.08); }
+  .qs.active { border-bottom-color: #0176d3; }
+  .tab-bar { padding: 0 12px; }
+  .tab { padding: 10px 14px; font-size: .75rem; }
+  .dr { grid-template-columns: 1fr; }
+  .dr-right { align-items: flex-start; }
+  .qs-nums { gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ STICKY HEADER ═══ -->
+<div class="hdr">
+  <div class="hdr-top">
+    <span class="hdr-title">FY27 Forecast Pipeline</span>
+    <span class="hdr-rep">Anthony Troggio &nbsp;·&nbsp; atroggio@salesforce.com</span>
+  </div>
+  <div class="q-strip">
+
+    <div class="qs" id="qs-q2" onclick="switchTab('q2')">
+      <div class="qs-label">Q2 &nbsp;·&nbsp; May–Jul 2026</div>
+      <div class="qs-nums">
+        <div class="qs-num"><span class="qn-val v-gray">—</span><span class="qn-lbl">Commit</span></div>
+        <div class="qs-num"><span class="qn-val v-gray">—</span><span class="qn-lbl">Best Case</span></div>
+        <div class="qs-num"><span class="qn-val v-gray">—</span><span class="qn-lbl">Total</span></div>
+      </div>
+    </div>
+
+    <div class="qs active" id="qs-q3" onclick="switchTab('q3')">
+      <div class="qs-label">Q3 &nbsp;·&nbsp; Aug–Oct 2026</div>
+      <div class="qs-nums">
+        <div class="qs-num"><span class="qn-val v-green">$203K</span><span class="qn-lbl">Commit</span></div>
+        <div class="qs-num"><span class="qn-val v-amber">$535K</span><span class="qn-lbl">Best Case</span></div>
+        <div class="qs-num"><span class="qn-val v-blue">$2.22M</span><span class="qn-lbl">Total</span></div>
+      </div>
+    </div>
+
+    <div class="qs" id="qs-q4" onclick="switchTab('q4')">
+      <div class="qs-label">Q4 &nbsp;·&nbsp; Nov 2026–Jan 2027</div>
+      <div class="qs-nums">
+        <div class="qs-num"><span class="qn-val v-gray">—</span><span class="qn-lbl">Commit</span></div>
+        <div class="qs-num"><span class="qn-val v-gray">—</span><span class="qn-lbl">Best Case</span></div>
+        <div class="qs-num"><span class="qn-val v-gray">—</span><span class="qn-lbl">Total</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══ TAB BAR ═══ -->
+<div class="tab-bar">
+  <button class="tab" id="tab-q2" onclick="switchTab('q2')">Q2 — May–Jul</button>
+  <button class="tab active" id="tab-q3" onclick="switchTab('q3')">Q3 — Aug–Oct</button>
+  <button class="tab" id="tab-q4" onclick="switchTab('q4')">Q4 — Nov–Jan</button>
+</div>
+
+<div class="main">
+
+  <!-- ═══ Q2 PANEL ═══ -->
+  <div class="panel" id="q2">
+    <div class="q-meta">
+      <span class="q-meta-title">Q2 FY27 — May–Jul 2026</span>
+    </div>
+    <div class="empty">
+      <div class="empty-title">Q2 deals not loaded</div>
+      <div class="empty-sub">Add your May–July 2026 SFRs here</div>
+    </div>
+  </div>
+
+  <!-- ═══ Q3 PANEL ═══ -->
+  <div class="panel active" id="q3">
+    <div class="q-meta">
+      <span class="q-meta-title">Q3 FY27 — Aug–Oct 2026</span>
+      <span class="chip">19 SFRs</span>
+      <span class="chip">$2.22M Total</span>
+      <span class="chip">1 Commit · 6 Best Case · 12 Pipeline</span>
+    </div>
+
+    <!-- ── COMMIT ── -->
+    <div class="fc">
+      <div class="fc-hdr commit">
+        <span class="fc-cat commit">Commit</span>
+        <span class="fc-count">1 deal</span>
+        <span class="fc-total commit">$203,000</span>
+      </div>
+      <div class="deal-tbl commit">
+        <div class="mo-hdr">October 2026 <span class="mo-subtotal">$203K</span></div>
+
+        <a class="dr" href="q3-detail-teco-westinghouse.html">
+          <div class="dl">
+            <div class="da">TECO-Westinghouse Motor Co</div>
+            <div class="dd">MFG Cloud Sales + eCommerce (2 SFRs) &nbsp;·&nbsp; Round Rock, TX</div>
+            <div class="dbadges">
+              <span class="b b-s04">Stage 04</span>
+              <span class="b b-dt">Oct 20</span>
+              <span class="b b-new">New Business</span>
+              <span class="b b-cmp">Competition Identified</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt">$203,000</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ── BEST CASE ── -->
+    <div class="fc">
+      <div class="fc-hdr best">
+        <span class="fc-cat best">Best Case</span>
+        <span class="fc-count">6 deals</span>
+        <span class="fc-total best">$535,000</span>
+      </div>
+      <div class="deal-tbl best">
+
+        <div class="mo-hdr">August 2026 <span class="mo-subtotal">$75.6K</span></div>
+
+        <a class="dr" href="q3-detail-eco-material.html">
+          <div class="dl">
+            <div class="da">ECO Material Technologies</div>
+            <div class="dd">Sales Cloud EE + Revenue Cloud Advanced (+70) &nbsp;·&nbsp; South Jordan, UT</div>
+            <div class="dbadges">
+              <span class="b b-s03">Stage 03</span>
+              <span class="b b-dt">Aug 31</span>
+              <span class="b b-new">New Business</span>
+              <span class="b b-cmp">Competition Active</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt">$75,600</div>
+          </div>
+        </a>
+
+        <div class="mo-hdr">September 2026 <span class="mo-subtotal">$324.4K</span></div>
+
+        <a class="dr" href="q3-detail-veseris.html">
+          <div class="dl">
+            <div class="da">Veseris</div>
+            <div class="dd">MFG Cloud Sales EE (+100) &nbsp;·&nbsp; Redmond, WA</div>
+            <div class="dbadges">
+              <span class="b b-s03">Stage 03</span>
+              <span class="b b-dt">Sep 25</span>
+              <span class="b b-add">Add-On</span>
+              <span class="b b-cmp">Dynamics (misconfigured)</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt">$187,000</div>
+          </div>
+        </a>
+
+        <a class="dr" href="q3-detail-ls-electric-data.html">
+          <div class="dl">
+            <div class="da">LS Electric America — Data / Prospecting</div>
+            <div class="dd">Data Cloud / Prospecting (+25) &nbsp;·&nbsp; Lincolnshire, IL</div>
+            <div class="dbadges">
+              <span class="b b-s03">Stage 03</span>
+              <span class="b b-dt">Sep 17</span>
+              <span class="b b-new">New Business</span>
+              <span class="b b-cmp">ZoomInfo (contract expiring)</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt">$77,400</div>
+          </div>
+        </a>
+
+        <a class="dr" href="q3-detail-pyrotek.html">
+          <div class="dl">
+            <div class="da">Pyrotek Inc.</div>
+            <div class="dd">Marketing Cloud &nbsp;·&nbsp; Spokane Valley, WA</div>
+            <div class="dbadges">
+              <span class="b b-s03">Stage 03</span>
+              <span class="b b-dt">Sep 30</span>
+              <span class="b b-add">Add-On</span>
+              <span class="b b-cmp">Competition Active</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt">$60,000</div>
+          </div>
+        </a>
+
+        <div class="mo-hdr">October 2026 <span class="mo-subtotal">$135K</span></div>
+
+        <a class="dr" href="q3-detail-ls-electric-ss.html">
+          <div class="dl">
+            <div class="da">LS Electric America — Sales &amp; Service</div>
+            <div class="dd">Sales Cloud EE + Service Cloud EE + MCA (+90) &nbsp;·&nbsp; Lincolnshire, IL</div>
+            <div class="dbadges">
+              <span class="b b-s03">Stage 03</span>
+              <span class="b b-dt">Oct 23</span>
+              <span class="b b-new">New Business</span>
+              <span class="b b-cmp">HubSpot (contract expiring)</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt">$135,000</div>
+          </div>
+        </a>
+
+        <a class="dr" href="q3-detail-standex.html">
+          <div class="dl">
+            <div class="da">Standex International Corporation</div>
+            <div class="dd">Sales Cloud EE + Service Cloud EE (+60) &nbsp;·&nbsp; Salem, NH</div>
+            <div class="dbadges">
+              <span class="b b-s03">Stage 03</span>
+              <span class="b b-dt">Oct 30</span>
+              <span class="b b-new">New Business</span>
+              <span class="b b-cmp">Competition Active</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt-re">Re-engagement</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ── PIPELINE ── -->
+    <div class="fc">
+      <div class="fc-hdr pipe">
+        <span class="fc-cat pipe">Pipeline</span>
+        <span class="fc-count">12 deals</span>
+        <span class="fc-total pipe">$1.48M+</span>
+      </div>
+      <div class="deal-tbl pipe">
+
+        <div class="mo-hdr">September 2026 <span class="mo-subtotal">$134K</span></div>
+
+        <a class="dr" href="q3-detail-puffer-sweiven-mfg.html">
+          <div class="dl">
+            <div class="da">Puffer-Sweiven LP — MFG Cloud</div>
+            <div class="dd">MFG Cloud Placeholder &nbsp;·&nbsp; Stafford, TX</div>
+            <div class="dbadges">
+              <span class="b b-s02">Stage 02</span>
+              <span class="b b-dt">Sep 30</span>
+              <span class="b b-new">New Business</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt">$125,000</div>
+          </div>
+        </a>
+
+        <a class="dr" href="q3-detail-puffer-sweiven-mktg.html">
+          <div class="dl">
+            <div class="da">Puffer-Sweiven LP — Marketing + Data</div>
+            <div class="dd">Marketing Cloud Growth + Data Cloud &nbsp;·&nbsp; Stafford, TX</div>
+            <div class="dbadges">
+              <span class="b b-s02">Stage 02</span>
+              <span class="b b-dt">Sep 30</span>
+              <span class="b b-add">Add-On</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt">$9,000</div>
+          </div>
+        </a>
+
+        <div class="mo-hdr">October 2026 <span class="mo-subtotal">$1.35M+</span></div>
+
+        <a class="dr" href="q3-detail-texas-pipe.html">
+          <div class="dl">
+            <div class="da">Texas Pipe and Supply</div>
+            <div class="dd">MFG Cloud (+200 seats) &nbsp;·&nbsp; Houston, TX</div>
+            <div class="dbadges">
+              <span class="b b-s02">Stage 02</span>
+              <span class="b b-dt">Oct 30</span>
+              <span class="b b-new">New Business</span>
+              <span class="b b-big">Biggest Q3 Deal</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt">$660,000</div>
+          </div>
+        </a>
+
+        <a class="dr" href="q3-detail-stolle-machinery.html">
+          <div class="dl">
+            <div class="da">Stolle Machinery Company</div>
+            <div class="dd">B2B Commerce Cloud (+40) &nbsp;·&nbsp; Can-Making Machinery, Global</div>
+            <div class="dbadges">
+              <span class="b b-s02">Stage 02</span>
+              <span class="b b-dt">Oct 30</span>
+              <span class="b b-new">New Business</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt">$200,000</div>
+          </div>
+        </a>
+
+        <a class="dr" href="q3-detail-daiichi.html">
+          <div class="dl">
+            <div class="da">Daiichi Jitsugyo America Inc.</div>
+            <div class="dd">MFG Cloud (+50 seats) &nbsp;·&nbsp; Itasca, IL</div>
+            <div class="dbadges">
+              <span class="b b-s02">Stage 02</span>
+              <span class="b b-dt">Oct 31</span>
+              <span class="b b-add">Add-On</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt">$165,000</div>
+          </div>
+        </a>
+
+        <a class="dr" href="q3-detail-architectural-surfaces.html">
+          <div class="dl">
+            <div class="da">Architectural Surfaces Group</div>
+            <div class="dd">Sales Cloud EE + Service Cloud EE (+100) &nbsp;·&nbsp; Fife, WA</div>
+            <div class="dbadges">
+              <span class="b b-s02">Stage 02</span>
+              <span class="b b-dt">Oct 30</span>
+              <span class="b b-new">New Business</span>
+              <span class="b b-cmp">Competition Identified</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt">$105,500</div>
+          </div>
+        </a>
+
+        <a class="dr" href="q3-detail-meissner.html">
+          <div class="dl">
+            <div class="da">Meissner Filtration Products</div>
+            <div class="dd">MFG Cloud Sales EE (+35) &nbsp;·&nbsp; Camarillo, CA</div>
+            <div class="dbadges">
+              <span class="b b-s02">Stage 02</span>
+              <span class="b b-dt">Oct 31</span>
+              <span class="b b-new">New Business</span>
+              <span class="b b-cmp">Dynamics (incumbent)</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt">$80,500</div>
+          </div>
+        </a>
+
+        <a class="dr" href="q3-detail-reinke.html">
+          <div class="dl">
+            <div class="da">Reinke Manufacturing Co., Inc.</div>
+            <div class="dd">MFG Cloud (+125 seats) &nbsp;·&nbsp; Deshler, NE</div>
+            <div class="dbadges">
+              <span class="b b-s02">Stage 02</span>
+              <span class="b b-dt">Oct 30</span>
+              <span class="b b-new">New Business</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt">$48,750</div>
+          </div>
+        </a>
+
+        <a class="dr" href="q3-detail-rs-hughes.html">
+          <div class="dl">
+            <div class="da">R.S. Hughes</div>
+            <div class="dd">MFG Cloud EE (+50 seats) &nbsp;·&nbsp; Sunnyvale, CA</div>
+            <div class="dbadges">
+              <span class="b b-s02">Stage 02</span>
+              <span class="b b-dt">Oct 30</span>
+              <span class="b b-new">New Business</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt">$41,400</div>
+          </div>
+        </a>
+
+        <a class="dr" href="q3-detail-fna-group.html">
+          <div class="dl">
+            <div class="da">FNA Group</div>
+            <div class="dd">Sales Cloud EE + Account Engagement (+50) &nbsp;·&nbsp; Elk Grove Village, IL</div>
+            <div class="dbadges">
+              <span class="b b-s02">Stage 02</span>
+              <span class="b b-dt">Oct 27</span>
+              <span class="b b-new">New Business</span>
+              <span class="b b-cmp">SugarCRM (incumbent)</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt">$33,000</div>
+          </div>
+        </a>
+
+        <a class="dr" href="q3-detail-dee-zee.html">
+          <div class="dl">
+            <div class="da">DEE ZEE, INC.</div>
+            <div class="dd">MFG Cloud Sales (+15 seats) &nbsp;·&nbsp; Des Moines, IA</div>
+            <div class="dbadges">
+              <span class="b b-s02">Stage 02</span>
+              <span class="b b-dt">Oct 23</span>
+              <span class="b b-new">New Business</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt">$14,400</div>
+          </div>
+        </a>
+
+        <a class="dr" href="q3-detail-nexeo.html">
+          <div class="dl">
+            <div class="da">Nexeo Plastics, LLC</div>
+            <div class="dd">Qualified — AI Inbound SDR &nbsp;·&nbsp; The Woodlands, TX</div>
+            <div class="dbadges">
+              <span class="b b-s02">Stage 02</span>
+              <span class="b b-dt">Oct 30</span>
+              <span class="b b-new">New Business</span>
+            </div>
+          </div>
+          <div class="dr-right">
+            <div class="amt-tbd">TBD</div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+  </div><!-- /q3 -->
+
+  <!-- ═══ Q4 PANEL ═══ -->
+  <div class="panel" id="q4">
+    <div class="q-meta">
+      <span class="q-meta-title">Q4 FY27 — Nov 2026–Jan 2027</span>
+    </div>
+    <div class="empty">
+      <div class="empty-title">Q4 deals not loaded</div>
+      <div class="empty-sub">Add your November 2026–January 2027 SFRs here</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>Anthony Troggio &nbsp;·&nbsp; Digital Transformation Executive, Salesforce &nbsp;·&nbsp; FY27 Q2–Q3–Q4 Forecast Pipeline &nbsp;·&nbsp; July 2026</footer>
+
+<script>
+function switchTab(q) {
+  ['q2','q3','q4'].forEach(function(id) {
+    document.getElementById(id).classList.toggle('active', id === q);
+    document.getElementById('tab-' + id).classList.toggle('active', id === q);
+    document.getElementById('qs-' + id).classList.toggle('active', id === q);
+  });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
