@@ -4,318 +4,381 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Bad Boy Mowers × Salesforce | An Executive Briefing from Anthony Troggio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body {
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  background: #f0f2f0;
-  color: #0d1209;
-  line-height: 1.6;
-  font-size: 16px;
-}
-a { color: inherit; text-decoration: none; }
-img { display: block; max-width: 100%; }
 
 :root {
+  --fd: 'Barlow Condensed', system-ui, sans-serif;
+  --fb: 'Inter', system-ui, sans-serif;
   --black:   #0a0a0a;
-  --black2:  #141414;
-  --black3:  #1e1e1e;
+  --black2:  #111111;
+  --black3:  #1c1c1c;
   --orange:  #e05c00;
   --orange2: #f07020;
   --orange3: #ff8c35;
   --slate:   #f0f2f0;
-  --warm:    #f8f8f6;
+  --warm:    #f9f9f7;
   --muted:   #4a4a3a;
   --border:  #d0d0c0;
-  --shadow:  0 2px 20px rgba(10,10,10,.10);
-  --r:       12px;
+  --r:       10px;
 }
 
-/* ANNOUNCEMENT BAR */
+body { font-family: var(--fb); background: var(--slate); color: var(--black); line-height: 1.6; font-size: 16px; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* ── TOPBAR ── */
 .announcement-bar {
-  background: #00A1E0;
-  color: #fff;
-  text-align: center;
-  font-size: .72rem;
-  font-weight: 600;
-  letter-spacing: .6px;
-  padding: 8px 48px;
-  position: sticky;
-  top: 0;
-  z-index: 101;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  background: #00A1E0; color: #fff; text-align: center;
+  font-family: var(--fb); font-size: .72rem; font-weight: 600; letter-spacing: .6px;
+  padding: 8px 48px; position: sticky; top: 0; z-index: 101;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.announcement-bar strong { font-weight: 800; letter-spacing: .3px; }
-.announcement-bar .ab-dot {
-  display: inline-block;
-  width: 3px; height: 3px;
-  background: rgba(255,255,255,.6);
-  border-radius: 50%;
-  margin: 0 10px;
-  vertical-align: middle;
-  position: relative; top: -1px;
-}
+.announcement-bar strong { font-weight: 800; }
+.ab-dot { display: inline-block; width: 3px; height: 3px; background: rgba(255,255,255,.5); border-radius: 50%; margin: 0 10px; vertical-align: middle; position: relative; top: -1px; }
 
 .topbar {
-  background: linear-gradient(135deg, #0a0a0a 0%, var(--black3) 100%);
-  padding: 0 48px; height: 72px;
+  background: var(--black); padding: 0 48px; height: 72px;
   display: flex; align-items: center; justify-content: space-between;
   position: sticky; top: 34px; z-index: 100;
-  box-shadow: 0 1px 0 rgba(255,255,255,.05), 0 4px 24px rgba(0,0,0,.45);
+  border-bottom: 2px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 0 0 0 0 transparent, 0 4px 32px rgba(0,0,0,.6);
 }
 .topbar::after {
-  content: '';
-  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, #00A1E0 0%, var(--orange2) 50%, var(--orange3) 100%);
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, #00A1E0 0%, var(--orange2) 55%, var(--orange3) 100%);
 }
 .topbar-partnership { display: flex; align-items: center; gap: 0; }
-.topbar-brand { display: flex; align-items: center; gap: 12px; padding: 6px 20px 6px 0; }
-.topbar-brand-sf { display: flex; align-items: center; gap: 11px; }
-.topbar-cloud { width: 40px; height: 28px; flex-shrink: 0; filter: drop-shadow(0 0 10px rgba(0,161,224,.5)); }
-.topbar-sf-text { display: flex; align-items: center; }
-.topbar-wordmark { color: #fff; font-size: 1.05rem; font-weight: 800; letter-spacing: .3px; line-height: 1; text-shadow: 0 0 20px rgba(0,161,224,.3); }
-.topbar-x { width: 1px; height: 28px; background: rgba(255,255,255,.15); margin: 0 20px; flex-shrink: 0; }
-.topbar-company-group { display: flex; align-items: center; gap: 10px; padding: 6px 0; opacity: .7; }
-.topbar-company-name { display: flex; align-items: center; }
-.topbar-company-text { font-size: .88rem; font-weight: 700; color: #fff; letter-spacing: .2px; line-height: 1; }
-.topbar-logo-wrap { background: rgba(255,255,255,.95); border-radius: 8px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.topbar-company-logo { width: 24px; height: 24px; object-fit: contain; }
+.topbar-brand { display: flex; align-items: center; gap: 11px; padding-right: 20px; }
+.topbar-cloud { width: 38px; height: 26px; flex-shrink: 0; filter: drop-shadow(0 0 10px rgba(0,161,224,.5)); }
+.topbar-wordmark { color: #fff; font-family: var(--fb); font-size: 1.05rem; font-weight: 800; letter-spacing: .3px; }
+.topbar-x { width: 1px; height: 28px; background: rgba(255,255,255,.14); margin: 0 20px; flex-shrink: 0; }
+.topbar-company-group { display: flex; align-items: center; gap: 10px; opacity: .65; }
+.topbar-logo-wrap { background: rgba(255,255,255,.95); border-radius: 7px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.topbar-company-logo { width: 22px; height: 22px; object-fit: contain; }
+.topbar-company-text { font-family: var(--fb); font-size: .88rem; font-weight: 700; color: #fff; }
 .topbar-cta {
-  background: linear-gradient(135deg, var(--orange), var(--orange3));
-  color: #fff; font-size: .75rem; font-weight: 700;
-  padding: 9px 22px; border-radius: 50px; letter-spacing: .3px;
-  box-shadow: 0 3px 16px rgba(224,92,0,.4);
-  transition: transform .15s, box-shadow .2s, opacity .15s;
-  white-space: nowrap;
+  background: var(--orange); color: #fff; font-family: var(--fb);
+  font-size: .78rem; font-weight: 700; padding: 10px 24px; border-radius: 6px;
+  letter-spacing: .2px; box-shadow: 0 3px 18px rgba(224,92,0,.45);
+  transition: background .15s, transform .15s, box-shadow .15s;
 }
-.topbar-cta:hover { transform: translateY(-1px); box-shadow: 0 5px 22px rgba(224,92,0,.55); opacity: .95; }
+.topbar-cta:hover { background: var(--orange3); transform: translateY(-1px); box-shadow: 0 5px 24px rgba(224,92,0,.55); }
 
-.hero {
-  position: relative; min-height: 640px;
-  display: flex; align-items: center; overflow: hidden;
-  background: var(--black);
-}
+/* ── HERO ── */
+.hero { position: relative; min-height: 740px; display: flex; align-items: center; overflow: hidden; background: var(--black); }
 .hero-bg {
   position: absolute; inset: 0;
   background-image: url('https://images.unsplash.com/photo-1621537108742-2b0a9ecfaede?auto=format&fit=crop&w=1800&q=80');
-  background-size: cover; background-position: center 50%;
-  opacity: .65;
+  background-size: cover; background-position: center 50%; opacity: .65;
 }
 .hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(115deg, rgba(10,10,10,.82) 38%, rgba(10,10,10,.3) 100%);
+  background: linear-gradient(115deg, rgba(10,10,10,.88) 36%, rgba(10,10,10,.28) 100%);
 }
 .hero-content {
-  position: relative; z-index: 2;
-  max-width: 1160px; margin: 0 auto;
-  padding: 90px 52px; width: 100%;
-  display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: center;
+  position: relative; z-index: 2; max-width: 1160px; margin: 0 auto;
+  padding: 100px 52px; width: 100%;
+  display: grid; grid-template-columns: 1fr 340px; gap: 60px; align-items: center;
 }
 .hero-content > * { min-width: 0; }
+
 .hero-eyebrow {
-  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 24px;
-  background: rgba(224,92,0,.18); border: 1px solid rgba(224,92,0,.45);
-  border-radius: 50px; padding: 6px 16px 6px 11px;
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px;
+  background: rgba(224,92,0,.15); border: 1px solid rgba(224,92,0,.4);
+  border-radius: 4px; padding: 5px 14px 5px 10px;
 }
-.hero-eyebrow-dot { width: 8px; height: 8px; background: var(--orange3); border-radius: 50%; animation: pulse 2.2s infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
-.hero-eyebrow span { font-size: .72rem; font-weight: 700; color: var(--orange3); text-transform: uppercase; letter-spacing: 1px; }
+.hero-eyebrow-dot { width: 7px; height: 7px; background: var(--orange3); border-radius: 50%; animation: pulse 2.2s infinite; flex-shrink: 0; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+.hero-eyebrow span { font-family: var(--fb); font-size: .68rem; font-weight: 700; color: var(--orange3); text-transform: uppercase; letter-spacing: 1.2px; }
+
 .hero h1 {
-  font-size: clamp(2rem, 4.2vw, 3.1rem); font-weight: 800;
-  color: #fff; line-height: 1.12; letter-spacing: -.5px;
-  max-width: 640px; margin-bottom: 22px;
+  font-family: var(--fd); font-size: clamp(3.2rem, 6.5vw, 5.6rem);
+  font-weight: 900; color: #fff; line-height: 1.0; letter-spacing: -.01em;
+  text-transform: uppercase; margin-bottom: 28px;
 }
 .hero h1 em { color: var(--orange3); font-style: normal; }
-.hero-sub {
-  font-size: 1.05rem; color: rgba(255,255,255,.7);
-  max-width: 540px; line-height: 1.75; margin-bottom: 38px;
+
+.hero-stat-rows { display: flex; flex-direction: column; gap: 8px; margin-bottom: 36px; }
+.hsr {
+  display: flex; align-items: center; gap: 14px;
+  background: rgba(255,255,255,.055); border: 1px solid rgba(255,255,255,.09);
+  border-radius: 6px; padding: 11px 16px;
 }
-.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.hsr-num {
+  font-family: var(--fd); font-size: 1.55rem; font-weight: 900;
+  color: var(--orange3); min-width: 58px; line-height: 1;
+}
+.hsr-text { font-family: var(--fb); font-size: .82rem; color: rgba(255,255,255,.68); line-height: 1.45; }
+
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
 .btn-primary {
   display: inline-flex; align-items: center; gap: 9px;
-  background: var(--orange); color: #fff; font-weight: 700; font-size: .95rem;
-  padding: 14px 28px; border-radius: 8px;
+  background: var(--orange); color: #fff; font-family: var(--fb); font-weight: 700; font-size: .92rem;
+  padding: 14px 28px; border-radius: 6px;
   box-shadow: 0 4px 22px rgba(224,92,0,.45);
-  transition: background .2s, transform .15s, box-shadow .2s;
+  transition: background .15s, transform .15s, box-shadow .15s;
 }
-.btn-primary:hover { background: var(--orange3); transform: translateY(-2px); }
+.btn-primary:hover { background: var(--orange3); transform: translateY(-2px); box-shadow: 0 6px 28px rgba(224,92,0,.55); }
 .btn-ghost {
   display: inline-flex; align-items: center; gap: 9px;
-  background: transparent; color: rgba(255,255,255,.75); font-weight: 600; font-size: .9rem;
-  padding: 14px 24px; border-radius: 8px; border: 1px solid rgba(255,255,255,.2);
-  transition: border-color .2s, color .2s;
+  background: transparent; color: rgba(255,255,255,.7); font-family: var(--fb); font-weight: 600; font-size: .88rem;
+  padding: 14px 22px; border-radius: 6px; border: 1px solid rgba(255,255,255,.18);
+  transition: border-color .15s, color .15s;
 }
-.btn-ghost:hover { border-color: rgba(255,255,255,.5); color: #fff; }
+.btn-ghost:hover { border-color: rgba(255,255,255,.45); color: #fff; }
 
+/* Hero side card */
 .hero-card {
-  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
-  border-radius: 16px; padding: 32px 28px; backdrop-filter: blur(8px);
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px; padding: 30px 26px; backdrop-filter: blur(10px);
 }
-.hero-card-label { font-size: .65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--orange3); margin-bottom: 20px; }
-.hero-card-stat { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,.08); }
+.hero-card-label {
+  font-family: var(--fb); font-size: .62rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.4px; color: var(--orange3); margin-bottom: 22px;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-card-label::before { content: ''; display: inline-block; width: 18px; height: 2px; background: var(--orange3); }
+.hero-card-stat { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,.07); }
 .hero-card-stat:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-.hcs-num { font-size: 2.2rem; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 4px; }
+.hcs-num { font-family: var(--fd); font-size: 2.6rem; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 5px; }
 .hcs-num span { color: var(--orange3); }
-.hcs-label { font-size: .8rem; color: rgba(255,255,255,.5); line-height: 1.4; }
+.hcs-label { font-family: var(--fb); font-size: .78rem; color: rgba(255,255,255,.48); line-height: 1.5; }
 
+/* ── STRIP ── */
 .strip { background: var(--black2); display: flex; border-bottom: 1px solid rgba(255,255,255,.05); }
-.strip-item { flex: 1; padding: 22px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,.07); }
+.strip-item { flex: 1; padding: 26px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,.06); position: relative; overflow: hidden; }
 .strip-item:last-child { border-right: none; }
-.sv { font-size: 1.65rem; font-weight: 800; color: var(--orange3); }
-.sl { font-size: .67rem; text-transform: uppercase; letter-spacing: .6px; color: rgba(255,255,255,.38); margin-top: 5px; }
+.strip-item::before {
+  content: attr(data-ghost); position: absolute; bottom: -8px; right: 4px;
+  font-family: var(--fd); font-size: 4.5rem; font-weight: 900; color: rgba(255,255,255,.028);
+  line-height: 1; pointer-events: none; user-select: none;
+}
+.sv { font-family: var(--fd); font-size: 1.75rem; font-weight: 900; color: var(--orange3); letter-spacing: -.02em; }
+.sl { font-family: var(--fb); font-size: .64rem; text-transform: uppercase; letter-spacing: .7px; color: rgba(255,255,255,.35); margin-top: 5px; }
 
-.section { max-width: 1160px; margin: 0 auto; padding: 64px 52px; }
-.section-eyebrow { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--orange); margin-bottom: 10px; }
-.section-title { font-size: clamp(1.5rem, 2.8vw, 2.1rem); font-weight: 800; color: var(--black); line-height: 1.2; margin-bottom: 14px; }
-.section-sub { font-size: .97rem; color: var(--muted); max-width: 640px; line-height: 1.75; }
 .hr { border: none; border-top: 1px solid var(--border); margin: 0; }
 
+/* ── SECTION CHROME ── */
+.section { max-width: 1160px; margin: 0 auto; padding: 72px 52px; }
+.section-eyebrow {
+  font-family: var(--fb); font-size: .68rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.6px; color: var(--orange); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-eyebrow::before { content: ''; display: inline-block; width: 22px; height: 2px; background: var(--orange); flex-shrink: 0; }
+.section-title { font-family: var(--fd); font-size: clamp(1.9rem, 3.2vw, 2.7rem); font-weight: 900; color: var(--black); line-height: 1.08; text-transform: uppercase; letter-spacing: -.01em; margin-bottom: 16px; }
+.section-sub { font-family: var(--fb); font-size: .96rem; color: var(--muted); max-width: 640px; line-height: 1.8; }
+
+/* ── POV ── */
 .pov-section { background: var(--warm); border-top: 4px solid var(--orange); }
-.pov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-top: 44px; }
+.pov-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; margin-top: 48px; }
 .pov-statement {
-  background: linear-gradient(145deg, var(--black) 0%, var(--black3) 100%);
-  border-radius: var(--r); padding: 38px 36px; color: #fff;
+  background: linear-gradient(150deg, var(--black) 0%, var(--black3) 100%);
+  border-radius: var(--r); padding: 40px 36px; color: #fff; position: relative; overflow: hidden;
+}
+.pov-statement::before {
+  content: '"'; position: absolute; top: -20px; right: 16px;
+  font-family: var(--fd); font-size: 14rem; font-weight: 900;
+  color: rgba(255,255,255,.025); line-height: 1; pointer-events: none;
 }
 .pov-statement blockquote {
-  font-size: 1.22rem; font-weight: 700; line-height: 1.5;
-  margin-bottom: 18px; border-left: 3px solid var(--orange3); padding-left: 18px;
+  font-family: var(--fd); font-size: 1.45rem; font-weight: 800; line-height: 1.4; text-transform: uppercase;
+  margin-bottom: 22px; border-left: 3px solid var(--orange3); padding-left: 18px;
+  position: relative; z-index: 1;
 }
 .pov-statement blockquote em { color: var(--orange3); font-style: normal; }
-.pov-statement p { font-size: .9rem; color: rgba(255,255,255,.68); line-height: 1.78; }
+.pov-statement p { font-family: var(--fb); font-size: .88rem; color: rgba(255,255,255,.65); line-height: 1.8; position: relative; z-index: 1; }
 .pov-statement p + p { margin-top: 12px; }
-.pov-points { display: flex; flex-direction: column; gap: 16px; }
+
+.pov-points { display: flex; flex-direction: column; gap: 14px; }
 .pov-point {
   display: flex; gap: 16px; align-items: flex-start;
-  padding: 20px; background: var(--slate); border-radius: var(--r);
-  border-left: 3px solid var(--orange);
+  padding: 20px 20px 20px 18px; background: var(--slate); border-radius: var(--r);
+  border-left: 3px solid var(--orange); position: relative; overflow: hidden;
+  transition: box-shadow .2s, transform .15s;
 }
-.pov-point-icon { font-size: 1.35rem; flex-shrink: 0; margin-top: 1px; }
-.pov-point-body strong { display: block; font-size: .92rem; font-weight: 700; color: var(--black); margin-bottom: 5px; }
-.pov-point-body p { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+.pov-point:hover { transform: translateX(3px); box-shadow: 0 4px 20px rgba(10,10,10,.08); }
+.pov-point::after {
+  content: attr(data-num); position: absolute; right: -4px; bottom: -10px;
+  font-family: var(--fd); font-size: 6rem; font-weight: 900;
+  color: rgba(224,92,0,.06); line-height: 1; pointer-events: none; user-select: none;
+}
+.pov-num-mark {
+  font-family: var(--fd); font-size: .72rem; font-weight: 800;
+  color: var(--orange); background: rgba(224,92,0,.1); border: 1px solid rgba(224,92,0,.2);
+  width: 28px; height: 28px; border-radius: 5px; display: flex;
+  align-items: center; justify-content: center; flex-shrink: 0; letter-spacing: .5px;
+}
+.pov-point-body strong { font-family: var(--fb); display: block; font-size: .9rem; font-weight: 700; color: var(--black); margin-bottom: 5px; }
+.pov-point-body p { font-family: var(--fb); font-size: .83rem; color: var(--muted); line-height: 1.7; }
 
+/* ── PROOF ── */
 .proof-section { background: var(--slate); }
-.proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 20px; margin-top: 44px; }
+.proof-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 18px; margin-top: 48px; }
 .proof-card {
-  background: var(--warm); border-radius: var(--r);
-  border: 1px solid var(--border); overflow: hidden;
-  box-shadow: var(--shadow); transition: transform .2s, box-shadow .2s;
+  background: var(--warm); border-radius: var(--r); border: 1px solid var(--border);
+  overflow: hidden; box-shadow: 0 2px 12px rgba(10,10,10,.07);
+  transition: transform .2s, box-shadow .2s;
 }
-.proof-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(10,10,10,.13); }
+.proof-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(10,10,10,.13); }
 .proof-card-top {
-  background: linear-gradient(135deg, var(--black), var(--black3));
+  background: linear-gradient(145deg, var(--black), var(--black3));
   padding: 18px 22px; display: flex; align-items: center; justify-content: space-between;
 }
-.proof-company { font-size: .88rem; font-weight: 800; color: #fff; }
-.proof-tag {
-  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
-  background: rgba(224,92,0,.3); color: var(--orange3); border-radius: 50px; padding: 3px 10px;
-}
-.proof-body { padding: 20px 22px; }
-.proof-stat { font-size: 2rem; font-weight: 800; color: var(--orange); margin-bottom: 5px; }
-.proof-desc { font-size: .84rem; color: var(--muted); line-height: 1.65; }
-.proof-industry { font-size: .68rem; text-transform: uppercase; letter-spacing: .5px; color: #7a7a6a; font-weight: 600; margin-top: 12px; }
+.proof-company { font-family: var(--fd); font-size: 1.1rem; font-weight: 800; color: #fff; letter-spacing: .02em; text-transform: uppercase; }
+.proof-tag { font-family: var(--fb); font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; background: rgba(224,92,0,.28); color: var(--orange3); border-radius: 4px; padding: 3px 10px; }
+.proof-body { padding: 22px 22px; }
+.proof-stat { font-family: var(--fd); font-size: 3.2rem; font-weight: 900; color: var(--orange); line-height: 1; margin-bottom: 10px; letter-spacing: -.02em; }
+.proof-desc { font-family: var(--fb); font-size: .83rem; color: var(--muted); line-height: 1.7; }
+.proof-industry { font-family: var(--fb); font-size: .66rem; text-transform: uppercase; letter-spacing: .5px; color: #9a9a8a; font-weight: 600; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
 
+/* ── PRODUCTS ── */
 .products-section { background: var(--warm); }
-.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 24px; margin-top: 44px; }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 22px; margin-top: 48px; }
 .product-card {
   border-radius: var(--r); border: 1px solid var(--border);
-  overflow: hidden; box-shadow: var(--shadow);
+  overflow: hidden; box-shadow: 0 2px 12px rgba(10,10,10,.06);
   display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s;
 }
-.product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 36px rgba(10,10,10,.12); }
-.product-card-top { background: linear-gradient(145deg, var(--black), var(--black3)); padding: 26px 24px; }
-.product-cloud-tag {
-  display: inline-block; background: rgba(224,92,0,.25); color: var(--orange3);
-  font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .8px;
-  padding: 3px 11px; border-radius: 50px; margin-bottom: 12px;
+.product-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(10,10,10,.12); }
+.product-card-top { background: linear-gradient(150deg, var(--black), var(--black3)); padding: 28px 26px; position: relative; overflow: hidden; }
+.product-card-top::before {
+  content: attr(data-ghost); position: absolute; bottom: -8px; right: 8px;
+  font-family: var(--fd); font-size: 6rem; font-weight: 900; color: rgba(255,255,255,.04);
+  line-height: 1; pointer-events: none;
 }
-.product-title { font-size: 1.15rem; font-weight: 800; color: #fff; line-height: 1.3; margin-bottom: 7px; }
-.product-sub { font-size: .84rem; color: rgba(255,255,255,.6); line-height: 1.6; }
-.product-card-body { padding: 22px 24px; flex: 1; display: flex; flex-direction: column; gap: 14px; }
+.product-cloud-tag {
+  display: inline-block; background: rgba(224,92,0,.22); color: var(--orange3);
+  font-family: var(--fb); font-size: .6rem; font-weight: 700; text-transform: uppercase; letter-spacing: .9px;
+  padding: 3px 11px; border-radius: 4px; margin-bottom: 14px;
+}
+.product-title { font-family: var(--fd); font-size: 1.3rem; font-weight: 800; color: #fff; line-height: 1.2; margin-bottom: 8px; text-transform: uppercase; }
+.product-sub { font-family: var(--fb); font-size: .83rem; color: rgba(255,255,255,.58); line-height: 1.65; }
+.product-card-body { padding: 22px 24px; flex: 1; display: flex; flex-direction: column; gap: 14px; background: #fff; }
 .product-anchor {
-  background: var(--slate); border-radius: 8px; padding: 14px 16px;
+  background: var(--slate); border-radius: 7px; padding: 14px 16px;
   border-left: 3px solid var(--orange);
 }
-.product-anchor-label { font-size: .65rem; text-transform: uppercase; letter-spacing: .8px; color: var(--orange); font-weight: 700; margin-bottom: 3px; }
-.product-anchor-val { font-size: 1.5rem; font-weight: 800; color: var(--black); line-height: 1.1; }
-.product-anchor-sub { font-size: .76rem; color: var(--muted); margin-top: 2px; }
-.product-bullets { list-style: none; display: flex; flex-direction: column; gap: 9px; }
-.product-bullets li {
-  font-size: .84rem; color: var(--muted);
-  display: flex; align-items: flex-start; gap: 9px; line-height: 1.5;
+.product-anchor-label { font-family: var(--fb); font-size: .62rem; text-transform: uppercase; letter-spacing: .9px; color: var(--orange); font-weight: 700; margin-bottom: 3px; }
+.product-anchor-val { font-family: var(--fd); font-size: 1.6rem; font-weight: 800; color: var(--black); line-height: 1.1; letter-spacing: -.01em; }
+.product-anchor-sub { font-family: var(--fb); font-size: .74rem; color: var(--muted); margin-top: 3px; }
+.product-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.product-bullets li { font-family: var(--fb); font-size: .83rem; color: var(--muted); display: flex; align-items: flex-start; gap: 8px; line-height: 1.55; }
+.product-bullets li::before { content: '→'; color: var(--orange); font-weight: 700; flex-shrink: 0; margin-top: 1px; font-size: .85rem; }
+
+/* ── WHY NOW ── */
+.why-section { background: #f5f1eb; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.why-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 16px; margin-top: 40px; }
+.why-card {
+  background: var(--warm); border-radius: var(--r); border: 1px solid var(--border);
+  border-left: 4px solid var(--orange); padding: 26px 24px; position: relative; overflow: hidden;
+  transition: box-shadow .2s, transform .15s;
 }
-.product-bullets li::before { content: '→'; color: var(--orange); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+.why-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(10,10,10,.09); }
+.why-card::before {
+  content: attr(data-num); position: absolute; bottom: -12px; right: 4px;
+  font-family: var(--fd); font-size: 7rem; font-weight: 900; color: rgba(224,92,0,.05);
+  line-height: 1; pointer-events: none; user-select: none;
+}
+.why-num {
+  font-family: var(--fd); font-size: 1.5rem; font-weight: 900; color: var(--orange);
+  line-height: 1; margin-bottom: 12px; letter-spacing: -.01em;
+}
+.why-head { font-family: var(--fb); font-size: .88rem; font-weight: 700; color: var(--black); margin-bottom: 10px; line-height: 1.4; }
+.why-body { font-family: var(--fb); font-size: .83rem; color: var(--muted); line-height: 1.7; position: relative; z-index: 1; }
 
+/* ── IMPACT ── */
 .impact-section { background: var(--black); color: #fff; }
-.impact-inner { max-width: 1160px; margin: 0 auto; padding: 60px 52px; }
-.impact-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 40px; background: rgba(0,0,0,.3); border-radius: var(--r); overflow: hidden; }
-.impact-item { background: rgba(255,255,255,.06); padding: 28px 24px; text-align: center; transition: background .2s; }
-.impact-item:hover { background: rgba(255,255,255,.11); }
-.impact-num { font-size: 2.4rem; font-weight: 800; color: var(--orange3); line-height: 1; margin-bottom: 8px; }
-.impact-label { font-size: .78rem; color: rgba(255,255,255,.7); line-height: 1.5; }
+.impact-inner { max-width: 1160px; margin: 0 auto; padding: 72px 52px; }
+.impact-inner .section-title { color: #fff; }
+.impact-inner .section-sub { color: rgba(255,255,255,.6); }
+.impact-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 2px; margin-top: 48px; background: rgba(255,255,255,.04); border-radius: var(--r); overflow: hidden; }
+.impact-item { background: rgba(255,255,255,.04); padding: 36px 24px; text-align: center; transition: background .2s; position: relative; overflow: hidden; }
+.impact-item::before {
+  content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 36px; height: 2px; background: var(--orange);
+}
+.impact-item:hover { background: rgba(255,255,255,.09); }
+.impact-num { font-family: var(--fd); font-size: 3.8rem; font-weight: 900; color: var(--orange3); line-height: 1; margin-bottom: 10px; letter-spacing: -.02em; }
+.impact-label { font-family: var(--fb); font-size: .76rem; color: rgba(255,255,255,.65); line-height: 1.55; }
 
-.about-section { background: var(--black); color: #fff; border-top: 1px solid rgba(255,255,255,.07); }
+/* ── ABOUT ── */
+.about-section { background: var(--black2); color: #fff; border-top: 1px solid rgba(255,255,255,.06); }
+.about-section .section-title { color: #fff; }
 .about-section .section-eyebrow { color: var(--orange3); }
-.about-team { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 40px; }
-.about-card { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 28px; display: flex; gap: 20px; align-items: flex-start; }
-.about-card-photo { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; object-position: center top; border: 3px solid var(--orange); flex-shrink: 0; }
-.about-card-photo-placeholder { width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,.1); border: 3px solid var(--orange); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: rgba(255,255,255,.3); }
+.about-section .section-eyebrow::before { background: var(--orange3); }
+.about-team { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 44px; }
+.about-card {
+  background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.09);
+  border-radius: var(--r); padding: 28px; display: flex; gap: 20px; align-items: flex-start;
+  transition: background .2s;
+}
+.about-card:hover { background: rgba(255,255,255,.07); }
+.about-photo-wrap { position: relative; flex-shrink: 0; }
+.about-card-photo { width: 88px; height: 88px; border-radius: 8px; object-fit: cover; object-position: center top; border: 2px solid rgba(224,92,0,.5); }
+.about-card-photo-placeholder { width: 88px; height: 88px; border-radius: 8px; background: rgba(255,255,255,.08); border: 2px solid rgba(224,92,0,.4); display: flex; align-items: center; justify-content: center; font-family: var(--fd); font-size: 1.6rem; font-weight: 900; color: rgba(255,255,255,.3); letter-spacing: .05em; }
 .about-card-info { flex: 1; }
-.about-name { font-size: 1.2rem; font-weight: 800; margin-bottom: 2px; }
-.about-contact { font-size: .78rem; color: var(--orange3); margin-bottom: 8px; }
-.about-role { font-size: .78rem; color: rgba(255,255,255,.5); font-weight: 500; margin-bottom: 12px; }
-.about-body { font-size: .88rem; color: rgba(255,255,255,.68); line-height: 1.75; }
-.about-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.about-name { font-family: var(--fd); font-size: 1.4rem; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: .01em; margin-bottom: 2px; }
+.about-contact { font-family: var(--fb); font-size: .76rem; color: var(--orange3); margin-bottom: 6px; }
+.about-role { font-family: var(--fb); font-size: .76rem; color: rgba(255,255,255,.4); font-weight: 500; margin-bottom: 12px; line-height: 1.4; }
+.about-body { font-family: var(--fb); font-size: .86rem; color: rgba(255,255,255,.62); line-height: 1.78; }
+.about-cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
 .btn-white {
   display: inline-flex; align-items: center; gap: 8px;
-  background: #fff; color: var(--orange); font-weight: 700; font-size: .93rem;
-  padding: 13px 26px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,.2);
-  transition: transform .15s, box-shadow .2s;
+  background: #fff; color: var(--orange); font-family: var(--fb); font-weight: 700; font-size: .88rem;
+  padding: 12px 24px; border-radius: 6px; box-shadow: 0 3px 16px rgba(0,0,0,.2);
+  transition: transform .15s, box-shadow .15s;
 }
-.btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 28px rgba(0,0,0,.28); }
+.btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,.28); }
 
+/* ── CTA ── */
 .cta-section {
-  background: linear-gradient(135deg, #7a2e00 0%, #0a0a0a 100%);
-  color: #fff; text-align: center;
+  background: var(--black); color: #fff; text-align: center;
+  position: relative; overflow: hidden;
+  border-top: 4px solid var(--orange);
 }
-.cta-section .section { padding: 72px 52px; }
-.cta-title { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 800; margin-bottom: 14px; }
-.cta-sub { font-size: 1rem; opacity: .85; max-width: 520px; margin: 0 auto 32px; line-height: 1.75; }
-.cta-contact { font-size: .86rem; opacity: .7; margin-top: 20px; }
-
-footer {
-  background: var(--black); color: rgba(255,255,255,.35);
-  text-align: center; padding: 24px 52px; font-size: .75rem;
-  border-top: 1px solid rgba(255,255,255,.07);
+.cta-section::before {
+  content: 'GO'; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-family: var(--fd); font-size: 40vw; font-weight: 900; color: rgba(255,255,255,.018);
+  pointer-events: none; user-select: none; white-space: nowrap; line-height: 1;
 }
-footer span { color: rgba(255,255,255,.6); }
+.cta-section .section { padding: 80px 52px; position: relative; z-index: 1; }
+.cta-title { font-family: var(--fd); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900; text-transform: uppercase; letter-spacing: -.01em; margin-bottom: 16px; line-height: 1.1; }
+.cta-sub { font-family: var(--fb); font-size: .98rem; opacity: .8; max-width: 520px; margin: 0 auto 36px; line-height: 1.8; }
+.cta-contact { font-family: var(--fb); font-size: .84rem; opacity: .55; margin-top: 22px; }
 
-.fade-in { opacity: 0; transform: translateY(20px); transition: opacity .65s ease, transform .65s ease; }
+/* ── FOOTER ── */
+footer { background: var(--black); color: rgba(255,255,255,.3); text-align: center; padding: 24px 52px; font-family: var(--fb); font-size: .73rem; border-top: 1px solid rgba(255,255,255,.06); }
+footer span { color: rgba(255,255,255,.55); }
+
+/* ── ANIMATION ── */
+.fade-in { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
 .fade-in.visible { opacity: 1; transform: translateY(0); }
 
+/* ── RESPONSIVE ── */
 @media (max-width: 960px) {
   .topbar { padding: 0 24px; height: 64px; }
-  .topbar-wordmark { font-size: .85rem; }
-  .topbar-company-text { font-size: .8rem; }
-  .hero-content { grid-template-columns: 1fr; gap: 32px; padding: 60px 28px; }
+  .hero-content { grid-template-columns: 1fr; gap: 32px; padding: 64px 28px; }
   .hero-card { display: none; }
-  .section { padding: 52px 28px; }
+  .section { padding: 56px 28px; }
   .pov-grid { grid-template-columns: 1fr; gap: 28px; }
   .about-team { grid-template-columns: 1fr; }
-  .about-card { flex-direction: column; align-items: center; text-align: center; }
-  .about-cta-row { justify-content: center; }
   .impact-grid { grid-template-columns: repeat(2,1fr); }
   .strip { flex-wrap: wrap; }
   .strip-item { flex: 1 1 calc(33% - 1px); min-width: 100px; }
 }
 @media (max-width: 580px) {
-  .hero h1 { font-size: 1.85rem; }
-  .topbar-company-group { display: none; }
-  .topbar-x { display: none; }
+  .hero h1 { font-size: 3rem; }
+  .topbar-company-group, .topbar-x { display: none; }
   .impact-grid { grid-template-columns: 1fr 1fr; }
+  .about-card { flex-direction: column; align-items: center; text-align: center; }
+  .about-cta-row { justify-content: center; }
 }
 </style>
 </head>
@@ -327,20 +390,16 @@ footer span { color: rgba(255,255,255,.6); }
 </div>
 <nav class="topbar">
   <div class="topbar-partnership">
-    <div class="topbar-brand topbar-brand-sf">
+    <div class="topbar-brand">
       <svg class="topbar-cloud" viewBox="0 0 56 36" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M23.3 7.1C25.2 4.7 28 3.2 31.2 3.2c5.2 0 9.6 3.8 10.5 8.8.5-.1 1-.2 1.5-.2 4.4 0 8 3.6 8 8s-3.6 8-8 8H11c-5 0-9-4-9-9 0-4.7 3.6-8.6 8.2-9 .9-4.3 4.7-7.5 9.3-7.5 1.6 0 3.2.4 4.5 1.2-.5.8-.9 1.8-1.1 2.8-.9-.5-2-.8-3.4-.8-3.5 0-6.4 2.8-6.4 6.3v.7l-.7.1C9.6 12.9 7 15.5 7 18.8c0 3.4 2.8 6.1 6.3 6.1h32.4c3 0 5.5-2.5 5.5-5.5s-2.5-5.5-5.5-5.5c-.8 0-1.6.2-2.3.5l-1.4.6-.3-1.5C40.9 9 37.4 6.2 33.2 6.2c-3.2 0-6 1.6-7.7 4.1-.7-.6-1.5-1.1-2.2-1.5z" fill="#00A1E0"/>
       </svg>
-      <div class="topbar-sf-text">
-        <span class="topbar-wordmark">Salesforce</span>
-      </div>
+      <span class="topbar-wordmark">Salesforce</span>
     </div>
     <div class="topbar-x"></div>
     <div class="topbar-company-group">
       <div class="topbar-logo-wrap"><img src="https://www.google.com/s2/favicons?domain=badboymowers.com&sz=64" class="topbar-company-logo" alt="Bad Boy Mowers"></div>
-      <div class="topbar-company-name">
-        <span class="topbar-company-text">Bad Boy Mowers</span>
-      </div>
+      <span class="topbar-company-text">Bad Boy Mowers</span>
     </div>
   </div>
   <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="topbar-cta">Book Time with Anthony</a>
@@ -354,27 +413,26 @@ footer span { color: rgba(255,255,255,.6); }
     <div>
       <div class="hero-eyebrow">
         <div class="hero-eyebrow-dot"></div>
-        <span>Prepared exclusively for Bad Boy Mowers · July 2026</span>
+        <span>Prepared exclusively for Bad Boy Mowers &nbsp;·&nbsp; July 2026</span>
       </div>
-      <h1>New Facility. Bigger Lineup.<br>Can Your Dealers<br><em>Keep Up with the Catalog?</em></h1>
-      <p class="hero-sub">Bad Boy Mowers is opening a new tractor production facility in Monroeville, Alabama and dropping the most expansive product lineup in company history. More SKUs. More categories. More complexity. The dealers who configure, quote, and order that catalog with ease will sell more. The ones still working the old way will slow you down.</p>
-      <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:32px;">
-        <div style="display:flex; align-items:center; gap:12px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px 16px;">
-          <div style="font-size:1.4rem; font-weight:800; color:var(--orange3); min-width:52px;">New</div>
-          <div style="font-size:.84rem; color:rgba(255,255,255,.7); line-height:1.4;">Tractor production facility opening in Monroeville, AL. early 2026. New categories, new SKUs, new order complexity your dealer network needs to handle.</div>
+      <h1>New Facility.<br>Bigger Lineup.<br><em>Can Your Dealers<br>Keep Up with<br>the Catalog?</em></h1>
+      <div class="hero-stat-rows">
+        <div class="hsr">
+          <div class="hsr-num">New</div>
+          <div class="hsr-text">Tractor production facility opening in Monroeville, AL. New categories, new SKUs, new order complexity your dealer network needs to handle.</div>
         </div>
-        <div style="display:flex; align-items:center; gap:12px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px 16px;">
-          <div style="font-size:1.4rem; font-weight:800; color:var(--orange3); min-width:52px;">2026</div>
-          <div style="font-size:.84rem; color:rgba(255,255,255,.7); line-height:1.4;">Product catalogs now available. Rebel SD, sub-compact 10 series through 50 series tractors, UTVs, light construction equipment, and outdoor power tools. This is not a tweaked lineup.</div>
+        <div class="hsr">
+          <div class="hsr-num">2026</div>
+          <div class="hsr-text">Product catalogs now available. Rebel SD, sub-compact 10 through 50 series tractors, UTVs, light construction equipment, and outdoor power tools. This is not a tweaked lineup.</div>
         </div>
-        <div style="display:flex; align-items:center; gap:12px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:8px; padding:12px 16px;">
-          <div style="font-size:1.4rem; font-weight:800; color:var(--orange3); min-width:52px;">4×</div>
-          <div style="font-size:.84rem; color:rgba(255,255,255,.7); line-height:1.4;">Online order growth for manufacturers who give dealers a direct self-serve portal with real-time pricing and inventory. Sutton Tools after launching their B2B ordering channel.</div>
+        <div class="hsr">
+          <div class="hsr-num">4x</div>
+          <div class="hsr-text">Online order growth for manufacturers who give dealers a direct self-serve portal with real-time pricing and inventory. Sutton Tools after launching their B2B ordering channel.</div>
         </div>
       </div>
       <div class="hero-actions">
         <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="btn-primary">
-          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+          <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="#fff" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           Book 30 Minutes with Anthony
         </a>
       </div>
@@ -387,10 +445,10 @@ footer span { color: rgba(255,255,255,.6); }
       </div>
       <div class="hero-card-stat">
         <div class="hcs-num">6<span>+</span></div>
-        <div class="hcs-label">New product lines in the 2026 catalog. Tractors, UTVs, construction, tools. multiple buyer personas, multiple ordering workflows.</div>
+        <div class="hcs-label">New product lines in the 2026 catalog. Tractors, UTVs, construction, tools. Multiple buyer personas, multiple ordering workflows.</div>
       </div>
       <div class="hero-card-stat">
-        <div class="hcs-num">1<span> portal</span></div>
+        <div class="hcs-num">1<span> Portal</span></div>
         <div class="hcs-label">Can consolidate every dealer's configure-quote-order workflow across every category. No spreadsheets. No phone-in orders. No pricing errors.</div>
       </div>
     </div>
@@ -399,11 +457,11 @@ footer span { color: rgba(255,255,255,.6); }
 
 <!-- STATS STRIP -->
 <div class="strip">
-  <div class="strip-item"><div class="sv">Batesville, AR</div><div class="sl">Headquarters</div></div>
-  <div class="strip-item"><div class="sv">Monroeville</div><div class="sl">New AL Facility · 2026</div></div>
-  <div class="strip-item"><div class="sv">Rebel SD</div><div class="sl">New 2026 Flagship</div></div>
-  <div class="strip-item"><div class="sv">10–50 Series</div><div class="sl">Tractor Lineup Depth</div></div>
-  <div class="strip-item"><div class="sv">Multi-Channel</div><div class="sl">Dealer + Direct</div></div>
+  <div class="strip-item" data-ghost="AR"><div class="sv">Batesville, AR</div><div class="sl">Headquarters</div></div>
+  <div class="strip-item" data-ghost="AL"><div class="sv">Monroeville</div><div class="sl">New AL Facility &nbsp;·&nbsp; 2026</div></div>
+  <div class="strip-item" data-ghost="SD"><div class="sv">Rebel SD</div><div class="sl">New 2026 Flagship</div></div>
+  <div class="strip-item" data-ghost="50"><div class="sv">10-50 Series</div><div class="sl">Tractor Lineup Depth</div></div>
+  <div class="strip-item" data-ghost="CH"><div class="sv">Multi-Channel</div><div class="sl">Dealer + Direct</div></div>
 </div>
 
 <hr class="hr">
@@ -422,29 +480,29 @@ footer span { color: rgba(255,255,255,.6); }
         <p>A B2B dealer portal built around your catalog lets every dealer configure and quote any product accurately, see real-time availability from the new facility, and submit a clean order without picking up the phone. Your sales team focuses on relationships and growth. Not order entry and pricing disputes.</p>
       </div>
       <div class="pov-points">
-        <div class="pov-point">
-          <div class="pov-point-icon">🏭</div>
+        <div class="pov-point" data-num="01">
+          <div class="pov-num-mark">01</div>
           <div class="pov-point-body">
             <strong>New facility means new SKUs hitting the channel fast</strong>
             <p>The Monroeville tractor plant opens early 2026. That's new inventory, new configurations, and new pricing hitting your dealer network on a tight timeline. A portal connected to your production and inventory data means dealers see what's available from day one, with no lag and no calls to check availability on a new model.</p>
           </div>
         </div>
-        <div class="pov-point">
-          <div class="pov-point-icon">⚙️</div>
+        <div class="pov-point" data-num="02">
+          <div class="pov-num-mark">02</div>
           <div class="pov-point-body">
             <strong>Complex product lines need guided configuration, not guesswork</strong>
-            <p>Sub-compact 10 series to powerful 50 series tractors. Commercial mowers. UTVs. Construction equipment. A dealer who doesn't sell tractors every day needs a guided configure-price-quote tool to get the right package for their customer. Without it, you get wrong orders, margin disputes, and returns. With it, you get clean orders and faster sales cycles.</p>
+            <p>Sub-compact 10 series to powerful 50 series tractors. Commercial mowers. UTVs. Construction equipment. A dealer who doesn't sell tractors every day needs a guided configure-price-quote tool to get the right package for their customer. Without it, you get wrong orders, margin disputes, and returns.</p>
           </div>
         </div>
-        <div class="pov-point">
-          <div class="pov-point-icon">💼</div>
+        <div class="pov-point" data-num="03">
+          <div class="pov-num-mark">03</div>
           <div class="pov-point-body">
             <strong>Multiple buyer personas means multiple selling motions</strong>
-            <p>Commercial workhorses and residential favorites don't sell the same way. A landscaping company buying a 50-series tractor fleet has a different process than a homeowner buying a Rebel SD. A portal that segments by buyer type, shows the right product set, and routes commercial quotes to the right rep gives your dealers the right tool for every customer conversation.</p>
+            <p>Commercial workhorses and residential favorites don't sell the same way. A landscaping company buying a 50-series tractor fleet has a different process than a homeowner buying a Rebel SD. A portal that segments by buyer type and routes commercial quotes to the right rep gives your dealers the right tool for every conversation.</p>
           </div>
         </div>
-        <div class="pov-point">
-          <div class="pov-point-icon">📊</div>
+        <div class="pov-point" data-num="04">
+          <div class="pov-num-mark">04</div>
           <div class="pov-point-body">
             <strong>Dealer performance visibility you don't have today</strong>
             <p>Which dealers are selling the new tractor lineup? Which ones are stuck on mowers because that's what they know? Right now you likely don't have clean data to answer those questions fast. A connected dealer portal gives you real-time sell-through data, activation rates by SKU, and flags the dealers who need enablement before the busy season starts.</p>
@@ -463,53 +521,37 @@ footer span { color: rgba(255,255,255,.6); }
     <div class="section-eyebrow">Customer Proof</div>
     <h2 class="section-title">Manufacturers Who Built the Dealer Channel Right</h2>
     <p class="section-sub">Companies that expanded their product lines and built digital dealer ordering channels at the same time. The pattern is consistent: dealers who can self-serve order more, and the manufacturer's inside sales team scales without adding headcount.</p>
-
     <div class="proof-grid">
       <div class="proof-card">
-        <div class="proof-card-top">
-          <span class="proof-company">Husqvarna</span>
-          <span class="proof-tag">Dealer Commerce</span>
-        </div>
+        <div class="proof-card-top"><span class="proof-company">Husqvarna</span><span class="proof-tag">Dealer Commerce</span></div>
         <div class="proof-body">
           <div class="proof-stat">Global</div>
           <div class="proof-desc">One of the world's largest outdoor power equipment manufacturers runs its dealer ordering channel on Salesforce B2B Commerce. Dealers configure, quote, and order across mowers, chainsaws, construction equipment, and robotic mowers through a single portal. the exact multi-category complexity Bad Boy is building toward.</div>
-          <div class="proof-industry">Outdoor Power Equipment · B2B Commerce Cloud</div>
+          <div class="proof-industry">Outdoor Power Equipment &nbsp;·&nbsp; Commerce Cloud B2B + CPQ</div>
         </div>
       </div>
-
       <div class="proof-card">
-        <div class="proof-card-top">
-          <span class="proof-company">Sutton Tools</span>
-          <span class="proof-tag">B2B Commerce</span>
-        </div>
+        <div class="proof-card-top"><span class="proof-company">Sutton Tools</span><span class="proof-tag">B2B Commerce</span></div>
         <div class="proof-body">
-          <div class="proof-stat">4×</div>
+          <div class="proof-stat">4x</div>
           <div class="proof-desc">A fourth-generation specialty manufacturer launched a direct B2B ordering portal with account pricing and unified customer data. Online orders quadrupled. Dealers and distributors who previously called in orders shifted to self-serve, and the sales team spent more time on relationships than order entry.</div>
-          <div class="proof-industry">Industrial Manufacturing · B2B Commerce + Data Cloud</div>
+          <div class="proof-industry">Industrial Manufacturing &nbsp;·&nbsp; Commerce Cloud B2B + D2C</div>
         </div>
       </div>
-
       <div class="proof-card">
-        <div class="proof-card-top">
-          <span class="proof-company">Polaris</span>
-          <span class="proof-tag">Dealer Enablement at Scale</span>
-        </div>
+        <div class="proof-card-top"><span class="proof-company">Polaris</span><span class="proof-tag">Dealer Ordering at Scale</span></div>
         <div class="proof-body">
           <div class="proof-stat">Unified</div>
-          <div class="proof-desc">Polaris runs a multi-brand dealer network across off-road vehicles, snowmobiles, motorcycles, and boats through a unified dealer portal. Multiple product categories, multiple price tiers, multiple buyer types. all managed through one platform. The dealer experience is consistent whether they're ordering an RZR or an Indian motorcycle.</div>
-          <div class="proof-industry">Power Sports / OEM · B2B Commerce + Manufacturing Cloud</div>
+          <div class="proof-desc">Polaris runs a multi-brand dealer network across off-road vehicles, snowmobiles, motorcycles, and boats through a unified Commerce Cloud dealer portal. Multiple product categories, multiple price tiers, multiple buyer types. all in one ordering experience. Dealers see their account pricing, configure packages, and submit orders the same way regardless of which brand they're buying.</div>
+          <div class="proof-industry">Power Sports / OEM &nbsp;·&nbsp; Commerce Cloud B2B + CPQ</div>
         </div>
       </div>
-
       <div class="proof-card">
-        <div class="proof-card-top">
-          <span class="proof-company">Forrester TEI 2024</span>
-          <span class="proof-tag">Platform ROI</span>
-        </div>
+        <div class="proof-card-top"><span class="proof-company">Forrester TEI 2024</span><span class="proof-tag">Platform ROI</span></div>
         <div class="proof-body">
           <div class="proof-stat">289%</div>
           <div class="proof-desc">Forrester's 2024 Total Economic Impact study found 289% ROI and $9.6M NPV over 3 years for a composite manufacturer-distributor on the Salesforce platform. Inside sales productivity gains alone covered platform cost in year one. A shareable business case is available.</div>
-          <div class="proof-industry">Composite Manufacturer · Forrester TEI Study 2024</div>
+          <div class="proof-industry">Composite Manufacturer &nbsp;·&nbsp; Forrester TEI Study 2024</div>
         </div>
       </div>
     </div>
@@ -523,12 +565,11 @@ footer span { color: rgba(255,255,255,.6); }
   <div class="section fade-in">
     <div class="section-eyebrow">What We're Building Together</div>
     <h2 class="section-title">A Dealer Channel Built for the 2026 Lineup.</h2>
-    <p class="section-sub">Configure-price-quote for a complex product catalog. Real-time inventory from the new facility. Dealer performance visibility your sales team can actually act on. One platform that scales with every new SKU you add.</p>
-
+    <p class="section-sub">A dealer portal for your full 2026 catalog. Built-in CPQ so dealers configure and quote every package in minutes. A direct consumer channel that routes pre-configured leads to the right dealer with the right stock. One platform for every transaction in the channel.</p>
     <div class="products-grid">
 
       <div class="product-card">
-        <div class="product-card-top">
+        <div class="product-card-top" data-ghost="B2B">
           <span class="product-cloud-tag">Commerce Cloud B2B</span>
           <div class="product-title">A Dealer Portal That Sells Your Full Catalog</div>
           <div class="product-sub">Every dealer logs in and sees their pricing, the full 2026 lineup, real-time availability from Monroeville, and a clean configure-quote-order flow. No calls. No spreadsheets. No wrong orders.</div>
@@ -536,7 +577,7 @@ footer span { color: rgba(255,255,255,.6); }
         <div class="product-card-body">
           <div class="product-anchor">
             <div class="product-anchor-label">Comparable Result</div>
-            <div class="product-anchor-val">4× online order growth</div>
+            <div class="product-anchor-val">4x online order growth</div>
             <div class="product-anchor-sub">Sutton Tools after launching dealer direct ordering</div>
           </div>
           <ul class="product-bullets">
@@ -550,44 +591,45 @@ footer span { color: rgba(255,255,255,.6); }
       </div>
 
       <div class="product-card">
-        <div class="product-card-top">
-          <span class="product-cloud-tag">Manufacturing Cloud</span>
-          <div class="product-title">Dealer Performance Visibility That Drives Action</div>
-          <div class="product-sub">See which dealers are activating the new tractor lineup, which ones are stuck on legacy SKUs, and where the sell-through gaps are before the busy season ends.</div>
+        <div class="product-card-top" data-ghost="CPQ">
+          <span class="product-cloud-tag">Commerce Cloud CPQ</span>
+          <div class="product-title">Configure, Price, and Quote Every Package in Minutes</div>
+          <div class="product-sub">A dealer building a tractor package for a landscaping company needs to configure attachments, apply fleet pricing, and generate a clean quote before the customer walks out the door. CPQ makes that a five-minute conversation, not a 48-hour callback.</div>
         </div>
         <div class="product-card-body">
           <div class="product-anchor">
             <div class="product-anchor-label">Core Capability</div>
-            <div class="product-anchor-val">Real-time sell-through by dealer + SKU</div>
-            <div class="product-anchor-sub">Connected to orders, not a lagging quarterly report</div>
+            <div class="product-anchor-val">Guided selling with guardrails</div>
+            <div class="product-anchor-sub">The right configuration, the right price, every time</div>
           </div>
           <ul class="product-bullets">
-            <li>Dealer scorecards: who's selling the new tractor lineup, who's behind on tractor quota, who needs enablement now vs. later.</li>
-            <li>SKU-level sell-through from the new facility. Know which tractor configurations are moving and which ones are sitting.</li>
-            <li>Forecast accuracy: dealer order run rates against production commitments. Avoid over-producing slow movers from Monroeville.</li>
-            <li>New product activation tracking: which dealers have quoted the Rebel SD? Who hasn't touched the new catalog yet?</li>
-            <li>Territory-level visibility for your regional sales managers. Act on signals before the season window closes.</li>
+            <li>Product rules built into the configurator: incompatible options are blocked, required attachments are surfaced automatically.</li>
+            <li>Dealer tier pricing applied at the quote level, not negotiated at the order stage. Margin disputes go away.</li>
+            <li>Fleet and volume discounting that calculates in real time as the dealer adds units to the quote.</li>
+            <li>One-click proposal generation. A dealer can email a branded quote to their customer directly from the portal.</li>
+            <li>Quote-to-order in one step. When the customer says yes, the dealer converts to a clean order with no re-entry.</li>
           </ul>
         </div>
       </div>
 
       <div class="product-card">
-        <div class="product-card-top">
-          <span class="product-cloud-tag">Agentforce</span>
-          <div class="product-title">An AI Agent That Enables Dealers Around the Clock</div>
-          <div class="product-sub">A dealer texts or calls about a tractor configuration at 7am before a customer meeting. The agent answers. spec comparisons, availability, pricing, order status. without waking up your inside sales team.</div>
+        <div class="product-card-top" data-ghost="D2C">
+          <span class="product-cloud-tag">Commerce Cloud D2C</span>
+          <div class="product-title">A Direct Consumer Channel That Drives Dealer Traffic</div>
+          <div class="product-sub">Consumers researching your 2026 lineup want to build and price a package online before they walk into a dealer. A connected D2C storefront converts that intent into a dealer appointment rather than losing it to a competitor whose site lets them configure and locate stock.</div>
         </div>
         <div class="product-card-body">
           <div class="product-anchor">
             <div class="product-anchor-label">Comparable Result</div>
-            <div class="product-anchor-val">Autonomous dealer support</div>
-            <div class="product-anchor-sub">Continental: AI agent handles ERP order queries without human input</div>
+            <div class="product-anchor-val">Higher close rates on pre-qualified leads</div>
+            <div class="product-anchor-sub">Dealers who receive D2C-configured leads close faster</div>
           </div>
           <ul class="product-bullets">
-            <li>"What's the difference between the 30 and 40 series for a 10-acre commercial property?" Answered instantly, with a quote generated.</li>
-            <li>Order status and delivery timeline inquiries resolved without an inside sales call. Dealers get answers before their customer meetings.</li>
-            <li>New product briefings: when the 2027 catalog drops, the agent can brief every dealer on new SKUs and cross-sell opportunities proactively.</li>
-            <li>Escalates to a human rep when a deal needs strategic attention. The agent knows what it can handle and what it can't.</li>
+            <li>Full 2026 catalog online with build-your-own configurator. Consumers pick the mower, tractor, or UTV, spec it out, and see MSRP in real time.</li>
+            <li>"Find a dealer" flow that routes configured packages to the nearest dealer with that unit in stock, not just the closest zip code match.</li>
+            <li>Dealer gets the pre-configured quote with all options already selected. The walk-in is warm, not cold.</li>
+            <li>Commercial buyer flow: contractors and landscaping companies building multi-unit quotes are routed to a dealer or rep who handles commercial volume.</li>
+            <li>Connected to dealer inventory: if Monroeville ships a batch of 50-series tractors to specific dealers, the D2C site surfaces those dealers for shoppers searching that model.</li>
           </ul>
         </div>
       </div>
@@ -596,32 +638,28 @@ footer span { color: rgba(255,255,255,.6); }
   </div>
 </section>
 
-<!-- URGENCY -->
-<section style="background:#f0ece6; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
-  <div class="section fade-in" style="padding-top:52px; padding-bottom:52px;">
+<!-- WHY NOW -->
+<section class="why-section">
+  <div class="section fade-in">
     <div class="section-eyebrow">Why Now</div>
     <h2 class="section-title">The New Facility Comes Online in Months. Not Years.</h2>
-    <p class="section-sub" style="max-width:720px;">Product expansion and facility launch are forcing decisions now. The dealers who have the right ordering infrastructure when new SKUs hit will sell them. The ones who don't will wait for someone to call them.</p>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin-top:36px;">
-
-      <div style="background:var(--warm); border-radius:var(--r); border:1px solid var(--border); border-left:4px solid var(--orange); padding:24px 26px;">
-        <div style="font-size:1.4rem; margin-bottom:10px;">🏭</div>
-        <div style="font-size:.88rem; font-weight:700; color:var(--black); margin-bottom:8px;">Monroeville opens early 2026. your dealer channel needs to be ready</div>
-        <div style="font-size:.84rem; color:var(--muted); line-height:1.65;">New facility means new SKUs, new inventory pools, and new order complexity hitting dealers who may have never sold a tractor. If the ordering infrastructure isn't in place before the facility opens, you're spending the first season answering dealer questions that a portal would have handled automatically.</div>
+    <p class="section-sub" style="max-width:720px">Product expansion and facility launch are forcing decisions now. The dealers who have the right ordering infrastructure when new SKUs hit will sell them. The ones who don't will wait for someone to call them.</p>
+    <div class="why-grid">
+      <div class="why-card" data-num="01">
+        <div class="why-num">01</div>
+        <div class="why-head">Monroeville opens early 2026. Your dealer channel needs to be ready.</div>
+        <div class="why-body">New facility means new SKUs, new inventory pools, and new order complexity hitting dealers who may have never sold a tractor. If the ordering infrastructure isn't in place before the facility opens, you're spending the first season answering dealer questions that a portal would have handled automatically.</div>
       </div>
-
-      <div style="background:var(--warm); border-radius:var(--r); border:1px solid var(--border); border-left:4px solid var(--orange); padding:24px 26px;">
-        <div style="font-size:1.4rem; margin-bottom:10px;">📋</div>
-        <div style="font-size:.88rem; font-weight:700; color:var(--black); margin-bottom:8px;">The 2026 catalog is the most complex lineup you've ever taken to market</div>
-        <div style="font-size:.84rem; color:var(--muted); line-height:1.65;">Sub-compact tractors through 50-series. UTVs. Light construction. Outdoor power tools. That's five product categories, dozens of configurations, and multiple buyer personas. all in one season. Dealers who can navigate it with a portal sell across the catalog. Dealers working off a PDF and a phone call sell what they already know.</div>
+      <div class="why-card" data-num="02">
+        <div class="why-num">02</div>
+        <div class="why-head">The 2026 catalog is the most complex lineup you've ever taken to market.</div>
+        <div class="why-body">Sub-compact tractors through 50-series. UTVs. Light construction. Outdoor power tools. That's five product categories, dozens of configurations, and multiple buyer personas. all in one season. Dealers who can navigate it with a portal sell across the catalog. Dealers working off a PDF and a phone call sell what they already know.</div>
       </div>
-
-      <div style="background:var(--warm); border-radius:var(--r); border:1px solid var(--border); border-left:4px solid var(--orange); padding:24px 26px;">
-        <div style="font-size:1.4rem; margin-bottom:10px;">🚀</div>
-        <div style="font-size:.88rem; font-weight:700; color:var(--black); margin-bottom:8px;">A focused pilot can be live before the spring selling season</div>
-        <div style="font-size:.84rem; color:var(--muted); line-height:1.65;">We don't start with every SKU and every dealer. A scoped pilot targeting your top-tier dealers with the new tractor catalog, real-time Monroeville inventory, and dealer account pricing gets you live, measuring, and learning before the season peaks. We show you the math on one additional order per dealer per week before we write the first line of scope.</div>
+      <div class="why-card" data-num="03">
+        <div class="why-num">03</div>
+        <div class="why-head">A focused pilot can be live before the spring selling season.</div>
+        <div class="why-body">We don't start with every SKU and every dealer. A scoped pilot targeting your top-tier dealers with the new tractor catalog, real-time Monroeville inventory, and dealer account pricing gets you live, measuring, and learning before the season peaks. We show you the math on one additional order per dealer per week before we write the first line of scope.</div>
       </div>
-
     </div>
   </div>
 </section>
@@ -629,20 +667,20 @@ footer span { color: rgba(255,255,255,.6); }
 <!-- IMPACT -->
 <section class="impact-section">
   <div class="impact-inner fade-in">
-    <div class="section-eyebrow" style="color:rgba(255,255,255,.7)">The Business Case</div>
-    <h2 class="section-title" style="color:#fff">The ROI Is Already Proven in the Channel</h2>
-    <p class="section-sub" style="color:rgba(255,255,255,.7); max-width:700px">Benchmarks from Forrester's 2024 Total Economic Impact study and comparable OEM dealer portal deployments on the Salesforce B2B Commerce platform.</p>
+    <div class="section-eyebrow" style="color:rgba(255,255,255,.55)">The Business Case</div>
+    <h2 class="section-title">The ROI Is Already Proven in the Channel</h2>
+    <p class="section-sub">Benchmarks from Forrester's 2024 Total Economic Impact study and comparable OEM dealer portal deployments on the Salesforce B2B Commerce platform.</p>
     <div class="impact-grid">
       <div class="impact-item">
         <div class="impact-num count-up" data-target="289" data-suffix="%">289%</div>
-        <div class="impact-label">Return on Investment<br>over 3 years · Forrester TEI</div>
+        <div class="impact-label">Return on Investment<br>over 3 years &nbsp;·&nbsp; Forrester TEI</div>
       </div>
       <div class="impact-item">
         <div class="impact-num">$9.6M</div>
         <div class="impact-label">Net Present Value<br>composite manufacturer</div>
       </div>
       <div class="impact-item">
-        <div class="impact-num count-up" data-target="4" data-suffix="×">4×</div>
+        <div class="impact-num count-up" data-target="4" data-suffix="x">4x</div>
         <div class="impact-label">Online order growth<br>Sutton Tools deployment</div>
       </div>
       <div class="impact-item">
@@ -657,41 +695,45 @@ footer span { color: rgba(255,255,255,.6); }
 <section class="about-section">
   <div class="section fade-in">
     <div class="section-eyebrow">Who You're Talking To</div>
-    <h2 class="section-title" style="color:#fff">A Peer, Not a Pitch.</h2>
+    <h2 class="section-title">A Peer, Not a Pitch.</h2>
     <div class="about-team">
       <div class="about-card">
-        <img src="anthony.png" alt="Anthony Troggio" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="about-card-photo-placeholder" style="display:none">AT</div>
+        <div class="about-photo-wrap">
+          <img src="anthony.png" alt="Anthony Troggio" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="about-card-photo-placeholder" style="display:none">AT</div>
+        </div>
         <div class="about-card-info">
           <div class="about-name">Anthony Troggio</div>
-          <div class="about-contact"><a href="mailto:atroggio@salesforce.com" style="color:inherit">atroggio@salesforce.com</a> · <a href="tel:7654307903" style="color:inherit">765-430-7903</a></div>
-          <div class="about-role">Digital Transformation Executive, Manufacturing &amp; Automotive | Salesforce</div>
+          <div class="about-contact"><a href="mailto:atroggio@salesforce.com" style="color:inherit">atroggio@salesforce.com</a> &nbsp;·&nbsp; <a href="tel:7654307903" style="color:inherit">765-430-7903</a></div>
+          <div class="about-role">Digital Transformation Executive, Manufacturing &amp; Automotive &nbsp;|&nbsp; Salesforce</div>
           <p class="about-body">I work with manufacturers and OEMs across the West who are expanding their product lines and need their dealer channels to keep pace. The conversation is always the same: you built the product, now make sure your dealers can sell it. Dad, family man, straight shooter.</p>
         </div>
       </div>
       <div class="about-card">
-        <img src="kennedy-wenz.png" alt="Kennedy Wenz" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <div class="about-card-photo-placeholder" style="display:none">KW</div>
+        <div class="about-photo-wrap">
+          <img src="kennedy-wenz.png" alt="Kennedy Wenz" class="about-card-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="about-card-photo-placeholder" style="display:none">KW</div>
+        </div>
         <div class="about-card-info">
           <div class="about-name">Kennedy Wenz</div>
           <div class="about-contact"><a href="mailto:kwenz@salesforce.com" style="color:inherit">kwenz@salesforce.com</a></div>
-          <div class="about-role">Digital Transformation Executive, Manufacturing, Automotive &amp; Energy | Salesforce</div>
+          <div class="about-role">Digital Transformation Executive, Manufacturing, Automotive &amp; Energy &nbsp;|&nbsp; Salesforce</div>
           <p class="about-body">From founding EAT.org across DACH to driving Agentic AI adoption at Salesforce in San Francisco, Kennedy bridges global strategy and frontier technology. With roots in the U.S. and Germany and an MSc in Business, she translates AI capabilities into outcomes manufacturing leaders can implement.</p>
         </div>
       </div>
     </div>
     <div class="about-cta-row">
       <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="btn-white">
-        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
-        atroggio@salesforce.com
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        Book with Anthony
       </a>
-      <a href="tel:7654307903" class="btn-ghost" style="color:rgba(255,255,255,.75);border-color:rgba(255,255,255,.2)">
-        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+      <a href="tel:7654307903" class="btn-ghost">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
         765-430-7903
       </a>
-      <a href="mailto:kwenz@salesforce.com?subject=Bad Boy Mowers. Salesforce" class="btn-white">
-        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
-        kwenz@salesforce.com
+      <a href="mailto:kwenz@salesforce.com?subject=Bad Boy Mowers &amp; Salesforce" class="btn-white">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M3 8l9 6 9-6M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8a1 1 0 011-1h16a1 1 0 011 1"/></svg>
+        Email Kennedy
       </a>
     </div>
   </div>
@@ -700,10 +742,10 @@ footer span { color: rgba(255,255,255,.6); }
 <!-- CTA -->
 <section class="cta-section">
   <div class="section fade-in">
-    <div class="cta-title">Ready to see what this looks like for Bad Boy Mowers?</div>
+    <div class="cta-title">Ready to see what this looks<br>like for Bad Boy Mowers?</div>
     <p class="cta-sub">30 minutes. I'll show you how Husqvarna and Polaris built their dealer ordering channels, walk through what a scoped pilot would look like for your top dealers and the new tractor lineup, and give you an honest picture of timeline and cost.</p>
     <a href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ1klI6k5tbFrSXI9b4J-qwj6vXrWlDRrlUCyhrSDfOJSthK0_yLc5HI4K2mMtKucdRzjNuTt2Ce" target="_blank" rel="noopener" class="btn-white">
-      <svg width="17" height="17" fill="none" viewBox="0 0 24 24" stroke="var(--orange)" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="var(--orange)" stroke-width="2.5"><path d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
       Book Time with Anthony
     </a>
     <div class="cta-contact">atroggio@salesforce.com &nbsp;·&nbsp; 765-430-7903</div>
@@ -712,40 +754,33 @@ footer span { color: rgba(255,255,255,.6); }
 
 <!-- FOOTER -->
 <footer>
-  <span>Anthony Troggio</span> · Digital Transformation Executive, Salesforce · Manufacturing &amp; Automotive, West<br>
-  <span style="font-size:.68rem;opacity:.5;margin-top:6px;display:block">Prepared exclusively for Bad Boy Mowers · July 2026 · Confidential</span>
+  <span>Anthony Troggio</span> &nbsp;·&nbsp; Digital Transformation Executive, Salesforce &nbsp;·&nbsp; Manufacturing &amp; Automotive, West<br>
+  <span style="font-size:.66rem;opacity:.45;margin-top:6px;display:block">Prepared exclusively for Bad Boy Mowers &nbsp;·&nbsp; July 2026 &nbsp;·&nbsp; Confidential</span>
 </footer>
 
 <script>
 const fadeObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); fadeObserver.unobserve(e.target); }
-  });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); fadeObserver.unobserve(e.target); } });
+}, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.fade-in').forEach(el => fadeObserver.observe(el));
 
 function animateCount(el) {
-  const raw = el.dataset.target;
+  const target = parseFloat(el.dataset.target);
   const suffix = el.dataset.suffix || '';
-  const target = parseFloat(raw);
   if (isNaN(target)) return;
   const duration = 1800;
   const start = performance.now();
-  function ease(t) { return t < 0.5 ? 2*t*t : -1+(4-2*t)*t; }
-  function step(now) {
-    const elapsed = now - start;
-    const progress = Math.min(elapsed / duration, 1);
-    const value = target * ease(progress);
-    el.textContent = Math.floor(value).toLocaleString() + suffix;
-    if (progress < 1) requestAnimationFrame(step);
+  const ease = t => t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+  const step = now => {
+    const p = Math.min((now - start) / duration, 1);
+    el.textContent = Math.floor(target * ease(p)).toLocaleString() + suffix;
+    if (p < 1) requestAnimationFrame(step);
     else el.textContent = target.toLocaleString() + suffix;
-  }
+  };
   requestAnimationFrame(step);
 }
 const countObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { animateCount(e.target); countObserver.unobserve(e.target); }
-  });
+  entries.forEach(e => { if (e.isIntersecting) { animateCount(e.target); countObserver.unobserve(e.target); } });
 }, { threshold: 0.5 });
 document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
 </script>
