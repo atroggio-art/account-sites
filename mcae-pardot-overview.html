@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Marketing Cloud Account Engagement | Salesforce</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --black:#0a0a0a;--dark:#0f1117;--dark2:#181c24;--dark3:#1e2330;
+  --border:#252c3a;--blue:#00A1E0;--blue2:#0081b3;--blue3:#60c8f0;
+  --purple:#7B5EA7;--teal:#00C2B2;--orange:#e05c00;
+  --text:#e8eaf0;--muted:#6b7494;--dim:#3a4055;
+  --fd:'Barlow Condensed',sans-serif;--fb:'Inter',sans-serif;
+}
+body{font-family:var(--fb);background:var(--black);color:var(--text);line-height:1.6;font-size:15px}
+a{color:var(--blue);text-decoration:none}
+img{display:block;max-width:100%}
+
+/* TOPBAR */
+.topbar{background:rgba(10,10,10,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 48px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.topbar::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue) 0%,var(--purple) 50%,var(--teal) 100%)}
+.topbar-brand{display:flex;align-items:center;gap:14px}
+.sf-cloud{width:36px;height:25px}
+.topbar-wordmark{font-family:var(--fd);font-size:1.1rem;font-weight:800;color:#fff;letter-spacing:.5px}
+.topbar-sub{font-size:.72rem;color:var(--muted);margin-top:1px}
+.topbar-pill{background:rgba(0,161,224,.15);border:1px solid rgba(0,161,224,.3);color:var(--blue3);font-size:.65rem;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.4px}
+
+/* HERO */
+.hero{min-height:88vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:80px 48px 80px}
+.hero-bg{position:absolute;inset:0;background:
+  radial-gradient(ellipse 80% 60% at 60% 40%,rgba(123,94,167,.18) 0%,transparent 60%),
+  radial-gradient(ellipse 50% 40% at 20% 80%,rgba(0,161,224,.12) 0%,transparent 55%),
+  radial-gradient(ellipse 40% 30% at 85% 10%,rgba(0,194,178,.1) 0%,transparent 50%),
+  var(--black)}
+.hero-bg-img{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1800&q=80');background-size:cover;background-position:center;opacity:.065}
+.hero-content{position:relative;z-index:1;max-width:760px}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px}
+.eyebrow-line{width:32px;height:2px;background:var(--blue)}
+.eyebrow-text{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--blue)}
+.hero h1{font-family:var(--fd);font-size:clamp(2.6rem,4.5vw,4.2rem);font-weight:900;line-height:1.0;color:#fff;margin-bottom:8px;letter-spacing:.5px}
+.hero h1 em{font-style:normal;color:var(--blue)}
+.hero-sub{font-size:1.05rem;color:rgba(232,234,240,.7);line-height:1.6;margin-bottom:36px;max-width:580px}
+.hero-stats{display:flex;gap:28px;flex-wrap:wrap}
+.hstat{border-left:2px solid var(--blue);padding-left:14px}
+.hstat-num{font-family:var(--fd);font-size:1.9rem;font-weight:900;color:#fff;line-height:1}
+.hstat-lbl{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+/* SECTION WRAPPER */
+.section{padding:80px 48px}
+.section-alt{background:var(--dark)}
+.section-inner{max-width:1160px;margin:0 auto}
+.section-header{margin-bottom:48px}
+.section-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.section-eyebrow-line{width:24px;height:2px;background:var(--blue)}
+.section-eyebrow-text{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--blue)}
+.section-title{font-family:var(--fd);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:800;color:#fff;line-height:1.1;letter-spacing:.3px}
+.section-title em{font-style:normal;color:var(--blue)}
+.section-body{font-size:.92rem;color:rgba(232,234,240,.65);line-height:1.7;max-width:640px;margin-top:10px}
+
+/* WHAT IS MCAE */
+.what-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:32px}
+.what-card{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:28px}
+.what-card-icon{width:40px;height:40px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:1.2rem}
+.what-card h3{font-family:var(--fd);font-size:1.1rem;font-weight:800;color:#fff;margin-bottom:8px;letter-spacing:.3px}
+.what-card p{font-size:.83rem;color:var(--muted);line-height:1.6}
+
+/* FEATURE TABS */
+.feature-tabs{display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:36px;overflow-x:auto}
+.ftab{padding:12px 20px;font-size:.78rem;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:color .15s,border-color .15s;background:none;border-top:none;border-left:none;border-right:none;font-family:var(--fb)}
+.ftab:hover{color:var(--text)}
+.ftab.active{color:var(--blue);border-bottom-color:var(--blue)}
+.feature-panel{display:none}
+.feature-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.feat-card{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:22px;transition:border-color .15s}
+.feat-card:hover{border-color:rgba(0,161,224,.3)}
+.feat-card-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
+.feat-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.feat-card h4{font-size:.88rem;font-weight:700;color:#fff;line-height:1.3}
+.feat-card p{font-size:.78rem;color:var(--muted);line-height:1.6;padding-left:20px}
+
+/* EDITIONS */
+.edition-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+.edition{background:var(--dark2);border:1px solid var(--border);border-radius:12px;padding:28px;position:relative;overflow:hidden}
+.edition.featured{border-color:rgba(0,161,224,.4);background:linear-gradient(135deg,rgba(0,161,224,.08) 0%,var(--dark2) 60%)}
+.edition-badge{position:absolute;top:16px;right:16px;background:var(--blue);color:#fff;font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:20px;letter-spacing:.4px}
+.edition-name{font-family:var(--fd);font-size:1.4rem;font-weight:800;color:#fff;margin-bottom:4px}
+.edition-price{font-size:.78rem;color:var(--muted);margin-bottom:18px}
+.edition-features{list-style:none;display:flex;flex-direction:column;gap:8px}
+.edition-features li{display:flex;align-items:flex-start;gap:8px;font-size:.78rem;color:var(--muted);line-height:1.4}
+.edition-features li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:6px}
+.edition-features li strong{color:var(--text)}
+
+/* USE CASES */
+.usecase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.usecase{background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:24px;transition:border-color .15s}
+.usecase:hover{border-color:rgba(0,161,224,.25)}
+.usecase-num{font-family:var(--fd);font-size:2.4rem;font-weight:900;color:var(--dim);line-height:1;margin-bottom:10px}
+.usecase h3{font-size:.88rem;font-weight:700;color:#fff;margin-bottom:8px}
+.usecase p{font-size:.78rem;color:var(--muted);line-height:1.6}
+
+/* HOW IT WORKS */
+.flow{display:flex;gap:0;align-items:stretch;margin-top:8px;overflow-x:auto}
+.flow-step{flex:1;min-width:180px;background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:22px 18px;position:relative}
+.flow-step:not(:last-child)::after{content:'→';position:absolute;right:-14px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:1.1rem;z-index:1}
+.flow-step:not(:first-child){border-left:none;border-radius:0}
+.flow-step:first-child{border-radius:10px 0 0 10px}
+.flow-step:last-child{border-radius:0 10px 10px 0}
+.flow-num{font-family:var(--fd);font-size:1.8rem;font-weight:900;color:var(--dim);line-height:1;margin-bottom:8px}
+.flow-step h4{font-size:.82rem;font-weight:700;color:#fff;margin-bottom:6px}
+.flow-step p{font-size:.74rem;color:var(--muted);line-height:1.5}
+
+/* VS TABLE */
+.vs-table{width:100%;border-collapse:collapse;margin-top:8px}
+.vs-table th{padding:12px 16px;text-align:left;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);border-bottom:1px solid var(--border)}
+.vs-table th:not(:first-child){text-align:center}
+.vs-table td{padding:12px 16px;font-size:.8rem;border-bottom:1px solid rgba(37,44,58,.5);color:var(--muted)}
+.vs-table td:first-child{color:var(--text);font-weight:500}
+.vs-table td:not(:first-child){text-align:center}
+.vs-table tr:hover td{background:rgba(255,255,255,.02)}
+.check{color:#2ecc71;font-size:.9rem}
+.partial{color:var(--yellow, #f0a500);font-size:.9rem}
+.no{color:var(--dim);font-size:.9rem}
+.col-mcae{color:var(--blue)}
+
+/* ENGAGEMENT STUDIO */
+.studio-visual{background:var(--dark2);border:1px solid var(--border);border-radius:12px;padding:32px;margin-top:8px}
+.studio-flow{display:flex;flex-direction:column;gap:0}
+.sf-row{display:flex;align-items:center;gap:0;padding:14px 0;border-bottom:1px solid rgba(37,44,58,.5);position:relative}
+.sf-row:last-child{border-bottom:none}
+.sf-indent{margin-left:32px}
+.sf-indent-2{margin-left:64px}
+.sf-node{display:flex;align-items:center;gap:10px}
+.sf-node-icon{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;flex-shrink:0}
+.node-trigger{background:rgba(0,161,224,.2);border:1px solid rgba(0,161,224,.3);color:var(--blue3)}
+.node-wait{background:rgba(240,165,0,.15);border:1px solid rgba(240,165,0,.25);color:#f0c040}
+.node-action{background:rgba(46,204,113,.15);border:1px solid rgba(46,204,113,.25);color:#5dcc8a}
+.node-branch{background:rgba(123,94,167,.2);border:1px solid rgba(123,94,167,.3);color:#b09de0}
+.node-alert{background:rgba(224,92,0,.15);border:1px solid rgba(224,92,0,.25);color:#ff8c35}
+.sf-node-label{font-size:.8rem;color:var(--text)}
+.sf-node-sub{font-size:.7rem;color:var(--muted);margin-left:42px;margin-top:2px}
+.sf-connector{width:2px;height:16px;background:var(--dim);margin-left:15px}
+
+/* INTEGRATIONS */
+.int-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:8px}
+.int-card{background:var(--dark2);border:1px solid var(--border);border-radius:8px;padding:16px;text-align:center;transition:border-color .15s}
+.int-card:hover{border-color:rgba(0,161,224,.3)}
+.int-card-icon{width:36px;height:36px;border-radius:8px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800}
+.int-card-name{font-size:.72rem;font-weight:600;color:var(--text)}
+.int-card-type{font-size:.62rem;color:var(--muted);margin-top:2px}
+
+/* CTA */
+.cta-section{background:linear-gradient(135deg,rgba(0,161,224,.12) 0%,rgba(123,94,167,.1) 50%,rgba(0,194,178,.08) 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:64px 48px;text-align:center}
+.cta-title{font-family:var(--fd);font-size:clamp(1.8rem,3vw,2.8rem);font-weight:900;color:#fff;margin-bottom:12px}
+.cta-sub{font-size:.92rem;color:var(--muted);max-width:500px;margin:0 auto 28px}
+.cta-pill{display:inline-block;background:var(--blue);color:#fff;font-size:.8rem;font-weight:700;padding:10px 24px;border-radius:6px;letter-spacing:.3px}
+
+@media(max-width:900px){
+  .hero{padding:60px 24px}
+  .section{padding:60px 24px}
+  .what-grid,.feature-panel,.edition-grid,.usecase-grid{grid-template-columns:1fr}
+  .topbar{padding:0 24px}
+  .flow{flex-direction:column}
+  .flow-step:not(:last-child)::after{content:'↓';right:auto;left:50%;top:auto;bottom:-14px;transform:translateX(-50%)}
+  .flow-step:first-child,.flow-step:last-child,.flow-step:not(:first-child){border-radius:10px;border-left:1px solid var(--border)}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">
+    <svg class="sf-cloud" viewBox="0 0 60 40" fill="none"><path d="M23.3 7.1C25.2 4.7 28 3.2 31.2 3.2c5.2 0 9.6 3.8 10.5 8.8.5-.1 1-.2 1.5-.2 4.4 0 8 3.6 8 8s-3.6 8-8 8H11c-5 0-9-4-9-9 0-4.7 3.6-8.6 8.2-9 .9-4.3 4.7-7.5 9.3-7.5 1.6 0 3.2.4 4.5 1.2-.5.8-.9 1.8-1.1 2.8-.9-.5-2-.8-3.4-.8-3.5 0-6.4 2.8-6.4 6.3v.7l-.7.1C9.6 12.9 7 15.5 7 18.8c0 3.4 2.8 6.1 6.3 6.1h32.4c3 0 5.5-2.5 5.5-5.5s-2.5-5.5-5.5-5.5c-.8 0-1.6.2-2.3.5l-1.4.6-.3-1.5C40.9 9 37.4 6.2 33.2 6.2c-3.2 0-6 1.6-7.7 4.1-.7-.6-1.5-1.1-2.2-1.5z" fill="#00A1E0"/></svg>
+    <div>
+      <div class="topbar-wordmark">Marketing Cloud Account Engagement</div>
+      <div class="topbar-sub">Formerly Pardot — B2B Marketing Automation</div>
+    </div>
+  </div>
+  <div class="topbar-pill">Salesforce MCAE</div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-bg-img"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><div class="eyebrow-line"></div><div class="eyebrow-text">Salesforce B2B Marketing Automation</div></div>
+    <h1>Turn marketing<br>into a <em>revenue engine</em></h1>
+    <p class="hero-sub">Marketing Cloud Account Engagement (formerly Pardot) connects every marketing touchpoint to CRM pipeline — so sales knows who's ready, marketing proves ROI, and no warm lead ever falls through the cracks.</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-num">34%</div><div class="hstat-lbl">Increase in marketing ROI</div></div>
+      <div class="hstat"><div class="hstat-num">27%</div><div class="hstat-lbl">More pipeline from marketing</div></div>
+      <div class="hstat"><div class="hstat-num">36%</div><div class="hstat-lbl">Faster deal velocity</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IS MCAE -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow"><div class="section-eyebrow-line"></div><div class="section-eyebrow-text">What is MCAE</div></div>
+      <div class="section-title">B2B marketing automation<br>built <em>inside Salesforce</em></div>
+      <p class="section-body">MCAE is the only marketing automation platform natively built on Salesforce CRM. Every lead score, every email open, every form fill flows directly into the CRM record — so sales and marketing are always working from the same data.</p>
+    </div>
+    <div class="what-grid">
+      <div class="what-card">
+        <div class="what-card-icon" style="background:rgba(0,161,224,.15);border:1px solid rgba(0,161,224,.25)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00A1E0" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Who it's for</h3>
+        <p>B2B marketing teams selling to other businesses — particularly those with longer sales cycles, multiple stakeholders, and field sales teams. Ideal for manufacturing, distribution, financial services, and technology companies.</p>
+      </div>
+      <div class="what-card">
+        <div class="what-card-icon" style="background:rgba(123,94,167,.15);border:1px solid rgba(123,94,167,.25)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#b09de0" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>What problem it solves</h3>
+        <p>Marketing sends leads to sales with no context. Reps don't know who's hot, who's cold, or what content they've engaged with. Deals get lost in handoff. MCAE closes that gap by scoring, nurturing, and routing leads with full engagement history attached.</p>
+      </div>
+      <div class="what-card">
+        <div class="what-card-icon" style="background:rgba(0,194,178,.12);border:1px solid rgba(0,194,178,.2)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00C2B2" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <h3>How it connects to Salesforce</h3>
+        <p>MCAE syncs natively with Salesforce CRM. Lead scores update on Contact records in real time. Campaign influence ties marketing activity to closed revenue. Sales and marketing see identical data — no manual exports, no spreadsheet handoffs.</p>
+      </div>
+      <div class="what-card">
+        <div class="what-card-icon" style="background:rgba(224,92,0,.12);border:1px solid rgba(224,92,0,.2)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff8c35" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h3>MCAE vs. Marketing Cloud Engagement</h3>
+        <p>MCAE is built for B2B (account-based, longer cycles, sales-aligned). Marketing Cloud Engagement (formerly ExactTarget) is built for B2C (high volume, transactional, consumer journeys). Most manufacturing and distribution companies need MCAE first.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow"><div class="section-eyebrow-line"></div><div class="section-eyebrow-text">Full Feature Set</div></div>
+      <div class="section-title">Everything inside <em>MCAE</em></div>
+      <p class="section-body">Six capability areas, each solving a different part of the B2B marketing-to-revenue problem.</p>
+    </div>
+
+    <div class="feature-tabs">
+      <button class="ftab active" onclick="showTab('nurture',this)">Email &amp; Nurture</button>
+      <button class="ftab" onclick="showTab('scoring',this)">Lead Scoring &amp; Grading</button>
+      <button class="ftab" onclick="showTab('forms',this)">Forms &amp; Landing Pages</button>
+      <button class="ftab" onclick="showTab('engagement',this)">Engagement Studio</button>
+      <button class="ftab" onclick="showTab('reporting',this)">Reporting &amp; Attribution</button>
+      <button class="ftab" onclick="showTab('account',this)">Account-Based Marketing</button>
+    </div>
+
+    <!-- EMAIL & NURTURE -->
+    <div class="feature-panel active" id="tab-nurture">
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#00A1E0"></div><h4>Drag-and-Drop Email Builder</h4></div>
+        <p>Build branded emails without code using a visual builder with reusable content blocks, responsive templates, and live preview. Includes mobile optimization.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#00A1E0"></div><h4>Drip Programs (Nurture Tracks)</h4></div>
+        <p>Automated multi-step email sequences triggered by prospect behavior, time delays, or CRM field changes. Each step reacts to what the prospect did — opened, clicked, visited a page, filled a form.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#00A1E0"></div><h4>Dynamic Content</h4></div>
+        <p>Show different content blocks to different audience segments within the same email. An engineer and a VP receive the same campaign with copy and offers tailored to their role and stage.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#00A1E0"></div><h4>Send Time Optimization</h4></div>
+        <p>AI-powered analysis of historical engagement data to automatically send each email at the time each individual prospect is most likely to open it.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#00A1E0"></div><h4>1:1 Sales Emails (Salesforce Inbox)</h4></div>
+        <p>Sales reps send tracked, templated emails directly from Gmail or Outlook through the CRM. Opens, clicks, and replies log automatically to the Contact record.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#00A1E0"></div><h4>List Segmentation</h4></div>
+        <p>Static and dynamic lists based on any combination of CRM fields, behavior history, lead score, industry, job title, or custom criteria. Lists update automatically as prospect data changes.</p>
+      </div>
+    </div>
+
+    <!-- SCORING & GRADING -->
+    <div class="feature-panel" id="tab-scoring">
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#7B5EA7"></div><h4>Prospect Scoring</h4></div>
+        <p>Automatically assigns numeric scores based on engagement activity — email opens (+5), link clicks (+10), page visits (+3), form fills (+50), pricing page visits (+25). Score reflects interest level.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#7B5EA7"></div><h4>Prospect Grading</h4></div>
+        <p>Grades (A–F) measure fit against your ideal customer profile — industry, company size, job title, region. Separate from score: a prospect can be highly engaged (high score) but wrong fit (low grade).</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#7B5EA7"></div><h4>Score Decay</h4></div>
+        <p>Scores automatically decrease when prospects go inactive. A lead that was hot six months ago and hasn't engaged since won't still appear at the top of the queue — keeping rep focus on current interest.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#7B5EA7"></div><h4>Einstein Lead Scoring</h4></div>
+        <p>AI model trained on your own historical data predicts which leads are most likely to convert. Updates dynamically as new engagement data arrives. Surfaced directly on Lead and Contact records in CRM.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#7B5EA7"></div><h4>Custom Scoring Categories</h4></div>
+        <p>Score prospects differently by product line or business unit. A prospect interested in Product A gets a separate score from their interest in Product B — letting reps see exactly which solution each prospect cares about.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#7B5EA7"></div><h4>Score-Triggered Alerts</h4></div>
+        <p>Notify the assigned rep in real time the moment a prospect crosses a score threshold — or visits a high-intent page like pricing or request-a-quote — so reps follow up while the prospect is actively engaged.</p>
+      </div>
+    </div>
+
+    <!-- FORMS & LANDING PAGES -->
+    <div class="feature-panel" id="tab-forms">
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#00C2B2"></div><h4>Form Builder</h4></div>
+        <p>Drag-and-drop form creation with custom field mapping to Salesforce objects. Progressive profiling collects different fields on each visit, building complete records over time without overwhelming prospects on first touch.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#00C2B2"></div><h4>Landing Page Builder</h4></div>
+        <p>Full landing pages built in MCAE with A/B testing, custom domains, and SEO settings. No web team dependency — marketers build, test, and publish campaign pages independently.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#00C2B2"></div><h4>Form Handlers</h4></div>
+        <p>Connect MCAE to existing forms on your website without migrating them. Prospect data submitted through any web form automatically flows into MCAE and syncs to Salesforce.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#00C2B2"></div><h4>Personalized URLs (PURLs)</h4></div>
+        <p>Generate unique, trackable URLs for each prospect. When a prospect visits their PURL, the page pre-fills with their data, tracks the visit to their record, and triggers automation based on that interaction.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#00C2B2"></div><h4>Site Search Tracking</h4></div>
+        <p>When a known prospect searches your website, the search terms log to their MCAE record. Reps see exactly what a prospect was looking for before they called — immediate context for the first conversation.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#00C2B2"></div><h4>Social Sign-On</h4></div>
+        <p>Allow prospects to fill forms using their LinkedIn or other social credentials. Reduces friction on form completion, automatically enriches records with professional data, and increases conversion rates.</p>
+      </div>
+    </div>
+
+    <!-- ENGAGEMENT STUDIO -->
+    <div class="feature-panel" id="tab-engagement">
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#e05c00"></div><h4>Visual Automation Builder</h4></div>
+        <p>Drag-and-drop canvas for building multi-branch automation programs. Every path is visual — triggers, waits, actions, and decision points are laid out as a flowchart anyone on the team can read and edit.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#e05c00"></div><h4>Trigger Rules</h4></div>
+        <p>Programs start based on prospect actions (form fill, email click, page visit, list membership) or CRM events (deal stage change, field update, task created). Any combination of criteria can fire a trigger.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#e05c00"></div><h4>Decision Branching</h4></div>
+        <p>Programs fork based on what a prospect does. Opened the email? Go down path A. Didn't open after 3 days? Path B sends a different subject line. Clicked pricing? Alert the rep immediately.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#e05c00"></div><h4>Action Library</h4></div>
+        <p>Over 30 automated actions: send email, adjust score, change CRM field, create task, add to list, remove from list, assign to rep, send internal alert, add to Salesforce campaign, and more.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#e05c00"></div><h4>Re-engagement Programs</h4></div>
+        <p>Automatically identify and re-engage prospects who have gone cold. A pre-built re-engagement track sends a targeted sequence and removes unresponsive prospects from active lists to keep data clean.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#e05c00"></div><h4>Program Testing Mode</h4></div>
+        <p>Test any automation program against real prospect records before activating it — see exactly what path each prospect would take, what actions would fire, and what they'd receive. No live sends until you approve.</p>
+      </div>
+    </div>
+
+    <!-- REPORTING -->
+    <div class="feature-panel" id="tab-reporting">
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#2ecc71"></div><h4>Campaign Influence Reporting</h4></div>
+        <p>Connect every closed deal back to the marketing touches that influenced it. First-touch, last-touch, and multi-touch attribution models show marketing's contribution to pipeline and closed revenue — not just leads generated.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#2ecc71"></div><h4>Lifecycle Reporting</h4></div>
+        <p>Visualize how prospects move through each stage of your funnel — from anonymous visitor to MQL to SQL to Opportunity to Closed Won. Identify exactly where leads are converting and where they're dropping off.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#2ecc71"></div><h4>Email Performance Dashboard</h4></div>
+        <p>Deliverability, open rate, click-through rate, unsubscribe rate, and bounce rate for every email and campaign. Compare performance across campaigns, time periods, and audience segments in one view.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#2ecc71"></div><h4>ROI Reporting</h4></div>
+        <p>Compare marketing spend against pipeline influenced and revenue generated for each campaign. Executives see exactly which programs are producing revenue — and which ones aren't justifying their budget.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#2ecc71"></div><h4>Engagement History on CRM Records</h4></div>
+        <p>Every email sent, every page visited, every form filled, and every score change appears on the Contact and Account record in Salesforce. Reps see the full marketing history before every call.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#2ecc71"></div><h4>B2B Marketing Analytics (Plus)</h4></div>
+        <p>Advanced Einstein Analytics dashboards for deeper campaign attribution, account-level engagement trends, and cross-channel performance. Available on the Advanced and Premium editions.</p>
+      </div>
+    </div>
+
+    <!-- ABM -->
+    <div class="feature-panel" id="tab-account">
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#f0a500"></div><h4>Account-Based Engagement</h4></div>
+        <p>Aggregate engagement scores at the account level — not just the individual contact. See which companies are most engaged across all their stakeholders, not just the one person who opened an email.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#f0a500"></div><h4>Target Account Lists</h4></div>
+        <p>Sync Salesforce Account lists directly into MCAE to run account-specific campaigns. Every contact at a target account receives coordinated outreach — marketing and sales working the same list in parallel.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#f0a500"></div><h4>Engagement History on Account Records</h4></div>
+        <p>The Account record in Salesforce shows a rollup of all marketing engagement across every contact at that company — which campaigns touched them, what they clicked, and where they are in the funnel.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#f0a500"></div><h4>Connected Campaigns</h4></div>
+        <p>Create a Salesforce Campaign once — it automatically creates the corresponding MCAE program. All engagement data flows back to the Campaign record, enabling multi-touch attribution and closed-loop reporting in Salesforce.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#f0a500"></div><h4>Sales + Marketing Alignment Alerts</h4></div>
+        <p>When a known contact at a target account visits a high-intent page, both marketing and the assigned rep are alerted instantly. No more warm accounts sitting unworked because the rep didn't know they were engaged.</p>
+      </div>
+      <div class="feat-card">
+        <div class="feat-card-head"><div class="feat-dot" style="background:#f0a500"></div><h4>Account Scoring</h4></div>
+        <p>Custom account-level scores calculated from the combined activity of all contacts at a company. Identify which companies are heating up — even if no single contact has hit the individual scoring threshold.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOW ENGAGEMENT STUDIO WORKS -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow"><div class="section-eyebrow-line"></div><div class="section-eyebrow-text">Engagement Studio</div></div>
+      <div class="section-title">What a live nurture<br>program <em>looks like</em></div>
+      <p class="section-body">A prospect fills out a form on your website. Here's what MCAE does automatically — without a rep lifting a finger.</p>
+    </div>
+    <div class="studio-visual">
+      <div class="studio-flow">
+        <div class="sf-row">
+          <div class="sf-node">
+            <div class="sf-node-icon node-trigger">TRG</div>
+            <div class="sf-node-label">Trigger — Prospect fills "Request More Info" form</div>
+          </div>
+        </div>
+        <div class="sf-connector"></div>
+        <div class="sf-row">
+          <div class="sf-node">
+            <div class="sf-node-icon node-action">ACT</div>
+            <div class="sf-node-label">Action — Send confirmation email + assign to sales rep in CRM</div>
+          </div>
+        </div>
+        <div class="sf-connector"></div>
+        <div class="sf-row">
+          <div class="sf-node">
+            <div class="sf-node-icon node-wait">WAIT</div>
+            <div class="sf-node-label">Wait 2 days — Did prospect click the email?</div>
+          </div>
+        </div>
+        <div class="sf-connector"></div>
+        <div class="sf-row">
+          <div class="sf-node">
+            <div class="sf-node-icon node-branch">IF</div>
+            <div class="sf-node-label">Branch — Yes: add +20 score, send case study &nbsp;&nbsp;|&nbsp;&nbsp; No: send different subject line follow-up</div>
+          </div>
+        </div>
+        <div class="sf-connector"></div>
+        <div class="sf-row">
+          <div class="sf-node">
+            <div class="sf-node-icon node-wait">WAIT</div>
+            <div class="sf-node-label">Wait 3 days — Did prospect visit pricing page?</div>
+          </div>
+        </div>
+        <div class="sf-connector"></div>
+        <div class="sf-row">
+          <div class="sf-node">
+            <div class="sf-node-icon node-branch">IF</div>
+            <div class="sf-node-label">Branch — Yes: score threshold reached (75+)?</div>
+          </div>
+        </div>
+        <div class="sf-connector"></div>
+        <div class="sf-row">
+          <div class="sf-node">
+            <div class="sf-node-icon node-alert">ALRT</div>
+            <div class="sf-node-label">Alert — Notify rep in real time: "Contact visited pricing page. Score: 82. Follow up now."</div>
+          </div>
+        </div>
+        <div class="sf-connector"></div>
+        <div class="sf-row">
+          <div class="sf-node">
+            <div class="sf-node-icon node-action">ACT</div>
+            <div class="sf-node-label">Action — Convert to MQL, create CRM task, add to "Hot Leads" list, update Lead Status to "Sales Ready"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS END-TO-END -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow"><div class="section-eyebrow-line"></div><div class="section-eyebrow-text">End-to-End Flow</div></div>
+      <div class="section-title">From anonymous visitor<br>to <em>closed deal</em></div>
+    </div>
+    <div class="flow">
+      <div class="flow-step">
+        <div class="flow-num">01</div>
+        <h4>Prospect visits site</h4>
+        <p>MCAE tracking code identifies the visitor. First touch is logged — source, pages viewed, time on site.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">02</div>
+        <h4>Form fill / content gate</h4>
+        <p>Prospect downloads content or requests info. Record created in MCAE, synced to Salesforce Lead or Contact.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">03</div>
+        <h4>Score builds over time</h4>
+        <p>Every subsequent email open, page visit, and content download adds to the score. Grading checks fit against ICP.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">04</div>
+        <h4>Nurture program runs</h4>
+        <p>Engagement Studio sends the right content at the right time based on behavior — no manual marketing required.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">05</div>
+        <h4>MQL threshold hit</h4>
+        <p>Score reaches threshold — rep is alerted instantly with full engagement history. Lead converts to MQL in CRM.</p>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">06</div>
+        <h4>Opportunity + attribution</h4>
+        <p>Deal closes. Campaign influence reporting ties the win back to every marketing touch that contributed — proving marketing ROI in hard numbers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow"><div class="section-eyebrow-line"></div><div class="section-eyebrow-text">Where It Wins</div></div>
+      <div class="section-title">Common use cases in <em>B2B</em></div>
+    </div>
+    <div class="usecase-grid">
+      <div class="usecase">
+        <div class="usecase-num">01</div>
+        <h3>Trade show follow-up at scale</h3>
+        <p>Upload a list of badge scans from a trade show. Every contact automatically enters a 6-email nurture track, gets scored based on engagement, and hot leads get routed to reps within 24 hours — no manual sorting.</p>
+      </div>
+      <div class="usecase">
+        <div class="usecase-num">02</div>
+        <h3>Rep-triggered nurture</h3>
+        <p>A rep adds a prospect to a campaign after a discovery call. MCAE takes over — sending relevant content over the next 30 days, alerting the rep when the prospect re-engages, and keeping the deal warm without rep effort.</p>
+      </div>
+      <div class="usecase">
+        <div class="usecase-num">03</div>
+        <h3>Win-back campaigns</h3>
+        <p>Identify customers who haven't purchased in 90+ days. Automatically enroll them in a targeted win-back sequence with relevant offers and case studies. Flag the ones who re-engage for personal rep outreach.</p>
+      </div>
+      <div class="usecase">
+        <div class="usecase-num">04</div>
+        <h3>New product launch</h3>
+        <p>Segment your database by the product lines they've engaged with. Send highly targeted launch announcements — customers who've asked about industrial solutions get a different message than those interested in consumer products.</p>
+      </div>
+      <div class="usecase">
+        <div class="usecase-num">05</div>
+        <h3>Lead qualification at scale</h3>
+        <p>Marketing generates 500 inbound leads per month. Without scoring, reps must manually qualify all 500. With MCAE, only the top 15% — those with high scores and strong ICP grades — ever reach a sales rep's queue.</p>
+      </div>
+      <div class="usecase">
+        <div class="usecase-num">06</div>
+        <h3>Multi-stakeholder account nurture</h3>
+        <p>B2B deals involve 7+ stakeholders. MCAE tracks engagement across all contacts at an account — so sales can see when the CFO, CIO, and VP Operations are all engaging, signaling a committee is forming.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITIONS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow"><div class="section-eyebrow-line"></div><div class="section-eyebrow-text">Editions</div></div>
+      <div class="section-title">Four tiers, one <em>platform</em></div>
+      <p class="section-body">MCAE scales from lean marketing teams running basic nurture to enterprise ABM programs with AI and advanced attribution.</p>
+    </div>
+    <div class="edition-grid">
+      <div class="edition">
+        <div class="edition-name">Growth</div>
+        <div class="edition-price">Starting at $1,250/mo (up to 10K contacts)</div>
+        <ul class="edition-features">
+          <li><strong>Email marketing + drip programs</strong></li>
+          <li><strong>Lead scoring &amp; grading</strong></li>
+          <li><strong>Forms &amp; landing pages</strong></li>
+          <li><strong>Salesforce CRM sync</strong></li>
+          <li><strong>Basic Engagement Studio</strong></li>
+          <li>Standard email templates</li>
+          <li>Basic reporting dashboards</li>
+          <li>50 automation rules</li>
+        </ul>
+      </div>
+      <div class="edition featured">
+        <div class="edition-badge">Most Popular</div>
+        <div class="edition-name">Plus</div>
+        <div class="edition-price">Starting at $2,500/mo (up to 10K contacts)</div>
+        <ul class="edition-features">
+          <li><strong>Everything in Growth</strong></li>
+          <li><strong>Advanced Engagement Studio</strong></li>
+          <li><strong>B2B Marketing Analytics</strong></li>
+          <li><strong>Multi-touch attribution</strong></li>
+          <li><strong>API access (25K calls/day)</strong></li>
+          <li>A/B testing for emails + landing pages</li>
+          <li>Advanced list segmentation</li>
+          <li>150 automation rules</li>
+        </ul>
+      </div>
+      <div class="edition">
+        <div class="edition-name">Advanced</div>
+        <div class="edition-price">Starting at $4,000/mo (up to 10K contacts)</div>
+        <ul class="edition-features">
+          <li><strong>Everything in Plus</strong></li>
+          <li><strong>Einstein AI lead scoring</strong></li>
+          <li><strong>Account-based marketing features</strong></li>
+          <li><strong>Advanced B2B Analytics dashboards</strong></li>
+          <li><strong>Custom roles &amp; permissions</strong></li>
+          <li>Dedicated IP sending</li>
+          <li>Business units (multi-brand)</li>
+          <li>Unlimited automation rules</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:16px;background:var(--dark2);border:1px solid var(--border);border-radius:10px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap">
+      <div>
+        <div style="font-size:.82rem;font-weight:700;color:#fff;margin-bottom:4px">Premium Edition</div>
+        <div style="font-size:.78rem;color:var(--muted)">Full Einstein AI suite, predictive analytics, custom objects, sandbox, and dedicated Salesforce success team. For enterprise B2B programs at scale.</div>
+      </div>
+      <div style="font-size:.72rem;color:var(--muted);white-space:nowrap">Custom pricing</div>
+    </div>
+  </div>
+</section>
+
+<!-- VS TABLE -->
+<section class="section section-alt">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow"><div class="section-eyebrow-line"></div><div class="section-eyebrow-text">Competitive Comparison</div></div>
+      <div class="section-title">MCAE vs. the <em>alternatives</em></div>
+    </div>
+    <table class="vs-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="col-mcae">MCAE (Pardot)</th>
+          <th>HubSpot Marketing</th>
+          <th>Marketo Engage</th>
+          <th>Mailchimp</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Native Salesforce CRM sync</td><td><span class="check">&#10003;</span> Native</td><td><span class="partial">~</span> Connector</td><td><span class="partial">~</span> Connector</td><td><span class="no">&#10005;</span></td></tr>
+        <tr><td>Lead scoring + grading</td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td><td><span class="no">&#10005;</span></td></tr>
+        <tr><td>Engagement Studio automation</td><td><span class="check">&#10003;</span> Visual</td><td><span class="check">&#10003;</span> Visual</td><td><span class="check">&#10003;</span> Complex</td><td><span class="partial">~</span> Basic</td></tr>
+        <tr><td>Account-based marketing</td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span> Add-on</td><td><span class="check">&#10003;</span> Add-on</td><td><span class="no">&#10005;</span></td></tr>
+        <tr><td>Einstein AI scoring</td><td><span class="check">&#10003;</span> Advanced</td><td><span class="partial">~</span> Basic AI</td><td><span class="partial">~</span> Predictive</td><td><span class="no">&#10005;</span></td></tr>
+        <tr><td>Campaign influence reporting</td><td><span class="check">&#10003;</span> Multi-touch</td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td><td><span class="no">&#10005;</span></td></tr>
+        <tr><td>Built for B2B sales cycles</td><td><span class="check">&#10003;</span> Core focus</td><td><span class="partial">~</span> B2B + B2C</td><td><span class="check">&#10003;</span> Enterprise</td><td><span class="no">&#10005;</span> B2C focus</td></tr>
+        <tr><td>Engagement history on CRM record</td><td><span class="check">&#10003;</span> Native</td><td><span class="partial">~</span> Via HubSpot CRM</td><td><span class="partial">~</span> Connector only</td><td><span class="no">&#10005;</span></td></tr>
+        <tr><td>Rep alert on high-intent activity</td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td><td><span class="check">&#10003;</span></td><td><span class="no">&#10005;</span></td></tr>
+        <tr><td>Multi-business unit support</td><td><span class="check">&#10003;</span> Advanced+</td><td><span class="partial">~</span> Add-on</td><td><span class="check">&#10003;</span></td><td><span class="no">&#10005;</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- INTEGRATIONS -->
+<section class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-eyebrow"><div class="section-eyebrow-line"></div><div class="section-eyebrow-text">Integrations</div></div>
+      <div class="section-title">Connects to your<br>existing <em>stack</em></div>
+    </div>
+    <div class="int-grid">
+      <div class="int-card">
+        <div class="int-card-icon" style="background:rgba(0,161,224,.15);border:1px solid rgba(0,161,224,.2)"><span style="color:#00A1E0;font-size:.7rem;font-weight:800">SF</span></div>
+        <div class="int-card-name">Salesforce CRM</div>
+        <div class="int-card-type">Native — real-time sync</div>
+      </div>
+      <div class="int-card">
+        <div class="int-card-icon" style="background:rgba(234,67,53,.15);border:1px solid rgba(234,67,53,.2)"><span style="color:#e05c00;font-size:.7rem;font-weight:800">G</span></div>
+        <div class="int-card-name">Google Ads</div>
+        <div class="int-card-type">Ad audience sync</div>
+      </div>
+      <div class="int-card">
+        <div class="int-card-icon" style="background:rgba(0,119,181,.15);border:1px solid rgba(0,119,181,.2)"><span style="color:#60c8f0;font-size:.7rem;font-weight:800">LI</span></div>
+        <div class="int-card-name">LinkedIn Lead Gen</div>
+        <div class="int-card-type">Lead form sync</div>
+      </div>
+      <div class="int-card">
+        <div class="int-card-icon" style="background:rgba(0,194,178,.12);border:1px solid rgba(0,194,178,.2)"><span style="color:#00C2B2;font-size:.7rem;font-weight:800">ZM</span></div>
+        <div class="int-card-name">Zoom Webinars</div>
+        <div class="int-card-type">Attendance tracking</div>
+      </div>
+      <div class="int-card">
+        <div class="int-card-icon" style="background:rgba(123,94,167,.15);border:1px solid rgba(123,94,167,.2)"><span style="color:#b09de0;font-size:.7rem;font-weight:800">ON</span></div>
+        <div class="int-card-name">ON24</div>
+        <div class="int-card-type">Webinar engagement</div>
+      </div>
+      <div class="int-card">
+        <div class="int-card-icon" style="background:rgba(255,152,0,.12);border:1px solid rgba(255,152,0,.2)"><span style="color:#f0a500;font-size:.7rem;font-weight:800">GO</span></div>
+        <div class="int-card-name">GoToWebinar</div>
+        <div class="int-card-type">Attendance tracking</div>
+      </div>
+      <div class="int-card">
+        <div class="int-card-icon" style="background:rgba(46,204,113,.12);border:1px solid rgba(46,204,113,.2)"><span style="color:#5dcc8a;font-size:.7rem;font-weight:800">WP</span></div>
+        <div class="int-card-name">WordPress</div>
+        <div class="int-card-type">Form handler / tracking</div>
+      </div>
+      <div class="int-card">
+        <div class="int-card-icon" style="background:rgba(0,161,224,.12);border:1px solid rgba(0,161,224,.2)"><span style="color:#60c8f0;font-size:.7rem;font-weight:800">SF</span></div>
+        <div class="int-card-name">Slack</div>
+        <div class="int-card-type">Rep alert delivery</div>
+      </div>
+      <div class="int-card">
+        <div class="int-card-icon" style="background:rgba(224,92,0,.12);border:1px solid rgba(224,92,0,.2)"><span style="color:#ff8c35;font-size:.7rem;font-weight:800">EV</span></div>
+        <div class="int-card-name">Eventbrite</div>
+        <div class="int-card-type">Event registration sync</div>
+      </div>
+      <div class="int-card">
+        <div class="int-card-icon" style="background:rgba(123,94,167,.12);border:1px solid rgba(123,94,167,.2)"><span style="color:#b09de0;font-size:.7rem;font-weight:800">HS</span></div>
+        <div class="int-card-name">Hootsuite</div>
+        <div class="int-card-type">Social post tracking</div>
+      </div>
+      <div class="int-card">
+        <div class="int-card-icon" style="background:rgba(0,194,178,.1);border:1px solid rgba(0,194,178,.2)"><span style="color:#00C2B2;font-size:.7rem;font-weight:800">GA</span></div>
+        <div class="int-card-name">Google Analytics</div>
+        <div class="int-card-type">Web tracking sync</div>
+      </div>
+      <div class="int-card">
+        <div class="int-card-icon" style="background:rgba(255,255,255,.05);border:1px solid var(--border)"><span style="color:var(--muted);font-size:.7rem;font-weight:800">API</span></div>
+        <div class="int-card-name">REST API</div>
+        <div class="int-card-type">Custom integrations</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="cta-title">Ready to connect marketing<br>to pipeline?</div>
+  <p class="cta-sub">MCAE turns every marketing touchpoint into a CRM data point — so sales always knows who's ready to buy.</p>
+  <a href="mailto:atroggio@salesforce.com" class="cta-pill">Talk to Anthony Troggio</a>
+</div>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.feature-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
