@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dee Zee x Salesforce | A Brief from Anthony Troggio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #0f1117;
+  color: #e4e8f0;
+  line-height: 1.65;
+  font-size: 16px;
+}
+a { color: inherit; text-decoration: none; }
+
+:root {
+  --bg:     #0f1117;
+  --bg2:    #181c24;
+  --bg3:    #1e2330;
+  --blue:   #00A1E0;
+  --orange: #f06a00;
+  --muted:  #8892a4;
+  --border: rgba(255,255,255,.08);
+  --r:      10px;
+}
+
+.nav {
+  background: rgba(15,17,23,.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-left { display: flex; align-items: center; gap: 10px; }
+.nav-mark {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: .75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+.nav-sep { width: 1px; height: 18px; background: var(--border); }
+.nav-co {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #fff;
+}
+.nav-right { font-size: .7rem; color: var(--muted); }
+
+/* HERO */
+.hero {
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1800&q=80');
+  background-size: cover;
+  background-position: center 45%;
+  opacity: .65;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg, rgba(5,10,20,.90) 0%, rgba(5,10,20,.60) 55%, rgba(5,10,20,.25) 100%);
+}
+.hero-line {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--blue) 0%, var(--orange) 100%);
+  z-index: 2;
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  padding: 80px 48px;
+  max-width: 780px;
+}
+.hero-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 18px;
+}
+.hero h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 800;
+  line-height: 1.08;
+  color: #fff;
+  margin-bottom: 20px;
+  letter-spacing: -.3px;
+}
+.hero-sub {
+  font-size: 1rem;
+  color: #b0bcd0;
+  line-height: 1.7;
+  max-width: 580px;
+}
+
+/* SHARED */
+.section { padding: 72px 48px; }
+.section-alt { background: var(--bg2); }
+.inner { max-width: 880px; margin: 0 auto; }
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 12px;
+}
+
+/* NOTICED */
+.noticed-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 36px;
+}
+.noticed-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--orange);
+  border-radius: var(--r);
+  padding: 28px 24px;
+}
+.noticed-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: rgba(255,255,255,.08);
+  line-height: 1;
+  margin-bottom: 14px;
+}
+.noticed-body {
+  font-size: .88rem;
+  color: #b0bcd0;
+  line-height: 1.7;
+}
+.noticed-body strong { color: #fff; font-weight: 600; }
+
+/* POV */
+.pov-block {
+  margin-top: 36px;
+  padding: 40px 44px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--blue);
+  border-radius: var(--r);
+}
+.pov-quote {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.35;
+  letter-spacing: -.1px;
+}
+.pov-quote em { font-style: normal; color: var(--blue); }
+
+/* USE CASES */
+.use-cases {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.use-case {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 22px 24px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+.uc-bar {
+  width: 3px;
+  min-height: 36px;
+  background: var(--blue);
+  border-radius: 2px;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+.uc-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #fff;
+  margin-bottom: 4px;
+  letter-spacing: .1px;
+}
+.uc-body { font-size: .85rem; color: var(--muted); line-height: 1.6; }
+
+/* CTA */
+.cta-section { padding: 72px 48px; background: var(--bg); }
+.cta-block { max-width: 640px; margin: 0 auto; text-align: center; }
+.cta-caveat {
+  font-size: .95rem;
+  color: #b0bcd0;
+  line-height: 1.75;
+  margin-bottom: 32px;
+}
+.cta-caveat em { font-style: normal; color: #fff; }
+.cta-btn {
+  display: inline-block;
+  background: var(--blue);
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: .92rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 13px 32px;
+  border-radius: 6px;
+  margin-bottom: 36px;
+}
+.cta-contact {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: center;
+}
+.cta-photo {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  object-fit: cover; object-position: center top;
+  border: 2px solid var(--blue);
+  flex-shrink: 0;
+}
+.cta-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: .98rem;
+  color: #fff;
+  letter-spacing: .2px;
+  text-align: left;
+}
+.cta-role { font-size: .75rem; color: var(--muted); line-height: 1.5; text-align: left; }
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.footer-left {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: .75rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.footer-right { font-size: .68rem; color: rgba(136,146,164,.4); }
+
+@media (max-width: 768px) {
+  .nav, .section, .cta-section { padding-left: 20px; padding-right: 20px; }
+  .hero-inner { padding: 60px 20px; }
+  .noticed-grid { grid-template-columns: 1fr; }
+  .pov-block { padding: 28px 24px; }
+  footer { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-left">
+    <span class="nav-mark">Salesforce</span>
+    <div class="nav-sep"></div>
+    <span class="nav-co">Dee Zee</span>
+  </div>
+  <div class="nav-right">Prepared by Anthony Troggio &middot; July 2026</div>
+</nav>
+
+<!-- HERO: THE OPPORTUNITY -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-line"></div>
+  <div class="hero-inner">
+    <div class="hero-label">The Opportunity</div>
+    <h1>How Dee Zee Could Turn Two Separate Sales Channels Into One Competitive Advantage</h1>
+    <p class="hero-sub">Dee Zee runs two fundamentally different revenue motions -- OEM spec cycles and aftermarket dealer pull-through. The companies that win in truck accessories will be the ones who connect those two views of the market before their competitors do.</p>
+  </div>
+</section>
+
+<!-- WHAT WE NOTICED -->
+<section class="section section-alt">
+  <div class="inner">
+    <div class="section-label">What We Noticed</div>
+    <div class="noticed-grid">
+      <div class="noticed-card">
+        <div class="noticed-num">01</div>
+        <div class="noticed-body"><strong>OEM and aftermarket are two different games.</strong> The OEM side is long-cycle, spec-driven, and relationship-intensive. The aftermarket side is volume-driven, dealer-dependent, and seasonal. Managing both channels out of the same commercial motion -- or two entirely separate ones -- leaves revenue on the table either way.</div>
+      </div>
+      <div class="noticed-card">
+        <div class="noticed-num">02</div>
+        <div class="noticed-body"><strong>Aftermarket growth lives in the dealer base you already have.</strong> Dee Zee has an established dealer and retail distribution network. The question is whether the sales team has visibility into which accounts are growing, which are slowing, and which product families have room to expand -- before a competitor shows up with a better price.</div>
+      </div>
+      <div class="noticed-card">
+        <div class="noticed-num">03</div>
+        <div class="noticed-body"><strong>There's active investment in transformation.</strong> Roles like Head of Company Strategy and Transformation and Head of Operational Improvement signal that Dee Zee is actively building for what's next -- not just running the current playbook. That's the right window for a conversation about how the commercial infrastructure keeps pace.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE POV -->
+<section class="section">
+  <div class="inner">
+    <div class="section-label">The Point of View</div>
+    <div class="pov-block">
+      <div class="pov-quote">The biggest growth lever may not be landing new dealers or new OEM contracts. It may be using the order history, engagement data, and product signals from the accounts you already have to know <em>exactly where to focus</em> -- and reaching those accounts before someone else does.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT THIS COULD ENABLE -->
+<section class="section section-alt">
+  <div class="inner">
+    <div class="section-label">What This Could Enable</div>
+    <div class="use-cases">
+      <div class="use-case">
+        <div class="uc-bar"></div>
+        <div>
+          <div class="uc-title">Dealer Reorder and Assortment Intelligence</div>
+          <div class="uc-body">Know which aftermarket dealers are due for reorder, which product lines have whitespace in their assortment, and which accounts are showing early signs of churn -- so reps are working the right accounts at the right time.</div>
+        </div>
+      </div>
+      <div class="use-case">
+        <div class="uc-bar"></div>
+        <div>
+          <div class="uc-title">OEM Quote and Relationship Visibility</div>
+          <div class="uc-body">Give the OEM team a single view of every active spec conversation, contract status, and relationship across the truck manufacturer base -- so nothing falls through the cracks in a 12-to-18-month sales cycle.</div>
+        </div>
+      </div>
+      <div class="use-case">
+        <div class="uc-bar"></div>
+        <div>
+          <div class="uc-title">A Connected View Across Both Channels</div>
+          <div class="uc-body">Surface patterns across the OEM and aftermarket books of business that no one is seeing today -- accounts that buy in both channels, product families with momentum in OEM that could pull through in aftermarket, and market signals that inform both teams at once.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE NEXT STEP -->
+<section class="cta-section">
+  <div class="cta-block">
+    <div class="section-label" style="text-align:center">The Next Step</div>
+    <p class="cta-caveat">This is based on outside research, so <em>some assumptions may be wrong.</em> Worth 20 minutes to pressure test it?</p>
+    <a href="mailto:atroggio@salesforce.com?subject=Dee Zee - Pressure Test the POV" class="cta-btn">Pressure Test the POV</a>
+    <div class="cta-contact">
+      <img src="anthony.png" alt="Anthony Troggio" class="cta-photo">
+      <div>
+        <div class="cta-name">Anthony Troggio</div>
+        <div class="cta-role">Digital Account Executive, Salesforce<br>Manufacturing &amp; Automotive West &middot; atroggio@salesforce.com</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">Salesforce &middot; Dee Zee &middot; July 2026</div>
+  <div class="footer-right">Confidential. Prepared for planning purposes only. Salesforce is a trademark of Salesforce, Inc.</div>
+</footer>
+
+</body>
+</html>
