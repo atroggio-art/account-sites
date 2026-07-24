@@ -30,6 +30,7 @@ a { color: inherit; text-decoration: none; }
   --r:      10px;
 }
 
+/* NAV */
 .nav {
   background: rgba(15,17,23,.95);
   backdrop-filter: blur(12px);
@@ -64,7 +65,7 @@ a { color: inherit; text-decoration: none; }
 /* HERO */
 .hero {
   position: relative;
-  min-height: 520px;
+  min-height: 580px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -78,7 +79,7 @@ a { color: inherit; text-decoration: none; }
 }
 .hero-overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(105deg, rgba(5,10,20,.90) 0%, rgba(5,10,20,.62) 55%, rgba(5,10,20,.28) 100%);
+  background: linear-gradient(105deg, rgba(5,10,20,.92) 0%, rgba(5,10,20,.65) 55%, rgba(5,10,20,.30) 100%);
 }
 .hero-line {
   position: absolute; top: 0; left: 0; right: 0; height: 3px;
@@ -88,8 +89,8 @@ a { color: inherit; text-decoration: none; }
 .hero-inner {
   position: relative;
   z-index: 1;
-  padding: 80px 48px;
-  max-width: 780px;
+  padding: 88px 48px;
+  max-width: 760px;
 }
 .hero-label {
   font-family: 'Barlow Condensed', sans-serif;
@@ -98,28 +99,41 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--blue);
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 .hero h1 {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
   font-weight: 800;
-  line-height: 1.08;
+  line-height: 1.05;
   color: #fff;
-  margin-bottom: 20px;
+  margin-bottom: 6px;
   letter-spacing: -.3px;
 }
-.hero-sub {
-  font-size: 1rem;
-  color: #b0bcd0;
-  line-height: 1.7;
-  max-width: 580px;
+.hero-h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 600;
+  color: #7ecfef;
+  line-height: 1.2;
+  margin-bottom: 28px;
+  letter-spacing: -.1px;
 }
+.hero-body {
+  max-width: 540px;
+}
+.hero-body p {
+  font-size: .97rem;
+  color: #b0bcd0;
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+.hero-body p:last-child { margin-bottom: 0; }
 
 /* SHARED */
-.section { padding: 72px 48px; }
+.section { padding: 80px 48px; }
 .section-alt { background: var(--bg2); }
-.inner { max-width: 880px; margin: 0 auto; }
+.inner { max-width: 900px; margin: 0 auto; }
 .section-label {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: .68rem;
@@ -127,7 +141,7 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--blue);
-  margin-bottom: 12px;
+  margin-bottom: 48px;
 }
 
 /* NOTICED */
@@ -135,93 +149,135 @@ a { color: inherit; text-decoration: none; }
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  margin-top: 36px;
 }
 .noticed-card {
   background: var(--bg3);
   border: 1px solid var(--border);
   border-top: 2px solid var(--orange);
   border-radius: var(--r);
-  padding: 28px 24px;
+  padding: 32px 28px;
 }
 .noticed-num {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 800;
-  color: rgba(255,255,255,.08);
+  color: rgba(255,255,255,.07);
   line-height: 1;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
-.noticed-body {
-  font-size: .88rem;
-  color: #b0bcd0;
-  line-height: 1.7;
+.noticed-card h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  letter-spacing: .1px;
 }
-.noticed-body strong { color: #fff; font-weight: 600; }
+.noticed-card p {
+  font-size: .85rem;
+  color: #9aa4b8;
+  line-height: 1.75;
+  margin-bottom: 8px;
+}
+.noticed-card p:last-child { margin-bottom: 0; }
 
 /* POV */
 .pov-block {
-  margin-top: 36px;
-  padding: 40px 44px;
+  padding: 48px 52px;
   background: var(--bg3);
   border: 1px solid var(--border);
   border-left: 4px solid var(--blue);
   border-radius: var(--r);
 }
-.pov-quote {
+.pov-block h2 {
   font-family: 'Barlow Condensed', sans-serif;
-  font-size: clamp(1.3rem, 2.5vw, 1.75rem);
-  font-weight: 700;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 800;
   color: #fff;
-  line-height: 1.35;
-  letter-spacing: -.1px;
+  line-height: 1.15;
+  margin-bottom: 24px;
+  letter-spacing: -.2px;
 }
-.pov-quote em { font-style: normal; color: var(--blue); }
+.pov-block h2 em { font-style: normal; color: var(--blue); }
+.pov-block p {
+  font-size: .92rem;
+  color: #9aa4b8;
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+.pov-block p:last-child { margin-bottom: 0; }
+.pov-block p strong { color: #d0d8e8; font-weight: 600; }
 
 /* USE CASES */
 .use-cases {
-  margin-top: 36px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 20px;
 }
 .use-case {
   display: flex;
   align-items: flex-start;
-  gap: 18px;
-  padding: 22px 24px;
+  gap: 24px;
+  padding: 32px 28px;
   background: var(--bg3);
   border: 1px solid var(--border);
   border-radius: var(--r);
 }
 .uc-bar {
   width: 3px;
-  min-height: 36px;
+  min-height: 40px;
   background: var(--blue);
   border-radius: 2px;
   flex-shrink: 0;
   align-self: stretch;
 }
-.uc-title {
+.uc-content h3 {
   font-family: 'Barlow Condensed', sans-serif;
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   color: #fff;
-  margin-bottom: 4px;
+  margin-bottom: 12px;
   letter-spacing: .1px;
 }
-.uc-body { font-size: .85rem; color: var(--muted); line-height: 1.6; }
+.uc-content p {
+  font-size: .87rem;
+  color: #9aa4b8;
+  line-height: 1.75;
+  margin-bottom: 8px;
+}
+.uc-content p:last-child { margin-bottom: 0; }
 
 /* CTA */
-.cta-section { padding: 72px 48px; background: var(--bg); }
-.cta-block { max-width: 640px; margin: 0 auto; text-align: center; }
-.cta-caveat {
-  font-size: .95rem;
-  color: #b0bcd0;
-  line-height: 1.75;
-  margin-bottom: 32px;
+.cta-section { padding: 80px 48px; background: var(--bg); }
+.cta-block { max-width: 660px; margin: 0 auto; }
+.cta-block h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 24px;
+  letter-spacing: -.2px;
 }
-.cta-caveat em { font-style: normal; color: #fff; }
+.cta-block p {
+  font-size: .92rem;
+  color: #9aa4b8;
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+.cta-questions {
+  margin: 20px 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cta-questions span {
+  font-size: .9rem;
+  color: #b0bcd0;
+  line-height: 1.6;
+}
+.cta-btn-wrap { margin: 36px 0; text-align: center; }
 .cta-btn {
   display: inline-block;
   background: var(--blue);
@@ -231,15 +287,15 @@ a { color: inherit; text-decoration: none; }
   font-size: .92rem;
   letter-spacing: 1.2px;
   text-transform: uppercase;
-  padding: 13px 32px;
+  padding: 13px 36px;
   border-radius: 6px;
-  margin-bottom: 36px;
 }
 .cta-contact {
   display: flex;
   align-items: center;
   gap: 14px;
   justify-content: center;
+  margin-top: 36px;
 }
 .cta-photo {
   width: 52px; height: 52px;
@@ -279,9 +335,9 @@ footer {
 
 @media (max-width: 768px) {
   .nav, .section, .cta-section { padding-left: 20px; padding-right: 20px; }
-  .hero-inner { padding: 60px 20px; }
+  .hero-inner { padding: 64px 20px; }
   .noticed-grid { grid-template-columns: 1fr; }
-  .pov-block { padding: 28px 24px; }
+  .pov-block { padding: 32px 28px; }
   footer { padding: 20px; }
 }
 </style>
@@ -297,73 +353,102 @@ footer {
   <div class="nav-right">Prepared by Anthony Troggio &middot; July 2026</div>
 </nav>
 
-<!-- HERO: THE OPPORTUNITY -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-line"></div>
   <div class="hero-inner">
     <div class="hero-label">The Opportunity</div>
-    <h1>You Built the Foundation.<br>The Dealer Ordering Layer Is the Missing Piece.</h1>
-    <p class="hero-sub">Demco has a CRM, an ERP integration, and a team that knows how to run on Salesforce. Everything needed to give dealers a world-class ordering and quoting experience already exists. it just hasn't been connected to the front door yet.</p>
+    <h1>You Built the Foundation.</h1>
+    <div class="hero-h2">Now Give Your Dealers a Better Way In.</div>
+    <div class="hero-body">
+      <p>Demco already has the hard part in place.</p>
+      <p>The CRM is live. The ERP is connected. The data exists.</p>
+      <p>What appears to be missing is the part dealers actually touch.</p>
+      <p>If they are still relying on calls, emails, spreadsheets, and someone internally to piece together every quote, that is probably creating a lot more work than it needs to.</p>
+      <p>The good news is this does not require starting over. It just means making the systems you already have easier for dealers to use.</p>
+    </div>
   </div>
 </section>
 
-<!-- WHAT WE SEE -->
+<!-- WHAT STOOD OUT -->
 <section class="section section-alt">
   <div class="inner">
-    <div class="section-label">What We See in the Work So Far</div>
+    <div class="section-label">What Stood Out to Us</div>
     <div class="noticed-grid">
       <div class="noticed-card">
         <div class="noticed-num">01</div>
-        <div class="noticed-body"><strong>The ERP integration is the unlock.</strong> Your CRM is already connected to your ERP. That means product data, pricing, and inventory are accessible in real time. exactly what a dealer portal needs to show accurate availability and generate a valid quote without a rep in the middle.</div>
+        <h3>The Data Is Already There</h3>
+        <p>Because the CRM is connected to the ERP, much of the information dealers need should already be available.</p>
+        <p>Products. Pricing. Inventory. Order history.</p>
+        <p>Right now, that information may still require someone at Demco to track it down and send it over. A portal puts it directly in the dealer's hands.</p>
+        <p>Less chasing. Less waiting. Fewer emails that begin with "Just following up."</p>
       </div>
       <div class="noticed-card">
         <div class="noticed-num">02</div>
-        <div class="noticed-body"><strong>Standalone tools keep creating the same problem.</strong> A dealer ordering experience that lives outside your existing platform means a new integration to maintain and a new data silo to manage. The solution has to be native to what you've already built. not another system talking to it.</div>
+        <h3>Another Standalone Tool Is Probably Not the Answer</h3>
+        <p>A separate dealer platform may sound simple at first.</p>
+        <p>Then come the integrations, duplicate data, maintenance, and the inevitable debate over which system is actually right.</p>
+        <p>Suddenly, the tool built to simplify things becomes one more thing everyone has to manage.</p>
+        <p>Demco already has the platform. The smarter move is to build on it, not around it.</p>
       </div>
       <div class="noticed-card">
         <div class="noticed-num">03</div>
-        <div class="noticed-body"><strong>Complex configurations are a daily friction point.</strong> Grain carts, sprayers, and trailers ship in hundreds of valid configurations. Every dealer order that requires a phone call to confirm fitment or pricing is a rep hour spent on something the system should handle. and a quote that may contain an error no one catches until it's too late.</div>
+        <h3>The Products Are Complicated Enough</h3>
+        <p>Grain carts, sprayers, trailers, and all the possible configurations are not exactly an add to cart situation.</p>
+        <p>Dealers need to know what works together, what is available, and what it costs. Today, that may mean calling a rep and waiting while someone checks three different places.</p>
+        <p>That is fine once. It gets a lot less fine when it happens all day.</p>
+        <p>Guided selling could help dealers build the right configuration from the start while keeping your team out of cleanup mode. Because fixing a bad order after the fact is rarely anyone's favorite use of time.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- THE POV -->
+<!-- POV -->
 <section class="section">
   <div class="inner">
     <div class="section-label">The Point of View</div>
     <div class="pov-block">
-      <div class="pov-quote">The dealer portal isn't a new project. it's the natural next layer on the platform you already run on. The right approach isn't to add another tool. It's to extend what already works, <em>using the data that's already there</em>, so dealers can self-serve and your team stops spending time on orders that shouldn't need a human touch.</div>
+      <h2>This Is Not a Massive Transformation.<br><em>It Is the Next Logical Step.</em></h2>
+      <p>Demco has already invested in the platform and the integration.</p>
+      <p>The opportunity now is to turn that investment into a better dealer experience.</p>
+      <p><strong>Dealers</strong> get faster answers and an easier way to order. <strong>Sales</strong> gets fewer administrative requests. <strong>Operations</strong> gets cleaner orders. <strong>Leadership</strong> gets better visibility across the dealer network.</p>
+      <p>Everyone wins. Or, at the very least, everyone sends fewer emails.</p>
     </div>
   </div>
 </section>
 
-<!-- WHAT THIS COULD ENABLE -->
+<!-- WHAT THIS COULD LOOK LIKE -->
 <section class="section section-alt">
   <div class="inner">
-    <div class="section-label">What This Could Enable</div>
+    <div class="section-label">What This Could Look Like</div>
     <div class="use-cases">
       <div class="use-case">
         <div class="uc-bar"></div>
-        <div>
-          <div class="uc-title">A Dealer Portal Native to Salesforce</div>
-          <div class="uc-body">Dealers log in, see their account-specific pricing and catalog, place orders against real-time inventory, and track status without calling a rep. Built on your existing platform. no new integration to maintain, no separate system to keep in sync.</div>
+        <div class="uc-content">
+          <h3>A Dealer Portal That Is Actually Useful</h3>
+          <p>Each dealer logs in and sees the products, pricing, and information relevant to their account.</p>
+          <p>They can check availability, place orders, review past purchases, and track status without calling Demco every step of the way.</p>
+          <p>That means fewer interruptions for your team and fewer reasons for dealers to wonder what is happening. A surprisingly large part of customer experience is simply letting people know what is going on.</p>
         </div>
       </div>
       <div class="use-case">
         <div class="uc-bar"></div>
-        <div>
-          <div class="uc-title">Guided Configuration That Eliminates Mis-Quotes</div>
-          <div class="uc-body">Configuration rules built into the quoting layer mean dealers can only build valid combinations. No more calls to confirm fitment. No more orders that come back because the spec was wrong. And every quote is generated from the same pricing logic your sales team already uses.</div>
+        <div class="uc-content">
+          <h3>Guided Configuration Without the Guesswork</h3>
+          <p>Instead of expecting every dealer to remember every product rule, the system walks them through it.</p>
+          <p>Compatible options appear. Invalid combinations do not. Pricing follows the right account logic. Orders arrive cleaner and require less review.</p>
+          <p>In other words, the system remembers the complicated stuff so people do not have to.</p>
         </div>
       </div>
       <div class="use-case">
         <div class="uc-bar"></div>
-        <div>
-          <div class="uc-title">Revenue Visibility Across the Dealer Base</div>
-          <div class="uc-body">When dealer orders flow through Salesforce, your sales team finally gets a live view of which accounts are growing, which are slowing, and where there's whitespace in the product assortment. turning the order data into a signal your reps can act on.</div>
+        <div class="uc-content">
+          <h3>Better Visibility Into the Dealer Network</h3>
+          <p>Once dealer activity flows through the platform, order data becomes much more useful.</p>
+          <p>You can see which dealers are growing, which products are moving, where demand is slowing, and where there may be an opportunity to step in.</p>
+          <p>The portal helps dealers buy. The data helps Demco sell. That is where this starts getting interesting.</p>
         </div>
       </div>
     </div>
@@ -373,9 +458,20 @@ footer {
 <!-- THE NEXT STEP -->
 <section class="cta-section">
   <div class="cta-block">
-    <div class="section-label" style="text-align:center">The Next Step</div>
-    <p class="cta-caveat">We have a dealer portal conversation already started. This is the thinking behind where it should go. and why <em>building on what you already have</em> is the right path forward.</p>
-    <a href="mailto:atroggio@salesforce.com?subject=Demco Dealer Portal Next Steps" class="cta-btn">Let's Map It Out</a>
+    <div class="section-label">The Next Step</div>
+    <h2>Let's Map the Real Process</h2>
+    <p>The best place to start is not with a generic demo. It is with the way dealers actually do business with Demco today.</p>
+    <div class="cta-questions">
+      <span>Where do they get stuck?</span>
+      <span>What creates the most calls?</span>
+      <span>Which orders require the most hand holding?</span>
+      <span>What information is hardest to find?</span>
+    </div>
+    <p>Once that is clear, we can map what a portal could look like using the systems and data Demco already has.</p>
+    <p>No giant transformation speech. No solution in search of a problem. Just a practical look at how to make Demco easier to do business with.</p>
+    <div class="cta-btn-wrap">
+      <a href="mailto:atroggio@salesforce.com?subject=Demco Dealer Portal Next Steps" class="cta-btn">Let's Map It Out</a>
+    </div>
     <div class="cta-contact">
       <img src="anthony.png" alt="Anthony Troggio" class="cta-photo">
       <div>
