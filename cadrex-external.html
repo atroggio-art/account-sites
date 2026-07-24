@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Cadrex x Salesforce | A Brief from Anthony Troggio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #0f1117;
+  color: #e4e8f0;
+  line-height: 1.65;
+  font-size: 16px;
+}
+a { color: inherit; text-decoration: none; }
+
+:root {
+  --bg:     #0f1117;
+  --bg2:    #181c24;
+  --bg3:    #1e2330;
+  --blue:   #00A1E0;
+  --orange: #f06a00;
+  --muted:  #8892a4;
+  --border: rgba(255,255,255,.08);
+  --r:      10px;
+}
+
+.nav {
+  background: rgba(15,17,23,.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.nav-left { display: flex; align-items: center; gap: 10px; }
+.nav-mark {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: .75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+.nav-sep { width: 1px; height: 18px; background: var(--border); }
+.nav-co {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #fff;
+}
+.nav-right { font-size: .7rem; color: var(--muted); }
+
+/* HERO */
+.hero {
+  position: relative;
+  min-height: 580px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1565514020179-026b92b84bb6?auto=format&fit=crop&w=1800&q=80');
+  background-size: cover;
+  background-position: center 50%;
+  opacity: .65;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(105deg, rgba(5,10,20,.92) 0%, rgba(5,10,20,.65) 55%, rgba(5,10,20,.28) 100%);
+}
+.hero-line {
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--blue) 0%, var(--orange) 100%);
+  z-index: 2;
+}
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  padding: 88px 48px;
+  max-width: 760px;
+}
+.hero-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 800;
+  line-height: 1.05;
+  color: #fff;
+  margin-bottom: 6px;
+  letter-spacing: -.3px;
+}
+.hero-h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 600;
+  color: #7ecfef;
+  line-height: 1.2;
+  margin-bottom: 36px;
+  letter-spacing: -.1px;
+}
+.hero-body { max-width: 560px; }
+.hero-lead {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #dce4f0;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.hero-divider {
+  width: 32px;
+  height: 2px;
+  background: var(--blue);
+  margin-bottom: 20px;
+  opacity: .6;
+}
+.hero-body p {
+  font-size: .92rem;
+  color: #8a96aa;
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+.hero-body p:last-child { margin-bottom: 0; }
+
+/* SHARED */
+.section { padding: 80px 48px; }
+.section-alt { background: var(--bg2); }
+.inner { max-width: 900px; margin: 0 auto; }
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 48px;
+}
+
+/* NOTICED */
+.noticed-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.noticed-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--orange);
+  border-radius: var(--r);
+  padding: 32px 28px;
+}
+.noticed-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: rgba(255,255,255,.07);
+  line-height: 1;
+  margin-bottom: 16px;
+}
+.noticed-card h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  letter-spacing: .1px;
+}
+.noticed-card p {
+  font-size: .85rem;
+  color: #9aa4b8;
+  line-height: 1.75;
+  margin-bottom: 8px;
+}
+.noticed-card p:last-child { margin-bottom: 0; }
+
+/* POV */
+.pov-block {
+  padding: 48px 52px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--blue);
+  border-radius: var(--r);
+}
+.pov-block h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 24px;
+  letter-spacing: -.2px;
+}
+.pov-block h2 em { font-style: normal; color: var(--blue); }
+.pov-block p {
+  font-size: .92rem;
+  color: #9aa4b8;
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+.pov-block p:last-child { margin-bottom: 0; }
+.pov-block p strong { color: #d0d8e8; font-weight: 600; }
+
+/* USE CASES */
+.use-cases {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.use-case {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 32px 28px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+}
+.uc-bar {
+  width: 3px;
+  min-height: 40px;
+  background: var(--blue);
+  border-radius: 2px;
+  flex-shrink: 0;
+  align-self: stretch;
+}
+.uc-content h3 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: #fff;
+  margin-bottom: 12px;
+  letter-spacing: .1px;
+}
+.uc-content p {
+  font-size: .87rem;
+  color: #9aa4b8;
+  line-height: 1.75;
+  margin-bottom: 8px;
+}
+.uc-content p:last-child { margin-bottom: 0; }
+
+/* CTA */
+.cta-section { padding: 80px 48px; background: var(--bg); }
+.cta-block { max-width: 660px; margin: 0 auto; }
+.cta-block h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.15;
+  margin-bottom: 24px;
+  letter-spacing: -.2px;
+}
+.cta-block p {
+  font-size: .92rem;
+  color: #9aa4b8;
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+.cta-questions {
+  margin: 20px 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.cta-questions span {
+  font-size: .9rem;
+  color: #b0bcd0;
+  line-height: 1.6;
+}
+.cta-btn-wrap { margin: 36px 0; text-align: center; }
+.cta-btn {
+  display: inline-block;
+  background: var(--blue);
+  color: #fff;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: .92rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 13px 36px;
+  border-radius: 6px;
+}
+.cta-contact {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 36px;
+}
+.cta-photo {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  object-fit: cover; object-position: center top;
+  border: 2px solid var(--blue);
+  flex-shrink: 0;
+}
+.cta-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: .98rem;
+  color: #fff;
+  letter-spacing: .2px;
+  text-align: left;
+}
+.cta-role { font-size: .75rem; color: var(--muted); line-height: 1.5; text-align: left; }
+
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.footer-left {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: .75rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.footer-right { font-size: .68rem; color: rgba(136,146,164,.4); }
+
+@media (max-width: 768px) {
+  .nav, .section, .cta-section { padding-left: 20px; padding-right: 20px; }
+  .hero-inner { padding: 64px 20px; }
+  .noticed-grid { grid-template-columns: 1fr; }
+  .pov-block { padding: 32px 28px; }
+  footer { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-left">
+    <span class="nav-mark">Salesforce</span>
+    <div class="nav-sep"></div>
+    <span class="nav-co">Cadrex</span>
+  </div>
+  <div class="nav-right">Prepared by Anthony Troggio &middot; July 2026</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-line"></div>
+  <div class="hero-inner">
+    <div class="hero-label">The Opportunity</div>
+    <h1>21 Facilities.</h1>
+    <div class="hero-h2">How Many Ways to Quote a Job?</div>
+    <div class="hero-body">
+      <div class="hero-lead">Cadrex has built something genuinely impressive. The manufacturing capability is there. The scale is there. The acquisition track record speaks for itself.</div>
+      <div class="hero-divider"></div>
+      <p>The question is whether the commercial side of the business has kept pace with the operational side.</p>
+      <p>When a customer asks for a quote that spans sheet metal, machining, and assembly across multiple facilities, how long does that take? Who touches it? How consistent is the output?</p>
+      <p>That is usually where the friction is hiding.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE NOTICED -->
+<section class="section section-alt">
+  <div class="inner">
+    <div class="section-label">What We Noticed</div>
+    <div class="noticed-grid">
+      <div class="noticed-card">
+        <div class="noticed-num">01</div>
+        <h3>Every Acquisition Brought Its Own Commercial Process</h3>
+        <p>Tenere, DFF, CGI, PT Die, and the others each had their own way of quoting, tracking customers, and managing pipeline before they became Cadrex.</p>
+        <p>That history does not disappear when the sign out front changes. It lives in the data, the habits, and the handoffs.</p>
+        <p>A unified commercial motion is harder to build than a unified manufacturing floor. But it matters just as much to the customer experience.</p>
+      </div>
+      <div class="noticed-card">
+        <div class="noticed-num">02</div>
+        <h3>Custom Work at This Scale Makes Quoting Complex</h3>
+        <p>When every job is different and every customer has specific requirements, estimating and quoting become a significant operational function on their own.</p>
+        <p>Across 21 facilities, the risk is that each location has developed its own approach. Which means customers in different regions may be getting a different experience even though they are working with the same company.</p>
+        <p>Consistency at scale is a real competitive advantage when you can deliver it.</p>
+      </div>
+      <div class="noticed-card">
+        <div class="noticed-num">03</div>
+        <h3>The Customers Cadrex Serves Expect a Lot</h3>
+        <p>Data center infrastructure, aerospace, and medical device companies are not forgiving buyers. Long sales cycles, complex requirements, tight tolerances on price and delivery.</p>
+        <p>Those customers want a single point of contact who can speak to everything Cadrex offers across every facility.</p>
+        <p>That is a hard thing to deliver without a commercial platform that spans the whole business.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POV -->
+<section class="section">
+  <div class="inner">
+    <div class="section-label">The Point of View</div>
+    <div class="pov-block">
+      <h2>The Manufacturing Integration Is Done.<br><em>The Commercial Integration Is the Next Chapter.</em></h2>
+      <p>Cadrex has done the hard work of bringing multiple manufacturing operations under one roof and one brand.</p>
+      <p>The next opportunity is making sure that when a customer interacts with Cadrex, they feel the full weight of what that platform can do for them. Not just the facility they called first.</p>
+      <p><strong>Sales</strong> needs visibility across the full business to position capabilities correctly. <strong>Estimating</strong> needs a consistent process that scales without adding headcount. <strong>Leadership</strong> needs a clear view of pipeline and revenue across all 21 locations.</p>
+      <p>None of that happens without a commercial layer that spans the whole company.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT THIS COULD ENABLE -->
+<section class="section section-alt">
+  <div class="inner">
+    <div class="section-label">What This Could Enable</div>
+    <div class="use-cases">
+      <div class="use-case">
+        <div class="uc-bar"></div>
+        <div class="uc-content">
+          <h3>A Consistent Quoting Process Across Every Facility</h3>
+          <p>Standardized estimating and quoting logic built once, used everywhere. The same rules, the same margin guardrails, the same output quality whether the job is running through Romeoville or Monterrey.</p>
+          <p>Faster turnaround on estimates. Fewer errors that have to be walked back. And when a customer asks for a quote that spans multiple capabilities, one response instead of three separate threads.</p>
+        </div>
+      </div>
+      <div class="use-case">
+        <div class="uc-bar"></div>
+        <div class="uc-content">
+          <h3>Pipeline Visibility Across the Full Business</h3>
+          <p>Right now, leadership probably sees a version of pipeline that is assembled from whatever each facility or region reports up. That is slow, inconsistent, and usually out of date by the time it lands.</p>
+          <p>A unified commercial view means knowing in real time which accounts are active, which opportunities are at risk, and where the business is trending before the quarter closes.</p>
+        </div>
+      </div>
+      <div class="use-case">
+        <div class="uc-bar"></div>
+        <div class="uc-content">
+          <h3>Customer Relationships That Follow the Account, Not the Acquisition</h3>
+          <p>A customer who came in through one of the acquired brands should have a seamless experience with Cadrex today. That requires a customer record that reflects everything the company knows about them, not just what one facility tracked.</p>
+          <p>It also means that when a new acquisition happens, the integration playbook includes the commercial data, not just the operations.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEXT STEP -->
+<section class="cta-section">
+  <div class="cta-block">
+    <div class="section-label">The Next Step</div>
+    <h2>Worth a Conversation</h2>
+    <p>This is based on outside research, so some of the assumptions here may be off. The internal picture is always more nuanced than what is visible from the outside.</p>
+    <div class="cta-questions">
+      <span>Where does the quoting process break down today?</span>
+      <span>How consistent is the customer experience across facilities?</span>
+      <span>What does pipeline visibility actually look like for leadership?</span>
+    </div>
+    <p>Twenty minutes to pressure test the thinking is usually enough to know whether there is something real here.</p>
+    <div class="cta-btn-wrap">
+      <a href="mailto:atroggio@salesforce.com?subject=Cadrex POV Discussion" class="cta-btn">Pressure Test the POV</a>
+    </div>
+    <div class="cta-contact">
+      <img src="anthony.png" alt="Anthony Troggio" class="cta-photo">
+      <div>
+        <div class="cta-name">Anthony Troggio</div>
+        <div class="cta-role">Digital Account Executive, Salesforce<br>Manufacturing &amp; Automotive West &middot; atroggio@salesforce.com</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-left">Salesforce &middot; Cadrex &middot; July 2026</div>
+  <div class="footer-right">Confidential. Prepared for planning purposes only. Salesforce is a trademark of Salesforce, Inc.</div>
+</footer>
+
+</body>
+</html>
