@@ -74,9 +74,8 @@ nav { position: sticky; top: 0; z-index: 100; background: rgba(6,14,26,.92); bac
 
 /* HERO */
 .hero { position: relative; min-height: 72vh; display: flex; align-items: center; overflow: hidden; }
-.hero-bg { position: absolute; inset: 0; z-index: 0; }
-.hero-bg img { width: 100%; height: 100%; object-fit: cover; opacity: .65; }
-.hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(6,14,26,.85) 0%, rgba(6,14,26,.55) 60%, rgba(6,14,26,.82) 100%); }
+.hero-bg { position: absolute; inset: 0; z-index: 0; background: linear-gradient(135deg, #0a1628 0%, #060e1a 50%, #0d1a2e 100%); }
+.hero-bg::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 40%, rgba(240,165,0,.06) 0%, transparent 60%); }
 .hero-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 100px 48px 80px; width: 100%; }
 .hero-eyebrow { font-size: .68rem; text-transform: uppercase; letter-spacing: .16em; color: var(--gold); font-weight: 700; margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
 .hero-eyebrow::before { content: ''; width: 28px; height: 2px; background: var(--gold); }
@@ -220,9 +219,7 @@ footer { background: var(--bg); border-top: 1px solid var(--border); padding: 24
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg">
-    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80" alt="Commercial vehicle fleet" />
-  </div>
+  <div class="hero-bg"></div>
   <div class="hero-inner">
     <div class="hero-eyebrow">ParksPro Digital Vision</div>
     <h1 class="hero-h1">Two capabilities that change <span>the math</span> on your Builder launch</h1>
