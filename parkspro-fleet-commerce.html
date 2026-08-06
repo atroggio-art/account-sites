@@ -216,17 +216,17 @@ input[type=range] { width:100%;accent-color:var(--blue); }
 .flow-label { font-size:.75rem;font-weight:800;color:var(--navy);line-height:1.3; }
 .flow-sub { font-size:.65rem;color:var(--muted);line-height:1.4;padding:0 4px; }
 /* OPTIONS GRID - slides 30/31 detail */
-.options-showcase { display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:48px; }
+.options-showcase { display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px; }
 .showcase-card { background:var(--bg);border:1px solid var(--border);border-radius:14px;overflow:hidden; }
 .showcase-card-header { background:var(--navy2);padding:12px 16px; }
 .showcase-card-header h3 { color:#fff;font-size:.82rem;font-weight:700; }
 .showcase-card-header p { color:rgba(255,255,255,.6);font-size:.68rem;margin-top:2px; }
 .showcase-card-body { padding:16px; }
-.sc-option { display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:#fff;border:1.5px solid var(--border);margin-bottom:8px; }
+.sc-option { display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:#fff;border:1.5px solid var(--border);margin-bottom:8px;flex-wrap:nowrap;min-width:0; }
 .sc-option:last-child { margin-bottom:0; }
-.sc-option-dot { width:8px;height:8px;min-width:8px;border-radius:50%; }
-.sc-option-name { font-size:.78rem;font-weight:700;color:var(--navy);flex:1; }
-.sc-option-price { font-size:.72rem;color:var(--muted);font-weight:600; }
+.sc-option-dot { width:8px;height:8px;min-width:8px;border-radius:50%;flex-shrink:0; }
+.sc-option-name { font-size:.78rem;font-weight:700;color:var(--navy);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+.sc-option-price { font-size:.72rem;color:var(--muted);font-weight:600;white-space:nowrap;flex-shrink:0; }
 .sc-option.highlight { border-color:var(--blue);background:#eef5fb; }
 .sc-option.highlight .sc-option-price { color:var(--blue); }
 
@@ -479,72 +479,72 @@ footer p { font-size:.72rem;color:rgba(255,255,255,.35); }
             <div class="flow-sub">ParksPro takes it from there</div>
           </div>
         </div>
+      </div>
+    </div>
 
-        <!-- OPTIONS GRID from slides 30-31 -->
-        <div class="options-showcase" style="margin-top:40px;">
-          <div class="showcase-card">
-            <div class="showcase-card-header">
-              <h3>Vehicle Body</h3>
-              <p>Step 1: Choose your vehicle</p>
-            </div>
-            <div class="showcase-card-body">
-              <div class="sc-option highlight">
-                <div class="sc-option-dot" style="background:#1d6adb"></div>
-                <span class="sc-option-name">2026 Ford Transit Van</span>
-                <span class="sc-option-price">$79,500</span>
-              </div>
-              <div class="sc-option">
-                <div class="sc-option-dot" style="background:#d0daea"></div>
-                <span class="sc-option-name">2026 Chevy Silverado</span>
-                <span class="sc-option-price">$65,000</span>
-              </div>
-            </div>
+    <!-- OPTIONS GRID from slides 30-31 — full width -->
+    <div class="options-showcase">
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <h3>Vehicle Body</h3>
+          <p>Step 1: Choose your vehicle</p>
+        </div>
+        <div class="showcase-card-body">
+          <div class="sc-option highlight">
+            <div class="sc-option-dot" style="background:#1d6adb"></div>
+            <span class="sc-option-name">2026 Ford Transit Van</span>
+            <span class="sc-option-price">$79,500</span>
           </div>
-          <div class="showcase-card">
-            <div class="showcase-card-header">
-              <h3>Upfit Package</h3>
-              <p>Step 2: Equipment tier</p>
-            </div>
-            <div class="showcase-card-body">
-              <div class="sc-option">
-                <div class="sc-option-dot" style="background:#d0daea"></div>
-                <span class="sc-option-name">Essential Service</span>
-                <span class="sc-option-price">Included</span>
-              </div>
-              <div class="sc-option highlight">
-                <div class="sc-option-dot" style="background:#1d6adb"></div>
-                <span class="sc-option-name">Professional Technician</span>
-                <span class="sc-option-price">+$5,000</span>
-              </div>
-              <div class="sc-option">
-                <div class="sc-option-dot" style="background:#d0daea"></div>
-                <span class="sc-option-name">Smart Fleet AI</span>
-                <span class="sc-option-price">+$12,000</span>
-              </div>
-            </div>
+          <div class="sc-option">
+            <div class="sc-option-dot" style="background:#d0daea"></div>
+            <span class="sc-option-name">2026 Chevy Silverado</span>
+            <span class="sc-option-price">$65,000</span>
           </div>
-          <div class="showcase-card">
-            <div class="showcase-card-header">
-              <h3>Financing</h3>
-              <p>Step 4: How to pay</p>
-            </div>
-            <div class="showcase-card-body">
-              <div class="sc-option">
-                <div class="sc-option-dot" style="background:#d0daea"></div>
-                <span class="sc-option-name">Cash</span>
-                <span class="sc-option-price">Full upfront</span>
-              </div>
-              <div class="sc-option highlight">
-                <div class="sc-option-dot" style="background:#1d6adb"></div>
-                <span class="sc-option-name">Long Term Lease</span>
-                <span class="sc-option-price">36-60 mo</span>
-              </div>
-              <div class="sc-option">
-                <div class="sc-option-dot" style="background:#d0daea"></div>
-                <span class="sc-option-name">Finance</span>
-                <span class="sc-option-price">Custom terms</span>
-              </div>
-            </div>
+        </div>
+      </div>
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <h3>Upfit Package</h3>
+          <p>Step 2: Equipment tier</p>
+        </div>
+        <div class="showcase-card-body">
+          <div class="sc-option">
+            <div class="sc-option-dot" style="background:#d0daea"></div>
+            <span class="sc-option-name">Essential Service</span>
+            <span class="sc-option-price">Included</span>
+          </div>
+          <div class="sc-option highlight">
+            <div class="sc-option-dot" style="background:#1d6adb"></div>
+            <span class="sc-option-name">Professional Technician</span>
+            <span class="sc-option-price">+$5,000</span>
+          </div>
+          <div class="sc-option">
+            <div class="sc-option-dot" style="background:#d0daea"></div>
+            <span class="sc-option-name">Smart Fleet AI</span>
+            <span class="sc-option-price">+$12,000</span>
+          </div>
+        </div>
+      </div>
+      <div class="showcase-card">
+        <div class="showcase-card-header">
+          <h3>Financing</h3>
+          <p>Step 4: How to pay</p>
+        </div>
+        <div class="showcase-card-body">
+          <div class="sc-option">
+            <div class="sc-option-dot" style="background:#d0daea"></div>
+            <span class="sc-option-name">Cash</span>
+            <span class="sc-option-price">Full upfront</span>
+          </div>
+          <div class="sc-option highlight">
+            <div class="sc-option-dot" style="background:#1d6adb"></div>
+            <span class="sc-option-name">Long Term Lease</span>
+            <span class="sc-option-price">36–60 mo</span>
+          </div>
+          <div class="sc-option">
+            <div class="sc-option-dot" style="background:#d0daea"></div>
+            <span class="sc-option-name">Finance</span>
+            <span class="sc-option-price">Custom terms</span>
           </div>
         </div>
       </div>
