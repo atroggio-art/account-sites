@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ParksPro: Lease or Finance Your Truck in 5 Clicks</title>
+<style>
+/* PASSWORD GATE */
+#pw-gate { position:fixed;inset:0;z-index:9999;background:#0d2461;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif; }
+#pw-gate.hidden { display:none; }
+.pw-box { background:#fff;border-radius:14px;padding:48px 44px;width:100%;max-width:380px;text-align:center;box-shadow:0 24px 64px rgba(0,0,0,.3); }
+.pw-logo { display:inline-flex;align-items:center;gap:10px;margin-bottom:28px; }
+.pw-brand { font-size:1.35rem;font-weight:800;letter-spacing:.12em;color:#0d2461;text-transform:uppercase; }
+.pw-heading { font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:#6b7a99;margin-bottom:22px; }
+.pw-input { width:100%;background:#f4f7fb;border:1.5px solid #d0daea;border-radius:7px;padding:12px 16px;font-size:.95rem;color:#0d2461;outline:none;margin-bottom:12px;text-align:center;letter-spacing:.05em;box-sizing:border-box; }
+.pw-input:focus { border-color:#1d6adb; }
+.pw-btn { width:100%;background:#1d6adb;color:#fff;border:none;border-radius:7px;padding:12px;font-size:.9rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:background .18s; }
+.pw-btn:hover { background:#1558c0; }
+.pw-error { font-size:.78rem;color:#e53e3e;margin-top:10px;min-height:18px; }
+
+:root {
+  --navy:#0d2461; --navy2:#1a3578;
+  --blue:#1d6adb; --blue2:#2563eb; --cyan:#00b4d8;
+  --bg:#f4f8fc; --bg2:#ffffff; --bg3:#daeef8;
+  --border:#d0daea; --body:#334155; --muted:#6b7a99;
+}
+*,*::before,*::after { box-sizing:border-box;margin:0;padding:0; }
+html { scroll-behavior:smooth; }
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--body);line-height:1.5; }
+
+/* NAV */
+nav { position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 40px;height:60px;display:flex;align-items:center;justify-content:space-between; }
+.nav-left { display:flex;align-items:center;gap:10px; }
+.nav-brand { font-size:.95rem;font-weight:900;letter-spacing:.1em;color:var(--navy);text-transform:uppercase; }
+.nav-sub { font-size:.55rem;font-weight:600;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;display:block;line-height:1; }
+.nav-pill { background:var(--navy);color:#fff;border-radius:20px;padding:5px 14px;font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase; }
+
+/* HERO */
+.hero {
+  min-height:calc(100vh - 60px);
+  display:grid;grid-template-columns:1fr 1fr;
+  background:#fff;
+  overflow:hidden;
+}
+.hero-left {
+  background:
+    linear-gradient(to bottom, rgba(13,36,97,.72) 0%, rgba(13,36,97,.55) 60%, rgba(13,36,97,.85) 100%),
+    url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=80') center/cover no-repeat;
+  padding:60px 52px;
+  display:flex;flex-direction:column;justify-content:center;gap:32px;
+}
+.hero-eyebrow { display:inline-flex;align-items:center;gap:8px;background:rgba(0,180,216,.18);border:1px solid rgba(0,180,216,.4);border-radius:20px;padding:5px 14px;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#00b4d8;width:fit-content; }
+.hero h1 { font-size:clamp(2.2rem,4vw,3.4rem);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.01em; }
+.hero h1 em { color:#00b4d8;font-style:normal; }
+.hero-sub { font-size:1rem;color:rgba(255,255,255,.82);line-height:1.7;max-width:420px; }
+.hero-proof { display:flex;flex-direction:column;gap:10px; }
+.hero-proof-item { display:flex;align-items:center;gap:10px;font-size:.85rem;color:rgba(255,255,255,.9);font-weight:600; }
+.hero-proof-item::before { content:'';width:6px;height:6px;min-width:6px;background:#00b4d8;border-radius:50%; }
+.hero-stats-row { display:flex;gap:32px;padding-top:28px;border-top:1px solid rgba(255,255,255,.2);flex-wrap:wrap; }
+.hstat-num { font-size:1.8rem;font-weight:900;color:#fff;min-width:70px;flex-shrink:0;line-height:1; }
+.hstat-label { font-size:.7rem;color:rgba(255,255,255,.6);line-height:1.4; }
+.hstat { display:flex;align-items:center;gap:10px; }
+
+/* ORDER BUILDER (right side) */
+.hero-right {
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  padding:32px 40px;
+  overflow-y:auto;
+}
+.order-shell {
+  width:100%;max-width:480px;
+  background:#fff;border-radius:20px;
+  box-shadow:0 12px 48px rgba(13,36,97,.14);
+  overflow:hidden;
+}
+/* PORTAL TOPBAR */
+.portal-bar {
+  background:var(--navy);padding:14px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.portal-bar-title { color:#fff;font-size:.85rem;font-weight:800;letter-spacing:.04em;display:flex;align-items:center;gap:8px; }
+.portal-bar-dots { display:flex;gap:5px; }
+.portal-bar-dot { width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.25); }
+/* PROGRESS BAR */
+.progress-bar { background:var(--navy2);padding:12px 20px;display:flex;align-items:center;gap:0; }
+.pb-step { flex:1;display:flex;align-items:center;gap:0;position:relative; }
+.pb-circle { width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:800;position:relative;z-index:1;flex-shrink:0; }
+.pb-circle.done { background:#00b4d8;color:var(--navy); }
+.pb-circle.active { background:#fff;color:var(--navy); }
+.pb-circle.pending { background:rgba(255,255,255,.2);color:rgba(255,255,255,.5); }
+.pb-line { flex:1;height:2px;background:rgba(255,255,255,.2); }
+.pb-line.done { background:#00b4d8; }
+/* ORDER CONTENT */
+.order-content { padding:24px 24px 20px; }
+.step-header { margin-bottom:18px; }
+.step-num { font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:4px; }
+.step-title { font-size:1.2rem;font-weight:800;color:var(--navy);line-height:1.2; }
+.step-sub { font-size:.78rem;color:var(--muted);margin-top:4px; }
+/* VEHICLE SELECTOR */
+.vehicle-preview { display:flex;align-items:center;justify-content:center;margin-bottom:18px;min-height:100px; }
+.vehicle-preview img { max-width:280px;max-height:120px;object-fit:contain; }
+.option-list { display:flex;flex-direction:column;gap:10px; }
+.option-card {
+  border:2px solid var(--border);border-radius:12px;padding:14px 16px;cursor:pointer;
+  transition:border-color .15s,background .15s;display:flex;align-items:flex-start;gap:12px;
+}
+.option-card:hover { border-color:var(--blue);background:#f4f8fc; }
+.option-card.selected { border-color:var(--blue);background:#eef5fb; }
+.option-card.selected .radio-circle { background:var(--blue);border-color:var(--blue); }
+.option-card.selected .radio-circle::after { opacity:1; }
+.radio-circle { width:18px;height:18px;min-width:18px;border-radius:50%;border:2px solid var(--border);position:relative;margin-top:2px; }
+.radio-circle::after { content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:8px;height:8px;background:#fff;border-radius:50%;opacity:0; }
+.option-title { font-size:.9rem;font-weight:800;color:var(--navy); }
+.option-detail { font-size:.72rem;color:var(--muted);margin-top:2px; }
+.option-price { font-size:.82rem;font-weight:700;color:var(--blue);margin-top:4px; }
+/* UPFIT CARDS */
+.upfit-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px; }
+.upfit-card { border:2px solid var(--border);border-radius:10px;padding:12px;cursor:pointer;transition:border-color .15s,background .15s;text-align:center; }
+.upfit-card:hover { border-color:var(--blue);background:#f4f8fc; }
+.upfit-card.selected { border-color:var(--blue);background:#eef5fb; }
+.upfit-img { width:100%;height:64px;object-fit:cover;border-radius:6px;margin-bottom:8px;background:var(--bg3); }
+.upfit-title { font-size:.78rem;font-weight:800;color:var(--navy);margin-bottom:4px; }
+.upfit-body { font-size:.62rem;color:var(--muted);line-height:1.4; }
+.upfit-price { font-size:.75rem;font-weight:700;color:var(--blue);margin-top:6px; }
+.upfit-card.selected .upfit-price { color:var(--navy); }
+/* GRAPHICS */
+.graphics-grid { display:grid;grid-template-columns:1fr 1fr;gap:10px; }
+.graphics-card { border:2px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:border-color .15s,background .15s; }
+.graphics-card:hover { border-color:var(--blue);background:#f4f8fc; }
+.graphics-card.selected { border-color:var(--blue);background:#eef5fb; }
+.graphics-title { font-size:.88rem;font-weight:800;color:var(--navy);margin-bottom:6px; }
+.graphics-body { font-size:.7rem;color:var(--muted);line-height:1.4;margin-bottom:8px; }
+.graphics-price { font-size:.8rem;font-weight:700;color:var(--blue); }
+/* FINANCING */
+.finance-options { display:flex;flex-direction:column;gap:10px;margin-bottom:16px; }
+.finance-card { border:2px solid var(--border);border-radius:10px;padding:12px 16px;cursor:pointer;transition:border-color .15s,background .15s;display:flex;align-items:center;gap:12px; }
+.finance-card:hover { border-color:var(--blue);background:#f4f8fc; }
+.finance-card.selected { border-color:var(--blue);background:#eef5fb; }
+.finance-card.selected .radio-circle { background:var(--blue);border-color:var(--blue); }
+.finance-card.selected .radio-circle::after { opacity:1; }
+.finance-title { font-size:.88rem;font-weight:800;color:var(--navy); }
+.finance-detail { font-size:.7rem;color:var(--muted);margin-top:2px; }
+.lease-sliders { background:var(--bg);border-radius:10px;padding:14px;margin-top:4px;display:none; }
+.lease-sliders.visible { display:block; }
+.slider-row { margin-bottom:12px; }
+.slider-label { display:flex;justify-content:space-between;font-size:.72rem;font-weight:700;color:var(--navy);margin-bottom:6px; }
+.slider-label span { color:var(--blue); }
+input[type=range] { width:100%;accent-color:var(--blue); }
+/* SUMMARY */
+.summary-box { background:var(--bg);border-radius:12px;padding:16px;margin-bottom:16px; }
+.summary-title { font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:12px; }
+.summary-row { display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);font-size:.82rem; }
+.summary-row:last-child { border-bottom:none; }
+.summary-row-label { color:var(--muted); }
+.summary-row-value { font-weight:700;color:var(--navy); }
+.summary-total { display:flex;justify-content:space-between;align-items:center;padding:14px;background:var(--navy);border-radius:10px;margin-bottom:16px; }
+.summary-total-label { color:rgba(255,255,255,.7);font-size:.82rem; }
+.summary-total-value { color:#fff;font-size:1.4rem;font-weight:900; }
+.delivery-row { display:flex;flex-direction:column;gap:8px; }
+.delivery-select { background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-size:.82rem;color:var(--navy);width:100%;font-weight:600; }
+.agentforce-tip { background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:10px;padding:14px 16px;margin-bottom:12px;display:flex;gap:12px; }
+.af-tip-icon { width:28px;height:28px;min-width:28px;background:rgba(0,180,216,.2);border-radius:50%;display:flex;align-items:center;justify-content:center; }
+.af-tip-text { font-size:.72rem;color:rgba(255,255,255,.85);line-height:1.5; }
+.af-tip-label { font-size:.62rem;font-weight:700;color:#00b4d8;margin-bottom:4px;text-transform:uppercase;letter-spacing:.08em; }
+/* ORDER ACTIONS */
+.order-actions { padding:0 24px 24px;display:flex;gap:10px; }
+.btn-back { flex:0 0 auto;background:var(--bg);border:1.5px solid var(--border);color:var(--navy);border-radius:8px;padding:11px 18px;font-size:.82rem;font-weight:700;cursor:pointer;transition:background .15s; }
+.btn-back:hover { background:var(--bg3); }
+.btn-next { flex:1;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:12px;font-size:.88rem;font-weight:800;cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:8px; }
+.btn-next:hover { background:var(--blue2); }
+.btn-order { flex:1;background:var(--navy);color:#fff;border:none;border-radius:8px;padding:12px;font-size:.88rem;font-weight:800;cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:8px; }
+.btn-order:hover { background:var(--navy2); }
+/* SUCCESS */
+.success-screen { padding:32px 24px;text-align:center; }
+.success-icon { width:64px;height:64px;background:linear-gradient(135deg,var(--blue),var(--cyan));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px; }
+.success-icon svg { width:28px;height:28px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round; }
+.success-title { font-size:1.3rem;font-weight:900;color:var(--navy);margin-bottom:8px; }
+.success-sub { font-size:.85rem;color:var(--muted);margin-bottom:24px; }
+.success-order-id { background:var(--bg3);border-radius:8px;padding:10px 16px;font-size:.78rem;font-weight:700;color:var(--navy);display:inline-block;margin-bottom:20px; }
+.success-steps { display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:24px; }
+.sst { display:flex;flex-direction:column;align-items:center;gap:4px; }
+.sst-dot { width:28px;height:28px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center; }
+.sst-dot svg { width:12px;height:12px;stroke:#fff;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round; }
+.sst-line { width:32px;height:2px;background:var(--border); }
+.sst-label { font-size:.55rem;color:var(--muted);text-align:center;max-width:52px;line-height:1.3; }
+.af-next-tip { background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:10px;padding:14px 16px;text-align:left; }
+.af-next-label { font-size:.62rem;font-weight:700;color:#00b4d8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;display:flex;align-items:center;gap:6px; }
+.af-next-body { font-size:.75rem;color:rgba(255,255,255,.85);line-height:1.6; }
+
+/* STATS BAR */
+.stats-bar { background:var(--navy);padding:20px 40px; }
+.stats-bar-inner { max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px; }
+.stat-item { display:flex;align-items:center;gap:14px; }
+.stat-num { font-size:2rem;font-weight:900;color:#fff;min-width:70px;flex-shrink:0;line-height:1; }
+.stat-label { font-size:.72rem;color:rgba(255,255,255,.6);line-height:1.4; }
+.stat-delta { font-size:.68rem;font-weight:700;color:#4ade80;margin-top:2px; }
+.stats-divider { width:1px;height:40px;background:rgba(255,255,255,.15); }
+
+/* HOW IT WORKS - slides 30/31 */
+.how-section { padding:64px 40px;background:#fff; }
+.how-inner { max-width:1100px;margin:0 auto; }
+.how-header { display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start;margin-bottom:48px; }
+.section-eyebrow { font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:10px; }
+.section-title { font-size:clamp(1.6rem,2.8vw,2.3rem);font-weight:900;color:var(--navy);line-height:1.2;margin-bottom:12px; }
+.section-body { font-size:.95rem;color:var(--body);line-height:1.75; }
+.step-checklist { list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:20px; }
+.step-checklist li { display:flex;align-items:flex-start;gap:10px;font-size:.88rem;color:var(--body); }
+.check-badge { width:20px;height:20px;min-width:20px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:1px; }
+.check-badge svg { width:10px;height:10px;stroke:#fff;fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round; }
+/* 5 STEPS FLOW */
+.steps-row { display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative; }
+.steps-row::before { content:'';position:absolute;top:28px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan));z-index:0; }
+.flow-step { display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;position:relative;z-index:1; }
+.flow-num { width:56px;height:56px;border-radius:50%;background:var(--navy);color:#fff;font-size:1.1rem;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(13,36,97,.25); }
+.flow-label { font-size:.75rem;font-weight:800;color:var(--navy);line-height:1.3; }
+.flow-sub { font-size:.65rem;color:var(--muted);line-height:1.4;padding:0 4px; }
+/* OPTIONS GRID - slides 30/31 detail */
+.options-showcase { display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:48px; }
+.showcase-card { background:var(--bg);border:1px solid var(--border);border-radius:14px;overflow:hidden; }
+.showcase-card-header { background:var(--navy2);padding:12px 16px; }
+.showcase-card-header h3 { color:#fff;font-size:.82rem;font-weight:700; }
+.showcase-card-header p { color:rgba(255,255,255,.6);font-size:.68rem;margin-top:2px; }
+.showcase-card-body { padding:16px; }
+.sc-option { display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;background:#fff;border:1.5px solid var(--border);margin-bottom:8px; }
+.sc-option:last-child { margin-bottom:0; }
+.sc-option-dot { width:8px;height:8px;min-width:8px;border-radius:50%; }
+.sc-option-name { font-size:.78rem;font-weight:700;color:var(--navy);flex:1; }
+.sc-option-price { font-size:.72rem;color:var(--muted);font-weight:600; }
+.sc-option.highlight { border-color:var(--blue);background:#eef5fb; }
+.sc-option.highlight .sc-option-price { color:var(--blue); }
+
+/* AI SECTION */
+.ai-bar { background:var(--bg3);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 40px; }
+.ai-bar-inner { max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap; }
+.ai-bar-left { display:flex;align-items:center;gap:16px; }
+.ai-icon-badge { width:44px;height:44px;background:linear-gradient(135deg,var(--blue),var(--cyan));border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+.ai-icon-badge svg { width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round; }
+.ai-bar-title { font-size:.92rem;font-weight:800;color:var(--navy); }
+.ai-bar-sub { font-size:.78rem;color:var(--muted); }
+.ai-bar-caps { display:flex;gap:12px;flex-wrap:wrap; }
+.ai-cap-pill { background:#fff;border:1px solid var(--border);border-radius:20px;padding:6px 14px;font-size:.72rem;font-weight:600;color:var(--navy); }
+
+/* CTA */
+.cta-section { padding:48px 40px;background:var(--bg); }
+.cta-inner { max-width:1100px;margin:0 auto; }
+.cta-card { background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:20px;padding:48px 56px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center; }
+.cta-title { font-size:1.7rem;font-weight:900;color:#fff;line-height:1.2;margin-bottom:12px; }
+.cta-body { font-size:.95rem;color:rgba(255,255,255,.75);max-width:480px;line-height:1.7; }
+.cta-btn { display:inline-block;background:var(--cyan);color:var(--navy);padding:14px 32px;border-radius:8px;font-weight:900;font-size:.9rem;letter-spacing:.05em;text-transform:uppercase;text-decoration:none;margin-top:24px;transition:opacity .18s; }
+.cta-btn:hover { opacity:.88; }
+.cta-products { background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:24px 28px;min-width:240px; }
+.cta-products-label { font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.4);margin-bottom:14px; }
+.cta-product-row { display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.07); }
+.cta-product-row:last-child { border-bottom:none; }
+.cta-product-dot { width:5px;height:5px;min-width:5px;border-radius:50%;background:#00b4d8; }
+.cta-product-name { font-size:.8rem;color:rgba(255,255,255,.8);font-weight:600; }
+
+footer { background:var(--navy);padding:24px 40px;display:flex;align-items:center;justify-content:space-between; }
+footer p { font-size:.72rem;color:rgba(255,255,255,.35); }
+.footer-brand { font-size:.82rem;font-weight:800;letter-spacing:.1em;color:rgba(255,255,255,.45);text-transform:uppercase; }
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+  .hero { grid-template-columns:1fr; }
+  .hero-left { min-height:50vh; }
+  .hero-right { padding:24px; }
+  .options-showcase { grid-template-columns:1fr 1fr; }
+  .cta-card { grid-template-columns:1fr;padding:36px 28px; }
+  .how-header { grid-template-columns:1fr; }
+}
+@media(max-width:700px){
+  nav { padding:0 20px; }
+  .hero-left { padding:40px 24px; }
+  .stats-bar { padding:20px 24px; }
+  .stats-bar-inner { gap:16px; }
+  .stats-divider { display:none; }
+  .how-section { padding:48px 24px; }
+  .steps-row { grid-template-columns:1fr 1fr;gap:20px; }
+  .steps-row::before { display:none; }
+  .options-showcase { grid-template-columns:1fr; }
+  .cta-section { padding:40px 24px; }
+  .cta-card { padding:32px 24px; }
+  footer { flex-direction:column;gap:8px;text-align:center; }
+}
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="pw-gate">
+  <div class="pw-box">
+    <div class="pw-logo">
+      <svg width="32" height="38" viewBox="0 0 38 44" fill="none">
+        <path d="M19 2L4 8V20C4 29.5 10.5 38.1 19 41C27.5 38.1 34 29.5 34 20V8L19 2Z" fill="#0d2461" stroke="#1d6adb" stroke-width="1.5"/>
+        <text x="19" y="28" text-anchor="middle" fill="white" font-size="16" font-weight="800" font-family="Arial">P</text>
+      </svg>
+      <span class="pw-brand">ParksPro</span>
+    </div>
+    <p class="pw-heading">Fleet Commerce Preview</p>
+    <form id="pw-form">
+      <input class="pw-input" id="pw-input" type="password" placeholder="Enter access code" autocomplete="off">
+      <button class="pw-btn" type="submit">Access Site</button>
+      <p class="pw-error" id="pw-error"></p>
+    </form>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <svg width="26" height="30" viewBox="0 0 38 44" fill="none">
+      <path d="M19 2L4 8V20C4 29.5 10.5 38.1 19 41C27.5 38.1 34 29.5 34 20V8L19 2Z" fill="#0d2461" stroke="#1d6adb" stroke-width="1.5"/>
+      <text x="19" y="28" text-anchor="middle" fill="white" font-size="16" font-weight="800" font-family="Arial">P</text>
+    </svg>
+    <div>
+      <span class="nav-brand">ParksPro</span>
+      <span class="nav-sub">Commercial Division</span>
+    </div>
+  </div>
+  <span class="nav-pill">Fleet Commerce</span>
+</nav>
+
+<!-- HERO: left = story, right = live order builder -->
+<section class="hero">
+  <div class="hero-left">
+    <div>
+      <span class="hero-eyebrow">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Franchise Modernization
+      </span>
+      <h1 style="margin-top:16px;">Lease or Finance<br>Your Truck in<br><em>5 Clicks.</em></h1>
+    </div>
+    <div>
+      <p class="hero-sub">Your franchise owner is sitting on the back of his truck with his phone. He should be able to order his next fleet vehicle the same way he orders lunch on DoorDash.</p>
+      <div class="hero-proof" style="margin-top:20px;">
+        <div class="hero-proof-item">Pick your truck. Choose your upfit. Brand it. Finance it. Done.</div>
+        <div class="hero-proof-item">No dealership. No rep. No back-and-forth emails.</div>
+        <div class="hero-proof-item">AI guides every decision. Agentforce handles the rest.</div>
+      </div>
+    </div>
+    <div class="hero-stats-row">
+      <div class="hstat">
+        <div class="hstat-num">512</div>
+        <div class="hstat-label">Vehicles<br>on Order</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">47</div>
+        <div class="hstat-label">Avg Days<br>to Delivery</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">$42.8M</div>
+        <div class="hstat-label">Total Contract<br>Value</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIVE INTERACTIVE ORDER BUILDER -->
+  <div class="hero-right">
+    <div class="order-shell" id="orderShell">
+
+      <!-- TOP BAR -->
+      <div class="portal-bar">
+        <span class="portal-bar-title">
+          <svg width="16" height="16" viewBox="0 0 38 44" fill="none">
+            <path d="M19 2L4 8V20C4 29.5 10.5 38.1 19 41C27.5 38.1 34 29.5 34 20V8L19 2Z" fill="rgba(255,255,255,0.3)" stroke="#00b4d8" stroke-width="1.5"/>
+            <text x="19" y="28" text-anchor="middle" fill="white" font-size="16" font-weight="800" font-family="Arial">P</text>
+          </svg>
+          Build Your Fleet Vehicle
+        </span>
+        <div class="portal-bar-dots">
+          <div class="portal-bar-dot"></div><div class="portal-bar-dot"></div><div class="portal-bar-dot"></div>
+        </div>
+      </div>
+
+      <!-- PROGRESS -->
+      <div class="progress-bar" id="progressBar">
+        <div class="pb-step">
+          <div class="pb-circle active" id="pc1">1</div>
+          <div class="pb-line" id="pl1"></div>
+        </div>
+        <div class="pb-step">
+          <div class="pb-circle pending" id="pc2">2</div>
+          <div class="pb-line" id="pl2"></div>
+        </div>
+        <div class="pb-step">
+          <div class="pb-circle pending" id="pc3">3</div>
+          <div class="pb-line" id="pl3"></div>
+        </div>
+        <div class="pb-step">
+          <div class="pb-circle pending" id="pc4">4</div>
+          <div class="pb-line" id="pl4"></div>
+        </div>
+        <div class="pb-step">
+          <div class="pb-circle pending" id="pc5">5</div>
+          <div style="flex:1"></div>
+        </div>
+      </div>
+
+      <!-- STEP CONTENT -->
+      <div id="stepContent"></div>
+
+      <!-- ACTIONS -->
+      <div class="order-actions" id="orderActions"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="stat-item">
+      <div class="stat-num">512</div>
+      <div><div class="stat-label">Vehicles on Order</div><div class="stat-delta">+18% vs last 30 days</div></div>
+    </div>
+    <div class="stats-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num">248</div>
+      <div><div class="stat-label">Vehicles Delivered</div><div class="stat-delta">+24% vs last 30 days</div></div>
+    </div>
+    <div class="stats-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num">47</div>
+      <div><div class="stat-label">Avg Days to Delivery</div><div class="stat-delta" style="color:#f87171;">-6 days vs last 30 days</div></div>
+    </div>
+    <div class="stats-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num">91%</div>
+      <div><div class="stat-label">Fleet Utilization</div><div class="stat-delta">+5 pts vs prior year</div></div>
+    </div>
+    <div class="stats-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num">96%</div>
+      <div><div class="stat-label">Forecast Attainment</div><div class="stat-delta">+6% vs prior year</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS (slides 30-31) -->
+<section class="how-section" id="how">
+  <div class="how-inner">
+    <div class="how-header">
+      <div>
+        <p class="section-eyebrow">The Order Experience</p>
+        <h2 class="section-title">Everything a Franchise Owner Needs. Nothing They Don't.</h2>
+        <p class="section-body">The Fleet Portal walks every franchise operator through a pre-configured buying experience. Every vehicle, upfit, and graphic is already approved for their brand. They just pick and click.</p>
+        <ul class="step-checklist">
+          <li><div class="check-badge"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Progress is saved automatically so they can finish later from any device</li>
+          <li><div class="check-badge"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>ParksPro AI answers every question in context, no phone call needed</li>
+          <li><div class="check-badge"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>Cash, finance, or long-term lease, all available in step 4</li>
+          <li><div class="check-badge"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>One click reorder from order history for repeat franchise locations</li>
+        </ul>
+      </div>
+      <div>
+        <div class="steps-row">
+          <div class="flow-step">
+            <div class="flow-num">1</div>
+            <div class="flow-label">Vehicle Selection</div>
+            <div class="flow-sub">Choose your approved vehicle body</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">2</div>
+            <div class="flow-label">Upfit Package</div>
+            <div class="flow-sub">Equipment tier for your service type</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">3</div>
+            <div class="flow-label">Graphics</div>
+            <div class="flow-sub">Franchise branded or unbranded</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">4</div>
+            <div class="flow-label">Financing</div>
+            <div class="flow-sub">Cash, finance, or lease</div>
+          </div>
+          <div class="flow-step">
+            <div class="flow-num">5</div>
+            <div class="flow-label">Submit Order</div>
+            <div class="flow-sub">ParksPro takes it from there</div>
+          </div>
+        </div>
+
+        <!-- OPTIONS GRID from slides 30-31 -->
+        <div class="options-showcase" style="margin-top:40px;">
+          <div class="showcase-card">
+            <div class="showcase-card-header">
+              <h3>Vehicle Body</h3>
+              <p>Step 1: Choose your vehicle</p>
+            </div>
+            <div class="showcase-card-body">
+              <div class="sc-option highlight">
+                <div class="sc-option-dot" style="background:#1d6adb"></div>
+                <span class="sc-option-name">2026 Ford Transit Van</span>
+                <span class="sc-option-price">$79,500</span>
+              </div>
+              <div class="sc-option">
+                <div class="sc-option-dot" style="background:#d0daea"></div>
+                <span class="sc-option-name">2026 Chevy Silverado</span>
+                <span class="sc-option-price">$65,000</span>
+              </div>
+            </div>
+          </div>
+          <div class="showcase-card">
+            <div class="showcase-card-header">
+              <h3>Upfit Package</h3>
+              <p>Step 2: Equipment tier</p>
+            </div>
+            <div class="showcase-card-body">
+              <div class="sc-option">
+                <div class="sc-option-dot" style="background:#d0daea"></div>
+                <span class="sc-option-name">Essential Service</span>
+                <span class="sc-option-price">Included</span>
+              </div>
+              <div class="sc-option highlight">
+                <div class="sc-option-dot" style="background:#1d6adb"></div>
+                <span class="sc-option-name">Professional Technician</span>
+                <span class="sc-option-price">+$5,000</span>
+              </div>
+              <div class="sc-option">
+                <div class="sc-option-dot" style="background:#d0daea"></div>
+                <span class="sc-option-name">Smart Fleet AI</span>
+                <span class="sc-option-price">+$12,000</span>
+              </div>
+            </div>
+          </div>
+          <div class="showcase-card">
+            <div class="showcase-card-header">
+              <h3>Financing</h3>
+              <p>Step 4: How to pay</p>
+            </div>
+            <div class="showcase-card-body">
+              <div class="sc-option">
+                <div class="sc-option-dot" style="background:#d0daea"></div>
+                <span class="sc-option-name">Cash</span>
+                <span class="sc-option-price">Full upfront</span>
+              </div>
+              <div class="sc-option highlight">
+                <div class="sc-option-dot" style="background:#1d6adb"></div>
+                <span class="sc-option-name">Long Term Lease</span>
+                <span class="sc-option-price">36-60 mo</span>
+              </div>
+              <div class="sc-option">
+                <div class="sc-option-dot" style="background:#d0daea"></div>
+                <span class="sc-option-name">Finance</span>
+                <span class="sc-option-price">Custom terms</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENTFORCE BAR -->
+<div class="ai-bar">
+  <div class="ai-bar-inner">
+    <div class="ai-bar-left">
+      <div class="ai-icon-badge">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div>
+        <p class="ai-bar-title">ParksPro AI is embedded at every step</p>
+        <p class="ai-bar-sub">Franchise owners get answers without picking up the phone</p>
+      </div>
+    </div>
+    <div class="ai-bar-caps">
+      <span class="ai-cap-pill">Compare vehicle options</span>
+      <span class="ai-cap-pill">Explain lease vs. buy</span>
+      <span class="ai-cap-pill">Recommend upfit tier</span>
+      <span class="ai-cap-pill">Answer franchise questions</span>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-card">
+      <div>
+        <h2 class="cta-title">Ready to See This Live?</h2>
+        <p class="cta-body">Let's walk through the full Fleet Portal experience and talk about what Franchise Modernization Chapter 1 looks like for ParksPro and Neighborly.</p>
+        <a href="#" class="cta-btn">Schedule a Demo</a>
+      </div>
+      <div class="cta-products">
+        <p class="cta-products-label">Salesforce Products</p>
+        <div class="cta-product-row"><div class="cta-product-dot"></div><span class="cta-product-name">Commerce Cloud B2B</span></div>
+        <div class="cta-product-row"><div class="cta-product-dot"></div><span class="cta-product-name">Agentforce</span></div>
+        <div class="cta-product-row"><div class="cta-product-dot"></div><span class="cta-product-name">Revenue Cloud Advanced</span></div>
+        <div class="cta-product-row"><div class="cta-product-dot"></div><span class="cta-product-name">Data Cloud</span></div>
+        <div class="cta-product-row"><div class="cta-product-dot"></div><span class="cta-product-name">Slack</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-brand">ParksPro Commercial Division</span>
+  <p>Franchise Modernization: Chapter 1. Confidential. Prepared by Salesforce.</p>
+  <p>ParksPro &amp; Neighborly</p>
+</footer>
+
+<script>
+(function(){
+  if(sessionStorage.getItem('pp26fc')!=='ok'){
+    document.addEventListener('DOMContentLoaded',function(){
+      var gate=document.getElementById('pw-gate');
+      document.getElementById('pw-form').addEventListener('submit',function(e){
+        e.preventDefault();
+        var v=document.getElementById('pw-input').value;
+        if(v==='ParksPro26'){ sessionStorage.setItem('pp26fc','ok'); gate.classList.add('hidden'); }
+        else { document.getElementById('pw-error').textContent='Incorrect password.'; document.getElementById('pw-input').value=''; }
+      });
+    });
+  } else {
+    document.addEventListener('DOMContentLoaded',function(){
+      var g=document.getElementById('pw-gate'); if(g) g.classList.add('hidden');
+    });
+  }
+})();
+
+// ORDER BUILDER STATE
+var state = { vehicle: null, upfit: null, graphics: null, finance: 'lease', leaseTerm: 36, leaseMiles: 30, delivery: 'pickup', step: 1 };
+
+var vehicles = [
+  { id:'transit', name:'2026 Ford Transit T-250', detail:'Medium Roof AWD', price:79500 },
+  { id:'silverado', name:'2026 Chevrolet Silverado', detail:'1500 LT Crew Cab 4WD', price:65000 }
+];
+var upfits = [
+  { id:'essential', name:'Essential Service', detail:'Ladder rack, shelving, parts bins, LED cargo lighting, first aid kit, fire extinguisher', price:0, priceLabel:'Included' },
+  { id:'pro', name:'Professional Technician', detail:'Heavy-duty drawer system, power inverter, battery charging, backup camera, GPS/telematics, security lock', price:5000, priceLabel:'+$5,000' },
+  { id:'smart', name:'Smart Fleet AI', detail:'RFID/barcode sensors, AI dash camera, predictive maintenance, LTE/Wi-Fi hotspot, remote diagnostics, e-locks', price:12000, priceLabel:'+$12,000' }
+];
+var graphics = [
+  { id:'branded', name:'Franchise Branded', detail:'Full franchise wrap with Neighborly branding and contact info', price:0, priceLabel:'Included' },
+  { id:'unbranded', name:'Unbranded', detail:'Clean white vehicle, no graphics', price:-4500, priceLabel:'-$4,500' }
+];
+
+function fmt(n){ return '$'+n.toLocaleString(); }
+function totalPrice(){
+  var v = vehicles.find(function(x){return x.id===state.vehicle;});
+  var u = upfits.find(function(x){return x.id===state.upfit;});
+  var g = graphics.find(function(x){return x.id===state.graphics;});
+  return (v?v.price:0)+(u?u.price:0)+(g?g.price:0);
+}
+
+function updateProgress(){
+  for(var i=1;i<=5;i++){
+    var c=document.getElementById('pc'+i);
+    var l=document.getElementById('pl'+i);
+    if(!c) continue;
+    if(i<state.step){ c.className='pb-circle done'; c.innerHTML='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'; if(l) l.className='pb-line done'; }
+    else if(i===state.step){ c.className='pb-circle active'; c.textContent=i; if(l) l.className='pb-line'; }
+    else { c.className='pb-circle pending'; c.textContent=i; if(l) l.className='pb-line'; }
+  }
+}
+
+function renderStep(){
+  updateProgress();
+  var sc=document.getElementById('stepContent');
+  var ac=document.getElementById('orderActions');
+
+  if(state.step===1){
+    sc.innerHTML='<div class="order-content"><div class="step-header"><p class="step-num">Step 1 of 5</p><p class="step-title">Vehicle Body</p><p class="step-sub">Select from Neighborly-approved fleet vehicles</p></div>'
+      +'<div class="option-list">'
+      +vehicles.map(function(v){ return '<div class="option-card'+(state.vehicle===v.id?' selected':'')+'" onclick="pick(\'vehicle\',\''+v.id+'\')"><div class="radio-circle"></div><div><p class="option-title">'+v.name+'</p><p class="option-detail">'+v.detail+'</p><p class="option-price">'+fmt(v.price)+'</p></div></div>'; }).join('')
+      +'</div></div>';
+    ac.innerHTML='<button class="btn-next" style="margin-left:auto;" onclick="nextStep()" '+(state.vehicle?'':'disabled style="opacity:.5;cursor:not-allowed;"')+'>Vehicle Selected &rarr;</button>';
+  }
+  else if(state.step===2){
+    sc.innerHTML='<div class="order-content"><div class="step-header"><p class="step-num">Step 2 of 5</p><p class="step-title">Upfit Package</p><p class="step-sub">Choose your equipment tier</p></div>'
+      +'<div class="upfit-grid">'
+      +upfits.map(function(u){ return '<div class="upfit-card'+(state.upfit===u.id?' selected':'')+'" onclick="pick(\'upfit\',\''+u.id+'\')">'
+        +'<div class="upfit-img" style="background:linear-gradient(135deg,#daeef8,#eef5fb);display:flex;align-items:center;justify-content:center;">'
+        +'<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1d6adb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>'
+        +'</div>'
+        +'<p class="upfit-title">'+u.name+'</p><p class="upfit-body">'+u.detail+'</p><p class="upfit-price">'+u.priceLabel+'</p></div>'; }).join('')
+      +'</div></div>';
+    ac.innerHTML='<button class="btn-back" onclick="prevStep()">Back</button><button class="btn-next" onclick="nextStep()" '+(state.upfit?'':'disabled style="opacity:.5;cursor:not-allowed;"')+'>Upfit Selected &rarr;</button>';
+  }
+  else if(state.step===3){
+    sc.innerHTML='<div class="order-content"><div class="step-header"><p class="step-num">Step 3 of 5</p><p class="step-title">Graphics</p><p class="step-sub">Brand your vehicle or keep it clean</p></div>'
+      +'<div class="graphics-grid">'
+      +graphics.map(function(g){ return '<div class="graphics-card'+(state.graphics===g.id?' selected':'')+'" onclick="pick(\'graphics\',\''+g.id+'\')">'
+        +'<p class="graphics-title">'+g.name+'</p><p class="graphics-body">'+g.detail+'</p><p class="graphics-price">'+g.priceLabel+'</p></div>'; }).join('')
+      +'</div></div>';
+    ac.innerHTML='<button class="btn-back" onclick="prevStep()">Back</button><button class="btn-next" onclick="nextStep()" '+(state.graphics?'':'disabled style="opacity:.5;cursor:not-allowed;"')+'>Graphics Selected &rarr;</button>';
+  }
+  else if(state.step===4){
+    sc.innerHTML='<div class="order-content"><div class="step-header"><p class="step-num">Step 4 of 5</p><p class="step-title">Financing</p><p class="step-sub">How would you like to pay?</p></div>'
+      +'<div class="finance-options">'
+      +'<div class="finance-card'+(state.finance==='cash'?' selected':'')+'" onclick="pickFinance(\'cash\')">'
+      +'<div class="radio-circle"></div><div><p class="finance-title">Cash</p><p class="finance-detail">Full upfront payment</p></div></div>'
+      +'<div class="finance-card'+(state.finance==='finance'?' selected':'')+'" onclick="pickFinance(\'finance\')">'
+      +'<div class="radio-circle"></div><div><p class="finance-title">Finance</p><p class="finance-detail">Custom terms through ParksPro</p></div></div>'
+      +'<div class="finance-card'+(state.finance==='lease'?' selected':'')+'" onclick="pickFinance(\'lease\')">'
+      +'<div class="radio-circle"></div><div><p class="finance-title">Long Term Lease</p><p class="finance-detail">Lower upfront, predictable monthly costs</p></div></div>'
+      +'</div>'
+      +'<div class="lease-sliders'+(state.finance==='lease'?' visible':'')+'" id="leaseSliders">'
+      +'<div class="slider-row"><div class="slider-label">Term in Months <span id="termVal">'+state.leaseTerm+'</span></div><input type="range" min="12" max="60" value="'+state.leaseTerm+'" oninput="sliderChange(\'term\',this.value)"></div>'
+      +'<div class="slider-row"><div class="slider-label">Yearly Mileage <span id="milesVal">'+state.leaseMiles+'k</span></div><input type="range" min="10" max="100" value="'+state.leaseMiles+'" oninput="sliderChange(\'miles\',this.value)"></div>'
+      +'</div>'
+      +'<div class="agentforce-tip"><div class="af-tip-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>'
+      +'<div><p class="af-tip-label">Agentforce Tip</p><p class="af-tip-text">Leasing offers lower upfront capital, predictable monthly expenses, and flexible fleet expansion as demand grows. Most Neighborly franchises choose 36-month terms.</p></div></div>'
+      +'</div>';
+    ac.innerHTML='<button class="btn-back" onclick="prevStep()">Back</button><button class="btn-next" onclick="nextStep()">Review Order &rarr;</button>';
+  }
+  else if(state.step===5){
+    var v=vehicles.find(function(x){return x.id===state.vehicle;});
+    var u=upfits.find(function(x){return x.id===state.upfit;});
+    var g=graphics.find(function(x){return x.id===state.graphics;});
+    var total=totalPrice();
+    var finLabel=state.finance==='cash'?'Cash':state.finance==='finance'?'Finance':'Lease ('+state.leaseTerm+' mo, '+state.leaseMiles+'k mi/yr)';
+    sc.innerHTML='<div class="order-content"><div class="step-header"><p class="step-num">Step 5 of 5</p><p class="step-title">Order Summary</p><p class="step-sub">Review and submit your order</p></div>'
+      +'<div class="summary-box"><p class="summary-title">Selected Options</p>'
+      +'<div class="summary-row"><span class="summary-row-label">Vehicle</span><span class="summary-row-value">'+(v?v.name:'--')+'</span></div>'
+      +'<div class="summary-row"><span class="summary-row-label">Upfit</span><span class="summary-row-value">'+(u?u.name:'--')+'</span></div>'
+      +'<div class="summary-row"><span class="summary-row-label">Graphics</span><span class="summary-row-value">'+(g?g.name:'--')+'</span></div>'
+      +'<div class="summary-row"><span class="summary-row-label">Financing</span><span class="summary-row-value">'+finLabel+'</span></div>'
+      +'</div>'
+      +'<div class="summary-total"><span class="summary-total-label">Est. Vehicle Total</span><span class="summary-total-value">'+fmt(total)+'</span></div>'
+      +'<div class="delivery-row">'
+      +'<select class="delivery-select" onchange="state.delivery=this.value"><option value="pickup">Pick Up at ParksPro</option><option value="deliver">Delivery to Franchise Location</option></select>'
+      +'</div></div>';
+    ac.innerHTML='<button class="btn-back" onclick="prevStep()">Back</button><button class="btn-order" onclick="submitOrder()">Submit Order &#10003;</button>';
+  }
+  else if(state.step===6){
+    document.getElementById('progressBar').style.display='none';
+    sc.innerHTML='<div class="success-screen">'
+      +'<div class="success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>'
+      +'<p class="success-title">Order Submitted!</p>'
+      +'<p class="success-sub">Your order has been received and is now being prepared for fulfillment.</p>'
+      +'<div class="success-order-id">Order # PP-ORD-2026-04157</div>'
+      +'<div class="success-steps">'
+      +['Order\nConfirmed','Vehicle\nAllocation','Upfit\nInstall','Graphics\n& Branding','Delivery\nScheduling'].map(function(l,i){
+        return (i>0?'<div class="sst-line"></div>':'')
+          +'<div class="sst"><div class="sst-dot" style="background:'+(i===0?'#22c55e':'#1d6adb')+'"><svg viewBox="0 0 24 24">'+(i===0?'<polyline points="20 6 9 17 4 12"/>':'<circle cx="12" cy="12" r="3" fill="white"/>') +'</svg></div><p class="sst-label">'+l.replace('\n','<br>')+'</p></div>';
+      }).join('')
+      +'</div>'
+      +'<div class="af-next-tip">'
+      +'<div class="af-next-label"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Agentforce Tip</div>'
+      +'<p class="af-next-body">Based on your current fleet and purchasing history, your next scheduled replacement is projected for Q2 2027. We will notify you when it is time to begin planning your next order.</p>'
+      +'</div></div>';
+    ac.innerHTML='<button class="btn-next" onclick="resetOrder()" style="background:#0d2461;">Start New Order</button>';
+  }
+}
+
+function pick(field, val){
+  state[field]=val;
+  renderStep();
+}
+function pickFinance(val){
+  state.finance=val;
+  var ls=document.getElementById('leaseSliders');
+  if(ls){ ls.className='lease-sliders'+(val==='lease'?' visible':''); }
+  document.querySelectorAll('.finance-card').forEach(function(c){ c.classList.remove('selected'); });
+  var cards=document.querySelectorAll('.finance-card');
+  var idx=val==='cash'?0:val==='finance'?1:2;
+  if(cards[idx]){ cards[idx].classList.add('selected'); cards[idx].querySelector('.radio-circle').style.background=val?'#1d6adb':''; }
+  renderStep();
+}
+function sliderChange(type, val){
+  if(type==='term'){ state.leaseTerm=parseInt(val); var el=document.getElementById('termVal'); if(el) el.textContent=val; }
+  else { state.leaseMiles=parseInt(val); var el=document.getElementById('milesVal'); if(el) el.textContent=val+'k'; }
+}
+function nextStep(){ if(state.step<6){ state.step++; renderStep(); } }
+function prevStep(){ if(state.step>1){ state.step--; renderStep(); } }
+function submitOrder(){ state.step=6; renderStep(); }
+function resetOrder(){ state={vehicle:null,upfit:null,graphics:null,finance:'lease',leaseTerm:36,leaseMiles:30,delivery:'pickup',step:1}; document.getElementById('progressBar').style.display=''; renderStep(); }
+
+document.addEventListener('DOMContentLoaded', renderStep);
+</script>
+</body>
+</html>
