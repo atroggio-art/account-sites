@@ -29,23 +29,23 @@ html { scroll-behavior:smooth; }
 body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--body);line-height:1.5; }
 
 /* NAV */
-nav { position:sticky;top:0;z-index:100;background:#1f3d9b;padding:0 32px;height:58px;display:flex;align-items:center;gap:32px; }
+nav { position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 32px;height:58px;display:flex;align-items:center;gap:32px; }
 .nav-left { display:flex;align-items:center;gap:10px;flex-shrink:0; }
-.nav-brand { font-size:1rem;font-weight:900;letter-spacing:.08em;color:#fff;text-transform:uppercase;line-height:1; }
+.nav-brand { font-size:1rem;font-weight:900;letter-spacing:.08em;color:var(--navy);text-transform:uppercase;line-height:1; }
 .nav-brand span { font-weight:400; }
-.nav-sub { font-size:.5rem;font-weight:600;letter-spacing:.14em;color:rgba(255,255,255,.55);text-transform:uppercase;display:block;line-height:1;margin-top:3px; }
-.nav-logo-shield { background:#fff;border-radius:5px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+.nav-sub { font-size:.5rem;font-weight:600;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;display:block;line-height:1;margin-top:3px; }
+.nav-logo-shield { background:var(--navy);border-radius:5px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
 .nav-logo-shield svg { width:18px;height:18px; }
-.nav-links { display:flex;align-items:center;gap:4px;flex:1; }
-.nav-link { color:rgba(255,255,255,.88);font-size:.82rem;font-weight:500;padding:6px 12px;border-radius:4px;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;transition:background .12s; }
-.nav-link:hover { background:rgba(255,255,255,.1); }
-.nav-link.active { color:#fff;position:relative; }
+.nav-links { display:flex;align-items:center;gap:2px;flex:1; }
+.nav-link { color:var(--body);font-size:.82rem;font-weight:500;padding:6px 12px;border-radius:4px;cursor:pointer;display:flex;align-items:center;gap:5px;white-space:nowrap;transition:background .12s; }
+.nav-link:hover { background:var(--bg);color:var(--navy); }
+.nav-link.active { color:var(--blue);font-weight:700;position:relative; }
 .nav-link.active::after { content:'';position:absolute;bottom:-17px;left:12px;right:12px;height:2px;background:#22c55e;border-radius:2px; }
-.nav-link svg { width:10px;height:10px;opacity:.7; }
-.nav-icons { display:flex;align-items:center;gap:6px;flex-shrink:0; }
+.nav-link svg { width:10px;height:10px;opacity:.5; }
+.nav-icons { display:flex;align-items:center;gap:4px;flex-shrink:0; }
 .nav-icon-btn { width:34px;height:34px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .12s; }
-.nav-icon-btn:hover { background:rgba(255,255,255,.12); }
-.nav-icon-btn svg { width:18px;height:18px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round; }
+.nav-icon-btn:hover { background:var(--bg); }
+.nav-icon-btn svg { width:18px;height:18px;stroke:var(--navy);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round; }
 .nav-avatar { width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#f59e0b,#d97706);display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:800;color:#fff;cursor:pointer; }
 
 /* HERO */
@@ -418,8 +418,8 @@ footer p { font-size:.72rem;color:rgba(255,255,255,.35); }
   <div class="nav-left">
     <div class="nav-logo-shield">
       <svg viewBox="0 0 38 44" fill="none">
-        <path d="M19 2L4 8V20C4 29.5 10.5 38.1 19 41C27.5 38.1 34 29.5 34 20V8L19 2Z" fill="#0d2461"/>
-        <text x="19" y="28" text-anchor="middle" fill="white" font-size="16" font-weight="800" font-family="Arial">P</text>
+        <path d="M19 2L4 8V20C4 29.5 10.5 38.1 19 41C27.5 38.1 34 29.5 34 20V8L19 2Z" fill="white"/>
+        <text x="19" y="28" text-anchor="middle" fill="#0d2461" font-size="16" font-weight="800" font-family="Arial">P</text>
       </svg>
     </div>
     <div>
