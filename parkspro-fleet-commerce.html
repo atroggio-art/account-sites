@@ -243,81 +243,74 @@ input[type=range] { width:100%;accent-color:var(--blue); }
 /* OPTION PANELS */
 .options-deck { padding:40px 56px 56px;background:#f4f8fc; }
 .options-deck-inner { max-width:1088px;margin:0 auto; }
-.options-grid { display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px; }
-/* VEHICLE CARD */
-.ov-card { background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(13,36,97,.08);border:1px solid var(--border); }
-.ov-card-photo {
-  height:160px;position:relative;overflow:hidden;
-  background:linear-gradient(135deg,#0d2461 0%,#1a3578 50%,#1d6adb 100%);
-  display:flex;align-items:center;justify-content:center;
-}
-.ov-card-photo-bg {
-  position:absolute;inset:0;
-  background:url('https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=800&q=80') center/cover no-repeat;
-  opacity:.35;
-}
-.ov-card-photo-label {
-  position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(13,36,97,.9));
-  padding:12px 16px;
-}
-.ov-card-photo-name { font-size:.82rem;font-weight:800;color:#fff; }
-.ov-card-photo-detail { font-size:.65rem;color:rgba(255,255,255,.7); }
-.ov-card-price-tag { position:absolute;top:12px;right:12px;background:rgba(255,255,255,.95);border-radius:8px;padding:4px 10px;font-size:.75rem;font-weight:900;color:var(--navy); }
-.ov-card-body { padding:16px; }
-.ov-select-btn { width:100%;background:var(--blue);color:#fff;border:none;border-radius:8px;padding:9px;font-size:.78rem;font-weight:800;cursor:pointer;transition:background .15s;margin-top:10px; }
-.ov-select-btn:hover { background:var(--blue2); }
-.ov-feature-list { list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:10px; }
-.ov-feature-list li { font-size:.72rem;color:var(--body);display:flex;align-items:center;gap:7px; }
-.ov-feature-list li::before { content:'';width:5px;height:5px;min-width:5px;border-radius:50%;background:var(--cyan); }
+.options-grid { display:grid;grid-template-columns:1fr 1fr 1fr;gap:28px; }
+.od-col-label { font-size:.62rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;display:flex;align-items:center;gap:8px; }
+.od-col-label::before { content:'';display:inline-block;width:18px;height:2px;background:var(--blue);border-radius:2px; }
+
+/* VEHICLE CARDS — clean, no photos */
+.ov-card { background:#fff;border-radius:14px;border:2px solid var(--border);overflow:hidden;transition:border-color .15s,box-shadow .15s; }
+.ov-card:hover { border-color:var(--blue);box-shadow:0 6px 24px rgba(29,106,219,.12); }
+.ov-card-top { padding:18px 18px 14px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px; }
+.ov-card-graphic { width:64px;height:64px;min-width:64px;border-radius:12px;display:flex;align-items:center;justify-content:center; }
+.ov-card-graphic.transit { background:linear-gradient(135deg,#0d2461,#1d6adb); }
+.ov-card-graphic.silverado { background:linear-gradient(135deg,#1a3578,#2563eb); }
+.ov-card-graphic svg { width:36px;height:36px;fill:none;stroke:#fff;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round; }
+.ov-card-info { flex:1; }
+.ov-card-name { font-size:.9rem;font-weight:900;color:var(--navy);line-height:1.2;margin-bottom:3px; }
+.ov-card-detail { font-size:.68rem;color:var(--muted); }
+.ov-card-price { font-size:1.2rem;font-weight:900;color:var(--navy);white-space:nowrap; }
+.ov-card-divider { height:1px;background:var(--border);margin:0 18px; }
+.ov-card-bottom { padding:12px 18px;display:flex;flex-wrap:wrap;gap:6px; }
+.ov-tag { background:var(--bg3);border-radius:4px;padding:3px 9px;font-size:.65rem;font-weight:600;color:var(--navy); }
+.ov-tag.pop { background:#dbeafe;color:var(--blue); }
+
 /* UPFIT TIERS */
-.upfit-tier-card { background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(13,36,97,.08);border:2px solid var(--border);cursor:pointer;transition:border-color .15s,transform .15s; }
-.upfit-tier-card:hover { border-color:var(--blue);transform:translateY(-2px); }
+.upfit-tier-card { border-radius:14px;border:2px solid var(--border);background:#fff;overflow:hidden;transition:border-color .15s,box-shadow .15s; }
+.upfit-tier-card:hover { border-color:var(--blue);box-shadow:0 6px 24px rgba(29,106,219,.12); }
+.upfit-tier-card + .upfit-tier-card { margin-top:12px; }
 .upfit-tier-card.featured { border-color:var(--blue); }
-.upfit-tier-header { padding:16px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between; }
-.upfit-tier-header.essential { background:linear-gradient(135deg,#f0f9ff,#e0f2fe); }
-.upfit-tier-header.pro { background:linear-gradient(135deg,#eff6ff,#dbeafe); }
-.upfit-tier-header.smart { background:linear-gradient(135deg,#0d2461,#1a3578); }
-.upfit-tier-name { font-size:.88rem;font-weight:900;color:var(--navy); }
-.upfit-tier-header.smart .upfit-tier-name { color:#fff; }
-.upfit-tier-price { font-size:.82rem;font-weight:700;color:var(--blue); }
-.upfit-tier-header.smart .upfit-tier-price { color:#00b4d8; }
-.upfit-tier-badge { background:var(--blue);color:#fff;font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;border-radius:20px;padding:3px 9px; }
-.upfit-tier-icon { width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center; }
-.upfit-tier-icon.essential { background:rgba(0,180,216,.15); }
-.upfit-tier-icon.pro { background:rgba(29,106,219,.15); }
-.upfit-tier-icon.smart { background:rgba(0,180,216,.2); }
-.upfit-tier-icon svg { width:18px;height:18px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round; }
-.upfit-tier-icon.essential svg,.upfit-tier-icon.pro svg { stroke:#1d6adb; }
-.upfit-tier-icon.smart svg { stroke:#00b4d8; }
-.upfit-tier-body { padding:14px 18px; }
-.upfit-tier-features { list-style:none;display:flex;flex-direction:column;gap:7px; }
-.upfit-tier-features li { font-size:.72rem;color:var(--body);display:flex;align-items:flex-start;gap:8px;line-height:1.4; }
-.upfit-tier-features li .feat-dot { width:5px;height:5px;min-width:5px;border-radius:50%;margin-top:5px;flex-shrink:0; }
-.upfit-tier-card.smart-card .upfit-tier-features li { color:rgba(255,255,255,.8); }
-.upfit-tier-card.smart-card .upfit-tier-body { background:linear-gradient(135deg,#0d2461,#1a3578); }
+.upfit-tier-card.smart-card { border-color:#1d6adb;background:linear-gradient(135deg,#0d2461,#1a3578); }
+.utc-row { display:flex;align-items:center;gap:14px;padding:16px 18px; }
+.utc-icon { width:40px;height:40px;min-width:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0; }
+.utc-icon.essential { background:rgba(0,180,216,.12); }
+.utc-icon.pro { background:rgba(29,106,219,.12); }
+.utc-icon.smart { background:rgba(0,180,216,.18); }
+.utc-icon svg { width:18px;height:18px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round; }
+.utc-icon.essential svg,.utc-icon.pro svg { stroke:var(--blue); }
+.utc-icon.smart svg { stroke:#00b4d8; }
+.utc-name { font-size:.88rem;font-weight:900;color:var(--navy);flex:1; }
+.smart-card .utc-name { color:#fff; }
+.utc-price { font-size:.82rem;font-weight:700;color:var(--blue);white-space:nowrap; }
+.smart-card .utc-price { color:#00b4d8; }
+.utc-badge { background:var(--blue);color:#fff;font-size:.55rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;border-radius:20px;padding:3px 8px;white-space:nowrap; }
+.utc-features { padding:0 18px 14px;display:flex;flex-direction:column;gap:5px;border-top:1px solid var(--border); }
+.smart-card .utc-features { border-top-color:rgba(255,255,255,.1); }
+.utc-features li { font-size:.7rem;color:var(--body);list-style:none;display:flex;align-items:center;gap:7px;padding-top:5px; }
+.smart-card .utc-features li { color:rgba(255,255,255,.75); }
+.utc-feat-dot { width:4px;height:4px;min-width:4px;border-radius:50%;flex-shrink:0; }
+
 /* FINANCE PANEL */
-.finance-panel { background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 24px rgba(13,36,97,.08);border:1px solid var(--border); }
-.finance-panel-header { background:linear-gradient(135deg,var(--navy),var(--navy2));padding:16px 18px; }
-.finance-panel-title { font-size:.88rem;font-weight:900;color:#fff;margin-bottom:2px; }
-.finance-panel-sub { font-size:.68rem;color:rgba(255,255,255,.6); }
-.finance-panel-body { padding:16px 18px; }
-.finance-option-row { display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;border:2px solid var(--border);margin-bottom:10px;cursor:pointer;transition:all .15s; }
-.finance-option-row:last-child { margin-bottom:0; }
-.finance-option-row:hover { border-color:var(--blue);background:#f0f7ff; }
+.finance-panel { background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden; }
+.finance-panel-header { background:var(--navy);padding:14px 18px;display:flex;align-items:center;gap:10px; }
+.finance-panel-title { font-size:.88rem;font-weight:900;color:#fff; }
+.finance-panel-sub { font-size:.65rem;color:rgba(255,255,255,.55);margin-top:1px; }
+.finance-panel-body { padding:14px; }
+.finance-option-row { display:flex;align-items:center;gap:10px;padding:11px 12px;border-radius:10px;border:2px solid var(--border);margin-bottom:8px;cursor:pointer;transition:all .15s; }
+.finance-option-row:last-of-type { margin-bottom:0; }
+.finance-option-row:hover { border-color:var(--blue);background:#f4f8ff; }
 .finance-option-row.active { border-color:var(--blue);background:#eef5fb; }
-.finance-radio { width:16px;height:16px;min-width:16px;border-radius:50%;border:2px solid var(--border);position:relative;flex-shrink:0; }
+.finance-radio { width:15px;height:15px;min-width:15px;border-radius:50%;border:2px solid var(--border);position:relative;flex-shrink:0; }
 .finance-option-row.active .finance-radio { border-color:var(--blue);background:var(--blue); }
-.finance-option-row.active .finance-radio::after { content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:6px;height:6px;background:#fff;border-radius:50%; }
-.finance-opt-name { font-size:.85rem;font-weight:800;color:var(--navy);flex:1; }
-.finance-opt-detail { font-size:.68rem;color:var(--muted);margin-top:2px; }
-.finance-opt-tag { font-size:.65rem;font-weight:700;background:var(--bg3);color:var(--navy);border-radius:4px;padding:2px 7px;white-space:nowrap; }
-.finance-lease-detail { background:var(--bg);border-radius:8px;padding:12px 14px;margin-top:10px; }
-.finance-lease-row { display:flex;justify-content:space-between;align-items:center;font-size:.72rem;color:var(--muted);padding:4px 0; }
-.finance-lease-val { font-weight:700;color:var(--navy); }
-.af-finance-tip { background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:8px;padding:12px 14px;margin-top:10px;display:flex;gap:10px;align-items:flex-start; }
-.af-ft-icon { width:20px;height:20px;min-width:20px;background:rgba(0,180,216,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-top:1px; }
-.af-ft-label { font-size:.58rem;font-weight:700;color:#00b4d8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px; }
-.af-ft-body { font-size:.68rem;color:rgba(255,255,255,.8);line-height:1.5; }
+.finance-option-row.active .finance-radio::after { content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:5px;height:5px;background:#fff;border-radius:50%; }
+.finance-opt-name { font-size:.84rem;font-weight:800;color:var(--navy);flex:1; }
+.finance-opt-detail { font-size:.66rem;color:var(--muted);margin-top:1px; }
+.finance-opt-tag { font-size:.62rem;font-weight:700;background:var(--bg3);color:var(--navy);border-radius:4px;padding:2px 7px;white-space:nowrap; }
+.finance-opt-tag.pop { background:#dbeafe;color:var(--blue); }
+.finance-lease-detail { background:var(--bg);border-radius:8px;padding:10px 14px;margin-top:10px; }
+.finance-lease-row { display:flex;justify-content:space-between;align-items:center;font-size:.72rem;color:var(--muted);padding:5px 0;border-bottom:1px solid var(--border); }
+.finance-lease-row:last-child { border-bottom:none; }
+.finance-lease-val { font-weight:800;color:var(--navy); }
+.finance-lease-row.highlight .finance-lease-val { color:var(--blue); }
 
 /* AI SECTION */
 .ai-bar { background:var(--bg3);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:20px 40px; }
@@ -594,133 +587,131 @@ footer p { font-size:.72rem;color:rgba(255,255,255,.35); }
 
         <!-- VEHICLE COLUMN -->
         <div>
-          <p style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;">Step 1 &mdash; Vehicle Body</p>
-          <div style="display:flex;flex-direction:column;gap:16px;">
+          <p class="od-col-label">Step 1 &mdash; Vehicle Body</p>
 
-            <div class="ov-card">
-              <div class="ov-card-photo">
-                <div class="ov-card-photo-bg" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80')"></div>
-                <div class="ov-card-price-tag">$79,500</div>
-                <div class="ov-card-photo-label">
-                  <div class="ov-card-photo-name">2026 Ford Transit T-250</div>
-                  <div class="ov-card-photo-detail">Medium Roof AWD &bull; Most popular for service franchises</div>
-                </div>
+          <div class="ov-card" style="margin-bottom:12px;">
+            <div class="ov-card-top">
+              <div class="ov-card-graphic transit">
+                <svg viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="10" width="38" height="18" rx="3"/>
+                  <rect x="32" y="6" width="12" height="10" rx="2"/>
+                  <circle cx="10" cy="28" r="3.5"/>
+                  <circle cx="34" cy="28" r="3.5"/>
+                  <rect x="2" y="10" width="38" height="4" rx="1" style="opacity:.4"/>
+                </svg>
               </div>
-              <div class="ov-card-body">
-                <ul class="ov-feature-list">
-                  <li>130 cu ft cargo, best-in-class upfit compatibility</li>
-                  <li>Most popular vehicle for service franchises</li>
-                </ul>
+              <div class="ov-card-info">
+                <div class="ov-card-name">2026 Ford Transit T-250</div>
+                <div class="ov-card-detail">Medium Roof AWD</div>
               </div>
+              <div class="ov-card-price">$79,500</div>
             </div>
-
-            <div class="ov-card">
-              <div class="ov-card-photo" style="background:linear-gradient(135deg,#1a3578,#2563eb);">
-                <div class="ov-card-photo-bg" style="background-image:url('https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&q=80')"></div>
-                <div class="ov-card-price-tag">$65,000</div>
-                <div class="ov-card-photo-label">
-                  <div class="ov-card-photo-name">2026 Chevrolet Silverado</div>
-                  <div class="ov-card-photo-detail">1500 LT Crew Cab 4WD &bull; Ideal for light-duty service</div>
-                </div>
-              </div>
-              <div class="ov-card-body">
-                <ul class="ov-feature-list">
-                  <li>1,940 lb payload, 6.5 ft bed</li>
-                  <li>Preferred for landscaping and repair trades</li>
-                </ul>
-              </div>
+            <div class="ov-card-divider"></div>
+            <div class="ov-card-bottom">
+              <span class="ov-tag pop">Most Popular</span>
+              <span class="ov-tag">130 cu ft cargo</span>
+              <span class="ov-tag">Best upfit compatibility</span>
             </div>
+          </div>
 
+          <div class="ov-card">
+            <div class="ov-card-top">
+              <div class="ov-card-graphic silverado">
+                <svg viewBox="0 0 48 32" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="14" width="44" height="14" rx="3"/>
+                  <rect x="14" y="8" width="20" height="10" rx="2"/>
+                  <circle cx="10" cy="28" r="3.5"/>
+                  <circle cx="38" cy="28" r="3.5"/>
+                  <rect x="14" y="8" width="20" height="3" rx="1" style="opacity:.4"/>
+                </svg>
+              </div>
+              <div class="ov-card-info">
+                <div class="ov-card-name">2026 Chevrolet Silverado</div>
+                <div class="ov-card-detail">1500 LT Crew Cab 4WD</div>
+              </div>
+              <div class="ov-card-price">$65,000</div>
+            </div>
+            <div class="ov-card-divider"></div>
+            <div class="ov-card-bottom">
+              <span class="ov-tag">1,940 lb payload</span>
+              <span class="ov-tag">6.5 ft bed</span>
+              <span class="ov-tag">Light-duty trades</span>
+            </div>
           </div>
         </div>
 
         <!-- UPFIT COLUMN -->
         <div>
-          <p style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;">Step 2 &mdash; Upfit Package</p>
-          <div style="display:flex;flex-direction:column;gap:12px;">
+          <p class="od-col-label">Step 2 &mdash; Upfit Package</p>
 
-            <div class="upfit-tier-card">
-              <div class="upfit-tier-header essential" style="display:flex;align-items:center;justify-content:space-between;">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div class="upfit-tier-icon essential">
-                    <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                  </div>
-                  <div>
-                    <div class="upfit-tier-name">Essential Service</div>
-                    <div class="upfit-tier-price">Included</div>
-                  </div>
-                </div>
+          <div class="upfit-tier-card">
+            <div class="utc-row">
+              <div class="utc-icon essential">
+                <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
               </div>
-              <div class="upfit-tier-body">
-                <ul class="upfit-tier-features">
-                  <li><span class="feat-dot" style="background:#00b4d8"></span>Ladder rack, shelving, lockable parts bins</li>
-                  <li><span class="feat-dot" style="background:#00b4d8"></span>LED cargo lighting, first aid, fire extinguisher</li>
-                </ul>
+              <div style="flex:1">
+                <div class="utc-name">Essential Service</div>
+                <div class="utc-price">Included</div>
               </div>
             </div>
+            <ul class="utc-features">
+              <li><span class="utc-feat-dot" style="background:#00b4d8"></span>Ladder rack, shelving, lockable parts bins</li>
+              <li><span class="utc-feat-dot" style="background:#00b4d8"></span>LED cargo lighting, first aid, fire extinguisher</li>
+            </ul>
+          </div>
 
-            <div class="upfit-tier-card featured">
-              <div class="upfit-tier-header pro" style="display:flex;align-items:center;justify-content:space-between;">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div class="upfit-tier-icon pro">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-                  </div>
-                  <div>
-                    <div class="upfit-tier-name">Professional Technician</div>
-                    <div class="upfit-tier-price">+ $5,000</div>
-                  </div>
-                </div>
-                <span class="upfit-tier-badge">Most Popular</span>
+          <div class="upfit-tier-card featured">
+            <div class="utc-row">
+              <div class="utc-icon pro">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
               </div>
-              <div class="upfit-tier-body">
-                <ul class="upfit-tier-features">
-                  <li><span class="feat-dot" style="background:#1d6adb"></span>Drawer system, power inverter, battery charging</li>
-                  <li><span class="feat-dot" style="background:#1d6adb"></span>Backup camera, GPS/telematics, security lock</li>
-                </ul>
+              <div style="flex:1">
+                <div class="utc-name">Professional Technician</div>
+                <div class="utc-price">+ $5,000</div>
+              </div>
+              <span class="utc-badge">Most Popular</span>
+            </div>
+            <ul class="utc-features">
+              <li><span class="utc-feat-dot" style="background:#1d6adb"></span>Drawer system, power inverter, battery charging</li>
+              <li><span class="utc-feat-dot" style="background:#1d6adb"></span>Backup camera, GPS/telematics, security lock</li>
+            </ul>
+          </div>
+
+          <div class="upfit-tier-card smart-card">
+            <div class="utc-row">
+              <div class="utc-icon smart">
+                <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              </div>
+              <div style="flex:1">
+                <div class="utc-name">Smart Fleet AI</div>
+                <div class="utc-price">+ $12,000</div>
               </div>
             </div>
-
-            <div class="upfit-tier-card smart-card" style="border-color:#1d6adb;">
-              <div class="upfit-tier-header smart" style="display:flex;align-items:center;justify-content:space-between;">
-                <div style="display:flex;align-items:center;gap:10px;">
-                  <div class="upfit-tier-icon smart">
-                    <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                  </div>
-                  <div>
-                    <div class="upfit-tier-name">Smart Fleet AI</div>
-                    <div class="upfit-tier-price">+ $12,000</div>
-                  </div>
-                </div>
-              </div>
-              <div class="upfit-tier-body">
-                <ul class="upfit-tier-features">
-                  <li><span class="feat-dot" style="background:#00b4d8"></span>AI dash camera, RFID sensors, predictive maintenance</li>
-                  <li><span class="feat-dot" style="background:#00b4d8"></span>LTE/Wi-Fi hotspot, remote diagnostics, e-locks</li>
-                </ul>
-              </div>
-            </div>
-
+            <ul class="utc-features">
+              <li><span class="utc-feat-dot" style="background:#00b4d8"></span>AI dash camera, RFID sensors, predictive maintenance</li>
+              <li><span class="utc-feat-dot" style="background:#00b4d8"></span>LTE/Wi-Fi hotspot, remote diagnostics, e-locks</li>
+            </ul>
           </div>
         </div>
 
         <!-- FINANCING COLUMN -->
         <div>
-          <p style="font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:14px;">Step 4 &mdash; Financing</p>
+          <p class="od-col-label">Step 4 &mdash; Financing</p>
           <div class="finance-panel">
             <div class="finance-panel-header">
-              <div class="finance-panel-title">Choose How to Pay</div>
-              <div class="finance-panel-sub">All options available at checkout</div>
+              <div>
+                <div class="finance-panel-title">Choose How to Pay</div>
+                <div class="finance-panel-sub">All options available at checkout</div>
+              </div>
             </div>
             <div class="finance-panel-body">
-
               <div class="finance-option-row">
                 <div class="finance-radio"></div>
-                <div style="flex:1">
+                <div>
                   <div class="finance-opt-name">Cash</div>
                   <div class="finance-opt-detail">Full upfront payment at delivery</div>
                 </div>
               </div>
-
               <div class="finance-option-row">
                 <div class="finance-radio"></div>
                 <div style="flex:1">
@@ -729,34 +720,29 @@ footer p { font-size:.72rem;color:rgba(255,255,255,.35); }
                 </div>
                 <span class="finance-opt-tag">Flexible</span>
               </div>
-
               <div class="finance-option-row active">
                 <div class="finance-radio"></div>
                 <div style="flex:1">
                   <div class="finance-opt-name">Long Term Lease</div>
                   <div class="finance-opt-detail">Lower upfront, predictable monthly costs</div>
                 </div>
-                <span class="finance-opt-tag" style="background:#dbeafe;color:#1d6adb;">Popular</span>
+                <span class="finance-opt-tag pop">Popular</span>
               </div>
-
               <div class="finance-lease-detail">
                 <div class="finance-lease-row">
-                  <span>Term Length</span>
-                  <span class="finance-lease-val">36 months</span>
+                  <span>Term Length</span><span class="finance-lease-val">36 months</span>
                 </div>
                 <div class="finance-lease-row">
-                  <span>Yearly Mileage</span>
-                  <span class="finance-lease-val">30,000 mi/yr</span>
+                  <span>Yearly Mileage</span><span class="finance-lease-val">30,000 mi/yr</span>
                 </div>
-                <div class="finance-lease-row">
-                  <span>Est. Monthly</span>
-                  <span class="finance-lease-val" style="color:#1d6adb;">~$1,850/mo</span>
+                <div class="finance-lease-row highlight">
+                  <span>Est. Monthly</span><span class="finance-lease-val">~$1,850/mo</span>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
