@@ -323,8 +323,60 @@ input[type=range]{width:100%;accent-color:var(--blue);}
 @media(max-width:900px){
   .wizard-wrap{grid-template-columns:1fr;}
   .wizard-right{display:none;}
-  .home-hero{grid-template-columns:1fr;}
+  .home-hero{grid-template-columns:1fr;padding:40px 32px;}
+  .home-sections{grid-template-columns:1fr;padding:32px 32px;}
   .success-grid{grid-template-columns:1fr;}
+  .active-order-card{grid-template-columns:1fr;gap:16px;}
+  .upfit-grid{grid-template-columns:1fr 1fr;}
+}
+
+@media(max-width:600px){
+  /* Nav */
+  nav{padding:0 16px;gap:12px;}
+  .nav-links{display:none;}
+  .nav-subbrand{display:none;}
+
+  /* Hero */
+  .home-hero{padding:32px 18px;gap:24px;}
+  .home-hero-left h1{font-size:1.85rem;}
+  .home-hero-left p{font-size:.85rem;}
+  .portal-card{padding:20px;}
+
+  /* Home sections */
+  .home-sections{padding:24px 18px;grid-template-columns:1fr;gap:24px;}
+
+  /* Wizard */
+  .wizard-left{padding:24px 18px;}
+  .vehicle-grid{grid-template-columns:1fr;}
+  .upfit-grid{grid-template-columns:1fr;}
+  .graphics-grid{grid-template-columns:1fr;}
+  .delivery-opts{grid-template-columns:1fr;}
+  .wiz-footer{flex-direction:column-reverse;}
+  .wiz-footer .btn{width:100%;}
+
+  /* Success page */
+  .success-wrap{padding:24px 16px;}
+  .success-header h1{font-size:1.4rem;}
+  .next-steps{flex-wrap:wrap;gap:16px;}
+  .next-step-line{display:none;}
+  .success-actions{flex-direction:column;align-items:stretch;}
+  .success-actions .btn{width:100%;text-align:center;}
+
+  /* History */
+  .history-wrap{padding:24px 16px;}
+  .active-order-card{grid-template-columns:1fr;padding:18px;}
+  .history-table{font-size:.72rem;}
+  .history-table th,.history-table td{padding:8px 10px;}
+  .history-table th:nth-child(4),.history-table td:nth-child(4){display:none;}
+  .history-table th:nth-child(5),.history-table td:nth-child(5){display:none;}
+  .history-table-wrap{overflow-x:auto;}
+
+  /* Welcome stats */
+  .welcome-stats{flex-wrap:wrap;}
+  .welcome-stat{min-width:80px;}
+
+  /* Chat */
+  .chat-window{width:calc(100vw - 32px);right:-16px;}
 }
 </style>
 </head>
@@ -780,7 +832,7 @@ input[type=range]{width:100%;accent-color:var(--blue);}
     <div class="past-orders-header">
       <div class="past-orders-title">Past Orders</div>
     </div>
-    <table class="history-table">
+    <div class="history-table-wrap"><table class="history-table">
       <thead>
         <tr>
           <th></th>
@@ -845,7 +897,7 @@ input[type=range]{width:100%;accent-color:var(--blue);}
           <td><button class="reorder-btn">Reorder</button></td>
         </tr>
       </tbody>
-    </table>
+    </table></div>
   </div>
 </div>
 
