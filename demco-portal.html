@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demco Dealer Portal</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#c0202e;--red2:#a01820;--dark:#1c2230;--dark2:#252c3a;
+  --blue:#1d6adb;--cyan:#00b4d8;--bg:#f4f5f7;--bg2:#eaecf0;
+  --border:#d6d9e0;--body:#374151;--muted:#6b7280;
+  --green:#16a34a;--orange:#d97706;--white:#fff;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#fff;color:var(--body);min-height:100vh;}
+
+/* NAV */
+nav{background:var(--dark);height:58px;display:flex;align-items:center;padding:0 32px;gap:24px;position:sticky;top:0;z-index:200;}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.nav-badge{background:var(--red);border-radius:6px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;color:#fff;letter-spacing:.04em;}
+.nav-brand{font-size:1rem;font-weight:900;color:#fff;letter-spacing:.06em;line-height:1;}
+.nav-subbrand{font-size:.46rem;font-weight:600;letter-spacing:.14em;color:rgba(255,255,255,.45);text-transform:uppercase;margin-top:2px;}
+.nav-links{flex:1;display:flex;gap:2px;}
+.nav-link{color:rgba(255,255,255,.8);font-size:.8rem;font-weight:500;padding:5px 12px;border-radius:4px;cursor:pointer;display:flex;align-items:center;gap:4px;white-space:nowrap;}
+.nav-link:hover{background:rgba(255,255,255,.08);}
+.nav-link.active{color:#fff;font-weight:700;border-bottom:2px solid var(--red);}
+.nav-link svg{width:9px;height:9px;fill:none;stroke:rgba(255,255,255,.45);stroke-width:2;}
+.nav-icons{display:flex;align-items:center;gap:5px;}
+.nav-icon{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.nav-icon:hover{background:rgba(255,255,255,.1);}
+.nav-icon svg{width:17px;height:17px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.nav-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--red2));display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:800;color:#fff;cursor:pointer;}
+
+/* PAGES */
+.page{display:none;}
+.page.active{display:block;}
+
+/* HOME */
+.home-hero{
+  background:
+    linear-gradient(to right,rgba(28,34,48,.62) 0%,rgba(28,34,48,.75) 50%,rgba(28,34,48,.92) 100%),
+    url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1600&q=80') center 40%/cover;
+  padding:60px 56px;display:grid;grid-template-columns:1fr 400px;gap:40px;align-items:center;
+}
+.home-hero-left{color:#fff;}
+.home-eyebrow{font-size:.6rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#f87171;margin-bottom:12px;}
+.home-hero-left h1{font-size:2.5rem;font-weight:900;line-height:1.1;margin-bottom:8px;}
+.home-hero-left h1 em{font-style:italic;color:#fca5a5;}
+.home-hero-left p{font-size:.9rem;color:rgba(255,255,255,.72);line-height:1.65;margin-bottom:24px;}
+.home-hero-vals{display:flex;flex-wrap:wrap;gap:8px;}
+.val-chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:20px;padding:5px 13px;font-size:.68rem;font-weight:600;color:rgba(255,255,255,.88);display:flex;align-items:center;gap:6px;}
+.val-chip svg{width:12px;height:12px;fill:none;stroke:#fca5a5;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.portal-card{background:#fff;border-radius:16px;padding:28px;box-shadow:0 16px 48px rgba(0,0,0,.28);}
+.portal-card h2{font-size:1.15rem;font-weight:900;color:var(--dark);margin-bottom:6px;}
+.portal-card p{font-size:.78rem;color:var(--muted);line-height:1.55;margin-bottom:20px;}
+.portal-btn{width:100%;padding:13px;background:var(--red);color:#fff;border:none;border-radius:8px;font-size:.88rem;font-weight:700;cursor:pointer;margin-bottom:10px;transition:background .15s;}
+.portal-btn:hover{background:var(--red2);}
+.portal-btn-ghost{width:100%;padding:12px;background:#fff;color:var(--dark);border:2px solid var(--border);border-radius:8px;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .15s;}
+.portal-btn-ghost:hover{border-color:var(--red);color:var(--red);}
+.home-sections{padding:40px 56px;display:grid;grid-template-columns:2fr 1fr;gap:32px;}
+.home-section-title{font-size:.58rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:16px;}
+.home-body-text h3{font-size:1.05rem;font-weight:900;color:var(--dark);margin-bottom:8px;}
+.home-body-text p{font-size:.83rem;color:var(--body);line-height:1.65;margin-bottom:14px;}
+.home-body-text strong{color:var(--dark);}
+.welcome-card{background:linear-gradient(135deg,var(--dark) 0%,var(--dark2) 60%,#2d3a52 100%);border-radius:14px;padding:24px;color:#fff;position:relative;overflow:hidden;}
+.welcome-card::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.04);}
+.welcome-card::after{content:'';position:absolute;bottom:-20px;left:-20px;width:80px;height:80px;border-radius:50%;background:rgba(192,32,46,.1);}
+.welcome-avatar{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:900;color:#fff;margin-bottom:12px;}
+.welcome-card h3{font-size:.95rem;font-weight:800;color:#fff;margin-bottom:4px;}
+.welcome-card p{font-size:.72rem;color:rgba(255,255,255,.6);line-height:1.5;margin-bottom:16px;}
+.welcome-stats{display:flex;gap:0;border-top:1px solid rgba(255,255,255,.1);padding-top:14px;margin-top:4px;}
+.welcome-stat{flex:1;text-align:center;}
+.welcome-stat+.welcome-stat{border-left:1px solid rgba(255,255,255,.1);}
+.welcome-stat-num{font-size:1.1rem;font-weight:900;color:#fff;}
+.welcome-stat-label{font-size:.58rem;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.08em;margin-top:2px;}
+.welcome-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(34,197,94,.18);border:1px solid rgba(34,197,94,.3);border-radius:20px;padding:3px 10px;font-size:.62rem;font-weight:700;color:#4ade80;margin-bottom:14px;}
+.welcome-badge-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;}
+
+/* QUICK ACTIONS */
+.quick-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px;}
+.qa-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:18px 16px;cursor:pointer;transition:all .15s;text-align:center;}
+.qa-card:hover{border-color:var(--red);box-shadow:0 4px 14px rgba(192,32,46,.1);}
+.qa-icon{width:38px;height:38px;border-radius:9px;background:#fff0f0;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;}
+.qa-icon svg{width:18px;height:18px;fill:none;stroke:var(--red);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;}
+.qa-label{font-size:.75rem;font-weight:800;color:var(--dark);margin-bottom:3px;}
+.qa-desc{font-size:.65rem;color:var(--muted);}
+
+/* WIZARD */
+.wizard-wrap{display:grid;grid-template-columns:1fr 360px;min-height:calc(100vh - 58px);}
+.wizard-left{padding:36px 44px;background:#fff;border-right:1px solid var(--border);}
+.wizard-right{padding:24px;background:var(--bg);display:flex;flex-direction:column;gap:18px;}
+.wiz-progress{display:flex;align-items:center;margin-bottom:32px;}
+.wiz-step-item{display:flex;align-items:center;flex:1;}
+.wiz-step-item:last-child{flex:0;}
+.wiz-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:800;flex-shrink:0;transition:all .2s;}
+.wiz-dot.done{background:var(--red);color:#fff;}
+.wiz-dot.active{background:var(--dark);color:#fff;box-shadow:0 0 0 4px rgba(192,32,46,.18);}
+.wiz-dot.pending{background:#e5e7eb;color:#9ca3af;}
+.wiz-line{flex:1;height:2px;background:#e5e7eb;transition:background .2s;}
+.wiz-line.done{background:var(--red);}
+.wiz-label{font-size:.58rem;color:var(--muted);text-align:center;margin-top:4px;white-space:nowrap;}
+.step-panel{display:none;}
+.step-panel.active{display:block;}
+.step-eyebrow{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px;}
+.step-title{font-size:1.45rem;font-weight:900;color:var(--dark);margin-bottom:6px;}
+.step-sub{font-size:.8rem;color:var(--muted);margin-bottom:24px;line-height:1.5;}
+
+/* PRODUCT CATEGORY CARDS */
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.cat-card{border:2px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:border-color .15s,box-shadow .15s;}
+.cat-card:hover{border-color:var(--red);box-shadow:0 4px 16px rgba(192,32,46,.1);}
+.cat-card.selected{border-color:var(--red);background:#fff5f5;}
+.cat-card-img{height:130px;overflow:hidden;position:relative;}
+.cat-card-img img{width:100%;height:100%;object-fit:cover;object-position:center;}
+.cat-card-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(28,34,48,.1) 0%,rgba(28,34,48,.5) 100%);}
+.cat-check{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;background:var(--red);display:none;align-items:center;justify-content:center;z-index:2;}
+.cat-card.selected .cat-check{display:flex;}
+.cat-check svg{width:11px;height:11px;fill:none;stroke:#fff;stroke-width:2.5;}
+.cat-body{padding:14px 16px;}
+.cat-name{font-size:.88rem;font-weight:900;color:var(--dark);margin-bottom:3px;}
+.cat-desc{font-size:.68rem;color:var(--muted);line-height:1.4;margin-bottom:8px;}
+.cat-skus{font-size:.62rem;color:var(--red);font-weight:700;}
+
+/* CONFIG ROWS */
+.config-section{margin-bottom:22px;}
+.config-section-title{font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--dark);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.config-opts{display:flex;flex-direction:column;gap:8px;}
+.config-opt{border:2px solid var(--border);border-radius:10px;padding:12px 16px;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:12px;}
+.config-opt:hover{border-color:var(--red);}
+.config-opt.selected{border-color:var(--red);background:#fff5f5;}
+.config-radio{width:16px;height:16px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;}
+.config-opt.selected .config-radio{border-color:var(--red);background:var(--red);}
+.config-opt-info{flex:1;}
+.config-opt-name{font-size:.84rem;font-weight:800;color:var(--dark);}
+.config-opt-desc{font-size:.66rem;color:var(--muted);margin-top:1px;}
+.config-opt-price{font-size:.84rem;font-weight:800;color:var(--red);white-space:nowrap;}
+.config-opt-price.included{color:var(--green);}
+
+/* ADD-ON TOGGLES */
+.addon-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px;}
+.addon-card{border:2px solid var(--border);border-radius:10px;padding:12px 14px;cursor:pointer;transition:all .15s;display:flex;align-items:flex-start;gap:10px;}
+.addon-card:hover{border-color:var(--red);}
+.addon-card.selected{border-color:var(--red);background:#fff5f5;}
+.addon-check{width:18px;height:18px;border-radius:4px;border:2px solid var(--border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;}
+.addon-card.selected .addon-check{border-color:var(--red);background:var(--red);}
+.addon-check svg{width:10px;height:10px;fill:none;stroke:#fff;stroke-width:2.5;display:none;}
+.addon-card.selected .addon-check svg{display:block;}
+.addon-info{flex:1;}
+.addon-name{font-size:.78rem;font-weight:800;color:var(--dark);margin-bottom:2px;}
+.addon-desc{font-size:.62rem;color:var(--muted);line-height:1.35;}
+.addon-price{font-size:.72rem;font-weight:800;color:var(--red);margin-top:4px;}
+
+/* DELIVERY / SHIPPING */
+.ship-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+.ship-opt{border:2px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:all .15s;}
+.ship-opt:hover{border-color:var(--red);}
+.ship-opt.selected{border-color:var(--red);background:#fff5f5;}
+.ship-opt-name{font-size:.84rem;font-weight:800;color:var(--dark);margin-bottom:3px;}
+.ship-opt-detail{font-size:.67rem;color:var(--muted);}
+.ship-opt-price{font-size:.82rem;font-weight:700;color:var(--red);margin-top:6px;}
+
+/* WIZARD RIGHT PANEL */
+.wiz-summary-card{background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;}
+.wiz-summary-img{height:140px;overflow:hidden;position:relative;}
+.wiz-summary-img img{width:100%;height:100%;object-fit:cover;object-position:center;}
+.wiz-price-overlay{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.92);border-radius:6px;padding:3px 10px;font-size:.86rem;font-weight:900;color:var(--dark);box-shadow:0 1px 4px rgba(0,0,0,.1);}
+.wiz-summary-body{padding:16px;}
+.wiz-prod-eyebrow{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:2px;}
+.wiz-prod-name{font-size:.92rem;font-weight:900;color:var(--dark);}
+.wiz-price-big{font-size:1.5rem;font-weight:900;color:var(--dark);margin:8px 0 0;}
+.wiz-price-label{font-size:.62rem;color:var(--muted);margin-top:2px;}
+.wiz-opts-list{padding:12px 16px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:6px;}
+.wiz-opt-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:.7rem;}
+.wiz-opt-label{color:var(--muted);}
+.wiz-opt-val{font-weight:700;color:var(--dark);}
+.ai-helper{background:linear-gradient(135deg,var(--dark),var(--dark2));border-radius:14px;padding:16px 18px;}
+.ai-helper-top{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.ai-icon{width:30px;height:30px;border-radius:8px;background:rgba(192,32,46,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ai-icon svg{width:15px;height:15px;fill:none;stroke:#fca5a5;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.ai-title{font-size:.76rem;font-weight:800;color:#fff;}
+.ai-sub{font-size:.62rem;color:rgba(255,255,255,.55);margin-top:1px;}
+.ai-chips{display:flex;flex-wrap:wrap;gap:6px;}
+.ai-chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:4px 10px;font-size:.63rem;color:rgba(255,255,255,.75);cursor:pointer;transition:background .15s;}
+.ai-chip:hover{background:rgba(255,255,255,.15);}
+.wiz-footer{display:flex;justify-content:flex-end;gap:12px;margin-top:28px;padding-top:20px;border-top:1px solid var(--border);}
+.btn{padding:11px 24px;border-radius:8px;font-size:.84rem;font-weight:700;cursor:pointer;border:none;transition:all .15s;}
+.btn-primary{background:var(--red);color:#fff;}
+.btn-primary:hover{background:var(--red2);}
+.btn-ghost{background:#fff;color:var(--dark);border:2px solid var(--border);}
+.btn-ghost:hover{border-color:var(--red);color:var(--red);}
+
+/* PARTS CATALOG PAGE */
+.catalog-wrap{padding:32px 48px;}
+.catalog-header{display:flex;align-items:center;gap:16px;margin-bottom:24px;}
+.catalog-search{flex:1;display:flex;align-items:center;gap:10px;background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:0 14px;height:42px;}
+.catalog-search svg{width:16px;height:16px;fill:none;stroke:var(--muted);stroke-width:2;flex-shrink:0;}
+.catalog-search input{flex:1;border:none;outline:none;font-size:.84rem;color:var(--body);}
+.catalog-filter-btn{background:#fff;border:1.5px solid var(--border);border-radius:8px;padding:0 16px;height:42px;font-size:.8rem;font-weight:600;color:var(--dark);cursor:pointer;display:flex;align-items:center;gap:6px;}
+.catalog-filter-btn svg{width:14px;height:14px;fill:none;stroke:var(--dark);stroke-width:2;}
+.catalog-body{display:grid;grid-template-columns:200px 1fr;gap:24px;}
+.catalog-sidebar{}
+.catalog-sidebar-title{font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+.cat-filter-group{margin-bottom:18px;}
+.cat-filter-label{font-size:.72rem;font-weight:700;color:var(--dark);margin-bottom:6px;}
+.cat-filter-opt{display:flex;align-items:center;gap:8px;padding:5px 0;cursor:pointer;}
+.cat-filter-opt input{accent-color:var(--red);}
+.cat-filter-opt span{font-size:.75rem;color:var(--body);}
+.parts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.part-card{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:box-shadow .15s,border-color .15s;cursor:pointer;}
+.part-card:hover{border-color:var(--red);box-shadow:0 4px 16px rgba(192,32,46,.08);}
+.part-card-img{height:120px;background:var(--bg);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.part-card-img img{max-width:85%;max-height:85%;object-fit:contain;}
+.part-card-body{padding:14px;}
+.part-sku{font-size:.6rem;font-weight:700;color:var(--muted);letter-spacing:.06em;margin-bottom:4px;}
+.part-name{font-size:.82rem;font-weight:800;color:var(--dark);margin-bottom:4px;line-height:1.3;}
+.part-spec{font-size:.68rem;color:var(--muted);margin-bottom:10px;}
+.part-footer{display:flex;align-items:center;justify-content:space-between;}
+.part-price{font-size:1rem;font-weight:900;color:var(--dark);}
+.part-price-label{font-size:.6rem;color:var(--muted);font-weight:400;}
+.add-to-cart{background:var(--red);color:#fff;border:none;border-radius:6px;padding:6px 14px;font-size:.72rem;font-weight:700;cursor:pointer;transition:background .15s;}
+.add-to-cart:hover{background:var(--red2);}
+.stock-badge{display:inline-block;border-radius:4px;padding:2px 8px;font-size:.6rem;font-weight:700;margin-bottom:8px;}
+.stock-badge.in{background:#dcfce7;color:var(--green);}
+.stock-badge.low{background:#fef3c7;color:var(--orange);}
+
+/* SUCCESS PAGE */
+.success-wrap{max-width:860px;margin:0 auto;padding:40px 24px;}
+.success-header{text-align:center;margin-bottom:32px;}
+.success-badge{width:60px;height:60px;border-radius:50%;background:#fff0f0;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+.success-badge svg{width:28px;height:28px;fill:none;stroke:var(--red);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+.success-header h1{font-size:1.75rem;font-weight:900;color:var(--dark);margin-bottom:6px;}
+.success-header p{font-size:.86rem;color:var(--muted);}
+.success-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:24px;}
+.success-card{background:#fff;border-radius:14px;border:1px solid var(--border);padding:18px;}
+.success-card-title{font-size:.58rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:12px;}
+.success-summary-img{width:100%;height:130px;object-fit:cover;object-position:center;display:block;border-radius:8px;margin-bottom:12px;}
+.success-row{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:.74rem;padding:5px 0;border-bottom:1px solid var(--border);}
+.success-row:last-child{border-bottom:none;}
+.success-row-label{color:var(--muted);}
+.success-row-val{font-weight:700;color:var(--dark);}
+.next-steps{display:flex;align-items:center;gap:10px;justify-content:center;padding:20px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:24px;}
+.next-step{display:flex;flex-direction:column;align-items:center;gap:6px;}
+.next-step-icon{width:38px;height:38px;border-radius:50%;background:#fff0f0;display:flex;align-items:center;justify-content:center;}
+.next-step-icon svg{width:16px;height:16px;fill:none;stroke:var(--red);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.next-step-label{font-size:.6rem;font-weight:600;color:var(--dark);text-align:center;}
+.next-step-line{width:40px;height:2px;background:var(--red);}
+.success-actions{display:flex;justify-content:center;gap:12px;}
+
+/* HISTORY PAGE */
+.history-wrap{padding:32px 48px;}
+.page-title{font-size:1.25rem;font-weight:900;color:var(--dark);margin-bottom:4px;}
+.page-subtitle{font-size:.8rem;color:var(--muted);margin-bottom:24px;}
+.active-order-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:22px;display:grid;grid-template-columns:180px 1fr 1fr;gap:22px;align-items:center;margin-bottom:24px;}
+.active-order-img{height:120px;background:var(--bg);border-radius:10px;overflow:hidden;}
+.active-order-img img{width:100%;height:100%;object-fit:cover;object-position:center;}
+.order-status-badge{display:inline-flex;align-items:center;gap:6px;background:#dbeafe;color:var(--blue);border-radius:20px;padding:4px 12px;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;}
+.order-status-badge.inprog::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--blue);}
+.order-status-badge.prod{background:#fff0f0;color:var(--red);}
+.order-status-badge.prod::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--red);}
+.order-name{font-size:1rem;font-weight:900;color:var(--dark);margin-bottom:8px;}
+.order-meta{display:flex;flex-direction:column;gap:4px;}
+.order-meta-row{display:flex;gap:8px;font-size:.72rem;}
+.order-meta-label{color:var(--muted);width:110px;flex-shrink:0;}
+.order-meta-val{font-weight:600;color:var(--dark);}
+.view-order-btn{background:var(--dark);color:#fff;border:none;border-radius:8px;padding:11px 18px;font-size:.78rem;font-weight:700;cursor:pointer;width:100%;transition:background .15s;}
+.view-order-btn:hover{background:var(--red);}
+.past-orders-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+.past-orders-title{font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--red);}
+.history-table-wrap{overflow-x:auto;}
+.history-table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--border);}
+.history-table th{background:var(--bg);font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:10px 14px;text-align:left;border-bottom:1px solid var(--border);}
+.history-table td{padding:12px 14px;font-size:.77rem;border-bottom:1px solid var(--border);vertical-align:middle;}
+.history-table tr:last-child td{border-bottom:none;}
+.history-table tr:hover td{background:#fffafa;}
+.order-num-link{color:var(--red);font-weight:700;cursor:pointer;}
+.status-pill{display:inline-block;border-radius:20px;padding:3px 10px;font-size:.6rem;font-weight:700;}
+.status-pill.delivered{background:#dcfce7;color:var(--green);}
+.status-pill.production{background:#fff0f0;color:var(--red);}
+.status-pill.shipped{background:#dbeafe;color:var(--blue);}
+.reorder-btn{background:#fff;border:1.5px solid var(--border);border-radius:6px;padding:5px 12px;font-size:.7rem;font-weight:700;color:var(--dark);cursor:pointer;}
+.reorder-btn:hover{border-color:var(--red);color:var(--red);}
+
+/* AGENTFORCE CHAT */
+#chat-bubble{position:fixed;bottom:24px;right:24px;z-index:300;}
+.chat-toggle{width:50px;height:50px;border-radius:50%;background:var(--dark);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(0,0,0,.3);transition:background .15s;}
+.chat-toggle:hover{background:var(--red);}
+.chat-toggle svg{width:21px;height:21px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.chat-window{position:absolute;bottom:62px;right:0;width:330px;background:#fff;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.22);overflow:hidden;display:none;flex-direction:column;}
+.chat-window.open{display:flex;}
+.chat-header{background:var(--dark);padding:13px 16px;display:flex;align-items:center;gap:10px;}
+.chat-header-icon{width:28px;height:28px;border-radius:7px;background:rgba(192,32,46,.25);display:flex;align-items:center;justify-content:center;}
+.chat-header-icon svg{width:14px;height:14px;fill:none;stroke:#fca5a5;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.chat-header-title{color:#fff;font-size:.82rem;font-weight:800;flex:1;}
+.chat-header-close{color:rgba(255,255,255,.5);background:none;border:none;cursor:pointer;font-size:1rem;line-height:1;}
+.chat-messages{flex:1;padding:14px;display:flex;flex-direction:column;gap:10px;max-height:260px;overflow-y:auto;}
+.chat-msg{max-width:88%;}
+.chat-msg.bot{align-self:flex-start;}
+.chat-msg.user{align-self:flex-end;}
+.chat-bubble-msg{padding:10px 13px;border-radius:12px;font-size:.76rem;line-height:1.5;}
+.chat-msg.bot .chat-bubble-msg{background:var(--bg);color:var(--body);}
+.chat-msg.user .chat-bubble-msg{background:var(--red);color:#fff;}
+.chat-msg-time{font-size:.58rem;color:var(--muted);margin-top:3px;}
+.chat-msg.user .chat-msg-time{text-align:right;}
+.chat-quick{padding:8px 14px;display:flex;flex-wrap:wrap;gap:5px;border-top:1px solid var(--border);}
+.chat-quick-btn{background:var(--bg);border:1px solid var(--border);border-radius:20px;padding:4px 10px;font-size:.66rem;color:var(--body);cursor:pointer;transition:all .15s;}
+.chat-quick-btn:hover{border-color:var(--red);color:var(--red);}
+.chat-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--border);}
+.chat-input{flex:1;border:1.5px solid var(--border);border-radius:8px;padding:7px 11px;font-size:.76rem;outline:none;}
+.chat-input:focus{border-color:var(--red);}
+.chat-send{background:var(--red);border:none;border-radius:8px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.chat-send svg{width:13px;height:13px;fill:none;stroke:#fff;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+.chat-powered{text-align:center;font-size:.58rem;color:var(--muted);padding:5px;background:var(--bg);}
+
+/* PROGRAM BANNER */
+.promo-banner{background:linear-gradient(135deg,var(--dark) 0%,#2d1a1e 100%);border-radius:12px;padding:18px 20px;display:flex;align-items:center;gap:16px;margin-bottom:20px;}
+.promo-banner-left{flex:1;}
+.promo-banner h3{font-size:.86rem;font-weight:800;color:#fff;margin-bottom:5px;}
+.promo-banner p{font-size:.7rem;color:rgba(255,255,255,.6);line-height:1.45;}
+.promo-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.promo-chip{background:rgba(255,255,255,.1);border-radius:20px;padding:3px 10px;font-size:.63rem;color:rgba(255,255,255,.75);}
+.promo-banner-btn{background:var(--red);color:#fff;border:none;border-radius:8px;padding:10px 16px;font-size:.76rem;font-weight:700;cursor:pointer;white-space:nowrap;}
+
+@media(max-width:900px){
+  .wizard-wrap{grid-template-columns:1fr;}
+  .wizard-right{display:none;}
+  .home-hero{grid-template-columns:1fr;padding:40px 32px;}
+  .home-sections{grid-template-columns:1fr;padding:32px;}
+  .success-grid{grid-template-columns:1fr;}
+  .active-order-card{grid-template-columns:1fr;gap:16px;}
+  .cat-grid{grid-template-columns:1fr;}
+  .parts-grid{grid-template-columns:1fr 1fr;}
+  .catalog-body{grid-template-columns:1fr;}
+  .catalog-sidebar{display:none;}
+  .quick-actions{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:600px){
+  nav{padding:0 16px;gap:10px;}
+  .nav-links{display:none;}
+  .nav-subbrand{display:none;}
+  .home-hero{padding:32px 18px;gap:20px;}
+  .home-hero-left h1{font-size:1.8rem;}
+  .portal-card{padding:20px;}
+  .home-sections{padding:24px 18px;gap:20px;}
+  .wizard-left{padding:24px 18px;}
+  .addon-grid{grid-template-columns:1fr;}
+  .ship-opts{grid-template-columns:1fr;}
+  .wiz-footer{flex-direction:column-reverse;}
+  .wiz-footer .btn{width:100%;}
+  .success-wrap{padding:24px 16px;}
+  .success-header h1{font-size:1.35rem;}
+  .next-steps{flex-wrap:wrap;gap:14px;}
+  .next-step-line{display:none;}
+  .success-actions{flex-direction:column;align-items:stretch;}
+  .success-actions .btn{width:100%;text-align:center;}
+  .history-wrap{padding:24px 16px;}
+  .active-order-card{grid-template-columns:1fr;padding:16px;}
+  .history-table th:nth-child(4),.history-table td:nth-child(4){display:none;}
+  .history-table th:nth-child(5),.history-table td:nth-child(5){display:none;}
+  .catalog-wrap{padding:24px 16px;}
+  .parts-grid{grid-template-columns:1fr;}
+  .quick-actions{grid-template-columns:1fr 1fr;}
+  .chat-window{width:calc(100vw - 32px);right:-16px;}
+}
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="pw-gate" style="display:none;position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#1c2230 0%,#252c3a 60%,#3a1a1e 100%);display:flex;align-items:center;justify-content:center;">
+  <div style="background:#fff;border-radius:20px;padding:40px 36px;width:100%;max-width:380px;box-shadow:0 24px 64px rgba(0,0,0,.4);text-align:center;">
+    <div style="width:52px;height:52px;background:#c0202e;border-radius:12px;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+      <svg viewBox="0 0 24 24" fill="none" style="width:28px;height:28px;"><rect x="3" y="3" width="7" height="7" rx="1" fill="#fff"/><rect x="14" y="3" width="7" height="7" rx="1" fill="#fff"/><rect x="3" y="14" width="7" height="7" rx="1" fill="#fff"/><rect x="14" y="14" width="7" height="7" rx="1" fill="rgba(255,255,255,.4)"/></svg>
+    </div>
+    <div style="font-size:.58rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:#c0202e;margin-bottom:6px;">Demco Dealer Portal</div>
+    <h2 style="font-size:1.25rem;font-weight:900;color:#1c2230;margin-bottom:6px;">Authorized Access</h2>
+    <p style="font-size:.78rem;color:#6b7280;margin-bottom:24px;line-height:1.5;">This portal is for authorized Demco dealers only. Enter your dealer access code to continue.</p>
+    <input id="pw-input" type="password" placeholder="Enter dealer access code" style="width:100%;padding:12px 16px;border:2px solid #d6d9e0;border-radius:10px;font-size:.88rem;outline:none;margin-bottom:8px;transition:border-color .15s;" onkeydown="if(event.key==='Enter')checkPW()">
+    <div id="pw-error" style="display:none;font-size:.74rem;color:#dc2626;margin-bottom:8px;">Incorrect access code. Please try again.</div>
+    <button onclick="checkPW()" style="width:100%;padding:13px;background:#c0202e;color:#fff;border:none;border-radius:10px;font-size:.88rem;font-weight:700;cursor:pointer;">Access Portal &rarr;</button>
+    <p style="font-size:.65rem;color:#9ca3af;margin-top:14px;">Need access? Contact your Demco Territory Manager.</p>
+  </div>
+</div>
+<script>
+(function(){
+  var gate=document.getElementById('pw-gate');
+  if(sessionStorage.getItem('demco_auth')==='1'){gate.style.display='none';return;}
+  gate.style.display='flex';
+  document.getElementById('pw-input').addEventListener('focus',function(){this.style.borderColor='#c0202e';});
+  document.getElementById('pw-input').addEventListener('blur',function(){this.style.borderColor='#d6d9e0';});
+})();
+function checkPW(){
+  var val=document.getElementById('pw-input').value;
+  if(val==='Demco26'){
+    sessionStorage.setItem('demco_auth','1');
+    document.getElementById('pw-gate').style.display='none';
+  } else {
+    document.getElementById('pw-error').style.display='block';
+    document.getElementById('pw-input').style.borderColor='#dc2626';
+    document.getElementById('pw-input').value='';
+    document.getElementById('pw-input').focus();
+  }
+}
+</script>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-badge">D</div>
+    <div>
+      <div class="nav-brand">DEMCO</div>
+      <div class="nav-subbrand">Dealer Portal</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <div class="nav-link active" onclick="showPage('home')">Home</div>
+    <div class="nav-link" onclick="showPage('wizard')">Configure &amp; Quote <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="nav-link" onclick="showPage('catalog')">Parts Catalog <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="nav-link" onclick="showPage('history')">Order History</div>
+    <div class="nav-link">Programs <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+    <div class="nav-link">My Account <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+  </div>
+  <div class="nav-icons">
+    <div class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></div>
+    <div class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+    <div class="nav-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+    <div class="nav-avatar">MF</div>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+  <div class="home-hero">
+    <div class="home-hero-left">
+      <div class="home-eyebrow">Demco Authorized Dealer Network</div>
+      <h1>Configure. Quote.<br><em>Built to Move.</em></h1>
+      <p>Your one-stop dealer hub for configuring grain carts, sprayers, trailers, and components — with real-time dealer-net pricing, instant quote generation, and direct order submission. No fax required.</p>
+      <div class="home-hero-vals">
+        <div class="val-chip"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Real-Time Pricing</div>
+        <div class="val-chip"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Instant Quote PDF</div>
+        <div class="val-chip"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>Order Tracking</div>
+        <div class="val-chip"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Early Order Programs</div>
+      </div>
+    </div>
+    <div class="portal-card">
+      <h2>Dealer Portal</h2>
+      <p>Configure whole goods, browse parts, manage orders, and access dealer programs — all in one place.</p>
+      <button class="portal-btn" onclick="showPage('wizard');wizReset();">Build a Quote &rarr;</button>
+      <button class="portal-btn-ghost" onclick="showPage('catalog')">Browse Parts Catalog</button>
+    </div>
+  </div>
+
+  <div style="padding:32px 56px 0;">
+    <div class="promo-banner">
+      <div class="promo-banner-left">
+        <h3>Fall Early Order Program — Now Open</h3>
+        <p>Lock in stocking dealer pricing on grain carts and sprayers through October 31. Qualified dealers receive additional volume incentives on 5+ unit orders.</p>
+        <div class="promo-chips">
+          <span class="promo-chip">Grain Carts</span>
+          <span class="promo-chip">Field Sprayers</span>
+          <span class="promo-chip">Header Transports</span>
+          <span class="promo-chip">Closes Oct 31</span>
+        </div>
+      </div>
+      <button class="promo-banner-btn" onclick="showPage('wizard');wizReset();">Apply Now</button>
+    </div>
+
+    <div class="quick-actions">
+      <div class="qa-card" onclick="showPage('wizard');wizReset();wizGoStep(1);wizSelectCat('grain');">
+        <div class="qa-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <div class="qa-label">Configure Grain Cart</div>
+        <div class="qa-desc">650–2,200 bu, dual &amp; single auger</div>
+      </div>
+      <div class="qa-card" onclick="showPage('wizard');wizReset();wizGoStep(1);wizSelectCat('sprayer');">
+        <div class="qa-icon"><svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
+        <div class="qa-label">Configure Sprayer</div>
+        <div class="qa-desc">300–1,250 gal field sprayers</div>
+      </div>
+      <div class="qa-card" onclick="showPage('wizard');wizReset();wizGoStep(1);wizSelectCat('trailer');">
+        <div class="qa-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <div class="qa-label">Configure Trailer</div>
+        <div class="qa-desc">Grain, liquid tender, side dump</div>
+      </div>
+      <div class="qa-card" onclick="showPage('catalog')">
+        <div class="qa-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <div class="qa-label">Reorder Parts</div>
+        <div class="qa-desc">Couplers, actuators, components</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="home-sections">
+    <div>
+      <div class="home-section-title">Your Dealership. Your Dashboard.</div>
+      <div class="home-body-text">
+        <h3>From Phone Call to Purchase Order in Minutes</h3>
+        <p>When a farmer walks into your dealership asking about a 1500-bu grain cart with tracks and a scale, you shouldn't have to put them on hold for 20 minutes while you fax a form. Configure it here, get dealer-net pricing instantly, and submit the order before they leave the lot.</p>
+        <p><strong>Guided Configuration</strong><br>Step-by-step product builders for grain carts, field sprayers, liquid tender trailers, and more — with constraint-based logic that only shows valid combinations. No more ordering options that don't fit.</p>
+        <p><strong>Dealer-Net Pricing &amp; Programs</strong><br>Your stocking dealer discount applies automatically. Early order program pricing, show specials, and volume tiers are reflected in real time — no calls to your territory manager required.</p>
+        <p><strong>Order History &amp; Reorders</strong><br>Every order you've ever placed is here. One-click reorders for repeat business. Full delivery tracking from production through drop-ship.</p>
+      </div>
+    </div>
+    <div>
+      <div class="welcome-card">
+        <div class="welcome-avatar">MF</div>
+        <div class="welcome-badge"><div class="welcome-badge-dot"></div>Stocking Dealer</div>
+        <h3>Welcome back, Mike!</h3>
+        <p>Farmers Equipment Co. — Ames, IA<br>Demco Authorized Dealer since 2011</p>
+        <div class="welcome-stats">
+          <div class="welcome-stat">
+            <div class="welcome-stat-num" style="min-width:0;">8</div>
+            <div class="welcome-stat-label">Open Orders</div>
+          </div>
+          <div class="welcome-stat">
+            <div class="welcome-stat-num" style="min-width:0;">$412k</div>
+            <div class="welcome-stat-label">YTD Volume</div>
+          </div>
+          <div class="welcome-stat">
+            <div class="welcome-stat-num" style="min-width:0;">32%</div>
+            <div class="welcome-stat-label">Dealer Disc.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- CONFIGURE & QUOTE WIZARD -->
+<div id="page-wizard" class="page">
+  <div class="wizard-wrap">
+    <div class="wizard-left">
+      <!-- progress -->
+      <div class="wiz-progress">
+        <div class="wiz-step-item">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div class="wiz-dot active" id="dot-1">1</div>
+            <div class="wiz-label">Product</div>
+          </div>
+          <div class="wiz-line" id="line-1"></div>
+        </div>
+        <div class="wiz-step-item">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div class="wiz-dot pending" id="dot-2">2</div>
+            <div class="wiz-label">Configure</div>
+          </div>
+          <div class="wiz-line" id="line-2"></div>
+        </div>
+        <div class="wiz-step-item">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div class="wiz-dot pending" id="dot-3">3</div>
+            <div class="wiz-label">Add-Ons</div>
+          </div>
+          <div class="wiz-line" id="line-3"></div>
+        </div>
+        <div class="wiz-step-item">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div class="wiz-dot pending" id="dot-4">4</div>
+            <div class="wiz-label">Shipping</div>
+          </div>
+          <div class="wiz-line" id="line-4"></div>
+        </div>
+        <div class="wiz-step-item" style="flex:0;">
+          <div style="display:flex;flex-direction:column;align-items:center;">
+            <div class="wiz-dot pending" id="dot-5">5</div>
+            <div class="wiz-label">Review</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 1: Product Category -->
+      <div class="step-panel active" id="step-1">
+        <div class="step-eyebrow">Step 1 of 5</div>
+        <div class="step-title">What are you quoting?</div>
+        <div class="step-sub">Select a product category to start building your dealer-net quote.</div>
+        <div class="cat-grid">
+          <div class="cat-card" id="cat-grain" onclick="selectCat('grain')">
+            <div class="cat-card-img">
+              <img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&q=80" alt="Grain Cart">
+              <div class="cat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            </div>
+            <div class="cat-body">
+              <div class="cat-name">Grain Carts &amp; Harvest</div>
+              <div class="cat-desc">Dual &amp; single auger grain carts, wagons, header transports, tank extensions</div>
+              <div class="cat-skus">650 – 2,200 bu &bull; 40+ configurations</div>
+            </div>
+          </div>
+          <div class="cat-card" id="cat-sprayer" onclick="selectCat('sprayer')">
+            <div class="cat-card-img">
+              <img src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&q=80" alt="Sprayer">
+              <div class="cat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            </div>
+            <div class="cat-body">
+              <div class="cat-name">Application Equipment</div>
+              <div class="cat-desc">Field sprayers, ATV/UTV sprayers, SideQuest tractor tanks, booms</div>
+              <div class="cat-skus">300 – 1,250 gal &bull; 30+ configurations</div>
+            </div>
+          </div>
+          <div class="cat-card" id="cat-trailer" onclick="selectCat('trailer')">
+            <div class="cat-card-img">
+              <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Semi Trailer">
+              <div class="cat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            </div>
+            <div class="cat-body">
+              <div class="cat-name">Semi Trailers</div>
+              <div class="cat-desc">Grain trailers, liquid tender trailers, side dumps, drop decks, gondolas</div>
+              <div class="cat-skus">36 – 53 ft &bull; Multiple axle configs</div>
+            </div>
+          </div>
+          <div class="cat-card" id="cat-rv" onclick="selectCat('rv')">
+            <div class="cat-card-img">
+              <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80" alt="RV Towing">
+              <div class="cat-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+            </div>
+            <div class="cat-body">
+              <div class="cat-name">RV Towing Products</div>
+              <div class="cat-desc">5th wheel hitches, tow bars, supplemental braking, tow dollies, baseplates</div>
+              <div class="cat-skus">Recon Stealth™ &bull; Air Force One™</div>
+            </div>
+          </div>
+        </div>
+        <div class="wiz-footer">
+          <button class="btn btn-primary" onclick="wizNext()" id="btn-next-1" disabled style="opacity:.45;">Select Product to Continue &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Configure -->
+      <div class="step-panel" id="step-2">
+        <div class="step-eyebrow">Step 2 of 5</div>
+        <div class="step-title" id="step2-title">Configure Your Product</div>
+        <div class="step-sub" id="step2-sub">Choose your base model and key specifications.</div>
+        <div id="step2-content"></div>
+        <div class="wiz-footer">
+          <button class="btn btn-ghost" onclick="wizBack()">Back</button>
+          <button class="btn btn-primary" onclick="wizNext()">Add-Ons &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Add-Ons -->
+      <div class="step-panel" id="step-3">
+        <div class="step-eyebrow">Step 3 of 5</div>
+        <div class="step-title">Add-Ons &amp; Options</div>
+        <div class="step-sub">Customize with accessories and upgrade packages.</div>
+        <div id="step3-content"></div>
+        <div class="wiz-footer">
+          <button class="btn btn-ghost" onclick="wizBack()">Back</button>
+          <button class="btn btn-primary" onclick="wizNext()">Shipping &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Shipping -->
+      <div class="step-panel" id="step-4">
+        <div class="step-eyebrow">Step 4 of 5</div>
+        <div class="step-title">Shipping &amp; Delivery</div>
+        <div class="step-sub">Choose how and where this order ships.</div>
+        <div class="config-section">
+          <div class="config-section-title">Delivery Method</div>
+          <div class="ship-opts">
+            <div class="ship-opt selected" id="ship-dealer" onclick="selectShip('dealer',this)">
+              <div class="ship-opt-name">Dealer Drop-Ship</div>
+              <div class="ship-opt-detail">Delivered to your dealership. Standard Demco freight terms apply.</div>
+              <div class="ship-opt-price">Freight Included</div>
+            </div>
+            <div class="ship-opt" id="ship-customer" onclick="selectShip('customer',this)">
+              <div class="ship-opt-name">Direct to Customer</div>
+              <div class="ship-opt-detail">Ship directly to your end customer's farm or job site.</div>
+              <div class="ship-opt-price">+ Freight Quote</div>
+            </div>
+          </div>
+        </div>
+        <div class="config-section">
+          <div class="config-section-title">Delivery Address</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div style="grid-column:1/-1;"><input placeholder="Company / Farm Name" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:.82rem;outline:none;" onfocus="this.style.borderColor='#c0202e'" onblur="this.style.borderColor='#d6d9e0'"></div>
+            <div style="grid-column:1/-1;"><input placeholder="Street Address" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:.82rem;outline:none;" onfocus="this.style.borderColor='#c0202e'" onblur="this.style.borderColor='#d6d9e0'"></div>
+            <input placeholder="City" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:.82rem;outline:none;" onfocus="this.style.borderColor='#c0202e'" onblur="this.style.borderColor='#d6d9e0'">
+            <input placeholder="State / ZIP" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:.82rem;outline:none;" onfocus="this.style.borderColor='#c0202e'" onblur="this.style.borderColor='#d6d9e0'">
+          </div>
+        </div>
+        <div class="config-section">
+          <div class="config-section-title">Requested Delivery Window</div>
+          <div style="display:flex;gap:10px;">
+            <div style="flex:1;border:1.5px solid var(--border);border-radius:8px;padding:10px 14px;font-size:.82rem;color:var(--muted);cursor:pointer;">Spring Delivery (Mar–May)</div>
+            <div style="flex:1;border:2px solid var(--red);border-radius:8px;padding:10px 14px;font-size:.82rem;color:var(--red);font-weight:700;cursor:pointer;background:#fff5f5;">Fall Delivery (Aug–Oct)</div>
+          </div>
+        </div>
+        <div class="wiz-footer">
+          <button class="btn btn-ghost" onclick="wizBack()">Back</button>
+          <button class="btn btn-primary" onclick="wizNext()">Review Quote &rarr;</button>
+        </div>
+      </div>
+
+      <!-- Step 5: Review -->
+      <div class="step-panel" id="step-5">
+        <div class="step-eyebrow">Step 5 of 5</div>
+        <div class="step-title">Review &amp; Submit</div>
+        <div class="step-sub">Confirm your configuration and submit for order processing.</div>
+        <div id="step5-content"></div>
+        <div style="background:#fff5f5;border:1.5px solid #fecaca;border-radius:10px;padding:14px 16px;margin-bottom:20px;">
+          <div style="font-size:.72rem;font-weight:800;color:var(--red);margin-bottom:4px;">Dealer Pricing Confirmation</div>
+          <div style="font-size:.72rem;color:var(--body);line-height:1.5;">All prices shown reflect your <strong>stocking dealer net pricing (32% off MSRP)</strong>. Early order program pricing applied where eligible. A PDF quote will be generated upon submission.</div>
+        </div>
+        <div class="wiz-footer">
+          <button class="btn btn-ghost" onclick="wizBack()">Back</button>
+          <button class="btn btn-primary" onclick="showPage('success')">Submit Order &rarr;</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="wizard-right">
+      <div class="wiz-summary-card">
+        <div class="wiz-summary-img">
+          <img id="wiz-preview-img" src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&q=80" alt="">
+          <div class="wiz-price-overlay" id="wiz-price-overlay">$—</div>
+        </div>
+        <div class="wiz-summary-body">
+          <div class="wiz-prod-eyebrow" id="wiz-prod-eyebrow">Select a product</div>
+          <div class="wiz-prod-name" id="wiz-prod-name">—</div>
+          <div class="wiz-price-big" id="wiz-price-big">—</div>
+          <div class="wiz-price-label">Dealer-net price (32% off MSRP)</div>
+        </div>
+        <div class="wiz-opts-list" id="wiz-opts-list">
+          <div class="wiz-opt-row"><span class="wiz-opt-label">Base Model</span><span class="wiz-opt-val" id="wiz-base">—</span></div>
+          <div class="wiz-opt-row"><span class="wiz-opt-label">Capacity</span><span class="wiz-opt-val" id="wiz-capacity">—</span></div>
+          <div class="wiz-opt-row"><span class="wiz-opt-label">Configuration</span><span class="wiz-opt-val" id="wiz-config-val">—</span></div>
+          <div class="wiz-opt-row"><span class="wiz-opt-label">Add-Ons</span><span class="wiz-opt-val" id="wiz-addons">—</span></div>
+          <div class="wiz-opt-row"><span class="wiz-opt-label">Shipping</span><span class="wiz-opt-val">Dealer Drop-Ship</span></div>
+        </div>
+      </div>
+      <div class="ai-helper">
+        <div class="ai-helper-top">
+          <div class="ai-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <div>
+            <div class="ai-title">Agentforce Dealer Assistant</div>
+            <div class="ai-sub">Ask anything about specs, pricing, or fitment</div>
+          </div>
+        </div>
+        <div class="ai-chips">
+          <div class="ai-chip">What fits a John Deere 9RX?</div>
+          <div class="ai-chip">Early order deadline?</div>
+          <div class="ai-chip">Lead time on 1500 cart?</div>
+          <div class="ai-chip">Plumbing package details</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PARTS CATALOG PAGE -->
+<div id="page-catalog" class="page">
+  <div class="catalog-wrap">
+    <div class="catalog-header">
+      <div class="catalog-search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input placeholder="Search by part number, description, or product line…">
+      </div>
+      <button class="catalog-filter-btn"><svg viewBox="0 0 24 24"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg> Filters</button>
+    </div>
+    <div class="catalog-body">
+      <div class="catalog-sidebar">
+        <div class="cat-filter-group">
+          <div class="catalog-sidebar-title">Product Line</div>
+          <div class="cat-filter-opt"><input type="checkbox" checked><span>Trailer Components</span></div>
+          <div class="cat-filter-opt"><input type="checkbox" checked><span>RV Towing</span></div>
+          <div class="cat-filter-opt"><input type="checkbox"><span>Ag Equipment</span></div>
+          <div class="cat-filter-opt"><input type="checkbox"><span>Semi Trailers</span></div>
+        </div>
+        <div class="cat-filter-group">
+          <div class="catalog-sidebar-title">Category</div>
+          <div class="cat-filter-opt"><input type="checkbox" checked><span>Couplers</span></div>
+          <div class="cat-filter-opt"><input type="checkbox" checked><span>Brake Actuators</span></div>
+          <div class="cat-filter-opt"><input type="checkbox"><span>Trailer Jacks</span></div>
+          <div class="cat-filter-opt"><input type="checkbox"><span>5th Wheel Hitches</span></div>
+          <div class="cat-filter-opt"><input type="checkbox"><span>Tow Bars</span></div>
+          <div class="cat-filter-opt"><input type="checkbox"><span>Braking Systems</span></div>
+        </div>
+        <div class="cat-filter-group">
+          <div class="catalog-sidebar-title">Availability</div>
+          <div class="cat-filter-opt"><input type="checkbox" checked><span>In Stock</span></div>
+          <div class="cat-filter-opt"><input type="checkbox"><span>Low Stock</span></div>
+          <div class="cat-filter-opt"><input type="checkbox"><span>Order Only</span></div>
+        </div>
+      </div>
+      <div class="parts-grid">
+        <div class="part-card">
+          <div class="part-card-img" style="background:#f4f5f7;">
+            <svg viewBox="0 0 64 64" style="width:52px;height:52px;fill:none;stroke:#c0202e;stroke-width:2;stroke-linecap:round;"><circle cx="32" cy="32" r="20"/><circle cx="32" cy="32" r="8"/><line x1="32" y1="4" x2="32" y2="16"/><line x1="32" y1="48" x2="32" y2="60"/><line x1="4" y1="32" x2="16" y2="32"/><line x1="48" y1="32" x2="60" y2="32"/></svg>
+          </div>
+          <div class="part-card-body">
+            <div class="part-sku">DMC-DA20-001</div>
+            <div class="part-name">DA20 Hydraulic Brake Actuator</div>
+            <div class="part-spec">20,000 lb GVWR &bull; 2-5/16" ball coupler</div>
+            <div class="stock-badge in">In Stock</div>
+            <div class="part-footer">
+              <div class="part-price">$418 <span class="part-price-label">dealer-net</span></div>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="part-card">
+          <div class="part-card-img" style="background:#f4f5f7;">
+            <svg viewBox="0 0 64 64" style="width:52px;height:52px;fill:none;stroke:#c0202e;stroke-width:2;stroke-linecap:round;"><rect x="12" y="20" width="40" height="24" rx="4"/><line x1="22" y1="20" x2="22" y2="44"/><line x1="42" y1="20" x2="42" y2="44"/><circle cx="20" cy="50" r="6"/><circle cx="44" cy="50" r="6"/></svg>
+          </div>
+          <div class="part-card-body">
+            <div class="part-sku">DMC-EZ-216</div>
+            <div class="part-name">EZ Latch Coupler — 2-5/16"</div>
+            <div class="part-spec">Standard duty &bull; Zinc-plated steel</div>
+            <div class="stock-badge in">In Stock</div>
+            <div class="part-footer">
+              <div class="part-price">$87 <span class="part-price-label">dealer-net</span></div>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="part-card">
+          <div class="part-card-img" style="background:#f4f5f7;">
+            <svg viewBox="0 0 64 64" style="width:52px;height:52px;fill:none;stroke:#c0202e;stroke-width:2;stroke-linecap:round;"><line x1="32" y1="8" x2="32" y2="56"/><rect x="18" y="24" width="28" height="16" rx="2"/><line x1="18" y1="32" x2="8" y2="32"/><line x1="46" y1="32" x2="56" y2="32"/></svg>
+          </div>
+          <div class="part-card-body">
+            <div class="part-sku">DMC-JK-TM24</div>
+            <div class="part-name">Top-Mount Trailer Jack — 24"</div>
+            <div class="part-spec">7,000 lb &bull; Swivel foot &bull; A-frame mount</div>
+            <div class="stock-badge low">Low Stock</div>
+            <div class="part-footer">
+              <div class="part-price">$142 <span class="part-price-label">dealer-net</span></div>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="part-card">
+          <div class="part-card-img" style="background:#f4f5f7;">
+            <svg viewBox="0 0 64 64" style="width:52px;height:52px;fill:none;stroke:#c0202e;stroke-width:2;stroke-linecap:round;"><path d="M10 42 L20 20 L44 20 L54 42"/><line x1="10" y1="42" x2="54" y2="42"/><circle cx="20" cy="50" r="6"/><circle cx="44" cy="50" r="6"/><line x1="32" y1="20" x2="32" y2="10"/><line x1="26" y1="10" x2="38" y2="10"/></svg>
+          </div>
+          <div class="part-card-body">
+            <div class="part-sku">DMC-RC-AFO</div>
+            <div class="part-name">Air Force One™ Braking System</div>
+            <div class="part-spec">Pneumatic supplemental braking &bull; Universal fit</div>
+            <div class="stock-badge in">In Stock</div>
+            <div class="part-footer">
+              <div class="part-price">$1,240 <span class="part-price-label">dealer-net</span></div>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="part-card">
+          <div class="part-card-img" style="background:#f4f5f7;">
+            <svg viewBox="0 0 64 64" style="width:52px;height:52px;fill:none;stroke:#c0202e;stroke-width:2;stroke-linecap:round;"><rect x="8" y="16" width="48" height="12" rx="2"/><rect x="14" y="28" width="36" height="8" rx="1"/><line x1="20" y1="36" x2="20" y2="50"/><line x1="44" y1="36" x2="44" y2="50"/><circle cx="20" cy="54" r="4"/><circle cx="44" cy="54" r="4"/></svg>
+          </div>
+          <div class="part-card-body">
+            <div class="part-sku">DMC-RS-5TH-STH</div>
+            <div class="part-name">Recon Stealth™ 5th Wheel Hitch</div>
+            <div class="part-spec">Foldable gooseball mount &bull; 18,000 lb &bull; Industry first</div>
+            <div class="stock-badge in">In Stock</div>
+            <div class="part-footer">
+              <div class="part-price">$1,890 <span class="part-price-label">dealer-net</span></div>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+        <div class="part-card">
+          <div class="part-card-img" style="background:#f4f5f7;">
+            <svg viewBox="0 0 64 64" style="width:52px;height:52px;fill:none;stroke:#c0202e;stroke-width:2;stroke-linecap:round;"><circle cx="24" cy="44" r="10"/><circle cx="44" cy="44" r="10"/><path d="M10 34 L14 16 L50 16 L54 34"/><line x1="14" y1="24" x2="50" y2="24"/></svg>
+          </div>
+          <div class="part-card-body">
+            <div class="part-sku">DMC-KK-SS</div>
+            <div class="part-name">KarKaddy™ SS Tow Dolly</div>
+            <div class="part-spec">Self-loading &bull; Surge brakes &bull; LED lights</div>
+            <div class="stock-badge low">Low Stock</div>
+            <div class="part-footer">
+              <div class="part-price">$2,140 <span class="part-price-label">dealer-net</span></div>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS PAGE -->
+<div id="page-success" class="page">
+  <div class="success-wrap">
+    <div class="success-header">
+      <div class="success-badge"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <h1>Quote Submitted!</h1>
+      <p>Order #DMC-2026-4471 has been received. Your territory manager will confirm within 1 business day.</p>
+    </div>
+    <div class="success-grid">
+      <div class="success-card">
+        <div class="success-card-title">Product Summary</div>
+        <img class="success-summary-img" src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&q=80" alt="">
+        <div class="success-row"><span class="success-row-label">Product</span><span class="success-row-val">1500 bu Grain Cart</span></div>
+        <div class="success-row"><span class="success-row-label">Auger Type</span><span class="success-row-val">Dual Auger</span></div>
+        <div class="success-row"><span class="success-row-label">Undercarriage</span><span class="success-row-val">Track Kit</span></div>
+        <div class="success-row"><span class="success-row-label">Add-Ons</span><span class="success-row-val">Scale + Tarp</span></div>
+        <div class="success-row"><span class="success-row-label">Delivery</span><span class="success-row-val">Fall 2026</span></div>
+      </div>
+      <div class="success-card">
+        <div class="success-card-title">Pricing Breakdown</div>
+        <div class="success-row"><span class="success-row-label">Base MSRP</span><span class="success-row-val">$98,500</span></div>
+        <div class="success-row"><span class="success-row-label">Track Kit</span><span class="success-row-val">+$6,200</span></div>
+        <div class="success-row"><span class="success-row-label">Scale Package</span><span class="success-row-val">+$2,400</span></div>
+        <div class="success-row"><span class="success-row-label">Electric Tarp</span><span class="success-row-val">+$1,800</span></div>
+        <div class="success-row"><span class="success-row-label">Total MSRP</span><span class="success-row-val">$108,900</span></div>
+        <div class="success-row"><span class="success-row-label">Dealer Discount (32%)</span><span class="success-row-val" style="color:var(--green);">-$34,848</span></div>
+        <div class="success-row" style="border-top:2px solid var(--border);margin-top:4px;padding-top:8px;"><span class="success-row-label" style="font-weight:800;color:var(--dark);">Dealer Net</span><span class="success-row-val" style="font-size:1.05rem;color:var(--red);">$74,052</span></div>
+      </div>
+      <div class="success-card">
+        <div class="success-card-title">What Happens Next</div>
+        <div class="success-row"><span class="success-row-label">Order #</span><span class="success-row-val">DMC-2026-4471</span></div>
+        <div class="success-row"><span class="success-row-label">Status</span><span class="success-row-val" style="color:var(--orange);">Pending Confirmation</span></div>
+        <div class="success-row"><span class="success-row-label">Territory Mgr</span><span class="success-row-val">Dan Koerselman</span></div>
+        <div class="success-row"><span class="success-row-label">Est. Production</span><span class="success-row-val">Jul 2026</span></div>
+        <div class="success-row"><span class="success-row-label">Est. Delivery</span><span class="success-row-val">Aug–Sep 2026</span></div>
+        <div class="success-row"><span class="success-row-label">Quote PDF</span><span class="success-row-val" style="color:var(--red);cursor:pointer;">Download</span></div>
+      </div>
+    </div>
+    <div class="next-steps">
+      <div class="next-step"><div class="next-step-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="next-step-label">Quote Submitted</div></div>
+      <div class="next-step-line"></div>
+      <div class="next-step"><div class="next-step-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="next-step-label">TM Review</div></div>
+      <div class="next-step-line"></div>
+      <div class="next-step"><div class="next-step-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div><div class="next-step-label">Into Production</div></div>
+      <div class="next-step-line"></div>
+      <div class="next-step"><div class="next-step-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div><div class="next-step-label">Delivered</div></div>
+    </div>
+    <div class="success-actions">
+      <button class="btn btn-ghost" onclick="showPage('history')">View Order History</button>
+      <button class="btn btn-primary" onclick="showPage('wizard');wizReset();">Build Another Quote &rarr;</button>
+    </div>
+  </div>
+</div>
+
+<!-- ORDER HISTORY PAGE -->
+<div id="page-history" class="page">
+  <div class="history-wrap">
+    <div class="page-title">Order History</div>
+    <div class="page-subtitle">Farmers Equipment Co. — Ames, IA &bull; All orders placed through Demco Dealer Portal</div>
+    <div class="active-order-card">
+      <div class="active-order-img"><img src="https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400&q=80" alt="" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div>
+        <div class="order-status-badge prod">In Production</div>
+        <div class="order-name">1500 bu Dual-Auger Grain Cart — Track Kit</div>
+        <div class="order-meta">
+          <div class="order-meta-row"><span class="order-meta-label">Order #</span><span class="order-meta-val">DMC-2026-4471</span></div>
+          <div class="order-meta-row"><span class="order-meta-label">Submitted</span><span class="order-meta-val">Aug 13, 2026</span></div>
+          <div class="order-meta-row"><span class="order-meta-label">Est. Delivery</span><span class="order-meta-val">Aug–Sep 2026</span></div>
+          <div class="order-meta-row"><span class="order-meta-label">Dealer Net</span><span class="order-meta-val">$74,052</span></div>
+        </div>
+      </div>
+      <div>
+        <button class="view-order-btn">Track Order</button>
+        <div style="margin-top:10px;text-align:center;font-size:.7rem;color:var(--muted);">Est. delivery Aug–Sep 2026</div>
+      </div>
+    </div>
+    <div class="past-orders-header">
+      <div class="past-orders-title">Past Orders</div>
+    </div>
+    <div class="history-table-wrap">
+      <table class="history-table">
+        <thead>
+          <tr><th>Order #</th><th>Product</th><th>Qty</th><th>Dealer Net</th><th>Ordered</th><th>Status</th><th></th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="order-num-link">DMC-2026-4102</span></td><td>1100 bu Single-Auger Grain Cart</td><td>2</td><td>$109,840</td><td>May 2026</td><td><span class="status-pill delivered">Delivered</span></td><td><button class="reorder-btn">Reorder</button></td></tr>
+          <tr><td><span class="order-num-link">DMC-2026-3887</span></td><td>42' Liquid Tender Trailer — Premier Plumbing</td><td>1</td><td>$61,200</td><td>Mar 2026</td><td><span class="status-pill delivered">Delivered</span></td><td><button class="reorder-btn">Reorder</button></td></tr>
+          <tr><td><span class="order-num-link">DMC-2025-9241</span></td><td>600 gal Field Sprayer + 60' Boom</td><td>1</td><td>$34,680</td><td>Oct 2025</td><td><span class="status-pill delivered">Delivered</span></td><td><button class="reorder-btn">Reorder</button></td></tr>
+          <tr><td><span class="order-num-link">DMC-2025-8803</span></td><td>EZ Latch Couplers 2-5/16" (case qty)</td><td>24</td><td>$1,872</td><td>Sep 2025</td><td><span class="status-pill delivered">Delivered</span></td><td><button class="reorder-btn">Reorder</button></td></tr>
+          <tr><td><span class="order-num-link">DMC-2025-7644</span></td><td>DA20 Brake Actuator</td><td>6</td><td>$2,508</td><td>Jun 2025</td><td><span class="status-pill delivered">Delivered</span></td><td><button class="reorder-btn">Reorder</button></td></tr>
+          <tr><td><span class="order-num-link">DMC-2025-6312</span></td><td>2200 bu Dual-Auger Grain Cart</td><td>1</td><td>$84,320</td><td>Feb 2025</td><td><span class="status-pill shipped">Shipped</span></td><td><button class="reorder-btn">Reorder</button></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- AGENTFORCE CHAT -->
+<div id="chat-bubble">
+  <div class="chat-window" id="chat-window">
+    <div class="chat-header">
+      <div class="chat-header-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <div class="chat-header-title">Agentforce — Dealer Assistant</div>
+      <button class="chat-header-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="chat-msg bot"><div class="chat-bubble-msg">Hi Mike! I'm your Demco dealer assistant. I can help with product specs, dealer pricing, fitment for your customers, and order status. What do you need?</div><div class="chat-msg-time">Just now</div></div>
+    </div>
+    <div class="chat-quick">
+      <button class="chat-quick-btn" onclick="sendQuick('Lead time on 1500 grain cart?')">Lead time — 1500 cart?</button>
+      <button class="chat-quick-btn" onclick="sendQuick('Early order program details')">Early order program</button>
+      <button class="chat-quick-btn" onclick="sendQuick('Liquid tender plumbing packages')">Plumbing packages</button>
+    </div>
+    <div class="chat-input-row">
+      <input class="chat-input" id="chat-input" placeholder="Ask about specs, pricing, fitment…" onkeydown="if(event.key==='Enter')sendChat()">
+      <button class="chat-send" onclick="sendChat()"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+    </div>
+    <div class="chat-powered">Powered by Agentforce &bull; Salesforce</div>
+  </div>
+  <button class="chat-toggle" onclick="toggleChat()"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
+</div>
+
+
+<script>
+// ── PAGE NAVIGATION ──
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+  var map={home:0,wizard:1,catalog:2,history:3};
+  var links=document.querySelectorAll('.nav-link');
+  if(map[id]!==undefined && links[map[id]]) links[map[id]].classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ── WIZARD STATE ──
+var wizStep=1, wizCat=null, wizBase=null, wizCap=null, wizCfg=null;
+var wizAddons=[], wizPrice=0;
+
+var catData={
+  grain:{
+    img:'https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&q=80',
+    eyebrow:'Grain Carts & Harvest',
+    title:'Configure Your Grain Cart',
+    sub:'Select your base model, capacity, and undercarriage.',
+    bases:[
+      {id:'1100s',name:'1100 bu Single-Auger',price:52800,msrp:77650,cap:'1,100 bu'},
+      {id:'1500d',name:'1500 bu Dual-Auger',price:66920,msrp:98500,cap:'1,500 bu'},
+      {id:'2200d',name:'2200 bu Dual-Auger',price:84320,msrp:124000,cap:'2,200 bu'}
+    ],
+    configs:[
+      {id:'std',name:'Standard Tires',desc:'10-bolt rims, standard ag tires',price:0,label:'Included'},
+      {id:'tracks',name:'Track Kit',desc:'Full track undercarriage for soft field conditions',price:6200,label:'+$6,200'},
+      {id:'dualtire',name:'Dual Tires',desc:'Dual rear tires for added flotation',price:2800,label:'+$2,800'}
+    ],
+    addons:[
+      {id:'scale',name:'Scale Package',desc:'Weigh-on-the-go system with display',price:2400},
+      {id:'tarp',name:'Electric Tarp',desc:'Fully automatic electric tarp system',price:1800},
+      {id:'camera',name:'Harvest Vision Camera',desc:'360-degree harvest monitoring camera',price:980},
+      {id:'firesafety',name:'Fire Safety Kit',desc:'Meets NFPA standards, includes extinguisher mount',price:340}
+    ]
+  },
+  sprayer:{
+    img:'https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&q=80',
+    eyebrow:'Application Equipment',
+    title:'Configure Your Sprayer',
+    sub:'Select tank size, boom width, and pump package.',
+    bases:[
+      {id:'300f',name:'300 gal Field Sprayer',price:16200,msrp:23820,cap:'300 gal'},
+      {id:'600f',name:'600 gal Field Sprayer',price:28560,msrp:42000,cap:'600 gal'},
+      {id:'1250f',name:'1,250 gal Field Sprayer',price:42500,msrp:62500,cap:'1,250 gal'}
+    ],
+    configs:[
+      {id:'40boom',name:'40\' Hydraulic Boom',desc:'Standard hydraulic fold boom',price:0,label:'Included'},
+      {id:'60boom',name:'60\' X-Fold Boom',desc:'Full X-fold hydraulic boom, breakaway sections',price:4800,label:'+$4,800'},
+      {id:'60xfold',name:'60\' X-Fold with Section Control',desc:'Section control valves, field rate reduction',price:7400,label:'+$7,400'}
+    ],
+    addons:[
+      {id:'autorate',name:'Auto Rate Control',desc:'GPS-linked auto rate adjustment',price:2100},
+      {id:'rinse',name:'Clean Water Rinse Tank',desc:'50-gal dedicated rinse system',price:880},
+      {id:'light',name:'LED Light Package',desc:'Work lighting for low-visibility conditions',price:420},
+      {id:'foam',name:'Foam Marker',desc:'Dual-sided foam row marker system',price:1100}
+    ]
+  },
+  trailer:{
+    img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
+    eyebrow:'Semi Trailers',
+    title:'Configure Your Trailer',
+    sub:'Select trailer type, length, and axle configuration.',
+    bases:[
+      {id:'grain42',name:'42\' Steel Grain Trailer',price:38400,msrp:56470,cap:'42 ft'},
+      {id:'tender42',name:'42\' Liquid Tender Trailer',price:61200,msrp:90000,cap:'42 ft'},
+      {id:'sidedump',name:'Side Dump Trailer — Tandem',price:54800,msrp:80590,cap:'Tandem Axle'}
+    ],
+    configs:[
+      {id:'tandem',name:'Tandem Axle',desc:'Standard tandem axle, dual tires',price:0,label:'Included'},
+      {id:'triple',name:'Triple Axle',desc:'Triple axle for higher GVWR',price:5600,label:'+$5,600'},
+      {id:'quint',name:'Quint Axle',desc:'Quint axle for maximum legal load',price:10400,label:'+$10,400'}
+    ],
+    addons:[
+      {id:'plumbing',name:'Premier Plumbing Package',desc:'Factory-installed Dura FastBatch™ turnkey spray fill automation',price:8900},
+      {id:'tarp',name:'Electric Tarp System',desc:'Heavy-duty auto tarp',price:2200},
+      {id:'scale',name:'Onboard Scale',desc:'Live weight display system',price:3400},
+      {id:'lights',name:'LED Light Upgrade',desc:'Full LED marker and signal upgrade',price:640}
+    ]
+  },
+  rv:{
+    img:'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&q=80',
+    eyebrow:'RV Towing Products',
+    title:'Configure Your Towing Package',
+    sub:'Select hitch type and vehicle-specific prep package.',
+    bases:[
+      {id:'recon18',name:'Recon Stealth™ 18K 5th Wheel',price:1890,msrp:2780,cap:'18,000 lb'},
+      {id:'autoslide21',name:'Autoslide™ 21K 5th Wheel',price:2340,msrp:3440,cap:'21,000 lb'},
+      {id:'excalibar',name:'Excali-Bar 3 Tow Bar',price:1240,msrp:1820,cap:'6,000 lb'}
+    ],
+    configs:[
+      {id:'ford',name:'Ford Puck System Prep',desc:'OE factory puck system adapter, Ford Super Duty',price:0,label:'Included'},
+      {id:'ram',name:'Ram Puck System Prep',desc:'OE factory puck system adapter, Ram 1500/2500',price:0,label:'Included'},
+      {id:'chevy',name:'Chevy/GMC Prep',desc:'OE factory puck system adapter, Silverado/Sierra',price:0,label:'Included'}
+    ],
+    addons:[
+      {id:'sip',name:'Stay-IN-Play DUO Braking',desc:'Proportional supplemental braking system',price:890},
+      {id:'coachlink',name:'Wireless Coachlink Monitor',desc:'Real-time towed vehicle monitor',price:340},
+      {id:'led',name:'LED Diode Kit',desc:'Light wiring diode kit for towed vehicle',price:88},
+      {id:'cable',name:'Safety Cable Kit',desc:'Coiled safety cables, rated pair',price:52}
+    ]
+  }
+};
+
+function wizReset(){
+  wizStep=1; wizCat=null; wizBase=null; wizCap=null; wizCfg=null; wizAddons=[]; wizPrice=0;
+  document.querySelectorAll('.step-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('step-1').classList.add('active');
+  updateDots(1);
+  document.querySelectorAll('.cat-card').forEach(c=>c.classList.remove('selected'));
+  var btn=document.getElementById('btn-next-1');
+  if(btn){btn.disabled=true;btn.style.opacity='.45';btn.textContent='Select Product to Continue →';}
+  document.getElementById('wiz-prod-eyebrow').textContent='Select a product';
+  document.getElementById('wiz-prod-name').textContent='—';
+  document.getElementById('wiz-price-big').textContent='—';
+  document.getElementById('wiz-price-overlay').textContent='$—';
+  document.getElementById('wiz-base').textContent='—';
+  document.getElementById('wiz-capacity').textContent='—';
+  document.getElementById('wiz-config-val').textContent='—';
+  document.getElementById('wiz-addons').textContent='—';
+  document.getElementById('wiz-preview-img').src='https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=600&q=80';
+}
+
+function wizGoStep(n){wizStep=n;}
+
+function wizSelectCat(cat){
+  wizCat=cat;
+  selectCat(cat);
+}
+
+function selectCat(cat){
+  document.querySelectorAll('.cat-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('cat-'+cat).classList.add('selected');
+  wizCat=cat;
+  var btn=document.getElementById('btn-next-1');
+  if(btn){btn.disabled=false;btn.style.opacity='1';btn.textContent='Configure '+catData[cat].eyebrow+' →';}
+  var d=catData[cat];
+  document.getElementById('wiz-preview-img').src=d.img;
+  document.getElementById('wiz-prod-eyebrow').textContent=d.eyebrow;
+  document.getElementById('wiz-prod-name').textContent='Select model below';
+  document.getElementById('wiz-price-big').textContent='From $'+d.bases[0].price.toLocaleString();
+  document.getElementById('wiz-price-overlay').textContent='From $'+d.bases[0].price.toLocaleString();
+}
+
+function updateDots(active){
+  for(var i=1;i<=5;i++){
+    var dot=document.getElementById('dot-'+i);
+    if(!dot) continue;
+    dot.className='wiz-dot '+(i<active?'done':i===active?'active':'pending');
+    if(i<active) dot.innerHTML='<svg viewBox="0 0 24 24" style="width:12px;height:12px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;"><polyline points="20 6 9 17 4 12"/></svg>';
+    else dot.textContent=i;
+    if(i<5){var ln=document.getElementById('line-'+i);if(ln)ln.className='wiz-line'+(i<active?' done':'');}
+  }
+}
+
+function buildStep2(){
+  var d=catData[wizCat];
+  document.getElementById('step2-title').textContent=d.title;
+  document.getElementById('step2-sub').textContent=d.sub;
+  var html='<div class="config-section"><div class="config-section-title">Base Model</div><div class="config-opts">';
+  d.bases.forEach(function(b,i){
+    html+='<div class="config-opt'+(i===0?' selected':'')+'" id="base-'+b.id+'" onclick="selectBase(\''+b.id+'\')"><div class="config-radio"></div><div class="config-opt-info"><div class="config-opt-name">'+b.name+'</div><div class="config-opt-desc">Dealer-net: $'+b.price.toLocaleString()+' &bull; MSRP: $'+b.msrp.toLocaleString()+'</div></div><div class="config-opt-price">$'+b.price.toLocaleString()+'</div></div>';
+  });
+  html+='</div></div><div class="config-section"><div class="config-section-title">Configuration</div><div class="config-opts">';
+  d.configs.forEach(function(c,i){
+    html+='<div class="config-opt'+(i===0?' selected':'')+'" id="cfg-'+c.id+'" onclick="selectCfg(\''+c.id+'\')"><div class="config-radio"></div><div class="config-opt-info"><div class="config-opt-name">'+c.name+'</div><div class="config-opt-desc">'+c.desc+'</div></div><div class="config-opt-price'+(c.price===0?' included':'')+'">'+c.label+'</div></div>';
+  });
+  html+='</div></div>';
+  document.getElementById('step2-content').innerHTML=html;
+  selectBase(d.bases[0].id);
+  selectCfg(d.configs[0].id);
+}
+
+function selectBase(id){
+  wizBase=id;
+  var d=catData[wizCat];
+  var b=d.bases.find(function(x){return x.id===id;});
+  document.querySelectorAll('[id^="base-"]').forEach(function(el){el.classList.remove('selected');});
+  document.getElementById('base-'+id).classList.add('selected');
+  wizPrice=b.price; wizCap=b.cap;
+  updateWizPanel();
+}
+
+function selectCfg(id){
+  wizCfg=id;
+  document.querySelectorAll('[id^="cfg-"]').forEach(function(el){el.classList.remove('selected');});
+  document.getElementById('cfg-'+id).classList.add('selected');
+  var d=catData[wizCat];
+  var c=d.configs.find(function(x){return x.id===id;});
+  updateWizPanel();
+  document.getElementById('wiz-config-val').textContent=c?c.name:'—';
+}
+
+function buildStep3(){
+  var d=catData[wizCat];
+  var html='<div class="config-section"><div class="config-section-title">Optional Add-Ons</div><div class="addon-grid">';
+  d.addons.forEach(function(a){
+    html+='<div class="addon-card" id="addon-'+a.id+'" onclick="toggleAddon(\''+a.id+'\')"><div class="addon-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="addon-info"><div class="addon-name">'+a.name+'</div><div class="addon-desc">'+a.desc+'</div><div class="addon-price">+$'+a.price.toLocaleString()+'</div></div></div>';
+  });
+  html+='</div></div>';
+  document.getElementById('step3-content').innerHTML=html;
+}
+
+function toggleAddon(id){
+  var el=document.getElementById('addon-'+id);
+  var d=catData[wizCat];
+  var a=d.addons.find(function(x){return x.id===id;});
+  var idx=wizAddons.indexOf(id);
+  if(idx>=0){wizAddons.splice(idx,1);el.classList.remove('selected');}
+  else{wizAddons.push(id);el.classList.add('selected');}
+  updateWizPanel();
+  var names=wizAddons.map(function(aid){return d.addons.find(function(x){return x.id===aid;}).name;});
+  document.getElementById('wiz-addons').textContent=names.length?names.join(', '):'None';
+}
+
+function buildStep5(){
+  var d=catData[wizCat];
+  var b=d.bases.find(function(x){return x.id===wizBase;});
+  var c=d.configs.find(function(x){return x.id===wizCfg;});
+  var addonTotal=wizAddons.reduce(function(s,aid){var a=d.addons.find(function(x){return x.id===aid;});return s+(a?a.price:0);},0);
+  var total=(b?b.price:0)+(c?c.price:0)+addonTotal;
+  var msrpTotal=(b?b.msrp:0)+(c?c.price:0)+addonTotal;
+  var discount=msrpTotal-total;
+  var html='<div class="config-section"><div class="config-section-title">Order Summary</div>';
+  html+='<div class="summary-row" style="display:flex;justify-content:space-between;font-size:.82rem;padding:7px 0;"><span style="color:var(--muted);">Product</span><span style="font-weight:700;color:var(--dark);">'+(b?b.name:'—')+'</span></div>';
+  html+='<div class="summary-row" style="display:flex;justify-content:space-between;font-size:.82rem;padding:7px 0;"><span style="color:var(--muted);">Configuration</span><span style="font-weight:700;color:var(--dark);">'+(c?c.name:'Standard')+'</span></div>';
+  if(wizAddons.length){
+    wizAddons.forEach(function(aid){
+      var a=d.addons.find(function(x){return x.id===aid;});
+      if(a) html+='<div class="summary-row" style="display:flex;justify-content:space-between;font-size:.82rem;padding:7px 0;"><span style="color:var(--muted);">'+a.name+'</span><span style="font-weight:700;color:var(--dark);">+$'+a.price.toLocaleString()+'</span></div>';
+    });
+  }
+  html+='<div style="border-top:1px solid var(--border);margin:8px 0;"></div>';
+  html+='<div class="summary-row" style="display:flex;justify-content:space-between;font-size:.82rem;padding:7px 0;"><span style="color:var(--muted);">Dealer Discount (32%)</span><span style="font-weight:700;color:var(--green);">-$'+discount.toLocaleString()+'</span></div>';
+  html+='<div class="summary-row" style="display:flex;justify-content:space-between;font-size:.9rem;padding:10px 0;border-top:2px solid var(--border);"><span style="font-weight:800;color:var(--dark);">Dealer Net Total</span><span style="font-weight:900;font-size:1.1rem;color:var(--red);">$'+total.toLocaleString()+'</span></div>';
+  html+='</div>';
+  document.getElementById('step5-content').innerHTML=html;
+}
+
+function updateWizPanel(){
+  if(!wizCat||!wizBase) return;
+  var d=catData[wizCat];
+  var b=d.bases.find(function(x){return x.id===wizBase;});
+  var c=wizCfg?d.configs.find(function(x){return x.id===wizCfg;}):null;
+  var addonTotal=wizAddons.reduce(function(s,aid){var a=d.addons.find(function(x){return x.id===aid;});return s+(a?a.price:0);},0);
+  var total=(b?b.price:0)+(c&&c.price?c.price:0)+addonTotal;
+  document.getElementById('wiz-prod-eyebrow').textContent=d.eyebrow;
+  document.getElementById('wiz-prod-name').textContent=b?b.name:'—';
+  document.getElementById('wiz-price-big').textContent='$'+total.toLocaleString();
+  document.getElementById('wiz-price-overlay').textContent='$'+total.toLocaleString();
+  document.getElementById('wiz-base').textContent=b?b.name:'—';
+  document.getElementById('wiz-capacity').textContent=wizCap||'—';
+  document.getElementById('wiz-preview-img').src=d.img;
+}
+
+function wizNext(){
+  if(wizStep===1){
+    if(!wizCat) return;
+    buildStep2();
+  }
+  if(wizStep===2) buildStep3();
+  if(wizStep===4) buildStep5();
+  document.getElementById('step-'+wizStep).classList.remove('active');
+  wizStep++;
+  document.getElementById('step-'+wizStep).classList.add('active');
+  updateDots(wizStep);
+  window.scrollTo(0,0);
+}
+
+function wizBack(){
+  document.getElementById('step-'+wizStep).classList.remove('active');
+  wizStep--;
+  document.getElementById('step-'+wizStep).classList.add('active');
+  updateDots(wizStep);
+  window.scrollTo(0,0);
+}
+
+function selectShip(id,el){
+  document.querySelectorAll('.ship-opt').forEach(function(o){o.classList.remove('selected');});
+  el.classList.add('selected');
+}
+
+// ── CHAT ──
+function toggleChat(){
+  var w=document.getElementById('chat-window');
+  w.classList.toggle('open');
+}
+function sendQuick(msg){
+  addMsg(msg,'user');
+  var replies={
+    'Lead time on 1500 grain cart?':'Current lead time on the 1500 bu dual-auger is 8–10 weeks for fall delivery. Early order program units are prioritized — if you\'re submitting before Oct 31, expect 6–8 weeks.',
+    'Early order program details':'The Fall Early Order Program runs through October 31, 2026. Qualifying stocking dealers get an additional 3% on grain carts and sprayers on orders of 3+ units. Volume incentives at 5+ units.',
+    'Liquid tender plumbing packages':'The Premier Plumbing Package includes factory-installed Dura FastBatch™ automation — turnkey spray-fill, eliminates manual mixing, compatible with 36\'–53\' tender trailers. Add $8,900 dealer-net.'
+  };
+  var r=replies[msg]||'Great question! Let me pull that spec for you. Your territory manager Dan Koerselman can confirm pricing and availability — or I can generate a quote now.';
+  setTimeout(function(){addMsg(r,'bot');},600);
+}
+function sendChat(){
+  var inp=document.getElementById('chat-input');
+  if(!inp.value.trim()) return;
+  addMsg(inp.value,'user');
+  inp.value='';
+  setTimeout(function(){addMsg('I\'m pulling that information for you. For detailed specs or custom configurations, I can also connect you directly with your territory manager. Anything else I can help with?','bot');},700);
+}
+function addMsg(text,type){
+  var msgs=document.getElementById('chat-messages');
+  var div=document.createElement('div');
+  div.className='chat-msg '+type;
+  div.innerHTML='<div class="chat-bubble-msg">'+text+'</div><div class="chat-msg-time">Just now</div>';
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+</script>
+
+
+
+</body>
+</html>
