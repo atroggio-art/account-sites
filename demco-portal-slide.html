@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demco Dealer Portal — Slide</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#0e1118;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+
+/* ── SLIDE CANVAS 16:9 ── */
+.slide{
+  width:1280px;
+  height:720px;
+  background:#111826;
+  position:relative;
+  overflow:hidden;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  flex-shrink:0;
+}
+
+/* ── BACKGROUND TEXTURE ── */
+.slide::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(ellipse 900px 500px at 110% 120%, rgba(192,32,46,.13) 0%, transparent 65%),
+    radial-gradient(ellipse 600px 400px at -10% -10%, rgba(29,106,219,.1) 0%, transparent 60%);
+  pointer-events:none;
+}
+.slide::after{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:3px;
+  background:linear-gradient(to right,#c0202e,#e84855,#c0202e);
+}
+
+/* ── HEADER BAND ── */
+.header{
+  padding:30px 54px 0;
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  position:relative;
+  z-index:2;
+}
+.header-left{}
+.eyebrow{
+  font-size:.58rem;
+  font-weight:800;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:#e84855;
+  margin-bottom:8px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.eyebrow::before{
+  content:'';
+  display:inline-block;
+  width:18px;
+  height:2px;
+  background:#e84855;
+}
+.slide-title{
+  font-size:2.1rem;
+  font-weight:900;
+  color:#fff;
+  line-height:1.05;
+  letter-spacing:-.02em;
+}
+.slide-title em{
+  font-style:normal;
+  color:#e84855;
+}
+.slide-subtitle{
+  font-size:.82rem;
+  color:rgba(255,255,255,.5);
+  margin-top:7px;
+  font-weight:400;
+  letter-spacing:.01em;
+}
+.header-badge{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;
+  padding:10px 18px;
+  margin-top:4px;
+}
+.badge-icon{
+  width:32px;height:32px;
+  background:linear-gradient(135deg,#1d6adb,#0ea5e9);
+  border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+}
+.badge-icon svg{width:17px;height:17px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.badge-text-top{font-size:.62rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);}
+.badge-text-bot{font-size:.82rem;font-weight:700;color:#fff;}
+
+/* ── BODY ── */
+.body{
+  padding:22px 54px 0;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr 280px;
+  gap:16px;
+  position:relative;
+  z-index:2;
+  align-items:start;
+}
+
+/* ── CAPABILITY CARDS ── */
+.cap-card{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:12px;
+  padding:22px 22px 20px;
+  position:relative;
+  overflow:hidden;
+  transition:border-color .2s;
+}
+.cap-card::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:2px;
+  background:var(--accent);
+  opacity:.7;
+}
+.cap-card:nth-child(1){--accent:#e84855;}
+.cap-card:nth-child(2){--accent:#1d6adb;}
+.cap-card:nth-child(3){--accent:#16a34a;}
+.cap-num{
+  font-size:2.8rem;
+  font-weight:900;
+  color:var(--accent);
+  opacity:.12;
+  position:absolute;
+  top:10px;right:16px;
+  line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.cap-icon{
+  width:36px;height:36px;
+  border-radius:9px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:14px;
+}
+.cap-icon svg{width:18px;height:18px;fill:none;stroke:var(--accent);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.cap-label{
+  font-size:.58rem;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:6px;
+  opacity:.85;
+}
+.cap-headline{
+  font-size:.98rem;
+  font-weight:800;
+  color:#fff;
+  line-height:1.2;
+  margin-bottom:9px;
+}
+.cap-body{
+  font-size:.73rem;
+  color:rgba(255,255,255,.55);
+  line-height:1.6;
+}
+.cap-body strong{
+  color:rgba(255,255,255,.85);
+  font-weight:700;
+}
+
+/* ── URGENCY SIDEBAR ── */
+.urgency-card{
+  background:linear-gradient(160deg,rgba(192,32,46,.18) 0%,rgba(168,24,34,.08) 100%);
+  border:1px solid rgba(192,32,46,.35);
+  border-radius:12px;
+  padding:22px 20px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+.urgency-label{
+  font-size:.56rem;
+  font-weight:800;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#e84855;
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+.urgency-dot{
+  width:7px;height:7px;
+  border-radius:50%;
+  background:#e84855;
+  animation:pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:.4;transform:scale(.8);}
+}
+.urgency-headline{
+  font-size:1rem;
+  font-weight:900;
+  color:#fff;
+  line-height:1.25;
+}
+.urgency-deadline{
+  background:rgba(192,32,46,.25);
+  border:1px solid rgba(192,32,46,.4);
+  border-radius:7px;
+  padding:9px 12px;
+  text-align:center;
+}
+.urgency-deadline-label{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);}
+.urgency-deadline-date{font-size:1.2rem;font-weight:900;color:#e84855;letter-spacing:-.01em;}
+.urgency-drivers{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.urgency-drivers li{
+  font-size:.7rem;
+  color:rgba(255,255,255,.6);
+  line-height:1.45;
+  display:flex;
+  gap:8px;
+  align-items:flex-start;
+}
+.urgency-drivers li::before{
+  content:'';
+  display:block;
+  width:4px;height:4px;
+  border-radius:50%;
+  background:#e84855;
+  margin-top:5px;
+  flex-shrink:0;
+}
+.urgency-drivers li strong{color:rgba(255,255,255,.85);}
+
+/* ── STATS STRIP ── */
+.stats-strip{
+  padding:0 54px 0;
+  display:grid;
+  grid-template-columns:repeat(4,1fr) 2px repeat(4,1fr);
+  align-items:center;
+  gap:0;
+  position:relative;
+  z-index:2;
+}
+.stat-divider{
+  background:rgba(255,255,255,.1);
+  height:36px;
+  align-self:center;
+}
+.stat-item{
+  padding:14px 18px 12px;
+  text-align:center;
+  border-right:1px solid rgba(255,255,255,.07);
+}
+.stat-item:last-child{border-right:none;}
+.stat-num{
+  font-size:1.35rem;
+  font-weight:900;
+  color:#fff;
+  letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;
+  line-height:1;
+}
+.stat-num span{font-size:.9rem;font-weight:700;color:#e84855;}
+.stat-label{
+  font-size:.57rem;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.35);
+  margin-top:4px;
+  line-height:1.3;
+}
+
+/* ── FOOTER ── */
+.footer{
+  padding:10px 54px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-top:1px solid rgba(255,255,255,.07);
+  position:relative;
+  z-index:2;
+}
+.footer-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.footer-avatar{
+  width:28px;height:28px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#c0202e,#e84855);
+  display:flex;align-items:center;justify-content:center;
+  font-size:.62rem;font-weight:900;color:#fff;
+}
+.footer-name{font-size:.72rem;font-weight:700;color:rgba(255,255,255,.6);}
+.footer-title{font-size:.6rem;color:rgba(255,255,255,.3);margin-top:1px;}
+.footer-center{
+  font-size:.58rem;
+  color:rgba(255,255,255,.2);
+  letter-spacing:.06em;
+  text-align:center;
+}
+.footer-right{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.sf-badge{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:6px;
+  padding:5px 11px;
+}
+.sf-cloud{
+  width:22px;height:14px;
+  fill:#00a1e0;
+}
+.sf-text{font-size:.65rem;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.04em;}
+
+/* ── PRINT / EXPORT HINT ── */
+@media print{
+  body{background:#111826;min-height:unset;}
+  .slide{page-break-inside:avoid;}
+}
+</style>
+</head>
+<body>
+
+<div class="slide">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="eyebrow">Demco Authorized Dealer Network</div>
+      <div class="slide-title">Configure. Quote. <em>Built to Move.</em></div>
+      <div class="slide-subtitle">From phone call to purchase order in minutes — Demco Dealer Portal, powered by Salesforce</div>
+    </div>
+    <div class="header-badge">
+      <div class="badge-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div>
+        <div class="badge-text-top">Powered by</div>
+        <div class="badge-text-bot">Agentforce + Sales Cloud</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BODY: 3 CAPS + URGENCY SIDEBAR -->
+  <div class="body">
+
+    <!-- CAP 1 -->
+    <div class="cap-card">
+      <div class="cap-num">01</div>
+      <div class="cap-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+      </div>
+      <div class="cap-label">Guided Configuration</div>
+      <div class="cap-headline">Only valid options. Zero bad orders.</div>
+      <div class="cap-body">
+        Constraint-based product builder across <strong>4 lines</strong> — grain carts, sprayers, semi trailers, RV towing.<br><br>
+        <strong>40+ configurations per line.</strong> Dealers build and submit before the customer leaves the lot.
+      </div>
+    </div>
+
+    <!-- CAP 2 -->
+    <div class="cap-card">
+      <div class="cap-num">02</div>
+      <div class="cap-icon">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      </div>
+      <div class="cap-label">Real-Time Dealer Pricing</div>
+      <div class="cap-headline">$34,848 saved. Automatically.</div>
+      <div class="cap-body">
+        Stocking discounts, early order programs, and volume tiers apply at quote time — no manual lookups.<br><br>
+        Sample cart: <strong>$108,900 MSRP → $74,052 dealer-net</strong> (32% off, captured in seconds).
+      </div>
+    </div>
+
+    <!-- CAP 3 -->
+    <div class="cap-card">
+      <div class="cap-num">03</div>
+      <div class="cap-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      </div>
+      <div class="cap-label">Agentforce Dealer Assistant</div>
+      <div class="cap-headline">Ask in plain language. Get answers instantly.</div>
+      <div class="cap-body">
+        Handles specs, fitment, lead times, and order status. Dealers ask questions — the AI answers.<br><br>
+        Human backstop: <strong>TM confirmation within 1 business day.</strong> No fax required.
+      </div>
+    </div>
+
+    <!-- URGENCY SIDEBAR -->
+    <div class="urgency-card">
+      <div class="urgency-label">
+        <div class="urgency-dot"></div>
+        Why Now
+      </div>
+      <div class="urgency-headline">Fall Early Order Program — Open Now</div>
+      <div class="urgency-deadline">
+        <div class="urgency-deadline-label">Deadline</div>
+        <div class="urgency-deadline-date">Oct 31</div>
+      </div>
+      <ul class="urgency-drivers">
+        <li><strong>Stocking pricing</strong> on grain carts &amp; sprayers — live today</li>
+        <li>Volume incentive unlocks at <strong>5+ unit orders</strong></li>
+        <li>Portal handles submission, TM review, and tracking automatically</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- STATS STRIP -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-num"><span>40</span>+</div>
+      <div class="stat-label">Cart configs available</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">$<span>74K</span></div>
+      <div class="stat-label">Avg dealer-net order</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span>32</span>%</div>
+      <div class="stat-label">Avg discount auto-applied</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span>1</span>d</div>
+      <div class="stat-label">TM confirmation SLA</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num">$<span>412K</span></div>
+      <div class="stat-label">YTD dealer volume</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span>4</span></div>
+      <div class="stat-label">Product lines live</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span>2011</span></div>
+      <div class="stat-label">Dealer since</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span>0</span></div>
+      <div class="stat-label">Faxes required</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-left">
+      <div class="footer-avatar">AT</div>
+      <div>
+        <div class="footer-name">Anthony Troggio</div>
+        <div class="footer-title">Digital AE, MFG &amp; Automotive West &middot; Salesforce</div>
+      </div>
+    </div>
+    <div class="footer-center">DEMCO DEALER PORTAL &nbsp;&middot;&nbsp; PROOF OF EXECUTION</div>
+    <div class="footer-right">
+      <div class="sf-badge">
+        <svg class="sf-cloud" viewBox="0 0 50 34" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.8 5.4c1.7-1.8 4.1-2.9 6.7-2.9 3.2 0 6 1.7 7.6 4.2.9-.4 1.9-.6 3-.6 4 0 7.2 3.2 7.2 7.2 0 .4 0 .7-.1 1.1C47.3 15.6 49 18.2 49 21.2c0 4.5-3.6 8.1-8.1 8.1H10.4C6.3 29.3 3 26 3 21.9c0-3.1 1.9-5.8 4.6-7 0-.3-.1-.5-.1-.8 0-4.3 3.5-7.8 7.8-7.8 2.1 0 4 .8 5.5 2.1z"/>
+        </svg>
+        <span class="sf-text">Salesforce</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
