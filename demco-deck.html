@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demco — Salesforce Revenue Cloud Deck</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#c0202e;--red2:#a01820;--dark:#1c2230;--dark2:#252c3a;
+  --blue:#1d6adb;--green:#16a34a;--orange:#d97706;
+  --bg:#f4f5f7;--border:#d6d9e0;--body:#374151;--muted:#6b7280;
+  --white:#fff;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:#0a0c10;color:#fff;min-height:100vh;}
+
+/* ── NAV ── */
+.deck-nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(10,12,16,.92);border-bottom:1px solid rgba(255,255,255,.08);
+  height:52px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;backdrop-filter:blur(12px);
+}
+.deck-brand{display:flex;align-items:center;gap:10px;}
+.deck-mark{width:28px;height:28px;background:var(--red);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:900;color:#fff;}
+.deck-name{font-size:.85rem;font-weight:800;color:#fff;letter-spacing:.04em;}
+.deck-sub{font-size:.5rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-top:1px;}
+.slide-counter{font-size:.62rem;color:rgba(255,255,255,.3);letter-spacing:.08em;}
+.nav-dots{display:flex;gap:6px;align-items:center;}
+.nav-dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:all .2s;}
+.nav-dot.active{background:var(--red);transform:scale(1.2);}
+
+/* ── SLIDE FRAME ── */
+.slide-wrap{padding-top:52px;}
+.slide{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:60px 80px;
+  position:relative;overflow:hidden;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+/* ── SLIDE TYPES ── */
+.slide-cover{
+  background:
+    linear-gradient(135deg,rgba(28,34,48,.96) 0%,rgba(37,44,58,.92) 60%,rgba(28,34,48,.85) 100%),
+    url('demco-graincart.jpeg') center 40%/cover no-repeat;
+  min-height:100vh;
+}
+.slide-dark{background:linear-gradient(160deg,#0f1318 0%,#141a24 100%);}
+.slide-mid{background:linear-gradient(160deg,#111826 0%,#0f1318 100%);}
+.slide-accent{background:linear-gradient(160deg,#1a0c0e 0%,#111826 100%);}
+
+/* ── RED TOP RULE ── */
+.slide::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(to right,var(--red),#e84855,var(--red));
+}
+
+/* ── EYEBROW ── */
+.eyebrow{
+  font-size:.54rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
+  color:#e84855;margin-bottom:12px;display:flex;align-items:center;gap:8px;
+}
+.eyebrow::before{content:'';display:inline-block;width:16px;height:2px;background:#e84855;}
+
+/* ── HEADINGS ── */
+.slide-title{font-size:2.4rem;font-weight:900;color:#fff;line-height:1.06;letter-spacing:-.03em;margin-bottom:14px;}
+.slide-title em{font-style:normal;color:#e84855;}
+.slide-title.lg{font-size:3rem;}
+.slide-sub{font-size:.88rem;color:rgba(255,255,255,.55);line-height:1.7;max-width:680px;margin-bottom:40px;}
+
+/* ── 3-COL GRID ── */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+
+/* ── CARD ── */
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:12px;padding:24px 22px;position:relative;overflow:hidden;}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--card-accent,rgba(255,255,255,.15));}
+.card.red{--card-accent:var(--red);}
+.card.blue{--card-accent:var(--blue);}
+.card.green{--card-accent:var(--green);}
+.card.orange{--card-accent:var(--orange);}
+.card-icon{width:38px;height:38px;border-radius:9px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+.card-icon svg{width:18px;height:18px;fill:none;stroke:rgba(255,255,255,.7);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.card.red .card-icon svg{stroke:#f87171;}
+.card.blue .card-icon svg{stroke:#60a5fa;}
+.card.green .card-icon svg{stroke:#4ade80;}
+.card.orange .card-icon svg{stroke:#fbbf24;}
+.card-label{font-size:.52rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:5px;}
+.card-title{font-size:.9rem;font-weight:800;color:#fff;line-height:1.22;margin-bottom:8px;}
+.card-body{font-size:.74rem;color:rgba(255,255,255,.5);line-height:1.65;}
+.card-body strong{color:rgba(255,255,255,.82);font-weight:700;}
+.card-num{font-size:2.8rem;font-weight:900;opacity:.1;position:absolute;top:10px;right:14px;line-height:1;color:var(--card-color,#fff);}
+
+/* ── QUOTE BLOCK ── */
+.quote-block{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-left:3px solid var(--red);
+  border-radius:0 10px 10px 0;padding:20px 24px;margin:24px 0;
+}
+.quote-text{font-size:.88rem;font-style:italic;color:rgba(255,255,255,.72);line-height:1.7;}
+.quote-attr{font-size:.62rem;font-weight:700;color:rgba(255,255,255,.38);margin-top:8px;letter-spacing:.06em;text-transform:uppercase;}
+
+/* ── STAT ROW ── */
+.stat-row{display:flex;gap:0;border-top:1px solid rgba(255,255,255,.08);margin-top:32px;}
+.stat-item{flex:1;padding:20px 0;text-align:center;border-right:1px solid rgba(255,255,255,.07);}
+.stat-item:last-child{border-right:none;}
+.stat-num{font-size:1.5rem;font-weight:900;color:#fff;letter-spacing:-.02em;line-height:1;}
+.stat-num em{font-size:1rem;color:#e84855;font-style:normal;}
+.stat-label{font-size:.56rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:4px;}
+
+/* ── STEP LIST ── */
+.step-list{display:flex;flex-direction:column;gap:14px;}
+.step-item{display:flex;gap:16px;align-items:flex-start;}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:900;color:#fff;flex-shrink:0;}
+.step-content{}
+.step-title{font-size:.88rem;font-weight:800;color:#fff;margin-bottom:3px;}
+.step-body{font-size:.74rem;color:rgba(255,255,255,.5);line-height:1.55;}
+.step-body strong{color:rgba(255,255,255,.78);}
+
+/* ── SPLIT LAYOUT ── */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+.split-img{border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.1);}
+.split-img img{width:100%;height:320px;object-fit:cover;display:block;}
+
+/* ── BADGE ── */
+.badge{display:inline-flex;align-items:center;gap:6px;background:rgba(192,32,46,.15);border:1px solid rgba(192,32,46,.35);border-radius:20px;padding:4px 12px;font-size:.62rem;font-weight:700;color:#f87171;}
+.badge-dot{width:6px;height:6px;border-radius:50%;background:#e84855;}
+
+/* ── TIMELINE ── */
+.timeline{display:flex;align-items:flex-start;gap:0;margin-top:8px;}
+.tl-item{flex:1;position:relative;padding-bottom:8px;}
+.tl-dot{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:800;color:rgba(255,255,255,.5);margin-bottom:10px;}
+.tl-dot.active{background:var(--red);border-color:var(--red);color:#fff;}
+.tl-dot.done{background:var(--green);border-color:var(--green);color:#fff;}
+.tl-line{position:absolute;top:14px;left:28px;right:0;height:2px;background:rgba(255,255,255,.1);}
+.tl-line.done{background:var(--green);}
+.tl-label{font-size:.62rem;font-weight:700;color:rgba(255,255,255,.5);}
+.tl-label.active{color:#fff;}
+.tl-sub{font-size:.58rem;color:rgba(255,255,255,.3);margin-top:2px;line-height:1.4;}
+
+/* ── CTA FOOTER ── */
+.slide-footer{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:14px 80px;
+  border-top:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.footer-person{display:flex;align-items:center;gap:9px;}
+.footer-avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,var(--red),#e84855);display:flex;align-items:center;justify-content:center;font-size:.56rem;font-weight:900;color:#fff;}
+.footer-name{font-size:.68rem;font-weight:700;color:rgba(255,255,255,.5);}
+.footer-slide{font-size:.56rem;color:rgba(255,255,255,.2);letter-spacing:.08em;}
+.footer-sf{font-size:.58rem;color:rgba(255,255,255,.2);}
+
+/* ── HIGHLIGHT BOX ── */
+.highlight{background:rgba(192,32,46,.1);border:1px solid rgba(192,32,46,.3);border-radius:10px;padding:16px 18px;margin:18px 0;}
+.highlight-label{font-size:.54rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#e84855;margin-bottom:5px;}
+.highlight-body{font-size:.78rem;color:rgba(255,255,255,.7);line-height:1.6;}
+.highlight-body strong{color:#fff;}
+
+/* ── VS TABLE ── */
+.vs-table{width:100%;border-collapse:collapse;margin-top:8px;}
+.vs-table th{font-size:.56rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);padding:8px 14px;text-align:left;border-bottom:1px solid rgba(255,255,255,.08);}
+.vs-table td{padding:11px 14px;font-size:.76rem;border-bottom:1px solid rgba(255,255,255,.06);vertical-align:top;}
+.vs-table tr:last-child td{border-bottom:none;}
+.vs-label{color:rgba(255,255,255,.55);}
+.vs-bad{color:#f87171;font-weight:600;}
+.vs-good{color:#4ade80;font-weight:600;}
+
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="deck-nav">
+  <div class="deck-brand">
+    <div class="deck-mark">D</div>
+    <div>
+      <div class="deck-name">DEMCO</div>
+      <div class="deck-sub">Salesforce Revenue Cloud</div>
+    </div>
+  </div>
+  <div class="nav-dots" id="nav-dots"></div>
+  <div class="slide-counter" id="slide-counter">1 / 10</div>
+</div>
+
+<div class="slide-wrap" id="slides">
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 1 — COVER
+════════════════════════════════════════════ -->
+<div class="slide slide-cover" id="s1">
+  <div style="max-width:700px;">
+    <div class="eyebrow">Demco &mdash; Garner, Iowa</div>
+    <div class="slide-title lg">The Quote is<br>Killing the Deal.<br><em>Let's Fix That.</em></div>
+    <p class="slide-sub">Demco builds world-class grain carts, sprayers, and trailers. But the commercial engine — quoting, pricing, dealer engagement — is running on a system that crashes, lags, and loses deals. This deck is about what changes when we fix the foundation.</p>
+    <div class="badge"><div class="badge-dot"></div>Revenue Cloud &nbsp;&middot;&nbsp; Agentforce &nbsp;&middot;&nbsp; Sales Cloud</div>
+  </div>
+  <div class="stat-row" style="max-width:600px;margin-top:48px;">
+    <div class="stat-item"><div class="stat-num">30<em>min</em></div><div class="stat-label">Avg quote compile time</div></div>
+    <div class="stat-item"><div class="stat-num">10<em>%</em></div><div class="stat-label">Quotes lost to errors</div></div>
+    <div class="stat-item"><div class="stat-num">7</div><div class="stat-label">New states in play</div></div>
+    <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Decision paths ahead</div></div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-person"><div class="footer-avatar">AT</div><div class="footer-name">Anthony Troggio &nbsp;&middot;&nbsp; Digital AE, Salesforce</div></div>
+    <div class="footer-slide">SLIDE 1 OF 10</div>
+    <div class="footer-sf">Salesforce Confidential</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 2 — WHO IS IN THE ROOM
+════════════════════════════════════════════ -->
+<div class="slide slide-dark" id="s2">
+  <div class="eyebrow">Context</div>
+  <div class="slide-title">Who's in the Room — <em>and Why It Matters</em></div>
+  <p class="slide-sub">Demco is a fourth-generation family manufacturer at an inflection point. The people in this room own the decision. Here's how we heard them.</p>
+  <div class="grid-3">
+    <div class="card red">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <div class="card-label">VP of Strategy</div>
+      <div class="card-title">Brent Schuck</div>
+      <div class="card-body">"We're not looking for the next shiny tool. We want the <strong>correct foundation</strong> to build on." First-principles operator pulled in from marketing to root-cause broken revenue ops. Owns the roadmap.</div>
+    </div>
+    <div class="card blue">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="card-label">4th Generation Leadership</div>
+      <div class="card-title">JC (Owner's Son)</div>
+      <div class="card-body">Came up through engineering. <strong>Personally frustrated with CPQ.</strong> On the demo tomorrow. The bridge between legacy ownership and the transformation vision — his buy-in is essential.</div>
+    </div>
+    <div class="card green">
+      <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+      <div class="card-label">Sales &amp; Commercial</div>
+      <div class="card-title">Chuck + Sales Team</div>
+      <div class="card-body">Traveling 50% of the time, quoting via VPN on a system that takes 30 min to compile. <strong>"They've been screaming into the void."</strong> They need a win they can use on the road today.</div>
+    </div>
+  </div>
+  <div class="quote-block">
+    <div class="quote-text">"When we build out Salesforce in its final form, it will be an indispensable tool that you want and need on every phone call, every interaction. It's not simply sucking from you and an administrative burden."</div>
+    <div class="quote-attr">— Brent Schuck, VP of Strategy</div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-person"><div class="footer-avatar">AT</div><div class="footer-name">Anthony Troggio &nbsp;&middot;&nbsp; Digital AE, Salesforce</div></div>
+    <div class="footer-slide">SLIDE 2 OF 10</div>
+    <div class="footer-sf">Salesforce Confidential</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 3 — THE PROBLEM (CURRENT STATE)
+════════════════════════════════════════════ -->
+<div class="slide slide-accent" id="s3">
+  <div class="eyebrow">Current State</div>
+  <div class="slide-title">Three Problems. <em>One Root Cause.</em></div>
+  <p class="slide-sub">Every symptom Demco described — slow quotes, data errors, dealer disengagement — traces back to the same thing: a commercial stack built inside-out, not customer-first.</p>
+  <div class="grid-3">
+    <div class="card red">
+      <div class="card-num" style="color:#e84855;">01</div>
+      <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div class="card-label">Problem 1</div>
+      <div class="card-title">Quote Speed Kills Deals</div>
+      <div class="card-body">30 min average compile time. Reps won't quote live with a customer on the phone. Dealers have <strong>learned not to even call for a price</strong> because they know they'll wait four days. That's invisible lost revenue.</div>
+    </div>
+    <div class="card red">
+      <div class="card-num" style="color:#e84855;">02</div>
+      <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+      <div class="card-label">Problem 2</div>
+      <div class="card-title">10% of Quotes Crash and Delete</div>
+      <div class="card-body">On-prem ERP syncs to cloud CPQ once nightly. Any mid-week part number or operational change creates a mismatch. The quote <strong>compiles, fails, and wipes itself.</strong> Rep starts over from scratch.</div>
+    </div>
+    <div class="card red">
+      <div class="card-num" style="color:#e84855;">03</div>
+      <div class="card-icon"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg></div>
+      <div class="card-label">Problem 3</div>
+      <div class="card-title">Engineering Codes, Not Customer Language</div>
+      <div class="card-body">Options are presented as <strong>concatenated engineering part strings</strong> — 17 dash-delineated digits that mean something to ops, nothing to a dealer. The Ford F-150 configurator doesn't show you the chassis specs. Demco's does.</div>
+    </div>
+  </div>
+  <div class="highlight">
+    <div class="highlight-label">Root Cause</div>
+    <div class="highlight-body">The system was built to serve <strong>engineering and operations</strong> — not dealers and sales reps. Every patch since has inherited that debt. The fix isn't another patch. It's a platform built commercial-first from the ground up.</div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-person"><div class="footer-avatar">AT</div><div class="footer-name">Anthony Troggio &nbsp;&middot;&nbsp; Digital AE, Salesforce</div></div>
+    <div class="footer-slide">SLIDE 3 OF 10</div>
+    <div class="footer-sf">Salesforce Confidential</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 4 — THE LIVE DEMO PORTAL
+════════════════════════════════════════════ -->
+<div class="slide slide-mid" id="s4">
+  <div class="split">
+    <div>
+      <div class="eyebrow">What We Built</div>
+      <div class="slide-title">A Working Dealer Portal.<br><em>Built for Demco.</em></div>
+      <p class="slide-sub">Not a wireframe. Not a slide deck. A live, functional dealer portal that shows exactly what Demco dealers and reps would experience — built on Salesforce principles and deployed today.</p>
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">Authenticated Dealer Login</div>
+            <div class="step-body">Password-gated access. Each dealer sees their account, YTD volume, discount tier, and open orders on login.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">Guided Configuration Wizard</div>
+            <div class="step-body">5-step product builder with <strong>constraint-based logic</strong> — only valid combinations shown. Grain carts, sprayers, trailers, RV towing.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">Real-Time Dealer-Net Pricing</div>
+            <div class="step-body">32% discount auto-applied. Early order programs, volume tiers, and stocking incentives reflected instantly.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">Agentforce Dealer Assistant</div>
+            <div class="step-body"><strong>AI answers specs, fitment, lead times, and order status</strong> in plain language. Human TM backstop within 1 business day.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="split-img">
+        <img src="demco-graincart.jpeg" alt="Demco Grain Cart">
+      </div>
+      <div class="highlight" style="margin-top:16px;">
+        <div class="highlight-label">Live Today</div>
+        <div class="highlight-body">View the portal at <strong>atroggio-art.github.io/account-sites/demco-portal.html</strong> &mdash; access code: Demco26</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-person"><div class="footer-avatar">AT</div><div class="footer-name">Anthony Troggio &nbsp;&middot;&nbsp; Digital AE, Salesforce</div></div>
+    <div class="footer-slide">SLIDE 4 OF 10</div>
+    <div class="footer-sf">Salesforce Confidential</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 5 — WALKTHROUGH: STEP 1 (Home + Login)
+════════════════════════════════════════════ -->
+<div class="slide slide-dark" id="s5">
+  <div class="eyebrow">Portal Walkthrough &mdash; Step 1 of 5</div>
+  <div class="slide-title">The Dashboard: <em>Your Dealership at a Glance</em></div>
+  <p class="slide-sub">The first screen a dealer sees after login. Everything relevant to their business — one place, no navigation required.</p>
+  <div class="grid-2" style="gap:24px;align-items:start;">
+    <div>
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);">A</div>
+          <div class="step-content">
+            <div class="step-title">Personalized Dealer Welcome</div>
+            <div class="step-body">Name, dealership, location, authorized status, and dealer tier. <strong>YTD volume, open orders, and discount %</strong> visible immediately.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);">B</div>
+          <div class="step-content">
+            <div class="step-title">Fall Early Order Banner</div>
+            <div class="step-body">Active program surfaced at the top — grain carts and sprayers, stocking pricing locked through <strong>October 31</strong>. Volume incentive at 5+ units.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);">C</div>
+          <div class="step-content">
+            <div class="step-title">Quick Action Tiles</div>
+            <div class="step-body">One-click shortcuts: Configure Grain Cart, Configure Sprayer, Configure Trailer, Reorder Parts. <strong>Skip the menu entirely</strong> for the most common tasks.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num" style="background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);">D</div>
+          <div class="step-content">
+            <div class="step-title">Narrative Body Copy</div>
+            <div class="step-body">Explains the dealer value prop in plain language: <strong>"Configure it here, get dealer-net pricing instantly, and submit the order before they leave the lot."</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <img src="demco-graincart.jpeg" style="width:100%;height:200px;object-fit:cover;object-position:center 30%;display:block;">
+        <div style="padding:20px;">
+          <div class="card-label">Dealer Dashboard — Sample Data</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px;">
+            <div style="text-align:center;padding:12px 0;border:1px solid rgba(255,255,255,.08);border-radius:8px;">
+              <div style="font-size:1.3rem;font-weight:900;color:#fff;">8</div>
+              <div style="font-size:.56rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-top:3px;">Open Orders</div>
+            </div>
+            <div style="text-align:center;padding:12px 0;border:1px solid rgba(255,255,255,.08);border-radius:8px;">
+              <div style="font-size:1.3rem;font-weight:900;color:#fff;">$412k</div>
+              <div style="font-size:.56rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-top:3px;">YTD Volume</div>
+            </div>
+            <div style="text-align:center;padding:12px 0;border:1px solid rgba(255,255,255,.08);border-radius:8px;">
+              <div style="font-size:1.3rem;font-weight:900;color:#e84855;">32%</div>
+              <div style="font-size:.56rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.08em;margin-top:3px;">Dealer Disc.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-person"><div class="footer-avatar">AT</div><div class="footer-name">Anthony Troggio &nbsp;&middot;&nbsp; Digital AE, Salesforce</div></div>
+    <div class="footer-slide">SLIDE 5 OF 10</div>
+    <div class="footer-sf">Salesforce Confidential</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 6 — WALKTHROUGH: STEP 2 (Configure)
+════════════════════════════════════════════ -->
+<div class="slide slide-mid" id="s6">
+  <div class="eyebrow">Portal Walkthrough &mdash; Step 2 of 5</div>
+  <div class="slide-title">Configure &amp; Quote: <em>5 Steps, No Crashes</em></div>
+  <p class="slide-sub">The constraint-based configuration wizard replaces the KBMAX process. Only valid option combinations are presented at each step. No bad orders. No restarts.</p>
+  <div class="grid-4" style="margin-bottom:28px;">
+    <div class="card" style="padding:18px 16px;">
+      <div style="font-size:.54rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#e84855;margin-bottom:8px;">Step 1</div>
+      <div style="font-size:.88rem;font-weight:800;color:#fff;margin-bottom:6px;">Product Category</div>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.45);line-height:1.5;">Select grain carts, sprayers, trailers, or RV towing. <strong style="color:rgba(255,255,255,.72);">Image cards with specs.</strong> One click continues.</div>
+    </div>
+    <div class="card" style="padding:18px 16px;">
+      <div style="font-size:.54rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#e84855;margin-bottom:8px;">Step 2</div>
+      <div style="font-size:.88rem;font-weight:800;color:#fff;margin-bottom:6px;">Base Model + Specs</div>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.45);line-height:1.5;">Capacity, auger type, undercarriage. <strong style="color:rgba(255,255,255,.72);">Only valid combos shown.</strong> Live price updates on every selection.</div>
+    </div>
+    <div class="card" style="padding:18px 16px;">
+      <div style="font-size:.54rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#e84855;margin-bottom:8px;">Step 3</div>
+      <div style="font-size:.88rem;font-weight:800;color:#fff;margin-bottom:6px;">Add-Ons &amp; Options</div>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.45);line-height:1.5;">Scale, tarp, camera, safety kit. <strong style="color:rgba(255,255,255,.72);">Checkbox grid</strong> — price delta shown per option in real time.</div>
+    </div>
+    <div class="card" style="padding:18px 16px;">
+      <div style="font-size:.54rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#e84855;margin-bottom:8px;">Steps 4-5</div>
+      <div style="font-size:.88rem;font-weight:800;color:#fff;margin-bottom:6px;">Shipping + Review</div>
+      <div style="font-size:.72rem;color:rgba(255,255,255,.45);line-height:1.5;">Delivery address, dealer vs. direct ship, window. <strong style="color:rgba(255,255,255,.72);">Full order review</strong> before submission.</div>
+    </div>
+  </div>
+  <div class="grid-2" style="align-items:start;gap:22px;">
+    <div>
+      <div class="highlight">
+        <div class="highlight-label">The Brent Analogy — Solved</div>
+        <div class="highlight-body">Ford doesn't show you the chassis code when you build an F-150. The portal presents <strong>commercial language</strong> to dealers — "1500 bu Dual-Auger, Track Kit, Scale Package" — not concatenated engineering strings. The BOM translation happens on the back end.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">Live Pricing — Sample</div>
+      <div style="margin-top:10px;display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;justify-content:space-between;font-size:.76rem;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07);">
+          <span style="color:rgba(255,255,255,.5);">Base MSRP</span><span style="color:#fff;font-weight:700;">$98,500</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.76rem;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07);">
+          <span style="color:rgba(255,255,255,.5);">Track Kit</span><span style="color:#fff;font-weight:700;">+$6,200</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.76rem;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07);">
+          <span style="color:rgba(255,255,255,.5);">Scale + Tarp</span><span style="color:#fff;font-weight:700;">+$4,200</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.76rem;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.07);">
+          <span style="color:rgba(255,255,255,.5);">Dealer Discount (32%)</span><span style="color:#4ade80;font-weight:700;">-$34,848</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.9rem;padding:8px 0;border-top:2px solid rgba(255,255,255,.12);">
+          <span style="color:#fff;font-weight:800;">Dealer Net</span><span style="color:#e84855;font-weight:900;font-size:1rem;">$74,052</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-person"><div class="footer-avatar">AT</div><div class="footer-name">Anthony Troggio &nbsp;&middot;&nbsp; Digital AE, Salesforce</div></div>
+    <div class="footer-slide">SLIDE 6 OF 10</div>
+    <div class="footer-sf">Salesforce Confidential</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 7 — WALKTHROUGH: AGENTFORCE
+════════════════════════════════════════════ -->
+<div class="slide slide-dark" id="s7">
+  <div class="eyebrow">Portal Walkthrough &mdash; Agentforce</div>
+  <div class="slide-title">The AI That Works <em>While the Rep Is on the Road</em></div>
+  <p class="slide-sub">Every quote has an Agentforce Dealer Assistant embedded alongside it. Dealers ask in plain language — the AI answers instantly. The TM is the backstop, not the first call.</p>
+  <div class="grid-2" style="gap:28px;align-items:start;">
+    <div>
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">Q</div>
+          <div class="step-content">
+            <div class="step-title">"What's the lead time on a 1500 bu cart right now?"</div>
+            <div class="step-body">Agentforce checks current production queue and returns estimated build slot — <strong>without a rep involved.</strong></div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">Q</div>
+          <div class="step-content">
+            <div class="step-title">"Does this cart fit a John Deere 9RX?"</div>
+            <div class="step-body">Fitment check against compatibility database. Returns a yes/no with spec note and <strong>any required adapter SKU.</strong></div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">Q</div>
+          <div class="step-content">
+            <div class="step-title">"What's the early order deadline and what do I need to qualify?"</div>
+            <div class="step-body">Returns current program details — <strong>Oct 31 cutoff, 5+ unit threshold,</strong> eligible product lines — live from program data.</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">Q</div>
+          <div class="step-content">
+            <div class="step-title">"Walk me through the premier plumbing package for the liquid tender."</div>
+            <div class="step-body">Detailed spec breakdown, included components, and <strong>dealer-net pricing</strong> — no catalog lookup required.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="background:linear-gradient(135deg,rgba(28,34,48,.9),rgba(37,44,58,.8));border-color:rgba(192,32,46,.3);">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+          <div style="width:30px;height:30px;border-radius:7px;background:rgba(192,32,46,.2);display:flex;align-items:center;justify-content:center;">
+            <svg viewBox="0 0 24 24" style="width:15px;height:15px;fill:none;stroke:#fca5a5;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          </div>
+          <div>
+            <div style="font-size:.8rem;font-weight:800;color:#fff;">Agentforce — Dealer Assistant</div>
+            <div style="font-size:.6rem;color:rgba(255,255,255,.45);">Powered by Salesforce</div>
+          </div>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border-radius:9px;padding:12px 14px;margin-bottom:10px;">
+          <div style="font-size:.74rem;color:rgba(255,255,255,.75);line-height:1.55;">Hi Mike! I'm your Demco dealer assistant. I can help with product specs, dealer pricing, fitment for your customers, and order status. What do you need?</div>
+        </div>
+        <div style="background:rgba(192,32,46,.15);border-radius:9px;padding:12px 14px;margin-left:24px;margin-bottom:14px;">
+          <div style="font-size:.74rem;color:rgba(255,255,255,.8);">Lead time on 1500 grain cart?</div>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border-radius:9px;padding:12px 14px;">
+          <div style="font-size:.74rem;color:rgba(255,255,255,.75);line-height:1.55;">Current build slot for the 1500 bu Dual-Auger is <strong style="color:#fff;">10-12 weeks</strong> from order confirmation. Fall delivery window (Aug–Oct) still available if submitted before the early order deadline of Oct 31. Want me to check if the Track Kit is in stock?</div>
+        </div>
+        <div style="margin-top:12px;text-align:center;font-size:.58rem;color:rgba(255,255,255,.25);">Powered by Agentforce &middot; Salesforce</div>
+      </div>
+      <div class="highlight" style="margin-top:14px;">
+        <div class="highlight-label">Human Backstop</div>
+        <div class="highlight-body">Territory Manager <strong>Dan Koerselman</strong> confirms within 1 business day. The AI handles the 80% — TM handles the edge cases.</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-person"><div class="footer-avatar">AT</div><div class="footer-name">Anthony Troggio &nbsp;&middot;&nbsp; Digital AE, Salesforce</div></div>
+    <div class="footer-slide">SLIDE 7 OF 10</div>
+    <div class="footer-sf">Salesforce Confidential</div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 8 — ORDER HISTORY + PARTS
+════════════════════════════════════════════ -->
+<div class="slide slide-mid" id="s8">
+  <div class="eyebrow">Portal Walkthrough &mdash; Steps 3 &amp; 4</div>
+  <div class="slide-title">Order History &amp; Parts: <em>Everything in One Place</em></div>
+  <p class="slide-sub">After the quote, the portal doesn't go dark. Dealers have full visibility into every order they've ever placed — and can reorder parts in seconds.</p>
+  <div class="grid-2" style="gap:24px;align-items:start;">
+    <div>
+      <div class="card green" style="margin-bottom:16px;">
+        <div class="card-icon"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <div class="card-label">Order History</div>
+        <div class="card-title">Full archive — every order, one-click reorder</div>
+        <div class="card-body">Production status (Pending → TM Review → Production → Delivered), dealer-net value, and a <strong>reorder button on every row.</strong> No calls to the TM to find out where a unit is.</div>
+      </div>
+      <div style="border:1px solid rgba(255,255,255,.08);border-radius:10px;overflow:hidden;">
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;background:rgba(255,255,255,.04);padding:8px 14px;">
+          <div style="font-size:.56rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);">Product</div>
+          <div style="font-size:.56rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);">Net</div>
+          <div style="font-size:.56rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.3);">Status</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:9px 14px;border-top:1px solid rgba(255,255,255,.06);">
+          <div style="font-size:.72rem;color:rgba(255,255,255,.7);">1100 bu Single-Auger (x2)</div>
+          <div style="font-size:.72rem;color:#fff;font-weight:700;">$109,840</div>
+          <div style="font-size:.62rem;background:#dcfce7;color:#16a34a;border-radius:4px;padding:2px 7px;display:inline-block;font-weight:700;">Delivered</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:9px 14px;border-top:1px solid rgba(255,255,255,.06);">
+          <div style="font-size:.72rem;color:rgba(255,255,255,.7);">42' Liquid Tender Trailer</div>
+          <div style="font-size:.72rem;color:#fff;font-weight:700;">$61,200</div>
+          <div style="font-size:.62rem;background:#dcfce7;color:#16a34a;border-radius:4px;padding:2px 7px;display:inline-block;font-weight:700;">Delivered</div>
+        </div>
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr;padding:9px 14px;border-top:1px solid rgba(255,255,255,.06);">
+          <div style="font-size:.72rem;color:rgba(255,255,255,.7);">2200 bu Dual-Auger Cart</div>
+          <div style="font-size:.72rem;color:#fff;font-weight:700;">$84,320</div>
+          <div style="font-size:.62rem;background:#dbeafe;color:#1d6adb;border-radius:4px;padding:2px 7px;display:inline-block;font-weight:700;">Shipped</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="card blue" style="margin-bottom:16px;">
+        <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+        <div class="card-label">Parts Catalog</div>
+        <div class="card-title">Search, filter, add to cart — dealer-net pricing</div>
+        <div class="card-body">Full SKU catalog with <strong>real-time stock status, dealer-net pricing, and one-click cart.</strong> Filter by product line, category, and availability.</div>
+      </div>
+      <div class="grid-2" style="gap:10px;">
+        <div style="border:1px solid rgba(255,255,255,.08);border-radius:9px;padding:14px 12px;">
+          <div style="font-size:.56rem;color:rgba(255,255,255,.3);margin-bottom:4px;">DMC-DA20-001</div>
+          <div style="font-size:.78rem;font-weight:800;color:#fff;margin-bottom:3px;">DA20 Hydraulic Brake Actuator</div>
+          <div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:8px;">20,000 lb GVWR</div>
+          <div style="font-size:.72rem;background:#dcfce7;color:#16a34a;border-radius:4px;padding:2px 7px;display:inline-block;font-weight:700;margin-bottom:8px;">In Stock</div>
+          <div style="font-size:.9rem;font-weight:900;color:#fff;">$418 <span style="font-size:.6rem;color:rgba(255,255,255,.4);font-weight:400;">dealer-net</span></div>
+        </div>
+        <div style="border:1px solid rgba(255,255,255,.08);border-radius:9px;padding:14px 12px;">
+          <div style="font-size:.56rem;color:rgba(255,255,255,.3);margin-bottom:4px;">DMC-RS-5TH-STH</div>
+          <div style="font-size:.78rem;font-weight:800;color:#fff;margin-bottom:3px;">Recon Stealth™ 5th Wheel</div>
+          <div style="font-size:.62rem;color:rgba(255,255,255,.4);margin-bottom:8px;">18,000 lb, foldable</div>
+          <div style="font-size:.72rem;background:#dcfce7;color:#16a34a;border-radius:4px;padding:2px 7px;display:inline-block;font-weight:700;margin-bottom:8px;">In Stock</div>
+          <div style="font-size:.9rem;font-weight:900;color:#fff;">$1,890 <span style="font-size:.6rem;color:rgba(255,255,255,.4);font-weight:400;">dealer-net</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-person"><div class="footer-avatar">AT</div><div class="footer-name">Anthony Troggio &nbsp;&middot;&nbsp; Digital AE, Salesforce</div></div>
+    <div class="footer-slide">SLIDE 8 OF 10</div>
+    <div class="footer-sf">Salesforce Confidential</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 9 — THREE PATHS FORWARD
+════════════════════════════════════════════ -->
+<div class="slide slide-accent" id="s9">
+  <div class="eyebrow">Decision Framework</div>
+  <div class="slide-title">Three Paths. <em>One Right Answer.</em></div>
+  <p class="slide-sub">Brent named the options on the call. Here's an honest look at what each one actually means.</p>
+  <table class="vs-table">
+    <thead>
+      <tr>
+        <th>Option</th>
+        <th>What It Is</th>
+        <th>Time to Value</th>
+        <th>Risk</th>
+        <th>Verdict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-weight:800;color:#fff;">Hold Station</td>
+        <td class="vs-label">Keep KBMAX + on-prem sync until 2030 ERP forced migration</td>
+        <td class="vs-label">None — pain continues</td>
+        <td class="vs-bad">Continued dealer disengagement. 7-state growth stalls. Sales team attrition.</td>
+        <td class="vs-bad">Band-aid</td>
+      </tr>
+      <tr>
+        <td style="font-weight:800;color:#fff;">Custom App</td>
+        <td class="vs-label">IT builds a bespoke front-end; someone vibe-codes it over a weekend</td>
+        <td class="vs-label">12-18 months to MVP</td>
+        <td class="vs-bad">No deterministic engine. Cloud infra costs. Maintenance burden falls on the 4-person IT team. Inherits the same debt.</td>
+        <td class="vs-bad">Wrong tool</td>
+      </tr>
+      <tr>
+        <td style="font-weight:800;color:#fff;">Salesforce Revenue Cloud</td>
+        <td class="vs-label">Native CPQ + dealer portal on the platform Demco is already building on</td>
+        <td class="vs-label">80% out of the box. Weeks, not months.</td>
+        <td class="vs-good">Cloudity implementation partner eliminates learning curve. Connects to Sales Cloud already live. Scales to 20-year growth vision.</td>
+        <td class="vs-good">Right answer</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="grid-2" style="gap:18px;margin-top:22px;">
+    <div class="highlight">
+      <div class="highlight-label">The 80/20 Rule</div>
+      <div class="highlight-body">Ben Apa said it directly: <strong>"80% of what you need is solved out of the box with Salesforce."</strong> The 20% — Demco's edge cases, BOM translation, engineering-to-commercial layer — is where Cloudity earns their fee. That's weeks of configuration, not months of build.</div>
+    </div>
+    <div class="highlight">
+      <div class="highlight-label">The Cloudity Difference</div>
+      <div class="highlight-body">Cloudity isn't a generalist SI. Their entire team came from Lead-to-Cash specialization. <strong>Revenue Cloud is their DNA</strong> — 12+ years of CPQ implementations including manufacturing. No ramp-up. No learning curve charged to Demco.</div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-person"><div class="footer-avatar">AT</div><div class="footer-name">Anthony Troggio &nbsp;&middot;&nbsp; Digital AE, Salesforce</div></div>
+    <div class="footer-slide">SLIDE 9 OF 10</div>
+    <div class="footer-sf">Salesforce Confidential</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SLIDE 10 — NEXT STEPS
+════════════════════════════════════════════ -->
+<div class="slide slide-dark" id="s10">
+  <div class="eyebrow">Next Steps</div>
+  <div class="slide-title">Start in Third Gear. <em>Build Toward Sixth.</em></div>
+  <p class="slide-sub">Brent said it best: don't start in sixth gear. Don't bog down with capex and procedural inertia. Here's the crawl-walk-run that gets Demco moving without overbuilding.</p>
+  <div class="grid-3" style="margin-bottom:28px;">
+    <div class="card red">
+      <div class="card-label">Immediate — This Week</div>
+      <div class="card-title">Business Value Working Session</div>
+      <div class="card-body">30-minute session with Salesforce's Head of Business Value. We pull Demco's specific numbers — quote volume, error rates, rep time, dealer churn — and <strong>build the ROI case for ownership.</strong> Steph is setting this up now.</div>
+    </div>
+    <div class="card blue">
+      <div class="card-label">Near-Term — 2-3 Weeks</div>
+      <div class="card-title">Cloudity Scoping Session</div>
+      <div class="card-body">Ben Apa's team walks through Demco's system inventory (ERP, current CPQ, data flows) and delivers a <strong>phase-1 implementation roadmap</strong> with timeline and cost range. No obligation — just clarity.</div>
+    </div>
+    <div class="card green">
+      <div class="card-label">Ongoing — As You Scale</div>
+      <div class="card-title">Salesforce Enterprise Architect</div>
+      <div class="card-body">Fiona is introducing <strong>Allison Park</strong> — Salesforce EA, ex-SOM, exclusively works with manufacturers. Helps Demco answer "CRM vs ERP vs both" without a vendor agenda. Chicago-based. Perfect thought partner for Brent.</div>
+    </div>
+  </div>
+  <div class="timeline" style="margin-bottom:24px;">
+    <div class="tl-item">
+      <div style="position:relative;display:inline-block;">
+        <div class="tl-dot done">✓</div>
+        <div class="tl-line done" style="width:calc(100% - 28px);left:28px;"></div>
+      </div>
+      <div class="tl-label active">Discovery Complete</div>
+      <div class="tl-sub">Pain identified, stakeholders mapped, portal built</div>
+    </div>
+    <div class="tl-item">
+      <div style="position:relative;display:inline-block;">
+        <div class="tl-dot active">→</div>
+        <div class="tl-line" style="width:calc(100% - 28px);left:28px;"></div>
+      </div>
+      <div class="tl-label active">Demo + Decision</div>
+      <div class="tl-sub">JC + ownership see Revenue Cloud live</div>
+    </div>
+    <div class="tl-item">
+      <div style="position:relative;display:inline-block;">
+        <div class="tl-dot">3</div>
+        <div class="tl-line" style="width:calc(100% - 28px);left:28px;"></div>
+      </div>
+      <div class="tl-label">Business Case</div>
+      <div class="tl-sub">ROI model delivered to Bob, Kevin, JC</div>
+    </div>
+    <div class="tl-item">
+      <div style="position:relative;display:inline-block;">
+        <div class="tl-dot">4</div>
+        <div class="tl-line" style="width:calc(100% - 28px);left:28px;"></div>
+      </div>
+      <div class="tl-label">Scoping</div>
+      <div class="tl-sub">Cloudity scoping call — phase 1 defined</div>
+    </div>
+    <div class="tl-item" style="flex:0;">
+      <div class="tl-dot">5</div>
+      <div class="tl-label">Build</div>
+      <div class="tl-sub">Revenue Cloud implementation starts</div>
+    </div>
+  </div>
+  <div class="quote-block">
+    <div class="quote-text">"Salesforce will fix all your problems." — We mean it. The dealer portal you've seen today is a proof point, not a promise. The platform to build it for real is already here.</div>
+    <div class="quote-attr">— Fiona Kirkpatrick, Salesforce AE &nbsp;&middot;&nbsp; Anthony Troggio, Digital AE</div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-person"><div class="footer-avatar">AT</div><div class="footer-name">Anthony Troggio &nbsp;&middot;&nbsp; Digital AE, Salesforce</div></div>
+    <div class="footer-slide">SLIDE 10 OF 10</div>
+    <div class="footer-sf">Salesforce Confidential</div>
+  </div>
+</div>
+
+</div><!-- /slides -->
+
+<script>
+// Simple dot nav
+const slides = document.querySelectorAll('.slide');
+const dotsWrap = document.getElementById('nav-dots');
+const counter = document.getElementById('slide-counter');
+const total = slides.length;
+counter.textContent = '1 / ' + total;
+slides.forEach((s,i)=>{
+  const d = document.createElement('div');
+  d.className = 'nav-dot' + (i===0?' active':'');
+  d.onclick = ()=>s.scrollIntoView({behavior:'smooth'});
+  dotsWrap.appendChild(d);
+});
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const idx = Array.from(slides).indexOf(e.target);
+      document.querySelectorAll('.nav-dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+      counter.textContent = (idx+1) + ' / ' + total;
+    }
+  });
+},{threshold:.5});
+slides.forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
