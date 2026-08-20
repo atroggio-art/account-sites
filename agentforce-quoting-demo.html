@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agentforce Quoting Agent — Salesforce Demo</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sf-blue:#0070d2;--sf-blue2:#005fb2;--sf-navy:#16325c;
+  --sf-bg:#f3f2f2;--sf-white:#fff;--sf-border:#dddbda;
+  --sf-text:#3e3e3c;--sf-muted:#706e6b;--sf-label:#3e3e3c;
+  --sf-green:#2e844a;--sf-red:#ba0517;--sf-orange:#dd7a01;
+  --sf-teal:#0b827c;--sf-purple:#5a4fcf;
+  --agent-bg:#0d1526;--agent-header:#162035;
+  --agent-border:rgba(0,112,210,.25);--agent-blue:#1589ee;
+  --agent-user:#f0f8ff;--agent-ai:#0d1526;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Salesforce Sans',Arial,sans-serif;background:var(--sf-bg);color:var(--sf-text);font-size:13px;overflow:hidden;height:100vh;display:flex;flex-direction:column;}
+
+/* ── GLOBAL NAV ── */
+.sf-global-nav{
+  background:var(--sf-navy);height:44px;display:flex;align-items:center;
+  padding:0 12px;gap:0;flex-shrink:0;z-index:200;
+  box-shadow:0 2px 4px rgba(0,0,0,.3);
+}
+.gnav-logo{display:flex;align-items:center;gap:8px;padding:0 10px;border-right:1px solid rgba(255,255,255,.15);height:100%;}
+.gnav-cloud{fill:#fff;}
+.gnav-appname{color:#fff;font-size:.82rem;font-weight:600;white-space:nowrap;}
+.gnav-apps{display:flex;align-items:center;padding:0 8px;cursor:pointer;height:100%;border-right:1px solid rgba(255,255,255,.15);}
+.gnav-apps svg{fill:rgba(255,255,255,.75);width:18px;height:18px;}
+.gnav-divider{width:1px;background:rgba(255,255,255,.15);height:22px;}
+.gnav-tabs{display:flex;align-items:center;height:100%;gap:2px;padding:0 8px;flex:1;}
+.gnav-tab{color:rgba(255,255,255,.75);font-size:.78rem;padding:0 12px;height:100%;display:flex;align-items:center;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;}
+.gnav-tab:hover{color:#fff;background:rgba(255,255,255,.07);}
+.gnav-tab.active{color:#fff;border-bottom-color:#fff;}
+.gnav-right{display:flex;align-items:center;gap:10px;padding-right:8px;}
+.gnav-icon{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,.8);}
+.gnav-icon:hover{background:rgba(255,255,255,.12);}
+.gnav-icon svg{width:16px;height:16px;fill:rgba(255,255,255,.8);}
+.gnav-avatar{width:28px;height:28px;border-radius:50%;background:#0070d2;display:flex;align-items:center;justify-content:center;font-size:.6rem;font-weight:800;color:#fff;cursor:pointer;}
+
+/* ── APP NAV ── */
+.sf-app-nav{
+  background:var(--sf-white);height:52px;display:flex;align-items:center;
+  border-bottom:1px solid var(--sf-border);padding:0 16px;
+  flex-shrink:0;gap:4px;z-index:100;
+  box-shadow:0 1px 3px rgba(0,0,0,.1);
+}
+.anav-item{
+  display:flex;align-items:center;gap:6px;padding:0 14px;height:40px;
+  border-radius:6px;cursor:pointer;color:var(--sf-muted);font-size:.8rem;font-weight:600;
+  white-space:nowrap;
+}
+.anav-item:hover{background:#f3f2f2;}
+.anav-item.active{color:var(--sf-blue);background:rgba(0,112,210,.06);border-bottom:2px solid var(--sf-blue);}
+.anav-item svg{width:14px;height:14px;fill:currentColor;flex-shrink:0;}
+.anav-divider{width:1px;height:24px;background:var(--sf-border);margin:0 4px;}
+
+/* ── BREADCRUMB / PAGE HEADER ── */
+.sf-page-header{
+  background:var(--sf-white);border-bottom:1px solid var(--sf-border);
+  padding:8px 24px 0;flex-shrink:0;
+}
+.breadcrumb{display:flex;align-items:center;gap:6px;margin-bottom:6px;}
+.breadcrumb a{color:var(--sf-blue);font-size:.73rem;text-decoration:none;cursor:pointer;}
+.breadcrumb a:hover{text-decoration:underline;}
+.breadcrumb sep{color:var(--sf-muted);font-size:.7rem;}
+.ph-main{display:flex;align-items:flex-start;justify-content:space-between;padding-bottom:10px;}
+.ph-left{display:flex;align-items:center;gap:12px;}
+.ph-icon{width:40px;height:40px;border-radius:6px;background:var(--sf-blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ph-icon svg{fill:#fff;width:20px;height:20px;}
+.ph-title{font-size:1.1rem;font-weight:700;color:var(--sf-text);}
+.ph-subtitle{font-size:.73rem;color:var(--sf-muted);margin-top:1px;}
+.ph-actions{display:flex;align-items:center;gap:8px;}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:0 14px;height:32px;border-radius:4px;font-size:.78rem;font-weight:600;cursor:pointer;border:1px solid;white-space:nowrap;}
+.btn-primary{background:var(--sf-blue);border-color:var(--sf-blue);color:#fff;}
+.btn-primary:hover{background:var(--sf-blue2);border-color:var(--sf-blue2);}
+.btn-secondary{background:#fff;border-color:var(--sf-border);color:var(--sf-text);}
+.btn-secondary:hover{background:#f3f2f2;}
+.btn-neutral{background:#fff;border-color:var(--sf-border);color:var(--sf-blue);font-weight:700;}
+.btn svg{width:13px;height:13px;fill:currentColor;flex-shrink:0;}
+.sf-stage-bar{display:flex;align-items:stretch;gap:0;margin-top:8px;}
+.stage-item{display:flex;align-items:center;gap:8px;padding:6px 14px 8px;position:relative;cursor:pointer;font-size:.72rem;font-weight:600;color:var(--sf-muted);border-bottom:2px solid transparent;flex:1;}
+.stage-item.done{color:var(--sf-green);}
+.stage-item.active{color:var(--sf-blue);border-bottom-color:var(--sf-blue);}
+.stage-item.active .stage-dot{background:var(--sf-blue);}
+.stage-item.done .stage-dot{background:var(--sf-green);}
+.stage-dot{width:8px;height:8px;border-radius:50%;background:var(--sf-border);flex-shrink:0;}
+.stage-check{color:var(--sf-green);font-size:.75rem;}
+
+/* ── MAIN LAYOUT ── */
+.sf-body{display:flex;flex:1;overflow:hidden;}
+.sf-main{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:14px;}
+.sf-agent-panel{width:380px;flex-shrink:0;border-left:1px solid var(--sf-border);display:flex;flex-direction:column;background:var(--agent-bg);overflow:hidden;}
+
+/* ── RECORD CARDS ── */
+.record-card{background:var(--sf-white);border:1px solid var(--sf-border);border-radius:6px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+.card-header{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--sf-border);background:var(--sf-white);}
+.card-title{font-size:.8rem;font-weight:700;color:var(--sf-text);}
+.card-actions{display:flex;align-items:center;gap:6px;}
+.card-body{padding:14px 16px;}
+.fields-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px 20px;}
+.field{display:flex;flex-direction:column;gap:2px;}
+.field-label{font-size:.7rem;color:var(--sf-muted);font-weight:500;}
+.field-val{font-size:.8rem;color:var(--sf-text);font-weight:500;}
+.field-val.link{color:var(--sf-blue);cursor:pointer;}
+.field-val.link:hover{text-decoration:underline;}
+.field-val.currency{font-weight:700;}
+.badge{display:inline-flex;align-items:center;padding:1px 8px;border-radius:3px;font-size:.68rem;font-weight:700;}
+.badge-blue{background:rgba(0,112,210,.1);color:var(--sf-blue);}
+.badge-green{background:rgba(46,132,74,.1);color:var(--sf-green);}
+.badge-orange{background:rgba(221,122,1,.1);color:var(--sf-orange);}
+.badge-teal{background:rgba(11,130,124,.1);color:var(--sf-teal);}
+
+/* ── LINE ITEMS TABLE ── */
+.li-table{width:100%;border-collapse:collapse;}
+.li-table th{font-size:.68rem;font-weight:700;color:var(--sf-muted);text-transform:uppercase;letter-spacing:.04em;padding:7px 12px;text-align:left;border-bottom:2px solid var(--sf-border);background:#f9f8f8;}
+.li-table td{font-size:.77rem;padding:9px 12px;border-bottom:1px solid #f0eeee;vertical-align:middle;color:var(--sf-text);}
+.li-table tr:last-child td{border-bottom:none;}
+.li-table tr:hover td{background:#f8f7f7;}
+.li-table .right{text-align:right;}
+.li-table .num{font-variant-numeric:tabular-nums;}
+.li-new{background:rgba(0,112,210,.04) !important;border-left:3px solid var(--sf-blue);}
+.li-new td{color:var(--sf-blue) !important;}
+.totals-row{display:flex;justify-content:flex-end;padding:12px 16px;border-top:2px solid var(--sf-border);gap:32px;}
+.total-item{text-align:right;}
+.total-label{font-size:.7rem;color:var(--sf-muted);}
+.total-val{font-size:.92rem;font-weight:700;color:var(--sf-text);}
+.total-val.grand{font-size:1.05rem;color:var(--sf-green);}
+
+/* ── AGENT PANEL ── */
+.agent-header{
+  background:var(--agent-header);border-bottom:1px solid var(--agent-border);
+  padding:12px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;
+}
+.agent-avatar{
+  width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(135deg,#0070d2,#00a9e0);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  box-shadow:0 0 10px rgba(0,112,210,.4);
+}
+.agent-avatar svg{fill:#fff;width:16px;height:16px;}
+.agent-name{font-size:.82rem;font-weight:700;color:#fff;}
+.agent-status{font-size:.62rem;color:#4ade80;display:flex;align-items:center;gap:4px;margin-top:1px;}
+.agent-status::before{content:'';width:5px;height:5px;border-radius:50%;background:#4ade80;animation:pulse-green 2s ease-in-out infinite;}
+@keyframes pulse-green{0%,100%{opacity:1}50%{opacity:.4}}
+.agent-header-actions{margin-left:auto;display:flex;gap:6px;}
+.agent-icon-btn{width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,255,.5);}
+.agent-icon-btn:hover{background:rgba(255,255,255,.1);color:#fff;}
+.agent-icon-btn svg{width:13px;height:13px;fill:currentColor;}
+
+.agent-context{background:rgba(0,112,210,.08);border-bottom:1px solid var(--agent-border);padding:8px 14px;display:flex;align-items:center;gap:8px;}
+.ctx-label{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);}
+.ctx-val{font-size:.7rem;color:rgba(255,255,255,.65);font-weight:600;}
+.ctx-sep{color:rgba(255,255,255,.2);font-size:.7rem;}
+
+.agent-messages{flex:1;overflow-y:auto;padding:14px 14px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth;}
+.agent-messages::-webkit-scrollbar{width:4px;}
+.agent-messages::-webkit-scrollbar-track{background:transparent;}
+.agent-messages::-webkit-scrollbar-thumb{background:rgba(255,255,255,.15);border-radius:2px;}
+
+.msg{display:flex;gap:8px;max-width:100%;}
+.msg-ai{align-items:flex-start;}
+.msg-user{align-items:flex-start;flex-direction:row-reverse;}
+.msg-bubble{padding:9px 12px;border-radius:10px;font-size:.74rem;line-height:1.6;max-width:85%;}
+.msg-ai .msg-bubble{background:#1a2744;color:rgba(220,235,255,.85);border-radius:3px 10px 10px 10px;border:1px solid rgba(0,112,210,.2);}
+.msg-user .msg-bubble{background:#0070d2;color:#fff;border-radius:10px 3px 10px 10px;}
+.msg-avatar{width:22px;height:22px;border-radius:50%;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:.52rem;font-weight:800;}
+.ai-avatar{background:linear-gradient(135deg,#0070d2,#00a9e0);box-shadow:0 0 6px rgba(0,112,210,.4);}
+.ai-avatar svg{fill:#fff;width:11px;height:11px;}
+.user-avatar-sm{background:#16325c;color:rgba(255,255,255,.8);}
+.msg-time{font-size:.58rem;color:rgba(255,255,255,.25);margin-top:3px;text-align:right;}
+.msg-ai .msg-time{text-align:left;}
+
+/* Action card inside agent */
+.agent-action-card{
+  background:#0f1e38;border:1px solid rgba(0,112,210,.3);border-radius:8px;
+  margin-top:8px;overflow:hidden;
+}
+.aac-header{background:rgba(0,112,210,.15);padding:7px 12px;font-size:.64rem;font-weight:700;color:rgba(100,170,255,.9);letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:6px;}
+.aac-header svg{width:11px;height:11px;fill:currentColor;}
+.aac-body{padding:10px 12px;}
+.aac-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.05);font-size:.7rem;}
+.aac-row:last-child{border-bottom:none;}
+.aac-label{color:rgba(255,255,255,.45);}
+.aac-val{color:rgba(220,235,255,.85);font-weight:600;font-variant-numeric:tabular-nums;}
+.aac-val.green{color:#4ade80;}
+.aac-val.orange{color:#fb923c;}
+
+.agent-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.agent-chip{
+  font-size:.66rem;font-weight:600;padding:4px 10px;border-radius:14px;cursor:pointer;
+  background:rgba(0,112,210,.15);border:1px solid rgba(0,112,210,.35);color:#60a5fa;
+  transition:all .15s;
+}
+.agent-chip:hover{background:rgba(0,112,210,.3);border-color:rgba(0,112,210,.6);color:#93c5fd;}
+
+.agent-typing{display:flex;align-items:center;gap:4px;padding:8px 12px;background:#1a2744;border:1px solid rgba(0,112,210,.2);border-radius:3px 10px 10px 10px;align-self:flex-start;}
+.typing-dot{width:5px;height:5px;border-radius:50%;background:rgba(100,170,255,.5);animation:typing 1.4s ease-in-out infinite;}
+.typing-dot:nth-child(2){animation-delay:.2s;}
+.typing-dot:nth-child(3){animation-delay:.4s;}
+@keyframes typing{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-4px)}}
+
+.agent-input-area{
+  padding:12px 14px;border-top:1px solid var(--agent-border);
+  background:var(--agent-header);flex-shrink:0;
+}
+.agent-input-wrap{background:#0d1f38;border:1px solid rgba(0,112,210,.3);border-radius:8px;display:flex;align-items:flex-end;gap:8px;padding:8px 12px;}
+.agent-input{flex:1;background:none;border:none;outline:none;color:rgba(220,235,255,.85);font-size:.74rem;resize:none;line-height:1.5;font-family:inherit;min-height:20px;max-height:80px;}
+.agent-input::placeholder{color:rgba(255,255,255,.22);}
+.agent-send{width:28px;height:28px;border-radius:6px;background:var(--sf-blue);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s;}
+.agent-send:hover{background:var(--sf-blue2);}
+.agent-send svg{fill:#fff;width:13px;height:13px;}
+.agent-input-hint{font-size:.6rem;color:rgba(255,255,255,.2);margin-top:6px;text-align:center;}
+
+/* Activity feed mini */
+.activity-feed{display:flex;flex-direction:column;gap:0;}
+.activity-item{display:flex;gap:12px;padding:8px 0;border-bottom:1px solid #f0eeee;}
+.activity-item:last-child{border-bottom:none;}
+.ai-dot{width:8px;height:8px;border-radius:50%;background:var(--sf-border);flex-shrink:0;margin-top:5px;}
+.ai-dot.blue{background:var(--sf-blue);}
+.ai-dot.green{background:var(--sf-green);}
+.ai-text{font-size:.75rem;color:var(--sf-text);line-height:1.5;}
+.ai-text .link{color:var(--sf-blue);cursor:pointer;}
+.ai-time{font-size:.67rem;color:var(--sf-muted);}
+
+/* Highlight pulse for new line item */
+@keyframes row-highlight{0%{background:rgba(0,112,210,.15)}100%{background:rgba(0,112,210,.04)}}
+.li-new{animation:row-highlight 1.5s ease-out forwards;}
+
+/* scrollbar for main */
+.sf-main::-webkit-scrollbar{width:6px;}
+.sf-main::-webkit-scrollbar-thumb{background:var(--sf-border);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<!-- GLOBAL NAV -->
+<div class="sf-global-nav">
+  <div class="gnav-logo">
+    <svg class="gnav-cloud" width="32" height="22" viewBox="0 0 50 34"><path d="M20.8 5.4c1.7-1.8 4.1-2.9 6.7-2.9 3.2 0 6 1.7 7.6 4.2.9-.4 1.9-.6 3-.6 4 0 7.2 3.2 7.2 7.2 0 .4 0 .7-.1 1.1C47.3 15.6 49 18.2 49 21.2c0 4.5-3.6 8.1-8.1 8.1H10.4C6.3 29.3 3 26 3 21.9c0-3.1 1.9-5.8 4.6-7 0-.3-.1-.5-.1-.8 0-4.3 3.5-7.8 7.8-7.8 2.1 0 4 .8 5.5 2.1z"/></svg>
+    <span class="gnav-appname">Sales</span>
+  </div>
+  <div class="gnav-apps">
+    <svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zm11 0h7v7h-7zM3 14h7v7H3zm11 0h7v7h-7z"/></svg>
+  </div>
+  <div class="gnav-tabs">
+    <div class="gnav-tab">Home</div>
+    <div class="gnav-tab">Chatter</div>
+    <div class="gnav-tab">Accounts</div>
+    <div class="gnav-tab">Contacts</div>
+    <div class="gnav-tab active">Opportunities</div>
+    <div class="gnav-tab">Leads</div>
+    <div class="gnav-tab">Quotes</div>
+    <div class="gnav-tab">Reports</div>
+  </div>
+  <div class="gnav-right">
+    <div class="gnav-icon"><svg viewBox="0 0 24 24"><path d="M15 17h5l-1.41-1.41A6.98 6.98 0 0020 12a7 7 0 00-7-7 7 7 0 00-7 7 7 7 0 007 7c1.48 0 2.84-.46 3.95-1.24L15 17zm-3 1a1 1 0 110 2 1 1 0 010-2z"/><circle cx="11" cy="11" r="8"/></svg></div>
+    <div class="gnav-icon">
+      <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </div>
+    <div class="gnav-avatar">AT</div>
+  </div>
+</div>
+
+<!-- APP NAV -->
+<div class="sf-app-nav">
+  <div class="anav-item">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Recently Viewed
+  </div>
+  <div class="anav-divider"></div>
+  <div class="anav-item active">
+    <svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+    All Opportunities
+  </div>
+  <div class="anav-item">
+    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+    My Open Deals
+  </div>
+  <div class="anav-item" style="margin-left:auto;">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    Help
+  </div>
+</div>
+
+<!-- PAGE HEADER -->
+<div class="sf-page-header">
+  <div class="breadcrumb">
+    <a>Opportunities</a>
+    <sep>/</sep>
+    <a>Zips Car Wash - Loyalty + Retail Cloud</a>
+  </div>
+  <div class="ph-main">
+    <div class="ph-left">
+      <div class="ph-icon">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      </div>
+      <div>
+        <div class="ph-title">Zips Car Wash &mdash; Loyalty + Retail Cloud</div>
+        <div class="ph-subtitle">Opportunity &nbsp;·&nbsp; <span style="color:var(--sf-orange);font-weight:600;">02 &mdash; Determining Problem, Impact, Ideal</span> &nbsp;·&nbsp; Close: Jan 31, 2027</div>
+      </div>
+    </div>
+    <div class="ph-actions">
+      <button class="btn btn-secondary">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+        More
+      </button>
+      <button class="btn btn-secondary">Edit</button>
+      <button class="btn btn-primary" onclick="sendUserMsg()">
+        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        Ask Quoting Agent
+      </button>
+    </div>
+  </div>
+  <div class="sf-stage-bar">
+    <div class="stage-item done"><span class="stage-dot"></span><span class="stage-check">✓</span> 01 Initiate</div>
+    <div class="stage-item active"><span class="stage-dot"></span> 02 Determine</div>
+    <div class="stage-item"><span class="stage-dot"></span> 03 Validate</div>
+    <div class="stage-item"><span class="stage-dot"></span> 04 Propose</div>
+    <div class="stage-item"><span class="stage-dot"></span> 05 Negotiate</div>
+    <div class="stage-item"><span class="stage-dot"></span> 06 Close</div>
+  </div>
+</div>
+
+<!-- BODY -->
+<div class="sf-body">
+
+  <!-- MAIN CONTENT -->
+  <div class="sf-main">
+
+    <!-- OPPORTUNITY FIELDS -->
+    <div class="record-card">
+      <div class="card-header">
+        <span class="card-title">Opportunity Details</span>
+        <div class="card-actions">
+          <button class="btn btn-secondary" style="height:26px;font-size:.7rem;">Edit</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="fields-grid">
+          <div class="field"><span class="field-label">Account Name</span><span class="field-val link">Zips Car Wash</span></div>
+          <div class="field"><span class="field-label">Amount</span><span class="field-val currency">$370,000</span></div>
+          <div class="field"><span class="field-label">Close Date</span><span class="field-val">1/31/2027</span></div>
+          <div class="field"><span class="field-label">Stage</span><span class="field-val"><span class="badge badge-orange">02 - Determining</span></span></div>
+          <div class="field"><span class="field-label">Forecast Category</span><span class="field-val"><span class="badge badge-blue">Pipeline</span></span></div>
+          <div class="field"><span class="field-label">Probability</span><span class="field-val">25%</span></div>
+          <div class="field"><span class="field-label">Opportunity Owner</span><span class="field-val link">Conor O'Malley</span></div>
+          <div class="field"><span class="field-label">Type</span><span class="field-val">Add-On Business</span></div>
+          <div class="field"><span class="field-label">Lead Source</span><span class="field-val">Digital AE</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUOTE LINE ITEMS -->
+    <div class="record-card" id="quote-card">
+      <div class="card-header">
+        <span class="card-title">Quote &mdash; Draft &nbsp;<span class="badge badge-teal">Agent-Assisted</span></span>
+        <div class="card-actions">
+          <button class="btn btn-secondary" style="height:26px;font-size:.7rem;">Add Product</button>
+          <button class="btn btn-neutral" style="height:26px;font-size:.7rem;">Generate PDF</button>
+        </div>
+      </div>
+      <table class="li-table" id="quote-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Product Family</th>
+            <th class="right">Qty</th>
+            <th class="right">List Price</th>
+            <th class="right">Discount</th>
+            <th class="right">Net Price</th>
+            <th class="right">Total</th>
+          </tr>
+        </thead>
+        <tbody id="line-items">
+          <tr>
+            <td><span style="color:var(--sf-blue);cursor:pointer;">Loyalty Management — Enterprise</span></td>
+            <td><span class="badge badge-teal">Loyalty Cloud</span></td>
+            <td class="right num">1</td>
+            <td class="right num">$75,000</td>
+            <td class="right num" style="color:var(--sf-orange);">15%</td>
+            <td class="right num">$63,750</td>
+            <td class="right num" style="font-weight:700;">$63,750</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--sf-blue);cursor:pointer;">Retail Execution Cloud — Starter</span></td>
+            <td><span class="badge badge-blue">Retail Cloud</span></td>
+            <td class="right num">1</td>
+            <td class="right num">$90,000</td>
+            <td class="right num" style="color:var(--sf-orange);">15%</td>
+            <td class="right num">$76,500</td>
+            <td class="right num" style="font-weight:700;">$76,500</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--sf-blue);cursor:pointer;">Data Cloud — Starter (additional credits)</span></td>
+            <td><span class="badge badge-blue">Data Cloud</span></td>
+            <td class="right num">50</td>
+            <td class="right num">$720</td>
+            <td class="right num" style="color:var(--sf-orange);">10%</td>
+            <td class="right num">$648</td>
+            <td class="right num" style="font-weight:700;">$32,400</td>
+          </tr>
+          <tr>
+            <td><span style="color:var(--sf-blue);cursor:pointer;">Premier Success Plan — Loyalty Cloud</span></td>
+            <td><span class="badge badge-orange">Success Cloud</span></td>
+            <td class="right num">1</td>
+            <td class="right num">$22,500</td>
+            <td class="right num">—</td>
+            <td class="right num">$22,500</td>
+            <td class="right num" style="font-weight:700;">$22,500</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="totals-row">
+        <div class="total-item"><div class="total-label">Subtotal</div><div class="total-val">$420,000</div></div>
+        <div class="total-item"><div class="total-label">Discount</div><div class="total-val" style="color:var(--sf-orange);">-$25,350</div></div>
+        <div class="total-item"><div class="total-label">Annual Total</div><div class="total-val grand" id="grand-total">$194,650 <span style="font-size:.7rem;color:var(--sf-muted);">/yr</span></div></div>
+      </div>
+    </div>
+
+    <!-- ACTIVITY -->
+    <div class="record-card">
+      <div class="card-header">
+        <span class="card-title">Activity</span>
+        <button class="btn btn-secondary" style="height:26px;font-size:.7rem;">Log a Call</button>
+      </div>
+      <div class="card-body">
+        <div class="activity-feed">
+          <div class="activity-item"><div class="ai-dot blue"></div><div><div class="ai-text"><span class="link">Agentforce Quoting Agent</span> added Agentforce for Marketing - Growth (50 credits) to the quote draft. <span style="color:var(--sf-green);font-weight:600;">$14,400 incremental ACV.</span></div><div class="ai-time">Today at 2:14 PM</div></div></div>
+          <div class="activity-item"><div class="ai-dot"></div><div><div class="ai-text"><span class="link">Conor O'Malley</span> updated Stage from 01 Initiate to 02 Determining.</div><div class="ai-time">Today at 11:30 AM</div></div></div>
+          <div class="activity-item"><div class="ai-dot green"></div><div><div class="ai-text"><span class="link">Agentforce Quoting Agent</span> analyzed account history and flagged 3 previously dead Data Cloud credit opportunities. Recommended bundling into renewal uplift.</div><div class="ai-time">Today at 11:15 AM</div></div></div>
+          <div class="activity-item"><div class="ai-dot"></div><div><div class="ai-text"><span class="link">Conor O'Malley</span> created opportunity from AE referral — Digital AE Zips QBR notes.</div><div class="ai-time">Aug 12 at 9:02 AM</div></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- AGENTFORCE PANEL -->
+  <div class="sf-agent-panel">
+
+    <div class="agent-header">
+      <div class="agent-avatar">
+        <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <div>
+        <div class="agent-name">Agentforce Quoting Agent</div>
+        <div class="agent-status">Active &mdash; Zips Car Wash Context Loaded</div>
+      </div>
+      <div class="agent-header-actions">
+        <div class="agent-icon-btn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <div class="agent-icon-btn"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+      </div>
+    </div>
+
+    <div class="agent-context">
+      <span class="ctx-label">Context</span>
+      <span class="ctx-val">Zips Car Wash</span>
+      <span class="ctx-sep">·</span>
+      <span class="ctx-val">$370K Opp</span>
+      <span class="ctx-sep">·</span>
+      <span class="ctx-val">MC + DC Customer</span>
+    </div>
+
+    <div class="agent-messages" id="agent-msgs">
+
+      <!-- AI intro -->
+      <div class="msg msg-ai">
+        <div class="msg-avatar ai-avatar"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div>
+          <div class="msg-bubble">
+            Hi Conor. I've loaded the Zips Car Wash account. They're running MC Engagement Corporate, Data Cloud with 12M Data Services credits, SMS/MMS, and MC Advertising Pro today.<br><br>
+            I can see 3 previously dead add-on opportunities in their history — Data Cloud credits and Messages — all stalled at pricing. I've built a draft quote that bundles the Loyalty + Retail play with a DC credit top-up to hit the $370K target. Want me to walk through it?
+          </div>
+          <div class="msg-time">2:08 PM</div>
+        </div>
+      </div>
+
+      <!-- User -->
+      <div class="msg msg-user">
+        <div class="msg-avatar user-avatar-sm">CO</div>
+        <div>
+          <div class="msg-bubble">Yes — what's the margin look like on this bundle? And can we add the Agentforce for Marketing product?</div>
+          <div class="msg-time">2:11 PM</div>
+        </div>
+      </div>
+
+      <!-- AI response with action card -->
+      <div class="msg msg-ai">
+        <div class="msg-avatar ai-avatar"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div>
+          <div class="msg-bubble">
+            Current bundle margin looks strong. Here's the breakdown:
+            <div class="agent-action-card">
+              <div class="aac-header"><svg viewBox="0 0 24 24"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg> QUOTE ANALYSIS</div>
+              <div class="aac-body">
+                <div class="aac-row"><span class="aac-label">List Total</span><span class="aac-val">$420,000</span></div>
+                <div class="aac-row"><span class="aac-label">Avg Discount Applied</span><span class="aac-val orange">13.8%</span></div>
+                <div class="aac-row"><span class="aac-label">Net ACV</span><span class="aac-val green">$194,650</span></div>
+                <div class="aac-row"><span class="aac-label">Deal Desk Threshold</span><span class="aac-val">≤ 20% — No Approval</span></div>
+                <div class="aac-row"><span class="aac-label">Margin Status</span><span class="aac-val green">✓ Within Policy</span></div>
+              </div>
+            </div>
+            For Agentforce for Marketing — adding 50 credits of Agentforce Campaign Creation at Growth tier would add <strong style="color:#4ade80;">$14,400/yr ACV</strong> at 10% discount. I'd recommend positioning it as the churn prevention layer on top of the Loyalty program. Should I add it to the quote?
+          </div>
+          <div class="agent-chips">
+            <span class="agent-chip" onclick="addAgentforce()">Yes, add to quote</span>
+            <span class="agent-chip" onclick="runDiscount()">Model a higher discount</span>
+            <span class="agent-chip">Show competitor comparison</span>
+          </div>
+          <div class="msg-time">2:14 PM</div>
+        </div>
+      </div>
+
+      <!-- User follow-up -->
+      <div class="msg msg-user" id="user-msg-2" style="display:none;">
+        <div class="msg-avatar user-avatar-sm">CO</div>
+        <div>
+          <div class="msg-bubble">Add it. Also, what's the best renewal angle to get this bundled with their MC renewal in April 2028?</div>
+          <div class="msg-time">2:17 PM</div>
+        </div>
+      </div>
+
+      <!-- AI final reply -->
+      <div class="msg msg-ai" id="ai-reply-2" style="display:none;">
+        <div class="msg-avatar ai-avatar"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div>
+          <div class="msg-bubble">
+            Done — Agentforce for Marketing added. Quote is now <strong style="color:#4ade80;">$209,050/yr ACV</strong>.<br><br>
+            On the co-term angle: their MC renewal (Opp #126237) is April 24, 2028 — 20 months out. Best play is a <strong>co-term addendum now</strong> that aligns Loyalty + Agentforce to that date. This gives them:<br><br>
+            • One renewal conversation instead of two<br>
+            • Prorated credit from today = lower year-1 cost<br>
+            • Clean upsell hook when MC renews<br><br>
+            I've flagged the April 2028 renewal opp in the related list so you can reference it in the proposal. Want me to draft the co-term language for the executive summary?
+            <div class="agent-action-card" style="margin-top:10px;">
+              <div class="aac-header"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> UPDATED QUOTE SUMMARY</div>
+              <div class="aac-body">
+                <div class="aac-row"><span class="aac-label">Products</span><span class="aac-val">5 line items</span></div>
+                <div class="aac-row"><span class="aac-label">Annual ACV</span><span class="aac-val green">$209,050</span></div>
+                <div class="aac-row"><span class="aac-label">Co-term Date</span><span class="aac-val">April 24, 2028</span></div>
+                <div class="aac-row"><span class="aac-label">Approval Required</span><span class="aac-val green">None — within policy</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="agent-chips">
+            <span class="agent-chip">Draft exec summary</span>
+            <span class="agent-chip">Generate PDF quote</span>
+            <span class="agent-chip">Send to Deal Desk</span>
+          </div>
+          <div class="msg-time">2:17 PM</div>
+        </div>
+      </div>
+
+      <div id="typing-indicator" style="display:none;" class="msg msg-ai">
+        <div class="msg-avatar ai-avatar"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div class="agent-typing">
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="agent-input-area">
+      <div class="agent-input-wrap">
+        <textarea class="agent-input" id="agent-textarea" placeholder="Ask the Quoting Agent..." rows="1" onkeydown="handleKey(event)"></textarea>
+        <button class="agent-send" onclick="handleSend()">
+          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+      <div class="agent-input-hint">Agentforce &nbsp;·&nbsp; Powered by Salesforce Einstein</div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let step = 0;
+
+function scrollMsgs(){
+  const el = document.getElementById('agent-msgs');
+  el.scrollTop = el.scrollHeight;
+}
+
+function showTyping(){
+  document.getElementById('typing-indicator').style.display='flex';
+  scrollMsgs();
+}
+function hideTyping(){
+  document.getElementById('typing-indicator').style.display='none';
+}
+
+function addAgentforce(){
+  // Add new line item to table
+  const tbody = document.getElementById('line-items');
+  const tr = document.createElement('tr');
+  tr.className = 'li-new';
+  tr.innerHTML = `
+    <td><span style="color:var(--sf-blue);cursor:pointer;">Agentforce for Marketing — Growth (50 credits)</span></td>
+    <td><span class="badge badge-teal">Agentforce</span></td>
+    <td class="right num">50</td>
+    <td class="right num">$320</td>
+    <td class="right num" style="color:var(--sf-orange);">10%</td>
+    <td class="right num">$288</td>
+    <td class="right num" style="font-weight:700;">$14,400</td>
+  `;
+  tbody.appendChild(tr);
+  document.getElementById('grand-total').innerHTML = '$209,050 <span style="font-size:.7rem;color:var(--sf-muted);">/yr</span>';
+  document.querySelector('.totals-row').children[0].querySelector('.total-val').textContent = '$452,000';
+  document.querySelector('.totals-row').children[1].querySelector('.total-val').textContent = '-$27,350';
+
+  // Show user msg + typing + AI reply
+  document.getElementById('user-msg-2').style.display='flex';
+  scrollMsgs();
+  showTyping();
+  setTimeout(()=>{
+    hideTyping();
+    document.getElementById('ai-reply-2').style.display='flex';
+    scrollMsgs();
+  }, 1800);
+}
+
+function sendUserMsg(){
+  const ta = document.getElementById('agent-textarea');
+  ta.value = "What's the best bundle to push this to close by Q4?";
+  ta.focus();
+}
+
+function runDiscount(){
+  const ta = document.getElementById('agent-textarea');
+  ta.value = "Model the quote at 20% discount — what does that do to approval requirements?";
+  ta.focus();
+}
+
+function handleKey(e){
+  if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); handleSend(); }
+}
+
+function handleSend(){
+  const ta = document.getElementById('agent-textarea');
+  const val = ta.value.trim();
+  if(!val) return;
+  const msgs = document.getElementById('agent-msgs');
+  // append user msg
+  const um = document.createElement('div');
+  um.className = 'msg msg-user';
+  um.innerHTML = `<div class="msg-avatar user-avatar-sm">CO</div><div><div class="msg-bubble">${val}</div><div class="msg-time">Just now</div></div>`;
+  // insert before typing indicator
+  const ti = document.getElementById('typing-indicator');
+  msgs.insertBefore(um, ti);
+  ta.value='';
+  showTyping();
+  scrollMsgs();
+  setTimeout(()=>{
+    hideTyping();
+    const am = document.createElement('div');
+    am.className='msg msg-ai';
+    am.innerHTML=`<div class="msg-avatar ai-avatar"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div class="msg-bubble">I've analyzed the account signals and current deal structure. Based on Zips' existing footprint and the co-term opportunity with their April 2028 MC renewal, I'd recommend confirming the Loyalty + Agentforce bundle and positioning the Data Cloud credits as a co-term uplift. I can draft the executive summary or generate a PDF — which would you like first?</div><div class="agent-chips"><span class="agent-chip">Draft exec summary</span><span class="agent-chip">Generate PDF</span></div><div class="msg-time">Just now</div></div>`;
+    msgs.insertBefore(am, ti);
+    scrollMsgs();
+  }, 1600);
+}
+
+scrollMsgs();
+</script>
+</body>
+</html>
