@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zips Car Wash — Marketing POV</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07060a;--bg2:#0d0b14;--dark:#110f1a;
+  --purple:#6d28d9;--violet:#7c3aed;--violet2:#a78bfa;
+  --orange:#f97316;--orange2:#fb923c;--amber:#fbbf24;
+  --cyan:#22d3ee;--green:#4ade80;--red:#f87171;
+  --body:#c4b5fd;--muted:#6d6b80;--border:rgba(167,139,250,.1);
+  --white:#f5f0ff;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:var(--bg);color:var(--body);min-height:100vh;}
+
+/* NAV */
+nav{
+  background:rgba(7,6,10,.95);border-bottom:1px solid var(--border);
+  height:58px;display:flex;align-items:center;padding:0 52px;
+  justify-content:space-between;position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(16px);
+}
+.nav-left{display:flex;align-items:center;gap:14px;}
+.nav-logo{width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--orange),var(--amber));display:flex;align-items:center;justify-content:center;font-size:.66rem;font-weight:900;color:#fff;letter-spacing:.04em;}
+.nav-name{font-size:.95rem;font-weight:800;color:var(--white);}
+.nav-sub{font-size:.5rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:1px;}
+.sf-badge{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:6px;padding:5px 12px;}
+.sf-cloud{width:20px;height:13px;fill:#00a1e0;}
+.sf-badge span{font-size:.62rem;font-weight:700;color:var(--muted);}
+
+/* HERO */
+.hero{position:relative;min-height:540px;display:flex;align-items:center;padding:90px 52px;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;z-index:0;}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 40%;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(7,6,10,.96) 0%,rgba(7,6,10,.82) 50%,rgba(7,6,10,.5) 100%);z-index:1;}
+.hero::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,var(--orange),var(--amber),var(--orange));z-index:3;}
+.hero-content{position:relative;z-index:2;max-width:640px;}
+.hero-eyebrow{font-size:.54rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--orange2);margin-bottom:14px;display:flex;align-items:center;gap:9px;}
+.hero-eyebrow::before{content:'';display:inline-block;width:18px;height:2px;background:var(--orange2);}
+h1{font-size:2.75rem;font-weight:900;color:var(--white);line-height:1.06;letter-spacing:-.03em;margin-bottom:16px;}
+h1 em{font-style:normal;color:var(--orange2);}
+.hero-sub{font-size:.9rem;color:rgba(196,181,253,.56);line-height:1.75;max-width:540px;margin-bottom:32px;}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:20px;padding:5px 13px;font-size:.66rem;font-weight:700;}
+.chip-orange{background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.32);color:var(--orange2);}
+.chip-violet{background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.32);color:var(--violet2);}
+.chip-green{background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.28);color:var(--green);}
+
+/* SECTIONS */
+section{padding:64px 52px;}
+.s-eyebrow{font-size:.54rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--orange2);margin-bottom:9px;display:flex;align-items:center;gap:8px;}
+.s-eyebrow::before{content:'';display:inline-block;width:14px;height:2px;background:var(--orange2);}
+.s-title{font-size:1.85rem;font-weight:900;color:var(--white);line-height:1.1;letter-spacing:-.025em;margin-bottom:11px;}
+.s-title em{font-style:normal;color:var(--orange2);}
+.s-sub{font-size:.84rem;color:var(--muted);line-height:1.74;max-width:640px;margin-bottom:40px;}
+
+/* GRIDS */
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
+
+/* DARK/MID SECTIONS */
+.s-dark{background:rgba(13,11,20,.7);}
+.s-mid{background:rgba(17,15,26,.5);}
+
+/* CARDS */
+.fc{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:22px 20px;position:relative;overflow:hidden;}
+.fc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--orange),transparent);}
+.fc-icon{width:36px;height:36px;border-radius:8px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.22);display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.fc-icon svg{width:17px;height:17px;fill:none;stroke:var(--orange2);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+.fc-label{font-size:.52rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;}
+.fc-title{font-size:.9rem;font-weight:800;color:var(--white);line-height:1.22;margin-bottom:7px;}
+.fc-body{font-size:.73rem;color:var(--muted);line-height:1.68;}
+.fc-body strong{color:var(--body);font-weight:700;}
+.fc-accent{border-color:rgba(167,139,250,.18);}
+.fc-accent::before{background:linear-gradient(to right,var(--violet2),transparent);}
+.fc-accent .fc-icon{background:rgba(124,58,237,.1);border-color:rgba(124,58,237,.22);}
+.fc-accent .fc-icon svg{stroke:var(--violet2);}
+.fc-green::before{background:linear-gradient(to right,var(--green),transparent);}
+.fc-green .fc-icon{background:rgba(74,222,128,.1);border-color:rgba(74,222,128,.22);}
+.fc-green .fc-icon svg{stroke:var(--green);}
+
+/* CURRENT STACK */
+.stack-row{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid var(--border);}
+.stack-row:last-child{border-bottom:none;}
+.stack-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.dot-orange{background:var(--orange);}
+.dot-violet{background:var(--violet2);}
+.dot-green{background:var(--green);}
+.dot-amber{background:var(--amber);}
+.stack-name{font-size:.76rem;font-weight:700;color:var(--white);}
+.stack-status{font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-left:auto;padding:2px 8px;border-radius:4px;}
+.status-live{background:rgba(74,222,128,.12);color:var(--green);}
+.status-pipeline{background:rgba(251,191,36,.12);color:var(--amber);}
+.status-gap{background:rgba(248,113,113,.1);color:var(--red);}
+
+/* MEMBER JOURNEY VIZ */
+.journey{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.j-stage{padding:18px 14px;border-right:1px solid var(--border);position:relative;}
+.j-stage:last-child{border-right:none;}
+.j-num{font-size:1.4rem;font-weight:900;color:rgba(167,139,250,.2);line-height:1;margin-bottom:6px;font-variant-numeric:tabular-nums;}
+.j-label{font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--orange2);margin-bottom:6px;}
+.j-desc{font-size:.66rem;color:var(--muted);line-height:1.55;}
+.j-action{font-size:.62rem;font-weight:700;color:var(--white);margin-top:7px;padding:4px 9px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.2);border-radius:5px;display:inline-block;}
+
+/* STAT STRIP */
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.stat-cell{padding:24px 18px;text-align:center;border-right:1px solid var(--border);}
+.stat-cell:last-child{border-right:none;}
+.stat-num{font-size:1.75rem;font-weight:900;color:var(--white);line-height:1;letter-spacing:-.02em;}
+.stat-num em{font-style:normal;color:var(--orange2);font-size:1.1rem;}
+.stat-label{font-size:.56rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:5px;line-height:1.4;}
+
+/* CALLOUT */
+.callout{border-radius:11px;padding:18px 20px;margin:20px 0;background:rgba(249,115,22,.08);border:1px solid rgba(249,115,22,.2);}
+.callout-label{font-size:.52rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--orange2);margin-bottom:5px;}
+.callout-body{font-size:.78rem;color:rgba(245,240,255,.65);line-height:1.68;}
+.callout-body strong{color:var(--white);}
+
+/* WHY NOW */
+.urgency-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.urg{border:1px solid var(--border);border-radius:12px;padding:22px 20px;position:relative;overflow:hidden;background:rgba(255,255,255,.025);}
+.urg::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;}
+.urg:nth-child(1)::before{background:var(--orange);}
+.urg:nth-child(2)::before{background:var(--violet2);}
+.urg:nth-child(3)::before{background:var(--amber);}
+.urg-num{font-size:2.2rem;font-weight:900;line-height:1;opacity:.15;color:var(--white);margin-bottom:8px;}
+.urg-title{font-size:.86rem;font-weight:800;color:var(--white);line-height:1.2;margin-bottom:8px;}
+.urg-body{font-size:.72rem;color:var(--muted);line-height:1.68;}
+.urg-body strong{color:var(--body);font-weight:700;}
+
+/* WHAT WE'RE BUILDING */
+.products-band{background:rgba(13,11,20,.7);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 52px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+.prod-label{font-size:.46rem;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+.prod-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.prod-chip{font-size:.62rem;font-weight:700;letter-spacing:.06em;border:1px solid rgba(249,115,22,.3);color:var(--orange2);padding:5px 13px;border-radius:5px;background:rgba(249,115,22,.07);}
+.prod-chip.violet{border-color:rgba(167,139,250,.3);color:var(--violet2);background:rgba(124,58,237,.07);}
+
+/* CTA */
+.cta-band{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--dark) 0%,var(--bg2) 100%);
+  padding:72px 52px;text-align:center;border-top:1px solid var(--border);
+}
+.cta-band::before{content:'';position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:500px;height:300px;border-radius:50%;background:radial-gradient(ellipse,rgba(249,115,22,.08) 0%,transparent 70%);pointer-events:none;}
+.cta-title{font-size:1.9rem;font-weight:900;color:var(--white);letter-spacing:-.025em;margin-bottom:10px;}
+.cta-sub{font-size:.84rem;color:var(--muted);margin-bottom:28px;}
+.cta-row{display:flex;align-items:center;justify-content:center;gap:14px;}
+.cta-photo{width:52px;height:52px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid var(--orange);}
+.cta-photo img{width:100%;height:100%;object-fit:cover;}
+.cta-name{font-size:.88rem;font-weight:800;color:var(--white);text-align:left;}
+.cta-role{font-size:.64rem;color:var(--muted);text-align:left;margin-top:2px;}
+
+/* FOOTER */
+footer{background:#04030a;border-top:1px solid var(--border);padding:16px 52px;display:flex;align-items:center;justify-content:space-between;}
+.footer-copy{font-size:.56rem;color:rgba(255,255,255,.15);letter-spacing:.07em;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <div class="nav-logo">ZCW</div>
+    <div>
+      <div class="nav-name">Zips Car Wash</div>
+      <div class="nav-sub">Marketing POV &mdash; Member Growth &amp; Retention</div>
+    </div>
+  </div>
+  <div class="sf-badge">
+    <svg class="sf-cloud" viewBox="0 0 50 34"><path d="M20.8 5.4c1.7-1.8 4.1-2.9 6.7-2.9 3.2 0 6 1.7 7.6 4.2.9-.4 1.9-.6 3-.6 4 0 7.2 3.2 7.2 7.2 0 .4 0 .7-.1 1.1C47.3 15.6 49 18.2 49 21.2c0 4.5-3.6 8.1-8.1 8.1H10.4C6.3 29.3 3 26 3 21.9c0-3.1 1.9-5.8 4.6-7 0-.3-.1-.5-.1-.8 0-4.3 3.5-7.8 7.8-7.8 2.1 0 4 .8 5.5 2.1z"/></svg>
+    <span>Salesforce Digital AE</span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg">
+    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80" alt="">
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Zips Car Wash &mdash; Marketing POV</div>
+    <h1>Membership Is the Model.<br>Marketing Should <em>Match It.</em></h1>
+    <p class="hero-sub">Zips already has the messaging infrastructure, the data, and the customer base. The gap is the layer that connects all three into a single, intelligent retention engine - before churn makes it someone else's problem.</p>
+    <div class="hero-chips">
+      <span class="chip chip-orange">Loyalty Management</span>
+      <span class="chip chip-orange">Agentforce Churn Prevention</span>
+      <span class="chip chip-violet">Data Cloud Personalization</span>
+      <span class="chip chip-green">Journey Automation</span>
+    </div>
+  </div>
+</div>
+
+<!-- CURRENT STACK SECTION -->
+<section class="s-dark" style="padding:40px 52px;">
+  <div class="s-eyebrow">Where Zips Stands Today</div>
+  <div class="s-title">A Strong Foundation. <em>With Real Gaps.</em></div>
+  <div class="s-sub">Zips is already running meaningful Salesforce marketing infrastructure. The issue is not the platform - it's the capabilities sitting one step above what's live that would turn the existing investment into a retention machine.</div>
+  <div class="g2">
+    <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="padding:10px 16px;font-size:.48rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--orange2);border-bottom:1px solid var(--border);background:rgba(249,115,22,.05);">ACTIVE SALESFORCE MARKETING STACK</div>
+      <div class="stack-row"><span class="stack-dot dot-orange"></span><span class="stack-name">Marketing Cloud Engagement - Corporate Edition</span><span class="stack-status status-live">Live</span></div>
+      <div class="stack-row"><span class="stack-dot dot-orange"></span><span class="stack-name">Data Cloud for Marketing - Data Services + Segmentation</span><span class="stack-status status-live">Live</span></div>
+      <div class="stack-row"><span class="stack-dot dot-orange"></span><span class="stack-name">Data Cloud for Marketing - Ad Audiences</span><span class="stack-status status-live">Live</span></div>
+      <div class="stack-row"><span class="stack-dot dot-orange"></span><span class="stack-name">SMS/MMS Mobile Messaging + Short Code</span><span class="stack-status status-live">Live</span></div>
+      <div class="stack-row"><span class="stack-dot dot-amber"></span><span class="stack-name">Marketing Cloud Advertising Professional</span><span class="stack-status status-live">Live</span></div>
+      <div class="stack-row"><span class="stack-dot dot-violet"></span><span class="stack-name">Intelligence Reports for Engagement Advanced</span><span class="stack-status status-live">Live</span></div>
+    </div>
+    <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="padding:10px 16px;font-size:.48rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);background:rgba(255,255,255,.02);">CRITICAL GAPS IN THE MEMBER MARKETING MOTION</div>
+      <div class="stack-row"><span class="stack-dot dot-amber"></span><span class="stack-name">Loyalty Management (points, tiers, program logic)</span><span class="stack-status status-pipeline">In Pipeline</span></div>
+      <div class="stack-row"><span class="stack-dot dot-amber"></span><span class="stack-name">Agentforce for Membership Churn Prevention</span><span class="stack-status status-pipeline">In Pipeline</span></div>
+      <div class="stack-row" style="background:rgba(248,113,113,.04);"><span class="stack-dot" style="background:var(--red);"></span><span class="stack-name">Real-Time Personalization (next best offer at the wash)</span><span class="stack-status status-gap">Gap</span></div>
+      <div class="stack-row" style="background:rgba(248,113,113,.04);"><span class="stack-dot" style="background:var(--red);"></span><span class="stack-name">Lifecycle Journey Automation (trial to loyal, at-risk to saved)</span><span class="stack-status status-gap">Gap</span></div>
+      <div class="stack-row" style="background:rgba(248,113,113,.04);"><span class="stack-dot" style="background:var(--red);"></span><span class="stack-name">WhatsApp / RCS Conversational Channels</span><span class="stack-status status-gap">Gap</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBER LIFECYCLE PROBLEM -->
+<section>
+  <div class="s-eyebrow">The Membership Challenge</div>
+  <div class="s-title">The Member Journey Has <em>Five Critical Moments.</em><br>Today, Zips Is Winning One.</div>
+  <div class="s-sub">In a subscription car wash model, revenue is not made at the point of sale - it's made at every renewal. Winning the acquisition is the easiest part. Every stage after it requires a different message, a different offer, and a different channel.</div>
+  <div class="journey">
+    <div class="j-stage">
+      <div class="j-num">01</div>
+      <div class="j-label">Acquisition</div>
+      <div class="j-desc">Drive trial from paid social, SMS, and lookalike audiences. Data Cloud Ad Audiences live.</div>
+      <div class="j-action">Covered Today</div>
+    </div>
+    <div class="j-stage" style="background:rgba(249,115,22,.04);">
+      <div class="j-num">02</div>
+      <div class="j-label">Onboarding</div>
+      <div class="j-desc">Convert a trial wash into a first membership subscription. Timing, channel, and offer matter.</div>
+      <div class="j-action" style="background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.2);color:var(--red);">Gap Today</div>
+    </div>
+    <div class="j-stage" style="background:rgba(124,58,237,.04);">
+      <div class="j-num">03</div>
+      <div class="j-label">Engagement</div>
+      <div class="j-desc">Keep active members visiting consistently. Frequency signals loyalty - and loyalty predicts retention.</div>
+      <div class="j-action" style="background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.2);color:var(--red);">Gap Today</div>
+    </div>
+    <div class="j-stage" style="background:rgba(248,113,113,.04);">
+      <div class="j-num">04</div>
+      <div class="j-label">At-Risk Rescue</div>
+      <div class="j-desc">Identify members who have gone 14+ days without a wash and trigger a re-engagement before they cancel.</div>
+      <div class="j-action" style="background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.2);color:var(--red);">Gap Today</div>
+    </div>
+    <div class="j-stage">
+      <div class="j-num">05</div>
+      <div class="j-label">Advocacy</div>
+      <div class="j-desc">Turn loyal members into referral engines. Loyalty tiers, referral credits, and social amplification.</div>
+      <div class="j-action" style="background:rgba(248,113,113,.08);border-color:rgba(248,113,113,.2);color:var(--red);">Gap Today</div>
+    </div>
+  </div>
+  <div class="callout" style="margin-top:20px;">
+    <div class="callout-label">The Math on Member Retention</div>
+    <div class="callout-body">A 5% improvement in member retention in a subscription model translates to <strong>25-95% improvement in profitability</strong> over time - because the acquisition cost is already spent. At Zips' scale, this is not a marketing metric - it's a revenue line item.</div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="s-mid">
+  <div class="s-eyebrow">What We're Proposing</div>
+  <div class="s-title">Four Capabilities That <em>Close the Gaps</em></div>
+  <div class="s-sub">Each one maps to a specific break in the member lifecycle. Together, they turn Zips' existing Data Cloud and MC investment into a full-stack retention engine.</div>
+  <div class="g2" style="margin-bottom:18px;">
+    <div class="fc">
+      <div class="fc-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+      <div class="fc-label">Stage 02, 05 &mdash; Loyalty Management</div>
+      <div class="fc-title">Turn Membership Into a Points-and-Perks Engine</div>
+      <div class="fc-body">Loyalty Management gives Zips a native program layer: tiers, points on washes, referral credits, and reward redemption - all sitting on top of Data Cloud. <strong>Members who earn points wash more frequently.</strong> Members in a tier cancel less. The structure builds the behavior that protects revenue.<br><br>Combined with Retail Cloud, Zips can manage the entire program in one place - no bolted-on third-party loyalty tool.</div>
+    </div>
+    <div class="fc fc-accent">
+      <div class="fc-icon"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <div class="fc-label">Stage 04 &mdash; Agentforce Churn Prevention</div>
+      <div class="fc-title">An AI Agent That Watches for Churn Before It Happens</div>
+      <div class="fc-body">Agentforce for Membership Churn Prevention monitors Data Cloud signals in real time - visit frequency drops, payment failures, location changes, weather patterns - and triggers personalized outreach the moment a member shows at-risk behavior.<br><br><strong>Not a batch report. Not a weekly campaign.</strong> A live agent that acts on the signal the day it surfaces - before the customer makes the decision to cancel.</div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="fc fc-green">
+      <div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+      <div class="fc-label">Stage 02, 03 &mdash; Journey Automation</div>
+      <div class="fc-title">A Message for Every Moment in the Member Lifecycle</div>
+      <div class="fc-body">Zips has MC Engagement live and SMS running. The gap is the journey logic that connects them. Journey Builder across the lifecycle means a new trial member gets an onboarding flow. An active member gets a tier-up nudge at 10 washes. A member who skips two weeks gets a weather-triggered re-engagement offer.<br><br><strong>All of this runs on the infrastructure Zips already owns.</strong> The playbook just needs to be built.</div>
+    </div>
+    <div class="fc">
+      <div class="fc-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div class="fc-label">Stage 03, 04 &mdash; Conversational Channels</div>
+      <div class="fc-title">Meet Members in WhatsApp and RCS, Not Just SMS</div>
+      <div class="fc-body">Zips is running SMS short code today. That covers a lot of ground - but younger members are more responsive on WhatsApp and RCS, where rich cards, carousels, and two-way conversation happen natively.<br><br><strong>The loyalty offer that gets read is the one that gets acted on.</strong> Adding conversational channels to the mix ensures Zips' messages land where the member actually spends time.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ROI STRIP -->
+<section>
+  <div class="s-eyebrow">Business Case</div>
+  <div class="s-title">What This Motion <em>Produces</em></div>
+  <div class="stat-strip">
+    <div class="stat-cell"><div class="stat-num">5<em>-7%</em></div><div class="stat-label">Typical churn reduction from AI-driven at-risk intervention</div></div>
+    <div class="stat-cell"><div class="stat-num">23<em>%</em></div><div class="stat-label">Avg lift in member visit frequency with active loyalty program</div></div>
+    <div class="stat-cell"><div class="stat-num">3.5<em>x</em></div><div class="stat-label">Higher LTV for members enrolled in a tiered loyalty program vs. non-enrolled</div></div>
+    <div class="stat-cell"><div class="stat-num">40<em>%</em></div><div class="stat-label">Lower cost to retain vs. re-acquire an equivalent member</div></div>
+  </div>
+</section>
+
+<!-- WHY NOW -->
+<section class="s-dark">
+  <div class="s-eyebrow">Why Now</div>
+  <div class="s-title">Three Reasons the <em>Window Is This Quarter</em></div>
+  <div class="urgency-row">
+    <div class="urg">
+      <div class="urg-num">01</div>
+      <div class="urg-title">The Competition Is Already Moving</div>
+      <div class="urg-body">Mister Car Wash and Quick Quack are building loyalty programs and AI-driven retention into their 2025-26 roadmaps. <strong>The membership car wash category is bifurcating into brands that retain and brands that churn.</strong> Zips has the platform advantage to win this - but it requires activating now, not in FY28.</div>
+    </div>
+    <div class="urg">
+      <div class="urg-num">02</div>
+      <div class="urg-title">Data Cloud Is Already Paid For - and Underutilized</div>
+      <div class="urg-body">Zips has Data Cloud for Marketing with 12M+ Data Services credits and 4M Segmentation credits live. <strong>That data foundation is the engine Loyalty Management and Agentforce Churn Prevention run on.</strong> Every month without Loyalty or Agentforce on top of it is a month that investment sits idle.</div>
+    </div>
+    <div class="urg">
+      <div class="urg-num">03</div>
+      <div class="urg-title">The Q3/Q4 Wash Season Is the Activation Window</div>
+      <div class="urg-body">Fall and winter bring peak weather events - the highest-converting trigger for car wash membership offers. <strong>Loyalty tiers, storm-triggered re-engagement, and Agentforce churn monitoring need to be live before the first freeze, not after.</strong> The programs take time to build - starting now puts Zips in position to capture the season.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE'RE BUILDING -->
+<div class="products-band">
+  <span class="prod-label">What We're Building Together</span>
+  <div class="prod-chips">
+    <span class="prod-chip">Loyalty Management</span>
+    <span class="prod-chip">Retail Execution Cloud</span>
+    <span class="prod-chip violet">Agentforce for Marketing</span>
+    <span class="prod-chip">Marketing Cloud Engagement</span>
+    <span class="prod-chip violet">Data Cloud</span>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-band">
+  <div class="s-eyebrow" style="justify-content:center;margin-bottom:12px;">Next Step</div>
+  <div class="cta-title">Let's Map the Membership Retention Play</div>
+  <div class="cta-sub">A 30-minute session to walk through the loyalty + churn prevention architecture on top of what Zips already owns.</div>
+  <div class="cta-row">
+    <div class="cta-photo"><img src="anthony.png" alt="Anthony Troggio"></div>
+    <div>
+      <div class="cta-name">Anthony Troggio</div>
+      <div class="cta-role">Digital AE, MFG &amp; Automotive West &nbsp;&middot;&nbsp; Salesforce</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-copy">ZIPS CAR WASH &nbsp;&middot;&nbsp; MARKETING POV &nbsp;&middot;&nbsp; SALESFORCE CONFIDENTIAL</div>
+  <svg viewBox="0 0 50 34" style="width:24px;height:15px;fill:#00a1e0;opacity:.25;"><path d="M20.8 5.4c1.7-1.8 4.1-2.9 6.7-2.9 3.2 0 6 1.7 7.6 4.2.9-.4 1.9-.6 3-.6 4 0 7.2 3.2 7.2 7.2 0 .4 0 .7-.1 1.1C47.3 15.6 49 18.2 49 21.2c0 4.5-3.6 8.1-8.1 8.1H10.4C6.3 29.3 3 26 3 21.9c0-3.1 1.9-5.8 4.6-7 0-.3-.1-.5-.1-.8 0-4.3 3.5-7.8 7.8-7.8 2.1 0 4 .8 5.5 2.1z"/></svg>
+</footer>
+
+</body>
+</html>
