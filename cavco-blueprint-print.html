@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cavco Industries — Blueprint for Growth</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#00172b;
+  --bg2:#001220;
+  --line:rgba(0,210,250,.5);
+  --line-hi:rgba(0,210,250,.85);
+  --line-dim:rgba(0,210,250,.18);
+  --line-faint:rgba(0,210,250,.07);
+  --cyan:#00d2fa;
+  --cyan2:#67e8f9;
+  --white:#e8f8ff;
+  --muted:rgba(0,210,250,.45);
+  --gold:#f0c040;
+}
+
+body{
+  background:#000e1a;
+  display:flex;align-items:flex-start;justify-content:center;
+  min-height:100vh;padding:24px 16px 48px;
+  font-family:'Share Tech Mono','Courier New',Courier,monospace;
+}
+
+/* ── SHEET ──────────────────────────────────────────── */
+.sheet{
+  width:min(1440px,97vw);
+  aspect-ratio:36/24;
+  background-color:var(--bg);
+  background-image:
+    linear-gradient(var(--line-faint) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line-faint) 1px,transparent 1px);
+  background-size:2.78% 4.17%; /* ~1" grid at 36×24 */
+  position:relative;
+  border:1.5px solid var(--line);
+  overflow:hidden;
+  color:var(--white);
+}
+
+/* Outer fold/tick marks */
+.tick{position:absolute;background:var(--line);}
+.tick-h{height:1px;width:6px;}
+.tick-v{width:1px;height:6px;}
+/* Top ticks every ~8" = 22.2% */
+.t1{top:-6px;left:22.2%;}.t2{top:-6px;left:44.4%;}.t3{top:-6px;left:66.6%;}.t4{top:-6px;left:88.8%;}
+/* Bottom */
+.b1{bottom:-6px;left:22.2%;}.b2{bottom:-6px;left:44.4%;}.b3{bottom:-6px;left:66.6%;}.b4{bottom:-6px;left:88.8%;}
+/* Left ticks every ~8" = ~33.3% of 24" */
+.l1{left:-6px;top:33.3%;}.l2{left:-6px;top:66.6%;}
+/* Right */
+.r1{right:-6px;top:33.3%;}.r2{right:-6px;top:66.6%;}
+
+/* Registration crosshairs at corners */
+.reg{position:absolute;width:18px;height:18px;}
+.reg::before,.reg::after{content:'';position:absolute;background:var(--line);}
+.reg::before{width:18px;height:1px;top:50%;left:0;transform:translateY(-50%);}
+.reg::after{width:1px;height:18px;left:50%;top:0;transform:translateX(-50%);}
+.reg-tl{top:-9px;left:-9px;}
+.reg-tr{top:-9px;right:-9px;}
+.reg-bl{bottom:-9px;left:-9px;}
+.reg-br{bottom:-9px;right:-9px;}
+
+/* Center edge marks */
+.ctr-t{position:absolute;top:-9px;left:50%;transform:translateX(-50%);}
+.ctr-b{position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);}
+.ctr-l{position:absolute;left:-9px;top:50%;transform:translateY(-50%);}
+.ctr-r{position:absolute;right:-9px;top:50%;transform:translateY(-50%);}
+
+/* ── INNER DRAWING FRAME ─────────────────────────────── */
+.drawing-frame{
+  position:absolute;inset:2.2% 1.8%;
+  display:flex;flex-direction:column;
+  border:1px solid var(--line-dim);
+}
+
+/* ── HEADER ──────────────────────────────────────────── */
+.bp-header{
+  display:grid;grid-template-columns:1fr 280px;
+  border-bottom:1px solid var(--line);
+  flex-shrink:0;
+}
+.header-left{
+  padding:1.4% 2%;
+  border-right:1px solid var(--line);
+  display:flex;flex-direction:column;justify-content:center;
+}
+.header-stamp{
+  font-size:.48vw;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:.6%;display:flex;align-items:center;gap:1%;
+}
+.header-stamp::before,.header-stamp::after{content:'';flex:1;height:1px;background:var(--line-dim);}
+.header-title{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  font-size:2.5vw;font-weight:900;color:var(--white);letter-spacing:-.03em;
+  line-height:1.05;margin-bottom:.5%;
+}
+.header-title em{font-style:normal;color:var(--cyan);}
+.header-sub{font-size:.55vw;color:var(--muted);letter-spacing:.06em;margin-bottom:.8%;}
+.header-quote{
+  font-size:.55vw;font-style:italic;color:rgba(0,210,250,.55);
+  border-left:2px solid var(--line);padding-left:.8%;line-height:1.7;
+}
+
+/* Title block */
+.title-block{display:flex;flex-direction:column;}
+.tb-hd{
+  background:rgba(0,210,250,.07);border-bottom:1px solid var(--line-dim);
+  padding:.5% .8%;font-size:.42vw;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--cyan);text-align:center;
+}
+.tb-row{display:flex;border-bottom:1px solid var(--line-dim);flex:1;min-height:0;}
+.tb-row:last-child{border-bottom:none;}
+.tb-lbl{
+  font-size:.38vw;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+  padding:.35% .6%;width:34%;border-right:1px solid var(--line-dim);
+  display:flex;align-items:center;flex-shrink:0;
+}
+.tb-val{
+  font-size:.5vw;color:var(--white);padding:.35% .6%;
+  display:flex;align-items:center;line-height:1.3;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+.tb-footer{
+  margin-top:auto;background:rgba(0,210,250,.04);border-top:1px solid var(--line-dim);
+  padding:.5% .8%;display:flex;align-items:center;gap:.5%;
+}
+.sf-cloud{width:18px;height:11px;fill:#00a1e0;flex-shrink:0;}
+.tb-sf{font-size:.36vw;letter-spacing:.1em;color:var(--muted);}
+
+/* ── STRATEGY DIVIDER ─────────────────────────────────── */
+.strategy-div{
+  display:flex;align-items:center;gap:1%;padding:.5% 1.2%;
+  border-bottom:1px solid var(--line);flex-shrink:0;
+  background:rgba(0,210,250,.025);
+}
+.sd-line{flex:1;height:1px;background:var(--line-dim);}
+.sd-diamond{color:var(--cyan);font-size:.5vw;flex-shrink:0;}
+.sd-text{font-size:.42vw;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);white-space:nowrap;}
+
+/* ── DIMENSION GRID ──────────────────────────────────── */
+.dim-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-bottom:1px solid var(--line);
+  flex:1;min-height:0;
+}
+.dim-col{
+  border-right:1px solid var(--line);
+  display:flex;flex-direction:column;position:relative;
+  overflow:hidden;
+}
+.dim-col:last-child{border-right:none;}
+
+/* Dim letter bubble */
+.dim-bubble{
+  position:absolute;top:4%;left:3.5%;
+  width:3.2vw;height:3.2vw;max-width:42px;max-height:42px;
+  border-radius:50%;border:1.5px solid var(--cyan);
+  display:flex;align-items:center;justify-content:center;
+  background:var(--bg);z-index:2;
+}
+.dim-bubble span{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  font-size:1.1vw;font-weight:900;color:var(--cyan);line-height:1;
+}
+/* Centerline dashes down from bubble */
+.dim-col::after{
+  content:'';position:absolute;top:calc(4% + 3.2vw);left:calc(3.5% + 1.6vw);
+  width:1px;height:6%;
+  background:repeating-linear-gradient(to bottom,var(--line-dim) 0,var(--line-dim) 4px,transparent 4px,transparent 8px);
+}
+
+.dim-topic{
+  font-size:.44vw;letter-spacing:.22em;text-transform:uppercase;color:var(--cyan);
+  padding:.7% 4% .3% 11%;margin-top:3%;
+}
+.dim-zone-lbl{
+  font-size:.38vw;letter-spacing:.15em;text-transform:uppercase;
+  padding:.4% 4% .2% 4%;display:flex;align-items:center;gap:.5%;
+}
+.zone-challenge .dim-zone-lbl{color:rgba(248,113,113,.7);}
+.zone-outcome .dim-zone-lbl{color:var(--cyan);}
+.dim-zone-lbl::after{content:'';flex:1;height:1px;}
+.zone-challenge .dim-zone-lbl::after{background:rgba(248,113,113,.2);}
+.zone-outcome .dim-zone-lbl::after{background:rgba(0,210,250,.15);}
+
+.dim-body{
+  font-size:.44vw;color:rgba(232,248,255,.62);line-height:1.7;
+  padding:.2% 4% .5% 4%;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+.dim-body strong{color:var(--white);font-weight:700;}
+
+/* Metric dimension line */
+.dim-metric{
+  display:flex;align-items:center;gap:0;margin:.3% 4% .4%;
+  position:relative;
+}
+.dm-arr{color:var(--line-hi);font-size:.55vw;flex-shrink:0;}
+.dm-bar{flex:1;height:1px;background:var(--line-hi);}
+.dm-vals{
+  display:flex;align-items:baseline;gap:.3vw;flex-shrink:0;padding:0 .4%;
+  font-size:.48vw;font-weight:700;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+.dm-from{color:rgba(248,113,113,.9);}
+.dm-sep{color:var(--muted);}
+.dm-to{color:var(--cyan);}
+.dm-label{
+  font-size:.38vw;letter-spacing:.16em;text-transform:uppercase;color:var(--cyan);
+  text-align:center;padding:.1% 4% .4%;
+}
+
+/* Dim col connector arrow */
+.dim-arrow{
+  display:flex;align-items:center;justify-content:center;
+  padding:.3% 0;flex-shrink:0;
+}
+.dim-arrow svg{width:1.2vw;height:1.2vw;fill:none;stroke:var(--line);stroke-width:1.5;}
+
+/* ── HOUSE ELEVATION ─────────────────────────────────── */
+.elevation-row{
+  border-bottom:1px solid var(--line);flex-shrink:0;
+  display:flex;align-items:stretch;
+}
+.elevation-label{
+  width:2.5%;border-right:1px solid var(--line-dim);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.elevation-label span{
+  font-size:.38vw;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+  writing-mode:vertical-rl;transform:rotate(180deg);
+}
+.elevation-svg-wrap{flex:1;padding:.5% 1%;display:flex;align-items:center;}
+.elevation-legend{
+  width:16%;border-left:1px solid var(--line-dim);
+  display:flex;flex-direction:column;justify-content:center;
+  padding:1% .8%;gap:.5%;
+}
+.leg-item{display:flex;align-items:center;gap:.4%;}
+.leg-dot{width:.5vw;height:.5vw;border-radius:50%;flex-shrink:0;}
+.leg-dot-a{background:rgba(248,113,113,.8);}
+.leg-dot-b{background:var(--cyan);}
+.leg-dot-c{background:rgba(251,191,36,.8);}
+.leg-dot-d{background:rgba(167,139,250,.8);}
+.leg-text{font-size:.38vw;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+
+/* ── PROOF + ROI ────────────────────────────────────────── */
+.proof-row{
+  display:grid;grid-template-columns:1fr 14%;
+  border-bottom:1px solid var(--line);flex-shrink:0;
+}
+.proof-left{
+  padding:.8% 1.5%;border-right:1px solid var(--line-dim);
+  display:flex;flex-direction:column;justify-content:center;gap:.4%;
+}
+.proof-eyebrow{font-size:.38vw;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+.proof-text{
+  font-size:.52vw;color:rgba(232,248,255,.6);line-height:1.75;font-style:italic;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+.proof-scan{
+  display:inline-flex;align-items:center;gap:.5%;margin-top:.3%;
+  font-size:.38vw;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);
+  border:1px solid var(--line-dim);padding:.3% .8%;
+}
+.roi-box{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:rgba(0,210,250,.05);padding:.8%;
+  position:relative;
+}
+.roi-box::before{
+  content:'ROI';position:absolute;top:-1px;left:50%;transform:translateX(-50%);
+  background:var(--bg);padding:0 6px;
+  font-size:.34vw;letter-spacing:.22em;color:var(--cyan);
+}
+.roi-num{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  font-size:2.2vw;font-weight:900;color:var(--cyan2);letter-spacing:-.03em;line-height:1;
+}
+.roi-lbl{font-size:.38vw;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;margin-top:.3%;line-height:1.5;}
+.roi-src{font-size:.33vw;color:rgba(0,210,250,.25);margin-top:.4%;text-align:center;line-height:1.4;}
+
+/* ── FOUNDATION STRIP ────────────────────────────────── */
+.foundation{border-bottom:1px solid var(--line);flex-shrink:0;}
+.foundation-hd{
+  padding:.3% 1.2%;border-bottom:1px solid var(--line-dim);
+  display:flex;align-items:center;gap:1%;
+  background:rgba(0,210,250,.025);
+}
+.fhd-line{flex:1;height:1px;background:var(--line-dim);}
+.fhd-txt{font-size:.36vw;letter-spacing:.18em;text-transform:uppercase;color:var(--cyan);white-space:nowrap;}
+.foundation-stats{display:grid;grid-template-columns:repeat(5,1fr);}
+.fstat{padding:.6% 1%;border-right:1px solid var(--line-dim);}
+.fstat:last-child{border-right:none;}
+.fstat-num{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  font-size:1.35vw;font-weight:900;color:var(--white);line-height:1;margin-bottom:.2%;letter-spacing:-.02em;
+  min-width:80px;flex-shrink:0;
+}
+.fstat-num em{font-style:normal;color:var(--cyan);font-size:.85vw;}
+.fstat-desc{font-size:.38vw;color:var(--muted);line-height:1.5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;}
+.foundation-src{
+  padding:.3% 1.2%;font-size:.32vw;color:rgba(0,210,250,.22);letter-spacing:.06em;
+  border-top:1px solid var(--line-dim);
+}
+
+/* ── BOTTOM TITLE BLOCK ───────────────────────────────── */
+.bottom-block{
+  display:grid;grid-template-columns:1fr 1fr 18% 18%;
+  flex-shrink:0;
+}
+.bb-cell{
+  padding:.5% 1%;border-right:1px solid var(--line-dim);
+  display:flex;flex-direction:column;justify-content:center;
+}
+.bb-cell:last-child{border-right:none;}
+.bb-label{font-size:.34vw;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.2%;}
+.bb-val{
+  font-size:.5vw;color:var(--white);line-height:1.4;
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+.bb-val.small{font-size:.4vw;color:rgba(232,248,255,.55);}
+
+/* ── PRINT ────────────────────────────────────────────── */
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;}
+  @page{size:36in 24in landscape;margin:0;}
+  body{padding:0;background:#000e1a;}
+  .sheet{width:36in!important;height:24in!important;aspect-ratio:unset!important;}
+}
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- TICK MARKS -->
+  <div class="tick tick-v t1"></div><div class="tick tick-v t2"></div>
+  <div class="tick tick-v t3"></div><div class="tick tick-v t4"></div>
+  <div class="tick tick-v b1"></div><div class="tick tick-v b2"></div>
+  <div class="tick tick-v b3"></div><div class="tick tick-v b4"></div>
+  <div class="tick tick-h l1"></div><div class="tick tick-h l2"></div>
+  <div class="tick tick-h r1"></div><div class="tick tick-h r2"></div>
+
+  <!-- REGISTRATION MARKS -->
+  <div class="reg reg-tl"></div><div class="reg reg-tr"></div>
+  <div class="reg reg-bl"></div><div class="reg reg-br"></div>
+  <div class="reg ctr-t"></div><div class="reg ctr-b"></div>
+  <div class="reg ctr-l"></div><div class="reg ctr-r"></div>
+
+  <!-- DRAWING FRAME -->
+  <div class="drawing-frame">
+
+    <!-- ── HEADER ── -->
+    <div class="bp-header">
+      <div class="header-left">
+        <div class="header-stamp">CAVCO INDUSTRIES &nbsp;·&nbsp; MANUFACTURED HOUSING &nbsp;·&nbsp; FY27</div>
+        <div class="header-title">Blueprint for <em>Growth</em></div>
+        <div class="header-sub">Converting Record Backlog Into Margin, Speed &amp; Lifetime Value</div>
+        <div class="header-quote">&ldquo;You built a record $298M backlog. This is the blueprint for converting it into margin &mdash; not just volume.&rdquo;</div>
+      </div>
+      <div class="title-block">
+        <div class="tb-hd">DRAWING SPECIFICATIONS</div>
+        <div class="tb-row"><span class="tb-lbl">PROJECT</span><span class="tb-val">Blueprint for Growth</span></div>
+        <div class="tb-row"><span class="tb-lbl">SCOPE</span><span class="tb-val">Backlog + Portfolio &rarr; Margin &amp; LTV</span></div>
+        <div class="tb-row"><span class="tb-lbl">DRAWN FOR</span><span class="tb-val">Office of the CEO / Exec Team</span></div>
+        <div class="tb-row"><span class="tb-lbl">REV / SHEET</span><span class="tb-val">FY27 Q1 &nbsp;&middot;&nbsp; A-1</span></div>
+        <div class="tb-row"><span class="tb-lbl">PREPARED BY</span><span class="tb-val">Salesforce</span></div>
+        <div class="tb-footer">
+          <svg class="sf-cloud" viewBox="0 0 50 34"><path d="M20.8 5.4c1.7-1.8 4.1-2.9 6.7-2.9 3.2 0 6 1.7 7.6 4.2.9-.4 1.9-.6 3-.6 4 0 7.2 3.2 7.2 7.2 0 .4 0 .7-.1 1.1C47.3 15.6 49 18.2 49 21.2c0 4.5-3.6 8.1-8.1 8.1H10.4C6.3 29.3 3 26 3 21.9c0-3.1 1.9-5.8 4.6-7 0-.3-.1-.5-.1-.8 0-4.3 3.5-7.8 7.8-7.8 2.1 0 4 .8 5.5 2.1z"/></svg>
+          <span class="tb-sf">SALESFORCE &nbsp;·&nbsp; DIGITAL AE</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── STRATEGY DIVIDER ── -->
+    <div class="strategy-div">
+      <span class="sd-line"></span>
+      <span class="sd-diamond">&#9670;</span>
+      <span class="sd-text">NSCALE: STRATEGY &rarr; OUTCOME</span>
+      <span class="sd-diamond">&#9670;</span>
+      <span class="sd-line"></span>
+    </div>
+
+    <!-- ── 4 DIMENSION COLUMNS ── -->
+    <div class="dim-grid">
+
+      <!-- A: MARGIN -->
+      <div class="dim-col">
+        <div class="dim-bubble"><span>A</span></div>
+        <div class="dim-topic">MARGIN</div>
+        <div class="zone-challenge">
+          <div class="dim-zone-lbl">CHALLENGE ZONE</div>
+          <div class="dim-body">Margin compressed <strong>22.6% &rarr; 20.8%</strong> and EPS fell to $5.43 from $6.42 &mdash; even as revenue grew. Growth without margin discipline.</div>
+        </div>
+        <div class="dim-metric">
+          <span class="dm-arr">&#9664;</span>
+          <span class="dm-bar"></span>
+          <span class="dm-vals"><span class="dm-from">22.6%</span><span class="dm-sep">/</span><span class="dm-to">20.8%</span></span>
+          <span class="dm-bar"></span>
+          <span class="dm-arr">&#9654;</span>
+        </div>
+        <div class="dm-label">RECOVER: BASIS POINTS</div>
+        <div class="zone-outcome">
+          <div class="dim-zone-lbl">OUTCOME ZONE</div>
+          <div class="dim-body">Recover basis points by turning volume into precision &mdash; <strong>pricing, quoting, and fulfillment</strong> that protect the number, not just grow it.</div>
+        </div>
+      </div>
+
+      <!-- B: DEMAND -->
+      <div class="dim-col">
+        <div class="dim-bubble"><span>B</span></div>
+        <div class="dim-topic">DEMAND</div>
+        <div class="zone-challenge">
+          <div class="dim-zone-lbl">CHALLENGE ZONE</div>
+          <div class="dim-body">A record <strong>$298M backlog</strong> fragmented across 20+ brand and dealer sites &mdash; no single view of who&rsquo;s waiting, or why.</div>
+        </div>
+        <div class="dim-metric">
+          <span class="dm-arr">&#9664;</span>
+          <span class="dm-bar"></span>
+          <span class="dm-vals"><span class="dm-from">$195M</span><span class="dm-sep">/</span><span class="dm-to">$298M</span></span>
+          <span class="dm-bar"></span>
+          <span class="dm-arr">&#9654;</span>
+        </div>
+        <div class="dm-label">+53% BACKLOG</div>
+        <div class="zone-outcome">
+          <div class="dim-zone-lbl">OUTCOME ZONE</div>
+          <div class="dim-body">Convert more of the $298M backlog by seeing <strong>every buyer, every brand</strong> in one place &mdash; and responding before they look elsewhere.</div>
+        </div>
+      </div>
+
+      <!-- C: SERVICE -->
+      <div class="dim-col">
+        <div class="dim-bubble"><span>C</span></div>
+        <div class="dim-topic">SERVICE</div>
+        <div class="zone-challenge">
+          <div class="dim-zone-lbl">CHALLENGE ZONE</div>
+          <div class="dim-body">Warranty and service turnaround runs <strong>4&ndash;6 weeks</strong>. Dealers already compare the experience to automated competitor portals.</div>
+        </div>
+        <div class="dim-metric">
+          <span class="dm-arr">&#9664;</span>
+          <span class="dm-bar"></span>
+          <span class="dm-vals"><span class="dm-from">4-6 WKS</span></span>
+          <span class="dm-bar"></span>
+          <span class="dm-arr">&#9654;</span>
+        </div>
+        <div class="dm-label">TARGET: DAYS</div>
+        <div class="zone-outcome">
+          <div class="dim-zone-lbl">OUTCOME ZONE</div>
+          <div class="dim-body">Service in days, not weeks &mdash; turning a homeowner&rsquo;s first repair call into <strong>proof they bought from the right company</strong>.</div>
+        </div>
+      </div>
+
+      <!-- D: INTEGRATION -->
+      <div class="dim-col">
+        <div class="dim-bubble"><span>D</span></div>
+        <div class="dim-topic">INTEGRATION</div>
+        <div class="zone-challenge">
+          <div class="dim-zone-lbl">CHALLENGE ZONE</div>
+          <div class="dim-body">The <strong>$172M American Homestar</strong> acquisition adds scale &mdash; and another set of systems, brands, and processes to unify.</div>
+        </div>
+        <div class="dim-metric">
+          <span class="dm-arr">&#9664;</span>
+          <span class="dm-bar"></span>
+          <span class="dm-vals"><span class="dm-from">20+</span><span class="dm-sep">BRANDS</span></span>
+          <span class="dm-bar"></span>
+          <span class="dm-arr">&#9654;</span>
+        </div>
+        <div class="dm-label">ONE PLATFORM</div>
+        <div class="zone-outcome">
+          <div class="dim-zone-lbl">OUTCOME ZONE</div>
+          <div class="dim-body">One integrated enterprise &mdash; <strong>every acquisition absorbed faster</strong>, every brand operating from the same playbook.</div>
+        </div>
+      </div>
+
+    </div><!-- /dim-grid -->
+
+    <!-- ── HOUSE ELEVATION ── -->
+    <div class="elevation-row">
+      <div class="elevation-label"><span>ELEVATION &mdash; FRONT &mdash; SCALE: NTS</span></div>
+      <div class="elevation-svg-wrap">
+        <svg viewBox="0 0 1100 220" style="width:100%;height:100%;overflow:visible;" fill="none">
+
+          <!-- Ground line -->
+          <line x1="0" y1="190" x2="1100" y2="190" stroke="rgba(0,210,250,.35)" stroke-width="1"/>
+
+          <!-- ── MAIN STRUCTURE ── -->
+          <!-- Left fascia wall -->
+          <polyline points="100,185 100,115" stroke="rgba(0,210,250,.7)" stroke-width="1.5"/>
+          <!-- Right fascia wall -->
+          <polyline points="1000,185 1000,115" stroke="rgba(0,210,250,.7)" stroke-width="1.5"/>
+          <!-- Left slope -->
+          <polyline points="100,115 550,42 1000,115" stroke="rgba(0,210,250,.85)" stroke-width="1.8"/>
+          <!-- Roof overhang left -->
+          <line x1="80" y1="118" x2="100" y2="115" stroke="rgba(0,210,250,.5)" stroke-width="1"/>
+          <!-- Roof overhang right -->
+          <line x1="1020" y1="118" x2="1000" y2="115" stroke="rgba(0,210,250,.5)" stroke-width="1"/>
+          <!-- Soffit left -->
+          <line x1="80" y1="118" x2="80" y2="125" stroke="rgba(0,210,250,.4)" stroke-width="1"/>
+          <!-- Soffit right -->
+          <line x1="1020" y1="118" x2="1020" y2="125" stroke="rgba(0,210,250,.4)" stroke-width="1"/>
+          <!-- Fascia board left -->
+          <line x1="78" y1="118" x2="102" y2="115" stroke="rgba(0,210,250,.5)" stroke-width="1.5"/>
+          <!-- Fascia board right -->
+          <line x1="998" y1="115" x2="1022" y2="118" stroke="rgba(0,210,250,.5)" stroke-width="1.5"/>
+
+          <!-- Ridge cap detail -->
+          <line x1="545" y1="42" x2="555" y2="42" stroke="rgba(0,210,250,.6)" stroke-width="2"/>
+          <line x1="550" y1="38" x2="550" y2="47" stroke="rgba(0,210,250,.4)" stroke-width="1" stroke-dasharray="2 2"/>
+
+          <!-- Exterior walls -->
+          <rect x="100" y="115" width="900" height="70" stroke="rgba(0,210,250,.55)" stroke-width="1.2"/>
+          <!-- Wall texture lines -->
+          <line x1="100" y1="130" x2="1000" y2="130" stroke="rgba(0,210,250,.12)" stroke-width=".8"/>
+          <line x1="100" y1="145" x2="1000" y2="145" stroke="rgba(0,210,250,.12)" stroke-width=".8"/>
+          <line x1="100" y1="160" x2="1000" y2="160" stroke="rgba(0,210,250,.12)" stroke-width=".8"/>
+          <line x1="100" y1="175" x2="1000" y2="175" stroke="rgba(0,210,250,.12)" stroke-width=".8"/>
+
+          <!-- Skirting -->
+          <rect x="100" y="183" width="900" height="7" stroke="rgba(0,210,250,.4)" stroke-width="1"/>
+          <!-- Skirting vent marks -->
+          <line x1="180" y1="183" x2="180" y2="190" stroke="rgba(0,210,250,.25)" stroke-width=".8"/>
+          <line x1="260" y1="183" x2="260" y2="190" stroke="rgba(0,210,250,.25)" stroke-width=".8"/>
+          <line x1="340" y1="183" x2="340" y2="190" stroke="rgba(0,210,250,.25)" stroke-width=".8"/>
+          <line x1="420" y1="183" x2="420" y2="190" stroke="rgba(0,210,250,.25)" stroke-width=".8"/>
+          <line x1="500" y1="183" x2="500" y2="190" stroke="rgba(0,210,250,.25)" stroke-width=".8"/>
+          <line x1="580" y1="183" x2="580" y2="190" stroke="rgba(0,210,250,.25)" stroke-width=".8"/>
+          <line x1="660" y1="183" x2="660" y2="190" stroke="rgba(0,210,250,.25)" stroke-width=".8"/>
+          <line x1="740" y1="183" x2="740" y2="190" stroke="rgba(0,210,250,.25)" stroke-width=".8"/>
+          <line x1="820" y1="183" x2="820" y2="190" stroke="rgba(0,210,250,.25)" stroke-width=".8"/>
+          <line x1="900" y1="183" x2="900" y2="190" stroke="rgba(0,210,250,.25)" stroke-width=".8"/>
+
+          <!-- LEFT WINDOW 1 -->
+          <rect x="135" y="126" width="80" height="50" stroke="rgba(0,210,250,.65)" stroke-width="1.2"/>
+          <line x1="175" y1="126" x2="175" y2="176" stroke="rgba(0,210,250,.4)" stroke-width=".8"/>
+          <line x1="135" y1="151" x2="215" y2="151" stroke="rgba(0,210,250,.4)" stroke-width=".8"/>
+          <!-- window sill -->
+          <line x1="130" y1="176" x2="220" y2="176" stroke="rgba(0,210,250,.5)" stroke-width="1.2"/>
+          <line x1="130" y1="122" x2="220" y2="122" stroke="rgba(0,210,250,.3)" stroke-width=".8"/>
+
+          <!-- LEFT WINDOW 2 -->
+          <rect x="250" y="126" width="80" height="50" stroke="rgba(0,210,250,.65)" stroke-width="1.2"/>
+          <line x1="290" y1="126" x2="290" y2="176" stroke="rgba(0,210,250,.4)" stroke-width=".8"/>
+          <line x1="250" y1="151" x2="330" y2="151" stroke="rgba(0,210,250,.4)" stroke-width=".8"/>
+          <line x1="245" y1="176" x2="335" y2="176" stroke="rgba(0,210,250,.5)" stroke-width="1.2"/>
+          <line x1="245" y1="122" x2="335" y2="122" stroke="rgba(0,210,250,.3)" stroke-width=".8"/>
+
+          <!-- CENTER DOOR GROUP -->
+          <!-- Double door -->
+          <rect x="478" y="132" width="144" height="53" stroke="rgba(0,210,250,.7)" stroke-width="1.3"/>
+          <line x1="550" y1="132" x2="550" y2="185" stroke="rgba(0,210,250,.5)" stroke-width=".8"/>
+          <!-- Door panels -->
+          <rect x="482" y="136" width="63" height="22" stroke="rgba(0,210,250,.3)" stroke-width=".7"/>
+          <rect x="482" y="163" width="63" height="18" stroke="rgba(0,210,250,.3)" stroke-width=".7"/>
+          <rect x="555" y="136" width="63" height="22" stroke="rgba(0,210,250,.3)" stroke-width=".7"/>
+          <rect x="555" y="163" width="63" height="18" stroke="rgba(0,210,250,.3)" stroke-width=".7"/>
+          <!-- Door handles -->
+          <circle cx="547" cy="162" r="2" stroke="rgba(0,210,250,.7)" stroke-width="1"/>
+          <circle cx="553" cy="162" r="2" stroke="rgba(0,210,250,.7)" stroke-width="1"/>
+          <!-- Door header -->
+          <line x1="472" y1="130" x2="628" y2="130" stroke="rgba(0,210,250,.5)" stroke-width="1.5"/>
+          <!-- Steps -->
+          <rect x="490" y="185" width="120" height="5" stroke="rgba(0,210,250,.5)" stroke-width="1"/>
+          <rect x="498" y="183" width="104" height="2" stroke="rgba(0,210,250,.35)" stroke-width=".8"/>
+
+          <!-- RIGHT WINDOW 1 -->
+          <rect x="670" y="126" width="80" height="50" stroke="rgba(0,210,250,.65)" stroke-width="1.2"/>
+          <line x1="710" y1="126" x2="710" y2="176" stroke="rgba(0,210,250,.4)" stroke-width=".8"/>
+          <line x1="670" y1="151" x2="750" y2="151" stroke="rgba(0,210,250,.4)" stroke-width=".8"/>
+          <line x1="665" y1="176" x2="755" y2="176" stroke="rgba(0,210,250,.5)" stroke-width="1.2"/>
+          <line x1="665" y1="122" x2="755" y2="122" stroke="rgba(0,210,250,.3)" stroke-width=".8"/>
+
+          <!-- RIGHT WINDOW 2 -->
+          <rect x="785" y="126" width="80" height="50" stroke="rgba(0,210,250,.65)" stroke-width="1.2"/>
+          <line x1="825" y1="126" x2="825" y2="176" stroke="rgba(0,210,250,.4)" stroke-width=".8"/>
+          <line x1="785" y1="151" x2="865" y2="151" stroke="rgba(0,210,250,.4)" stroke-width=".8"/>
+          <line x1="780" y1="176" x2="870" y2="176" stroke="rgba(0,210,250,.5)" stroke-width="1.2"/>
+          <line x1="780" y1="122" x2="870" y2="122" stroke="rgba(0,210,250,.3)" stroke-width=".8"/>
+
+          <!-- UTILITY/HVAC BOX right side -->
+          <rect x="900" y="140" width="45" height="35" stroke="rgba(0,210,250,.45)" stroke-width="1"/>
+          <line x1="905" y1="145" x2="940" y2="145" stroke="rgba(0,210,250,.2)" stroke-width=".7"/>
+          <line x1="905" y1="152" x2="940" y2="152" stroke="rgba(0,210,250,.2)" stroke-width=".7"/>
+          <line x1="905" y1="159" x2="940" y2="159" stroke="rgba(0,210,250,.2)" stroke-width=".7"/>
+          <line x1="905" y1="166" x2="940" y2="166" stroke="rgba(0,210,250,.2)" stroke-width=".7"/>
+
+          <!-- ── DIMENSION LINES ── -->
+          <!-- Width dimension -->
+          <line x1="100" y1="205" x2="1000" y2="205" stroke="rgba(0,210,250,.45)" stroke-width=".8"/>
+          <line x1="100" y1="202" x2="100" y2="208" stroke="rgba(0,210,250,.45)" stroke-width=".8"/>
+          <line x1="1000" y1="202" x2="1000" y2="208" stroke="rgba(0,210,250,.45)" stroke-width=".8"/>
+          <text x="550" y="214" text-anchor="middle" font-family="'Courier New',monospace" font-size="8" fill="rgba(0,210,250,.5)" letter-spacing="1">60'-0" OVERALL WIDTH (VARIES BY MODEL)</text>
+
+          <!-- Height dimension on left -->
+          <line x1="72" y1="42" x2="72" y2="185" stroke="rgba(0,210,250,.35)" stroke-width=".8"/>
+          <line x1="69" y1="42" x2="75" y2="42" stroke="rgba(0,210,250,.35)" stroke-width=".8"/>
+          <line x1="69" y1="185" x2="75" y2="185" stroke="rgba(0,210,250,.35)" stroke-width=".8"/>
+          <text x="64" y="115" text-anchor="middle" font-family="'Courier New',monospace" font-size="8" fill="rgba(0,210,250,.4)" transform="rotate(-90,64,115)" letter-spacing="1">16'-0" RIDGE HT</text>
+
+          <!-- Roof pitch call-out -->
+          <line x1="690" y1="80" x2="740" y2="55" stroke="rgba(0,210,250,.35)" stroke-width=".8" stroke-dasharray="3 2"/>
+          <text x="744" y="53" font-family="'Courier New',monospace" font-size="7.5" fill="rgba(0,210,250,.45)" letter-spacing=".5">PITCH: 5:12</text>
+
+          <!-- ── CALLOUT BUBBLES mapping to A/B/C/D ── -->
+          <!-- A: Margin — point to roof (protecting what's built) -->
+          <line x1="330" y1="75" x2="270" y2="75" stroke="rgba(248,113,113,.6)" stroke-width=".9" stroke-dasharray="3 2"/>
+          <circle cx="330" cy="75" r="1.5" fill="rgba(248,113,113,.7)"/>
+          <line x1="330" y1="75" x2="330" y2="62" stroke="rgba(248,113,113,.4)" stroke-width=".8" stroke-dasharray="2 2"/>
+          <rect x="200" y="66" width="65" height="18" stroke="rgba(248,113,113,.4)" stroke-width=".8" fill="rgba(0,23,43,.8)"/>
+          <text x="232" y="77" text-anchor="middle" font-family="'Courier New',monospace" font-size="7" fill="rgba(248,113,113,.85)" letter-spacing=".5">SEE DETAIL A</text>
+          <text x="232" y="85" text-anchor="middle" font-family="'Courier New',monospace" font-size="6" fill="rgba(248,113,113,.5)" letter-spacing=".3">MARGIN RECOVERY</text>
+
+          <!-- B: Demand — point to main wall/facade -->
+          <line x1="400" y1="148" x2="360" y2="148" stroke="rgba(0,210,250,.65)" stroke-width=".9" stroke-dasharray="3 2"/>
+          <circle cx="400" cy="148" r="1.5" fill="rgba(0,210,250,.7)"/>
+          <rect x="265" y="139" width="90" height="18" stroke="rgba(0,210,250,.35)" stroke-width=".8" fill="rgba(0,23,43,.8)"/>
+          <text x="310" y="150" text-anchor="middle" font-family="'Courier New',monospace" font-size="7" fill="rgba(0,210,250,.85)" letter-spacing=".5">SEE DETAIL B</text>
+          <text x="310" y="158" text-anchor="middle" font-family="'Courier New',monospace" font-size="6" fill="rgba(0,210,250,.5)" letter-spacing=".3">DEMAND CAPTURE</text>
+
+          <!-- C: Service — point to utility box -->
+          <line x1="950" y1="157" x2="1010" y2="157" stroke="rgba(251,191,36,.6)" stroke-width=".9" stroke-dasharray="3 2"/>
+          <circle cx="950" cy="157" r="1.5" fill="rgba(251,191,36,.7)"/>
+          <rect x="1015" y="148" width="78" height="18" stroke="rgba(251,191,36,.35)" stroke-width=".8" fill="rgba(0,23,43,.8)"/>
+          <text x="1054" y="159" text-anchor="middle" font-family="'Courier New',monospace" font-size="7" fill="rgba(251,191,36,.85)" letter-spacing=".5">SEE DETAIL C</text>
+          <text x="1054" y="167" text-anchor="middle" font-family="'Courier New',monospace" font-size="6" fill="rgba(251,191,36,.5)" letter-spacing=".3">SERVICE SPEED</text>
+
+          <!-- D: Integration — point to foundation/skirting -->
+          <line x1="700" y1="186" x2="700" y2="196" stroke="rgba(167,139,250,.6)" stroke-width=".9" stroke-dasharray="3 2"/>
+          <circle cx="700" cy="186" r="1.5" fill="rgba(167,139,250,.7)"/>
+          <rect x="637" y="197" width="126" height="18" stroke="rgba(167,139,250,.35)" stroke-width=".8" fill="rgba(0,23,43,.8)"/>
+          <text x="700" y="208" text-anchor="middle" font-family="'Courier New',monospace" font-size="7" fill="rgba(167,139,250,.85)" letter-spacing=".5">SEE DETAIL D</text>
+          <text x="700" y="216" text-anchor="middle" font-family="'Courier New',monospace" font-size="6" fill="rgba(167,139,250,.5)" letter-spacing=".3">INTEGRATION LAYER</text>
+
+          <!-- Break lines on left and right (indicating drawing continues) -->
+          <polyline points="0,100 8,95 16,105 24,100" stroke="rgba(0,210,250,.3)" stroke-width=".8"/>
+          <polyline points="1084,100 1092,95 1100,105" stroke="rgba(0,210,250,.3)" stroke-width=".8"/>
+
+        </svg>
+      </div>
+      <div class="elevation-legend">
+        <div class="leg-item"><div class="leg-dot leg-dot-a"></div><span class="leg-text">A &ndash; MARGIN</span></div>
+        <div class="leg-item"><div class="leg-dot leg-dot-b"></div><span class="leg-text">B &ndash; DEMAND</span></div>
+        <div class="leg-item"><div class="leg-dot leg-dot-c"></div><span class="leg-text">C &ndash; SERVICE</span></div>
+        <div class="leg-item"><div class="leg-dot leg-dot-d"></div><span class="leg-text">D &ndash; INTEGRATION</span></div>
+      </div>
+    </div>
+
+    <!-- ── PROOF + ROI ── -->
+    <div class="proof-row">
+      <div class="proof-left">
+        <div class="proof-eyebrow">PEER PROOF POINT &nbsp;&mdash;&nbsp; MANUFACTURED HOUSING LEADER</div>
+        <div class="proof-text">A similar national manufactured housing company &mdash; building toward 200,000+ homes a year &mdash; is unifying its buyer, dealer and service experience on the Salesforce platform to build &ldquo;customers for life.&rdquo; Same category. Same challenge. The blueprint exists.</div>
+        <div class="proof-scan">SCAN: WE TESTED YOUR FRONT DOOR &nbsp;&rarr;</div>
+      </div>
+      <div class="roi-box">
+        <div class="roi-num">289%</div>
+        <div class="roi-lbl">ROI<br>OVER 3 YEARS</div>
+        <div class="roi-src">Salesforce<br>Total Economic Impact</div>
+      </div>
+    </div>
+
+    <!-- ── FOUNDATION STRIP ── -->
+    <div class="foundation">
+      <div class="foundation-hd">
+        <span class="fhd-line"></span>
+        <span class="fhd-txt">&#9664; FOUNDATION &mdash; FIVE DATAPOINTS THIS BLUEPRINT IS BUILT ON &#9654;</span>
+        <span class="fhd-line"></span>
+      </div>
+      <div class="foundation-stats">
+        <div class="fstat">
+          <div class="fstat-num">$2.25<em>B</em></div>
+          <div class="fstat-desc">FY26 Revenue<br>(+11.4% YoY)</div>
+        </div>
+        <div class="fstat">
+          <div class="fstat-num">$298<em>M</em></div>
+          <div class="fstat-desc">Record Backlog<br>(+53% YoY)</div>
+        </div>
+        <div class="fstat">
+          <div class="fstat-num">20.8<em>%</em></div>
+          <div class="fstat-desc">Gross Margin<br>(from 22.6%)</div>
+        </div>
+        <div class="fstat">
+          <div class="fstat-num">~75<em>%</em></div>
+          <div class="fstat-desc">Capacity<br>Utilization</div>
+        </div>
+        <div class="fstat">
+          <div class="fstat-num">$172<em>M</em></div>
+          <div class="fstat-desc">American Homestar<br>Acquisition</div>
+        </div>
+      </div>
+      <div class="foundation-src">SOURCE: CAVCO FY26 &amp; Q1 FY27 EARNINGS RELEASES &nbsp;&middot;&nbsp; MAY 2026 INVESTOR PRESENTATION &nbsp;&middot;&nbsp; ALL FIGURES PUBLICLY REPORTED</div>
+    </div>
+
+    <!-- ── BOTTOM TITLE BLOCK ── -->
+    <div class="bottom-block">
+      <div class="bb-cell">
+        <div class="bb-label">What We're Building Together</div>
+        <div class="bb-val">Revenue Cloud &nbsp;&middot;&nbsp; Sales Cloud &nbsp;&middot;&nbsp; Service Cloud &nbsp;&middot;&nbsp; Data Cloud &nbsp;&middot;&nbsp; MuleSoft</div>
+      </div>
+      <div class="bb-cell">
+        <div class="bb-label">Prepared For</div>
+        <div class="bb-val">Cavco Industries &nbsp;&middot;&nbsp; Office of the CEO / Executive Team</div>
+        <div class="bb-val small">PROPRIETARY &amp; CONFIDENTIAL &nbsp;&middot;&nbsp; SALESFORCE</div>
+      </div>
+      <div class="bb-cell">
+        <div class="bb-label">Revision</div>
+        <div class="bb-val">FY27 Q1 &nbsp;&middot;&nbsp; Initial Issue</div>
+        <div class="bb-label" style="margin-top:.3%;">Sheet</div>
+        <div class="bb-val">A-1 OF 1</div>
+      </div>
+      <div class="bb-cell" style="flex-direction:row;align-items:center;gap:4%;">
+        <svg viewBox="0 0 50 34" style="width:2.2vw;height:1.4vw;fill:#00a1e0;opacity:.7;flex-shrink:0;"><path d="M20.8 5.4c1.7-1.8 4.1-2.9 6.7-2.9 3.2 0 6 1.7 7.6 4.2.9-.4 1.9-.6 3-.6 4 0 7.2 3.2 7.2 7.2 0 .4 0 .7-.1 1.1C47.3 15.6 49 18.2 49 21.2c0 4.5-3.6 8.1-8.1 8.1H10.4C6.3 29.3 3 26 3 21.9c0-3.1 1.9-5.8 4.6-7 0-.3-.1-.5-.1-.8 0-4.3 3.5-7.8 7.8-7.8 2.1 0 4 .8 5.5 2.1z"/></svg>
+        <div>
+          <div class="bb-label">Prepared By</div>
+          <div class="bb-val">Salesforce</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /drawing-frame -->
+</div><!-- /sheet -->
+
+</body>
+</html>
