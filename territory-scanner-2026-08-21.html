@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Account Signal Brief — August 21, 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #07111e;
+    --surface: #0d1f33;
+    --surface2: #122844;
+    --border: #1e3a52;
+    --teal: #0ea5e9;
+    --teal-dim: #0369a1;
+    --gold: #f59e0b;
+    --green: #10b981;
+    --red: #ef4444;
+    --purple: #8b5cf6;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --dim: #4a6278;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* Header */
+  .masthead {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 40px 24px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .masthead-left { flex: 1; }
+  .masthead-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 6px;
+  }
+  .masthead-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+  }
+  .masthead-sub {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 6px;
+  }
+  .masthead-meta {
+    text-align: right;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.8;
+    white-space: nowrap;
+  }
+  .masthead-meta strong { color: var(--text); }
+
+  /* Main layout */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 36px 40px 60px;
+  }
+
+  /* Section headers */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 40px 0 18px;
+  }
+  .section-header:first-child { margin-top: 0; }
+  .sh-bar {
+    width: 3px;
+    height: 18px;
+    background: var(--teal);
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .sh-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+
+  /* Top 3 table */
+  .top3-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .top3-table th {
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 12px 16px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+  }
+  .top3-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .top3-table tr:last-child td { border-bottom: none; }
+  .top3-table tr:hover td { background: rgba(14,165,233,.05); }
+  .rank-num {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--teal);
+    width: 36px;
+  }
+  .t3-company { font-weight: 600; color: #fff; font-size: 14px; }
+  .t3-signal { color: var(--text); font-size: 13px; margin-top: 3px; }
+  .t3-angle { color: var(--muted); font-size: 12px; font-style: italic; }
+
+  /* Priority list */
+  .priority-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .priority-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .priority-card:nth-child(1) { border-top: 2px solid var(--gold); }
+  .priority-card:nth-child(2) { border-top: 2px solid var(--teal); }
+  .priority-card:nth-child(3) { border-top: 2px solid var(--purple); }
+  .priority-card:nth-child(4) { border-top: 2px solid #22d3ee; }
+  .priority-card:nth-child(5) { border-top: 2px solid var(--green); }
+  .pc-company { font-weight: 700; color: #fff; font-size: 13px; }
+  .pc-owner { font-size: 11px; color: var(--muted); margin: 3px 0 6px; }
+  .pc-reason { font-size: 12px; color: var(--text); line-height: 1.5; }
+
+  /* Signal cards */
+  .signal-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .sc-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+  }
+  .sc-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--dim);
+    width: 40px;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+  .sc-main { flex: 1; min-width: 0; }
+  .sc-company { font-size: 16px; font-weight: 700; color: #fff; }
+  .sc-headline { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+  .sc-meta { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .score-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .score-5 { background: rgba(16,185,129,.15); color: #10b981; border: 1px solid rgba(16,185,129,.3); }
+  .score-4 { background: rgba(14,165,233,.15); color: #0ea5e9; border: 1px solid rgba(14,165,233,.3); }
+  .score-3 { background: rgba(245,158,11,.15); color: #f59e0b; border: 1px solid rgba(245,158,11,.3); }
+  .score-2 { background: rgba(107,114,128,.15); color: #9ca3af; border: 1px solid rgba(107,114,128,.3); }
+  .score-1 { background: rgba(107,114,128,.1); color: #6b7280; border: 1px solid rgba(107,114,128,.2); }
+  .owner-tag {
+    font-size: 11px;
+    color: var(--muted);
+    background: rgba(255,255,255,.06);
+    border: 1px solid var(--border);
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+
+  .sc-body { padding: 18px 20px; }
+  .sc-row {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 8px 16px;
+    margin-bottom: 10px;
+    align-items: baseline;
+  }
+  .sc-row:last-child { margin-bottom: 0; }
+  .sc-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--dim);
+    padding-top: 1px;
+  }
+  .sc-value { font-size: 13px; color: var(--text); line-height: 1.55; }
+  .sc-value strong { color: #fff; }
+
+  .play-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin: 2px 2px 2px 0;
+  }
+  .play-rev { background: rgba(245,158,11,.15); color: #f59e0b; }
+  .play-com { background: rgba(139,92,246,.15); color: #a78bfa; }
+  .play-mkt { background: rgba(14,165,233,.15); color: #38bdf8; }
+  .play-qua { background: rgba(16,185,129,.15); color: #34d399; }
+
+  .outreach-box {
+    background: rgba(14,165,233,.06);
+    border: 1px solid rgba(14,165,233,.2);
+    border-left: 3px solid var(--teal);
+    border-radius: 0 6px 6px 0;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--text);
+    font-style: italic;
+    line-height: 1.6;
+    margin-top: 4px;
+  }
+
+  .watch-box {
+    background: rgba(245,158,11,.04);
+    border: 1px solid rgba(245,158,11,.15);
+    border-radius: 6px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #fbbf24;
+    margin-top: 4px;
+  }
+
+  /* Footer */
+  .brief-footer {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 24px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .footer-legend { display: flex; gap: 16px; flex-wrap: wrap; }
+  .fl-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .fl-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .footer-note { font-size: 11px; color: var(--dim); text-align: right; }
+
+  /* Product summary bar */
+  .product-summary {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 20px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 8px;
+  }
+  .ps-item {
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .ps-item strong {
+    font-size: 18px;
+    font-weight: 700;
+    margin-right: 6px;
+  }
+  .ps-item.rev strong { color: var(--gold); }
+  .ps-item.com strong { color: #a78bfa; }
+  .ps-item.mkt strong { color: #38bdf8; }
+  .ps-item.qua strong { color: #34d399; }
+
+  @media (max-width: 700px) {
+    .container { padding: 24px 18px 40px; }
+    .masthead { flex-direction: column; padding: 20px 18px; }
+    .masthead-meta { text-align: left; }
+    .sc-row { grid-template-columns: 1fr; gap: 2px; }
+    .sc-label { margin-bottom: 2px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="masthead-left">
+    <div class="masthead-label">MFG & Automotive West — Salesforce Digital</div>
+    <div class="masthead-title">Daily Account Signal Brief</div>
+    <div class="masthead-sub">August 21, 2026 &nbsp;·&nbsp; 10 signals ranked by urgency and fit</div>
+  </div>
+  <div class="masthead-meta">
+    <div><strong>AE:</strong> Anthony Troggio</div>
+    <div><strong>Products:</strong> Marketing Cloud · Commerce Cloud · Revenue Cloud · Qualified</div>
+    <div><strong>Accounts scanned:</strong> 20 &nbsp;·&nbsp; <strong>Signals found:</strong> 10</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- Top 3 -->
+  <div class="section-header">
+    <div class="sh-bar"></div>
+    <div class="sh-label">Top 3 Signals Today</div>
+  </div>
+  <table class="top3-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Company</th>
+        <th>Signal</th>
+        <th>One-Line Reason to Reach Out</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="rank-num">1</td>
+        <td>
+          <div class="t3-company">PrimeSource Building Products</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px;">Jessica Winter</div>
+        </td>
+        <td class="t3-signal">Third PE-backed acquisition in 13 months; Starborn Industries closed August 3</td>
+        <td class="t3-angle">A new brand just landed in the portfolio and every day without unified CPQ is margin Clearlake can measure</td>
+      </tr>
+      <tr>
+        <td class="rank-num">2</td>
+        <td>
+          <div class="t3-company">Wärtsilä North America</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px;">Ruben Munoz</div>
+        </td>
+        <td class="t3-signal">Wood Mackenzie Top 10 BESS recognition + U.S. data center power win, H1 results July 21</td>
+        <td class="t3-angle">North America service contract volume is accelerating faster than the commercial infrastructure behind it</td>
+      </tr>
+      <tr>
+        <td class="rank-num">3</td>
+        <td>
+          <div class="t3-company">Kurita America</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:3px;">Gabrielle Carels</div>
+        </td>
+        <td class="t3-signal">Phoenix engineering center, Mexico launch, and Cyclopure investment all in 90 days</td>
+        <td class="t3-angle">Three expansion moves in one quarter almost always outpace the quoting and pricing systems supporting them</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Prioritize Today -->
+  <div class="section-header" style="margin-top:36px;">
+    <div class="sh-bar" style="background:var(--gold);"></div>
+    <div class="sh-label" style="color:var(--gold);">Accounts to Prioritize Today</div>
+  </div>
+  <div class="priority-list">
+    <div class="priority-card">
+      <div class="pc-company">PrimeSource Building Products</div>
+      <div class="pc-owner">Jessica Winter</div>
+      <div class="pc-reason">Acquisition closed 18 days ago; the CPQ urgency window is at its widest right now.</div>
+    </div>
+    <div class="priority-card">
+      <div class="pc-company">Chevron Phillips Chemical</div>
+      <div class="pc-owner">Jessica Winter</div>
+      <div class="pc-reason">New CFO Wayne Borduin starts September 1. Eleven days to reach him before his Q4 priorities lock.</div>
+    </div>
+    <div class="priority-card">
+      <div class="pc-company">Wärtsilä North America</div>
+      <div class="pc-owner">Ruben Munoz</div>
+      <div class="pc-reason">Fresh BESS recognition and H1 results give you a warm opener backed by real commercial complexity.</div>
+    </div>
+    <div class="priority-card">
+      <div class="pc-company">Ecobat</div>
+      <div class="pc-owner">Jessica Winter</div>
+      <div class="pc-reason">CEO Tom Slabe's "focused North American platform" language is a mandate, not a talking point — engage before the new operating model hardens.</div>
+    </div>
+    <div class="priority-card">
+      <div class="pc-company">Kurita America</div>
+      <div class="pc-owner">Gabrielle Carels</div>
+      <div class="pc-reason">Three Q2 expansion moves create a specific, recent, and verifiable story that maps cleanly to CPQ and Commerce Cloud.</div>
+    </div>
+  </div>
+
+  <!-- Product coverage summary -->
+  <div class="section-header" style="margin-top:36px;">
+    <div class="sh-bar" style="background:var(--muted);"></div>
+    <div class="sh-label" style="color:var(--muted);">Play Coverage This Scan</div>
+  </div>
+  <div class="product-summary">
+    <div class="ps-item rev"><strong>9</strong> of 10 signals &mdash; Revenue Cloud / CPQ</div>
+    <div class="ps-item com"><strong>5</strong> of 10 signals &mdash; Commerce Cloud</div>
+    <div class="ps-item mkt"><strong>4</strong> of 10 signals &mdash; Marketing Cloud</div>
+    <div class="ps-item qua"><strong>2</strong> of 10 signals &mdash; Qualified</div>
+  </div>
+
+  <!-- Full Detail -->
+  <div class="section-header" style="margin-top:44px;">
+    <div class="sh-bar"></div>
+    <div class="sh-label">Top 10 Signals — Full Detail</div>
+  </div>
+
+  <!-- Signal 1 -->
+  <div class="signal-card">
+    <div class="sc-header">
+      <div class="sc-num">01</div>
+      <div class="sc-main">
+        <div class="sc-company">PrimeSource Building Products</div>
+        <div class="sc-headline">Third PE-Backed Acquisition in 13 Months Creates Multi-Brand CPQ Crisis</div>
+      </div>
+      <div class="sc-meta">
+        <div class="score-badge score-5">5 / 5 &nbsp;&#9733;</div>
+        <div class="owner-tag">Jessica Winter</div>
+      </div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-row">
+        <div class="sc-label">What happened</div>
+        <div class="sc-value">Clearlake Capital-backed PrimeSource Brands acquired Starborn Industries on August 3, just 18 days ago. Starborn adds specialty fasteners for decking, framing, flooring, and exterior trim to a portfolio that already includes Grip-Rite, Fortress, Cobra, and Advantage Industries. The Wolf Outdoor Living brand launch in February 2026 signals leadership already recognizes fragmentation as a problem.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Why it matters now</div>
+        <div class="sc-value">Three acquisitions in 13 months means quoting reps are navigating six-plus brand catalogs, almost certainly in spreadsheets. Clearlake is watching margin compression across a 35-facility, 4.5M sq ft portfolio. The window is widest right now while the ink on Starborn is still drying.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best play</div>
+        <div class="sc-value">
+          <span class="play-tag play-rev">Revenue Cloud</span>
+          <span class="play-tag play-com">Commerce Cloud</span>
+          Multi-brand CPQ unification + unified B2B dealer/distributor portal across all acquired brands
+        </div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best persona</div>
+        <div class="sc-value">VP Sales or CRO (multi-brand quoting pain) &nbsp;·&nbsp; CFO (margin visibility across acquired brands)</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Outreach angle</div>
+        <div class="outreach-box">"PrimeSource just closed its third acquisition in 13 months. When reps are quoting across Grip-Rite, Fortress, Cobra, Advantage, and Starborn from separate price lists, margin leaks quietly and dealers have a frustrating experience. Revenue Cloud unifies all five brand catalogs into one quoting engine with guardrails Clearlake can actually see in a dashboard. Worth 20 minutes to walk through what that looks like for a portfolio this size?"</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Source</div>
+        <div class="sc-value" style="color:var(--muted);">primesourcebp.com/news — August 3, 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signal 2 -->
+  <div class="signal-card">
+    <div class="sc-header">
+      <div class="sc-num">02</div>
+      <div class="sc-main">
+        <div class="sc-company">Wärtsilä North America</div>
+        <div class="sc-headline">Wood Mackenzie Top 10 BESS Recognition Validates North America Scaling Push</div>
+      </div>
+      <div class="sc-meta">
+        <div class="score-badge score-5">5 / 5 &nbsp;&#9733;</div>
+        <div class="owner-tag">Ruben Munoz</div>
+      </div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-row">
+        <div class="sc-label">What happened</div>
+        <div class="sc-value">June 29: U.S. order to power AI-driven data center infrastructure. July 14: long-term maintenance agreement to optimize a U.S. power plant. July 21: H1 2026 financial results released. August 12: named the only European company in Wood Mackenzie's global Top 10 BESS integrators list.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Why it matters now</div>
+        <div class="sc-value">Multi-year lifecycle service agreements with variable pricing, parts, labor, and performance guarantees are the hardest thing to quote accurately at scale. As North America volume grows across power generation, marine services, and energy storage, each manual quote is a margin risk. The BESS recognition signals aggressive competition in a segment where quoting speed is a real differentiator.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best play</div>
+        <div class="sc-value">
+          <span class="play-tag play-rev">Revenue Cloud</span>
+          Complex multi-year service contract quoting, lifecycle pricing, and renewals management across North America
+        </div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best persona</div>
+        <div class="sc-value">VP of Sales Operations or Chief Commercial Officer, Wärtsilä North America</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Outreach angle</div>
+        <div class="outreach-box">"Congratulations on the Wood Mackenzie Top 10 BESS recognition and the U.S. data center win. As North America contract volume grows across power generation, marine services, and energy storage, I have one question for the commercial team: how are multi-year lifecycle agreements being quoted and priced right now? Most companies at this growth rate are handling it manually, and that is exactly where margin leaks. I have a specific Revenue Cloud use case built around this complexity that is worth 15 minutes."</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Source</div>
+        <div class="sc-value" style="color:var(--muted);">wartsila.com/media/news — June 29, July 14, July 21, August 12, 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signal 3 -->
+  <div class="signal-card">
+    <div class="sc-header">
+      <div class="sc-num">03</div>
+      <div class="sc-main">
+        <div class="sc-company">Kurita America</div>
+        <div class="sc-headline">Three North America Expansion Moves in 90 Days Outpace Commercial Infrastructure</div>
+      </div>
+      <div class="sc-meta">
+        <div class="score-badge score-4">4 / 5 &nbsp;&#9733;</div>
+        <div class="owner-tag">Gabrielle Carels</div>
+      </div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-row">
+        <div class="sc-label">What happened</div>
+        <div class="sc-value">In Q2 2026, Kurita executed three moves: new Mexico entity (KWMX) launched May, strategic investment in PFAS startup Cyclopure Inc. in April, and a new 10,900 sq ft Phoenix engineering center opening in May. The company also actively promotes its eLink digital platform for 24/7 customer operational data access.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Why it matters now</div>
+        <div class="sc-value">New geographies, new technologies, new customer segments, and new pricing models arriving simultaneously. The eLink platform shows digital ambition, but fragmented tech stack across expanding regions creates compounding friction. The EPA 2024 PFAS rule is driving regulatory demand Marketing Cloud can capture before competitors do.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best play</div>
+        <div class="sc-value">
+          <span class="play-tag play-rev">Revenue Cloud</span>
+          <span class="play-tag play-com">Commerce Cloud</span>
+          <span class="play-tag play-mkt">Marketing Cloud</span>
+          CPQ across expanding geographies + eLink portal maturation + PFAS regulatory demand gen
+        </div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best persona</div>
+        <div class="sc-value">VP of Sales or VP of Marketing, Kurita America</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Outreach angle</div>
+        <div class="outreach-box">"I was following Kurita America's Q2 and noticed three major moves in one quarter: Phoenix engineering center, Mexico launch, and the Cyclopure investment. That is a lot of new pricing models, service configurations, and customer segments hitting at once. The question I would want to ask the commercial team: how are quoting and customer data staying consistent across all three? I also have a specific angle on how the PFAS regulatory wave pairs with a demand generation play that I think is worth 15 minutes."</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Source</div>
+        <div class="sc-value" style="color:var(--muted);">kuritaamerica.com/news — March 16, April 20, May 20, 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signal 4 -->
+  <div class="signal-card">
+    <div class="sc-header">
+      <div class="sc-num">04</div>
+      <div class="sc-main">
+        <div class="sc-company">Ecobat</div>
+        <div class="sc-headline">CEO Issues North American Repositioning Mandate After Shedding Entire European Footprint</div>
+      </div>
+      <div class="sc-meta">
+        <div class="score-badge score-4">4 / 5 &nbsp;&#9733;</div>
+        <div class="owner-tag">Jessica Winter</div>
+      </div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-row">
+        <div class="sc-label">What happened</div>
+        <div class="sc-value">Ecobat completed the sale of all European operations between June 2025 and May 2026, divesting Italy, UK, France, Germany, and Austria in a systematic 12-month exit. CEO Tom Slabe explicitly described the result as "a focused North American platform" and committed to maximize shareholder value on that foundation. The company is pivoting toward lithium-ion battery recycling alongside its core lead business.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Why it matters now</div>
+        <div class="sc-value">A company that sheds an entire continent in 12 months doesn't rebuild on autopilot. Customer data, marketing, revenue operations, and digital infrastructure all need to be rebuilt for the leaner North American scope. The lithium pivot introduces new buyer personas (EV fleet operators, utilities) requiring different marketing and sales motions. Tom Slabe's statement is a mandate with a timeline — the window to engage before the new operating model gets locked in is open now.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best play</div>
+        <div class="sc-value">
+          <span class="play-tag play-mkt">Marketing Cloud</span>
+          <span class="play-tag play-rev">Revenue Cloud</span>
+          <span class="play-tag play-qua">Qualified</span>
+          North American re-launch, new lithium segment acquisition, streamlined NA revenue ops, inbound pipeline from revamped site
+        </div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best persona</div>
+        <div class="sc-value">CEO Tom Slabe &nbsp;·&nbsp; CMO or VP Marketing (new lithium segment) &nbsp;·&nbsp; VP Sales or CRO (rebuilding North American commercial motion)</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Outreach angle</div>
+        <div class="outreach-box">"Tom, I read your statement about Ecobat as a focused North American platform. That mandate requires a North American commercial infrastructure that actually matches the ambition: unified customer data, automated marketing to the new lithium buyer, and a revenue system built for the business you are now, not the global organization you were. The timing matters because these architecture decisions get harder once the new operating model starts to calcify. I would like to show you what that infrastructure looks like in 20 minutes."</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Source</div>
+        <div class="sc-value" style="color:var(--muted);">ecobat.com/news — May 2026 strategic repositioning statement</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signal 5 -->
+  <div class="signal-card">
+    <div class="sc-header">
+      <div class="sc-num">05</div>
+      <div class="sc-main">
+        <div class="sc-company">Chevron Phillips Chemical</div>
+        <div class="sc-headline">Incoming CFO Starts September 1 — 11-Day Window Before His Priorities Lock</div>
+      </div>
+      <div class="sc-meta">
+        <div class="score-badge score-3">3 / 5 &nbsp;&#9733;</div>
+        <div class="owner-tag">Jessica Winter</div>
+      </div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-row">
+        <div class="sc-label">What happened</div>
+        <div class="sc-value">Wayne Borduin was appointed EVP and CFO of Chevron Phillips Chemical, effective September 1, 2026. Announcement published July 22. CPChem operates at ~$14B revenue with complex chemical product pricing, multi-tier distribution contracts, and broad channel complexity.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Why it matters now</div>
+        <div class="sc-value">New CFOs nearly always initiate a 90-day review of financial systems, pricing infrastructure, and quote-to-cash processes. Wayne Borduin has not yet started, which means he has not formed his Q4 technology priorities. The window closes in 11 days.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best play</div>
+        <div class="sc-value">
+          <span class="play-tag play-rev">Revenue Cloud</span>
+          CPQ for complex chemical product pricing and multi-tier distribution
+        </div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best persona</div>
+        <div class="sc-value">Wayne Borduin, EVP and CFO (incoming September 1, 2026)</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Outreach angle</div>
+        <div class="outreach-box">"Wayne, congratulations on the CPChem CFO appointment. Before your first day on September 1, I wanted to share one thing most incoming CFOs at companies with CPChem's pricing complexity find in their first 90-day review: the gap between what the CRM says a deal is worth and what actually hits the books. Revenue Cloud CPQ closes that gap at the source. Happy to walk you through a 15-minute overview before you start so it is already on your radar when that informal audit begins."</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Source</div>
+        <div class="sc-value" style="color:var(--muted);">cpchem.com/news — July 22, 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signal 6 -->
+  <div class="signal-card">
+    <div class="sc-header">
+      <div class="sc-num">06</div>
+      <div class="sc-main">
+        <div class="sc-company">Marubeni America Corporation</div>
+        <div class="sc-headline">Five M&amp;A Moves in 2026, Active Leadership Changes, IT/Digital Spotlight on Homepage</div>
+      </div>
+      <div class="sc-meta">
+        <div class="score-badge score-3">3 / 5 &nbsp;&#9733;</div>
+        <div class="owner-tag">Jessica Winter</div>
+      </div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-row">
+        <div class="sc-label">What happened</div>
+        <div class="sc-value">Five M&amp;A transactions in 2026: EagleRidge Energy (U.S. natural gas, June 17), TOLUS Group AG (Swiss/Austrian machine tool distribution, July 10), DASI LLC aviation aftermarket (April 3), U.S. private equity market entry (March 2), SmartestEnergy retail power in Texas (February 19). Multiple leadership changes January through June. IT/Digital Solutions currently featured as a corporate spotlight on the homepage under the GC2027 mid-term strategy.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Why it matters now</div>
+        <div class="sc-value">Serial acquisitions across energy, machine tools, aviation, and retail power create exactly the quote-to-cash fragmentation Revenue Cloud solves. The GC2027 strategy cycle creates a natural planning window for platform-level conversations. The IT/Digital spotlight signals active investment appetite.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best play</div>
+        <div class="sc-value">
+          <span class="play-tag play-rev">Revenue Cloud</span>
+          <span class="play-tag play-mkt">Marketing Cloud</span>
+          M&amp;A integration of disparate pricing systems + multi-segment demand gen across diversified business units
+        </div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best persona</div>
+        <div class="sc-value">SVP of Commercial Operations or Chief Digital Officer, Marubeni America</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Outreach angle</div>
+        <div class="outreach-box">"I have been following Marubeni America's 2026 pace and counted five acquisitions across energy, machine tools, aviation, and retail power. The commercial operations question I hear most from companies running this playbook: how do you keep quoting, pricing, and contract data consistent across entities that each came in with their own system? I have a specific answer that maps directly to what Marubeni's IT/Digital Solutions spotlight is already signaling. Worth 20 minutes?"</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Source</div>
+        <div class="sc-value" style="color:var(--muted);">marubeni.com/en/news/2026 — multiple releases, January to August 2026; Q1 FY2026 results August 3</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signal 7 -->
+  <div class="signal-card">
+    <div class="sc-header">
+      <div class="sc-num">07</div>
+      <div class="sc-main">
+        <div class="sc-company">Helena Agri-Enterprises</div>
+        <div class="sc-headline">Agri Hub Portal Expanding Nationwide; AGRIntelligence Platform Active</div>
+      </div>
+      <div class="sc-meta">
+        <div class="score-badge score-2">2 / 5 &nbsp;&#9733;</div>
+        <div class="owner-tag">Jessica Winter</div>
+      </div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-row">
+        <div class="sc-label">What happened</div>
+        <div class="sc-value">Helena's 2026 homepage prominently features the Agri Hub customer portal described as expanding to communities across the nation, with active new user enrollment underway. The site lists AGRIntelligence as a dedicated digital agronomy platform alongside FieldLink and Digital Products. No major 2026 press releases address technology investments — recent news centers on scholarships, herbicide launches, and agronomic content.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Why it matters now</div>
+        <div class="sc-value">Active portal expansion and named digital platform signal real investment, but no event-driven trigger today. This is a structural signal, not a hot one. Monitor for a leadership change, budget cycle announcement, or technology RFP that would elevate it.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best play</div>
+        <div class="sc-value">
+          <span class="play-tag play-com">Commerce Cloud</span>
+          <span class="play-tag play-mkt">Marketing Cloud</span>
+          Agri Hub portal evolution + data-driven grower engagement via AGRIntelligence
+        </div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best persona</div>
+        <div class="sc-value">VP of Digital or Director of Marketing Technology, Helena Agri-Enterprises</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Outreach angle</div>
+        <div class="outreach-box">"I noticed the Agri Hub portal is actively expanding to new communities. As you onboard more growers and dealers into a self-service environment, personalization and automated engagement become the difference between retention and churn. I would like to share how two comparable ag distributors used Marketing Cloud to drive measurable grower re-engagement at scale. Would a brief conversation make sense this quarter?"</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Source</div>
+        <div class="sc-value" style="color:var(--muted);">helenaagri.com — homepage and news releases, most recent June 18, 2026</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Watch for</div>
+        <div class="watch-box">Leadership change, annual technology planning announcement, or any signal that the Agri Hub team is evaluating the underlying platform.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signal 8 -->
+  <div class="signal-card">
+    <div class="sc-header">
+      <div class="sc-num">08</div>
+      <div class="sc-main">
+        <div class="sc-company">Lhoist North America</div>
+        <div class="sc-headline">$13.5B Martin Marietta Combination Announced June 30 — Integration Planning Window Open</div>
+      </div>
+      <div class="sc-meta">
+        <div class="score-badge score-1">1 / 5 &nbsp;&#9733;</div>
+        <div class="owner-tag">Ruben Munoz</div>
+      </div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-row">
+        <div class="sc-label">What happened</div>
+        <div class="sc-value">On June 30, 2026, Martin Marietta announced a $13.5B combination with Lhoist North America, adding 20 quarries and production facilities. Martin Marietta subsequently reported record Q2 2026 revenues with 21% revenue growth and 13% EBITDA growth.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Why it matters now</div>
+        <div class="sc-value">A deal at this scale triggers systems consolidation and pricing rationalization across 20 facilities. Each site carries its own customer agreements, product mix, and pricing terms. Integration planning typically begins immediately post-announcement and decisions about consolidating commercial systems are made in the first 90 days. Better entry point is the Martin Marietta integration team.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best play</div>
+        <div class="sc-value">
+          <span class="play-tag play-rev">Revenue Cloud</span>
+          <span class="play-tag play-com">Commerce Cloud</span>
+          Pricing consolidation + contract harmonization across 20 acquired facilities; B2B ordering portal
+        </div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best persona</div>
+        <div class="sc-value">VP of Finance, CIO, or VP of Operations on the Martin Marietta integration team</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Outreach angle</div>
+        <div class="outreach-box">"When Martin Marietta absorbs 20 Lhoist facilities, the hardest thing to harmonize is pricing and contracts. Every site has its own terms, customer agreements, and product mix. Revenue Cloud was built for exactly this: rationalizing CPQ and quote-to-cash across a combined entity without losing margin while integration is underway. I would like to share a 15-minute overview built around this specific deal while the integration plan is still being written."</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Source</div>
+        <div class="sc-value" style="color:var(--muted);">pitandquarry.com — June 30, July 21, 2026</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Watch for</div>
+        <div class="watch-box">Integration team announcement or systems RFP from Martin Marietta. Coordinate with Ruben Munoz before any direct outreach to Lhoist.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signal 9 -->
+  <div class="signal-card">
+    <div class="sc-header">
+      <div class="sc-num">09</div>
+      <div class="sc-main">
+        <div class="sc-company">Cavco Industries</div>
+        <div class="sc-headline">50% Backlog Surge, American Homestar Acquisition, CEO Flags Margin Compression on Earnings Call</div>
+      </div>
+      <div class="sc-meta">
+        <div class="score-badge score-1">1 / 5 &nbsp;&#9733;</div>
+        <div class="owner-tag">Conor O'Malley</div>
+      </div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-row">
+        <div class="sc-label">What happened</div>
+        <div class="sc-value">Cavco Q1 FY2027 earnings July 31, 2026: revenue $610M, backlog up 50%, record shipments, but EPS of $5.43 missed consensus $5.55. CEO Bill Boor cited "competitive retail pricing" as a margin headwind. Company completed American Homestar acquisition and opened new El Mirage, AZ manufacturing facility in May 2026. Zelman downgraded to Neutral ~August 6 on margin compression; UBS initiated at Buy with $700 target.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Why it matters now</div>
+        <div class="sc-value">Cavco now operates two brand families, is processing record volume, and has a CEO on the record about pricing compressing margins. Wall Street is watching. The El Mirage plant adds more SKUs to an already strained quoting workflow. The case for Revenue Cloud and Commerce Cloud is in Cavco's own earnings transcript.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best play</div>
+        <div class="sc-value">
+          <span class="play-tag play-rev">Revenue Cloud</span>
+          <span class="play-tag play-com">Commerce Cloud</span>
+          Multi-brand dealer quoting with margin guardrails + dealer self-service portal for 50% backlog growth
+        </div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best persona</div>
+        <div class="sc-value">CFO (margin and pricing pressure) &nbsp;·&nbsp; VP Sales or VP Dealer Development (backlog and dealer ordering complexity)</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Outreach angle</div>
+        <div class="outreach-box">"Bill Boor flagged competitive retail pricing on the earnings call and Zelman moved the stock to Neutral on margin compression. You now have two brand families, record order volume, and a market watching your margin line. Revenue Cloud gives you one quoting engine with margin guardrails across every dealer and every SKU from Cavco and American Homestar. Commerce Cloud gives dealers a self-service portal so your inside team is not manually processing a 50% backlog surge. The case for moving now is already in your own earnings transcript."</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Source</div>
+        <div class="sc-value" style="color:var(--muted);">stockanalysis.com/stocks/cvco — Q1 FY2027 earnings July 31, 2026; Zelman downgrade ~August 6, 2026</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Watch for</div>
+        <div class="watch-box">Coordinate with Conor O'Malley before any direct outreach. Strong signal — low score reflects account ownership, not signal quality.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signal 10 -->
+  <div class="signal-card">
+    <div class="sc-header">
+      <div class="sc-num">10</div>
+      <div class="sc-main">
+        <div class="sc-company">Facility Solutions Group</div>
+        <div class="sc-headline">New CEO with Growth Mandate and CGO Driving AI and IoT Expansion</div>
+      </div>
+      <div class="sc-meta">
+        <div class="score-badge score-1">1 / 5 &nbsp;&#9733;</div>
+        <div class="owner-tag">Jessica Winter</div>
+      </div>
+    </div>
+    <div class="sc-body">
+      <div class="sc-row">
+        <div class="sc-label">What happened</div>
+        <div class="sc-value">March 2026: FSG named Jason Zipprian as CEO, promoted from COO of Construction, 30-year company veteran. His stated mandate: "My passion is growth. Growing this company, growing our people." CGO Bobby Graham is driving expansion into IoT-enabled energy solutions, AI building automation, and predictive analytics with the philosophy that "data beats guesswork." New corporate HQ under construction in Austin.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Why it matters now</div>
+        <div class="sc-value">New CEO with explicit growth mandate and AI-aligned CGO typically evaluate their revenue tech stack in the first six months. That window is now approximately five months old and may be narrowing. FSG's expansion into national accounts, smart buildings, EV charging, and commercial solar creates marketing complexity across multiple buyer personas with long sales cycles.</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best play</div>
+        <div class="sc-value">
+          <span class="play-tag play-qua">Qualified</span>
+          <span class="play-tag play-mkt">Marketing Cloud</span>
+          <span class="play-tag play-rev">Revenue Cloud</span>
+          Intent-based pipeline for new CEO growth mandate + multi-segment demand gen + quote-to-cash scaling
+        </div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Best persona</div>
+        <div class="sc-value">CEO Jason Zipprian &nbsp;·&nbsp; Chief Growth Officer Bobby Graham &nbsp;·&nbsp; CTO Tom Riland</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Outreach angle</div>
+        <div class="outreach-box">"Bobby Graham said 'data beats guesswork' and I want to take that seriously. Right now, FSG's website sees visitors from contractors, developers, and national account prospects every day, and most of them leave without identifying themselves. Qualified puts a name on that intent in real time so the growth team is calling the right accounts before competitors do. That is the unfair advantage that matches the mandate Jason Zipprian walked in with. Happy to show you a 15-minute demo built around FSG's specific national account ICP."</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Source</div>
+        <div class="sc-value" style="color:var(--muted);">fsg.com/about/leadership and fsg.com/blog — March 2026</div>
+      </div>
+      <div class="sc-row">
+        <div class="sc-label">Watch for</div>
+        <div class="watch-box">Any technology RFP, marketing platform initiative, or CTO Tom Riland's stated priorities in the next 60 days. The evaluation window from the March CEO change is closing.</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<div class="brief-footer">
+  <div class="footer-legend">
+    <div class="fl-item"><div class="fl-dot" style="background:#10b981;"></div> 5/5 — Act today</div>
+    <div class="fl-item"><div class="fl-dot" style="background:#0ea5e9;"></div> 4/5 — This week</div>
+    <div class="fl-item"><div class="fl-dot" style="background:#f59e0b;"></div> 3/5 — Time-sensitive event</div>
+    <div class="fl-item"><div class="fl-dot" style="background:#6b7280;"></div> 1–2/5 — Structural signal, monitor</div>
+  </div>
+  <div class="footer-note">
+    Generated August 21, 2026 &nbsp;·&nbsp; Anthony Troggio, Salesforce Digital AE<br>
+    MFG &amp; Automotive West &nbsp;·&nbsp; Signal research via web scan across 20 accounts
+  </div>
+</div>
+
+</body>
+</html>
