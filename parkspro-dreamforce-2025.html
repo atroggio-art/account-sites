@@ -3,309 +3,312 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ParksPro · Dreamforce 2025</title>
+  <title>ParksPro · 3 Perfect Days at Dreamforce 2026</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #07101d;
-      --surface:  #0d1926;
-      --surface2: #111f30;
-      --border:   #182b3f;
-      --text:     #dde9f5;
-      --dim:      #506b84;
-      --faint:    #243648;
-
-      --revenue:   #4a8ef5;
-      --slack:     #9370f0;
-      --marketing: #2dbe9a;
-      --qualified: #f07344;
-      --keynote:   #d4a42a;
-
-      --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      --navy:  #032D60;
+      --blue:  #0176d3;
+      --teal:  #04a5d0;
+      --bteal: #04c4b2;
+      --pink:  #c23d7a;
+      --text:  #080d14;
+      --dim:   #3a5a78;
+      --border: rgba(1,118,211,0.15);
       --sans: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
     }
 
     body {
       font-family: var(--sans);
-      background: var(--bg);
-      color: var(--text);
+      background: linear-gradient(180deg, #bdd8ee 0%, #cce3f3 20%, #d9edf8 45%, #e8f5fc 75%, #f2f9fd 100%);
       min-height: 100vh;
+      color: var(--text);
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── HEADER ─────────────────────────────── */
+    /* ── HEADER ───────────────────────────────── */
     .header {
-      background: linear-gradient(155deg, #060d1a 0%, #0b1d38 50%, #070f1e 100%);
-      border-bottom: 1px solid var(--border);
-      padding: 52px 48px 44px;
+      padding: 44px 48px 40px;
       position: relative;
       overflow: hidden;
     }
-    .header::before {
+    .header::after {
       content: '';
       position: absolute;
-      top: -140px; right: -100px;
-      width: 520px; height: 520px;
-      background: radial-gradient(ellipse, rgba(74,142,245,0.055) 0%, transparent 62%);
+      top: -60px; right: -60px;
+      width: 320px; height: 320px;
+      background: radial-gradient(ellipse, rgba(4,196,178,0.12) 0%, transparent 65%);
       pointer-events: none;
     }
 
-    .brand {
+    .df-logo {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 22px;
+      gap: 8px;
+      margin-bottom: 20px;
     }
-    .brand-mark {
-      width: 30px; height: 30px;
-      border-radius: 7px;
-      background: rgba(74,142,245,0.14);
-      border: 1px solid rgba(74,142,245,0.24);
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--mono);
-      font-size: 11px; font-weight: 800;
-      color: var(--revenue);
+    .df-cloud {
+      width: 36px; height: 36px;
+    }
+    .df-logo-text {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy);
       letter-spacing: -0.02em;
     }
-    .brand-name {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--revenue);
-    }
 
-    .h-title {
-      font-size: clamp(40px, 6vw, 64px);
+    .h-eyebrow {
+      font-size: 12px;
       font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 0.95;
-      margin-bottom: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--navy);
+      margin-bottom: 8px;
     }
-    .h-meta {
+    .h-title {
+      font-size: clamp(34px, 5.5vw, 56px);
+      font-weight: 800;
+      color: var(--navy);
+      letter-spacing: -0.035em;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .h-title .df-word {
+      color: var(--blue);
+    }
+    .h-sub {
       font-size: 15px;
       color: var(--dim);
-      margin-bottom: 36px;
+      margin-bottom: 28px;
+      font-weight: 500;
     }
 
-    .attendees {
+    .attendee-row {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
     }
-    .attendee {
+    .att-chip {
       display: flex;
       align-items: center;
-      gap: 8px;
-      padding: 8px 16px;
-      background: rgba(255,255,255,0.035);
-      border: 1px solid var(--border);
+      gap: 7px;
+      padding: 7px 14px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(1,118,211,0.2);
       border-radius: 100px;
       font-size: 13px;
-      font-weight: 500;
+      font-weight: 600;
+      color: var(--navy);
+      backdrop-filter: blur(4px);
     }
-    .a-dot {
+    .att-dot {
       width: 7px; height: 7px;
       border-radius: 50%;
       flex-shrink: 0;
     }
-    .a-sub {
-      font-size: 12px;
+    .att-sub {
+      font-weight: 400;
       color: var(--dim);
-      margin-left: 2px;
     }
 
-    /* ── TABS ────────────────────────────────── */
-    .tabs {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
+    /* ── NAV BAR ──────────────────────────────── */
+    .nav {
+      background: linear-gradient(90deg, #0070d2 0%, #0099d6 45%, #04c4b2 100%);
       padding: 0 48px;
       display: flex;
       position: sticky;
       top: 0;
-      z-index: 20;
+      z-index: 30;
+      box-shadow: 0 2px 12px rgba(0,112,210,0.3);
     }
-    .tab {
+    .nav-tab {
       display: flex;
       align-items: center;
-      gap: 9px;
-      height: 52px;
+      gap: 8px;
+      height: 50px;
       padding: 0 22px;
       border: none;
       background: none;
-      color: var(--dim);
+      color: rgba(255,255,255,0.72);
       font-size: 13.5px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      transition: color 0.14s;
+      border-bottom: 3px solid transparent;
+      transition: color 0.14s, border-color 0.14s;
       font-family: var(--sans);
       white-space: nowrap;
+      letter-spacing: 0.01em;
     }
-    .tab:hover { color: var(--text); }
-    .tab.on { color: var(--text); }
-    .tab-m.on  { border-bottom-color: var(--revenue); }
-    .tab-s.on  { border-bottom-color: var(--slack); }
-    .tab-mc.on { border-bottom-color: var(--marketing); }
-
-    .t-pip {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      opacity: 0.45;
-      transition: opacity 0.14s;
-      flex-shrink: 0;
+    .nav-tab:hover { color: #fff; }
+    .nav-tab.on {
+      color: #fff;
+      border-bottom-color: rgba(255,255,255,0.85);
     }
-    .tab.on .t-pip { opacity: 1; }
-    .tab-m  .t-pip { background: var(--revenue); }
-    .tab-s  .t-pip { background: var(--slack); }
-    .tab-mc .t-pip { background: var(--marketing); }
+    .nav-sub {
+      font-weight: 400;
+      font-size: 11.5px;
+      opacity: 0.8;
+    }
 
-    /* ── CONTENT ─────────────────────────────── */
+    /* ── CONTENT ──────────────────────────────── */
     .body {
-      max-width: 780px;
+      max-width: 820px;
       margin: 0 auto;
-      padding: 44px 48px 96px;
+      padding: 36px 48px 88px;
     }
     .panel { display: none; }
     .panel.on { display: block; }
 
-    /* Track legend */
-    .legend {
+    /* ── DAY SECTION ──────────────────────────── */
+    .day-section {
       display: flex;
       gap: 20px;
-      flex-wrap: wrap;
-      margin-bottom: 36px;
-      padding-bottom: 22px;
-      border-bottom: 1px solid var(--border);
+      margin-bottom: 32px;
+      align-items: flex-start;
     }
-    .leg-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--dim);
-    }
-    .leg-pip {
-      width: 8px; height: 8px;
-      border-radius: 2px;
+
+    .day-block {
+      background: var(--navy);
+      color: #fff;
+      border-radius: 12px;
+      padding: 16px 14px;
+      text-align: center;
+      min-width: 104px;
       flex-shrink: 0;
+      position: sticky;
+      top: 66px;
+    }
+    .db-day {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1;
+    }
+    .db-dow {
+      font-size: 12px;
+      font-style: italic;
+      opacity: 0.75;
+      margin: 4px 0 2px;
+      font-weight: 400;
+    }
+    .db-date {
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0.9;
     }
 
-    /* ── DAY ─────────────────────────────────── */
-    .day { margin-bottom: 44px; }
+    /* ── SESSION LIST ─────────────────────────── */
+    .sessions-col {
+      flex: 1;
+      background: rgba(255,255,255,0.72);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      backdrop-filter: blur(6px);
+      overflow: hidden;
+    }
 
-    .day-head {
+    .session {
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(1,118,211,0.1);
+      position: relative;
+    }
+    .session:last-child { border-bottom: none; }
+    .session.keynote {
+      background: rgba(1,118,211,0.04);
+      border-left: 4px solid var(--blue);
+      padding-left: 16px;
+    }
+    .session.keynote:last-child { border-bottom: none; }
+
+    .s-top {
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin-bottom: 14px;
+      gap: 8px;
+      margin-bottom: 5px;
     }
-    .day-label {
-      font-family: var(--mono);
-      font-size: 11px;
+    .s-type {
+      font-size: 10px;
+      font-weight: 800;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--faint);
-      white-space: nowrap;
-      font-weight: 600;
+      color: var(--pink);
     }
-    .day-rule {
-      flex: 1;
-      height: 1px;
-      background: var(--border);
+    .s-star {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--pink);
+      font-size: 13px;
+      line-height: 1;
     }
-    .day-cnt {
-      font-family: var(--mono);
-      font-size: 10.5px;
-      color: var(--faint);
-      white-space: nowrap;
+    .s-title {
+      font-size: 15.5px;
+      font-weight: 700;
+      color: var(--blue);
+      line-height: 1.35;
+      margin-bottom: 7px;
     }
-
-    /* ── SESSION CARDS ───────────────────────── */
-    .sessions { display: flex; flex-direction: column; gap: 5px; }
-
-    .card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left-width: 3px;
-      border-radius: 9px;
-      padding: 14px 18px 13px;
-      transition: background 0.12s, border-color 0.12s;
+    .session.keynote .s-title {
+      color: var(--navy);
     }
-    .card:hover { background: var(--surface2); }
-
-    .card.revenue   { border-left-color: var(--revenue); }
-    .card.slack     { border-left-color: var(--slack); }
-    .card.marketing { border-left-color: var(--marketing); }
-    .card.qualified { border-left-color: var(--qualified); }
-
-    .card.keynote {
-      background: rgba(212,164,42,0.065);
-      border-color: rgba(212,164,42,0.2);
-      border-left-color: var(--keynote);
-    }
-    .card.keynote:hover { background: rgba(212,164,42,0.1); }
-
-    .c-time {
-      font-family: var(--mono);
-      font-size: 11px;
+    .s-meta {
+      font-size: 12.5px;
       color: var(--dim);
-      margin-bottom: 5px;
-      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
     }
-    .c-title {
-      font-size: 15px;
-      font-weight: 600;
-      line-height: 1.38;
-      color: var(--text);
-    }
-    .card.keynote .c-title { color: var(--keynote); }
+    .s-pin { font-size: 12px; }
+    .s-sep { color: rgba(58,90,120,0.4); }
 
-    .c-note {
+    .s-note {
       display: inline-block;
       margin-top: 6px;
-      font-family: var(--mono);
-      font-size: 9px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      font-size: 10.5px;
       font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       padding: 2px 8px;
       border-radius: 3px;
-      background: rgba(212,164,42,0.08);
-      color: #9a7015;
-      border: 1px solid rgba(212,164,42,0.15);
+      background: rgba(194,61,122,0.08);
+      color: var(--pink);
+      border: 1px solid rgba(194,61,122,0.2);
     }
 
-    /* ── FOOTER ──────────────────────────────── */
+    /* ── FOOTER ───────────────────────────────── */
     .footer {
-      border-top: 1px solid var(--border);
+      border-top: 1px solid rgba(1,118,211,0.15);
       padding: 20px 48px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 8px;
+      background: rgba(255,255,255,0.4);
     }
     .footer-l {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--faint);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--navy);
     }
-    .footer-r { font-size: 12px; color: var(--faint); }
+    .footer-r { font-size: 12px; color: var(--dim); }
 
     @media (max-width: 640px) {
-      .header { padding: 36px 20px 28px; }
-      .tabs { padding: 0 8px; }
-      .tab { padding: 0 14px; }
-      .body { padding: 28px 20px 60px; }
-      .footer { padding: 18px 20px; }
+      .header { padding: 30px 20px 28px; }
+      .nav { padding: 0 6px; }
+      .nav-tab { padding: 0 12px; font-size: 12.5px; }
+      .nav-sub { display: none; }
+      .body { padding: 24px 16px 60px; }
+      .day-section { flex-direction: column; gap: 10px; }
+      .day-block { min-width: unset; display: flex; gap: 10px; align-items: center; padding: 12px 16px; position: static; }
+      .db-dow { margin: 0; }
+      .footer { padding: 16px 20px; }
     }
   </style>
 </head>
@@ -313,330 +316,356 @@
 
 <!-- HEADER -->
 <div class="header">
-  <div class="brand">
-    <div class="brand-mark">PP</div>
-    <span class="brand-name">ParksPro</span>
+  <div class="df-logo">
+    <svg class="df-cloud" viewBox="0 0 100 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M41.5 14C44.8 10.5 49.4 8.5 54.5 8.5C63.8 8.5 71.5 15.2 72.8 24C74 23.5 75.3 23.3 76.6 23.3C83 23.3 88.2 28.5 88.2 35C88.2 41.4 83 46.6 76.6 46.6H25C18.4 46.6 13 41.2 13 34.6C13 28.3 17.9 23.1 24.2 22.7C23.6 21.3 23.3 19.8 23.3 18.3C23.3 11.5 28.8 6 35.6 6C37.8 6 39.8 6.6 41.5 7.8" fill="#0176d3"/>
+    </svg>
+    <span class="df-logo-text">Dreamforce</span>
   </div>
-  <div class="h-title">Dreamforce 2025</div>
-  <div class="h-meta">September 15–17 &nbsp;·&nbsp; Moscone Center, San Francisco</div>
-  <div class="attendees">
-    <div class="attendee">
-      <span class="a-dot" style="background:var(--revenue)"></span>
-      Mark <span class="a-sub">Executive Track</span>
+  <div class="h-eyebrow">A Guide for ParksPro</div>
+  <div class="h-title">3 Perfect Days at <span class="df-word">Dreamforce</span></div>
+  <div class="h-sub">September 15–17, 2026 &nbsp;·&nbsp; San Francisco, CA</div>
+  <div class="attendee-row">
+    <div class="att-chip">
+      <span class="att-dot" style="background:#0176d3"></span>
+      Mark <span class="att-sub">&nbsp;Executive Track</span>
     </div>
-    <div class="attendee">
-      <span class="a-dot" style="background:var(--slack)"></span>
-      Sarah <span class="a-sub">Hands-On Training</span>
+    <div class="att-chip">
+      <span class="att-dot" style="background:#9370f0"></span>
+      Sarah <span class="att-sub">&nbsp;Hands-On Training</span>
     </div>
-    <div class="attendee">
-      <span class="a-dot" style="background:var(--marketing)"></span>
-      Mary Cole <span class="a-sub">Marketing Track</span>
+    <div class="att-chip">
+      <span class="att-dot" style="background:#04c4b2"></span>
+      Mary Cole <span class="att-sub">&nbsp;Marketing Track</span>
     </div>
   </div>
 </div>
 
-<!-- TABS -->
-<div class="tabs">
-  <button class="tab tab-m on"  onclick="go('m',this)">
-    <span class="t-pip"></span> Mark
+<!-- NAV -->
+<nav class="nav">
+  <button class="nav-tab on" onclick="go('m',this)">
+    Mark <span class="nav-sub">Executive</span>
   </button>
-  <button class="tab tab-s"     onclick="go('s',this)">
-    <span class="t-pip"></span> Sarah
+  <button class="nav-tab" onclick="go('s',this)">
+    Sarah <span class="nav-sub">Hands-On</span>
   </button>
-  <button class="tab tab-mc"    onclick="go('mc',this)">
-    <span class="t-pip"></span> Mary Cole
+  <button class="nav-tab" onclick="go('mc',this)">
+    Mary Cole <span class="nav-sub">Marketing</span>
   </button>
-</div>
+</nav>
 
 <!-- BODY -->
 <div class="body">
 
-  <!-- ═══ MARK ═══════════════════════════════════════ -->
+  <!-- ════ MARK ════ -->
   <div class="panel on" id="p-m">
-    <div class="legend">
-      <div class="leg-item"><span class="leg-pip" style="background:var(--keynote)"></span>Keynote</div>
-      <div class="leg-item"><span class="leg-pip" style="background:var(--revenue)"></span>Revenue / ARM</div>
-      <div class="leg-item"><span class="leg-pip" style="background:var(--slack)"></span>Slack</div>
-      <div class="leg-item"><span class="leg-pip" style="background:var(--qualified)"></span>Qualified</div>
-      <div class="leg-item"><span class="leg-pip" style="background:var(--marketing)"></span>Marketing</div>
-    </div>
 
-    <div class="day">
-      <div class="day-head">
-        <span class="day-label">Mon &nbsp;·&nbsp; Sept 15</span>
-        <span class="day-rule"></span>
-        <span class="day-cnt">6 sessions</span>
+    <div class="day-section">
+      <div class="day-block">
+        <div class="db-day">Day 1</div>
+        <div class="db-dow">Tuesday</div>
+        <div class="db-date">Sept. 15</div>
       </div>
-      <div class="sessions">
-        <div class="card keynote">
-          <div class="c-time">10:00 – 12:00 PM</div>
-          <div class="c-title">Dreamforce Main Keynote</div>
+      <div class="sessions-col">
+        <div class="session keynote">
+          <div class="s-top"><span class="s-star">✦</span><span class="s-type">Keynote</span></div>
+          <div class="s-title">Dreamforce Main Keynote</div>
+          <div class="s-meta">10:00 AM <span class="s-sep">|</span> 120 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card revenue">
-          <div class="c-time">12:30 – 1:30 PM</div>
-          <div class="c-title">Agent Driven Revenue Management: Build, Solve, Orchestrate</div>
-          <span class="c-note">also offered at 2:30 PM</span>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">Agent Driven Revenue Management: Build, Solve, Orchestrate</div>
+          <div class="s-meta">12:30 PM <span class="s-sep">|</span> 60 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
+          <span class="s-note">also offered at 2:30 PM</span>
         </div>
-        <div class="card revenue">
-          <div class="c-time">1:00 – 2:00 PM</div>
-          <div class="c-title">Order Management Roadmap: Meet the First Agentic OMS</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">Order Management Roadmap: Meet the First Agentic OMS</div>
+          <div class="s-meta">1:00 PM <span class="s-sep">|</span> 60 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card revenue">
-          <div class="c-time">1:30 – 2:10 PM</div>
-          <div class="c-title">Starting, Scaling, Maturing: ARM</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">Starting, Scaling, Maturing: ARM</div>
+          <div class="s-meta">1:30 PM <span class="s-sep">|</span> 40 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card revenue">
-          <div class="c-time">2:30 – 3:30 PM</div>
-          <div class="c-title">Agent Driven Quote to Order</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">Agent Driven Quote to Order</div>
+          <div class="s-meta">2:30 PM <span class="s-sep">|</span> 60 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card slack">
-          <div class="c-time">3:30 – 4:30 PM</div>
-          <div class="c-title">Unlock Slack's Latest AI Innovations</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="day">
-      <div class="day-head">
-        <span class="day-label">Tue &nbsp;·&nbsp; Sept 16</span>
-        <span class="day-rule"></span>
-        <span class="day-cnt">2 sessions</span>
-      </div>
-      <div class="sessions">
-        <div class="card qualified">
-          <div class="c-time">11:00 – 11:20 AM</div>
-          <div class="c-title">How Salesforce Activated Qualified in 30 Days</div>
-        </div>
-        <div class="card keynote">
-          <div class="c-time">4:00 – 4:50 PM</div>
-          <div class="c-title">The Qualified Keynote</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">Unlock Slack's Latest AI Innovations</div>
+          <div class="s-meta">3:30 PM <span class="s-sep">|</span> 60 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
       </div>
     </div>
 
-    <div class="day">
-      <div class="day-head">
-        <span class="day-label">Wed &nbsp;·&nbsp; Sept 17</span>
-        <span class="day-rule"></span>
-        <span class="day-cnt">4 sessions</span>
+    <div class="day-section">
+      <div class="day-block">
+        <div class="db-day">Day 2</div>
+        <div class="db-dow">Wednesday</div>
+        <div class="db-date">Sept. 16</div>
       </div>
-      <div class="sessions">
-        <div class="card slack">
-          <div class="c-time">8:30 – 8:50 AM</div>
-          <div class="c-title">Slack as Your Interface for Your AI Headless Strategy</div>
+      <div class="sessions-col">
+        <div class="session">
+          <div class="s-top"><span class="s-type">Theater</span></div>
+          <div class="s-title">How Salesforce Activated Qualified in 30 Days</div>
+          <div class="s-meta">11:00 AM <span class="s-sep">|</span> 20 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card marketing">
-          <div class="c-time">8:30 – 9:10 AM</div>
-          <div class="c-title">Grow Revenue with Agentic B2B Marketing and Sales</div>
-        </div>
-        <div class="card keynote">
-          <div class="c-time">11:30 AM – 12:20 PM</div>
-          <div class="c-title">The Marketing Keynote</div>
-        </div>
-        <div class="card qualified">
-          <div class="c-time">2:00 – 2:20 PM</div>
-          <div class="c-title">How Salesforce Activated Qualified in 30 Days</div>
+        <div class="session keynote">
+          <div class="s-top"><span class="s-star">✦</span><span class="s-type">Keynote</span></div>
+          <div class="s-title">The Qualified Keynote</div>
+          <div class="s-meta">4:00 PM <span class="s-sep">|</span> 50 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
       </div>
     </div>
+
+    <div class="day-section">
+      <div class="day-block">
+        <div class="db-day">Day 3</div>
+        <div class="db-dow">Thursday</div>
+        <div class="db-date">Sept. 17</div>
+      </div>
+      <div class="sessions-col">
+        <div class="session">
+          <div class="s-top"><span class="s-type">Theater</span></div>
+          <div class="s-title">Slack as Your Interface for Your AI Headless Strategy</div>
+          <div class="s-meta">8:30 AM <span class="s-sep">|</span> 20 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
+        </div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">Grow Revenue with Agentic B2B Marketing and Sales</div>
+          <div class="s-meta">8:30 AM <span class="s-sep">|</span> 40 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
+        </div>
+        <div class="session keynote">
+          <div class="s-top"><span class="s-star">✦</span><span class="s-type">Keynote</span></div>
+          <div class="s-title">The Marketing Keynote</div>
+          <div class="s-meta">11:30 AM <span class="s-sep">|</span> 50 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
+        </div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Theater</span></div>
+          <div class="s-title">How Salesforce Activated Qualified in 30 Days</div>
+          <div class="s-meta">2:00 PM <span class="s-sep">|</span> 20 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
+        </div>
+      </div>
+    </div>
+
   </div><!-- /mark -->
 
 
-  <!-- ═══ SARAH ══════════════════════════════════════ -->
+  <!-- ════ SARAH ════ -->
   <div class="panel" id="p-s">
-    <div class="legend">
-      <div class="leg-item"><span class="leg-pip" style="background:var(--keynote)"></span>Keynote</div>
-      <div class="leg-item"><span class="leg-pip" style="background:var(--revenue)"></span>Revenue / ARM</div>
-      <div class="leg-item"><span class="leg-pip" style="background:var(--slack)"></span>Slack</div>
-      <div class="leg-item"><span class="leg-pip" style="background:var(--qualified)"></span>Qualified</div>
-    </div>
 
-    <div class="day">
-      <div class="day-head">
-        <span class="day-label">Mon &nbsp;·&nbsp; Sept 15</span>
-        <span class="day-rule"></span>
-        <span class="day-cnt">4 sessions</span>
+    <div class="day-section">
+      <div class="day-block">
+        <div class="db-day">Day 1</div>
+        <div class="db-dow">Tuesday</div>
+        <div class="db-date">Sept. 15</div>
       </div>
-      <div class="sessions">
-        <div class="card keynote">
-          <div class="c-time">10:00 – 12:00 PM</div>
-          <div class="c-title">Dreamforce Main Keynote</div>
+      <div class="sessions-col">
+        <div class="session keynote">
+          <div class="s-top"><span class="s-star">✦</span><span class="s-type">Keynote</span></div>
+          <div class="s-title">Dreamforce Main Keynote</div>
+          <div class="s-meta">10:00 AM <span class="s-sep">|</span> 120 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card revenue">
-          <div class="c-time">1:00 – 2:00 PM</div>
-          <div class="c-title">Order Management Roadmap: Meet the First Agentic OMS</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">Order Management Roadmap: Meet the First Agentic OMS</div>
+          <div class="s-meta">1:00 PM <span class="s-sep">|</span> 60 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card revenue">
-          <div class="c-time">1:30 – 2:10 PM</div>
-          <div class="c-title">Starting, Scaling, Maturing: ARM</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">Starting, Scaling, Maturing: ARM</div>
+          <div class="s-meta">1:30 PM <span class="s-sep">|</span> 40 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card slack">
-          <div class="c-time">3:30 – 4:30 PM</div>
-          <div class="c-title">Unlock Slack's Latest AI Innovations</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">Unlock Slack's Latest AI Innovations</div>
+          <div class="s-meta">3:30 PM <span class="s-sep">|</span> 60 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
       </div>
     </div>
 
-    <div class="day">
-      <div class="day-head">
-        <span class="day-label">Tue &nbsp;·&nbsp; Sept 16</span>
-        <span class="day-rule"></span>
-        <span class="day-cnt">4 sessions</span>
+    <div class="day-section">
+      <div class="day-block">
+        <div class="db-day">Day 2</div>
+        <div class="db-dow">Wednesday</div>
+        <div class="db-date">Sept. 16</div>
       </div>
-      <div class="sessions">
-        <div class="card slack">
-          <div class="c-time">9:00 – 10:00 AM</div>
-          <div class="c-title">Headless 101: Rethinking How Teams Work in Slack</div>
+      <div class="sessions-col">
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">Headless 101: Rethinking How Teams Work in Slack</div>
+          <div class="s-meta">9:00 AM <span class="s-sep">|</span> 60 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card qualified">
-          <div class="c-time">11:00 – 11:20 AM</div>
-          <div class="c-title">How Salesforce Activated Qualified in 30 Days</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Theater</span></div>
+          <div class="s-title">How Salesforce Activated Qualified in 30 Days</div>
+          <div class="s-meta">11:00 AM <span class="s-sep">|</span> 20 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card revenue">
-          <div class="c-time">1:30 – 2:10 PM</div>
-          <div class="c-title">2 Keys to Unlock Trusted AI With Context Rich Data</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">2 Keys to Unlock Trusted AI With Context Rich Data</div>
+          <div class="s-meta">1:30 PM <span class="s-sep">|</span> 40 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card keynote">
-          <div class="c-time">4:00 – 4:50 PM</div>
-          <div class="c-title">The Qualified Keynote</div>
+        <div class="session keynote">
+          <div class="s-top"><span class="s-star">✦</span><span class="s-type">Keynote</span></div>
+          <div class="s-title">The Qualified Keynote</div>
+          <div class="s-meta">4:00 PM <span class="s-sep">|</span> 50 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
       </div>
     </div>
 
-    <div class="day">
-      <div class="day-head">
-        <span class="day-label">Wed &nbsp;·&nbsp; Sept 17</span>
-        <span class="day-rule"></span>
-        <span class="day-cnt">3 sessions</span>
+    <div class="day-section">
+      <div class="day-block">
+        <div class="db-day">Day 3</div>
+        <div class="db-dow">Thursday</div>
+        <div class="db-date">Sept. 17</div>
       </div>
-      <div class="sessions">
-        <div class="card slack">
-          <div class="c-time">8:30 – 8:50 AM</div>
-          <div class="c-title">Slack as Your Interface for Your AI Headless Strategy</div>
+      <div class="sessions-col">
+        <div class="session">
+          <div class="s-top"><span class="s-type">Theater</span></div>
+          <div class="s-title">Slack as Your Interface for Your AI Headless Strategy</div>
+          <div class="s-meta">8:30 AM <span class="s-sep">|</span> 20 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card keynote">
-          <div class="c-time">11:30 AM – 12:20 PM</div>
-          <div class="c-title">The Marketing Keynote</div>
+        <div class="session keynote">
+          <div class="s-top"><span class="s-star">✦</span><span class="s-type">Keynote</span></div>
+          <div class="s-title">The Marketing Keynote</div>
+          <div class="s-meta">11:30 AM <span class="s-sep">|</span> 50 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card qualified">
-          <div class="c-time">2:00 – 2:20 PM</div>
-          <div class="c-title">How Salesforce Activated Qualified in 30 Days</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Theater</span></div>
+          <div class="s-title">How Salesforce Activated Qualified in 30 Days</div>
+          <div class="s-meta">2:00 PM <span class="s-sep">|</span> 20 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
       </div>
     </div>
+
   </div><!-- /sarah -->
 
 
-  <!-- ═══ MARY COLE ═══════════════════════════════════ -->
+  <!-- ════ MARY COLE ════ -->
   <div class="panel" id="p-mc">
-    <div class="legend">
-      <div class="leg-item"><span class="leg-pip" style="background:var(--keynote)"></span>Keynote</div>
-      <div class="leg-item"><span class="leg-pip" style="background:var(--marketing)"></span>Marketing</div>
-      <div class="leg-item"><span class="leg-pip" style="background:var(--qualified)"></span>Qualified</div>
-      <div class="leg-item"><span class="leg-pip" style="background:var(--revenue)"></span>Revenue</div>
-      <div class="leg-item"><span class="leg-pip" style="background:var(--slack)"></span>Slack</div>
-    </div>
 
-    <div class="day">
-      <div class="day-head">
-        <span class="day-label">Mon &nbsp;·&nbsp; Sept 15</span>
-        <span class="day-rule"></span>
-        <span class="day-cnt">3 sessions</span>
+    <div class="day-section">
+      <div class="day-block">
+        <div class="db-day">Day 1</div>
+        <div class="db-dow">Tuesday</div>
+        <div class="db-date">Sept. 15</div>
       </div>
-      <div class="sessions">
-        <div class="card keynote">
-          <div class="c-time">10:00 – 12:00 PM</div>
-          <div class="c-title">Dreamforce Main Keynote</div>
+      <div class="sessions-col">
+        <div class="session keynote">
+          <div class="s-top"><span class="s-star">✦</span><span class="s-type">Keynote</span></div>
+          <div class="s-title">Dreamforce Main Keynote</div>
+          <div class="s-meta">10:00 AM <span class="s-sep">|</span> 120 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card marketing">
-          <div class="c-time">2:30 – 3:10 PM</div>
-          <div class="c-title">Agentic Marketing System: Design Experiences Not Journeys</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">Agentic Marketing System: Design Experiences Not Journeys</div>
+          <div class="s-meta">2:30 PM <span class="s-sep">|</span> 40 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card slack">
-          <div class="c-time">3:30 – 4:30 PM</div>
-          <div class="c-title">Unlock Slack's Latest AI Innovations</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">Unlock Slack's Latest AI Innovations</div>
+          <div class="s-meta">3:30 PM <span class="s-sep">|</span> 60 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
       </div>
     </div>
 
-    <div class="day">
-      <div class="day-head">
-        <span class="day-label">Tue &nbsp;·&nbsp; Sept 16</span>
-        <span class="day-rule"></span>
-        <span class="day-cnt">6 sessions</span>
+    <div class="day-section">
+      <div class="day-block">
+        <div class="db-day">Day 2</div>
+        <div class="db-dow">Wednesday</div>
+        <div class="db-date">Sept. 16</div>
       </div>
-      <div class="sessions">
-        <div class="card marketing">
-          <div class="c-time">8:00 – 9:00 AM</div>
-          <div class="c-title">Get Started With Marketing Cloud Next</div>
-          <span class="c-note">choose: also Sept 17 at 8 AM</span>
+      <div class="sessions-col">
+        <div class="session">
+          <div class="s-top"><span class="s-type">Workshop</span></div>
+          <div class="s-title">Get Started With Marketing Cloud Next</div>
+          <div class="s-meta">8:00 AM <span class="s-sep">|</span> 60 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
+          <span class="s-note">choose: also Sept. 17 at 8 AM</span>
         </div>
-        <div class="card marketing">
-          <div class="c-time">10:00 – 11:00 AM</div>
-          <div class="c-title">Agent Marketing: Frameworks, Pitfalls and Insights</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">Agent Marketing: Frameworks, Pitfalls and Insights</div>
+          <div class="s-meta">10:00 AM <span class="s-sep">|</span> 60 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card qualified">
-          <div class="c-time">11:00 – 11:20 AM</div>
-          <div class="c-title">How Salesforce Activated Qualified in 30 Days</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Theater</span></div>
+          <div class="s-title">How Salesforce Activated Qualified in 30 Days</div>
+          <div class="s-meta">11:00 AM <span class="s-sep">|</span> 20 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card marketing">
-          <div class="c-time">12:00 – 1:00 PM</div>
-          <div class="c-title">From Data to AI Delivery: Let's Talk Personalization</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">From Data to AI Delivery: Let's Talk Personalization</div>
+          <div class="s-meta">12:00 PM <span class="s-sep">|</span> 60 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card revenue">
-          <div class="c-time">2:30 – 3:30 PM</div>
-          <div class="c-title">Build Your Business Case for an AI SDR</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">Build Your Business Case for an AI SDR</div>
+          <div class="s-meta">2:30 PM <span class="s-sep">|</span> 60 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card keynote">
-          <div class="c-time">4:00 – 4:50 PM</div>
-          <div class="c-title">The Qualified Keynote</div>
+        <div class="session keynote">
+          <div class="s-top"><span class="s-star">✦</span><span class="s-type">Keynote</span></div>
+          <div class="s-title">The Qualified Keynote</div>
+          <div class="s-meta">4:00 PM <span class="s-sep">|</span> 50 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
       </div>
     </div>
 
-    <div class="day">
-      <div class="day-head">
-        <span class="day-label">Wed &nbsp;·&nbsp; Sept 17</span>
-        <span class="day-rule"></span>
-        <span class="day-cnt">5 sessions</span>
+    <div class="day-section">
+      <div class="day-block">
+        <div class="db-day">Day 3</div>
+        <div class="db-dow">Thursday</div>
+        <div class="db-date">Sept. 17</div>
       </div>
-      <div class="sessions">
-        <div class="card marketing">
-          <div class="c-time">8:00 – 9:00 AM</div>
-          <div class="c-title">Get Started With Marketing Cloud Next</div>
-          <span class="c-note">choose: also Sept 16 at 8 AM</span>
+      <div class="sessions-col">
+        <div class="session">
+          <div class="s-top"><span class="s-type">Workshop</span></div>
+          <div class="s-title">Get Started With Marketing Cloud Next</div>
+          <div class="s-meta">8:00 AM <span class="s-sep">|</span> 60 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
+          <span class="s-note">choose: also Sept. 16 at 8 AM</span>
         </div>
-        <div class="card marketing">
-          <div class="c-time">8:30 – 9:10 AM</div>
-          <div class="c-title">Grow Revenue with Agentic B2B Marketing and Sales</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">Grow Revenue with Agentic B2B Marketing and Sales</div>
+          <div class="s-meta">8:30 AM <span class="s-sep">|</span> 40 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card keynote">
-          <div class="c-time">11:30 AM – 12:20 PM</div>
-          <div class="c-title">The Marketing Keynote</div>
+        <div class="session keynote">
+          <div class="s-top"><span class="s-star">✦</span><span class="s-type">Keynote</span></div>
+          <div class="s-title">The Marketing Keynote</div>
+          <div class="s-meta">11:30 AM <span class="s-sep">|</span> 50 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card qualified">
-          <div class="c-time">2:00 – 2:20 PM</div>
-          <div class="c-title">How Salesforce Activated Qualified in 30 Days</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Theater</span></div>
+          <div class="s-title">How Salesforce Activated Qualified in 30 Days</div>
+          <div class="s-meta">2:00 PM <span class="s-sep">|</span> 20 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
-        <div class="card marketing">
-          <div class="c-time">2:30 – 3:30 PM</div>
-          <div class="c-title">Building the Case for Agentic Marketing</div>
+        <div class="session">
+          <div class="s-top"><span class="s-type">Breakout</span></div>
+          <div class="s-title">Building the Case for Agentic Marketing</div>
+          <div class="s-meta">2:30 PM <span class="s-sep">|</span> 60 min <span class="s-sep">|</span> <span class="s-pin">📍</span> Moscone West</div>
         </div>
       </div>
     </div>
+
   </div><!-- /mary -->
 
 </div><!-- /body -->
 
 <div class="footer">
-  <div class="footer-l">ParksPro &nbsp;·&nbsp; Dreamforce 2025 &nbsp;·&nbsp; SF</div>
+  <div class="footer-l">
+    <svg width="18" height="14" viewBox="0 0 100 70" fill="none"><path d="M41.5 14C44.8 10.5 49.4 8.5 54.5 8.5C63.8 8.5 71.5 15.2 72.8 24C74 23.5 75.3 23.3 76.6 23.3C83 23.3 88.2 28.5 88.2 35C88.2 41.4 83 46.6 76.6 46.6H25C18.4 46.6 13 41.2 13 34.6C13 28.3 17.9 23.1 24.2 22.7C23.6 21.3 23.3 19.8 23.3 18.3C23.3 11.5 28.8 6 35.6 6C37.8 6 39.8 6.6 41.5 7.8" fill="#0176d3"/></svg>
+    ParksPro &nbsp;·&nbsp; Dreamforce 2026
+  </div>
   <div class="footer-r">Curated by Anthony Troggio, Salesforce</div>
 </div>
 
 <script>
   function go(id, btn) {
     document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
-    document.querySelectorAll('.tab').forEach(b => b.classList.remove('on'));
+    document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('on'));
     document.getElementById('p-' + id).classList.add('on');
     btn.classList.add('on');
   }
