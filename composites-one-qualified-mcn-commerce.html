@@ -225,6 +225,88 @@ body {
 }
 .cs-item-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
 
+/* ── LIVE FEED — Qualified ── */
+.live-feed-panel {
+  background: var(--panel); border: 1px solid rgba(255,255,255,.08);
+  border-radius: 20px; overflow: hidden; width: 100%;
+}
+.lf-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 13px 18px; border-bottom: 1px solid rgba(255,255,255,.06);
+  background: rgba(14,165,233,.05);
+}
+.lf-live-dot {
+  width: 7px; height: 7px; border-radius: 50%; background: #22c55e;
+  flex-shrink: 0; animation: pulse-live 1.5s ease-in-out infinite;
+}
+@keyframes pulse-live {
+  0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,.6); }
+  50% { box-shadow: 0 0 0 5px rgba(34,197,94,0); }
+}
+.lf-live-text {
+  font-family: var(--mono); font-size: .58rem; font-weight: 700;
+  letter-spacing: .18em; color: #22c55e;
+}
+.lf-product { font-size: .72rem; color: var(--dim); margin-left: 4px; }
+.lf-cards { padding: 10px; min-height: 230px; }
+.lf-card {
+  background: var(--faint); border: 1px solid rgba(255,255,255,.07);
+  border-radius: 10px; padding: 12px 14px; margin-bottom: 8px;
+  opacity: 0; transform: translateX(16px);
+  transition: opacity .35s ease, transform .35s ease, border-color .4s ease;
+}
+.lf-card:last-child { margin-bottom: 0; }
+.lf-card.entering { opacity: 1; transform: translateX(0); }
+.lf-card.routed { border-color: rgba(14,165,233,.22); }
+.lf-card.fading { opacity: .35; }
+.lf-card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.lf-avatar {
+  width: 30px; height: 30px; border-radius: 7px; flex-shrink: 0;
+  background: rgba(14,165,233,.15); border: 1px solid rgba(14,165,233,.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .68rem; font-weight: 800; color: var(--blue);
+}
+.lf-co { font-size: .82rem; font-weight: 700; line-height: 1.2; }
+.lf-loc { font-size: .68rem; color: var(--dim); }
+.lf-badge {
+  margin-left: auto; padding: 2px 7px; border-radius: 20px; flex-shrink: 0;
+  font-family: var(--mono); font-size: .55rem; font-weight: 700; letter-spacing: .1em;
+}
+.badge-hot { background: rgba(239,68,68,.12); color: #ef4444; border: 1px solid rgba(239,68,68,.18); }
+.badge-warm { background: rgba(245,158,11,.12); color: var(--gold); border: 1px solid rgba(245,158,11,.18); }
+.lf-page {
+  font-size: .7rem; color: var(--dim); margin-bottom: 8px;
+  padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,.05);
+}
+.lf-page span { color: rgba(232,242,251,.7); }
+.lf-route { display: flex; align-items: center; gap: 6px; font-size: .7rem; }
+.lf-route-label { color: var(--dim); }
+.lf-route-dots { display: flex; gap: 3px; align-items: center; }
+.lf-route-dots b {
+  width: 4px; height: 4px; border-radius: 50%; background: var(--dim);
+  display: block; animation: rdot 1s ease infinite;
+}
+.lf-route-dots b:nth-child(2) { animation-delay: .15s; }
+.lf-route-dots b:nth-child(3) { animation-delay: .3s; }
+@keyframes rdot { 0%,80%,100%{opacity:.25} 40%{opacity:1} }
+.lf-route-dots.done { display: none; }
+.lf-route-rep {
+  color: var(--blue); font-weight: 700;
+  opacity: 0; transition: opacity .5s ease;
+}
+.lf-card.routed .lf-route-rep { opacity: 1; }
+.lf-stat-bar {
+  display: flex; padding: 12px 16px; gap: 8px;
+  border-top: 1px solid rgba(255,255,255,.06);
+  background: rgba(14,165,233,.04);
+}
+.lf-stat-item { flex: 1; text-align: center; }
+.lf-stat-num {
+  display: block; font-size: 1.55rem; font-weight: 800;
+  color: var(--blue); letter-spacing: -.04em; line-height: 1;
+}
+.lf-stat-lbl { display: block; font-size: .62rem; color: var(--dim); margin-top: 3px; line-height: 1.3; }
+
 /* ═══════════════════════════════════════
    SLIDE 7 — WHY NOW
 ═══════════════════════════════════════ */
@@ -419,22 +501,21 @@ body {
       </ul>
     </div>
     <div class="cap-right">
-      <div class="cap-stat-card">
-        <div class="cs-num" style="color:var(--blue)">3x</div>
-        <div class="cs-label">more pipeline from the website traffic you are already getting</div>
-        <div class="cs-divider"></div>
-        <div class="cs-items">
-          <div class="cs-item">
-            <span class="cs-item-dot" style="background:var(--blue)"></span>
-            Aerospace OEM in Hartford viewing prepreg pages, 3rd visit this week
+      <div class="live-feed-panel">
+        <div class="lf-header">
+          <span class="lf-live-dot"></span>
+          <span class="lf-live-text">LIVE</span>
+          <span class="lf-product">Qualified &nbsp;·&nbsp; Composites One</span>
+        </div>
+        <div class="lf-cards" id="lfCards"></div>
+        <div class="lf-stat-bar">
+          <div class="lf-stat-item">
+            <span class="lf-stat-num">3x</span>
+            <span class="lf-stat-lbl">more pipeline from existing traffic</span>
           </div>
-          <div class="cs-item">
-            <span class="cs-item-dot" style="background:var(--green)"></span>
-            Marine fabricator in Ft. Lauderdale, new visitor, resin + gelcoat
-          </div>
-          <div class="cs-item">
-            <span class="cs-item-dot" style="background:var(--gold)"></span>
-            Wind manufacturer in Sioux Falls, 22 minutes, high intent
+          <div class="lf-stat-item">
+            <span class="lf-stat-num">&lt;4m</span>
+            <span class="lf-stat-lbl">avg rep response time</span>
           </div>
         </div>
       </div>
@@ -654,6 +735,70 @@ body {
   });
 
   goTo(0);
+
+  // ── Qualified live feed animation ──
+  const lfVisitors = [
+    { co: 'GE Aerospace', loc: 'Evendale, OH', page: 'Prepreg Materials', visits: '3rd visit this week', score: 'HOT', rep: 'Sarah K.  ·  Cincinnati' },
+    { co: 'Nor-Sea Marine', loc: 'Fort Lauderdale, FL', page: 'Resin & Gelcoat', visits: 'New visitor', score: 'WARM', rep: 'Mike R.  ·  Miami' },
+    { co: 'TPI Composites', loc: 'Warren, RI', page: 'Structural Core', visits: '2nd visit', score: 'HOT', rep: 'Dave L.  ·  Providence' },
+    { co: 'Kratos Defense', loc: 'San Diego, CA', page: 'Carbon Fiber Tow', visits: 'New visitor', score: 'WARM', rep: 'Jen T.  ·  LA West' },
+    { co: 'Vestas Americas', loc: 'Portland, OR', page: 'Wind Infusion Kits', visits: '4th visit this week', score: 'HOT', rep: 'Chris P.  ·  Seattle' },
+  ];
+
+  let lfIdx = 0;
+  const lfActiveCards = [];
+  const lfContainer = document.getElementById('lfCards');
+  const LF_MAX = 3;
+
+  function lfInitials(name) {
+    return name.split(' ').slice(0, 2).map(function(w){ return w[0]; }).join('');
+  }
+
+  function lfAddCard() {
+    const v = lfVisitors[lfIdx % lfVisitors.length];
+    lfIdx++;
+
+    // fade out oldest when at max
+    if (lfActiveCards.length >= LF_MAX) {
+      const old = lfActiveCards.shift();
+      old.classList.add('fading');
+      setTimeout(function(){ if (old.parentNode) old.parentNode.removeChild(old); }, 400);
+    }
+
+    const card = document.createElement('div');
+    card.className = 'lf-card';
+    card.innerHTML =
+      '<div class="lf-card-top">' +
+        '<div class="lf-avatar">' + lfInitials(v.co) + '</div>' +
+        '<div><div class="lf-co">' + v.co + '</div><div class="lf-loc">' + v.loc + '</div></div>' +
+        '<div class="lf-badge ' + (v.score === 'HOT' ? 'badge-hot' : 'badge-warm') + '">' + v.score + '</div>' +
+      '</div>' +
+      '<div class="lf-page">Browsing: <span>' + v.page + '</span> &nbsp;&middot;&nbsp; ' + v.visits + '</div>' +
+      '<div class="lf-route">' +
+        '<span class="lf-route-label">Routing to</span>' +
+        '<div class="lf-route-dots"><b></b><b></b><b></b></div>' +
+        '<span class="lf-route-rep">' + v.rep + '</span>' +
+      '</div>';
+
+    lfContainer.appendChild(card);
+    lfActiveCards.push(card);
+
+    // trigger enter transition
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ card.classList.add('entering'); });
+    });
+
+    // route after 1.8s
+    setTimeout(function(){
+      card.classList.add('routed');
+      var dots = card.querySelector('.lf-route-dots');
+      if (dots) dots.classList.add('done');
+    }, 1800);
+
+    setTimeout(lfAddCard, 3400);
+  }
+
+  setTimeout(lfAddCard, 600);
 </script>
 </body>
 </html>
