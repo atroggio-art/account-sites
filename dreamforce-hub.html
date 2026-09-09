@@ -16,6 +16,7 @@
   --violet:#8657FF;
   --coral:#FF6E4E;
   --green:#04844B;
+  --teal:#007B83;
   --navy:#0B1739;
   --navy-mid:#13224D;
   --text:#1C2A4A;
@@ -247,7 +248,7 @@ body::before{
    ============================================================ */
 .switcher{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(5,1fr);
   background:#F0F5FF;
   border-top:none;
   gap:0;
@@ -292,6 +293,8 @@ body::before{
 .pcard.active.p-sarah{ border-bottom-color:var(--violet); }
 .pcard.active.p-mary{ border-bottom-color:var(--coral); }
 .pcard.active.p-oliver{ border-bottom-color:var(--green); }
+.pcard.active.p-map{ border-bottom-color:var(--teal); }
+.pcard.active.p-map::before{ background:var(--teal); }
 
 /* Avatar */
 .p-avatar{
@@ -314,6 +317,7 @@ body::before{
 .p-sarah .p-avatar{ background:linear-gradient(135deg,#8657FF,#B48CFF); }
 .p-mary .p-avatar{ background:linear-gradient(135deg,#FF6E4E,#FF9166); }
 .p-oliver .p-avatar{ background:linear-gradient(135deg,#04844B,#09C26B); }
+.p-map .p-avatar{ background:linear-gradient(135deg,#007B83,#00B5C0); }
 
 .p-role-tag{
   font-size:9.5px;
@@ -326,6 +330,7 @@ body::before{
 .p-sarah .p-role-tag{ color:var(--violet); }
 .p-mary .p-role-tag{ color:var(--coral); }
 .p-oliver .p-role-tag{ color:var(--green); }
+.p-map .p-role-tag{ color:var(--teal); }
 
 .p-name{
   font-family:'Poppins',sans-serif;
@@ -369,6 +374,94 @@ body::before{
 .panel.v-sarah{ --accent:var(--violet); --accent-tint:#F3EFFF; --accent-line:#C4AFFF; --accent-mid:#8657FF; }
 .panel.v-mary{ --accent:var(--coral); --accent-tint:#FFF0ED; --accent-line:#FFBDAC; --accent-mid:#FF6E4E; }
 .panel.v-oliver{ --accent:var(--green); --accent-tint:#E8F7F1; --accent-line:#8DD5B1; --accent-mid:#04844B; }
+.panel.v-map{ --accent:var(--teal); --accent-tint:#E3F8F9; --accent-line:#8DD5D8; --accent-mid:#007B83; }
+
+/* Map panel specific */
+.map-img-wrap{
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  margin-bottom:28px;
+  background:#EEF6F7;
+  max-height:520px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.map-img-wrap img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+.map-key-title{
+  font-family:'Poppins',sans-serif;
+  font-size:18px;
+  font-weight:700;
+  color:var(--navy);
+  margin-bottom:16px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.map-key-title::after{
+  content:"";
+  flex:1;
+  height:1px;
+  background:var(--line);
+}
+.map-key-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.map-key-item{
+  display:flex;
+  align-items:flex-start;
+  gap:11px;
+  padding:12px 14px;
+  border-radius:12px;
+  border:1px solid var(--line);
+  background:#FAFCFF;
+  transition:background 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+.map-key-item:hover{
+  background:var(--accent-tint);
+  border-color:var(--accent-line);
+  box-shadow:0 2px 8px rgba(0,123,131,0.08);
+}
+.map-num{
+  width:28px; height:28px;
+  border-radius:50%;
+  background:var(--navy);
+  color:#fff;
+  font-family:'Poppins',sans-serif;
+  font-size:12px;
+  font-weight:700;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  margin-top:1px;
+}
+.map-key-text{}
+.map-venue{
+  font-size:12.5px;
+  font-weight:700;
+  color:var(--navy);
+  line-height:1.3;
+  margin-bottom:2px;
+}
+.map-desc{
+  font-size:11px;
+  color:var(--text-dim);
+  line-height:1.45;
+}
+@media(max-width:740px){
+  .map-key-grid{ grid-template-columns:repeat(2,1fr); }
+}
+@media(max-width:480px){
+  .map-key-grid{ grid-template-columns:1fr; }
+}
 
 /* ============================================================
    LOGISTICS BANNER
@@ -646,14 +739,17 @@ body::before{
 /* ============================================================
    RESPONSIVE
    ============================================================ */
+@media(max-width:860px){
+  .switcher{ grid-template-columns:repeat(3,1fr); }
+  .pcard:nth-child(3){ border-right:none; }
+  .pcard:nth-child(1),.pcard:nth-child(2),.pcard:nth-child(3){ border-bottom:1px solid var(--line); }
+}
 @media(max-width:740px){
   body{ padding:12px 10px 56px; }
   .hero{ padding:36px 24px 30px; }
   .hero-headline h1{ font-size:36px; }
   .hero-mark{ display:none; }
-  .switcher{ grid-template-columns:repeat(2,1fr); }
-  .pcard:nth-child(2){ border-right:none; }
-  .pcard:nth-child(1),.pcard:nth-child(2){ border-bottom:1px solid var(--line); }
+  .switcher{ grid-template-columns:repeat(3,1fr); }
   .panel{ padding:24px 20px 20px; }
   .srow{ grid-template-columns:80px 1fr; }
   .badge{ grid-column:2; justify-self:start; margin-top:4px; }
@@ -663,6 +759,8 @@ body::before{
   .hero-headline h1{ font-size:28px; }
   .hero-sub{ font-size:13px; }
   .switcher{ grid-template-columns:repeat(2,1fr); }
+  .pcard:nth-child(4){ border-right:none; }
+  .pcard:nth-child(3){ border-right:1px solid var(--line); }
 }
 
 </style>
@@ -741,6 +839,13 @@ body::before{
     <div class="p-role-tag">Core AE</div>
     <div class="p-name">Oliver Murch</div>
     <div class="p-meta">Sep 15 &ndash; 16</div>
+  </div>
+
+  <div class="pcard p-map" onclick="switchTab('map','p-map','v-map')">
+    <div class="p-avatar" style="font-size:18px;">&#128506;</div>
+    <div class="p-role-tag">Navigate</div>
+    <div class="p-name">Campus Map</div>
+    <div class="p-meta">14 Venues &middot; Full Key</div>
   </div>
 
 </div>
@@ -1527,6 +1632,140 @@ body::before{
       Anthony Troggio &middot; Salesforce Digital AE
     </div>
     <span class="pf-note">Oliver Murch &mdash; Core AE &middot; Sep 15&ndash;16</span>
+  </div>
+</div>
+
+<!-- ==================== CAMPUS MAP ==================== -->
+<div class="panel v-map" id="panel-map">
+
+  <div class="map-img-wrap">
+    <img src="df-campus-map.png" alt="Dreamforce 2026 Campus Map — Navigating Campus">
+  </div>
+
+  <div class="map-key-title">Map Key</div>
+
+  <div class="map-key-grid">
+
+    <div class="map-key-item">
+      <div class="map-num">1</div>
+      <div class="map-key-text">
+        <div class="map-venue">AMC / Metreon</div>
+        <div class="map-desc">Breakout Sessions &middot; F&amp;B</div>
+      </div>
+    </div>
+
+    <div class="map-key-item">
+      <div class="map-num">2</div>
+      <div class="map-key-text">
+        <div class="map-venue">City View</div>
+        <div class="map-desc">International Lounge &middot; EMEA, JP+KR+TW, LATAM, South Asia</div>
+      </div>
+    </div>
+
+    <div class="map-key-item">
+      <div class="map-num">3</div>
+      <div class="map-key-text">
+        <div class="map-venue">Howard St.</div>
+        <div class="map-desc">Dreampark</div>
+      </div>
+    </div>
+
+    <div class="map-key-item">
+      <div class="map-num">4</div>
+      <div class="map-key-text">
+        <div class="map-venue">InterContinental Hotel</div>
+        <div class="map-desc">Round tables &middot; Breakout Sessions</div>
+      </div>
+    </div>
+
+    <div class="map-key-item">
+      <div class="map-num">5</div>
+      <div class="map-key-text">
+        <div class="map-venue">Marriott Marquis</div>
+        <div class="map-desc">Employee Registration &middot; Training Center (HOTs &amp; Certs) &middot; Customer Success &middot; Experience Partner Lounge</div>
+      </div>
+    </div>
+
+    <div class="map-key-item">
+      <div class="map-num">6</div>
+      <div class="map-key-text">
+        <div class="map-venue">Moscone North</div>
+        <div class="map-desc">L1: Dreamstore &middot; LL: Campground &amp; Agentic Enterprise</div>
+      </div>
+    </div>
+
+    <div class="map-key-item">
+      <div class="map-num">7</div>
+      <div class="map-key-text">
+        <div class="map-venue">Moscone South</div>
+        <div class="map-desc">LL: Keynote + Breakout Sessions &middot; MZ: Executive Meeting Suite &middot; L2: Executive Summit &middot; L3: AR/PR/IR</div>
+      </div>
+    </div>
+
+    <div class="map-key-item">
+      <div class="map-num">8</div>
+      <div class="map-key-text">
+        <div class="map-venue">Moscone West</div>
+        <div class="map-desc">L1: Registration &middot; L1: Trailblazer Forest &middot; L2: Community Cove &middot; L2 &amp; L3: Dreamforce Learning Labs &middot; L2 &amp; L3: Breakout + Keynote Sessions</div>
+      </div>
+    </div>
+
+    <div class="map-key-item">
+      <div class="map-num">9</div>
+      <div class="map-key-text">
+        <div class="map-venue">SF MoMA</div>
+        <div class="map-desc">Sponsor Activations / Events</div>
+      </div>
+    </div>
+
+    <div class="map-key-item">
+      <div class="map-num">10</div>
+      <div class="map-key-text">
+        <div class="map-venue">St. Regis Hotel</div>
+        <div class="map-desc">CXO Program</div>
+      </div>
+    </div>
+
+    <div class="map-key-item">
+      <div class="map-num">11</div>
+      <div class="map-key-text">
+        <div class="map-venue">W San Francisco</div>
+        <div class="map-desc">Public Sector Lounge &middot; ANZ Lounge</div>
+      </div>
+    </div>
+
+    <div class="map-key-item">
+      <div class="map-num">12</div>
+      <div class="map-key-text">
+        <div class="map-venue">Yerba Buena Forum</div>
+        <div class="map-desc">Mindfulness Meadow</div>
+      </div>
+    </div>
+
+    <div class="map-key-item">
+      <div class="map-num">13</div>
+      <div class="map-key-text">
+        <div class="map-venue">Yerba Buena Gardens</div>
+        <div class="map-desc">F&amp;B</div>
+      </div>
+    </div>
+
+    <div class="map-key-item">
+      <div class="map-num">14</div>
+      <div class="map-key-text">
+        <div class="map-venue">Build Shield of California Theater at YBCA</div>
+        <div class="map-desc">Keynote Sessions</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="panel-footer">
+    <div class="pf-brand">
+      <div class="pf-dot" style="background:var(--teal)"><svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M10 2a6.5 6.5 0 0 1 5.6 9.75A4.5 4.5 0 1 1 13 18H7a5 5 0 0 1-2.5-9.33A6.5 6.5 0 0 1 10 2Z" fill="white"/></svg></div>
+      Anthony Troggio &middot; Salesforce Digital AE
+    </div>
+    <span class="pf-note">Dreamforce 2026 &mdash; Campus Navigation</span>
   </div>
 </div>
 
