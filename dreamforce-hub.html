@@ -5,342 +5,575 @@
 <title>Dreamforce 2026 — Agenda Hub</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,600;0,700;0,800;1,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
 
+/* ============================================================
+   TOKENS
+   ============================================================ */
 :root{
-  --bg-page:#FFFFFF;
-  --hero-bg:#F7FAFF;
-  --aurora-blue:#0D9DDA;
-  --aurora-violet:#8657FF;
-  --aurora-coral:#FF6E4E;
-  --aurora-green:#04844B;
-  --deep-navy:#0B1739;
+  --blue:#0D9DDA;
+  --violet:#8657FF;
+  --coral:#FF6E4E;
+  --green:#04844B;
+  --navy:#0B1739;
+  --navy-mid:#13224D;
   --text:#1C2A4A;
   --text-dim:#5B6B85;
   --line:#E4E9F5;
-  --page-bg:#EEF3FB;
+  --bg:#E8EFF9;
+  --card:#FFFFFF;
+
+  /* per-person overrides injected via .panel */
+  --accent:#0D9DDA;
+  --accent-tint:#EDF7FD;
+  --accent-line:#B3E4F5;
 }
-*{box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
-html,body{margin:0;padding:0;}
+*{box-sizing:border-box; -webkit-print-color-adjust:exact; print-color-adjust:exact; margin:0; padding:0;}
+html{font-size:16px;}
 body{
   font-family:'Inter',sans-serif;
-  background:var(--page-bg);
+  background:var(--bg);
   color:var(--text);
-  padding:32px 16px 60px;
+  padding:40px 20px 72px;
   min-height:100vh;
 }
 
-/* ---- OUTER WRAPPER ---- */
-.hub{
-  width:100%;
-  max-width:1060px;
-  margin:0 auto;
+/* Page background subtle pattern */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(13,157,218,0.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(134,87,255,0.06) 0%, transparent 50%);
+  pointer-events:none;
+  z-index:0;
 }
 
-/* ---- HERO ---- */
-.hub-hero{
+/* ============================================================
+   HUB WRAPPER
+   ============================================================ */
+.hub{
   position:relative;
-  padding:44px 48px 36px;
+  z-index:1;
+  width:100%;
+  max-width:1080px;
+  margin:0 auto;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,0.6) inset,
+    0 32px 80px rgba(11,23,57,0.18),
+    0 8px 24px rgba(11,23,57,0.10);
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position:relative;
+  padding:52px 56px 44px;
   overflow:hidden;
   background:
-    radial-gradient(50% 90% at 5% 10%, rgba(13,157,218,0.18) 0%, transparent 65%),
-    radial-gradient(50% 90% at 55% -15%, rgba(134,87,255,0.15) 0%, transparent 65%),
-    radial-gradient(45% 80% at 100% 35%, rgba(255,110,78,0.14) 0%, transparent 65%),
-    linear-gradient(160deg,#0B1739 0%,#13224D 100%);
-  border-radius:22px 22px 0 0;
-  border:1px solid rgba(255,255,255,0.07);
+    radial-gradient(ellipse 60% 80% at 8% 0%, rgba(13,157,218,0.28) 0%, transparent 60%),
+    radial-gradient(ellipse 55% 70% at 60% -20%, rgba(134,87,255,0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 45% 70% at 105% 50%, rgba(255,110,78,0.20) 0%, transparent 60%),
+    linear-gradient(155deg,#080F24 0%,#0E1C3F 55%,#0A1730 100%);
 }
-.hub-hero::after{
+
+/* Unsplash background photo */
+.hero::before{
   content:"";
   position:absolute;
   inset:0;
-  background:url("https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1400&q=60") center/cover no-repeat;
-  opacity:0.09;
-  border-radius:inherit;
+  background:url("https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1600&q=55") center/cover no-repeat;
+  opacity:0.065;
   pointer-events:none;
 }
-.hub-eyebrow{
+
+/* Subtle dot-grid overlay */
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size:28px 28px;
+  pointer-events:none;
+  mask-image:linear-gradient(to bottom, transparent, rgba(0,0,0,0.5) 30%, rgba(0,0,0,0.5) 70%, transparent);
+}
+
+/* Decorative corner orbs */
+.hero-orb{
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:0;
+}
+.hero-orb-1{
+  width:320px; height:320px;
+  background:radial-gradient(circle, rgba(13,157,218,0.18), transparent 70%);
+  top:-80px; left:-80px;
+}
+.hero-orb-2{
+  width:280px; height:280px;
+  background:radial-gradient(circle, rgba(134,87,255,0.16), transparent 70%);
+  top:-60px; right:60px;
+}
+.hero-orb-3{
+  width:200px; height:200px;
+  background:radial-gradient(circle, rgba(255,110,78,0.14), transparent 70%);
+  bottom:-40px; right:-40px;
+}
+
+.hero-inner{ position:relative; z-index:2; }
+
+.hero-eyebrow{
   display:inline-flex;
   align-items:center;
-  gap:8px;
-  background:rgba(255,255,255,0.10);
-  border:1px solid rgba(255,255,255,0.18);
-  padding:6px 15px;
+  gap:9px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.16);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  padding:7px 18px;
   border-radius:999px;
-  font-size:11px;
+  font-size:10.5px;
   font-weight:700;
-  letter-spacing:0.10em;
+  letter-spacing:0.12em;
   text-transform:uppercase;
-  color:rgba(255,255,255,0.80);
-  position:relative;
-  z-index:2;
+  color:rgba(255,255,255,0.72);
 }
-.hub-eyebrow .dot{
-  width:6px; height:6px; border-radius:50%;
-  background:#FF6E4E;
-  display:inline-block;
+.pulse{
+  width:7px; height:7px; border-radius:50%;
+  background:var(--coral);
   flex-shrink:0;
-}
-.hub-title{
-  font-family:'Poppins',sans-serif;
-  font-size:52px;
-  font-weight:800;
-  line-height:1.02;
-  color:#FFFFFF;
-  margin:16px 0 10px;
-  letter-spacing:-0.015em;
   position:relative;
-  z-index:2;
 }
-.hub-title span{
-  background:linear-gradient(90deg,var(--aurora-blue),var(--aurora-violet));
+.pulse::after{
+  content:"";
+  position:absolute;
+  inset:-3px;
+  border-radius:50%;
+  border:1.5px solid var(--coral);
+  animation:pulse-ring 2s ease-out infinite;
+}
+@keyframes pulse-ring{
+  0%{ transform:scale(1); opacity:0.8; }
+  100%{ transform:scale(2.5); opacity:0; }
+}
+
+.hero-headline{
+  margin-top:22px;
+  margin-bottom:0;
+}
+.hero-headline .year{
+  display:block;
+  font-family:'Poppins',sans-serif;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.38);
+  margin-bottom:4px;
+}
+.hero-headline h1{
+  font-family:'Poppins',sans-serif;
+  font-size:58px;
+  font-weight:800;
+  line-height:0.96;
+  letter-spacing:-0.025em;
+  color:#FFFFFF;
+}
+.hero-headline h1 .grad{
+  background:linear-gradient(92deg,#4FC3F7 0%,#CE93D8 55%,#FFAB91 100%);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   background-clip:text;
 }
-.hub-sub{
-  font-size:15.5px;
-  color:rgba(255,255,255,0.62);
-  max-width:520px;
-  line-height:1.55;
-  position:relative;
-  z-index:2;
-  margin-bottom:28px;
+
+.hero-sub{
+  margin-top:16px;
+  font-size:15px;
+  color:rgba(255,255,255,0.52);
+  max-width:480px;
+  line-height:1.6;
+  font-weight:400;
 }
-.hub-meta-row{
+
+.hero-chips{
   display:flex;
-  gap:12px;
   flex-wrap:wrap;
-  position:relative;
-  z-index:2;
+  gap:10px;
+  margin-top:30px;
 }
-.hub-pill{
+.hero-chip{
   display:inline-flex;
   align-items:center;
   gap:7px;
-  background:rgba(255,255,255,0.10);
-  border:1px solid rgba(255,255,255,0.18);
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.13);
   padding:7px 16px;
   border-radius:999px;
-  font-size:12.5px;
+  font-size:12px;
   font-weight:600;
-  color:rgba(255,255,255,0.82);
+  color:rgba(255,255,255,0.72);
+  letter-spacing:0.01em;
 }
-.hub-pill svg{ opacity:0.75; flex-shrink:0; }
+.hero-chip svg{ opacity:0.65; flex-shrink:0; }
 
-/* ---- PERSON TABS ---- */
-.person-tabs{
+/* DF monogram in top-right */
+.hero-mark{
+  position:absolute;
+  top:40px; right:52px;
+  z-index:3;
+  width:64px; height:64px;
+  border-radius:18px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.10);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Poppins',sans-serif;
+  font-size:22px;
+  font-weight:800;
+  color:rgba(255,255,255,0.22);
+  letter-spacing:-0.04em;
+  user-select:none;
+}
+
+/* ============================================================
+   PERSON SWITCHER CARDS
+   ============================================================ */
+.switcher{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  background:#fff;
+  background:#F0F5FF;
+  border-top:none;
+  gap:0;
   border-left:1px solid var(--line);
   border-right:1px solid var(--line);
 }
-.ptab{
+
+.pcard{
+  position:relative;
   display:flex;
   flex-direction:column;
   align-items:flex-start;
-  gap:3px;
-  padding:16px 22px 14px;
+  gap:0;
+  padding:20px 22px 18px;
   cursor:pointer;
+  background:#F0F5FF;
   border-bottom:3px solid transparent;
-  transition:border-color 0.18s, background 0.18s;
-  background:#fff;
+  transition:background 0.2s, border-color 0.2s;
+  overflow:hidden;
   user-select:none;
-  position:relative;
 }
-.ptab:not(:last-child)::after{
+.pcard:not(:last-child){
+  border-right:1px solid var(--line);
+}
+.pcard::before{
   content:"";
   position:absolute;
-  right:0; top:20%; height:60%;
-  width:1px;
-  background:var(--line);
+  top:0; left:0; right:0;
+  height:2px;
+  background:transparent;
+  transition:background 0.2s;
 }
-.ptab:hover{ background:#F7FAFF; }
-.ptab.active{ background:#FAFCFF; }
-.ptab.active.mark{ border-bottom-color:var(--aurora-blue); }
-.ptab.active.sarah{ border-bottom-color:var(--aurora-violet); }
-.ptab.active.mary{ border-bottom-color:var(--aurora-coral); }
-.ptab.active.oliver{ border-bottom-color:var(--aurora-green); }
+.pcard:hover{ background:#E8EFF9; }
 
-.ptab-label{
-  font-size:10px;
+.pcard.active{ background:#FFFFFF; }
+.pcard.active.p-mark::before{ background:var(--blue); }
+.pcard.active.p-sarah::before{ background:var(--violet); }
+.pcard.active.p-mary::before{ background:var(--coral); }
+.pcard.active.p-oliver::before{ background:var(--green); }
+
+.pcard.active.p-mark{ border-bottom-color:var(--blue); }
+.pcard.active.p-sarah{ border-bottom-color:var(--violet); }
+.pcard.active.p-mary{ border-bottom-color:var(--coral); }
+.pcard.active.p-oliver{ border-bottom-color:var(--green); }
+
+/* Avatar */
+.p-avatar{
+  width:40px; height:40px;
+  border-radius:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Poppins',sans-serif;
+  font-size:14px;
+  font-weight:800;
+  color:#fff;
+  margin-bottom:10px;
+  flex-shrink:0;
+  letter-spacing:-0.02em;
+  transition:transform 0.2s;
+}
+.pcard:hover .p-avatar{ transform:scale(1.05); }
+.p-mark .p-avatar{ background:linear-gradient(135deg,#0D9DDA,#00C3FF); }
+.p-sarah .p-avatar{ background:linear-gradient(135deg,#8657FF,#B48CFF); }
+.p-mary .p-avatar{ background:linear-gradient(135deg,#FF6E4E,#FF9166); }
+.p-oliver .p-avatar{ background:linear-gradient(135deg,#04844B,#09C26B); }
+
+.p-role-tag{
+  font-size:9.5px;
   font-weight:700;
   letter-spacing:0.07em;
   text-transform:uppercase;
-  color:var(--text-dim);
+  margin-bottom:3px;
 }
-.ptab.active.mark .ptab-label{ color:var(--aurora-blue); }
-.ptab.active.sarah .ptab-label{ color:var(--aurora-violet); }
-.ptab.active.mary .ptab-label{ color:var(--aurora-coral); }
-.ptab.active.oliver .ptab-label{ color:var(--aurora-green); }
+.p-mark .p-role-tag{ color:var(--blue); }
+.p-sarah .p-role-tag{ color:var(--violet); }
+.p-mary .p-role-tag{ color:var(--coral); }
+.p-oliver .p-role-tag{ color:var(--green); }
 
-.ptab-name{
+.p-name{
   font-family:'Poppins',sans-serif;
-  font-size:15.5px;
+  font-size:15px;
   font-weight:700;
-  color:var(--deep-navy);
-  line-height:1.2;
+  color:var(--navy);
+  line-height:1.15;
+  margin-bottom:5px;
 }
-.ptab-role{
-  font-size:11px;
+.p-meta{
+  font-size:10.5px;
   color:var(--text-dim);
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  max-width:100%;
+  font-weight:500;
 }
 
-/* ---- AGENDA PANELS ---- */
-.panels{
+/* ============================================================
+   PANELS
+   ============================================================ */
+.panels-wrap{
   background:#fff;
   border:1px solid var(--line);
   border-top:none;
-  border-radius:0 0 22px 22px;
+  border-radius:0 0 24px 24px;
   overflow:hidden;
-  box-shadow:0 18px 48px rgba(11,23,57,0.10);
 }
-.panel{ display:none; padding:36px 44px 32px; }
+
+.panel{
+  display:none;
+  padding:40px 48px 36px;
+  animation:fade-up 0.28s ease both;
+}
 .panel.active{ display:block; }
 
-/* ---- LOGISTICS BANNER ---- */
-.logistics-banner{
+@keyframes fade-up{
+  from{ opacity:0; transform:translateY(8px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+
+/* Per-panel color theming */
+.panel.v-mark{ --accent:var(--blue); --accent-tint:#EDF7FD; --accent-line:#B3E4F5; --accent-mid:#0D9DDA; }
+.panel.v-sarah{ --accent:var(--violet); --accent-tint:#F3EFFF; --accent-line:#C4AFFF; --accent-mid:#8657FF; }
+.panel.v-mary{ --accent:var(--coral); --accent-tint:#FFF0ED; --accent-line:#FFBDAC; --accent-mid:#FF6E4E; }
+.panel.v-oliver{ --accent:var(--green); --accent-tint:#E8F7F1; --accent-line:#8DD5B1; --accent-mid:#04844B; }
+
+/* ============================================================
+   LOGISTICS BANNER
+   ============================================================ */
+.logistics{
   display:flex;
   align-items:flex-start;
-  gap:10px;
-  margin-bottom:20px;
-  padding:12px 18px;
-  background:#F7FAFF;
-  border:1px solid var(--line);
+  gap:12px;
+  margin-bottom:28px;
+  padding:14px 20px;
+  background:var(--accent-tint);
+  border:1px solid var(--accent-line);
   border-radius:14px;
-  font-size:12px;
+  font-size:12.5px;
   color:var(--text-dim);
   line-height:1.55;
 }
-.logistics-icon{ font-size:14px; line-height:1.6; }
-.logistics-text strong{ color:var(--deep-navy); }
+.logistics-icon{ font-size:15px; line-height:1.6; }
+.logistics strong{ color:var(--navy); font-weight:700; }
 
-/* ---- DAYS ---- */
+/* ============================================================
+   DAY SECTIONS
+   ============================================================ */
 .day{
   position:relative;
-  padding:0 0 28px 32px;
-  margin-bottom:4px;
+  padding:0 0 32px 36px;
 }
-.day:last-child{ padding-bottom:0; }
-.day-trail{
+.day:last-of-type{ padding-bottom:8px; }
+
+/* Dashed vertical rail */
+.day-rail{
   position:absolute;
-  left:9px;
-  top:34px;
-  bottom:6px;
+  left:10px;
+  top:38px;
+  bottom:0;
   width:2px;
-  background-image:linear-gradient(var(--rail) 60%, transparent 0%);
-  background-position:left;
-  background-size:2px 8px;
-  background-repeat:repeat-y;
-  opacity:0.5;
+  background:repeating-linear-gradient(
+    to bottom,
+    var(--accent) 0px,
+    var(--accent) 4px,
+    transparent 4px,
+    transparent 10px
+  );
+  opacity:0.3;
 }
+.day:last-of-type .day-rail{ display:none; }
+
 .day-head{
   display:flex;
   align-items:center;
-  gap:12px;
-  margin-bottom:14px;
+  gap:14px;
+  margin-bottom:16px;
   flex-wrap:wrap;
 }
 .day-node{
   position:absolute;
   left:-1px;
-  width:20px;
-  height:20px;
+  top:0;
+  width:22px; height:22px;
   border-radius:50%;
-  background:var(--rail);
-  box-shadow:0 0 0 5px var(--tint);
+  background:var(--accent);
+  box-shadow:0 0 0 5px var(--accent-tint), 0 0 0 6px var(--accent-line);
+  z-index:2;
 }
-.day-title{
+
+.day-label{
   font-family:'Poppins',sans-serif;
   font-weight:700;
-  font-size:15.5px;
-  color:var(--deep-navy);
+  font-size:16px;
+  color:var(--navy);
   letter-spacing:0.01em;
 }
-.day-title span{ color:var(--rail); }
-.day-date{
-  font-size:11px;
-  color:var(--text-dim);
-  font-weight:700;
-  letter-spacing:0.04em;
-  text-transform:uppercase;
+.day-label em{
+  font-style:normal;
+  color:var(--accent);
+}
+
+.day-date-pill{
   margin-left:auto;
-  background:var(--tint);
-  border:1px solid var(--rail-line);
-  padding:4px 12px;
+  font-size:10.5px;
+  font-weight:700;
+  letter-spacing:0.05em;
+  text-transform:uppercase;
+  background:var(--accent-tint);
+  border:1px solid var(--accent-line);
+  color:var(--text-dim);
+  padding:5px 13px;
   border-radius:999px;
 }
 
-/* ---- SESSION ROWS ---- */
-.session{
+/* ============================================================
+   SESSION ROWS
+   ============================================================ */
+.srow{
   position:relative;
   display:grid;
-  grid-template-columns:100px 1fr auto;
+  grid-template-columns:92px 1fr auto;
   align-items:center;
-  gap:14px;
-  padding:10px 14px 10px 18px;
-  border-radius:12px;
-  margin-bottom:4px;
+  gap:16px;
+  padding:12px 16px 12px 20px;
+  border-radius:14px;
+  margin-bottom:5px;
   border:1px solid transparent;
+  background:transparent;
+  transition:background 0.15s, border-color 0.15s, box-shadow 0.15s, transform 0.12s;
+  cursor:default;
 }
-.session::before{
+.srow::before{
   content:"";
   position:absolute;
-  left:-26px;
+  left:-28px;
   top:50%;
   transform:translateY(-50%);
-  width:8px;
-  height:8px;
+  width:8px; height:8px;
   border-radius:50%;
-  background:var(--rail);
+  background:var(--accent);
+  opacity:0.5;
+  transition:opacity 0.15s;
 }
-.session.pick{ background:var(--tint); border-color:var(--rail-line); }
-.session.vip{ background:#FFF9EF; border-color:#F2D9A8; }
+.srow:hover{
+  background:#F7FAFF;
+  border-color:var(--line);
+  box-shadow:0 2px 10px rgba(11,23,57,0.06);
+  transform:translateX(2px);
+}
+.srow:hover::before{ opacity:1; }
 
+/* highlighted row */
+.srow.hi{
+  background:var(--accent-tint);
+  border-color:var(--accent-line);
+}
+.srow.hi:hover{
+  background:var(--accent-tint);
+  box-shadow:0 3px 14px rgba(11,23,57,0.08);
+}
+.srow.hi::after{
+  content:"";
+  position:absolute;
+  left:0; top:15%; bottom:15%;
+  width:3px;
+  border-radius:999px;
+  background:var(--accent);
+}
+
+/* vip tint */
+.srow.vip{
+  background:#FFF9EF;
+  border-color:#F2D9A8;
+}
+.srow.vip:hover{ background:#FFF5E2; }
+
+/* time */
 .s-time{
-  font-size:11.5px;
-  font-weight:700;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  font-weight:500;
   color:var(--text-dim);
   white-space:nowrap;
-  font-variant-numeric:tabular-nums;
+  letter-spacing:-0.01em;
 }
+.srow.hi .s-time{ color:var(--accent); font-weight:600; }
+
 .s-main{ min-width:0; }
 .s-title{
   font-size:13.5px;
   font-weight:600;
-  color:var(--deep-navy);
+  color:var(--navy);
   line-height:1.35;
 }
-.s-title .star{
-  color:var(--aurora-coral);
-  font-size:10.5px;
-  font-weight:700;
-  margin-left:6px;
-  letter-spacing:0.03em;
+.s-title a{
+  color:inherit;
+  text-decoration:none;
+  border-bottom:1px dashed transparent;
+  transition:color 0.15s, border-color 0.15s;
 }
+.s-title a:hover{ color:var(--blue); border-bottom-color:var(--blue); }
 .s-loc{
   font-size:11px;
   color:var(--text-dim);
   margin-top:2px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
 .s-note{
   font-size:10.5px;
   color:var(--text-dim);
   margin-top:3px;
   font-style:italic;
+  line-height:1.45;
+}
+.star{
+  color:var(--coral);
+  font-size:10px;
+  font-weight:700;
+  margin-left:6px;
+  letter-spacing:0.03em;
 }
 .s-tag{
   display:inline-flex;
   align-items:center;
-  font-size:9px;
+  font-size:8.5px;
   font-weight:700;
-  letter-spacing:0.04em;
+  letter-spacing:0.05em;
   text-transform:uppercase;
   color:#B5760A;
   background:#FFF3DD;
@@ -351,328 +584,334 @@ body{
   vertical-align:middle;
   white-space:nowrap;
 }
-.s-link{
-  color:inherit;
-  text-decoration:none;
-  border-bottom:1px dashed transparent;
-  transition:border-color 0.15s, color 0.15s;
-}
-.s-link:hover{ color:var(--aurora-blue); border-bottom-color:var(--aurora-blue); }
 
-/* session type badges */
-.s-type{
-  font-size:9.5px;
+/* ============================================================
+   SESSION TYPE BADGES
+   ============================================================ */
+.badge{
+  font-size:9px;
   font-weight:700;
-  letter-spacing:0.05em;
+  letter-spacing:0.06em;
   text-transform:uppercase;
-  padding:5px 11px;
+  padding:5px 12px;
   border-radius:999px;
   white-space:nowrap;
   flex-shrink:0;
 }
-.t-keynote{ background:var(--deep-navy); color:#fff; }
-.t-breakout{ background:#fff; color:var(--aurora-blue); border:1.4px solid var(--aurora-blue); }
-.t-theater{ background:#fff; color:var(--aurora-violet); border:1.4px solid var(--aurora-violet); }
-.t-roundtable{ background:#fff; color:#04844B; border:1.4px solid #04844B; }
-.t-hands-on{ background:var(--aurora-coral); color:#fff; }
-.t-workshop{ background:#E8F7FF; color:#0D6EAD; border:1.4px solid #9DD4F0; }
-.t-vip{ background:linear-gradient(90deg,#F2A93B,#FFC069); color:#4A2E00; }
-.t-concert{ background:linear-gradient(90deg,var(--aurora-violet),#B48CFF); color:#fff; }
-.t-activity{ background:#E6F9F1; color:#04844B; border:1.4px solid #7DCFAA; }
-.t-meeting{ background:#F3EFFF; color:var(--aurora-violet); border:1.4px solid var(--aurora-violet); }
-.t-dinner{ background:var(--deep-navy); color:#FFC069; }
-.t-lunch{ background:#F3EFFF; color:#5B3FC4; border:1.4px solid #C4B0FF; }
+.b-keynote{ background:var(--navy); color:#fff; }
+.b-breakout{ background:#EDF7FD; color:#0A7AB0; border:1.5px solid #B3DFF2; }
+.b-theater{ background:#F3EFFF; color:#6B3FCC; border:1.5px solid #C4AFFF; }
+.b-roundtable{ background:#E8F7F1; color:#046040; border:1.5px solid #8DD5B1; }
+.b-hands{ background:#FF6E4E; color:#fff; }
+.b-workshop{ background:#E8F0FF; color:#2E5FBF; border:1.5px solid #B0CAFF; }
+.b-vip{ background:linear-gradient(90deg,#F2A93B,#FFC069); color:#4A2E00; }
+.b-concert{ background:linear-gradient(90deg,var(--violet),#B48CFF); color:#fff; }
+.b-activity{ background:#E8F7F1; color:#04844B; border:1.5px solid #7DCFAA; }
+.b-meeting{ background:#F3EFFF; color:#6B3FCC; border:1.5px solid #C4AFFF; }
+.b-dinner{ background:var(--navy); color:#FFC069; }
+.b-lunch{ background:#FFF9EF; color:#A06010; border:1.5px solid #F2C879; }
 
-/* ---- DAY COLOR THEMES ---- */
-/* MARK — blue */
-#panel-mark{ --rail:var(--aurora-blue); --tint:#EDF7FD; --rail-line:#B3E4F5; }
-/* SARAH — violet */
-#panel-sarah{ --rail:var(--aurora-violet); --tint:#F3EFFF; --rail-line:#C4AFFF; }
-/* MARY — coral */
-#panel-mary{ --rail:var(--aurora-coral); --tint:#FFF0ED; --rail-line:#FFBDAC; }
-/* OLIVER — green */
-#panel-oliver{ --rail:var(--aurora-green); --tint:#E8F7F1; --rail-line:#8DD5B1; }
-
-/* ---- FOOTER ---- */
-.hub-footer{
-  padding:22px 44px;
-  border-top:1px solid var(--line);
+/* ============================================================
+   PANEL FOOTER
+   ============================================================ */
+.panel-footer{
   display:flex;
   align-items:center;
   justify-content:space-between;
   flex-wrap:wrap;
-  gap:12px;
-  background:#FAFCFF;
+  gap:10px;
+  padding:18px 0 0;
+  margin-top:16px;
+  border-top:1px solid var(--line);
 }
-.footer-brand{
-  display:inline-flex;
+.pf-brand{
+  display:flex;
   align-items:center;
-  gap:8px;
+  gap:9px;
   font-size:11.5px;
   font-weight:600;
   color:var(--text-dim);
 }
-.footer-sf-mark{
-  width:22px; height:22px;
-  background:var(--aurora-blue);
-  border-radius:50%;
-  display:flex; align-items:center; justify-content:center;
-  flex-shrink:0;
-}
-.footer-sf-mark svg{ display:block; }
-.footer-note{
-  font-size:11px;
-  color:var(--text-dim);
-}
-
-/* ---- LEGEND ---- */
-.legend{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  padding:0 44px 20px;
-}
-.legend-item{
+.pf-dot{
+  width:24px; height:24px;
+  border-radius:8px;
+  background:var(--accent);
   display:flex;
   align-items:center;
-  gap:5px;
-  font-size:10.5px;
-  color:var(--text-dim);
+  justify-content:center;
+}
+.pf-dot svg{ display:block; }
+.pf-note{ font-size:11px; color:var(--text-dim); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media(max-width:740px){
+  body{ padding:12px 10px 56px; }
+  .hero{ padding:36px 24px 30px; }
+  .hero-headline h1{ font-size:36px; }
+  .hero-mark{ display:none; }
+  .switcher{ grid-template-columns:repeat(2,1fr); }
+  .pcard:nth-child(2){ border-right:none; }
+  .pcard:nth-child(1),.pcard:nth-child(2){ border-bottom:1px solid var(--line); }
+  .panel{ padding:24px 20px 20px; }
+  .srow{ grid-template-columns:80px 1fr; }
+  .badge{ grid-column:2; justify-self:start; margin-top:4px; }
+  .day{ padding-left:26px; }
+}
+@media(max-width:480px){
+  .hero-headline h1{ font-size:28px; }
+  .hero-sub{ font-size:13px; }
+  .switcher{ grid-template-columns:repeat(2,1fr); }
 }
 
-/* ---- RESPONSIVE ---- */
-@media(max-width:700px){
-  body{ padding:12px 8px 48px; }
-  .hub-hero{ padding:32px 22px 26px; }
-  .hub-title{ font-size:30px; }
-  .hub-sub{ font-size:13.5px; }
-  .person-tabs{ grid-template-columns:repeat(2,1fr); }
-  .ptab:nth-child(2)::after{ display:none; }
-  .panel{ padding:22px 18px 24px; }
-  .session{ grid-template-columns:80px 1fr; }
-  .s-type{ grid-column:2; justify-self:start; }
-  .day{ padding-left:22px; }
-  .hub-footer{ padding:16px 20px; }
-  .legend{ padding:0 20px 16px; }
-}
 </style>
 </head>
 <body>
 
 <div class="hub">
 
-<!-- HERO -->
-<div class="hub-hero">
-  <div class="hub-eyebrow"><span class="dot"></span>Dreamforce 2026 &nbsp;&middot;&nbsp; San Francisco</div>
-  <h1 class="hub-title">Agenda <span>Hub</span></h1>
-  <p class="hub-sub">Coordinated schedules for your Salesforce team and key customers. September 15&ndash;17, 2026.</p>
-  <div class="hub-meta-row">
-    <div class="hub-pill">
-      <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="white" stroke-width="1.5"/><path d="M8 4v4l2.5 2.5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
-      Sep 15 – 17, 2026
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<div class="hero">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+  <div class="hero-orb hero-orb-3"></div>
+  <div class="hero-mark">DF</div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <span class="pulse"></span>
+      Dreamforce 2026 &nbsp;&middot;&nbsp; San Francisco
     </div>
-    <div class="hub-pill">
-      <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 2C5.24 2 3 4.24 3 7c0 4 5 9 5 9s5-5 5-9c0-2.76-2.24-5-5-5Zm0 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" fill="white" opacity=".75"/></svg>
-      Moscone Center, San Francisco
+    <div class="hero-headline">
+      <span class="year">September 15 &ndash; 17</span>
+      <h1>Your Team's<br><span class="grad">Agenda Hub</span></h1>
     </div>
-    <div class="hub-pill">
-      <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M14 11.5L10 8l4-3.5V11.5ZM2 4h8a1 1 0 0 1 1 1v6a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z" stroke="white" stroke-width="1.3" opacity=".8" fill="none"/></svg>
-      4 Attendees
+    <p class="hero-sub">All schedules in one place &mdash; from keynote seating to customer dinners. Tap a name to explore their week.</p>
+    <div class="hero-chips">
+      <div class="hero-chip">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="white" stroke-width="1.5"/><path d="M8 4.5V8l2.5 2" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+        3 Days · Sep 15&ndash;17
+      </div>
+      <div class="hero-chip">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 2C5.24 2 3 4.24 3 7c0 4 5 9 5 9s5-5 5-9c0-2.76-2.24-5-5-5Zm0 6.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" fill="white" opacity=".7"/></svg>
+        Moscone Center, SF
+      </div>
+      <div class="hero-chip">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M12 4H4C3.45 4 3 4.45 3 5v7c0 .55.45 1 1 1h8c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1ZM3 7h10" stroke="white" stroke-width="1.4" opacity=".75" fill="none" stroke-linecap="round"/></svg>
+        4 Attendees
+      </div>
+      <div class="hero-chip">
+        <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M2 12L6 8l3 3 5-7" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity=".75"/></svg>
+        Curated by Anthony Troggio
+      </div>
     </div>
   </div>
 </div>
 
-<!-- TABS -->
-<div class="person-tabs">
-  <div class="ptab mark active" onclick="switchTab('mark')">
-    <span class="ptab-label">Customer</span>
-    <span class="ptab-name">Mark Milbury</span>
-    <span class="ptab-role">Executive &mdash; Full 3 Days</span>
+<!-- ============================================================
+     PERSON SWITCHER
+     ============================================================ -->
+<div class="switcher">
+
+  <div class="pcard p-mark active" onclick="switchTab('mark','p-mark','v-mark')">
+    <div class="p-avatar">MM</div>
+    <div class="p-role-tag">Customer</div>
+    <div class="p-name">Mark Milbury</div>
+    <div class="p-meta">Executive &middot; Full 3 Days</div>
   </div>
-  <div class="ptab sarah" onclick="switchTab('sarah')">
-    <span class="ptab-label">Customer</span>
-    <span class="ptab-name">Sarah Mussen</span>
-    <span class="ptab-role">Admin &mdash; Full 3 Days</span>
+
+  <div class="pcard p-sarah" onclick="switchTab('sarah','p-sarah','v-sarah')">
+    <div class="p-avatar">SM</div>
+    <div class="p-role-tag">Customer</div>
+    <div class="p-name">Sarah Mussen</div>
+    <div class="p-meta">Admin &middot; Full 3 Days</div>
   </div>
-  <div class="ptab mary" onclick="switchTab('mary')">
-    <span class="ptab-label">Customer</span>
-    <span class="ptab-name">Mary Cole</span>
-    <span class="ptab-role">Admin &mdash; Full 3 Days</span>
+
+  <div class="pcard p-mary" onclick="switchTab('mary','p-mary','v-mary')">
+    <div class="p-avatar">MC</div>
+    <div class="p-role-tag">Customer</div>
+    <div class="p-name">Mary Cole</div>
+    <div class="p-meta">Admin &middot; Full 3 Days</div>
   </div>
-  <div class="ptab oliver" onclick="switchTab('oliver')">
-    <span class="ptab-label">Core AE</span>
-    <span class="ptab-name">Oliver Murch</span>
-    <span class="ptab-role">Sep 15 &ndash; 16</span>
+
+  <div class="pcard p-oliver" onclick="switchTab('oliver','p-oliver','v-oliver')">
+    <div class="p-avatar">OM</div>
+    <div class="p-role-tag">Core AE</div>
+    <div class="p-name">Oliver Murch</div>
+    <div class="p-meta">Sep 15 &ndash; 16</div>
   </div>
+
 </div>
 
-<!-- PANELS -->
-<div class="panels">
+<!-- ============================================================
+     PANELS
+     ============================================================ -->
+<div class="panels-wrap">
 
 <!-- ==================== MARK MILBURY ==================== -->
-<div class="panel active" id="panel-mark">
+<div class="panel v-mark active" id="panel-mark">
 
-  <div class="logistics-banner">
+  <div class="logistics">
     <span class="logistics-icon">&#128204;</span>
-    <div class="logistics-text">
-      <strong>Executive Summit Badge Required</strong> for all Exec Summit sessions &mdash; confirm badge pickup at Moscone South, Level 2 registration before Day 1. Executive Dinner is invite-only; confirmation code required at door.
-    </div>
+    <div><strong>Executive Summit badge required</strong> for all Exec Summit sessions. Confirm badge pickup at Moscone South, L2 registration before Day 1. Executive Dinner is invite-only &mdash; confirmation code required at door.</div>
   </div>
 
   <!-- DAY 1 -->
   <div class="day">
-    <div class="day-trail"></div>
+    <div class="day-rail"></div>
     <div class="day-head">
       <div class="day-node"></div>
-      <span class="day-title">Day 1 &mdash; <span>Keynote &amp; Executive Networking</span></span>
-      <span class="day-date">Tue &middot; Sep 15</span>
+      <span class="day-label">Day 1 &mdash; <em>Keynote &amp; Executive Networking</em></span>
+      <span class="day-date-pill">Tue &middot; Sep 15</span>
     </div>
-    <div class="session vip">
+    <div class="srow vip">
       <span class="s-time">8:00 – 9:30</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/execsessioncatalog/page/execcatalog/session/1786555022922001LLEM" target="_blank" rel="noopener">Networking Breakfast</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/execsessioncatalog/page/execcatalog/session/1786555022922001LLEM" target="_blank" rel="noopener">Networking Breakfast</a></div>
         <div class="s-loc">Executive Summit Lounge &middot; Moscone South, L2</div>
       </div>
-      <span class="s-type t-vip">VIP Breakfast</span>
+      <span class="badge b-vip">VIP Breakfast</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">9:00 – 12:00</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Dreamforce%20Main%20Keynote" target="_blank" rel="noopener">Dreamforce Main Keynote</a><span class="s-tag">VIP Section</span></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Dreamforce%20Main%20Keynote" target="_blank" rel="noopener">Dreamforce Main Keynote</a><span class="s-tag">VIP Section</span></div>
         <div class="s-loc">Moscone South &middot; Keynote Hall B</div>
         <div class="s-note">Arrive by 9:00 for VIP seating &mdash; keynote begins at 10:00. Meet at Executive Summit Concierge Desk at 9:15.</div>
       </div>
-      <span class="s-type t-keynote">Keynote</span>
+      <span class="badge b-keynote">Keynote</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">1:00 – 2:00</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Order%20Management%20Roadmap%3A%20Meet%20the%20First%20Agentic%20OMS" target="_blank" rel="noopener">Order Management Roadmap: Meet the First Agentic OMS</a><span class="star">&#9733; Top Pick</span></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Order%20Management%20Roadmap%3A%20Meet%20the%20First%20Agentic%20OMS" target="_blank" rel="noopener">Order Management Roadmap: Meet the First Agentic OMS</a><span class="star">&#9733; Top Pick</span></div>
         <div class="s-loc">Moscone West &middot; Level 2</div>
       </div>
-      <span class="s-type t-breakout">Breakout</span>
+      <span class="badge b-breakout">Breakout</span>
     </div>
-    <div class="session vip">
+    <div class="srow vip">
       <span class="s-time">3:00 – 3:50</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/execsessioncatalog/page/execcatalog/session/1782851415148001P0Ke" target="_blank" rel="noopener">Your Board Wants Results. Here's What to Show Them</a><span class="s-tag">Exec Summit Only</span></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/execsessioncatalog/page/execcatalog/session/1782851415148001P0Ke" target="_blank" rel="noopener">Your Board Wants Results. Here's What to Show Them</a><span class="s-tag">Exec Summit Only</span></div>
         <div class="s-loc">Executive Roundtable Room 2</div>
         <div class="s-note">Bill Patterson, President &amp; Chief Commercial Officer, Salesforce</div>
       </div>
-      <span class="s-type t-vip">Exec Session</span>
+      <span class="badge b-vip">Exec Session</span>
     </div>
-    <div class="session vip">
+    <div class="srow vip">
       <span class="s-time">6:00 – 9:00</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Salesforce%20Executive%20Dinner%20at%20Dreamforce" target="_blank" rel="noopener">Salesforce Executive Dinner at Dreamforce</a><span class="s-tag">Exec Exclusive</span></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Salesforce%20Executive%20Dinner%20at%20Dreamforce" target="_blank" rel="noopener">Salesforce Executive Dinner at Dreamforce</a><span class="s-tag">Exec Exclusive</span></div>
         <div class="s-loc">Salesforce Tower &middot; Private Executive Floor</div>
-        <div class="s-note">Cocktails &amp; Networking (6:00) | Dinner &amp; Discussion (6:30)</div>
+        <div class="s-note">Cocktails &amp; Networking 6:00 &nbsp;|&nbsp; Dinner &amp; Discussion 6:30</div>
       </div>
-      <span class="s-type t-dinner">VIP Dinner</span>
+      <span class="badge b-dinner">VIP Dinner</span>
     </div>
   </div>
 
   <!-- DAY 2 -->
   <div class="day">
-    <div class="day-trail"></div>
+    <div class="day-rail"></div>
     <div class="day-head">
       <div class="day-node"></div>
-      <span class="day-title">Day 2 &mdash; <span>Agentforce Revenue &amp; Executive Strategy</span></span>
-      <span class="day-date">Wed &middot; Sep 16</span>
+      <span class="day-label">Day 2 &mdash; <em>Agentforce Revenue &amp; Executive Strategy</em></span>
+      <span class="day-date-pill">Wed &middot; Sep 16</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">8:30 – 8:50</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog/session/1779838647656001GzbC" target="_blank" rel="noopener">Close Deals Faster with AI Contracting</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog/session/1779838647656001GzbC" target="_blank" rel="noopener">Close Deals Faster with AI Contracting</a></div>
         <div class="s-loc">Moscone West, L3 &middot; Learning Lab Theater C</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">9:00 – 9:20</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Boost%20Sales%20Team%20Productivity%20with%20Agentforce%20in%20Slack" target="_blank" rel="noopener">Boost Sales Team Productivity with Agentforce in Slack</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Boost%20Sales%20Team%20Productivity%20with%20Agentforce%20in%20Slack" target="_blank" rel="noopener">Boost Sales Team Productivity with Agentforce in Slack</a></div>
         <div class="s-loc">Moscone West, L3 &middot; Learning Lab Theater C</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">10:00 – 11:00</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Stop%20Reacting%3A%20Build%20a%20Proactive%20Agentforce%20Portal" target="_blank" rel="noopener">Stop Reacting: Build a Proactive Agentforce Portal</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Stop%20Reacting%3A%20Build%20a%20Proactive%20Agentforce%20Portal" target="_blank" rel="noopener">Stop Reacting: Build a Proactive Agentforce Portal</a></div>
         <div class="s-loc">Moscone West, L2 &middot; Room 2002</div>
-        <div class="s-note">Bring your own laptop. Overlaps first 30 min of Beyond the DMS below.</div>
+        <div class="s-note">Bring your own laptop. Overlaps first 30 min of Beyond the DMS.</div>
       </div>
-      <span class="s-type t-workshop">Workshop</span>
+      <span class="badge b-workshop">Workshop</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">10:30 – 11:30</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog/session/1780086316023001xyh1" target="_blank" rel="noopener">Beyond the DMS: Building the Connected Dealer Ecosystem</a><span class="star">&#9733; Top Pick</span></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog/session/1780086316023001xyh1" target="_blank" rel="noopener">Beyond the DMS: Building the Connected Dealer Ecosystem</a><span class="star">&#9733; Top Pick</span></div>
         <div class="s-loc">InterCon, L5 &middot; InterCon Ballroom C, Roundtable 10</div>
       </div>
-      <span class="s-type t-breakout">Breakout</span>
+      <span class="badge b-breakout">Breakout</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">11:00 – 11:20</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Build%20an%20Agentforce%20Agent%20That%20Proves%20Its%20Own%20ROI" target="_blank" rel="noopener">Build an Agentforce Agent That Proves Its Own ROI</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Build%20an%20Agentforce%20Agent%20That%20Proves%20Its%20Own%20ROI" target="_blank" rel="noopener">Build an Agentforce Agent That Proves Its Own ROI</a></div>
         <div class="s-loc">Moscone West, L2 &middot; Learning Lab Theater A</div>
-        <div class="s-note">Overlaps last 20 min of Beyond the DMS. Also available Thu 2:00 PM.</div>
+        <div class="s-note">Overlaps last 20 min of Beyond the DMS. Also offered Thu 2:00 PM.</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session vip">
+    <div class="srow vip">
       <span class="s-time">12:00 – 1:30</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Executive%20Lunch%20with%20Oliver%20%28Cloudality%29" target="_blank" rel="noopener">Executive Lunch with Oliver (Cloudality)</a><span class="s-tag">Strategic Meeting</span></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Executive%20Lunch%20with%20Oliver%20%28Cloudality%29" target="_blank" rel="noopener">Executive Lunch with Oliver (Cloudality)</a><span class="s-tag">Strategic Meeting</span></div>
         <div class="s-loc">Bistro 888 &middot; InterContinental Hotel</div>
         <div class="s-note">Lunch at 12:30 &mdash; same hotel as the morning session.</div>
       </div>
-      <span class="s-type t-vip">Exec Lunch</span>
+      <span class="badge b-lunch">Exec Lunch</span>
     </div>
-    <div class="session vip">
+    <div class="srow vip">
       <span class="s-time">2:00</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/execsessioncatalog/page/execcatalog/session/1786985192592001WLkT" target="_blank" rel="noopener">Ask Me Anything Bar</a></div>
-        <div class="s-loc">Executive Summit Ask Me Anything Bar</div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/execsessioncatalog/page/execcatalog/session/1786985192592001WLkT" target="_blank" rel="noopener">Ask Me Anything Bar</a></div>
+        <div class="s-loc">Executive Summit &middot; Ask Me Anything Bar</div>
         <div class="s-note">Drop-in anytime 8:00 AM &ndash; 5:00 PM.</div>
       </div>
-      <span class="s-type t-vip">AMA Bar</span>
+      <span class="badge b-vip">AMA Bar</span>
     </div>
-    <div class="session vip">
+    <div class="srow vip">
       <span class="s-time">2:30</span>
       <div class="s-main">
         <div class="s-title">Meet with Andy Berger (Slack &amp; Tableau RVP)</div>
         <div class="s-loc">Outside Executive Summit</div>
       </div>
-      <span class="s-type t-meeting">Meeting</span>
+      <span class="badge b-meeting">Meeting</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">4:00 – 4:50</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=The%20Qualified%20Keynote" target="_blank" rel="noopener">The Qualified Keynote</a><span class="star">&#9733; Top Pick</span></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=The%20Qualified%20Keynote" target="_blank" rel="noopener">The Qualified Keynote</a><span class="star">&#9733; Top Pick</span></div>
         <div class="s-loc">Moscone South &middot; Main Stage / Salesforce+</div>
       </div>
-      <span class="s-type t-keynote">Keynote</span>
+      <span class="badge b-keynote">Keynote</span>
     </div>
-    <div class="session vip">
+    <div class="srow vip">
       <span class="s-time">4:00 – 6:30</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Dreamforce%202026%20-%20AdVic%20and%20Salesforce%20Happy%20Hour" target="_blank" rel="noopener">AdVic &amp; Salesforce Happy Hour</a><span class="s-tag">Industry Network</span></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Dreamforce%202026%20-%20AdVic%20and%20Salesforce%20Happy%20Hour" target="_blank" rel="noopener">AdVic &amp; Salesforce Happy Hour</a><span class="s-tag">Industry Network</span></div>
         <div class="s-loc">The Harlequin &middot; 68 4th St, San Francisco</div>
         <div class="s-note">Manufacturing, Auto, Utilities &amp; Energy Leader Gathering</div>
       </div>
-      <span class="s-type t-vip">Happy Hour</span>
+      <span class="badge b-vip">Happy Hour</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">6:00 – 10:00</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://www.theconcertforkids.org/" target="_blank" rel="noopener">Dreamfest &mdash; The Concert for Kids</a></div>
+        <div class="s-title"><a href="https://www.theconcertforkids.org/" target="_blank" rel="noopener">Dreamfest &mdash; The Concert for Kids</a></div>
         <div class="s-loc">Oracle Park &middot; 24 Willie Mays Plaza (Benefit entrance: 3rd &amp; King)</div>
-        <div class="s-note">Doors open 6:00 PM. Usher &amp; Gwen Stefani. Benefits UCSF Benioff Children's Hospitals.</div>
+        <div class="s-note">Doors open 6:00 PM &middot; Usher &amp; Gwen Stefani &middot; Benefits UCSF Benioff Children's Hospitals</div>
       </div>
-      <span class="s-type t-concert">Concert</span>
+      <span class="badge b-concert">Concert</span>
     </div>
   </div>
 
@@ -680,186 +919,182 @@ body{
   <div class="day">
     <div class="day-head">
       <div class="day-node"></div>
-      <span class="day-title">Day 3 &mdash; <span>Executive &amp; Automotive Keynotes</span></span>
-      <span class="day-date">Thu &middot; Sep 17</span>
+      <span class="day-label">Day 3 &mdash; <em>Executive &amp; Automotive Keynotes</em></span>
+      <span class="day-date-pill">Thu &middot; Sep 17</span>
     </div>
-    <div class="session vip">
+    <div class="srow vip">
       <span class="s-time">9:00 – 9:40</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/execsessioncatalog/page/execcatalog/session/1787075949164001YImP" target="_blank" rel="noopener">Your Company Won't Transform Itself</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/execsessioncatalog/page/execcatalog/session/1787075949164001YImP" target="_blank" rel="noopener">Your Company Won't Transform Itself</a></div>
         <div class="s-loc">Executive Summit Theater</div>
       </div>
-      <span class="s-type t-vip">Exec Session</span>
+      <span class="badge b-vip">Exec Session</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">10:30 – 11:20</span>
       <div class="s-main">
         <div class="s-title">Agentforce Operations Keynote</div>
         <div class="s-loc">Moscone West, L2 &middot; Keynote Room 2020</div>
         <div class="s-note">First come, first seated.</div>
       </div>
-      <span class="s-type t-keynote">Keynote</span>
+      <span class="badge b-keynote">Keynote</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">12:00 – 12:50</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog/session/1781726990895001lQFh" target="_blank" rel="noopener">Automotive Keynote: Drive Customer Loyalty with Agentic AI</a><span class="star">&#9733; Top Pick</span></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog/session/1781726990895001lQFh" target="_blank" rel="noopener">Automotive Keynote: Drive Customer Loyalty with Agentic AI</a><span class="star">&#9733; Top Pick</span></div>
         <div class="s-loc">Moscone West, L2 &middot; Keynote Room 2020</div>
       </div>
-      <span class="s-type t-keynote">Keynote</span>
+      <span class="badge b-keynote">Keynote</span>
     </div>
   </div>
 
-  <div class="hub-footer" style="margin:0 -44px -32px; border-radius:0 0 22px 22px;">
-    <div class="footer-brand">
-      <div class="footer-sf-mark">
-        <svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M10 2a6.5 6.5 0 0 1 5.6 9.75A4.5 4.5 0 1 1 13 18H7a5 5 0 0 1-2.5-9.33A6.5 6.5 0 0 1 10 2Z" fill="white"/></svg>
-      </div>
-      Curated by Anthony Troggio &middot; Salesforce
+  <div class="panel-footer">
+    <div class="pf-brand">
+      <div class="pf-dot"><svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M10 2a6.5 6.5 0 0 1 5.6 9.75A4.5 4.5 0 1 1 13 18H7a5 5 0 0 1-2.5-9.33A6.5 6.5 0 0 1 10 2Z" fill="white"/></svg></div>
+      Anthony Troggio &middot; Salesforce Digital AE
     </div>
-    <span class="footer-note">Mark Milbury &mdash; Executive Track &amp; Partner Sessions</span>
+    <span class="pf-note">Mark Milbury &mdash; Executive Track</span>
   </div>
 </div>
 
 <!-- ==================== SARAH MUSSEN ==================== -->
-<div class="panel" id="panel-sarah">
+<div class="panel v-sarah" id="panel-sarah">
 
-  <div class="logistics-banner">
+  <div class="logistics">
     <span class="logistics-icon">&#128204;</span>
-    <div class="logistics-text">
-      <strong>Hands-On Labs require laptop.</strong> Salon rooms are at the Marriott Marquis &mdash; leave Moscone at least 10 minutes early. Register for Hands-On sessions in advance via the Dreamforce app.
-    </div>
+    <div><strong>Hands-On Labs require laptop.</strong> Salon rooms are at the Marriott Marquis &mdash; allow 10 minutes extra travel from Moscone. Register for Hands-On sessions in advance via the Dreamforce app.</div>
   </div>
 
   <!-- DAY 1 -->
   <div class="day">
-    <div class="day-trail"></div>
+    <div class="day-rail"></div>
     <div class="day-head">
       <div class="day-node"></div>
-      <span class="day-title">Day 1 &mdash; <span>Kickoff &amp; Platform Integration</span></span>
-      <span class="day-date">Tue &middot; Sep 15</span>
+      <span class="day-label">Day 1 &mdash; <em>Kickoff &amp; Platform Integration</em></span>
+      <span class="day-date-pill">Tue &middot; Sep 15</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">8:30 – 9:30</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Build%20Your%20First%20Service%20Rep%20Assistant" target="_blank" rel="noopener">Build Your First Service Rep Assistant</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Build%20Your%20First%20Service%20Rep%20Assistant" target="_blank" rel="noopener">Build Your First Service Rep Assistant</a></div>
         <div class="s-loc">Moscone West, L2 &middot; Room 2002</div>
       </div>
-      <span class="s-type t-workshop">Workshop</span>
+      <span class="badge b-workshop">Workshop</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">10:00 – 12:00</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Dreamforce%20Main%20Keynote" target="_blank" rel="noopener">Dreamforce Main Keynote</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Dreamforce%20Main%20Keynote" target="_blank" rel="noopener">Dreamforce Main Keynote</a></div>
         <div class="s-loc">Moscone South, LL &middot; Keynote Hall B</div>
       </div>
-      <span class="s-type t-keynote">Keynote</span>
+      <span class="badge b-keynote">Keynote</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">1:00 – 1:40</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=5%20Steps%20to%20Design%20AI%20Agents%20That%20Deliver%20True%20Business%20Value" target="_blank" rel="noopener">5 Steps to Design AI Agents That Deliver True Business Value</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=5%20Steps%20to%20Design%20AI%20Agents%20That%20Deliver%20True%20Business%20Value" target="_blank" rel="noopener">5 Steps to Design AI Agents That Deliver True Business Value</a></div>
         <div class="s-loc">Moscone West, L3 &middot; Room 3020</div>
       </div>
-      <span class="s-type t-breakout">Breakout</span>
+      <span class="badge b-breakout">Breakout</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">2:30 – 3:30</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Agent-Driven%20Revenue%20Management%3A%20Build%2C%20Solve%2C%20Orchestrate" target="_blank" rel="noopener">Agent-Driven Revenue Management: Build, Solve, Orchestrate</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Agent-Driven%20Revenue%20Management%3A%20Build%2C%20Solve%2C%20Orchestrate" target="_blank" rel="noopener">Agent-Driven Revenue Management: Build, Solve, Orchestrate</a></div>
         <div class="s-loc">Moscone West, L2 &middot; Room 2012</div>
       </div>
-      <span class="s-type t-breakout">Breakout</span>
+      <span class="badge b-breakout">Breakout</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">3:30 – 4:30</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Build%20a%20Headless%20B2B%20Commerce%20Site%20with%20a%20B2B%20Buyer%20Agent" target="_blank" rel="noopener">Build a Headless B2B Commerce Site with a B2B Buyer Agent</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Build%20a%20Headless%20B2B%20Commerce%20Site%20with%20a%20B2B%20Buyer%20Agent" target="_blank" rel="noopener">Build a Headless B2B Commerce Site with a B2B Buyer Agent</a></div>
         <div class="s-loc">Moscone West, L2 &middot; Room 2010</div>
       </div>
-      <span class="s-type t-workshop">Workshop</span>
+      <span class="badge b-workshop">Workshop</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">4:30 – 4:50</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Accelerate%20Admin%20Tasks%20with%20Setup%20With%20Agentforce" target="_blank" rel="noopener">Accelerate Admin Tasks with Setup With Agentforce</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Accelerate%20Admin%20Tasks%20with%20Setup%20With%20Agentforce" target="_blank" rel="noopener">Accelerate Admin Tasks with Setup With Agentforce</a></div>
         <div class="s-loc">Moscone West, L3 &middot; Theater 18</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session vip">
+    <div class="srow vip">
       <span class="s-time">5:00 – 6:00</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Welcome%20Reception" target="_blank" rel="noopener">Welcome Reception</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Welcome%20Reception" target="_blank" rel="noopener">Welcome Reception</a></div>
         <div class="s-loc">Various Locations</div>
       </div>
-      <span class="s-type t-vip">Reception</span>
+      <span class="badge b-vip">Reception</span>
     </div>
   </div>
 
   <!-- DAY 2 -->
   <div class="day">
-    <div class="day-trail"></div>
+    <div class="day-rail"></div>
     <div class="day-head">
       <div class="day-node"></div>
-      <span class="day-title">Day 2 &mdash; <span>Admin Deep Dives &amp; Hands-On Training</span></span>
-      <span class="day-date">Wed &middot; Sep 16</span>
+      <span class="day-label">Day 2 &mdash; <em>Admin Deep Dives &amp; Hands-On Training</em></span>
+      <span class="day-date-pill">Wed &middot; Sep 16</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">8:30 – 8:50</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=An%20Admin%27s%20Guide%20to%20Agentforce%20Vibes" target="_blank" rel="noopener">An Admin's Guide to Agentforce Vibes</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=An%20Admin%27s%20Guide%20to%20Agentforce%20Vibes" target="_blank" rel="noopener">An Admin's Guide to Agentforce Vibes</a></div>
         <div class="s-loc">Moscone West, L1 Forest &middot; Admin Meadow</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">9:00 – 9:20</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Personalize%20Agentforce%20Coworker%20with%20Reusable%20AI%20Skills" target="_blank" rel="noopener">Personalize Agentforce Coworker with Reusable AI Skills</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Personalize%20Agentforce%20Coworker%20with%20Reusable%20AI%20Skills" target="_blank" rel="noopener">Personalize Agentforce Coworker with Reusable AI Skills</a></div>
         <div class="s-loc">Moscone North, LL &middot; Campground, Theater 3</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">10:00 – 11:00</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Stop%20Reacting%3A%20Build%20a%20Proactive%20Agentforce%20Portal" target="_blank" rel="noopener">Stop Reacting: Build a Proactive Agentforce Portal</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Stop%20Reacting%3A%20Build%20a%20Proactive%20Agentforce%20Portal" target="_blank" rel="noopener">Stop Reacting: Build a Proactive Agentforce Portal</a></div>
         <div class="s-loc">Moscone West, L2 &middot; Room 2002</div>
       </div>
-      <span class="s-type t-workshop">Workshop</span>
+      <span class="badge b-workshop">Workshop</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">11:30 – 1:00</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Scale%20Permissions%20with%20Secure%20User%20Management" target="_blank" rel="noopener">Scale Permissions with Secure User Management</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Scale%20Permissions%20with%20Secure%20User%20Management" target="_blank" rel="noopener">Scale Permissions with Secure User Management</a><span class="star">&#9733; Top Pick</span></div>
         <div class="s-loc">Marriott, Level B2 &middot; Salon 8</div>
       </div>
-      <span class="s-type t-hands-on">Hands-On</span>
+      <span class="badge b-hands">Hands-On</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">1:30 – 3:00</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Get%20Started%20with%20SOQL%20for%20Admins" target="_blank" rel="noopener">Get Started with SOQL for Admins</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Get%20Started%20with%20SOQL%20for%20Admins" target="_blank" rel="noopener">Get Started with SOQL for Admins</a></div>
         <div class="s-loc">Marriott, Level B2 &middot; Salon 10-14</div>
       </div>
-      <span class="s-type t-workshop">Workshop</span>
+      <span class="badge b-workshop">Workshop</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">3:00 – 3:20</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=4-Week%20Fix%3A%20How%20to%20Eliminate%20Duplicate%20Data%20%26%20Enable%20AI%20Fast" target="_blank" rel="noopener">4-Week Fix: How to Eliminate Duplicate Data &amp; Enable AI Fast</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=4-Week%20Fix%3A%20How%20to%20Eliminate%20Duplicate%20Data%20%26%20Enable%20AI%20Fast" target="_blank" rel="noopener">4-Week Fix: How to Eliminate Duplicate Data &amp; Enable AI Fast</a></div>
         <div class="s-loc">Moscone South, LL &middot; Content Pavilion, Stage 6</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">3:30 – 4:30</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Build%20Your%20First%20Tableau%20Visualization" target="_blank" rel="noopener">Build Your First Tableau Visualization</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Build%20Your%20First%20Tableau%20Visualization" target="_blank" rel="noopener">Build Your First Tableau Visualization</a><span class="star">&#9733; Top Pick</span></div>
         <div class="s-loc">Marriott, Level B2 &middot; Salon 10-14</div>
       </div>
-      <span class="s-type t-hands-on">Hands-On</span>
+      <span class="badge b-hands">Hands-On</span>
     </div>
   </div>
 
@@ -867,233 +1102,229 @@ body{
   <div class="day">
     <div class="day-head">
       <div class="day-node"></div>
-      <span class="day-title">Day 3 &mdash; <span>Slack, Flows &amp; Agent Deployment</span></span>
-      <span class="day-date">Thu &middot; Sep 17</span>
+      <span class="day-label">Day 3 &mdash; <em>Slack, Flows &amp; Agent Deployment</em></span>
+      <span class="day-date-pill">Thu &middot; Sep 17</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">8:30 – 8:50</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=More%20Closing%2C%20Less%20Switching%3A%20Agentforce%20Sales%20in%20Slack" target="_blank" rel="noopener">More Closing, Less Switching: Agentforce Sales in Slack</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=More%20Closing%2C%20Less%20Switching%3A%20Agentforce%20Sales%20in%20Slack" target="_blank" rel="noopener">More Closing, Less Switching: Agentforce Sales in Slack</a></div>
         <div class="s-loc">Moscone South, LL &middot; Content Pavilion, Stage 6</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">9:30 – 9:50</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Intro%20to%20Building%20Flows" target="_blank" rel="noopener">Intro to Building Flows</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Intro%20to%20Building%20Flows" target="_blank" rel="noopener">Intro to Building Flows</a></div>
         <div class="s-loc">Moscone West, L1 Forest &middot; Admin Meadow</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">10:00 – 10:40</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Build%20Agents%20Where%20People%20Work%3A%20A%20Slack%20Playbook" target="_blank" rel="noopener">Build Agents Where People Work: A Slack Playbook</a><span class="star">&#9733; Top Pick</span></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Build%20Agents%20Where%20People%20Work%3A%20A%20Slack%20Playbook" target="_blank" rel="noopener">Build Agents Where People Work: A Slack Playbook</a><span class="star">&#9733; Top Pick</span></div>
         <div class="s-loc">Moscone West, L3 &middot; Room 3024</div>
       </div>
-      <span class="s-type t-breakout">Breakout</span>
+      <span class="badge b-breakout">Breakout</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">11:30 – 11:50</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Admin%27s%20Guide%20to%20the%20Slack%20Platform%20on%20Salesforce" target="_blank" rel="noopener">Admin's Guide to the Slack Platform on Salesforce</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Admin%27s%20Guide%20to%20the%20Slack%20Platform%20on%20Salesforce" target="_blank" rel="noopener">Admin's Guide to the Slack Platform on Salesforce</a></div>
         <div class="s-loc">Moscone West, L3 &middot; Learning Lab Theater C</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">12:00 – 12:40</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Unlock%20What%27s%20Already%20Yours%20in%20Agentforce%20Sales" target="_blank" rel="noopener">Unlock What's Already Yours in Agentforce Sales</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Unlock%20What%27s%20Already%20Yours%20in%20Agentforce%20Sales" target="_blank" rel="noopener">Unlock What's Already Yours in Agentforce Sales</a></div>
         <div class="s-loc">Metreon AMC, L3 &middot; Theatre 8</div>
       </div>
-      <span class="s-type t-breakout">Breakout</span>
+      <span class="badge b-breakout">Breakout</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">2:00 – 3:00</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Take%20Your%20Reports%20to%20the%20Next%20Level" target="_blank" rel="noopener">Take Your Reports to the Next Level</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Take%20Your%20Reports%20to%20the%20Next%20Level" target="_blank" rel="noopener">Take Your Reports to the Next Level</a></div>
         <div class="s-loc">Marriott, Level B2 &middot; Salon 1-3</div>
       </div>
-      <span class="s-type t-workshop">Workshop</span>
+      <span class="badge b-workshop">Workshop</span>
     </div>
   </div>
 
-  <div class="hub-footer" style="margin:0 -44px -32px; border-radius:0 0 22px 22px;">
-    <div class="footer-brand">
-      <div class="footer-sf-mark">
-        <svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M10 2a6.5 6.5 0 0 1 5.6 9.75A4.5 4.5 0 1 1 13 18H7a5 5 0 0 1-2.5-9.33A6.5 6.5 0 0 1 10 2Z" fill="white"/></svg>
-      </div>
-      Curated by Anthony Troggio &middot; Salesforce
+  <div class="panel-footer">
+    <div class="pf-brand">
+      <div class="pf-dot" style="background:var(--violet)"><svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M10 2a6.5 6.5 0 0 1 5.6 9.75A4.5 4.5 0 1 1 13 18H7a5 5 0 0 1-2.5-9.33A6.5 6.5 0 0 1 10 2Z" fill="white"/></svg></div>
+      Anthony Troggio &middot; Salesforce Digital AE
     </div>
-    <span class="footer-note">Sarah Mussen &mdash; Admin &amp; Platform Deep Dives</span>
+    <span class="pf-note">Sarah Mussen &mdash; Admin &amp; Platform Deep Dives</span>
   </div>
 </div>
 
 <!-- ==================== MARY COLE ==================== -->
-<div class="panel" id="panel-mary">
+<div class="panel v-mary" id="panel-mary">
 
-  <div class="logistics-banner">
+  <div class="logistics">
     <span class="logistics-icon">&#128204;</span>
-    <div class="logistics-text">
-      <strong>First-timer tip:</strong> Pick up your badge early. The First Timers' Experience at Yerba Buena Gardens (8:00 AM) is a great orientation start. Hands-On Labs at Marriott &mdash; plan extra travel time.
-    </div>
+    <div><strong>First-timer tip:</strong> First Timers' Experience at Yerba Buena Gardens starts at 8:00 AM &mdash; great way to orient before the keynote. Hands-On Labs at Marriott: plan extra travel time from Moscone.</div>
   </div>
 
   <!-- DAY 1 -->
   <div class="day">
-    <div class="day-trail"></div>
+    <div class="day-rail"></div>
     <div class="day-head">
       <div class="day-node"></div>
-      <span class="day-title">Day 1 &mdash; <span>Kickoff &amp; Platform Foundations</span></span>
-      <span class="day-date">Tue &middot; Sep 15</span>
+      <span class="day-label">Day 1 &mdash; <em>Kickoff &amp; Platform Foundations</em></span>
+      <span class="day-date-pill">Tue &middot; Sep 15</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">8:00 – 8:45</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=First%20Timers%27%20Experience" target="_blank" rel="noopener">First Timers' Experience</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=First%20Timers%27%20Experience" target="_blank" rel="noopener">First Timers' Experience</a></div>
         <div class="s-loc">Yerba Buena Gardens</div>
       </div>
-      <span class="s-type t-activity">Activity</span>
+      <span class="badge b-activity">Activity</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">9:00 – 9:20</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Evolve%20Your%20Role%20as%20a%20Salesforce%20Administrator" target="_blank" rel="noopener">Evolve Your Role as a Salesforce Administrator</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Evolve%20Your%20Role%20as%20a%20Salesforce%20Administrator" target="_blank" rel="noopener">Evolve Your Role as a Salesforce Administrator</a></div>
         <div class="s-loc">Moscone West, L2 &middot; Trailblazer Theater</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">10:00 – 12:00</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Dreamforce%20Main%20Keynote" target="_blank" rel="noopener">Dreamforce Main Keynote</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Dreamforce%20Main%20Keynote" target="_blank" rel="noopener">Dreamforce Main Keynote</a></div>
         <div class="s-loc">Moscone South &middot; Keynote Hall B</div>
       </div>
-      <span class="s-type t-keynote">Keynote</span>
+      <span class="badge b-keynote">Keynote</span>
     </div>
-    <div class="session vip">
+    <div class="srow vip">
       <span class="s-time">12:30</span>
       <div class="s-main">
         <div class="s-title">Lunch with Oliver</div>
-        <div class="s-loc">TBD &mdash; confirm with Anthony</div>
+        <div class="s-loc">Confirm location with Anthony</div>
       </div>
-      <span class="s-type t-lunch">Lunch</span>
+      <span class="badge b-lunch">Lunch</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">2:00 – 2:20</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Scaling%20Agentforce%20Across%20Field%20Sales" target="_blank" rel="noopener">Scaling Agentforce Across Field Sales</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Scaling%20Agentforce%20Across%20Field%20Sales" target="_blank" rel="noopener">Scaling Agentforce Across Field Sales</a></div>
         <div class="s-loc">Moscone West, L2 &middot; Theater 4</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">2:30 – 2:50</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Amplify%20Value%20Across%20Your%20Salesforce%20Platform" target="_blank" rel="noopener">Amplify Value Across Your Salesforce Platform</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Amplify%20Value%20Across%20Your%20Salesforce%20Platform" target="_blank" rel="noopener">Amplify Value Across Your Salesforce Platform</a></div>
         <div class="s-loc">Moscone North, LL &middot; Campground, Theater 2</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">3:30 – 3:50</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog/session/1779838690164001G6rt" target="_blank" rel="noopener">CPQ and Sales Comp: The New GTM Alpha for RevOps</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog/session/1779838690164001G6rt" target="_blank" rel="noopener">CPQ and Sales Comp: The New GTM Alpha for RevOps</a></div>
         <div class="s-loc">Moscone West, L3 &middot; Theater 17</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">3:45 – 4:35</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Salesforce%20on%20Salesforce%3A%20Scaling%20the%20Agentic%20Enterprise" target="_blank" rel="noopener">Salesforce on Salesforce: Scaling the Agentic Enterprise</a><span class="star">&#9733; Top Pick</span></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Salesforce%20on%20Salesforce%3A%20Scaling%20the%20Agentic%20Enterprise" target="_blank" rel="noopener">Salesforce on Salesforce: Scaling the Agentic Enterprise</a><span class="star">&#9733; Top Pick</span></div>
         <div class="s-loc">Moscone West, L2 &middot; Keynote Room 2020</div>
       </div>
-      <span class="s-type t-keynote">Keynote</span>
+      <span class="badge b-keynote">Keynote</span>
     </div>
   </div>
 
   <!-- DAY 2 -->
   <div class="day">
-    <div class="day-trail"></div>
+    <div class="day-rail"></div>
     <div class="day-head">
       <div class="day-node"></div>
-      <span class="day-title">Day 2 &mdash; <span>Admin Deep Dives &amp; Hands-On Training</span></span>
-      <span class="day-date">Wed &middot; Sep 16</span>
+      <span class="day-label">Day 2 &mdash; <em>Admin Deep Dives &amp; Hands-On Training</em></span>
+      <span class="day-date-pill">Wed &middot; Sep 16</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">8:30 – 8:50</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=An%20Admin%27s%20Guide%20to%20Agentforce%20Vibes" target="_blank" rel="noopener">An Admin's Guide to Agentforce Vibes</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=An%20Admin%27s%20Guide%20to%20Agentforce%20Vibes" target="_blank" rel="noopener">An Admin's Guide to Agentforce Vibes</a></div>
         <div class="s-loc">Moscone West, L1 Forest &middot; Admin Meadow</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">9:00 – 9:20</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog/session/1779838709217001G31d" target="_blank" rel="noopener">0 Margin for Error: 10 Data Quality Requirements for AI</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog/session/1779838709217001G31d" target="_blank" rel="noopener">0 Margin for Error: 10 Data Quality Requirements for AI</a></div>
         <div class="s-loc">Moscone West, L2 &middot; Theater 4</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">9:30 – 11:00</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Accelerate%20Quotes%20with%20Agentforce%20Revenue%20Agents" target="_blank" rel="noopener">Accelerate Quotes with Agentforce Revenue Agents</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Accelerate%20Quotes%20with%20Agentforce%20Revenue%20Agents" target="_blank" rel="noopener">Accelerate Quotes with Agentforce Revenue Agents</a><span class="star">&#9733; Top Pick</span></div>
         <div class="s-loc">Marriott, Level B2 &middot; Salon 10-14</div>
       </div>
-      <span class="s-type t-hands-on">Hands-On</span>
+      <span class="badge b-hands">Hands-On</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">11:30 – 12:30</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Agent%20Governance%20and%20Guardrails%3A%20Implementation%20and%20Testing" target="_blank" rel="noopener">Agent Governance and Guardrails: Implementation and Testing</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Agent%20Governance%20and%20Guardrails%3A%20Implementation%20and%20Testing" target="_blank" rel="noopener">Agent Governance and Guardrails: Implementation and Testing</a></div>
         <div class="s-loc">Marriott, Level B2 &middot; Salon 4-6</div>
       </div>
-      <span class="s-type t-roundtable">Roundtable</span>
+      <span class="badge b-roundtable">Roundtable</span>
     </div>
-    <div class="session vip">
+    <div class="srow vip">
       <span class="s-time">12:30</span>
       <div class="s-main">
         <div class="s-title">Lunch</div>
         <div class="s-loc">On your own</div>
       </div>
-      <span class="s-type t-lunch">Lunch</span>
+      <span class="badge b-lunch">Lunch</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">1:30 – 2:10</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=How%20to%20Make%20Asset-Centric%20Field%20Service%20a%20Revenue%20Engine" target="_blank" rel="noopener">How to Make Asset-Centric Field Service a Revenue Engine</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=How%20to%20Make%20Asset-Centric%20Field%20Service%20a%20Revenue%20Engine" target="_blank" rel="noopener">How to Make Asset-Centric Field Service a Revenue Engine</a></div>
         <div class="s-loc">Metreon AMC, L3 &middot; Theatre 15</div>
       </div>
-      <span class="s-type t-breakout">Breakout</span>
+      <span class="badge b-breakout">Breakout</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">2:30 – 2:50</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Deploy%20a%20Help%20Agent%20in%20Minutes%20with%20Builder%20Central" target="_blank" rel="noopener">Deploy a Help Agent in Minutes with Builder Central</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Deploy%20a%20Help%20Agent%20in%20Minutes%20with%20Builder%20Central" target="_blank" rel="noopener">Deploy a Help Agent in Minutes with Builder Central</a></div>
         <div class="s-loc">Moscone West, L1 Forest &middot; Admin Meadow</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">3:00 – 3:20</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog/session/1779839461121001Gp8l" target="_blank" rel="noopener">Admin Toolkit: 7 Trusted Agents and Apps for Sales &amp; Service</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog/session/1779839461121001Gp8l" target="_blank" rel="noopener">Admin Toolkit: 7 Trusted Agents and Apps for Sales &amp; Service</a></div>
         <div class="s-loc">Moscone West, L1 Forest &middot; AgentExchange Theater</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">3:30 – 4:30</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Boost%20Productivity%20with%20Agentforce%20Coworker" target="_blank" rel="noopener">Boost Productivity with Agentforce Coworker</a><span class="star">&#9733; Top Pick</span></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Boost%20Productivity%20with%20Agentforce%20Coworker" target="_blank" rel="noopener">Boost Productivity with Agentforce Coworker</a><span class="star">&#9733; Top Pick</span></div>
         <div class="s-loc">Marriott Marquis, Level B2 &middot; Hands-On Workshop Lab</div>
       </div>
-      <span class="s-type t-hands-on">Hands-On</span>
+      <span class="badge b-hands">Hands-On</span>
     </div>
   </div>
 
@@ -1101,121 +1332,117 @@ body{
   <div class="day">
     <div class="day-head">
       <div class="day-node"></div>
-      <span class="day-title">Day 3 &mdash; <span>Keynotes &amp; Agent Building</span></span>
-      <span class="day-date">Thu &middot; Sep 17</span>
+      <span class="day-label">Day 3 &mdash; <em>Keynotes &amp; Agent Building</em></span>
+      <span class="day-date-pill">Thu &middot; Sep 17</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">9:00 – 10:00</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Build%2C%20Test%2C%20and%20Deploy%20an%20Agentforce%20Agent%20in%2060%20Minutes" target="_blank" rel="noopener">Build, Test &amp; Deploy an Agentforce Agent in 60 Minutes</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Build%2C%20Test%2C%20and%20Deploy%20an%20Agentforce%20Agent%20in%2060%20Minutes" target="_blank" rel="noopener">Build, Test &amp; Deploy an Agentforce Agent in 60 Minutes</a></div>
         <div class="s-loc">Marriott Marquis &middot; Level B2 Workshop Lab</div>
       </div>
-      <span class="s-type t-workshop">Workshop</span>
+      <span class="badge b-workshop">Workshop</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">10:00 – 10:20</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Power%20Accurate%20Insights%20with%20Trusted%20Knowledge" target="_blank" rel="noopener">Power Accurate Insights with Trusted Knowledge</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Power%20Accurate%20Insights%20with%20Trusted%20Knowledge" target="_blank" rel="noopener">Power Accurate Insights with Trusted Knowledge</a></div>
         <div class="s-loc">Moscone South, LL &middot; Content Pavilion, Stage 6</div>
       </div>
-      <span class="s-type t-theater">Theater</span>
+      <span class="badge b-theater">Theater</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">10:30 – 11:20</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog/session/1781727006316001lj8h" target="_blank" rel="noopener">Admin Keynote: Bring the Agentic Enterprise to Life</a><span class="star">&#9733; Top Pick</span></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog/session/1781727006316001lj8h" target="_blank" rel="noopener">Admin Keynote: Bring the Agentic Enterprise to Life</a><span class="star">&#9733; Top Pick</span></div>
         <div class="s-loc">Moscone West, L3 &middot; Keynote Room 3001</div>
       </div>
-      <span class="s-type t-keynote">Keynote</span>
+      <span class="badge b-keynote">Keynote</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">11:30 – 12:20</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Marketing%20Keynote%3A%20A%20New%20Model%20for%20Growth" target="_blank" rel="noopener">Marketing Keynote: A New Model for Growth</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Marketing%20Keynote%3A%20A%20New%20Model%20for%20Growth" target="_blank" rel="noopener">Marketing Keynote: A New Model for Growth</a></div>
         <div class="s-loc">Moscone South &middot; Keynote Hall B</div>
       </div>
-      <span class="s-type t-keynote">Keynote</span>
+      <span class="badge b-keynote">Keynote</span>
     </div>
-    <div class="session vip">
+    <div class="srow vip">
       <span class="s-time">12:30</span>
       <div class="s-main">
         <div class="s-title">Lunch</div>
         <div class="s-loc">On your own</div>
       </div>
-      <span class="s-type t-lunch">Lunch</span>
+      <span class="badge b-lunch">Lunch</span>
     </div>
   </div>
 
-  <div class="hub-footer" style="margin:0 -44px -32px; border-radius:0 0 22px 22px;">
-    <div class="footer-brand">
-      <div class="footer-sf-mark">
-        <svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M10 2a6.5 6.5 0 0 1 5.6 9.75A4.5 4.5 0 1 1 13 18H7a5 5 0 0 1-2.5-9.33A6.5 6.5 0 0 1 10 2Z" fill="white"/></svg>
-      </div>
-      Curated by Anthony Troggio &middot; Salesforce
+  <div class="panel-footer">
+    <div class="pf-brand">
+      <div class="pf-dot" style="background:var(--coral)"><svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M10 2a6.5 6.5 0 0 1 5.6 9.75A4.5 4.5 0 1 1 13 18H7a5 5 0 0 1-2.5-9.33A6.5 6.5 0 0 1 10 2Z" fill="white"/></svg></div>
+      Anthony Troggio &middot; Salesforce Digital AE
     </div>
-    <span class="footer-note">Mary Cole &mdash; Admin Tracks &amp; Agent Building</span>
+    <span class="pf-note">Mary Cole &mdash; Admin Tracks &amp; Agent Building</span>
   </div>
 </div>
 
 <!-- ==================== OLIVER MURCH ==================== -->
-<div class="panel" id="panel-oliver">
+<div class="panel v-oliver" id="panel-oliver">
 
-  <div class="logistics-banner">
+  <div class="logistics">
     <span class="logistics-icon">&#128204;</span>
-    <div class="logistics-text">
-      <strong>Internal team schedule.</strong> Oliver covering Sep 15 &ndash; 16. Confirm customer meal logistics (Mary Cole lunch Sep 15 at 1:30) and Bistro 888 reservation for ParksPro on Sep 16.
-    </div>
+    <div><strong>Internal team schedule.</strong> Oliver covers Sep 15&ndash;16. Confirm customer meal logistics &mdash; Mary Cole lunch Sep 15 at 1:30 PM, Bistro 888 ParksPro reservation Sep 16 at 12:30.</div>
   </div>
 
   <!-- DAY 1 -->
   <div class="day">
-    <div class="day-trail"></div>
+    <div class="day-rail"></div>
     <div class="day-head">
       <div class="day-node"></div>
-      <span class="day-title">Tuesday &mdash; <span>Day 1</span></span>
-      <span class="day-date">Tue &middot; Sep 15</span>
+      <span class="day-label">Tuesday &mdash; <em>Day 1</em></span>
+      <span class="day-date-pill">Tue &middot; Sep 15</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">8:00 am</span>
       <div class="s-main">
         <div class="s-title">Executive Summit &mdash; Meet Mark</div>
         <div class="s-loc">Marriott Marquis &middot; Golden Gate &ndash; Ballroom A</div>
       </div>
-      <span class="s-type t-meeting">Meeting</span>
+      <span class="badge b-meeting">Meeting</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">10:00 am</span>
       <div class="s-main">
         <div class="s-title">AdVic Main Keynote Watch Party</div>
         <div class="s-loc">The Harlequin &middot; 68 4th Street, San Francisco, CA 94103</div>
       </div>
-      <span class="s-type t-vip">Watch Party</span>
+      <span class="badge b-vip">Watch Party</span>
     </div>
-    <div class="session vip">
+    <div class="srow vip">
       <span class="s-time">1:30 pm</span>
       <div class="s-main">
         <div class="s-title">Lunch with Mary Cole</div>
         <div class="s-loc">Confirm location with Anthony</div>
       </div>
-      <span class="s-type t-lunch">Lunch</span>
+      <span class="badge b-lunch">Lunch</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">5:00 – 7:30</span>
       <div class="s-main">
         <div class="s-title">CMRCL PACE MAE Executive Dreamforce Happy Hour</div>
         <div class="s-loc">Swig &middot; 561 Geary St, San Francisco, CA 94102</div>
         <div class="s-note">Sponsored by TruSummit</div>
       </div>
-      <span class="s-type t-vip">Happy Hour</span>
+      <span class="badge b-vip">Happy Hour</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">7:00 pm</span>
       <div class="s-main">
         <div class="s-title">DF Team Dinner</div>
         <div class="s-loc">R&amp;G Lounge &middot; 631 Kearny St, San Francisco, CA 94108</div>
         <div class="s-note">SF + ParksPro + American Welding &amp; Gas</div>
       </div>
-      <span class="s-type t-dinner">Team Dinner</span>
+      <span class="badge b-dinner">Team Dinner</span>
     </div>
   </div>
 
@@ -1223,97 +1450,96 @@ body{
   <div class="day">
     <div class="day-head">
       <div class="day-node"></div>
-      <span class="day-title">Wednesday &mdash; <span>Day 2</span></span>
-      <span class="day-date">Wed &middot; Sep 16</span>
+      <span class="day-label">Wednesday &mdash; <em>Day 2</em></span>
+      <span class="day-date-pill">Wed &middot; Sep 16</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">9:00 am</span>
       <div class="s-main">
         <div class="s-title">Peer to Peer Dreamforce &mdash; with Mark</div>
         <div class="s-loc">The Harlequin &middot; 68 4th St, San Francisco, CA 94103</div>
       </div>
-      <span class="s-type t-meeting">Meeting</span>
+      <span class="badge b-meeting">Meeting</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">10:30 – 11:30</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog/session/1780086316023001xyh1" target="_blank" rel="noopener">Beyond the DMS: Building the Connected Dealer Ecosystem</a><span class="star">&#9733; Top Pick</span></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog/session/1780086316023001xyh1" target="_blank" rel="noopener">Beyond the DMS: Building the Connected Dealer Ecosystem</a><span class="star">&#9733; Top Pick</span></div>
         <div class="s-loc">InterCon, L5 &middot; InterCon Ballroom C, Roundtable 10</div>
       </div>
-      <span class="s-type t-breakout">Breakout</span>
+      <span class="badge b-breakout">Breakout</span>
     </div>
-    <div class="session vip">
+    <div class="srow vip">
       <span class="s-time">12:30 – 1:30</span>
       <div class="s-main">
         <div class="s-title">DF Lunch &mdash; ParksPro</div>
         <div class="s-loc">Bistro 888 &middot; InterContinental Hotel, San Francisco</div>
       </div>
-      <span class="s-type t-lunch">Lunch</span>
+      <span class="badge b-lunch">Lunch</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">2:30</span>
       <div class="s-main">
         <div class="s-title">Meet with Andy Berger (Slack &amp; Tableau RVP)</div>
         <div class="s-loc">Outside Executive Summit</div>
       </div>
-      <span class="s-type t-meeting">Meeting</span>
+      <span class="badge b-meeting">Meeting</span>
     </div>
-    <div class="session">
+    <div class="srow">
       <span class="s-time">3:30 – 4:30</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Boost%20Productivity%20with%20Agentforce%20Coworker" target="_blank" rel="noopener">Boost Productivity with Agentforce Coworker</a></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Boost%20Productivity%20with%20Agentforce%20Coworker" target="_blank" rel="noopener">Boost Productivity with Agentforce Coworker</a></div>
         <div class="s-loc">Marriott Marquis, Level B2 &middot; Hands-On Workshop Lab</div>
       </div>
-      <span class="s-type t-hands-on">Hands-On</span>
+      <span class="badge b-hands">Hands-On</span>
     </div>
-    <div class="session vip">
+    <div class="srow vip">
       <span class="s-time">4:00 – 6:30</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Dreamforce%202026%20-%20AdVic%20and%20Salesforce%20Happy%20Hour" target="_blank" rel="noopener">AdVic &amp; Salesforce Happy Hour</a><span class="s-tag">Industry Network</span></div>
+        <div class="s-title"><a href="https://reg.salesforce.com/flow/plus/df26/sessioncatalog/page/catalog?search=Dreamforce%202026%20-%20AdVic%20and%20Salesforce%20Happy%20Hour" target="_blank" rel="noopener">AdVic &amp; Salesforce Happy Hour</a><span class="s-tag">Industry Network</span></div>
         <div class="s-loc">The Harlequin &middot; 68 4th St, San Francisco</div>
         <div class="s-note">Manufacturing, Auto, Utilities &amp; Energy Leader Gathering</div>
       </div>
-      <span class="s-type t-vip">Happy Hour</span>
+      <span class="badge b-vip">Happy Hour</span>
     </div>
-    <div class="session pick">
+    <div class="srow hi">
       <span class="s-time">6:00 – 10:00</span>
       <div class="s-main">
-        <div class="s-title"><a class="s-link" href="https://www.theconcertforkids.org/" target="_blank" rel="noopener">Dreamfest &mdash; The Concert for Kids</a></div>
+        <div class="s-title"><a href="https://www.theconcertforkids.org/" target="_blank" rel="noopener">Dreamfest &mdash; The Concert for Kids</a></div>
         <div class="s-loc">Oracle Park &middot; 24 Willie Mays Plaza (Benefit entrance: 3rd &amp; King)</div>
-        <div class="s-note">Doors open 6:00 PM. Usher &amp; Gwen Stefani.</div>
+        <div class="s-note">Doors open 6:00 PM &middot; Usher &amp; Gwen Stefani</div>
       </div>
-      <span class="s-type t-concert">Concert</span>
+      <span class="badge b-concert">Concert</span>
     </div>
-    <div class="session vip">
+    <div class="srow vip">
       <span class="s-time">8:00 pm</span>
       <div class="s-main">
         <div class="s-title">Reservation at Z &amp; Y Restaurant</div>
         <div class="s-loc">Z &amp; Y Restaurant &middot; San Francisco</div>
       </div>
-      <span class="s-type t-dinner">Dinner</span>
+      <span class="badge b-dinner">Dinner</span>
     </div>
   </div>
 
-  <div class="hub-footer" style="margin:0 -44px -32px; border-radius:0 0 22px 22px;">
-    <div class="footer-brand">
-      <div class="footer-sf-mark">
-        <svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M10 2a6.5 6.5 0 0 1 5.6 9.75A4.5 4.5 0 1 1 13 18H7a5 5 0 0 1-2.5-9.33A6.5 6.5 0 0 1 10 2Z" fill="white"/></svg>
-      </div>
-      Curated by Anthony Troggio &middot; Salesforce
+  <div class="panel-footer">
+    <div class="pf-brand">
+      <div class="pf-dot" style="background:var(--green)"><svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M10 2a6.5 6.5 0 0 1 5.6 9.75A4.5 4.5 0 1 1 13 18H7a5 5 0 0 1-2.5-9.33A6.5 6.5 0 0 1 10 2Z" fill="white"/></svg></div>
+      Anthony Troggio &middot; Salesforce Digital AE
     </div>
-    <span class="footer-note">Oliver Murch &mdash; Core AE &middot; Sep 15 &ndash; 16 Schedule</span>
+    <span class="pf-note">Oliver Murch &mdash; Core AE &middot; Sep 15&ndash;16</span>
   </div>
 </div>
 
-</div><!-- /panels -->
+</div><!-- /panels-wrap -->
 </div><!-- /hub -->
 
 <script>
-function switchTab(id){
-  document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelector('.ptab.'+id).classList.add('active');
-  document.getElementById('panel-'+id).classList.add('active');
+function switchTab(id, cardClass, panelClass){
+  document.querySelectorAll('.pcard').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => { p.classList.remove('active'); });
+  document.querySelector('.pcard.'+cardClass).classList.add('active');
+  const panel = document.getElementById('panel-'+id);
+  panel.classList.add('active');
 }
 </script>
 </body>
