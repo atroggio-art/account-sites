@@ -17,6 +17,7 @@
   --coral:#FF6E4E;
   --green:#04844B;
   --teal:#007B83;
+  --amber:#D4650A;
   --navy:#0B1739;
   --navy-mid:#13224D;
   --text:#1C2A4A;
@@ -248,7 +249,7 @@ body::before{
    ============================================================ */
 .switcher{
   display:grid;
-  grid-template-columns:repeat(5,1fr);
+  grid-template-columns:repeat(6,1fr);
   background:#F0F5FF;
   border-top:none;
   gap:0;
@@ -295,6 +296,8 @@ body::before{
 .pcard.active.p-oliver{ border-bottom-color:var(--green); }
 .pcard.active.p-map{ border-bottom-color:var(--teal); }
 .pcard.active.p-map::before{ background:var(--teal); }
+.pcard.active.p-laura{ border-bottom-color:var(--amber); }
+.pcard.active.p-laura::before{ background:var(--amber); }
 
 /* Avatar */
 .p-avatar{
@@ -318,6 +321,7 @@ body::before{
 .p-mary .p-avatar{ background:linear-gradient(135deg,#FF6E4E,#FF9166); }
 .p-oliver .p-avatar{ background:linear-gradient(135deg,#04844B,#09C26B); }
 .p-map .p-avatar{ background:linear-gradient(135deg,#007B83,#00B5C0); }
+.p-laura .p-avatar{ background:linear-gradient(135deg,#D4650A,#F59230); }
 
 .p-role-tag{
   font-size:9.5px;
@@ -331,6 +335,7 @@ body::before{
 .p-mary .p-role-tag{ color:var(--coral); }
 .p-oliver .p-role-tag{ color:var(--green); }
 .p-map .p-role-tag{ color:var(--teal); }
+.p-laura .p-role-tag{ color:var(--amber); }
 
 .p-name{
   font-family:'Poppins',sans-serif;
@@ -375,6 +380,7 @@ body::before{
 .panel.v-mary{ --accent:var(--coral); --accent-tint:#FFF0ED; --accent-line:#FFBDAC; --accent-mid:#FF6E4E; }
 .panel.v-oliver{ --accent:var(--green); --accent-tint:#E8F7F1; --accent-line:#8DD5B1; --accent-mid:#04844B; }
 .panel.v-map{ --accent:var(--teal); --accent-tint:#E3F8F9; --accent-line:#8DD5D8; --accent-mid:#007B83; }
+.panel.v-laura{ --accent:var(--amber); --accent-tint:#FDF3EC; --accent-line:#F5C49A; --accent-mid:#D4650A; }
 
 /* Map panel specific */
 .map-img-wrap{
@@ -743,7 +749,7 @@ body::before{
    ============================================================ */
 @media(max-width:860px){
   .switcher{ grid-template-columns:repeat(3,1fr); }
-  .pcard:nth-child(3){ border-right:none; }
+  .pcard:nth-child(3),.pcard:nth-child(6){ border-right:none; }
   .pcard:nth-child(1),.pcard:nth-child(2),.pcard:nth-child(3){ border-bottom:1px solid var(--line); }
 }
 @media(max-width:740px){
@@ -761,7 +767,8 @@ body::before{
   .hero-headline h1{ font-size:28px; }
   .hero-sub{ font-size:13px; }
   .switcher{ grid-template-columns:repeat(2,1fr); }
-  .pcard:nth-child(4){ border-right:none; }
+  .pcard:nth-child(2),.pcard:nth-child(4),.pcard:nth-child(6){ border-right:none; }
+  .pcard:nth-child(1),.pcard:nth-child(2),.pcard:nth-child(3),.pcard:nth-child(4){ border-bottom:1px solid var(--line); }
   .pcard:nth-child(3){ border-right:1px solid var(--line); }
 }
 
@@ -841,6 +848,13 @@ body::before{
     <div class="p-role-tag">Core AE</div>
     <div class="p-name">Oliver Murch</div>
     <div class="p-meta">Sep 15 &ndash; 16</div>
+  </div>
+
+  <div class="pcard p-laura" onclick="switchTab('laura','p-laura','v-laura')">
+    <div class="p-avatar">LC</div>
+    <div class="p-role-tag">Customer</div>
+    <div class="p-name">Laura Crews</div>
+    <div class="p-meta">Sep 15 &ndash; 17</div>
   </div>
 
   <div class="pcard p-map" onclick="switchTab('map','p-map','v-map')">
@@ -1879,6 +1893,194 @@ body::before{
       Anthony Troggio &middot; Salesforce Digital AE
     </div>
     <span class="pf-note">Oliver Murch &mdash; Core AE &middot; Sep 15&ndash;17</span>
+  </div>
+</div>
+
+<!-- ==================== LAURA CREWS ==================== -->
+<div class="panel v-laura" id="panel-laura">
+
+  <div class="panel-header">
+    <div class="ph-left">
+      <div class="ph-avatar p-laura" style="background:linear-gradient(135deg,#D4650A,#F59230);color:#fff;width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-size:17px;font-weight:800;letter-spacing:-0.02em;flex-shrink:0;">LC</div>
+      <div>
+        <div class="ph-name">Laura Crews</div>
+        <div class="ph-role">Customer &mdash; Dreamforce 2026 &middot; Sep 15&ndash;17</div>
+      </div>
+    </div>
+    <div class="ph-legend">
+      <span class="leg hi">&#9733; Top Pick</span>
+      <span class="leg vip">VIP</span>
+    </div>
+  </div>
+
+  <div class="logistics-bar">
+    <span class="lb-icon">&#x1F4CD;</span>
+    <span><strong>Drop-Off:</strong> Moscone West &mdash; Howard St, south side (between 4th &amp; 5th) &middot; Moscone South &mdash; 3rd St, west side (before Howard). Howard St between 3rd &amp; 4th is closed to vehicles during Dreamforce &mdash; allow extra walking time.</span>
+  </div>
+
+  <!-- DAY 1 -->
+  <div class="day">
+    <div class="day-head">
+      <span class="day-label">Tuesday &mdash; <em>Day 1 &middot; Kickoff &amp; Keynote</em></span>
+      <span class="day-date-pill">Tue &middot; Sep 15</span>
+    </div>
+
+    <div class="srow hi">
+      <div class="s-time">8:30 &ndash; 8:50</div>
+      <div class="s-body">
+        <div class="s-title">Maximize Event Pipeline and ROI With an AI SDR Agent</div>
+        <div class="s-loc">Moscone West, L2 &middot; Learning Lab Theater B</div>
+      </div>
+      <div class="badge b-theater">Theater</div>
+    </div>
+
+    <div class="srow">
+      <div class="s-time">10:00 &ndash; 12:00</div>
+      <div class="s-body">
+        <div class="s-title">Dreamforce Main Keynote</div>
+        <div class="s-loc">Moscone South, Lower Level &middot; Keynote Hall B</div>
+      </div>
+      <div class="badge b-keynote">Keynote</div>
+    </div>
+
+    <div class="srow">
+      <div class="s-time">2:30 &ndash; 3:10</div>
+      <div class="s-body">
+        <div class="s-title">Agentic Marketing System: Design Experiences, Not Journeys</div>
+        <div class="s-loc">Metreon AMC, L3 &middot; Theatre 7</div>
+      </div>
+      <div class="badge b-breakout">Breakout</div>
+    </div>
+
+    <div class="srow hi">
+      <div class="s-time">3:30 &ndash; 4:30</div>
+      <div class="s-body">
+        <div class="s-title">Build a Headless B2B Commerce Site with a B2B Buyer Agent</div>
+        <div class="s-loc">Moscone West, L2 &middot; Room 2010</div>
+      </div>
+      <div class="badge b-workshop">Workshop</div>
+    </div>
+
+    <div class="srow vip">
+      <div class="s-time">6:00 &ndash; 9:00</div>
+      <div class="s-body">
+        <div class="s-title">Salesforce Executive Dinner at Dreamforce</div>
+        <div class="s-loc">Salesforce Tower &middot; Private Executive Floor</div>
+        <div class="s-note">Cocktails &amp; Networking (6:00) &middot; Dinner &amp; Discussion (6:30)</div>
+      </div>
+      <div class="badge b-dinner">Exec Dinner</div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day">
+    <div class="day-head">
+      <span class="day-label">Wednesday &mdash; <em>Day 2 &middot; Deep Dives &amp; Agent Deployment</em></span>
+      <span class="day-date-pill">Wed &middot; Sep 16</span>
+    </div>
+
+    <div class="srow">
+      <div class="s-time">8:00 &ndash; 9:00</div>
+      <div class="s-body">
+        <div class="s-title">Get Started with Marketing Cloud Next</div>
+        <div class="s-loc">Marriott, Level B2 &middot; Salon 10&ndash;14</div>
+      </div>
+      <div class="badge b-hands">Hands-On</div>
+    </div>
+
+    <div class="srow">
+      <div class="s-time">11:00 &ndash; 11:20</div>
+      <div class="s-body">
+        <div class="s-title">How Salesforce Activated Qualified in 30 Days</div>
+        <div class="s-loc">Moscone North &middot; Campground, SF on SF Theater</div>
+      </div>
+      <div class="badge b-theater">Theater</div>
+    </div>
+
+    <div class="srow hi">
+      <div class="s-time">11:30 &ndash; 1:00</div>
+      <div class="s-body">
+        <div class="s-title">Hired To Live in 45 Days: How To Build An AI SDR Agent</div>
+        <div class="s-loc">Moscone West &middot; Level 2 &middot; Agentic CRM Learning Lab</div>
+      </div>
+      <div class="badge b-workshop">Workshop</div>
+    </div>
+
+    <div class="srow">
+      <div class="s-time">1:30 &ndash; 2:30</div>
+      <div class="s-body">
+        <div class="s-title">The CDP Playbook: Drive Value Across the Customer Lifecycle</div>
+        <div class="s-loc">InterCon, L5 &middot; InterCon Ballroom A, Roundtable 8</div>
+      </div>
+      <div class="badge b-roundtable">Roundtable</div>
+    </div>
+
+    <div class="srow hi">
+      <div class="s-time">4:00 &ndash; 4:50</div>
+      <div class="s-body">
+        <div class="s-title">The Qualified Keynote</div>
+        <div class="s-loc">Salesforce+ Digital Stream &middot; On-Demand Viewing</div>
+      </div>
+      <div class="badge b-keynote">Keynote</div>
+    </div>
+
+    <div class="srow vip">
+      <div class="s-time">6:00 &ndash; 10:00</div>
+      <div class="s-body">
+        <div class="s-title">Dreamfest &mdash; The Concert for Kids</div>
+        <div class="s-loc">Oracle Park &middot; 24 Willie Mays Plaza (Benefit entrance: 3rd &amp; King)</div>
+        <div class="s-note">Doors open 6:00 PM &middot; Featuring Usher and Gwen Stefani &mdash; benefits UCSF Benioff Children's Hospitals</div>
+      </div>
+      <div class="badge b-concert">Concert</div>
+    </div>
+  </div>
+
+  <!-- DAY 3 -->
+  <div class="day">
+    <div class="day-head">
+      <span class="day-label">Thursday &mdash; <em>Day 3 &middot; Product Keynotes &amp; B2B Growth</em></span>
+      <span class="day-date-pill">Thu &middot; Sep 17</span>
+    </div>
+
+    <div class="srow">
+      <div class="s-time">8:30 &ndash; 9:10</div>
+      <div class="s-body">
+        <div class="s-title">Grow Revenue with Agentic B2B Marketing and Sales</div>
+        <div class="s-loc">Moscone West, Level 3 &middot; Room 3018</div>
+      </div>
+      <div class="badge b-breakout">Breakout</div>
+    </div>
+
+    <div class="srow hi">
+      <div class="s-time">11:30 &ndash; 12:20</div>
+      <div class="s-body">
+        <div class="s-title">The Marketing Keynote</div>
+        <div class="s-loc">Moscone South &middot; Keynote Hall B</div>
+      </div>
+      <div class="badge b-keynote">Keynote</div>
+    </div>
+
+    <div class="srow">
+      <div class="s-time">1:30 &ndash; 2:10</div>
+      <div class="s-body">
+        <div class="s-title">Personalize and Scale Content with Agentforce Marketing</div>
+        <div class="s-loc">Metreon AMC, L3 &middot; Theatre 13</div>
+      </div>
+      <div class="badge b-breakout">Breakout</div>
+    </div>
+
+    <div class="srow">
+      <div class="s-time">2:00 &ndash; 2:20</div>
+      <div class="s-body">
+        <div class="s-title">How to Let Dealers &amp; Customers Self-Quote for Manufacturing</div>
+        <div class="s-loc">Moscone North, LL &middot; Campground, Industry Pavilion</div>
+      </div>
+      <div class="badge b-theater">Theater</div>
+    </div>
+  </div>
+
+  <div class="panel-footer">
+    <span class="pf-note">Laura Crews &mdash; Customer &middot; Sep 15&ndash;17</span>
   </div>
 </div>
 
