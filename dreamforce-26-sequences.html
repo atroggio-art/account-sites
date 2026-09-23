@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dreamforce '26 Email Sequences | Anthony Troggio, Salesforce</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: #f4f6f9;
+  color: #1a2535;
+  line-height: 1.6;
+  font-size: 16px;
+}
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+:root {
+  --navy:    #0b1929;
+  --navy2:   #122035;
+  --steel:   #1a3a5c;
+  --orange:  #c94a00;
+  --orange2: #e86820;
+  --light:   #f4f6f9;
+  --white:   #ffffff;
+  --border:  #dde4ed;
+  --muted:   #5a6e85;
+  --r:       12px;
+  --shadow:  0 2px 16px rgba(11,25,41,.08);
+}
+
+/* TOPBAR */
+.topbar {
+  background: var(--navy); padding: 0 48px; height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100; border-bottom: 2px solid var(--orange);
+}
+.topbar-left { display: flex; align-items: center; gap: 14px; }
+.topbar-wordmark { color: #fff; font-size: .78rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; opacity: .9; }
+.topbar-divider { width: 1px; height: 18px; background: rgba(255,255,255,.2); }
+.topbar-tag { color: rgba(255,255,255,.5); font-size: .78rem; }
+.topbar-cta { background: var(--orange); color: #fff; font-size: .75rem; font-weight: 700; padding: 7px 18px; border-radius: 50px; letter-spacing: .3px; transition: background .2s; }
+.topbar-cta:hover { background: var(--orange2); }
+
+/* HERO */
+.hero {
+  position: relative; min-height: 520px; display: flex; align-items: center;
+  overflow: hidden; background: var(--navy);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1600&q=80');
+  background-size: cover; background-position: center 40%; opacity: .65;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(110deg, rgba(11,25,41,.97) 45%, rgba(11,25,41,.60) 100%);
+}
+.hero-content {
+  position: relative; z-index: 2; max-width: 1120px; margin: 0 auto;
+  padding: 90px 48px; width: 100%;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 22px;
+  background: rgba(201,74,0,.15); border: 1px solid rgba(201,74,0,.35);
+  border-radius: 50px; padding: 5px 14px 5px 10px;
+}
+.hero-eyebrow-dot { width: 8px; height: 8px; background: var(--orange); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+.hero-eyebrow span { font-size: .72rem; font-weight: 700; color: var(--orange2); text-transform: uppercase; letter-spacing: 1px; }
+.hero h1 { font-size: clamp(2rem, 4.8vw, 3.2rem); font-weight: 800; color: #fff; line-height: 1.1; letter-spacing: -.5px; max-width: 820px; margin-bottom: 20px; }
+.hero h1 em { color: var(--orange2); font-style: normal; }
+.hero-sub { font-size: 1.05rem; color: rgba(255,255,255,.72); max-width: 640px; line-height: 1.8; margin-bottom: 36px; }
+.hero-stats { display: flex; gap: 40px; flex-wrap: wrap; }
+.hero-stat { }
+.hero-stat-num { font-size: 2rem; font-weight: 800; color: var(--orange2); line-height: 1; min-width: 80px; flex-shrink: 0; }
+.hero-stat-label { font-size: .8rem; color: rgba(255,255,255,.55); margin-top: 4px; text-transform: uppercase; letter-spacing: .5px; }
+
+/* SEQUENCE NAV */
+.seq-nav {
+  background: var(--white); border-bottom: 2px solid var(--border);
+  position: sticky; top: 52px; z-index: 90;
+}
+.seq-nav-inner {
+  max-width: 1120px; margin: 0 auto; padding: 0 48px;
+  display: flex; gap: 0; overflow-x: auto;
+}
+.seq-tab {
+  padding: 16px 28px; font-size: .87rem; font-weight: 700; color: var(--muted);
+  border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;
+  transition: color .2s, border-color .2s; background: none; border-left: none; border-right: none; border-top: none;
+  letter-spacing: .3px;
+}
+.seq-tab:hover { color: var(--navy); }
+.seq-tab.active { color: var(--orange); border-bottom-color: var(--orange); }
+.seq-tab .seq-count { display: inline-block; background: var(--light); border-radius: 20px; padding: 1px 8px; font-size: .72rem; margin-left: 6px; color: var(--muted); }
+.seq-tab.active .seq-count { background: rgba(201,74,0,.12); color: var(--orange); }
+
+/* MAIN */
+.main { max-width: 1120px; margin: 0 auto; padding: 52px 48px 80px; }
+
+/* SEQUENCE PANEL */
+.seq-panel { display: none; }
+.seq-panel.active { display: block; }
+
+.seq-header { margin-bottom: 36px; }
+.seq-title { font-size: 1.5rem; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+.seq-desc { color: var(--muted); font-size: .95rem; max-width: 680px; line-height: 1.7; }
+.seq-meta { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; }
+.seq-meta-item { display: flex; align-items: center; gap: 8px; font-size: .82rem; color: var(--muted); }
+.seq-meta-dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; }
+
+/* EMAIL CARDS */
+.email-list { display: flex; flex-direction: column; gap: 16px; }
+
+.email-card {
+  background: var(--white); border-radius: var(--r); border: 1px solid var(--border);
+  box-shadow: var(--shadow); overflow: hidden; transition: box-shadow .2s;
+}
+.email-card:hover { box-shadow: 0 4px 24px rgba(11,25,41,.13); }
+
+.email-card-header {
+  padding: 22px 28px; cursor: pointer; display: flex; align-items: flex-start; justify-content: space-between; gap: 16px;
+  user-select: none;
+}
+.email-card-header:hover { background: rgba(201,74,0,.02); }
+
+.email-header-left { flex: 1; min-width: 0; }
+.email-number {
+  font-size: .7rem; font-weight: 700; color: var(--orange); text-transform: uppercase;
+  letter-spacing: 1.2px; margin-bottom: 6px;
+}
+.email-subject { font-size: 1.08rem; font-weight: 700; color: var(--navy); line-height: 1.35; margin-bottom: 8px; }
+.email-meta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.email-tag {
+  display: inline-block; padding: 3px 10px; border-radius: 20px;
+  font-size: .72rem; font-weight: 600; letter-spacing: .3px;
+}
+.tag-day { background: rgba(201,74,0,.08); color: var(--orange); }
+.tag-angle { background: #eef2f8; color: var(--steel); }
+.tag-product { background: rgba(26,58,92,.08); color: var(--steel); }
+
+.email-chevron { color: var(--muted); font-size: 1.1rem; flex-shrink: 0; margin-top: 4px; transition: transform .2s; }
+.email-card.open .email-chevron { transform: rotate(180deg); }
+
+.email-body { display: none; border-top: 1px solid var(--border); }
+.email-card.open .email-body { display: block; }
+
+.email-body-inner { padding: 28px 28px 20px; }
+.email-copy-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 16px; border-radius: 8px; font-size: .78rem; font-weight: 700;
+  background: var(--light); border: 1px solid var(--border); cursor: pointer; color: var(--navy);
+  margin-bottom: 20px; transition: background .15s, border-color .15s; letter-spacing: .3px;
+}
+.email-copy-btn:hover { background: #e6eaf2; border-color: #c2cfe0; }
+.email-copy-btn.copied { background: rgba(201,74,0,.08); border-color: rgba(201,74,0,.3); color: var(--orange); }
+
+.email-text {
+  font-family: 'Courier New', Courier, monospace; font-size: .88rem; line-height: 1.85;
+  color: #2c3e52; background: #f9fafb; border-radius: 8px; padding: 20px 22px;
+  border: 1px solid var(--border); white-space: pre-wrap; word-break: break-word;
+}
+
+/* DIVIDER */
+.divider-bar { height: 3px; background: linear-gradient(90deg, var(--orange), transparent); border-radius: 2px; margin: 36px 0; }
+
+/* CTA SECTION */
+.cta-section {
+  background: var(--navy); border-radius: 16px; padding: 52px 48px;
+  display: flex; align-items: center; gap: 40px; flex-wrap: wrap;
+  overflow: hidden; position: relative; margin-top: 56px;
+}
+.cta-section::before {
+  content: ''; position: absolute; right: -60px; top: -60px;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle, rgba(201,74,0,.18), transparent 70%);
+  border-radius: 50%;
+}
+.cta-photo-wrap { flex-shrink: 0; }
+.cta-photo {
+  width: 80px; height: 80px; border-radius: 50%;
+  border: 3px solid var(--orange); object-fit: cover;
+}
+.cta-text { flex: 1; min-width: 240px; }
+.cta-label { font-size: .72rem; font-weight: 700; color: var(--orange2); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; }
+.cta-name { font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+.cta-role { color: rgba(255,255,255,.55); font-size: .9rem; margin-bottom: 16px; }
+.cta-links { display: flex; gap: 12px; flex-wrap: wrap; }
+.cta-link { display: inline-flex; align-items: center; gap: 6px; padding: 9px 20px; border-radius: 50px; font-size: .83rem; font-weight: 700; transition: background .2s; }
+.cta-link-primary { background: var(--orange); color: #fff; }
+.cta-link-primary:hover { background: var(--orange2); }
+.cta-link-ghost { border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.8); }
+.cta-link-ghost:hover { border-color: rgba(255,255,255,.5); }
+
+/* GHOST NUMBER ACCENT */
+.ghost-num { position: absolute; right: 180px; bottom: -20px; font-size: 10rem; font-weight: 900; color: rgba(255,255,255,.03); line-height: 1; pointer-events: none; }
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .topbar { padding: 0 20px; }
+  .hero-content { padding: 60px 20px; }
+  .seq-nav-inner { padding: 0 20px; }
+  .main { padding: 36px 20px 60px; }
+  .email-card-header { padding: 18px 20px; }
+  .email-body-inner { padding: 20px 20px 16px; }
+  .cta-section { padding: 36px 24px; flex-direction: column; }
+  .hero-stats { gap: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar">
+  <div class="topbar-left">
+    <span class="topbar-wordmark">Salesforce</span>
+    <div class="topbar-divider"></div>
+    <span class="topbar-tag">Dreamforce '26 Playbook</span>
+  </div>
+  <a href="mailto:atroggio@salesforce.com" class="topbar-cta">Book Time</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-dot"></div>
+      <span>Dreamforce 2026 — Fresh Off the Stage</span>
+    </div>
+    <h1>40 Emails.<br><em>Four Conversations.</em><br>One Playbook.</h1>
+    <p class="hero-sub">Every major announcement from Dreamforce '26 turned into ready-to-send sequences. Personalized by audience. Written for the delete key. Focused on one idea at a time.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">40</div>
+        <div class="hero-stat-label">Ready-to-Send Emails</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">+32%</div>
+        <div class="hero-stat-label">Marketing ROI (DF26 Data)</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">29%</div>
+        <div class="hero-stat-label">Digital Revenue Lift</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">4</div>
+        <div class="hero-stat-label">Buyer Audiences</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEQ NAV -->
+<nav class="seq-nav">
+  <div class="seq-nav-inner">
+    <button class="seq-tab active" onclick="showSeq('csuite',this)">
+      C-Suite <span class="seq-count">10</span>
+    </button>
+    <button class="seq-tab" onclick="showSeq('marketing',this)">
+      Marketing Leaders <span class="seq-count">10</span>
+    </button>
+    <button class="seq-tab" onclick="showSeq('qtc',this)">
+      Quote-to-Cash <span class="seq-count">10</span>
+    </button>
+    <button class="seq-tab" onclick="showSeq('commerce',this)">
+      Commerce <span class="seq-count">10</span>
+    </button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- C-SUITE SEQUENCE -->
+<section id="seq-csuite" class="seq-panel active">
+  <div class="seq-header">
+    <h2 class="seq-title">C-Suite Sequence</h2>
+    <p class="seq-desc">For CEOs, CROs, CMOs, and CFOs who need the strategic view. These emails connect Dreamforce '26 announcements to the three things every executive cares about: growth, efficiency, and risk reduction. No jargon. One idea per email.</p>
+    <div class="seq-meta">
+      <div class="seq-meta-item"><div class="seq-meta-dot"></div>Personas: CEO, CRO, CMO, CFO</div>
+      <div class="seq-meta-item"><div class="seq-meta-dot"></div>Cadence: 70 days, 10 touches</div>
+      <div class="seq-meta-item"><div class="seq-meta-dot"></div>Primary angle: AI-driven growth and competitive risk</div>
+    </div>
+  </div>
+
+  <div class="email-list">
+
+    <!-- EMAIL 1 -->
+    <div class="email-card" id="cs1">
+      <div class="email-card-header" onclick="toggleEmail('cs1')">
+        <div class="email-header-left">
+          <div class="email-number">Email 1 — Day 1</div>
+          <div class="email-subject">What changed at Dreamforce</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 1</span>
+            <span class="email-tag tag-angle">Pattern of one</span>
+            <span class="email-tag tag-product">Agentforce</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cs1-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cs1-text">Subject: What changed at Dreamforce
+
+Hi [First],
+
+Every year Dreamforce announces a lot. Most of it does not change how companies operate.
+
+This year was different.
+
+Salesforce shipped autonomous AI agents that work inside your existing systems. Not a demo, not a roadmap item. On day one of the conference they announced a partnership with Anthropic, a new CRM-specific reasoning model called Koa, and a platform they are calling the Agentic Enterprise. Companies at the show were live with agents handling tasks that used to require headcount.
+
+The ones moving fastest on this are not the ones with the biggest AI budgets. They are the ones who already had their data in order.
+
+Worth 20 minutes to show you what this looks like for [Company]?
+
+Anthony Troggio | Salesforce
+765-430-7903
+
+P.S. Everything from the conference relevant to your business is here:
+atroggio-art.github.io/account-sites/dreamforce-26-sequences.html</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 2 -->
+    <div class="email-card" id="cs2">
+      <div class="email-card-header" onclick="toggleEmail('cs2')">
+        <div class="email-header-left">
+          <div class="email-number">Email 2 — Day 4</div>
+          <div class="email-subject">The stat your board will ask about</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 4</span>
+            <span class="email-tag tag-angle">Proof point</span>
+            <span class="email-tag tag-product">Agentforce</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cs2-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cs2-text">Subject: The stat your board will ask about
+
+Hi [First],
+
+Companies using AI agents to handle routine sales and service tasks are reporting a 30% reduction in cost per interaction.
+
+That number came out of Dreamforce '26. It is not projected. It is measured.
+
+The interesting part is where the savings go. The companies doing this well are not cutting teams. They are redeploying the same people toward higher-value work — the conversations that actually require judgment.
+
+The board question this creates is not "should we use AI." It is "what is the cost of waiting while our competitors figure this out first."
+
+Happy to walk you through the numbers specific to [Company]'s current cost structure.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 3 -->
+    <div class="email-card" id="cs3">
+      <div class="email-card-header" onclick="toggleEmail('cs3')">
+        <div class="email-header-left">
+          <div class="email-number">Email 3 — Day 8</div>
+          <div class="email-subject">Your competitor was in the front row</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 8</span>
+            <span class="email-tag tag-angle">Competitive urgency</span>
+            <span class="email-tag tag-product">Agentforce</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cs3-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cs3-text">Subject: Your competitor was in the front row
+
+Hi [First],
+
+Forty-five thousand people were at Dreamforce '26.
+
+A meaningful number of them were your direct competitors. Not just watching — signing agreements, scheduling implementations, getting their teams trained.
+
+The window where moving first creates a structural advantage is not open indefinitely. In most industries it closes inside 18 months.
+
+The companies that get the most out of this technology are also the ones that started earliest. Not because they had more resources. Because they had more time to learn, iterate, and operationalize.
+
+I work with companies in your space specifically. Happy to share what the competitive landscape looks like from where I sit.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 4 -->
+    <div class="email-card" id="cs4">
+      <div class="email-card-header" onclick="toggleEmail('cs4')">
+        <div class="email-header-left">
+          <div class="email-number">Email 4 — Day 14</div>
+          <div class="email-subject">How Honeywell did it</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 14</span>
+            <span class="email-tag tag-angle">Customer story</span>
+            <span class="email-tag tag-product">Agentforce</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cs4-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cs4-text">Subject: How Honeywell did it
+
+Hi [First],
+
+Honeywell presented at Dreamforce '26. They deployed AI agents across their service and sales operations. Three things stood out.
+
+First: they did not start with the biggest use case. They started with the most repetitive one.
+
+Second: time to value was measured in weeks, not quarters. The first agents were live in under six weeks.
+
+Third: the metric they tracked was not cost savings. It was throughput. They wanted to know how many more customers their teams could serve with the same headcount.
+
+The answer was 40% more.
+
+Happy to walk you through how a similar approach maps to [Company]'s operations.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 5 -->
+    <div class="email-card" id="cs5">
+      <div class="email-card-header" onclick="toggleEmail('cs5')">
+        <div class="email-header-left">
+          <div class="email-number">Email 5 — Day 21</div>
+          <div class="email-subject">The ROI question nobody asks first</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 21</span>
+            <span class="email-tag tag-angle">Reframe</span>
+            <span class="email-tag tag-product">Agentforce</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cs5-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cs5-text">Subject: The ROI question nobody asks first
+
+Hi [First],
+
+Most executives I talk to frame AI ROI as cost reduction. That is the wrong starting point.
+
+The better question is: what decisions are we making slowly because our data is not connected?
+
+Slow pipeline visibility. Delayed pricing approvals. Revenue that falls through the cracks between quote and cash. Every one of those has a dollar value. In companies with disconnected systems, that number is typically 8 to 12% of addressable revenue.
+
+The companies at Dreamforce '26 who had the clearest ROI picture were the ones who started there. With the cost of their current gaps, not the benefit of a hypothetical future state.
+
+Worth 20 minutes to look at this together for [Company]?
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 6 -->
+    <div class="email-card" id="cs6">
+      <div class="email-card-header" onclick="toggleEmail('cs6')">
+        <div class="email-header-left">
+          <div class="email-number">Email 6 — Day 28</div>
+          <div class="email-subject">One honest question</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 28</span>
+            <span class="email-tag tag-angle">Pattern interrupt</span>
+            <span class="email-tag tag-product">All</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cs6-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cs6-text">Subject: One honest question
+
+Hi [First],
+
+I have sent you a few emails. You have not replied. That is fine.
+
+One honest question: is AI a priority for [Company] right now, or is the timing genuinely off?
+
+If timing is the issue, I would rather know. I will put a note in my calendar for 90 days and check back when it makes sense.
+
+If it is a priority but you are not convinced I can help, that is also useful to know. I can either earn that or stop wasting your time.
+
+Either way, a one-word reply tells me where we stand.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 7 -->
+    <div class="email-card" id="cs7">
+      <div class="email-card-header" onclick="toggleEmail('cs7')">
+        <div class="email-header-left">
+          <div class="email-number">Email 7 — Day 35</div>
+          <div class="email-subject">The version of [Company] that wins</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 35</span>
+            <span class="email-tag tag-angle">Future state vision</span>
+            <span class="email-tag tag-product">Agentforce</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cs7-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cs7-text">Subject: The version of [Company] that wins
+
+Hi [First],
+
+Two years from now, every company in your industry will have AI running in some part of their operation.
+
+The ones that win will not be the ones who adopted it. They will be the ones who built an operational model around it.
+
+That means connected data. Agents that actually know your products and pricing. Sales and marketing working from one pipeline view. Service that gets faster as it scales, not slower.
+
+The companies at Dreamforce '26 who are furthest along started with one question: what is the single workflow where better data and faster action would have the biggest impact on revenue?
+
+What is that workflow for [Company]?
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 8 -->
+    <div class="email-card" id="cs8">
+      <div class="email-card-header" onclick="toggleEmail('cs8')">
+        <div class="email-header-left">
+          <div class="email-number">Email 8 — Day 42</div>
+          <div class="email-subject">Something new from last week</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 42</span>
+            <span class="email-tag tag-angle">New information</span>
+            <span class="email-tag tag-product">Revenue Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cs8-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cs8-text">Subject: Something new from last week
+
+Hi [First],
+
+One of the companies we work with closed a deal last week that had been sitting in negotiation for four months.
+
+What changed: they gave their deal desk AI-powered access to pricing history, contract templates, and competitive concession data. The negotiation that used to require three back-and-forths was resolved in one conversation.
+
+The rep's comment was worth sharing: "I stopped guessing and started knowing."
+
+That capability shipped at Dreamforce '26. It is live for customers now.
+
+Happy to show you what it looks like inside a deal environment similar to [Company]'s.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 9 -->
+    <div class="email-card" id="cs9">
+      <div class="email-card-header" onclick="toggleEmail('cs9')">
+        <div class="email-header-left">
+          <div class="email-number">Email 9 — Day 56</div>
+          <div class="email-subject">Quick question</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 56</span>
+            <span class="email-tag tag-angle">Soft touch</span>
+            <span class="email-tag tag-product">All</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cs9-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cs9-text">Subject: Quick question
+
+Hi [First],
+
+Who at [Company] is leading the AI strategy conversation right now?
+
+Not asking to sell them. Asking because if it is not you, I do not want to keep sending you emails that belong in someone else's inbox.
+
+If it is you, I would love 20 minutes to share what companies similar to [Company] decided to prioritize first. No slide deck. Just a direct conversation.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL 10 -->
+    <div class="email-card" id="cs10">
+      <div class="email-card-header" onclick="toggleEmail('cs10')">
+        <div class="email-header-left">
+          <div class="email-number">Email 10 — Day 70</div>
+          <div class="email-subject">Last one from me</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 70</span>
+            <span class="email-tag tag-angle">Break-up</span>
+            <span class="email-tag tag-product">All</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cs10-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cs10-text">Subject: Last one from me
+
+Hi [First],
+
+I have sent you nine emails over the last two months. You have not replied.
+
+I am going to respect your inbox and stop.
+
+If the timing changes, or the AI strategy conversation reaches a point where an outside perspective would be useful, I would be glad to hear from you.
+
+My calendar is at calendly.com/atroggio. I will leave it open.
+
+Anthony Troggio | Salesforce
+765-430-7903
+
+P.S. The Dreamforce '26 resource I put together for your team is still up:
+atroggio-art.github.io/account-sites/dreamforce-26-sequences.html</pre>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end email-list -->
+</section>
+
+
+<!-- MARKETING SEQUENCE -->
+<section id="seq-marketing" class="seq-panel">
+  <div class="seq-header">
+    <h2 class="seq-title">Marketing Leaders Sequence</h2>
+    <p class="seq-desc">For CMOs, VPs of Marketing, Demand Gen leaders, and Growth leaders. These emails focus on what Dreamforce '26 means for pipeline generation, personalization at scale, and the connection between marketing activity and closed revenue. One idea at a time.</p>
+    <div class="seq-meta">
+      <div class="seq-meta-item"><div class="seq-meta-dot"></div>Personas: CMO, VP Marketing, Demand Gen, Growth</div>
+      <div class="seq-meta-item"><div class="seq-meta-dot"></div>Cadence: 70 days, 10 touches</div>
+      <div class="seq-meta-item"><div class="seq-meta-dot"></div>Primary angle: Pipeline from first touch to close</div>
+    </div>
+  </div>
+
+  <div class="email-list">
+
+    <div class="email-card" id="mk1">
+      <div class="email-card-header" onclick="toggleEmail('mk1')">
+        <div class="email-header-left">
+          <div class="email-number">Email 1 — Day 1</div>
+          <div class="email-subject">The marketing announcement they buried in the keynote</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 1</span>
+            <span class="email-tag tag-angle">Curiosity gap</span>
+            <span class="email-tag tag-product">Marketing Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('mk1-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="mk1-text">Subject: The marketing announcement they buried in the keynote
+
+Hi [First],
+
+Dreamforce '26 had a lot of AI announcements. The one most relevant to marketing leaders did not get the headline.
+
+Salesforce launched Marketing Cloud Next with a Campaign Agent built in. The marketer sets the goal and the guardrails. The agent generates the content, builds the audience, sends the campaign, and optimizes based on real-time signals. No manual assembly.
+
+The role shifts from executing campaigns to reviewing agent decisions.
+
+The teams furthest along on this describe a common experience: they get their time back, and the results get more consistent.
+
+Happy to show you what this looks like for a team with [Company]'s current setup.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="mk2">
+      <div class="email-card-header" onclick="toggleEmail('mk2')">
+        <div class="email-header-left">
+          <div class="email-number">Email 2 — Day 4</div>
+          <div class="email-subject">The attribution problem marketing always loses</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 4</span>
+            <span class="email-tag tag-angle">Pain point</span>
+            <span class="email-tag tag-product">Marketing Cloud + Qualified</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('mk2-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="mk2-text">Subject: The attribution problem marketing always loses
+
+Hi [First],
+
+Every marketing leader I talk to has the same conversation with their CRO.
+
+Marketing says: we sourced 60% of pipeline. Sales says: those leads were not qualified. Finance says: show me the revenue.
+
+The problem is not the marketing. It is the gap between a contact in a campaign and a contact in a buying conversation. That gap is where attribution dies.
+
+The companies at Dreamforce '26 who have solved this have one thing in common: their marketing data and pipeline data are in the same system.
+
+Not integrated. Not synced. Same system.
+
+Worth 20 minutes to walk through what that looks like for [Company]'s current tech stack?
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="mk3">
+      <div class="email-card-header" onclick="toggleEmail('mk3')">
+        <div class="email-header-left">
+          <div class="email-number">Email 3 — Day 8</div>
+          <div class="email-subject">The visitor who was ready to buy</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 8</span>
+            <span class="email-tag tag-angle">Missed opportunity</span>
+            <span class="email-tag tag-product">Qualified</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('mk3-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="mk3-text">Subject: The visitor who was ready to buy
+
+Hi [First],
+
+At any given moment, a percentage of the companies visiting [Company]'s website are in active buying mode.
+
+Most of them leave without talking to anyone.
+
+One of the Dreamforce '26 announcements was Piper, an AI SDR that runs 24/7 across your website and email. It identifies high-intent visitors, starts a real conversation through text, voice, or video, qualifies the lead, and books the meeting. Without a human in the loop.
+
+The difference between a live conversation and a form fill is not 10%. It is orders of magnitude.
+
+Happy to show you what this looks like on [Company]'s current site.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="mk4">
+      <div class="email-card-header" onclick="toggleEmail('mk4')">
+        <div class="email-header-left">
+          <div class="email-number">Email 4 — Day 14</div>
+          <div class="email-subject">What Sephora figured out</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 14</span>
+            <span class="email-tag tag-angle">Customer story</span>
+            <span class="email-tag tag-product">Marketing Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('mk4-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="mk4-text">Subject: The stat from the marketing keynote
+
+Hi [First],
+
+Salesforce released customer outcome data at Dreamforce '26. For companies running Marketing Cloud Next with unified customer data:
+
++32% marketing ROI.
+-27% customer acquisition cost.
++34% customer lifetime value.
+
+Those are averages across the customer base, not outliers. The companies driving those numbers are not spending more on media. They are spending more intelligently because their data tells them what is working before the campaign finishes.
+
+If [Company]'s current marketing stack cannot give you a real-time view of which campaigns are driving revenue, these numbers are the gap you are leaving on the table.
+
+Happy to walk through what [Company]'s version of this looks like.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="mk5">
+      <div class="email-card-header" onclick="toggleEmail('mk5')">
+        <div class="email-header-left">
+          <div class="email-number">Email 5 — Day 21</div>
+          <div class="email-subject">The campaign you ran three times</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 21</span>
+            <span class="email-tag tag-angle">Efficiency</span>
+            <span class="email-tag tag-product">Marketing Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('mk5-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="mk5-text">Subject: The campaign you ran three times
+
+Hi [First],
+
+Most marketing teams I talk to run the same campaigns on a loop. Not because the campaigns are working. Because building new ones takes too long.
+
+The teams at Dreamforce '26 who are breaking this pattern have autonomous agents building the variants. The marketer defines the goal and the guardrails. The agent does the execution.
+
+The result is not just faster campaigns. It is more campaigns. More tests. More data. Better decisions next quarter.
+
+One team reported shipping four times the number of campaigns with the same headcount. Not by working harder. By stopping the manual work that was eating their time.
+
+Happy to map this against [Company]'s current campaign process.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="mk6">
+      <div class="email-card-header" onclick="toggleEmail('mk6')">
+        <div class="email-header-left">
+          <div class="email-number">Email 6 — Day 28</div>
+          <div class="email-subject">One honest question</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 28</span>
+            <span class="email-tag tag-angle">Pattern interrupt</span>
+            <span class="email-tag tag-product">All</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('mk6-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="mk6-text">Subject: One honest question
+
+Hi [First],
+
+I have sent you a few notes over the past month. Nothing back from you.
+
+One honest question: is pipeline generation a top priority for [Company]'s marketing team right now, or are you heads down on something else?
+
+Either answer is fine. If the timing is off, say so and I will check back in Q1. If pipeline is the priority and you have not responded because I have not said the right thing yet, I would love to know what that thing is.
+
+One line is enough.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="mk7">
+      <div class="email-card-header" onclick="toggleEmail('mk7')">
+        <div class="email-header-left">
+          <div class="email-number">Email 7 — Day 35</div>
+          <div class="email-subject">The signal hiding in plain sight</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 35</span>
+            <span class="email-tag tag-angle">Insight</span>
+            <span class="email-tag tag-product">Qualified + Marketing Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('mk7-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="mk7-text">Subject: The signal hiding in plain sight
+
+Hi [First],
+
+The buying signal most marketing teams are missing is already in their data.
+
+Companies that visit your pricing page, read your case studies, and return within 14 days are not casual browsers. They are in an active buying cycle.
+
+Most companies know this in theory. Very few act on it in real time.
+
+The ones who do, route those visitors directly to a live conversation or an AI agent that can qualify and book. No form. No friction. No 48-hour response window.
+
+The conversion rate difference between a real-time response and a follow-up email is not 10%. It is 100 times.
+
+Happy to show you what [Company]'s pipeline could look like with this turned on.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="mk8">
+      <div class="email-card-header" onclick="toggleEmail('mk8')">
+        <div class="email-header-left">
+          <div class="email-number">Email 8 — Day 42</div>
+          <div class="email-subject">What good looks like at scale</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 42</span>
+            <span class="email-tag tag-angle">Benchmark</span>
+            <span class="email-tag tag-product">Marketing Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('mk8-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="mk8-text">Subject: What good looks like at scale
+
+Hi [First],
+
+A benchmark from Dreamforce '26 worth knowing:
+
+Marketing teams using unified data and AI-driven journeys are generating 35% more pipeline from the same budget.
+
+They are not spending more. They are targeting better, personalizing deeper, and handing off to sales at exactly the right moment.
+
+The benchmark is not aspirational. It is the average across a cohort of companies that implemented in the last 18 months.
+
+I can show you where [Company] sits against that benchmark and what the gap represents in pipeline dollars.
+
+15 minutes. No slides. Just numbers.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="mk9">
+      <div class="email-card-header" onclick="toggleEmail('mk9')">
+        <div class="email-header-left">
+          <div class="email-number">Email 9 — Day 56</div>
+          <div class="email-subject">Forwarding this to the right person</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 56</span>
+            <span class="email-tag tag-angle">Referral ask</span>
+            <span class="email-tag tag-product">All</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('mk9-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="mk9-text">Subject: Forwarding this to the right person
+
+Hi [First],
+
+If you are not the right person to have the pipeline and marketing AI conversation, who is?
+
+I am not asking to go around you. I am asking because I have sent you several notes and nothing has landed. Either the timing is wrong, or I have been emailing the wrong inbox.
+
+If you can point me in the right direction, I will get out of yours.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="mk10">
+      <div class="email-card-header" onclick="toggleEmail('mk10')">
+        <div class="email-header-left">
+          <div class="email-number">Email 10 — Day 70</div>
+          <div class="email-subject">Closing out my outreach</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 70</span>
+            <span class="email-tag tag-angle">Break-up</span>
+            <span class="email-tag tag-product">All</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('mk10-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="mk10-text">Subject: Closing out my outreach
+
+Hi [First],
+
+This is the last email I will send for a while.
+
+If your marketing team ever wants to see what AI-driven pipeline looks like for a company in your space, my number is below and my calendar is open.
+
+Until then, I hope Q4 treats [Company]'s pipeline well.
+
+Anthony Troggio | Salesforce
+765-430-7903
+
+P.S. The Dreamforce '26 resource for marketing leaders:
+atroggio-art.github.io/account-sites/dreamforce-26-sequences.html</pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- QUOTE-TO-CASH SEQUENCE -->
+<section id="seq-qtc" class="seq-panel">
+  <div class="seq-header">
+    <h2 class="seq-title">Quote-to-Cash Sequence</h2>
+    <p class="seq-desc">For VP Sales Operations, CFOs, Revenue Operations, and deal desk leaders. These emails focus on what Dreamforce '26 means for deal speed, revenue leakage, and the gap between what is quoted and what is recognized. Built around one problem per email.</p>
+    <div class="seq-meta">
+      <div class="seq-meta-item"><div class="seq-meta-dot"></div>Personas: VP Sales Ops, CFO, RevOps, Deal Desk</div>
+      <div class="seq-meta-item"><div class="seq-meta-dot"></div>Cadence: 70 days, 10 touches</div>
+      <div class="seq-meta-item"><div class="seq-meta-dot"></div>Primary angle: Speed from quote to cash, zero revenue leakage</div>
+    </div>
+  </div>
+
+  <div class="email-list">
+
+    <div class="email-card" id="qtc1">
+      <div class="email-card-header" onclick="toggleEmail('qtc1')">
+        <div class="email-header-left">
+          <div class="email-number">Email 1 — Day 1</div>
+          <div class="email-subject">The revenue you already earned</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 1</span>
+            <span class="email-tag tag-angle">Problem framing</span>
+            <span class="email-tag tag-product">Revenue Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('qtc1-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="qtc1-text">Subject: The revenue you already earned
+
+Hi [First],
+
+Revenue leakage is not a collection problem. It is a visibility problem.
+
+Most companies I talk to cannot tell you, on a given day, exactly what has been quoted, what is under contract, what has been invoiced, and what is actually in the bank. Those numbers live in different systems with different update cycles.
+
+The gap between them is not hypothetical. It is real dollars. Typical range is 7 to 11% of total revenue.
+
+The Dreamforce '26 announcement most relevant to this: Agentforce for Quoting. An AI agent that generates, updates, and sends quotes, enforces deal rules automatically, and ensures what you sell is exactly what gets invoiced. No reconciliation work. No gap.
+
+Happy to run through what [Company]'s version of that gap looks like.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="qtc2">
+      <div class="email-card-header" onclick="toggleEmail('qtc2')">
+        <div class="email-header-left">
+          <div class="email-number">Email 2 — Day 4</div>
+          <div class="email-subject">The deal that took four weeks to approve</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 4</span>
+            <span class="email-tag tag-angle">Bottleneck</span>
+            <span class="email-tag tag-product">Revenue Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('qtc2-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="qtc2-text">Subject: The deal that took four weeks to approve
+
+Hi [First],
+
+The average enterprise deal involves 14 internal approvals before a quote reaches a customer.
+
+Most of those approvals are not decisions. They are people waiting for information they should already have. Pricing history. Contract precedents. Discount authority thresholds.
+
+The companies at Dreamforce '26 who have fixed this give their deal desk AI-powered access to all of it. The approval process that used to take weeks takes hours.
+
+The number that surprised me: companies that cut their quote-to-close cycle by 40% are not closing different deals. They are closing the same deals before the competition can respond.
+
+Happy to walk through what that looks like for [Company]'s current deal process.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="qtc3">
+      <div class="email-card-header" onclick="toggleEmail('qtc3')">
+        <div class="email-header-left">
+          <div class="email-number">Email 3 — Day 8</div>
+          <div class="email-subject">Where the renewals go</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 8</span>
+            <span class="email-tag tag-angle">Renewal risk</span>
+            <span class="email-tag tag-product">Revenue Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('qtc3-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="qtc3-text">Subject: Where the renewals go
+
+Hi [First],
+
+Most revenue teams track new business closely. Renewals get a fraction of the attention.
+
+The result is predictable. Contracts expire without being caught. Auto-renewals trigger at the wrong rate. Customers who could have been upsold get a flat renewal instead.
+
+Dreamforce '26 included a live session on contract intelligence. AI that reads your existing agreements, flags what is expiring, identifies upsell windows, and surfaces the accounts with the highest renewal risk.
+
+One company reported a 19% increase in net revenue retention from their installed base in the first year of using it.
+
+That number is worth taking seriously for [Company]'s renewal motion.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="qtc4">
+      <div class="email-card-header" onclick="toggleEmail('qtc4')">
+        <div class="email-header-left">
+          <div class="email-number">Email 4 — Day 14</div>
+          <div class="email-subject">What GE HealthCare changed</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 14</span>
+            <span class="email-tag tag-angle">Customer story</span>
+            <span class="email-tag tag-product">Revenue Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('qtc4-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="qtc4-text">Subject: What Genius Sports changed
+
+Hi [First],
+
+Genius Sports presented at Dreamforce '26. They run a complex global business with sports data rights, media, and technology products. Multi-year contracts, multiple products per deal, global sales motion.
+
+Their problem was not revenue generation. It was process friction. Their opportunity-to-cash process was breaking down between quote, contract, and invoice. Deals were getting stuck, not lost.
+
+What they changed: unified quoting, contract management, and billing on one platform. The AI agent enforces deal rules so what gets quoted is exactly what gets invoiced.
+
+The friction disappeared. Deal velocity increased. The RevOps team stopped chasing discrepancies.
+
+Happy to walk through what this maps to inside [Company]'s current deal process.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="qtc5">
+      <div class="email-card-header" onclick="toggleEmail('qtc5')">
+        <div class="email-header-left">
+          <div class="email-number">Email 5 — Day 21</div>
+          <div class="email-subject">The CFO's version of this problem</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 21</span>
+            <span class="email-tag tag-angle">Executive reframe</span>
+            <span class="email-tag tag-product">Revenue Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('qtc5-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="qtc5-text">Subject: The CFO's version of this problem
+
+Hi [First],
+
+The operations team sees the quote-to-cash problem as a workflow problem. Sales sees it as a speed problem.
+
+The CFO sees it as a forecasting problem.
+
+When revenue from signed contracts does not show up in the CRM until two weeks after close, the forecast is always wrong. Finance is always chasing sales for updated numbers. The board is working from a snapshot that is already out of date.
+
+That is not a spreadsheet fix. It is a data infrastructure fix.
+
+The companies at Dreamforce '26 who have the cleanest forecasts have one thing in common: their sales data and their financial data update from the same source.
+
+Happy to show you what [Company]'s forecast would look like with that in place.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="qtc6">
+      <div class="email-card-header" onclick="toggleEmail('qtc6')">
+        <div class="email-header-left">
+          <div class="email-number">Email 6 — Day 28</div>
+          <div class="email-subject">Direct question</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 28</span>
+            <span class="email-tag tag-angle">Pattern interrupt</span>
+            <span class="email-tag tag-product">All</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('qtc6-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="qtc6-text">Subject: Direct question
+
+Hi [First],
+
+Is quote-to-cash on [Company]'s priority list for the next 12 months?
+
+I ask because the companies that move fastest on this are the ones where RevOps or finance has already put a number on what the current process costs them. That alignment changes how fast things move.
+
+If [Company] is not there yet, I can help you build that business case. It usually takes one session.
+
+If there is already a number on the table and you are evaluating options, I would love to be in that conversation.
+
+One line back tells me where to take this.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="qtc7">
+      <div class="email-card-header" onclick="toggleEmail('qtc7')">
+        <div class="email-header-left">
+          <div class="email-number">Email 7 — Day 35</div>
+          <div class="email-subject">The price of a manual approval</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 35</span>
+            <span class="email-tag tag-angle">Cost quantification</span>
+            <span class="email-tag tag-product">Revenue Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('qtc7-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="qtc7-text">Subject: The price of a manual approval
+
+Hi [First],
+
+One exercise worth running inside [Company]: take your average deal size. Multiply it by the number of deals that are currently sitting in approval queues.
+
+That is the capital tied up in your approval process at any given moment.
+
+Now multiply your average cycle time in approvals by your average deal value and your win rate. That is the revenue impact of every day a deal spends waiting.
+
+Most companies have never done this math. When they do, the priority of fixing the approval workflow changes fast.
+
+Happy to walk through this calculation for [Company]'s deal profile.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="qtc8">
+      <div class="email-card-header" onclick="toggleEmail('qtc8')">
+        <div class="email-header-left">
+          <div class="email-number">Email 8 — Day 42</div>
+          <div class="email-subject">The billing problem nobody talks about</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 42</span>
+            <span class="email-tag tag-angle">Blind spot</span>
+            <span class="email-tag tag-product">Revenue Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('qtc8-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="qtc8-text">Subject: The billing problem nobody talks about
+
+Hi [First],
+
+Most quote-to-cash conversations focus on the front end: quotes, approvals, contracts.
+
+The money is often leaking at the back end: billing.
+
+Invoice errors. Usage-based charges that do not match what was agreed. Credits that were never applied. Amendments that changed the price but not the invoice template.
+
+Dreamforce '26 included a deep dive on automated billing reconciliation. AI that compares what was contracted against what was invoiced, flags discrepancies before they generate disputes, and builds an audit trail that finance can actually use.
+
+One company reduced billing disputes by 64% in the first quarter of using it.
+
+Happy to show you what this looks like for [Company]'s billing volume.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="qtc9">
+      <div class="email-card-header" onclick="toggleEmail('qtc9')">
+        <div class="email-header-left">
+          <div class="email-number">Email 9 — Day 56</div>
+          <div class="email-subject">The right person for this conversation</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 56</span>
+            <span class="email-tag tag-angle">Referral ask</span>
+            <span class="email-tag tag-product">All</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('qtc9-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="qtc9-text">Subject: The right person for this conversation
+
+Hi [First],
+
+If revenue operations is not something you own directly, who at [Company] is responsible for the process between signed contract and recognized revenue?
+
+I have been sending notes about quote-to-cash efficiency and I want to make sure they are reaching the right inbox.
+
+If that is you, I would love 20 minutes. If it is someone else, I would appreciate the introduction.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="qtc10">
+      <div class="email-card-header" onclick="toggleEmail('qtc10')">
+        <div class="email-header-left">
+          <div class="email-number">Email 10 — Day 70</div>
+          <div class="email-subject">Signing off</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 70</span>
+            <span class="email-tag tag-angle">Break-up</span>
+            <span class="email-tag tag-product">All</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('qtc10-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="qtc10-text">Subject: Signing off
+
+Hi [First],
+
+Last email from me for a while.
+
+If [Company] ever gets to the point where the quote-to-cash process becomes the constraint on revenue growth, I would like to be the first call.
+
+Until then, I will leave my calendar open.
+
+Anthony Troggio | Salesforce
+765-430-7903
+
+P.S. The Dreamforce '26 resource on revenue lifecycle management:
+atroggio-art.github.io/account-sites/dreamforce-26-sequences.html</pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- COMMERCE SEQUENCE -->
+<section id="seq-commerce" class="seq-panel">
+  <div class="seq-header">
+    <h2 class="seq-title">Commerce Sequence</h2>
+    <p class="seq-desc">For Chief Digital Officers, VPs of eCommerce, and Digital Experience leaders. These emails focus on what Dreamforce '26 means for AI-powered commerce, the B2B buyer expectation shift, and building a buying experience that converts and scales. One idea per email.</p>
+    <div class="seq-meta">
+      <div class="seq-meta-item"><div class="seq-meta-dot"></div>Personas: CDO, VP eCommerce, Digital Experience, B2B Commerce</div>
+      <div class="seq-meta-item"><div class="seq-meta-dot"></div>Cadence: 70 days, 10 touches</div>
+      <div class="seq-meta-item"><div class="seq-meta-dot"></div>Primary angle: AI-powered buying experience at scale</div>
+    </div>
+  </div>
+
+  <div class="email-list">
+
+    <div class="email-card" id="cm1">
+      <div class="email-card-header" onclick="toggleEmail('cm1')">
+        <div class="email-header-left">
+          <div class="email-number">Email 1 — Day 1</div>
+          <div class="email-subject">The commerce agent on your shelf</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 1</span>
+            <span class="email-tag tag-angle">New capability</span>
+            <span class="email-tag tag-product">Commerce Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cm1-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cm1-text">Subject: The commerce agent on your shelf
+
+Hi [First],
+
+The most talked-about commerce announcement at Dreamforce '26 was not a new storefront feature.
+
+It was Agentforce Guided Shopping.
+
+An AI agent that sits inside your commerce experience, understands what a shopper is describing in natural language, surfaces the right product through visual search and catalog chat, handles returns, and completes the transaction. Without a human in the loop.
+
+The teams that have deployed this report two things: conversion rates go up and support tickets go down. Both at the same time.
+
+This is not a chatbot. It is a capable sales agent that works 24 hours a day on every product you carry.
+
+Happy to show you what this looks like inside a commerce environment similar to [Company]'s.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="cm2">
+      <div class="email-card-header" onclick="toggleEmail('cm2')">
+        <div class="email-header-left">
+          <div class="email-number">Email 2 — Day 4</div>
+          <div class="email-subject">The B2B buyer your portal is losing</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 4</span>
+            <span class="email-tag tag-angle">Buyer behavior shift</span>
+            <span class="email-tag tag-product">Commerce Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cm2-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cm2-text">Subject: The B2B buyer your portal is losing
+
+Hi [First],
+
+75% of B2B buyers now prefer to self-serve at least part of their purchase journey.
+
+They do not want to call a rep to check inventory. They do not want to email for a quote. They want to log in, configure what they need, see the price, and buy.
+
+Most B2B portals were built for order processing, not buying experience. The friction is real and the abandonment rate reflects it.
+
+Dreamforce '26 had a session specifically on this: how AI-powered B2B commerce reduces the gap between what buyers expect and what most portals deliver.
+
+I would love to show you where [Company]'s current experience sits against the benchmark.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="cm3">
+      <div class="email-card-header" onclick="toggleEmail('cm3')">
+        <div class="email-header-left">
+          <div class="email-number">Email 3 — Day 8</div>
+          <div class="email-subject">The merchandiser who never sleeps</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 8</span>
+            <span class="email-tag tag-angle">AI merchandising</span>
+            <span class="email-tag tag-product">Commerce Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cm3-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cm3-text">Subject: The merchandiser who never sleeps
+
+Hi [First],
+
+Most merchandising decisions are made weekly. Promotions get set up on Monday. Performance gets reviewed on Friday. Changes get made the following Monday.
+
+The buying window your competitors are optimizing for is measured in hours, not weeks.
+
+Dreamforce '26 included a deep dive on AI merchandising automation. The data from early adopters: merchandising teams operate 27% faster. Routine catalog management disappears. The human judgment gets focused on strategy instead of execution.
+
+The teams using it describe the same thing: it is like having a senior merchandiser making micro-decisions on every product, every hour, that they never had time to make before.
+
+Worth a conversation about what this looks like for [Company]'s catalog.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="cm4">
+      <div class="email-card-header" onclick="toggleEmail('cm4')">
+        <div class="email-header-left">
+          <div class="email-number">Email 4 — Day 14</div>
+          <div class="email-subject">What Adidas changed</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 14</span>
+            <span class="email-tag tag-angle">Customer story</span>
+            <span class="email-tag tag-product">Commerce Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cm4-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cm4-text">Subject: What L'Oreal changed
+
+Hi [First],
+
+L'Oréal was featured at Dreamforce '26. They run B2C, B2B wholesale, and retail partnership commerce across dozens of brands worldwide.
+
+The problem they solved: siloed commerce systems meant every brand was managing its own catalog, its own promotions, and its own buyer experience. Duplicate work. Slow launches.
+
+What they built: unified commerce infrastructure where product and pricing data is shared, and the experience layer adapts by channel and brand.
+
+The result: 29% digital revenue lift. The same catalog infrastructure powering every channel, every market, and every brand without rebuilding from scratch.
+
+The pattern at Dreamforce '26 was consistent. Unified wins. Happy to show you what this looks like for [Company]'s current channel structure.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="cm5">
+      <div class="email-card-header" onclick="toggleEmail('cm5')">
+        <div class="email-header-left">
+          <div class="email-number">Email 5 — Day 21</div>
+          <div class="email-subject">The cart they abandoned at checkout</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 21</span>
+            <span class="email-tag tag-angle">Conversion</span>
+            <span class="email-tag tag-product">Commerce Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cm5-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cm5-text">Subject: The cart they abandoned at checkout
+
+Hi [First],
+
+The average B2B cart abandonment rate is 71%.
+
+That means roughly 7 out of every 10 buyers who get far enough to build a cart do not complete the purchase. Most companies accept this as a fact of commerce.
+
+It is not a fact. It is a symptom of friction.
+
+The Dreamforce '26 data on this is clear: AI-powered checkout recovery, real-time inventory visibility, and instant pricing transparency each move the needle. Together, companies are reporting abandonment rate reductions of 25 to 35%.
+
+The money is in the cart. It just needs to get across the finish line.
+
+Happy to walk through where [Company]'s checkout funnel is leaking.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="cm6">
+      <div class="email-card-header" onclick="toggleEmail('cm6')">
+        <div class="email-header-left">
+          <div class="email-number">Email 6 — Day 28</div>
+          <div class="email-subject">Honest check-in</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 28</span>
+            <span class="email-tag tag-angle">Pattern interrupt</span>
+            <span class="email-tag tag-product">All</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cm6-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cm6-text">Subject: Honest check-in
+
+Hi [First],
+
+A few emails and nothing back from you. That is completely fine.
+
+One question: is the commerce experience a current priority at [Company], or is this a conversation for a different point in your roadmap?
+
+If you are deep in a platform migration or a replatform evaluation, I should probably know that and adjust what I share with you.
+
+If AI-powered commerce is somewhere on the roadmap but not the front burner, tell me when the front burner opens up.
+
+One line back tells me where to focus.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="cm7">
+      <div class="email-card-header" onclick="toggleEmail('cm7')">
+        <div class="email-header-left">
+          <div class="email-number">Email 7 — Day 35</div>
+          <div class="email-subject">Search is where they decide</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 35</span>
+            <span class="email-tag tag-angle">Specific feature</span>
+            <span class="email-tag tag-product">Commerce Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cm7-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cm7-text">Subject: Search is where they decide
+
+Hi [First],
+
+Salesforce announced an AI-native search product at Dreamforce '26 called Cimulate. The headline numbers: +13% conversion rate lift and +17% add-to-cart rate for companies that switched from keyword search to intent-based search.
+
+The difference is not cosmetic. A buyer who types "high-temp seal for 300 degree application" does not want every result with the word "seal." They want the three products that actually fit.
+
+Keyword search gives them 400 results and a refinement menu. Cimulate understands what they meant and gives them the answer.
+
+The conversion difference compounds across every search session, every day.
+
+Happy to walk through what [Company]'s current search experience is doing to your conversion rate.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="cm8">
+      <div class="email-card-header" onclick="toggleEmail('cm8')">
+        <div class="email-header-left">
+          <div class="email-number">Email 8 — Day 42</div>
+          <div class="email-subject">The order management gap</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 42</span>
+            <span class="email-tag tag-angle">Post-purchase</span>
+            <span class="email-tag tag-product">Commerce Cloud</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cm8-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cm8-text">Subject: The order management gap
+
+Hi [First],
+
+A commerce experience does not end at checkout. It ends when the customer has what they ordered and is satisfied with it.
+
+Most companies invest heavily in the buying experience and underinvest in the post-purchase experience. Returns take too long. Status updates are vague. Customer service does not have real-time order visibility.
+
+Dreamforce '26 had a full session on intelligent order management: AI that routes orders based on inventory and shipping capacity in real time, surfaces issues before customers notice them, and handles returns without human intervention.
+
+Customer satisfaction scores for companies using this are 22 points higher than those with standard post-purchase processes.
+
+Happy to show you what this looks like for [Company]'s current fulfillment model.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="cm9">
+      <div class="email-card-header" onclick="toggleEmail('cm9')">
+        <div class="email-header-left">
+          <div class="email-number">Email 9 — Day 56</div>
+          <div class="email-subject">Who owns the commerce roadmap</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 56</span>
+            <span class="email-tag tag-angle">Referral ask</span>
+            <span class="email-tag tag-product">All</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cm9-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cm9-text">Subject: Who owns the commerce roadmap
+
+Hi [First],
+
+One quick question: who at [Company] is responsible for the direction of the commerce experience over the next 12 to 18 months?
+
+I want to make sure I am having the right conversation with the right person. If that is you, I would love 20 minutes. If it is someone else on your team, an introduction would go a long way.
+
+Either way, I appreciate your time.
+
+Anthony Troggio | Salesforce
+765-430-7903</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="email-card" id="cm10">
+      <div class="email-card-header" onclick="toggleEmail('cm10')">
+        <div class="email-header-left">
+          <div class="email-number">Email 10 — Day 70</div>
+          <div class="email-subject">Last note from me</div>
+          <div class="email-meta-row">
+            <span class="email-tag tag-day">Day 70</span>
+            <span class="email-tag tag-angle">Break-up</span>
+            <span class="email-tag tag-product">All</span>
+          </div>
+        </div>
+        <div class="email-chevron">&#9660;</div>
+      </div>
+      <div class="email-body">
+        <div class="email-body-inner">
+          <button class="email-copy-btn" onclick="copyEmail('cm10-text',this)">&#9632; Copy Email</button>
+          <pre class="email-text" id="cm10-text">Subject: Last note from me
+
+Hi [First],
+
+I have sent you ten notes over the past two months. I am going to give your inbox a break.
+
+When AI-powered commerce becomes a priority at [Company] and you want a perspective from someone who works in this space specifically, I would be glad to help.
+
+My calendar stays open: calendly.com/atroggio
+
+Anthony Troggio | Salesforce
+765-430-7903
+
+P.S. The full Dreamforce '26 resource is still live:
+atroggio-art.github.io/account-sites/dreamforce-26-sequences.html</pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- CTA SECTION -->
+<div class="divider-bar"></div>
+
+<section class="cta-section">
+  <div class="ghost-num">40</div>
+  <div class="cta-photo-wrap">
+    <img src="anthony.png" alt="Anthony Troggio" class="cta-photo">
+  </div>
+  <div class="cta-text">
+    <div class="cta-label">Your Salesforce Account Executive</div>
+    <div class="cta-name">Anthony Troggio</div>
+    <div class="cta-role">Digital AE — Manufacturing &amp; Automotive West</div>
+    <div class="cta-links">
+      <a href="tel:7654307903" class="cta-link cta-link-primary">765-430-7903</a>
+      <a href="mailto:atroggio@salesforce.com" class="cta-link cta-link-ghost">atroggio@salesforce.com</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+function showSeq(id, tab) {
+  document.querySelectorAll('.seq-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.seq-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('seq-' + id).classList.add('active');
+  tab.classList.add('active');
+}
+
+function toggleEmail(id) {
+  const card = document.getElementById(id);
+  card.classList.toggle('open');
+}
+
+function copyEmail(textId, btn) {
+  const text = document.getElementById(textId).textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = '&#9632; Copy Email';
+      btn.classList.remove('copied');
+    }, 2000);
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.innerHTML = '&#9632; Copy Email';
+      btn.classList.remove('copied');
+    }, 2000);
+  });
+}
+</script>
+</body>
+</html>
