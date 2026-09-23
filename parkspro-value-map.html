@@ -129,6 +129,24 @@ img { display: block; max-width: 100%; }
 .sh-title { font-size: 1.35rem; font-weight: 800; color: var(--navy); }
 .sh-sub { font-size: .9rem; color: var(--muted); margin-top: 4px; }
 
+/* BENCHMARKS STRIP */
+.benchmarks-strip {
+  background: var(--navy); border-radius: var(--r); padding: 36px 40px;
+  margin-bottom: 44px;
+}
+.bm-header { margin-bottom: 28px; }
+.bm-title { font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+.bm-sub { font-size: .82rem; color: rgba(255,255,255,.45); }
+.bm-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.bm-card {
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+  border-radius: 10px; padding: 24px 20px;
+}
+.bm-num { font-size: 2.8rem; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 10px; }
+.bm-num span { font-size: 1.6rem; font-weight: 700; }
+.bm-cat { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--orange2); margin-bottom: 6px; }
+.bm-desc { font-size: .82rem; color: rgba(255,255,255,.6); line-height: 1.55; }
+
 /* DIVIDER */
 .divider { height: 3px; background: linear-gradient(90deg, var(--orange), transparent); border-radius: 2px; margin: 44px 0; }
 
@@ -331,6 +349,7 @@ tbody td:first-child { font-weight: 600; color: var(--navy); }
 
 /* RESPONSIVE */
 @media(max-width:900px){
+  .bm-grid { grid-template-columns: repeat(2, 1fr); }
   .value-grid, .adoption-steps { grid-template-columns: repeat(2,1fr); }
   .be-scenarios { grid-template-columns: 1fr; }
   .neighborly-card, .invest-banner { grid-template-columns: 1fr; }
@@ -546,6 +565,36 @@ tbody td:first-child { font-weight: 600; color: var(--navy); }
       <div class="value-cat">Talent</div>
       <div class="value-name">Talent Leverage</div>
       <div class="value-desc">Great salespeople supported by a system that increases capacity — without proportional headcount growth as volume scales.</div>
+    </div>
+  </div>
+
+  <!-- BENCHMARKS -->
+  <div class="benchmarks-strip">
+    <div class="bm-header">
+      <div class="bm-title">Defining the Digital Standard</div>
+      <div class="bm-sub">Performance benchmarks from automotive companies — FY25 &amp; FY26 Automotive Customer Survey (n=150+)</div>
+    </div>
+    <div class="bm-grid">
+      <div class="bm-card">
+        <div class="bm-num">30<span>%</span></div>
+        <div class="bm-cat">Productivity</div>
+        <div class="bm-desc">Increase in productivity due to generative or agentic AI</div>
+      </div>
+      <div class="bm-card">
+        <div class="bm-num">78<span>%</span></div>
+        <div class="bm-cat">Human-AI Handoffs</div>
+        <div class="bm-desc">Agree that AI has helped increase seamless handoffs between AI and humans</div>
+      </div>
+      <div class="bm-card">
+        <div class="bm-num">27<span>%</span></div>
+        <div class="bm-cat">Revenue Growth</div>
+        <div class="bm-desc">Increase in win rate and sales revenue</div>
+      </div>
+      <div class="bm-card">
+        <div class="bm-num">28<span>%</span></div>
+        <div class="bm-cat">Lead Growth</div>
+        <div class="bm-desc">Increase in lead volume</div>
+      </div>
     </div>
   </div>
 
