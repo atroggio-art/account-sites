@@ -264,6 +264,50 @@ img { display: block; max-width: 100%; }
 .upside-name { font-size: .88rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
 .upside-desc { font-size: .78rem; color: var(--muted); line-height: 1.5; }
 
+/* PROFIT POTENTIAL */
+.profit-card {
+  background: var(--navy); border-radius: 16px; padding: 48px 52px;
+  margin-bottom: 40px; position: relative; overflow: hidden;
+}
+.profit-card::after {
+  content: ''; position: absolute; right: -80px; bottom: -80px;
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(43,92,184,.25), transparent 70%);
+  border-radius: 50%; pointer-events: none;
+}
+.profit-headline { margin-bottom: 36px; }
+.profit-title { font-size: 1rem; font-weight: 700; color: rgba(255,255,255,.5); text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 8px; }
+.profit-amount { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; color: #fff; line-height: 1; margin-bottom: 6px; }
+.profit-amount em { color: var(--orange2); font-style: normal; }
+.profit-sub { font-size: .9rem; color: rgba(255,255,255,.45); }
+
+.profit-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid rgba(255,255,255,.1); border-radius: 12px; overflow: hidden; margin-bottom: 36px; }
+.pstat { padding: 22px 28px; border-right: 1px solid rgba(255,255,255,.1); }
+.pstat:last-child { border-right: none; }
+.pstat-label { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,.4); margin-bottom: 8px; }
+.pstat-value { font-size: 1.8rem; font-weight: 900; color: #fff; line-height: 1; }
+.pstat-value.highlight { color: var(--orange2); }
+
+.profit-bars { margin-bottom: 28px; }
+.profit-bars-title { font-size: .72rem; font-weight: 700; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+.pbar-row { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
+.pbar-label { font-size: .82rem; color: rgba(255,255,255,.65); font-weight: 600; min-width: 130px; flex-shrink: 0; }
+.pbar-track { flex: 1; height: 28px; background: rgba(255,255,255,.07); border-radius: 6px; overflow: hidden; }
+.pbar-fill { height: 100%; border-radius: 6px; display: flex; align-items: center; padding-left: 12px; font-size: .78rem; font-weight: 800; color: #fff; white-space: nowrap; transition: width .8s ease; }
+.pbar-fill.rev { background: linear-gradient(90deg, var(--orange), var(--orange2)); }
+.pbar-fill.eff { background: linear-gradient(90deg, #d4922a, #f0b84a); }
+
+.profit-levers { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 24px; }
+.plever { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 8px; padding: 14px 18px; display: flex; align-items: flex-start; gap: 12px; }
+.plever-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+.plever-dot.rev { background: var(--orange2); }
+.plever-dot.eff { background: #f0b84a; }
+.plever-dot.bonus { background: rgba(255,255,255,.4); }
+.plever-text { font-size: .85rem; color: rgba(255,255,255,.75); line-height: 1.4; }
+.plever-text strong { color: #fff; }
+
+.profit-source { font-size: .75rem; color: rgba(255,255,255,.3); border-top: 1px solid rgba(255,255,255,.08); padding-top: 16px; line-height: 1.6; }
+
 /* ADOPTION */
 .adoption-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 40px; }
 .adopt-step { background: var(--white); border-radius: var(--r); border: 1px solid var(--border); box-shadow: var(--shadow); padding: 22px; }
@@ -350,6 +394,10 @@ tbody td:first-child { font-weight: 600; color: var(--navy); }
 /* RESPONSIVE */
 @media(max-width:900px){
   .bm-grid { grid-template-columns: repeat(2, 1fr); }
+  .profit-stats { grid-template-columns: 1fr; }
+  .pstat { border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); }
+  .pstat:last-child { border-bottom: none; }
+  .profit-levers { grid-template-columns: 1fr; }
   .value-grid, .adoption-steps { grid-template-columns: repeat(2,1fr); }
   .be-scenarios { grid-template-columns: 1fr; }
   .neighborly-card, .invest-banner { grid-template-columns: 1fr; }
@@ -733,6 +781,69 @@ tbody td:first-child { font-weight: 600; color: var(--navy); }
         <div class="upside-desc">End-of-lease remarketing becomes a structured, data-driven process rather than a manual ad-hoc effort.</div>
       </div>
     </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PROFIT POTENTIAL -->
+  <div class="sh">
+    <div class="sh-eyebrow">Total Value Potential</div>
+    <div class="sh-title">ParksPro Operating System: $1.17M–$2.0M Annual Profit</div>
+    <div class="sh-sub">Conservative estimates based on the ParksPro break-even framework and Salesforce data. Pending Finance validation.</div>
+  </div>
+
+  <div class="profit-card">
+    <div class="profit-stats">
+      <div class="pstat">
+        <div class="pstat-label">Total Annual Profit</div>
+        <div class="pstat-value highlight">$1.17M–$2M</div>
+      </div>
+      <div class="pstat">
+        <div class="pstat-label">Estimated Investment</div>
+        <div class="pstat-value">~$290K/yr</div>
+      </div>
+      <div class="pstat">
+        <div class="pstat-label">Annual Return</div>
+        <div class="pstat-value highlight">4x–7x</div>
+      </div>
+    </div>
+
+    <div class="profit-bars">
+      <div class="profit-bars-title">Value by Category</div>
+      <div class="pbar-row">
+        <div class="pbar-label">Revenue Uplift</div>
+        <div class="pbar-track">
+          <div class="pbar-fill rev" style="width:68%">$1.08M midpoint</div>
+        </div>
+      </div>
+      <div class="pbar-row">
+        <div class="pbar-label">Efficiency / Cost</div>
+        <div class="pbar-track">
+          <div class="pbar-fill eff" style="width:32%">$500K midpoint</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profit-levers">
+      <div class="plever">
+        <div class="plever-dot rev"></div>
+        <div class="plever-text"><strong>Rep Productivity</strong> — $480K–$960K</div>
+      </div>
+      <div class="plever">
+        <div class="plever-dot rev"></div>
+        <div class="plever-text"><strong>Ancillary Attach</strong> — $270K–$450K</div>
+      </div>
+      <div class="plever">
+        <div class="plever-dot eff"></div>
+        <div class="plever-text"><strong>Quote / Admin Cycle</strong> — $320K–$448K</div>
+      </div>
+      <div class="plever">
+        <div class="plever-dot bonus"></div>
+        <div class="plever-text"><strong>Neighborly Go-Live</strong> — 28K vehicles live Sept. 16</div>
+      </div>
+    </div>
+
+    <div class="profit-source">Source: Estimates based on ParksPro break-even framework + Salesforce data; pending Finance validation.</div>
   </div>
 
   <div class="divider"></div>
