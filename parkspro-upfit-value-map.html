@@ -257,6 +257,42 @@ a { color: inherit; text-decoration: none; }
 .btn-primary { background: var(--blue); color: #fff; }
 .btn-ghost { border: 1px solid rgba(255,255,255,.22); color: rgba(255,255,255,.8); }
 
+/* ── ROADMAP ── */
+.roadmap-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; margin-bottom: 40px; }
+.roadmap-flow { display: flex; flex-direction: column; gap: 0; }
+.rm-step { display: flex; align-items: flex-start; gap: 16px; }
+.rm-step-spine { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.rm-step-node { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .72rem; font-weight: 800; flex-shrink: 0; }
+.rm-step-node.ext  { background: rgba(43,92,184,.12); border: 2px solid rgba(43,92,184,.3); color: var(--blue); }
+.rm-step-node.sf   { background: var(--blue); color: #fff; }
+.rm-step-node.ao   { background: var(--navy); color: #fff; }
+.rm-step-node.cmd  { background: var(--green); color: #fff; }
+.rm-step-node.wo   { background: rgba(43,92,184,.12); border: 2px solid rgba(43,92,184,.3); color: var(--blue); }
+.rm-step-node.wrk  { background: rgba(43,92,184,.12); border: 2px solid rgba(43,92,184,.3); color: var(--blue); }
+.rm-step-node.qa   { background: rgba(13,122,78,.15); border: 2px solid rgba(13,122,78,.3); color: var(--green); }
+.rm-step-node.fin  { background: var(--gold); color: #fff; }
+.rm-step-line { width: 2px; flex: 1; min-height: 24px; background: var(--border); }
+.rm-step-content { padding-bottom: 22px; flex: 1; padding-top: 6px; }
+.rm-step-name { font-size: .94rem; font-weight: 800; color: var(--navy); margin-bottom: 2px; }
+.rm-step-role { font-size: .8rem; color: var(--muted); }
+.rm-step-role em { font-style: italic; }
+.rm-right { }
+.rm-box { border-radius: 12px; padding: 22px 24px; margin-bottom: 14px; border: 1px solid; }
+.rm-box.highlight { background: var(--navy); border-color: var(--navy); }
+.rm-box.note { background: rgba(43,92,184,.05); border-color: rgba(43,92,184,.18); }
+.rm-box.cta { background: rgba(13,122,78,.06); border-color: rgba(13,122,78,.2); }
+.rm-box-title { font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+.rm-box.highlight .rm-box-title { color: rgba(255,255,255,.4); }
+.rm-box.note .rm-box-title { color: var(--blue); }
+.rm-box.cta .rm-box-title { color: var(--green); }
+.rm-box-body { font-size: .87rem; line-height: 1.68; }
+.rm-box.highlight .rm-box-body { color: rgba(255,255,255,.72); }
+.rm-box.note .rm-box-body { color: #2c3e52; }
+.rm-box.cta .rm-box-body { color: #1a3a2a; }
+.rm-key { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.rm-key-item { display: flex; align-items: center; gap: 6px; font-size: .72rem; color: var(--muted); }
+.rm-key-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
 /* ── RESPONSIVE ── */
 @media(max-width:960px){
   .outcomes-grid { grid-template-columns: 1fr 1fr; }
@@ -400,6 +436,121 @@ a { color: inherit; text-decoration: none; }
       <div class="tb-return">Total potential &nbsp;|&nbsp; <em>6x–9x estimated investment</em></div>
     </div>
     <div class="tb-promise">The non-monetized upside is the most important story for the COO: protecting the Parks Promise delivery reliability as the Neighborly contract scales. That does not have a hard dollar figure — but it is the metric leadership is being judged on.</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SOLUTION ROAD MAP -->
+  <div class="sh">
+    <div class="sh-eye">Solution Architecture</div>
+    <div class="sh-title">ParksPro Solution Road Map Vision</div>
+    <div class="sh-sub">How every system connects — from the moment a customer visits the custom site to the moment the upfit is complete and every record is updated.</div>
+  </div>
+
+  <div class="roadmap-wrap">
+    <div class="roadmap-flow">
+      <div class="rm-step">
+        <div class="rm-step-spine">
+          <div class="rm-step-node ext">1</div>
+          <div class="rm-step-line"></div>
+        </div>
+        <div class="rm-step-content">
+          <div class="rm-step-name">Custom Site</div>
+          <div class="rm-step-role">Sells the upfit — customer-facing quote &amp; order entry</div>
+        </div>
+      </div>
+      <div class="rm-step">
+        <div class="rm-step-spine">
+          <div class="rm-step-node sf">2</div>
+          <div class="rm-step-line"></div>
+        </div>
+        <div class="rm-step-content">
+          <div class="rm-step-name">Salesforce Order / Vehicle</div>
+          <div class="rm-step-role">Records what was sold — structured opportunity and order data</div>
+        </div>
+      </div>
+      <div class="rm-step">
+        <div class="rm-step-spine">
+          <div class="rm-step-node ao">3</div>
+          <div class="rm-step-line"></div>
+        </div>
+        <div class="rm-step-content">
+          <div class="rm-step-name">Agentforce Operations</div>
+          <div class="rm-step-role">Orchestrates the end-to-end process — the ParksRat Agent runs here</div>
+        </div>
+      </div>
+      <div class="rm-step">
+        <div class="rm-step-spine">
+          <div class="rm-step-node cmd">4</div>
+          <div class="rm-step-line"></div>
+        </div>
+        <div class="rm-step-content">
+          <div class="rm-step-name">Parks Ops Command Center</div>
+          <div class="rm-step-role">Optimizes <em>where + when</em> — bay assignment, scheduling, capacity management</div>
+        </div>
+      </div>
+      <div class="rm-step">
+        <div class="rm-step-spine">
+          <div class="rm-step-node wo">5</div>
+          <div class="rm-step-line"></div>
+        </div>
+        <div class="rm-step-content">
+          <div class="rm-step-name">Salesforce Work Order</div>
+          <div class="rm-step-role">Manages <em>the actual work</em> — tech assignment, parts, labor tracking</div>
+        </div>
+      </div>
+      <div class="rm-step">
+        <div class="rm-step-spine">
+          <div class="rm-step-node wrk">6</div>
+          <div class="rm-step-line"></div>
+        </div>
+        <div class="rm-step-content">
+          <div class="rm-step-name">Upfit Worker</div>
+          <div class="rm-step-role">Executes and reports progress — mobile-friendly status updates in real time</div>
+        </div>
+      </div>
+      <div class="rm-step">
+        <div class="rm-step-spine">
+          <div class="rm-step-node qa">7</div>
+          <div class="rm-step-line"></div>
+        </div>
+        <div class="rm-step-content">
+          <div class="rm-step-name">QA / Complete</div>
+          <div class="rm-step-role">Quality gate — sign-off triggers downstream updates automatically</div>
+        </div>
+      </div>
+      <div class="rm-step">
+        <div class="rm-step-spine">
+          <div class="rm-step-node fin">8</div>
+        </div>
+        <div class="rm-step-content">
+          <div class="rm-step-name">Operations + Salesforce + Customer Site Updated</div>
+          <div class="rm-step-role">Closed loop — every system reflects the completed order simultaneously</div>
+        </div>
+      </div>
+
+      <div class="rm-key">
+        <div class="rm-key-item"><div class="rm-key-dot" style="background:var(--blue)"></div>Salesforce Platform</div>
+        <div class="rm-key-item"><div class="rm-key-dot" style="background:var(--navy)"></div>Agentforce Operations</div>
+        <div class="rm-key-item"><div class="rm-key-dot" style="background:var(--green)"></div>Command Center</div>
+        <div class="rm-key-item"><div class="rm-key-dot" style="background:var(--gold)"></div>Outcome</div>
+      </div>
+    </div>
+
+    <div class="rm-right">
+      <div class="rm-box highlight">
+        <div class="rm-box-title">The Critical Layer: Step 3 + 4</div>
+        <div class="rm-box-body">Agentforce Operations + Parks Ops Command Center is where the value is created. Steps 1–2 already happen manually. Steps 5–8 already happen manually. The gap is orchestration and optimization in the middle — that is what ParksPro does not have today, and what this solution delivers.</div>
+      </div>
+      <div class="rm-box note">
+        <div class="rm-box-title">Why MuleSoft Is Required at Step 4</div>
+        <div class="rm-box-body">The Command Center can only optimize <em>where + when</em> if it has live data from all connected systems. MuleSoft provides the real-time integration layer — without it, Command Center operates on manual inputs rather than live feeds from inventory, scheduling, and order systems.</div>
+      </div>
+      <div class="rm-box cta">
+        <div class="rm-box-title">Where the POC Starts</div>
+        <div class="rm-box-body">The POC scopes and builds 1 blueprint — the Opportunity to Order Management process at Steps 2–5. The on-site workshop identifies the exact integration touchpoints and builds the workflow without full integrations first. Full Command Center activation follows after MuleSoft integration is complete.</div>
+      </div>
+    </div>
   </div>
 
   <div class="divider"></div>
