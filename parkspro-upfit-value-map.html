@@ -354,6 +354,34 @@ a { color: inherit; text-decoration: none; }
 </head>
 <body>
 
+<div id="pp-gate" style="display:none;position:fixed;inset:0;background:linear-gradient(135deg,#0a1640,#0d1d52);z-index:9999;display:flex;align-items:center;justify-content:center;">
+  <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:48px 52px;text-align:center;max-width:380px;width:90%;">
+    <div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,.4);margin-bottom:10px;">ParksPro</div>
+    <div style="font-size:1.4rem;font-weight:900;color:#fff;margin-bottom:6px;">Upfitting Division</div>
+    <div style="font-size:.85rem;color:rgba(255,255,255,.45);margin-bottom:32px;">Agentforce Operations Value Map</div>
+    <input id="pp-input" type="password" placeholder="Enter access code" style="width:100%;padding:12px 16px;border-radius:8px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-size:.95rem;outline:none;margin-bottom:12px;text-align:center;letter-spacing:2px;">
+    <button onclick="ppCheck()" style="width:100%;padding:12px;border-radius:8px;background:#2B5CB8;border:none;color:#fff;font-size:.9rem;font-weight:700;cursor:pointer;">Access Document</button>
+    <div id="pp-err" style="color:#f87171;font-size:.8rem;margin-top:10px;display:none;">Incorrect code. Try again.</div>
+  </div>
+</div>
+<script>
+(function(){
+  var gate = document.getElementById('pp-gate');
+  if(sessionStorage.getItem('pp_auth')==='1'){ gate.style.display='none'; return; }
+  gate.style.display='flex';
+  document.getElementById('pp-input').addEventListener('keydown',function(e){ if(e.key==='Enter') ppCheck(); });
+})();
+function ppCheck(){
+  if(document.getElementById('pp-input').value==='Parkspro26'){
+    sessionStorage.setItem('pp_auth','1');
+    document.getElementById('pp-gate').style.display='none';
+  } else {
+    document.getElementById('pp-err').style.display='block';
+    document.getElementById('pp-input').value='';
+  }
+}
+</script>
+
 <nav class="topbar">
   <div class="tb-left">
     <span class="tb-brand">ParksPro</span>
