@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Palmata — Outreach Progress</title>
+<title>Palmata, Outreach Progress</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -134,7 +134,7 @@ const done = Object.entries(raw)
   })
   .sort((a, b) => new Date(b.ts) - new Date(a.ts));
 
-// Total accounts per rep — hardcoded from the dashboard's DATA distribution
+// Total accounts per rep, hardcoded from the dashboard's DATA distribution
 const REP_TOTALS = {
   "Gabrielle": 20,
   "Caroline": 20,
@@ -169,7 +169,7 @@ function renderKPIs() {
       <div class="kpi-lbl">Overall completion</div>
     </div>
     <div class="kpi">
-      <div class="kpi-num" style="font-size:20px;padding-top:4px">${recentRep || '—'}</div>
+      <div class="kpi-num" style="font-size:20px;padding-top:4px">${recentRep || ''}</div>
       <div class="kpi-lbl">Most recent outreach</div>
     </div>
   `;
