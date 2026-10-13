@@ -101,6 +101,51 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 .bvb-card.buy .bvb-icon{background:rgba(16,185,129,.12);color:var(--green)}
 .bvb-text{font-size:14px;color:var(--ink-2);line-height:1.55}
 .bvb-text strong{color:var(--ink-1);font-weight:700}
+/* ICEBERG */
+.iceberg-wrap{margin-top:56px}
+.iceberg-top{background:linear-gradient(180deg,#e0f2fe 0%,#bae6fd 100%);border-radius:20px 20px 0 0;padding:28px 32px;text-align:center;border:1px solid #7dd3fc}
+.iceberg-top-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0369a1;margin-bottom:6px}
+.iceberg-visible{font-size:20px;font-weight:800;color:#0369a1}
+.iceberg-water{height:4px;background:linear-gradient(90deg,#38bdf8,#0ea5e9);position:relative}
+.iceberg-water::before{content:'above the surface';position:absolute;left:16px;top:-20px;font-size:10px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:#38bdf8}
+.iceberg-water::after{content:'the hidden costs';position:absolute;left:16px;bottom:-20px;font-size:10px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:rgba(255,255,255,.50)}
+.iceberg-below{background:linear-gradient(180deg,#1e3a5f 0%,#0f1f3d 100%);border-radius:0 0 20px 20px;padding:32px;margin-top:1px}
+.iceberg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+.iceberg-item{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:10px;padding:14px;font-size:13px;color:rgba(255,255,255,.75);font-weight:600;line-height:1.4;position:relative;padding-left:24px}
+.iceberg-item::before{content:'';position:absolute;left:10px;top:18px;width:6px;height:6px;border-radius:50%;background:#60a5fa}
+/* MURAL QUOTE */
+.mural-quote{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(37,99,235,.06));border:1.5px solid rgba(124,58,237,.18);border-radius:20px;padding:36px 40px;margin-top:36px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
+.mural-q-text{font-size:22px;font-weight:800;color:var(--ink-1);line-height:1.4;font-style:italic}
+.mural-q-attr{font-size:13px;color:var(--ink-2);margin-top:12px;font-weight:600}
+.mural-q-attr span{color:var(--ink-3);font-weight:500}
+.mural-q-stat{text-align:center;min-width:160px}
+.mural-q-stat-n{font-size:44px;font-weight:900;color:var(--purple);line-height:1;letter-spacing:-.03em}
+.mural-q-stat-l{font-size:12px;color:var(--ink-2);margin-top:4px;font-weight:500;line-height:1.4}
+/* IMPLEMENTATION JOURNEY */
+.journey-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px;position:relative}
+.journey-steps::before{content:'';position:absolute;top:42px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--purple),var(--blue));z-index:0}
+.journey-step{position:relative;z-index:1;background:var(--s0);border-radius:16px;padding:24px 20px;box-shadow:var(--shadow-card);text-align:center}
+.journey-phase{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);margin-bottom:8px}
+.journey-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--purple),var(--blue));display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;font-weight:900;margin:0 auto 14px}
+.journey-title{font-size:14px;font-weight:800;color:var(--ink-1);margin-bottom:8px;line-height:1.2}
+.journey-body{font-size:12px;color:var(--ink-2);line-height:1.55}
+.journey-timing{display:inline-block;margin-top:10px;font-size:10px;font-weight:700;color:var(--purple);background:rgba(124,58,237,.08);border-radius:6px;padding:2px 8px}
+/* MILESTONES */
+.milestone-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:36px}
+.milestone{background:var(--s1);border-radius:14px;padding:20px;border:1px solid var(--border)}
+.milestone-n{width:28px;height:28px;border-radius:8px;background:var(--purple);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.milestone-t{font-size:13px;font-weight:800;color:var(--ink-1);margin-bottom:6px}
+.milestone-b{font-size:12px;color:var(--ink-2);line-height:1.5}
+.milestone-mode{font-size:10px;color:var(--ink-3);margin-top:8px;font-weight:600}
+/* G2 STRIP */
+.g2-strip{background:var(--s0);border:1px solid var(--border);border-radius:16px;padding:24px 32px;margin-top:36px;display:flex;align-items:center;gap:40px;flex-wrap:wrap;box-shadow:var(--shadow-sm)}
+.g2-stat{text-align:center}
+.g2-stat-n{font-size:36px;font-weight:900;color:#dc2626;line-height:1;letter-spacing:-.025em}
+.g2-stat-l{font-size:12px;color:var(--ink-2);margin-top:3px;font-weight:500}
+.g2-divider{width:1px;height:48px;background:var(--border-strong)}
+.g2-review{flex:1;min-width:280px}
+.g2-review-q{font-size:13px;font-style:italic;color:var(--ink-2);line-height:1.55;margin-bottom:6px}
+.g2-review-attr{font-size:11px;color:var(--ink-3);font-weight:600}
 
 /* COMPARISON TABLE */
 .cmp-wrap{margin-top:56px;border-radius:20px;overflow:hidden;box-shadow:var(--shadow-card)}
@@ -333,6 +378,140 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
         </div>
       </div>
     </div>
+
+    <!-- ICEBERG: HIDDEN COSTS OF BUILDING -->
+    <div class="iceberg-wrap">
+      <div style="text-align:center;margin-bottom:28px">
+        <div class="eyebrow" style="margin-bottom:8px">The Hidden Costs of Building Your Own Agent</div>
+        <p style="font-size:15px;color:var(--ink-2);max-width:560px;margin:0 auto">When Nexeo's team looks at building in-house, they see one line item. What's below the surface is what kills the project.</p>
+      </div>
+      <div class="iceberg-top">
+        <div class="iceberg-top-lbl">What everyone budgets for</div>
+        <div class="iceberg-visible">Licensing / Subscription Cost</div>
+      </div>
+      <div class="iceberg-water"></div>
+      <div class="iceberg-below">
+        <div style="color:rgba(255,255,255,.5);font-size:12px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;margin-bottom:20px;margin-top:12px">What nobody budgets for</div>
+        <div class="iceberg-grid">
+          <div class="iceberg-item">Strategy and Ideation</div>
+          <div class="iceberg-item">Implementation</div>
+          <div class="iceberg-item">Testing and Roll Out</div>
+          <div class="iceberg-item">Team Onboarding and Training</div>
+          <div class="iceberg-item">Unpredictable Usage-Based Pricing</div>
+          <div class="iceberg-item">Fine Tuning and Optimization</div>
+          <div class="iceberg-item">Ongoing Maintenance and Support</div>
+          <div class="iceberg-item">Performance Monitoring and QA</div>
+          <div class="iceberg-item">Ongoing Feature Innovation</div>
+          <div class="iceberg-item">Data Privacy and Security</div>
+          <div class="iceberg-item" style="grid-column:span 1">Opportunity Costs from Build Delays</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MURAL QUOTE + G2 -->
+    <div class="mural-quote">
+      <div>
+        <div class="mural-q-text">"Deploy a reliable AI SDR agent built on strong platforms that gets you to market faster. Don't get hung up on building an external-facing agent when there's a great solution already in the market."</div>
+        <div class="mural-q-attr">Paul Wilson, Head of GTM AI and Systems, Mural <span>via G2 review</span></div>
+      </div>
+      <div class="mural-q-stat">
+        <div class="mural-q-stat-n">1,800+</div>
+        <div class="mural-q-stat-l">5-star reviews on G2<br>#1 AI SDR Agent<br>1,000+ companies on Piper</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- IMPLEMENTATION JOURNEY -->
+<section class="sec sec-alt" id="implementation">
+  <div class="sec-inner">
+    <div class="eyebrow">Implementation</div>
+    <div class="bar"></div>
+    <h2 class="h2">Live in 30-45 days. Not 12 months.</h2>
+    <p class="lead">Salesforce-certified Success Architects handle every step. Your team shows up, reviews conversations, and watches the pipeline grow.</p>
+
+    <div class="journey-steps">
+      <div class="journey-step">
+        <div class="journey-phase">Phase 1</div>
+        <div class="journey-icon">1</div>
+        <div class="journey-title">Piper on Website</div>
+        <div class="journey-body">AI SDR engages every inbound visitor, answers questions, qualifies intent, and books meetings directly on your reps' calendars.</div>
+        <div class="journey-timing">Days 1-30</div>
+      </div>
+      <div class="journey-step">
+        <div class="journey-phase">Phase 2</div>
+        <div class="journey-icon">2</div>
+        <div class="journey-title">Piper in Inbox</div>
+        <div class="journey-body">Extends AI SDR to email outbound, following up on form fills, re-engaging cold leads, and working your existing database.</div>
+        <div class="journey-timing">Days 30-60</div>
+      </div>
+      <div class="journey-step">
+        <div class="journey-phase">Ongoing</div>
+        <div class="journey-icon">3</div>
+        <div class="journey-title">Hypercare</div>
+        <div class="journey-body">Weekly check-ins, AI conversation reviews, routing reviews, KPI reporting, and leadership alignment calls to maximize results.</div>
+        <div class="journey-timing">First 90 Days</div>
+      </div>
+      <div class="journey-step">
+        <div class="journey-phase">Long Term</div>
+        <div class="journey-icon">4</div>
+        <div class="journey-title">Continuous Growth</div>
+        <div class="journey-body">Monthly optimization, quarterly strategic reviews, use case expansion, admin training, and 3 QSA hours per quarter included.</div>
+        <div class="journey-timing">Month 4+</div>
+      </div>
+    </div>
+
+    <!-- FAST IMPLEMENTATION PROOF -->
+    <div style="margin-top:48px">
+      <div style="font-size:13px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--ink-3);text-align:center;margin-bottom:24px">Companies live faster than you expect</div>
+      <div class="milestone-row">
+        <div class="milestone">
+          <div class="milestone-n">24</div>
+          <div class="milestone-t">Informatica</div>
+          <div class="milestone-b">Days to go live. +188.6% engagement. $3.7M+ pipeline in first 30 days.</div>
+        </div>
+        <div class="milestone">
+          <div class="milestone-n">37</div>
+          <div class="milestone-t">Salesforce.com</div>
+          <div class="milestone-b">Days to go live. +12% engagement. +37% opportunities per session. 2X conversion rate.</div>
+        </div>
+        <div class="milestone" style="background:linear-gradient(135deg,rgba(124,58,237,.05),rgba(37,99,235,.05));border-color:rgba(124,58,237,.15)">
+          <div class="milestone-n" style="background:linear-gradient(135deg,var(--purple),var(--blue))">7</div>
+          <div class="milestone-t">Implementation Steps</div>
+          <div class="milestone-b">Defined milestones with Salesforce-certified Success Architects at every phase.</div>
+        </div>
+        <div class="milestone" style="background:linear-gradient(135deg,rgba(124,58,237,.05),rgba(37,99,235,.05));border-color:rgba(124,58,237,.15)">
+          <div class="milestone-n" style="background:linear-gradient(135deg,var(--purple),var(--blue))">0</div>
+          <div class="milestone-t">Engineering Hires Needed</div>
+          <div class="milestone-b">Salesforce-native means your existing CRM, routing, and data infrastructure just works.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- G2 STRIP -->
+    <div class="g2-strip">
+      <div class="g2-stat">
+        <div class="g2-stat-n">1,800+</div>
+        <div class="g2-stat-l">5-Star G2 Reviews</div>
+      </div>
+      <div class="g2-divider"></div>
+      <div class="g2-stat">
+        <div class="g2-stat-n">#1</div>
+        <div class="g2-stat-l">AI SDR Agent on G2</div>
+      </div>
+      <div class="g2-divider"></div>
+      <div class="g2-stat">
+        <div class="g2-stat-n">1,000+</div>
+        <div class="g2-stat-l">Companies Running Piper</div>
+      </div>
+      <div class="g2-divider"></div>
+      <div class="g2-review">
+        <div class="g2-review-q">"Qualified is the best in class for pipeline generation. We doubled our meeting volume in 60 days and our reps didn't have to change how they work."</div>
+        <div class="g2-review-attr">Director of Demand Generation, Enterprise SaaS Company</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
