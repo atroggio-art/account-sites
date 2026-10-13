@@ -248,6 +248,13 @@ const engaged = {};
 
 function repColor(rep) { return REP_HEX_LIGHT[rep]; }
 function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+function isPalmataContact(title) {
+  const t = title.toLowerCase();
+  const keep = ['marketing','brand','digital','content','ecommerce','e-commerce','seo','sem','search engine','demand gen','demand generation','growth','creative','communications','public relations',' pr ','chief executive','ceo','chief marketing','cmo','chief growth','chief revenue','cro','chief digital','chief brand','chief content','chief customer'];
+  const skip = ['operations','manufacturing','engineering','supply chain','logistics','finance','financial','accounting','payroll','benefits','human resources',' hr ','legal','compliance','it director','it manager','information technology','director of it','vp of it','vp it','vice president it','vice president of it','customer service','customer support','call center','safety','quality','regional sales','national sales','account manager','account executive','sales director','vp of sales','vp sales','vice president sales','vice president of sales','director of sales','director national sales','director - sales','business development','biz dev'];
+  if (skip.some(k => t.includes(k))) return false;
+  return keep.some(k => t.includes(k));
+}
 
 
 function kpis() {
@@ -358,7 +365,7 @@ function renderTable() {
     let dr = "";
     if (isOpen) {
       const website = a.website ? `<div style="margin-top:10px"><a class="web-link" href="${/^https?:/.test(a.website)?a.website:"https://"+a.website}" target="_blank" rel="noopener">${esc(a.website)} &nearr;</a></div>` : "";
-      const ctxContacts = CONTACTS[a.account] || [];
+      const ctxContacts = (CONTACTS[a.account] || []).filter(c => isPalmataContact(c.t));
       const ctxCount = ctxContacts.length;
       const contactListHtml = ctxCount > 0
         ? ctxContacts.slice(0,15).map(c=>{
