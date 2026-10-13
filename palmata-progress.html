@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palmata — Outreach Progress</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#2a78d6; --green:#1baf7a; --orange:#c94f20; --amber:#9e6e00;
+  --ink-1:#0b0b0b; --ink-2:#52514e; --ink-3:#8a8880;
+  --s0:#ffffff; --s1:#f7f7f5; --s2:#ebebea; --s3:#e2e2e0;
+  --border:rgba(11,11,11,0.08); --border-strong:rgba(11,11,11,0.14);
+  --rep-G:#2a78d6; --rep-C:#c94f20; --rep-S:#1baf7a; --rep-Ch:#9e6e00; --rep-SM:#c94a7a;
+}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--s1);color:var(--ink-1);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+.hdr{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 40px;height:58px;display:flex;align-items:center;justify-content:space-between}
+.hdr-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logom{width:32px;height:32px;background:linear-gradient(135deg,#1baf7a 0%,#2a78d6 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff}
+.hdr-name{font-size:14px;font-weight:800;color:var(--ink-1)}
+.hdr-label{font-size:11px;color:var(--ink-3);background:var(--s2);border-radius:5px;padding:2px 8px;font-weight:600;margin-left:4px}
+.hdr-right{display:flex;align-items:center;gap:8px}
+.hdr-link{font-size:12px;font-weight:700;color:var(--ink-3);text-decoration:none;padding:5px 12px;border:1px solid var(--border-strong);border-radius:7px;transition:all .12s}
+.hdr-link:hover{color:var(--ink-1);background:var(--s2)}
+
+.main{max-width:1200px;margin:0 auto;padding:36px 40px 80px}
+
+/* SUMMARY KPIs */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:36px}
+.kpi{background:var(--s0);border:1px solid var(--border);border-radius:13px;padding:20px 20px 16px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--green);border-radius:13px 13px 0 0}
+.kpi-num{font-size:36px;font-weight:900;color:var(--ink-1);line-height:1;letter-spacing:-.02em}
+.kpi-num span{font-size:18px;color:var(--green);font-weight:700}
+.kpi-lbl{font-size:12px;color:var(--ink-2);margin-top:5px}
+
+/* REP SCOREBOARD */
+.scoreboard{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:36px}
+.rep-card{background:var(--s0);border:1px solid var(--border);border-radius:14px;padding:20px;position:relative;overflow:hidden}
+.rep-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0}
+.rep-avatar{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;margin-bottom:10px}
+.rep-name{font-size:13px;font-weight:800;color:var(--ink-1);margin-bottom:2px}
+.rep-count{font-size:11px;color:var(--ink-3);margin-bottom:12px}
+.prog-track{height:6px;background:var(--s2);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;border-radius:3px;transition:width .5s ease}
+.rep-pct{font-size:18px;font-weight:900;margin-top:8px;letter-spacing:-.02em}
+
+/* TABLE */
+.table-wrap{background:var(--s0);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.table-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px 14px;border-bottom:1px solid var(--border)}
+.table-title{font-size:14px;font-weight:700;color:var(--ink-1)}
+.table-sub{font-size:12px;color:var(--ink-3)}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:10px 16px;text-align:left;border-bottom:1px solid var(--border);background:var(--s1)}
+.tbl td{padding:11px 16px;border-bottom:1px solid var(--border);font-size:13px;color:var(--ink-2);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:var(--s1)}
+.rep-dot{display:inline-flex;align-items:center;gap:7px;font-weight:600;color:var(--ink-1)}
+.rep-dot::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%}
+.date-chip{font-size:11px;color:var(--ink-3);background:var(--s2);padding:2px 8px;border-radius:5px;white-space:nowrap}
+.tier-chip{font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.t-a{background:rgba(27,175,122,.10);color:var(--green)}
+.t-b{background:rgba(42,120,214,.10);color:var(--blue)}
+.t-c{background:rgba(158,110,0,.10);color:var(--amber)}
+.empty-state{padding:60px 20px;text-align:center;color:var(--ink-3)}
+.empty-state strong{display:block;font-size:16px;color:var(--ink-2);margin-bottom:6px}
+.empty-state a{color:var(--blue);font-weight:600;text-decoration:none}
+.empty-state a:hover{text-decoration:underline}
+
+/* FILTER BAR */
+.filter-bar{display:flex;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.f-btn{padding:5px 13px;border-radius:7px;border:1.5px solid var(--border-strong);background:var(--s0);font-size:12px;font-weight:700;color:var(--ink-2);cursor:pointer;font-family:inherit;transition:all .12s}
+.f-btn:hover{background:var(--s2);color:var(--ink-1)}
+.f-btn.on{background:var(--ink-1);color:#fff;border-color:var(--ink-1)}
+
+@media(max-width:860px){
+  .kpi-row{grid-template-columns:repeat(2,1fr)}
+  .scoreboard{grid-template-columns:repeat(2,1fr)}
+  .hdr,.main{padding-left:20px;padding-right:20px}
+}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <a class="hdr-brand" href="palmata-accounts-dashboard.html">
+    <div class="logom">P</div>
+    <span class="hdr-name">Palmata</span>
+    <span class="hdr-label">Outreach Progress</span>
+  </a>
+  <div class="hdr-right">
+    <a class="hdr-link" href="palmata-accounts-dashboard.html">&#8592; Dashboard</a>
+    <a class="hdr-link" href="palmata-overview.html">Field Guide</a>
+  </div>
+</header>
+
+<main class="main">
+  <div class="kpi-row" id="kpiRow"></div>
+  <div class="scoreboard" id="scoreboard"></div>
+  <div class="filter-bar" id="filterBar"></div>
+  <div class="table-wrap">
+    <div class="table-hdr">
+      <div class="table-title">Accounts Marked Done</div>
+      <div class="table-sub" id="tableCount"></div>
+    </div>
+    <div id="tableBody"></div>
+  </div>
+</main>
+
+<script>
+const STORAGE_KEY = 'palmata_outreach';
+const REP_COLORS = {
+  "Gabrielle": "#2a78d6",
+  "Caroline":  "#c94f20",
+  "Steph":     "#1baf7a",
+  "Chris":     "#9e6e00",
+  "Sarah Merrill": "#c94a7a"
+};
+const REP_ORDER = ["Gabrielle","Caroline","Steph","Chris","Sarah Merrill"];
+
+// Pull DATA counts from the dashboard (same origin localStorage)
+// We'll derive totals from the engaged keys
+const raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+// Build entries: only truthy values = marked Done
+const done = Object.entries(raw)
+  .filter(([,v]) => !!v)
+  .map(([key, ts]) => {
+    const sep = key.indexOf('||');
+    const rep = key.slice(0, sep);
+    const account = key.slice(sep + 2);
+    return { rep, account, ts };
+  })
+  .sort((a, b) => new Date(b.ts) - new Date(a.ts));
+
+// Total accounts per rep — hardcoded from the dashboard's DATA distribution
+const REP_TOTALS = {
+  "Gabrielle": 20,
+  "Caroline": 20,
+  "Steph": 20,
+  "Chris": 20,
+  "Sarah Merrill": 20
+};
+const GRAND_TOTAL = 100;
+
+// Per-rep done counts
+const repDone = {};
+REP_ORDER.forEach(r => repDone[r] = 0);
+done.forEach(d => { if (repDone[d.rep] !== undefined) repDone[d.rep]++; });
+
+const totalDone = done.length;
+
+// KPIs
+function renderKPIs() {
+  const pct = GRAND_TOTAL ? Math.round(totalDone / GRAND_TOTAL * 100) : 0;
+  const recentRep = done[0] ? done[0].rep : null;
+  document.getElementById('kpiRow').innerHTML = `
+    <div class="kpi">
+      <div class="kpi-num">${totalDone}</div>
+      <div class="kpi-lbl">Accounts marked Done</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-num">${GRAND_TOTAL - totalDone}</div>
+      <div class="kpi-lbl">Accounts remaining</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-num">${pct}<span>%</span></div>
+      <div class="kpi-lbl">Overall completion</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-num" style="font-size:20px;padding-top:4px">${recentRep || '—'}</div>
+      <div class="kpi-lbl">Most recent outreach</div>
+    </div>
+  `;
+}
+
+// Scoreboard
+function renderScoreboard() {
+  document.getElementById('scoreboard').innerHTML = REP_ORDER.map(rep => {
+    const col = REP_COLORS[rep];
+    const doneCount = repDone[rep] || 0;
+    const total = REP_TOTALS[rep] || 20;
+    const pct = Math.round(doneCount / total * 100);
+    const initials = rep.split(' ').map(w => w[0]).join('').slice(0, 2);
+    return `<div class="rep-card" style="--rc:${col}">
+      <div class="rep-card" style="position:absolute;top:0;left:0;right:0;height:3px;background:${col};border-radius:14px 14px 0 0;pointer-events:none"></div>
+      <div class="rep-avatar" style="background:${col}">${initials}</div>
+      <div class="rep-name">${rep}</div>
+      <div class="rep-count">${doneCount} of ${total} accounts</div>
+      <div class="prog-track"><div class="prog-fill" style="width:${pct}%;background:${col}"></div></div>
+      <div class="rep-pct" style="color:${col}">${pct}%</div>
+    </div>`;
+  }).join('');
+}
+
+// Filter state
+let activeRep = 'All';
+
+function renderFilters() {
+  const reps = ['All', ...REP_ORDER];
+  document.getElementById('filterBar').innerHTML = reps.map(r => {
+    const col = r === 'All' ? null : REP_COLORS[r];
+    const cnt = r === 'All' ? done.length : done.filter(d => d.rep === r).length;
+    return `<button class="f-btn${activeRep===r?' on':''}" onclick="setRep('${r}')"
+      style="${activeRep===r && col ? `background:${col};border-color:${col}` : ''}"
+    >${r} <span style="opacity:.6">(${cnt})</span></button>`;
+  }).join('');
+}
+
+function setRep(r) { activeRep = r; renderFilters(); renderTable(); }
+
+// Table
+function renderTable() {
+  const rows = activeRep === 'All' ? done : done.filter(d => d.rep === activeRep);
+  document.getElementById('tableCount').textContent = `${rows.length} account${rows.length !== 1 ? 's' : ''}`;
+
+  if (rows.length === 0) {
+    document.getElementById('tableBody').innerHTML = `
+      <div class="empty-state">
+        <strong>${activeRep === 'All' ? 'No accounts marked Done yet' : `${activeRep} hasn't marked any accounts yet`}</strong>
+        Hit "Mark" on accounts in the <a href="palmata-accounts-dashboard.html">Dashboard</a> and they'll appear here.
+      </div>`;
+    return;
+  }
+
+  document.getElementById('tableBody').innerHTML = `
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th>Rep</th>
+          <th>Account</th>
+          <th>Date Marked</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${rows.map(d => {
+          const col = REP_COLORS[d.rep] || '#888';
+          const dateStr = d.ts && d.ts !== 'Yes'
+            ? new Date(d.ts).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'})
+            : 'Earlier';
+          return `<tr>
+            <td><span class="rep-dot" style="--c:${col}"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${col};margin-right:6px"></span>${d.rep}</span></td>
+            <td style="font-weight:600;color:var(--ink-1)">${d.account}</td>
+            <td><span class="date-chip">${dateStr}</span></td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>`;
+}
+
+renderKPIs();
+renderScoreboard();
+renderFilters();
+renderTable();
+</script>
+</body>
+</html>
