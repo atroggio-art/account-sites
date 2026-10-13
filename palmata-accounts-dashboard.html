@@ -427,7 +427,7 @@ function renderTable() {
       </div></td></tr>`;
     }
     const acctDisplay = a.org62_id ? `<a class="org62-link" href="https://org62.my.salesforce.com/${a.org62_id}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${safeAcct}</a>` : safeAcct;
-    return `<tr class="data-row${isOpen?" open":""}" onclick="toggleRow(${JSON.stringify(key)})">
+    return `<tr class="data-row${isOpen?" open":""}" onclick="toggleRow(${esc(JSON.stringify(key))})">
       <td><div style="display:flex;align-items:center"><div class="rep-bar" style="background:${col}"></div></div></td>
       <td><span class="rank-n">${a.rank}</span></td>
       <td><div class="acct-name">${acctDisplay}</div><div class="acct-loc">${esc(loc)}</div>${a.contact_name?`<div class="acct-contact-line" style="color:${col}">${esc(a.contact_name)}<span class="acct-contact-sep">·</span><span style="opacity:.7;font-weight:400">${esc(a.contact_title)}</span></div>`:`<div class="acct-no-contact">· No contact yet</div>`}</td>
@@ -435,7 +435,7 @@ function renderTable() {
       <td><div class="score-cell"><span class="score-num">${a.score||"—"}</span><div class="score-track"><div class="score-fill" style="width:${pct}%"></div></div></div></td>
       <td><span class="tier-badge ${tierCls}">${a.tier}</span></td>
       <td><span class="status-pill ${statCls}">${a.status}</span></td>
-      <td onclick="event.stopPropagation()"><button class="eng-btn${isEngaged?" yes":""}" onclick="toggleEngaged(${JSON.stringify(key)})">${isEngaged?"Engaged":"Mark"}</button></td>
+      <td onclick="event.stopPropagation()"><button class="eng-btn${isEngaged?" yes":""}" onclick="toggleEngaged(${esc(JSON.stringify(key))})">${isEngaged?"Engaged":"Mark"}</button></td>
       <td><span class="chevron">&#9654;</span></td>
     </tr>${dr}`;
   }).join("");
