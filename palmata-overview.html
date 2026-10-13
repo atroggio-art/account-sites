@@ -27,21 +27,14 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 .hdr-cta{background:var(--green)!important;color:#fff!important;border-radius:7px;padding:6px 14px!important}
 .hdr-cta:hover{opacity:.88}
 
-/* HERO */
-.hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&q=80');background-size:cover;background-position:center;opacity:.65}
-.hero-ov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(3,8,20,.92) 0%,rgba(5,18,40,.86) 55%,rgba(5,24,27,.82) 100%)}
-.hero-c{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:120px 48px 96px;width:100%}
-.hero-tag{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:22px}
-.hero-h1{font-size:clamp(44px,6vw,80px);font-weight:900;color:#fff;line-height:1.02;letter-spacing:-.03em;max-width:800px;margin-bottom:30px}
-.hero-h1 em{font-style:normal;color:var(--green)}
-.hero-sub{font-size:18px;color:rgba(255,255,255,.58);line-height:1.65;max-width:520px;margin-bottom:56px}
-.hero-stats{display:flex;align-items:flex-start;gap:56px;flex-wrap:wrap}
-.hs{display:flex;flex-direction:column;gap:6px}
-.hs-num{font-size:54px;font-weight:900;color:#fff;line-height:1;letter-spacing:-.035em}
-.hs-num span{color:var(--green);font-size:28px}
-.hs-lbl{font-size:12px;color:rgba(255,255,255,.44);max-width:160px;line-height:1.4}
-.hs-div{width:1px;background:rgba(255,255,255,.12);height:60px;align-self:center}
+/* STATS STRIP */
+.stat-strip{background:#060f1e;border-bottom:1px solid rgba(255,255,255,.06);padding:0 48px}
+.stat-strip-inner{max-width:1200px;margin:0 auto;display:flex;align-items:stretch;flex-wrap:wrap}
+.ss{display:flex;flex-direction:column;justify-content:center;padding:20px 0;flex:1;min-width:160px}
+.ss+.ss{border-left:1px solid rgba(255,255,255,.08);padding-left:36px;margin-left:0}
+.ss-num{font-size:32px;font-weight:900;color:#fff;line-height:1;letter-spacing:-.025em}
+.ss-num span{color:var(--green);font-size:18px;font-weight:800}
+.ss-lbl{font-size:11px;color:rgba(255,255,255,.42);margin-top:4px;line-height:1.4;max-width:200px}
 
 /* SECTION SHELL */
 .sec{padding:100px 48px}
@@ -189,8 +182,11 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
   .shift-layout,.wpa,.cta-layout{grid-template-columns:1fr;gap:36px}
   .pain-grid,.tgt-grid,.now-grid,.p-grid{grid-template-columns:1fr}
   .uc-grid,.obj-grid,.email-grid{grid-template-columns:1fr}
-  .hdr{padding:0 20px}
-  .hero-c,.sec{padding-left:20px;padding-right:20px}
+  .hdr,.stat-strip{padding:0 20px}
+  .sec{padding-left:20px;padding-right:20px}
+  .stat-strip-inner{gap:0}
+  .ss{min-width:120px;padding:16px 0}
+  .ss+.ss{padding-left:20px}
   .hdr-nav{display:none}
 }
 </style>
@@ -205,8 +201,8 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
     <span class="hdr-label">Field Guide</span>
   </a>
   <nav class="hdr-nav">
-    <a href="#shift">Why Care?</a>
     <a href="#why-palmata">Why Palmata</a>
+    <a href="#shift">Why Care?</a>
     <a href="#targets">Targets</a>
     <a href="#personas">Personas</a>
     <a href="#objections">Objections</a>
@@ -216,40 +212,66 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
   </nav>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-ov"></div>
-  <div class="hero-c">
-    <div class="hero-tag">Internal Field Guide — Palmata AI Discovery &amp; Brand Visibility</div>
-    <h1 class="hero-h1">Your buyers are deciding.<br><em>In a room you can't see.</em></h1>
-    <p class="hero-sub">Buyers aren't Googling anymore. They're asking ChatGPT to compare vendors. Most brands have no idea what the answer says.</p>
-    <div class="hero-stats">
-      <div class="hs">
-        <div class="hs-num">14.2<span>%</span></div>
-        <div class="hs-lbl">AI search conversion rate vs. 2.8% from Google — Seer Interactive</div>
+<!-- STATS STRIP -->
+<div class="stat-strip">
+  <div class="stat-strip-inner">
+    <div class="ss">
+      <div class="ss-num">14.2<span>%</span></div>
+      <div class="ss-lbl">AI search conversion vs. 2.8% Google — Seer Interactive</div>
+    </div>
+    <div class="ss">
+      <div class="ss-num">4.4<span>x</span></div>
+      <div class="ss-lbl">Higher conversion from AI-referred visitors vs. organic</div>
+    </div>
+    <div class="ss">
+      <div class="ss-num">25<span>%</span></div>
+      <div class="ss-lbl">Organic search shifting to AI assistants by end of 2026 — Gartner</div>
+    </div>
+    <div class="ss">
+      <div class="ss-num">2028</div>
+      <div class="ss-lbl">When AI-search visitors overtake traditional search visitors</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY PALMATA -->
+<section class="sec" id="why-palmata">
+  <div class="sec-inner">
+    <div class="wpa">
+      <div>
+        <div class="tag">Why Palmata? Why Should I Care?</div>
+        <div class="bar"></div>
+        <h2 class="h2">Standalone. No implementation. Free first report.</h2>
+        <p class="lead">Palmata doesn't require Salesforce, Contentful, or an implementation partner. The free first report is a built-in proof of concept — it closes itself.</p>
+        <div class="free-pill">
+          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="#1baf7a"/><path d="M4 7.5l2 2 4-4" stroke="#1baf7a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Free first report — same day, no setup
+        </div>
       </div>
-      <div class="hs-div"></div>
-      <div class="hs">
-        <div class="hs-num">25<span>%</span></div>
-        <div class="hs-lbl">Of organic search shifting to AI assistants by end of 2026 — Gartner</div>
-      </div>
-      <div class="hs-div"></div>
-      <div class="hs">
-        <div class="hs-num">2028</div>
-        <div class="hs-lbl">When AI-search visitors overtake traditional search visitors</div>
-      </div>
-      <div class="hs-div"></div>
-      <div class="hs">
-        <div class="hs-num">4.4<span>x</span></div>
-        <div class="hs-lbl">Higher conversion from AI-referred visitors vs. organic</div>
+      <div class="attrs">
+        <div class="attr">
+          <div class="ai g">&#10003;</div>
+          <div><div class="at">No implementation partner</div><div class="ab">Up and running same day. No SI, no services, no delay.</div></div>
+        </div>
+        <div class="attr">
+          <div class="ai b">&#10003;</div>
+          <div><div class="at">No Contentful or Salesforce required</div><div class="ab">Sells into any account. Zero footprint dependency.</div></div>
+        </div>
+        <div class="attr">
+          <div class="ai o">&#10003;</div>
+          <div><div class="at">Free report is a built-in POC</div><div class="ab">Delivers a real, actionable report. It closes itself.</div></div>
+        </div>
+        <div class="attr">
+          <div class="ai g">&#10003;</div>
+          <div><div class="at">Prioritized action plan</div><div class="ab">Tells teams which changes to make first — not just a ranking.</div></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- THE SHIFT -->
-<section class="sec" id="shift">
+<section class="sec sec-alt" id="shift">
   <div class="sec-inner">
     <div class="shift-layout">
       <div>
@@ -293,42 +315,6 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
         <div class="p-listen">
           <div class="p-ll">Listen for</div>
           <div class="p-lq">"We're paying for another dashboard."</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WHY PALMATA -->
-<section class="sec sec-alt" id="why-palmata">
-  <div class="sec-inner">
-    <div class="wpa">
-      <div>
-        <div class="tag">Why Palmata</div>
-        <div class="bar"></div>
-        <h2 class="h2">Standalone. No implementation. Free first report.</h2>
-        <p class="lead">Palmata doesn't require Salesforce, Contentful, or an implementation partner. The free first report is a built-in proof of concept — it closes itself.</p>
-        <div class="free-pill">
-          <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="#1baf7a"/><path d="M4 7.5l2 2 4-4" stroke="#1baf7a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Free first report — same day, no setup
-        </div>
-      </div>
-      <div class="attrs">
-        <div class="attr">
-          <div class="ai g">&#10003;</div>
-          <div><div class="at">No implementation partner</div><div class="ab">Up and running same day. No SI, no services, no delay.</div></div>
-        </div>
-        <div class="attr">
-          <div class="ai b">&#10003;</div>
-          <div><div class="at">No Contentful or Salesforce required</div><div class="ab">Sells into any account. Zero footprint dependency.</div></div>
-        </div>
-        <div class="attr">
-          <div class="ai o">&#10003;</div>
-          <div><div class="at">Free report is a built-in POC</div><div class="ab">Delivers a real, actionable report. It closes itself.</div></div>
-        </div>
-        <div class="attr">
-          <div class="ai g">&#10003;</div>
-          <div><div class="at">Prioritized action plan</div><div class="ab">Tells teams which changes to make first — not just a ranking.</div></div>
         </div>
       </div>
     </div>
