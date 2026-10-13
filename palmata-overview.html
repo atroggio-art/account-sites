@@ -3,191 +3,183 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Palmata | AI Discovery & Brand Visibility — Field Guide</title>
+<title>Palmata — Field Guide</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --blue:#2a78d6; --green:#1baf7a; --orange:#c94f20; --amber:#9e6e00; --magenta:#c94a7a;
-  --ink-1:#0b0b0b; --ink-2:#52514e; --ink-3:#898781;
+  --blue:#2a78d6; --green:#1baf7a; --orange:#c94f20; --amber:#9e6e00;
+  --ink-1:#0b0b0b; --ink-2:#52514e; --ink-3:#8a8880;
   --s0:#ffffff; --s1:#f7f7f5; --s2:#ebebea; --s3:#e2e2e0;
-  --border:rgba(11,11,11,0.09); --border-strong:rgba(11,11,11,0.16);
+  --border:rgba(11,11,11,0.08); --border-strong:rgba(11,11,11,0.14);
 }
 html{scroll-behavior:smooth}
-body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--s0);color:var(--ink-1);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--s0);color:var(--ink-1);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
 
 /* HEADER */
-.hdr{position:sticky;top:0;z-index:300;background:rgba(255,255,255,0.95);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 40px;height:58px;display:flex;align-items:center;justify-content:space-between}
+.hdr{position:sticky;top:0;z-index:300;background:rgba(255,255,255,0.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:0 48px;height:60px;display:flex;align-items:center;justify-content:space-between}
 .hdr-brand{display:flex;align-items:center;gap:11px;text-decoration:none}
-.logom{width:32px;height:32px;background:linear-gradient(135deg,#1baf7a 0%,#2a78d6 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;flex-shrink:0}
-.hdr-name{font-size:14px;font-weight:700;color:var(--ink-1)}
-.hdr-nav{display:flex;align-items:center;gap:20px}
-.hdr-nav a{font-size:12px;color:var(--ink-3);text-decoration:none;font-weight:500;transition:color .12s;white-space:nowrap}
-.hdr-nav a:hover{color:var(--ink-1)}
-.hdr-cta{background:var(--green);color:#fff;border:none;border-radius:7px;padding:6px 16px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:opacity .12s}
+.logom{width:34px;height:34px;background:linear-gradient(135deg,#1baf7a 0%,#2a78d6 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff}
+.hdr-name{font-size:15px;font-weight:800;color:var(--ink-1)}
+.hdr-label{font-size:11px;color:var(--ink-3);background:var(--s2);border-radius:5px;padding:2px 8px;font-weight:600;letter-spacing:.03em;margin-left:4px}
+.hdr-nav{display:flex;align-items:center;gap:6px}
+.hdr-nav a{font-size:12px;color:var(--ink-3);text-decoration:none;font-weight:600;padding:5px 10px;border-radius:6px;transition:all .12s;white-space:nowrap}
+.hdr-nav a:hover{color:var(--ink-1);background:var(--s1)}
+.hdr-cta{background:var(--green)!important;color:#fff!important;border-radius:7px;padding:6px 14px!important}
 .hdr-cta:hover{opacity:.88}
 
 /* HERO */
-.hero{position:relative;min-height:86vh;display:flex;align-items:center;overflow:hidden}
+.hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1600&q=80');background-size:cover;background-position:center;opacity:.65}
-.hero-ov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(4,10,24,.90) 0%,rgba(7,22,46,.82) 55%,rgba(6,30,32,.78) 100%)}
-.hero-c{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:110px 48px 88px;width:100%}
-.hero-eye{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:18px}
-.hero-h1{font-size:clamp(36px,5.2vw,66px);font-weight:800;color:#fff;line-height:1.07;letter-spacing:-.025em;max-width:760px;margin-bottom:24px}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(3,8,20,.92) 0%,rgba(5,18,40,.86) 55%,rgba(5,24,27,.82) 100%)}
+.hero-c{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:120px 48px 96px;width:100%}
+.hero-tag{font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--green);margin-bottom:22px}
+.hero-h1{font-size:clamp(44px,6vw,80px);font-weight:900;color:#fff;line-height:1.02;letter-spacing:-.03em;max-width:800px;margin-bottom:30px}
 .hero-h1 em{font-style:normal;color:var(--green)}
-.hero-p{font-size:17px;color:rgba(255,255,255,.68);line-height:1.65;max-width:560px;margin-bottom:44px}
-.hero-stats{display:flex;align-items:flex-start;gap:44px;flex-wrap:wrap}
-.hs-num{font-size:50px;font-weight:900;color:#fff;line-height:1;letter-spacing:-.03em}
-.hs-num span{font-size:26px;font-weight:700;color:var(--green)}
-.hs-lbl{font-size:12px;color:rgba(255,255,255,.50);margin-top:5px;max-width:170px;line-height:1.4}
-.hs-div{width:1px;background:rgba(255,255,255,.13);height:56px;align-self:center}
+.hero-sub{font-size:18px;color:rgba(255,255,255,.58);line-height:1.65;max-width:520px;margin-bottom:56px}
+.hero-stats{display:flex;align-items:flex-start;gap:56px;flex-wrap:wrap}
+.hs{display:flex;flex-direction:column;gap:6px}
+.hs-num{font-size:54px;font-weight:900;color:#fff;line-height:1;letter-spacing:-.035em}
+.hs-num span{color:var(--green);font-size:28px}
+.hs-lbl{font-size:12px;color:rgba(255,255,255,.44);max-width:160px;line-height:1.4}
+.hs-div{width:1px;background:rgba(255,255,255,.12);height:60px;align-self:center}
 
-/* SHARED SECTION */
-.sec{padding:88px 40px}
-.sec-inner{max-width:1240px;margin:0 auto}
+/* SECTION SHELL */
+.sec{padding:100px 48px}
+.sec-inner{max-width:1200px;margin:0 auto}
 .sec-alt{background:var(--s1)}
-.sec-dark{background:#07101f;color:#fff}
-.eyebrow{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
-.eyebrow.blue{color:var(--blue)}
-.eyebrow.orange{color:var(--orange)}
-.eyebrow.amber{color:var(--amber)}
-.accent-bar{width:32px;height:3px;border-radius:2px;background:var(--green);margin-bottom:22px}
-.accent-bar.blue{background:var(--blue)}
-.accent-bar.orange{background:var(--orange)}
-.sec-h2{font-size:clamp(26px,3.2vw,42px);font-weight:800;color:var(--ink-1);line-height:1.13;letter-spacing:-.02em;margin-bottom:16px}
-.sec-dark .sec-h2{color:#fff}
-.sec-body{font-size:16px;color:var(--ink-2);line-height:1.7;max-width:600px}
-.sec-dark .sec-body{color:rgba(255,255,255,.60)}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-@media(max-width:820px){.two-col{grid-template-columns:1fr;gap:32px}}
+.sec-dark{background:#060f1e;color:#fff}
+.tag{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+.tag.blue{color:var(--blue)} .tag.orange{color:var(--orange)} .tag.amber{color:var(--amber)}
+.bar{width:28px;height:3px;border-radius:2px;background:var(--green);margin-bottom:24px}
+.bar.blue{background:var(--blue)} .bar.orange{background:var(--orange)}
+.h2{font-size:clamp(30px,3.6vw,50px);font-weight:900;color:var(--ink-1);line-height:1.08;letter-spacing:-.025em;margin-bottom:18px}
+.sec-dark .h2{color:#fff}
+.lead{font-size:18px;color:var(--ink-2);line-height:1.7;max-width:580px}
+.sec-dark .lead{color:rgba(255,255,255,.55)}
 
 /* THE SHIFT */
-.shift-big{font-size:76px;font-weight:900;color:var(--orange);line-height:1;letter-spacing:-.03em}
-.shift-lbl{font-size:13px;color:var(--ink-2);margin-top:6px;font-weight:500}
-.shift-q{font-size:18px;font-style:italic;color:var(--ink-2);line-height:1.6;border-left:3px solid var(--green);padding-left:20px;margin-top:28px}
+.shift-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.shift-big{font-size:110px;font-weight:900;color:var(--orange);line-height:1;letter-spacing:-.04em}
+.shift-lbl{font-size:14px;color:var(--ink-2);margin-top:4px}
+.shift-quote{font-size:20px;font-style:italic;color:var(--ink-2);line-height:1.55;border-left:3px solid var(--green);padding:4px 0 4px 22px;margin-top:32px}
 
 /* PAIN CARDS */
-.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:56px}
-@media(max-width:900px){.pain-grid{grid-template-columns:1fr}}
-.pain-card{background:var(--s0);border:1px solid var(--border);border-radius:14px;padding:28px 26px 24px;position:relative;overflow:hidden}
-.pain-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0}
-.pc-1::before{background:var(--blue)} .pc-2::before{background:var(--orange)} .pc-3::before{background:var(--green)}
-.pc-ghost{position:absolute;right:-2px;bottom:-14px;font-size:84px;font-weight:900;line-height:1;opacity:.042;color:var(--ink-1);letter-spacing:-3px;pointer-events:none}
-.pc-title{font-size:15px;font-weight:800;color:var(--ink-1);margin-bottom:10px;line-height:1.3}
-.pc-body{font-size:13px;color:var(--ink-2);line-height:1.65;margin-bottom:18px}
-.pc-listen{background:var(--s1);border-radius:9px;padding:12px 14px}
-.pc-l-lbl{font-size:9px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
-.pc-l-q{font-size:12px;color:var(--ink-2);font-style:italic;line-height:1.55}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:64px}
+.p-card{background:var(--s0);border:1px solid var(--border);border-radius:16px;padding:30px 26px 26px;position:relative;overflow:hidden}
+.p-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.pc1::before{background:var(--blue)} .pc2::before{background:var(--orange)} .pc3::before{background:var(--green)}
+.p-ghost{position:absolute;right:-4px;bottom:-18px;font-size:96px;font-weight:900;opacity:.04;pointer-events:none;line-height:1;letter-spacing:-3px}
+.p-title{font-size:16px;font-weight:800;color:var(--ink-1);margin-bottom:10px;line-height:1.3}
+.p-body{font-size:14px;color:var(--ink-2);line-height:1.65;margin-bottom:18px}
+.p-listen{background:var(--s1);border-radius:9px;padding:12px 14px}
+.p-ll{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:5px}
+.p-lq{font-size:13px;color:var(--ink-2);font-style:italic;line-height:1.5}
 
-/* TARGET ACCOUNTS */
-.target-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:48px}
-@media(max-width:860px){.target-grid{grid-template-columns:1fr}}
-.target-card{background:var(--s0);border:1px solid var(--border);border-radius:14px;padding:24px}
-.tc-pill{display:inline-flex;align-items:center;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 10px;border-radius:12px;margin-bottom:12px}
-.tc-pill.blue{background:rgba(42,120,214,.10);color:var(--blue)}
-.tc-pill.green{background:rgba(27,175,122,.10);color:var(--green)}
-.tc-pill.amber{background:rgba(158,110,0,.10);color:var(--amber)}
-.tc-title{font-size:14px;font-weight:700;color:var(--ink-1);margin-bottom:8px}
-.tc-body{font-size:13px;color:var(--ink-2);line-height:1.6}
-.ptb-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.ptb-chip{font-size:11px;font-weight:600;color:var(--ink-2);background:var(--s2);border-radius:6px;padding:4px 10px;border:1px solid var(--border)}
+/* WHY PALMATA */
+.wpa{display:grid;grid-template-columns:1.15fr 1fr;gap:80px;align-items:start}
+.attrs{display:flex;flex-direction:column;gap:12px}
+.attr{display:flex;gap:14px;align-items:flex-start;padding:16px;background:var(--s0);border:1px solid var(--border);border-radius:11px}
+.ai{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.ai.g{background:rgba(27,175,122,.12);color:var(--green)}
+.ai.b{background:rgba(42,120,214,.10);color:var(--blue)}
+.ai.o{background:rgba(201,79,32,.10);color:var(--orange)}
+.at{font-size:14px;font-weight:700;color:var(--ink-1);margin-bottom:2px}
+.ab{font-size:13px;color:var(--ink-2);line-height:1.5}
+.free-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(27,175,122,.10);border:1px solid rgba(27,175,122,.20);color:var(--green);border-radius:20px;padding:7px 16px;font-size:13px;font-weight:700;margin-top:22px}
+
+/* TARGETS */
+.tgt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:56px}
+.tc{background:var(--s0);border:1px solid var(--border);border-radius:14px;padding:24px}
+.tc-pill{display:inline-flex;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 10px;border-radius:12px;margin-bottom:12px}
+.tc-pill.b{background:rgba(42,120,214,.10);color:var(--blue)}
+.tc-pill.g{background:rgba(27,175,122,.10);color:var(--green)}
+.tc-pill.a{background:rgba(158,110,0,.10);color:var(--amber)}
+.tc-t{font-size:15px;font-weight:700;color:var(--ink-1);margin-bottom:8px}
+.tc-b{font-size:13px;color:var(--ink-2);line-height:1.6}
+.ptb-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+.ptb-chip{font-size:11px;font-weight:600;color:var(--ink-2);background:var(--s2);border-radius:6px;padding:3px 9px;border:1px solid var(--border)}
 
 /* USE CASES */
 .uc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-@media(max-width:860px){.uc-grid{grid-template-columns:1fr}}
-.uc-card{background:var(--s0);border:1px solid var(--border);border-radius:14px;padding:26px 24px 22px;display:flex;flex-direction:column;gap:18px}
-.uc-pill{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 11px;border-radius:12px;display:inline-flex}
-.uc-pill.blue{background:rgba(42,120,214,.10);color:var(--blue)}
-.uc-pill.green{background:rgba(27,175,122,.10);color:var(--green)}
-.uc-pill.orange{background:rgba(201,79,32,.10);color:var(--orange)}
-.uc-pill.amber{background:rgba(158,110,0,.10);color:var(--amber)}
-.uc-caps{display:flex;flex-direction:column;gap:8px}
-.uc-cap{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--ink-2);line-height:1.5}
-.uc-cap::before{content:'';display:block;width:5px;height:5px;border-radius:50%;background:var(--ink-3);flex-shrink:0;margin-top:7px}
+.uc{background:var(--s0);border:1px solid var(--border);border-radius:14px;padding:26px 24px 22px}
+.uc-tag{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 11px;border-radius:12px;display:inline-flex;margin-bottom:16px}
+.uc-tag.b{background:rgba(42,120,214,.10);color:var(--blue)}
+.uc-tag.g{background:rgba(27,175,122,.10);color:var(--green)}
+.uc-tag.o{background:rgba(201,79,32,.10);color:var(--orange)}
+.uc-tag.a{background:rgba(158,110,0,.10);color:var(--amber)}
+.uc-caps{display:flex;flex-direction:column;gap:9px;margin-bottom:18px}
+.uc-cap{font-size:13px;color:var(--ink-2);line-height:1.5;padding-left:14px;position:relative}
+.uc-cap::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--ink-3)}
 .uc-cap strong{color:var(--ink-1);font-weight:700}
-.uc-impact{display:flex;flex-direction:column;gap:5px;border-top:1px solid var(--border);padding-top:16px}
-.uc-ir{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-2);font-weight:500}
-.iup{color:#0a8a0a;font-weight:800;font-size:13px} .idn{color:var(--orange);font-weight:800;font-size:13px}
+.uc-impact{display:flex;flex-direction:column;gap:5px;border-top:1px solid var(--border);padding-top:14px}
+.uc-ir{font-size:12px;color:var(--ink-2);display:flex;align-items:center;gap:6px;font-weight:500}
+.up{color:#0a8a0a;font-weight:800;font-size:13px} .dn{color:var(--orange);font-weight:800;font-size:13px}
 
 /* PERSONAS */
-.persona-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
-.p-tab{padding:9px 18px;border-radius:9px;cursor:pointer;border:1.5px solid var(--border);background:var(--s0);font-family:inherit;font-size:13px;font-weight:600;color:var(--ink-2);transition:all .14s;white-space:nowrap}
-.p-tab:hover{background:var(--s1);color:var(--ink-1)}
-.p-tab.active{background:var(--ink-1);color:#fff;border-color:var(--ink-1)}
-.persona-panel{display:none}
-.persona-panel.active{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-@media(max-width:860px){.persona-panel.active{grid-template-columns:1fr}}
-.p-block{background:var(--s0);border:1px solid var(--border);border-radius:14px;padding:22px 20px}
-.p-block.span2{grid-column:1/-1}
-.p-block-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
-.p-block-body{font-size:13px;color:var(--ink-2);line-height:1.65}
-.p-block-body strong{color:var(--ink-1);font-weight:700}
-.p-hook{font-size:17px;font-weight:700;color:var(--ink-1);line-height:1.45;font-style:italic;border-left:3px solid var(--green);padding-left:16px}
-.p-q-list{display:flex;flex-direction:column;gap:8px}
-.p-q{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--ink-2);line-height:1.5}
-.p-q-num{font-size:9px;font-weight:800;color:var(--ink-3);background:var(--s2);border-radius:4px;padding:2px 6px;flex-shrink:0;margin-top:2px;letter-spacing:.05em}
-.p-use-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
-.p-uc-chip{font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;background:var(--s1);border:1px solid var(--border);color:var(--ink-2)}
-.persona-header{display:flex;align-items:flex-start;gap:16px;margin-bottom:28px}
-.p-role-badge{padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.p-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px}
+.p-tab{padding:10px 20px;border-radius:10px;cursor:pointer;border:1.5px solid var(--border-strong);background:var(--s0);font-family:inherit;font-size:14px;font-weight:700;color:var(--ink-2);transition:all .14s;white-space:nowrap}
+.p-tab:hover{background:var(--s2);color:var(--ink-1)}
+.p-tab.on{background:var(--ink-1);color:#fff;border-color:var(--ink-1)}
+.persona{display:none}
+.persona.on{display:block}
+.p-hook-wrap{background:linear-gradient(135deg,rgba(42,120,214,.07) 0%,rgba(27,175,122,.07) 100%);border-radius:16px;padding:36px 40px;margin-bottom:28px}
+.p-hook-lbl{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px}
+.p-hook{font-size:clamp(20px,2.4vw,30px);font-weight:800;color:var(--ink-1);line-height:1.3;font-style:italic}
+.p-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.p-block{background:var(--s0);border:1px solid var(--border);border-radius:13px;padding:20px}
+.p-block.wide{grid-column:1/-1}
+.p-lbl{font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px}
+.p-text{font-size:13px;color:var(--ink-2);line-height:1.65}
+.p-text strong{color:var(--ink-1);font-weight:700}
+.p-qs{display:flex;flex-direction:column;gap:9px}
+.p-q{display:flex;gap:9px;font-size:13px;color:var(--ink-2);line-height:1.5}
+.p-qn{background:var(--s2);color:var(--ink-3);font-size:9px;font-weight:700;border-radius:4px;padding:2px 6px;flex-shrink:0;margin-top:2px;letter-spacing:.05em}
+.p-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px}
+.p-chip{font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;background:var(--s1);border:1px solid var(--border);color:var(--ink-2)}
 
 /* OBJECTIONS */
 .obj-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:820px){.obj-grid{grid-template-columns:1fr}}
-.obj-card{background:var(--s0);border:1px solid var(--border);border-radius:14px;overflow:hidden}
-.obj-q{display:flex;align-items:flex-start;gap:12px;padding:18px 18px 14px;border-bottom:1px solid var(--border)}
-.obj-q-icon{width:22px;height:22px;border-radius:6px;background:rgba(201,79,32,.10);color:var(--orange);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;margin-top:1px}
-.obj-q-text{font-size:13px;font-weight:700;color:var(--ink-1);line-height:1.45}
-.obj-a{display:flex;align-items:flex-start;gap:12px;padding:14px 18px 18px}
-.obj-a-icon{width:22px;height:22px;border-radius:6px;background:rgba(27,175,122,.10);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;margin-top:1px}
-.obj-a-text{font-size:13px;color:var(--ink-2);line-height:1.6}
+.obj{background:var(--s0);border:1px solid var(--border);border-radius:14px;overflow:hidden}
+.obj-q{padding:20px 20px 14px;border-bottom:1px solid var(--border)}
+.obj-qi{display:flex;align-items:flex-start;gap:10px}
+.obj-icon{width:22px;height:22px;border-radius:6px;background:rgba(201,79,32,.10);color:var(--orange);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.obj-qt{font-size:14px;font-weight:800;color:var(--ink-1);line-height:1.4}
+.obj-a{display:flex;align-items:flex-start;gap:10px;padding:14px 20px 20px}
+.obj-ai{width:22px;height:22px;border-radius:6px;background:rgba(27,175,122,.10);color:var(--green);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.obj-at{font-size:13px;color:var(--ink-2);line-height:1.65}
 
 /* WHY NOW */
 .now-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
-@media(max-width:860px){.now-grid{grid-template-columns:1fr}}
-.now-card{position:relative;padding:30px 26px 26px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:14px;overflow:hidden}
-.now-ghost{position:absolute;right:0;bottom:-14px;font-size:96px;font-weight:900;line-height:1;opacity:.055;color:#fff;letter-spacing:-3px;pointer-events:none}
-.now-num{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
-.now-title{font-size:17px;font-weight:800;color:#fff;line-height:1.25;margin-bottom:10px}
-.now-body{font-size:13px;color:rgba(255,255,255,.56);line-height:1.65}
-
-/* WHY PALMATA attrs */
-.wpa-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:72px;align-items:start}
-@media(max-width:900px){.wpa-grid{grid-template-columns:1fr;gap:40px}}
-.attr-list{display:flex;flex-direction:column;gap:12px}
-.attr-row{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;background:var(--s1);border-radius:10px;border:1px solid var(--border)}
-.attr-icon{width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
-.attr-icon.g{background:rgba(27,175,122,.13);color:var(--green)}
-.attr-icon.b{background:rgba(42,120,214,.10);color:var(--blue)}
-.attr-icon.o{background:rgba(201,79,32,.10);color:var(--orange)}
-.attr-t{font-size:13px;font-weight:700;color:var(--ink-1);margin-bottom:2px}
-.attr-b{font-size:12px;color:var(--ink-2);line-height:1.5}
-.free-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(27,175,122,.11);border:1px solid rgba(27,175,122,.22);color:var(--green);border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700;margin-top:18px}
+.now-card{padding:32px 28px 28px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:16px;position:relative;overflow:hidden}
+.now-ghost{position:absolute;right:-2px;bottom:-18px;font-size:104px;font-weight:900;opacity:.055;color:#fff;letter-spacing:-3px;pointer-events:none;line-height:1}
+.now-n{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+.now-t{font-size:20px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px}
+.now-b{font-size:14px;color:rgba(255,255,255,.52);line-height:1.65}
 
 /* CTA */
-.cta-grid{display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center}
-@media(max-width:800px){.cta-grid{grid-template-columns:1fr;gap:36px}}
-.cta-h2{font-size:clamp(24px,3vw,40px);font-weight:800;color:#fff;line-height:1.13;letter-spacing:-.02em;margin-bottom:14px}
-.cta-p{font-size:15px;color:rgba(255,255,255,.60);line-height:1.65;margin-bottom:28px;max-width:480px}
-.cta-btn{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;border:none;border-radius:9px;padding:13px 26px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:opacity .14s}
+.cta-layout{display:grid;grid-template-columns:1fr auto;gap:60px;align-items:center}
+.cta-h{font-size:clamp(28px,3.5vw,48px);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.025em;margin-bottom:14px}
+.cta-p{font-size:16px;color:rgba(255,255,255,.55);line-height:1.65;max-width:460px;margin-bottom:28px}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;background:var(--green);color:#fff;border:none;border-radius:10px;padding:14px 28px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:opacity .14s}
 .cta-btn:hover{opacity:.88}
-.cta-note{font-size:11px;color:rgba(255,255,255,.35);margin-top:10px}
-.rep-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.11);border-radius:14px;padding:26px;text-align:center;min-width:188px}
-.rep-photo{width:76px;height:76px;border-radius:50%;object-fit:cover;border:3px solid rgba(27,175,122,.38);margin-bottom:12px}
-.rep-name{font-size:14px;font-weight:700;color:#fff;margin-bottom:3px}
-.rep-title{font-size:11px;color:rgba(255,255,255,.45);line-height:1.5}
-.rep-email{display:block;margin-top:9px;font-size:11px;color:var(--green);text-decoration:none;font-weight:600}
+.cta-note{font-size:11px;color:rgba(255,255,255,.30);margin-top:10px}
+.rep-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:28px 24px;text-align:center;min-width:196px}
+.rep-photo{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid rgba(27,175,122,.35);margin-bottom:14px}
+.rep-name{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px}
+.rep-title{font-size:11px;color:rgba(255,255,255,.40);line-height:1.55}
+.rep-email{display:block;margin-top:10px;font-size:12px;color:var(--green);text-decoration:none;font-weight:700}
 .rep-email:hover{text-decoration:underline}
 
 /* FOOTER */
-.ftr{background:#040810;padding:28px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;border-top:1px solid rgba(255,255,255,.06)}
-.ftr-note{font-size:11px;color:rgba(255,255,255,.22)}
+.ftr{background:#040810;padding:26px 48px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid rgba(255,255,255,.06)}
+.ftr-note{font-size:11px;color:rgba(255,255,255,.20)}
 
-@media(max-width:640px){
-  .hdr,.ftr{padding:0 20px}
-  .hdr{height:52px}
-  .hero-c{padding:72px 20px 56px}
-  .sec{padding:60px 20px}
-  .hero-stats{gap:24px}
+@media(max-width:860px){
+  .shift-layout,.wpa,.cta-layout{grid-template-columns:1fr;gap:36px}
+  .pain-grid,.tgt-grid,.now-grid,.p-grid{grid-template-columns:1fr}
+  .uc-grid,.obj-grid{grid-template-columns:1fr}
+  .hdr{padding:0 20px}
+  .hero-c,.sec{padding-left:20px;padding-right:20px}
   .hdr-nav{display:none}
 }
 </style>
@@ -196,18 +188,19 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 
 <!-- HEADER -->
 <header class="hdr">
-  <a class="hdr-brand" href="#">
+  <a class="hdr-brand" href="palmata-accounts-dashboard.html">
     <div class="logom">P</div>
     <span class="hdr-name">Palmata</span>
+    <span class="hdr-label">Field Guide</span>
   </a>
   <nav class="hdr-nav">
     <a href="#shift">The Shift</a>
     <a href="#why-palmata">Why Palmata</a>
-    <a href="#targets">Target Accounts</a>
+    <a href="#targets">Targets</a>
     <a href="#personas">Personas</a>
     <a href="#objections">Objections</a>
     <a href="#why-now">Why Now</a>
-    <a class="hdr-cta" href="#contact">Free Report</a>
+    <a class="hdr-cta" href="#cta">Free Report</a>
   </nav>
 </header>
 
@@ -216,23 +209,23 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
   <div class="hero-bg"></div>
   <div class="hero-ov"></div>
   <div class="hero-c">
-    <div class="hero-eye">AI Discovery &amp; Brand Visibility — Field Guide</div>
+    <div class="hero-tag">Palmata — AI Discovery &amp; Brand Visibility</div>
     <h1 class="hero-h1">Your buyers are deciding.<br><em>In a room you can't see.</em></h1>
-    <p class="hero-p">Buyers have moved from Googling and clicking through to asking ChatGPT and Gemini to compare vendors, summarize categories, and make purchase recommendations. Most brands have no visibility into how those answer engines represent them, let alone a way to influence it.</p>
+    <p class="hero-sub">Buyers aren't Googling anymore. They're asking ChatGPT to compare vendors. Most brands have no idea what the answer says.</p>
     <div class="hero-stats">
-      <div>
+      <div class="hs">
         <div class="hs-num">61<span>%</span></div>
-        <div class="hs-lbl">Drop in click-throughs on traditional search queries</div>
+        <div class="hs-lbl">Drop in search click-throughs</div>
       </div>
       <div class="hs-div"></div>
-      <div>
+      <div class="hs">
         <div class="hs-num">450<span>+</span></div>
-        <div class="hs-lbl">Prompts run per free report across your market and competitors</div>
+        <div class="hs-lbl">Prompts per free report</div>
       </div>
       <div class="hs-div"></div>
-      <div>
+      <div class="hs">
         <div class="hs-num">4.4<span>x</span></div>
-        <div class="hs-lbl">Higher conversion rate from AI-referred visitors vs. organic</div>
+        <div class="hs-lbl">AI-referred visitor conversion rate</div>
       </div>
     </div>
   </div>
@@ -241,48 +234,48 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 <!-- THE SHIFT -->
 <section class="sec" id="shift">
   <div class="sec-inner">
-    <div class="two-col" style="margin-bottom:0">
+    <div class="shift-layout">
       <div>
-        <div class="eyebrow orange">The Shift</div>
-        <div class="accent-bar orange"></div>
-        <h2 class="sec-h2">Search worked for 25 years. It still does. Just less every quarter.</h2>
-        <p class="sec-body">For every brand, buyer discovery is quietly shifting. Instead of searching Google and clicking through to compare a few sites, buyers are asking ChatGPT and Gemini to compare vendors, summarize categories, and make purchase recommendations — and getting answers without ever visiting your site.<br><br>Most brands have no visibility into how those answer engines represent them, let alone a way to influence it.</p>
+        <div class="tag orange">The Shift</div>
+        <div class="bar orange"></div>
+        <h2 class="h2">Search worked for 25 years. It still does. Just less every quarter.</h2>
+        <p class="lead">Buyers have moved from clicking through search results to asking AI to compare vendors and recommend solutions. The channel where purchase decisions happen has shifted — and most brands can't see into it at all.</p>
       </div>
       <div>
         <div class="shift-big">61%</div>
         <div class="shift-lbl">Drop in click-throughs on search queries</div>
-        <blockquote class="shift-q">"The channel where buyers research and compare has already moved. The question is whether your brand shows up — accurately — when it matters."</blockquote>
+        <blockquote class="shift-quote">"The channel where buyers research has already moved. The question is whether your brand shows up accurately when it matters."</blockquote>
       </div>
     </div>
-    <div style="margin-top:56px">
-      <div class="eyebrow blue">The Symptoms</div>
+    <div style="margin-top:64px">
+      <div class="tag blue" style="margin-bottom:6px">What Teams Are Experiencing</div>
     </div>
     <div class="pain-grid">
-      <div class="pain-card pc-1">
-        <div class="pc-ghost">01</div>
-        <div class="pc-title">AI answer visibility is a total blind spot</div>
-        <div class="pc-body">Marketing, brand, and content teams have no idea how their brand, products, or competitors show up when a buyer asks an AI assistant a category question.</div>
-        <div class="pc-listen">
-          <div class="pc-l-lbl">Listen for</div>
-          <div class="pc-l-q">"We have no idea what ChatGPT says about us, or how it's deciding which pieces of information to share."</div>
+      <div class="p-card pc1">
+        <div class="p-ghost">01</div>
+        <div class="p-title">AI visibility is a blind spot</div>
+        <div class="p-body">No view into how their brand, products, or competitors appear when a buyer asks an AI assistant a category question.</div>
+        <div class="p-listen">
+          <div class="p-ll">Listen for</div>
+          <div class="p-lq">"We have no idea what ChatGPT says about us."</div>
         </div>
       </div>
-      <div class="pain-card pc-2">
-        <div class="pc-ghost">02</div>
-        <div class="pc-title">Traditional SEO tools don't answer the AI question</div>
-        <div class="pc-body">Rank-tracking and share-of-voice dashboards tell you where you sit on a search results page, not why an answer engine chose to describe you a certain way, or what to change.</div>
-        <div class="pc-listen">
-          <div class="pc-l-lbl">Listen for</div>
-          <div class="pc-l-q">"We track visibility, but we don't know what to actually do about it."</div>
+      <div class="p-card pc2">
+        <div class="p-ghost">02</div>
+        <div class="p-title">SEO tools don't answer the AI question</div>
+        <div class="p-body">Rank-tracking tools show where you sit on a results page — not why an AI described you a certain way or what to change.</div>
+        <div class="p-listen">
+          <div class="p-ll">Listen for</div>
+          <div class="p-lq">"We have the data. We don't know what to do with it."</div>
         </div>
       </div>
-      <div class="pain-card pc-3">
-        <div class="pc-ghost">03</div>
-        <div class="pc-title">No prioritized action plan</div>
-        <div class="pc-body">Even teams that know they have an AI visibility gap don't know which content changes will move the needle first, or what impact those changes might have.</div>
-        <div class="pc-listen">
-          <div class="pc-l-lbl">Listen for</div>
-          <div class="pc-l-q">"We're spending on AEO tools that just give us another dashboard."</div>
+      <div class="p-card pc3">
+        <div class="p-ghost">03</div>
+        <div class="p-title">No prioritized action plan</div>
+        <div class="p-body">Even teams that know they have a gap don't know which content changes move the needle first, or what impact to expect.</div>
+        <div class="p-listen">
+          <div class="p-ll">Listen for</div>
+          <div class="p-lq">"We're paying for another dashboard."</div>
         </div>
       </div>
     </div>
@@ -292,121 +285,119 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 <!-- WHY PALMATA -->
 <section class="sec sec-alt" id="why-palmata">
   <div class="sec-inner">
-    <div class="wpa-grid">
+    <div class="wpa">
       <div>
-        <div class="eyebrow">Why Palmata</div>
-        <div class="accent-bar"></div>
-        <h2 class="sec-h2">A standalone AI discovery product. No setup. No friction.</h2>
-        <p class="sec-body">Palmata is a standalone AI discovery and brand-perception product from Contentful. It does not require the customer to be a Contentful customer, does not require any existing Salesforce footprint, and does not require an implementation partner.</p>
-        <p class="sec-body" style="margin-top:14px">It starts with a free tier — one free report, per account lifetime, by signing up — making it one of the lowest-friction create-and-close motions available to sell into either install base.</p>
-        <div class="free-badge">
+        <div class="tag">Why Palmata</div>
+        <div class="bar"></div>
+        <h2 class="h2">Standalone. No implementation. Free first report.</h2>
+        <p class="lead">Palmata doesn't require Salesforce, Contentful, or an implementation partner. The free first report is a built-in proof of concept — it closes itself.</p>
+        <div class="free-pill">
           <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="6.5" stroke="#1baf7a"/><path d="M4 7.5l2 2 4-4" stroke="#1baf7a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Free first report — no implementation required
+          Free first report — same day, no setup
         </div>
       </div>
-      <div class="attr-list">
-        <div class="attr-row">
-          <div class="attr-icon g">&#10003;</div>
-          <div><div class="attr-t">No implementation partner needed</div><div class="attr-b">Customers can be up and running the same day. No SI, no services engagement, no delay.</div></div>
+      <div class="attrs">
+        <div class="attr">
+          <div class="ai g">&#10003;</div>
+          <div><div class="at">No implementation partner</div><div class="ab">Up and running same day. No SI, no services, no delay.</div></div>
         </div>
-        <div class="attr-row">
-          <div class="attr-icon b">&#10003;</div>
-          <div><div class="attr-t">Standalone — no Contentful or Salesforce required</div><div class="attr-b">Sells cleanly into any account. Does not depend on existing footprint of any kind.</div></div>
+        <div class="attr">
+          <div class="ai b">&#10003;</div>
+          <div><div class="at">No Contentful or Salesforce required</div><div class="ab">Sells into any account. Zero footprint dependency.</div></div>
         </div>
-        <div class="attr-row">
-          <div class="attr-icon o">&#10003;</div>
-          <div><div class="attr-t">Free report is a built-in proof of concept</div><div class="attr-b">The free tier delivers a real, actionable report. It closes itself.</div></div>
+        <div class="attr">
+          <div class="ai o">&#10003;</div>
+          <div><div class="at">Free report is a built-in POC</div><div class="ab">Delivers a real, actionable report. It closes itself.</div></div>
         </div>
-        <div class="attr-row">
-          <div class="attr-icon g">&#10003;</div>
-          <div><div class="attr-t">Prioritized action plan, not just a dashboard</div><div class="attr-b">Tells teams which content changes to make first and what impact to expect — not just where they stand.</div></div>
+        <div class="attr">
+          <div class="ai g">&#10003;</div>
+          <div><div class="at">Prioritized action plan</div><div class="ab">Tells teams which changes to make first — not just a ranking.</div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TARGET ACCOUNTS -->
+<!-- TARGETS + USE CASES -->
 <section class="sec" id="targets">
   <div class="sec-inner">
     <div style="margin-bottom:40px">
-      <div class="eyebrow blue">Target Accounts</div>
-      <div class="accent-bar blue"></div>
-      <h2 class="sec-h2">Where to look and what to look for</h2>
+      <div class="tag blue">Target Accounts</div>
+      <div class="bar blue"></div>
+      <h2 class="h2">Where to look and what signals to find</h2>
     </div>
-    <div class="target-grid">
-      <div class="target-card">
-        <div class="tc-pill blue">Core Install &amp; New Logos</div>
-        <div class="tc-title">Any account investing in content strategy</div>
-        <div class="tc-body">No Marketing Cloud or Contentful footprint required. Any brand actively building or investing in content strategy is a fit — Palmata sells standalone into anyone.</div>
+    <div class="tgt-grid">
+      <div class="tc">
+        <div class="tc-pill b">Core / New Logos</div>
+        <div class="tc-t">Any account investing in content</div>
+        <div class="tc-b">No Salesforce or Contentful footprint required. Palmata sells standalone into anyone actively building or investing in content strategy.</div>
       </div>
-      <div class="target-card">
-        <div class="tc-pill green">Marketing Cloud Install</div>
-        <div class="tc-title">Existing accounts building AI strategy</div>
-        <div class="tc-body">Leverage existing account relationships with Marketing Cloud customers who are actively building an AI strategy. Virtually every account qualifies — AI strategy is a universal priority right now.</div>
+      <div class="tc">
+        <div class="tc-pill g">Marketing Cloud Install</div>
+        <div class="tc-t">Existing accounts building AI strategy</div>
+        <div class="tc-b">Virtually every MC account qualifies — AI strategy is a universal priority. Leverage existing relationships to open a fast motion.</div>
       </div>
-      <div class="target-card">
-        <div class="tc-pill amber">PTB Signals — What to look for</div>
-        <div class="tc-title">Signs this account is ready to buy</div>
-        <div class="tc-body">Look for accounts with the following indicators:</div>
+      <div class="tc">
+        <div class="tc-pill a">PTB Signals</div>
+        <div class="tc-t">What a ready account looks like</div>
+        <div class="tc-b">Look for accounts that match these indicators:</div>
         <div class="ptb-chips">
-          <span class="ptb-chip">Polished website</span>
-          <span class="ptb-chip">High page count</span>
+          <span class="ptb-chip">Polished site</span>
           <span class="ptb-chip">Active blog</span>
           <span class="ptb-chip">Active social</span>
           <span class="ptb-chip">Content team</span>
+          <span class="ptb-chip">High page count</span>
           <span class="ptb-chip">High martech budget</span>
         </div>
       </div>
     </div>
 
-    <!-- USE CASES -->
-    <div style="margin-top:16px;margin-bottom:32px">
-      <div class="eyebrow blue">Use Cases by Function</div>
+    <div style="margin-bottom:28px">
+      <div class="tag blue">Use Cases by Function</div>
     </div>
     <div class="uc-grid">
-      <div class="uc-card">
-        <span class="uc-pill blue">Content &amp; SEO</span>
+      <div class="uc">
+        <div class="uc-tag b">Content &amp; SEO</div>
         <div class="uc-caps">
-          <div class="uc-cap"><span><strong>AI Answer Auditing</strong> — See which pages and sources AI cites when answering customer questions about your category</span></div>
-          <div class="uc-cap"><span><strong>Impact-Based Prioritization</strong> — Rank content updates by where they can have the most modeled impact on AI-cited presence</span></div>
+          <div class="uc-cap"><strong>AI Answer Auditing</strong> — Which of your pages does AI cite when buyers ask category questions</div>
+          <div class="uc-cap"><strong>Impact-Based Prioritization</strong> — Rank content updates by modeled impact before spending</div>
         </div>
         <div class="uc-impact">
-          <div class="uc-ir"><span class="iup">+</span> AI answer visibility &amp; citations</div>
-          <div class="uc-ir"><span class="idn">-</span> Wasted content spend</div>
+          <div class="uc-ir"><span class="up">+</span> AI answer visibility</div>
+          <div class="uc-ir"><span class="dn">-</span> Wasted content spend</div>
         </div>
       </div>
-      <div class="uc-card">
-        <span class="uc-pill green">Brand &amp; PR</span>
+      <div class="uc">
+        <div class="uc-tag g">Brand &amp; PR</div>
         <div class="uc-caps">
-          <div class="uc-cap"><span><strong>Perception Mapping</strong> — See exactly how AI describes your brand and positioning across key buyer questions</span></div>
-          <div class="uc-cap"><span><strong>Competitive Narrative Tracking</strong> — Track how your brand and competitors are framed across topics that matter most</span></div>
+          <div class="uc-cap"><strong>Perception Mapping</strong> — How AI describes your brand across 450+ buyer prompts</div>
+          <div class="uc-cap"><strong>Competitive Narrative Tracking</strong> — How you and competitors are framed across key topics</div>
         </div>
         <div class="uc-impact">
-          <div class="uc-ir"><span class="iup">+</span> Brand accuracy &amp; trust</div>
-          <div class="uc-ir"><span class="idn">-</span> Positioning gaps in AI answers</div>
+          <div class="uc-ir"><span class="up">+</span> Brand accuracy &amp; trust</div>
+          <div class="uc-ir"><span class="dn">-</span> Positioning gaps in AI answers</div>
         </div>
       </div>
-      <div class="uc-card">
-        <span class="uc-pill orange">Demand Gen</span>
+      <div class="uc">
+        <div class="uc-tag o">Demand Gen</div>
         <div class="uc-caps">
-          <div class="uc-cap"><span><strong>Consideration Gap Finder</strong> — Surfaces gaps that affect how buyers consider and compare you during AI-assisted research</span></div>
-          <div class="uc-cap"><span><strong>Impact Modeling</strong> — Model which changes are most likely to improve buyer consideration before investing in them</span></div>
+          <div class="uc-cap"><strong>Consideration Gap Finder</strong> — Where AI-driven research leaks pipeline before buyers reach your funnel</div>
+          <div class="uc-cap"><strong>Impact Modeling</strong> — Model which changes improve consideration before committing budget</div>
         </div>
         <div class="uc-impact">
-          <div class="uc-ir"><span class="iup">+</span> Consideration &amp; conversion</div>
-          <div class="uc-ir"><span class="idn">-</span> Wasted spend on the wrong content</div>
+          <div class="uc-ir"><span class="up">+</span> Consideration &amp; conversion</div>
+          <div class="uc-ir"><span class="dn">-</span> Pre-funnel pipeline leakage</div>
         </div>
       </div>
-      <div class="uc-card">
-        <span class="uc-pill amber">Competitive</span>
+      <div class="uc">
+        <div class="uc-tag a">Competitive</div>
         <div class="uc-caps">
-          <div class="uc-cap"><span><strong>Strengths / Weakness Mapping</strong> — See exactly where AI believes you lead or lag competitors across every major category question</span></div>
-          <div class="uc-cap"><span><strong>Differentiation Prioritization</strong> — Identify what's most likely to sharpen your differentiation in the answers buyers are actually getting</span></div>
+          <div class="uc-cap"><strong>Strengths / Weakness Mapping</strong> — Where AI believes you lead or lag across every major category question</div>
+          <div class="uc-cap"><strong>Differentiation Prioritization</strong> — What's most likely to sharpen your differentiation in AI answers</div>
         </div>
         <div class="uc-impact">
-          <div class="uc-ir"><span class="iup">+</span> Competitive consideration</div>
-          <div class="uc-ir"><span class="idn">-</span> Competitive losses from AI framing</div>
+          <div class="uc-ir"><span class="up">+</span> Competitive consideration</div>
+          <div class="uc-ir"><span class="dn">-</span> Losses from AI framing</div>
         </div>
       </div>
     </div>
@@ -417,154 +408,161 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 <section class="sec sec-alt" id="personas">
   <div class="sec-inner">
     <div style="margin-bottom:36px">
-      <div class="eyebrow">Target Personas</div>
-      <div class="accent-bar"></div>
-      <h2 class="sec-h2">In-depth persona guide</h2>
-      <p class="sec-body">Click a persona to see their pain, your hook, and the discovery questions that open deals.</p>
+      <div class="tag">Personas</div>
+      <div class="bar"></div>
+      <h2 class="h2">Who you're calling — and what opens the door</h2>
     </div>
-    <div class="persona-tabs">
-      <button class="p-tab active" onclick="showPersona('cmo',this)">CMO</button>
-      <button class="p-tab" onclick="showPersona('seo',this)">Content / SEO Lead</button>
-      <button class="p-tab" onclick="showPersona('brand',this)">Brand Manager</button>
-      <button class="p-tab" onclick="showPersona('growth',this)">Growth / Demand Gen</button>
+    <div class="p-tabs">
+      <button class="p-tab on" onclick="showP('cmo',this)">CMO</button>
+      <button class="p-tab" onclick="showP('seo',this)">Content / SEO Lead</button>
+      <button class="p-tab" onclick="showP('brand',this)">Brand Manager</button>
+      <button class="p-tab" onclick="showP('growth',this)">Growth / Demand Gen</button>
     </div>
 
     <!-- CMO -->
-    <div class="persona-panel active" id="p-cmo">
-      <div class="p-block span2" style="background:linear-gradient(135deg,rgba(42,120,214,.06) 0%,rgba(27,175,122,.06) 100%)">
-        <div class="p-block-label">Top Hook Question</div>
-        <div class="p-hook">"If I asked ChatGPT right now how your brand compares to your top two competitors, would you be comfortable with the answer?"</div>
+    <div class="persona on" id="p-cmo">
+      <div class="p-hook-wrap">
+        <div class="p-hook-lbl">Open with this</div>
+        <div class="p-hook">"If I asked ChatGPT right now how your brand compares to your top two competitors — would you be comfortable with the answer?"</div>
       </div>
-      <div class="p-block">
-        <div class="p-block-label">What They Want</div>
-        <div class="p-block-body">Understand where to invest to improve brand mention rate, sentiment, and accuracy across AI answer engines. 70% of CMOs call this a priority — only 30% have an owner for it.</div>
-      </div>
-      <div class="p-block">
-        <div class="p-block-label">Why Change</div>
-        <div class="p-block-body">Buyer research has moved inside AI. The CMO has no view into how their brand or competitors are described. Traditional tools don't answer this question.</div>
-      </div>
-      <div class="p-block">
-        <div class="p-block-label">How Palmata Helps</div>
-        <div class="p-block-body"><strong>Brand Perception</strong> shows how AI describes brand and positioning across 450+ prompts. <strong>Impact-Based Prioritization</strong> ranks fixes by simulated impact before spend. <strong>Competitive Narrative Tracking</strong> shows how you and competitors are framed across key topics.</div>
-      </div>
-      <div class="p-block">
-        <div class="p-block-label">Signature Discovery Questions</div>
-        <div class="p-q-list">
-          <div class="p-q"><span class="p-q-num">Q1</span> How do AI systems see your company's positioning overall?</div>
-          <div class="p-q"><span class="p-q-num">Q2</span> How do you prioritize spend between brand/PR vs. growth initiatives?</div>
+      <div class="p-grid">
+        <div class="p-block">
+          <div class="p-lbl">What They Want</div>
+          <div class="p-text">Know where to invest to improve brand mention rate, sentiment, and accuracy across AI answer engines. 70% of CMOs call this a priority — only 30% have an owner for it.</div>
         </div>
-      </div>
-      <div class="p-block">
-        <div class="p-block-label">Best Use Cases</div>
-        <div class="p-use-chips">
-          <span class="p-uc-chip">Brand Perception Mapping</span>
-          <span class="p-uc-chip">Budget Allocation / Investment Prioritization</span>
-          <span class="p-uc-chip">Competitive Narrative Tracking</span>
+        <div class="p-block">
+          <div class="p-lbl">Why Change</div>
+          <div class="p-text">Buyer research has moved inside AI. No view into how their brand or competitors are described. Traditional tools don't answer this question.</div>
+        </div>
+        <div class="p-block">
+          <div class="p-lbl">How Palmata Helps</div>
+          <div class="p-text"><strong>Brand Perception</strong> shows how AI describes positioning across 450+ prompts. <strong>Competitive Narrative Tracking</strong> shows how you and competitors are framed. <strong>Impact Prioritization</strong> ranks fixes before spend.</div>
+        </div>
+        <div class="p-block wide">
+          <div class="p-lbl">Discovery Questions</div>
+          <div class="p-qs">
+            <div class="p-q"><span class="p-qn">Q1</span> How do AI systems see your company's positioning overall?</div>
+            <div class="p-q"><span class="p-qn">Q2</span> How do you prioritize spend between brand/PR vs. growth?</div>
+          </div>
+        </div>
+        <div class="p-block wide">
+          <div class="p-lbl">Best Use Cases</div>
+          <div class="p-chips">
+            <span class="p-chip">Brand Perception Mapping</span>
+            <span class="p-chip">Investment Prioritization</span>
+            <span class="p-chip">Competitive Narrative Tracking</span>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- SEO -->
-    <div class="persona-panel" id="p-seo">
-      <div class="p-block span2" style="background:linear-gradient(135deg,rgba(42,120,214,.06) 0%,rgba(27,175,122,.06) 100%)">
-        <div class="p-block-label">Top Hook Question</div>
+    <div class="persona" id="p-seo">
+      <div class="p-hook-wrap">
+        <div class="p-hook-lbl">Open with this</div>
         <div class="p-hook">"When AI answers a question about your category, do you know which of your pages — if any — it's actually pulling from?"</div>
       </div>
-      <div class="p-block">
-        <div class="p-block-label">What They Want</div>
-        <div class="p-block-body">Move beyond visibility data into a prioritized content plan that improves AI discoverability. Not just knowing where they rank — knowing what to do about it.</div>
-      </div>
-      <div class="p-block">
-        <div class="p-block-label">Why Change</div>
-        <div class="p-block-body">SEO tools show rank, not why AI describes you a certain way or what to fix. Stale pages are 3x more likely to lose AI citations — but no existing tool surfaces this risk.</div>
-      </div>
-      <div class="p-block">
-        <div class="p-block-label">How Palmata Helps</div>
-        <div class="p-block-body">Shows exactly <strong>which pages and sources are cited</strong> across 450+ prompts. <strong>Impact-Based Prioritization</strong> ranks updates by modeled impact. Reports which of your sources are cited and negatively impacting perception.</div>
-      </div>
-      <div class="p-block">
-        <div class="p-block-label">Signature Discovery Questions</div>
-        <div class="p-q-list">
-          <div class="p-q"><span class="p-q-num">Q1</span> How do you currently identify gaps in your content strategy?</div>
-          <div class="p-q"><span class="p-q-num">Q2</span> What's your mechanism for prioritizing the highest-impact content updates?</div>
+      <div class="p-grid">
+        <div class="p-block">
+          <div class="p-lbl">What They Want</div>
+          <div class="p-text">Move beyond visibility data into a prioritized content plan that improves AI discoverability. Not just knowing where they rank — knowing what to do about it.</div>
         </div>
-      </div>
-      <div class="p-block">
-        <div class="p-block-label">Best Use Cases</div>
-        <div class="p-use-chips">
-          <span class="p-uc-chip">AI Answer Auditing</span>
-          <span class="p-uc-chip">Content Update Prioritization</span>
-          <span class="p-uc-chip">Stale Content Risk</span>
+        <div class="p-block">
+          <div class="p-lbl">Why Change</div>
+          <div class="p-text">SEO tools show rank, not why AI described you that way. Stale pages are 3x more likely to lose AI citations — but no existing tool surfaces this risk.</div>
+        </div>
+        <div class="p-block">
+          <div class="p-lbl">How Palmata Helps</div>
+          <div class="p-text">Shows exactly <strong>which pages are cited</strong> across 450+ prompts. <strong>Impact-Based Prioritization</strong> ranks updates by modeled impact. Reports which sources are negatively affecting perception.</div>
+        </div>
+        <div class="p-block wide">
+          <div class="p-lbl">Discovery Questions</div>
+          <div class="p-qs">
+            <div class="p-q"><span class="p-qn">Q1</span> How do you currently identify gaps in your content strategy?</div>
+            <div class="p-q"><span class="p-qn">Q2</span> What's your mechanism for prioritizing the highest-impact content updates?</div>
+          </div>
+        </div>
+        <div class="p-block wide">
+          <div class="p-lbl">Best Use Cases</div>
+          <div class="p-chips">
+            <span class="p-chip">AI Answer Auditing</span>
+            <span class="p-chip">Content Update Prioritization</span>
+            <span class="p-chip">Stale Content Risk Detection</span>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- BRAND -->
-    <div class="persona-panel" id="p-brand">
-      <div class="p-block span2" style="background:linear-gradient(135deg,rgba(42,120,214,.06) 0%,rgba(27,175,122,.06) 100%)">
-        <div class="p-block-label">Top Hook Question</div>
-        <div class="p-hook">"If a journalist or analyst asked an AI assistant to describe your brand today, would the answer match the narrative you're trying to tell?"</div>
+    <div class="persona" id="p-brand">
+      <div class="p-hook-wrap">
+        <div class="p-hook-lbl">Open with this</div>
+        <div class="p-hook">"If a journalist asked an AI assistant to describe your brand today — would the answer match the narrative you're trying to tell?"</div>
       </div>
-      <div class="p-block">
-        <div class="p-block-label">What They Want</div>
-        <div class="p-block-body">Actionable insights to improve how AI perceives and describes the brand. Know the gap between intended positioning and what AI actually says.</div>
-      </div>
-      <div class="p-block">
-        <div class="p-block-label">Why Change</div>
-        <div class="p-block-body">No systematic way to see how AI frames the company or competitors. The gap between intended positioning and AI perception is invisible — until it costs a deal.</div>
-      </div>
-      <div class="p-block">
-        <div class="p-block-label">How Palmata Helps</div>
-        <div class="p-block-body"><strong>Perception Mapping</strong> shows how AI describes brand and positioning. <strong>Competitive Narrative Tracking</strong> shows how you and competitors are framed. Report highlights specific disconnects between intended and actual AI positioning.</div>
-      </div>
-      <div class="p-block">
-        <div class="p-block-label">Signature Discovery Questions</div>
-        <div class="p-q-list">
-          <div class="p-q"><span class="p-q-num">Q1</span> How do you identify gaps between your intended positioning and your digital reputation?</div>
-          <div class="p-q"><span class="p-q-num">Q2</span> How do you understand how competitors frame their brand against yours?</div>
+      <div class="p-grid">
+        <div class="p-block">
+          <div class="p-lbl">What They Want</div>
+          <div class="p-text">Actionable insights to improve how AI perceives and describes the brand. Know the gap between intended positioning and what AI actually says.</div>
         </div>
-      </div>
-      <div class="p-block">
-        <div class="p-block-label">Best Use Cases</div>
-        <div class="p-use-chips">
-          <span class="p-uc-chip">Perception Mapping</span>
-          <span class="p-uc-chip">Competitive Narrative Tracking</span>
-          <span class="p-uc-chip">Positioning Disconnect Detection</span>
+        <div class="p-block">
+          <div class="p-lbl">Why Change</div>
+          <div class="p-text">No systematic way to see how AI frames the company or competitors. The gap between intended and actual AI positioning is invisible — until it costs a deal.</div>
+        </div>
+        <div class="p-block">
+          <div class="p-lbl">How Palmata Helps</div>
+          <div class="p-text"><strong>Perception Mapping</strong> shows how AI describes brand positioning. <strong>Competitive Narrative Tracking</strong> shows how you and competitors are framed. Highlights specific disconnects between intended and actual AI narrative.</div>
+        </div>
+        <div class="p-block wide">
+          <div class="p-lbl">Discovery Questions</div>
+          <div class="p-qs">
+            <div class="p-q"><span class="p-qn">Q1</span> How do you identify gaps between your intended positioning and your digital reputation?</div>
+            <div class="p-q"><span class="p-qn">Q2</span> How do you understand how competitors frame their brand against yours?</div>
+          </div>
+        </div>
+        <div class="p-block wide">
+          <div class="p-lbl">Best Use Cases</div>
+          <div class="p-chips">
+            <span class="p-chip">Perception Mapping</span>
+            <span class="p-chip">Competitive Narrative Tracking</span>
+            <span class="p-chip">Positioning Disconnect Detection</span>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- GROWTH -->
-    <div class="persona-panel" id="p-growth">
-      <div class="p-block span2" style="background:linear-gradient(135deg,rgba(42,120,214,.06) 0%,rgba(27,175,122,.06) 100%)">
-        <div class="p-block-label">Top Hook Question</div>
+    <div class="persona" id="p-growth">
+      <div class="p-hook-wrap">
+        <div class="p-hook-lbl">Open with this</div>
         <div class="p-hook">"Do you know which stage of your funnel is losing the most consideration to AI-driven research right now?"</div>
       </div>
-      <div class="p-block">
-        <div class="p-block-label">What They Want</div>
-        <div class="p-block-body">Investigate AI discovery by audience, product, funnel stage, and likely impact — so they can prioritize spend with confidence before committing budget.</div>
-      </div>
-      <div class="p-block">
-        <div class="p-block-label">Why Change</div>
-        <div class="p-block-body">AI shapes consideration before buyers reach the funnel — and it's invisible to current tools. AI-referred visitors convert at 4.4x the rate of organic, but most teams can't measure or optimize for this channel at all.</div>
-      </div>
-      <div class="p-block">
-        <div class="p-block-label">How Palmata Helps</div>
-        <div class="p-block-body">Investigates AI discovery by audience, product, and funnel stage. <strong>Classifies prompts by funnel stage</strong> to pinpoint where perception breaks down. <strong>Impact Modeling</strong> forecasts likely perception lift before you invest.</div>
-      </div>
-      <div class="p-block">
-        <div class="p-block-label">Signature Discovery Questions</div>
-        <div class="p-q-list">
-          <div class="p-q"><span class="p-q-num">Q1</span> Where in the funnel do you suspect you're losing the most consideration to AI-driven research?</div>
-          <div class="p-q"><span class="p-q-num">Q2</span> How would you model the impact of a content fix before committing budget?</div>
+      <div class="p-grid">
+        <div class="p-block">
+          <div class="p-lbl">What They Want</div>
+          <div class="p-text">Investigate AI discovery by audience, product, and funnel stage — so they can prioritize spend with confidence before committing budget.</div>
         </div>
-      </div>
-      <div class="p-block">
-        <div class="p-block-label">Best Use Cases</div>
-        <div class="p-use-chips">
-          <span class="p-uc-chip">Funnel-Stage AI Discovery Mapping</span>
-          <span class="p-uc-chip">Consideration Gap Finder</span>
-          <span class="p-uc-chip">Pre-Spend Impact Modeling</span>
+        <div class="p-block">
+          <div class="p-lbl">Why Change</div>
+          <div class="p-text">AI shapes consideration before buyers reach the funnel. AI-referred visitors convert at 4.4x, but most teams can't measure or optimize for this channel.</div>
+        </div>
+        <div class="p-block">
+          <div class="p-lbl">How Palmata Helps</div>
+          <div class="p-text"><strong>Classifies prompts by funnel stage</strong> to pinpoint where perception breaks down. <strong>Impact Modeling</strong> forecasts likely lift before you invest. Investigates by audience, product, and stage.</div>
+        </div>
+        <div class="p-block wide">
+          <div class="p-lbl">Discovery Questions</div>
+          <div class="p-qs">
+            <div class="p-q"><span class="p-qn">Q1</span> Where in the funnel do you suspect you're losing the most consideration to AI-driven research?</div>
+            <div class="p-q"><span class="p-qn">Q2</span> How would you model the impact of a content fix before committing budget?</div>
+          </div>
+        </div>
+        <div class="p-block wide">
+          <div class="p-lbl">Best Use Cases</div>
+          <div class="p-chips">
+            <span class="p-chip">Funnel-Stage AI Mapping</span>
+            <span class="p-chip">Consideration Gap Finder</span>
+            <span class="p-chip">Pre-Spend Impact Modeling</span>
+          </div>
         </div>
       </div>
     </div>
@@ -575,38 +573,38 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 <section class="sec" id="objections">
   <div class="sec-inner">
     <div style="margin-bottom:40px">
-      <div class="eyebrow orange">Common Objections</div>
-      <div class="accent-bar orange"></div>
-      <h2 class="sec-h2">Heard it? Here's the response.</h2>
+      <div class="tag orange">Objections</div>
+      <div class="bar orange"></div>
+      <h2 class="h2">Heard it? Here's the response.</h2>
     </div>
     <div class="obj-grid">
-      <div class="obj-card">
-        <div class="obj-q"><div class="obj-q-icon">?</div><div class="obj-q-text">"We're not a Salesforce or Contentful customer — can we even buy this?"</div></div>
-        <div class="obj-a"><div class="obj-a-icon">&#10003;</div><div class="obj-a-text">Yes — Palmata is a standalone product. It doesn't require any existing Salesforce or Contentful footprint, and there's no implementation or partner involved. You can start with a free report.</div></div>
+      <div class="obj">
+        <div class="obj-q"><div class="obj-qi"><div class="obj-icon">?</div><div class="obj-qt">"We're not a Salesforce or Contentful customer — can we buy this?"</div></div></div>
+        <div class="obj-a"><div class="obj-ai">&#10003;</div><div class="obj-at">Yes — Palmata is fully standalone. No existing footprint required. Start with a free report today.</div></div>
       </div>
-      <div class="obj-card">
-        <div class="obj-q"><div class="obj-q-icon">?</div><div class="obj-q-text">"We already have an AI visibility / SEO tool."</div></div>
-        <div class="obj-a"><div class="obj-a-icon">&#10003;</div><div class="obj-a-text">Most of those tools tell you whether you're mentioned — Palmata tells you why an answer engine described you that way and what to change first, with a modeled impact for each recommended action.</div></div>
+      <div class="obj">
+        <div class="obj-q"><div class="obj-qi"><div class="obj-icon">?</div><div class="obj-qt">"We already have an AI visibility / SEO tool."</div></div></div>
+        <div class="obj-a"><div class="obj-ai">&#10003;</div><div class="obj-at">Most tools tell you whether you're mentioned. Palmata tells you why an AI described you that way and what to change first — with a modeled impact for each recommendation.</div></div>
       </div>
-      <div class="obj-card">
-        <div class="obj-q"><div class="obj-q-icon">?</div><div class="obj-q-text">"This sounds like a big project — we don't have bandwidth."</div></div>
-        <div class="obj-a"><div class="obj-a-icon">&#10003;</div><div class="obj-a-text">It's the opposite — there's no implementation. You can start with a free first report and see exactly where the gaps are before committing to anything.</div></div>
+      <div class="obj">
+        <div class="obj-q"><div class="obj-qi"><div class="obj-icon">?</div><div class="obj-qt">"This sounds like a big project — we don't have bandwidth."</div></div></div>
+        <div class="obj-a"><div class="obj-ai">&#10003;</div><div class="obj-at">It's the opposite — no implementation at all. Start with a free report and see exactly where the gaps are before committing to anything.</div></div>
       </div>
-      <div class="obj-card">
-        <div class="obj-q"><div class="obj-q-icon">?</div><div class="obj-q-text">"Who on our team would even use this?"</div></div>
-        <div class="obj-a"><div class="obj-a-icon">&#10003;</div><div class="obj-a-text">It's built for whoever owns AI reputation today — CMO, brand/PR, SEO, content, or growth teams all realize value from it. Current Palmata customers include all of these.</div></div>
+      <div class="obj">
+        <div class="obj-q"><div class="obj-qi"><div class="obj-icon">?</div><div class="obj-qt">"Who on our team would even own this?"</div></div></div>
+        <div class="obj-a"><div class="obj-ai">&#10003;</div><div class="obj-at">Built for whoever owns AI reputation today — CMO, brand/PR, SEO, content, or growth teams all realize value. Palmata customers span all of these.</div></div>
       </div>
-      <div class="obj-card">
-        <div class="obj-q"><div class="obj-q-icon">?</div><div class="obj-q-text">"How is this different from just asking ChatGPT ourselves?"</div></div>
-        <div class="obj-a"><div class="obj-a-icon">&#10003;</div><div class="obj-a-text">Palmata runs continuous, structured research using its Sounder Discovery Agent across your market, competitors, and content footprint — with 450+ prompts generated per report — rather than a handful of one-off questions. It surfaces patterns and prioritized actions you wouldn't catch manually.</div></div>
+      <div class="obj">
+        <div class="obj-q"><div class="obj-qi"><div class="obj-icon">?</div><div class="obj-qt">"How is this different from just asking ChatGPT ourselves?"</div></div></div>
+        <div class="obj-a"><div class="obj-ai">&#10003;</div><div class="obj-at">Palmata's Sounder Discovery Agent runs 450+ structured prompts across your market and competitors — surfacing patterns and a prioritized action plan you'd never catch with a handful of manual queries.</div></div>
       </div>
-      <div class="obj-card">
-        <div class="obj-q"><div class="obj-q-icon">?</div><div class="obj-q-text">"Is this a long sales cycle like a platform deal?"</div></div>
-        <div class="obj-a"><div class="obj-a-icon">&#10003;</div><div class="obj-a-text">No — this is designed to be a fast create-and-close motion. There's a free entry point, no implementation, and no partner dependency, so it can move quickly.</div></div>
+      <div class="obj">
+        <div class="obj-q"><div class="obj-qi"><div class="obj-icon">?</div><div class="obj-qt">"Is this a long sales cycle like a platform deal?"</div></div></div>
+        <div class="obj-a"><div class="obj-ai">&#10003;</div><div class="obj-at">No — this is a fast create-and-close motion. Free entry point, no implementation, no SI. It can move quickly.</div></div>
       </div>
-      <div class="obj-card">
-        <div class="obj-q"><div class="obj-q-icon">?</div><div class="obj-q-text">"Can we just get another free report next quarter?"</div></div>
-        <div class="obj-a"><div class="obj-a-icon">&#10003;</div><div class="obj-a-text">The free report is one per account for the account's lifetime, so it's worth using it once you're genuinely ready to dig in. From there, a custom-steered report goes much deeper and can be scoped to whatever business priority matters most right now.</div></div>
+      <div class="obj">
+        <div class="obj-q"><div class="obj-qi"><div class="obj-icon">?</div><div class="obj-qt">"Can we just get another free report next quarter?"</div></div></div>
+        <div class="obj-a"><div class="obj-ai">&#10003;</div><div class="obj-at">The free tier is one per account lifetime. From there, a custom-steered report goes much deeper and can be scoped to whatever business priority matters most right now.</div></div>
       </div>
     </div>
   </div>
@@ -615,45 +613,42 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 <!-- WHY NOW -->
 <section class="sec sec-dark" id="why-now">
   <div class="sec-inner">
-    <div style="margin-bottom:44px">
-      <div class="eyebrow">Why Now</div>
-      <div class="accent-bar"></div>
-      <h2 class="sec-h2" style="color:#fff;max-width:520px">Every quarter you wait, the gap compounds.</h2>
-      <p class="sec-body">Buyer research has already shifted. Waiting doesn't protect your position — it makes it harder to recover.</p>
+    <div style="margin-bottom:48px">
+      <div class="tag">Why Now</div>
+      <div class="bar"></div>
+      <h2 class="h2" style="max-width:500px">Every quarter you wait, the gap compounds.</h2>
     </div>
     <div class="now-grid">
       <div class="now-card">
         <div class="now-ghost">01</div>
-        <div class="now-num">Reason 01</div>
-        <div class="now-title">Buyers have already moved</div>
-        <div class="now-body">Click-throughs on traditional search are down 61% as purchase decisions move inside ChatGPT and Gemini. AI answer engines shape consideration before buyers reach your brand — leaking pipeline from the top of the funnel in a channel teams can't measure, defend, or spend against efficiently.</div>
+        <div class="now-n">Reason 01</div>
+        <div class="now-t">Buyers have already moved</div>
+        <div class="now-b">Click-throughs are down 61%. Purchase decisions are forming inside ChatGPT and Gemini — before buyers ever reach your site.</div>
       </div>
       <div class="now-card">
         <div class="now-ghost">02</div>
-        <div class="now-num">Reason 02</div>
-        <div class="now-title">AI share-of-voice compounds</div>
-        <div class="now-body">Every quarter a brand waits, competitors building AI share-of-voice become harder to displace. Answer engines learn from the sources they cite — brands that appear now train the model's future responses. A four-quarter head start is a structural advantage, not just a timing edge.</div>
+        <div class="now-n">Reason 02</div>
+        <div class="now-t">AI share-of-voice compounds</div>
+        <div class="now-b">Every quarter a competitor builds AI presence, they become harder to displace. A four-quarter head start is structural, not just a timing edge.</div>
       </div>
       <div class="now-card">
         <div class="now-ghost">03</div>
-        <div class="now-num">Reason 03</div>
-        <div class="now-title">Budgets keep flowing to the wrong channel</div>
-        <div class="now-body">Marketing budgets keep flowing into content and tools that don't address the channel where buyers are actually researching. Palmata closes that gap the same day: no implementation, no partner, a free first report, and a prioritized action plan that tells you exactly where to invest and what impact to expect.</div>
+        <div class="now-n">Reason 03</div>
+        <div class="now-t">Budget keeps flowing to the wrong channel</div>
+        <div class="now-b">Content and martech spend keeps flowing into channels that don't address where buyers are actually researching. Palmata closes that gap the same day.</div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="sec sec-dark" id="contact" style="padding-top:0;border-top:1px solid rgba(255,255,255,.06)">
+<section class="sec sec-dark" id="cta" style="padding-top:0;border-top:1px solid rgba(255,255,255,.06)">
   <div class="sec-inner">
-    <div class="cta-grid">
+    <div class="cta-layout">
       <div>
-        <h2 class="cta-h2">Start with a free report.<br>Know where you stand today.</h2>
-        <p class="cta-p">One free AI visibility report, no implementation, no Salesforce footprint required. Sign up and get your report the same day. Then we'll walk through what it means and where to go from there.</p>
-        <a class="cta-btn" href="mailto:anthony.troggio@salesforce.com">
-          Talk to Anthony
-        </a>
+        <h2 class="cta-h">Start with a free report.<br>Know where you stand today.</h2>
+        <p class="cta-p">One AI visibility report, no implementation, no Salesforce footprint required. Sign up and get your report the same day.</p>
+        <a class="cta-btn" href="mailto:anthony.troggio@salesforce.com">Talk to Anthony</a>
         <div class="cta-note">Or visit app.palmata.ai to claim your free report directly</div>
       </div>
       <div class="rep-card">
@@ -668,18 +663,18 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 
 <footer class="ftr">
   <div style="display:flex;align-items:center;gap:9px">
-    <div class="logom" style="width:24px;height:24px;font-size:10px;border-radius:6px">P</div>
-    <span style="font-size:12px;font-weight:700;color:rgba(255,255,255,.40)">Palmata by Contentful</span>
+    <div class="logom" style="width:26px;height:26px;font-size:11px;border-radius:6px">P</div>
+    <span style="font-size:12px;font-weight:700;color:rgba(255,255,255,.35)">Palmata by Contentful</span>
   </div>
-  <div class="ftr-note">For Palmata Manufacturing logo team use. Not for external distribution.</div>
+  <div class="ftr-note">Palmata Manufacturing logo team — field use only</div>
 </footer>
 
 <script>
-function showPersona(id, btn) {
-  document.querySelectorAll('.persona-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.p-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('p-' + id).classList.add('active');
-  btn.classList.add('active');
+function showP(id, btn) {
+  document.querySelectorAll('.persona').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.p-tab').forEach(t => t.classList.remove('on'));
+  document.getElementById('p-' + id).classList.add('on');
+  btn.classList.add('on');
 }
 </script>
 </body>
