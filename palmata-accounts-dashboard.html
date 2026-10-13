@@ -1,33 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Palmata | Top Accounts Dashboard</title>
 <style>
-:root[data-theme="dark"] {
-  --surface-page: #0d0d0d;
-  --surface-1: #1a1a19;
-  --surface-2: #222220;
-  --surface-3: #2a2a28;
-  --surface-4: #313130;
-  --border: rgba(255,255,255,0.06);
-  --border-strong: rgba(255,255,255,0.12);
-  --text-primary: #ffffff;
-  --text-secondary: #c3c2b7;
-  --text-muted: #898781;
-  --gridline: #252523;
-  --rep-1: #3987e5; --rep-2: #d95926; --rep-3: #199e70; --rep-4: #c98500; --rep-5: #d55181;
-  --seq-fill: #3987e5; --seq-track: rgba(57,135,229,0.13);
-  --tier-a: #0ca30c; --tier-a-bg: rgba(12,163,12,0.12);
-  --tier-b: #e8a800; --tier-b-bg: rgba(232,168,0,0.12);
-  --tier-c: #ec835a; --tier-c-bg: rgba(236,131,90,0.12);
-  --status-priority: #3987e5; --status-priority-bg: rgba(57,135,229,0.13);
-  --status-bench: #898781; --status-bench-bg: rgba(137,135,129,0.10);
-  --status-stretch: #52514e; --status-stretch-bg: rgba(82,81,78,0.10);
-  --detail-bg: #1d1d1c; --detail-inner: #212120;
-}
-:root[data-theme="light"] {
+:root {
   --surface-page: #f1f1ef;
   --surface-1: #fcfcfb;
   --surface-2: #f4f4f2;
@@ -193,6 +171,11 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 .citem-phone{font-size:10px;color:var(--text-muted);margin-top:1px}
 .contacts-none{font-size:11px;color:var(--text-muted);font-style:italic;line-height:1.5}
 
+.data-row.struck { opacity: 0.45; }
+.data-row.struck .acct-name, .data-row.struck .acct-loc,
+.data-row.struck .acct-contact-line, .data-row.struck .acct-no-contact { text-decoration: line-through; }
+.data-row.struck .rank-n { text-decoration: line-through; }
+
 .empty{padding:64px 20px;text-align:center;color:var(--text-muted);font-size:13px;font-weight:500}
 
 @media(max-width:900px){
@@ -214,9 +197,6 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
     <span class="header-title">Palmata Manufacturing</span>
     <div class="header-sep"></div>
     <span class="header-sub">Top Accounts — Logo Team</span>
-  </div>
-  <div class="header-right">
-    <button class="theme-btn" onclick="toggleTheme()" id="themeBtn">Light mode</button>
   </div>
 </header>
 <main class="main">
@@ -263,17 +243,9 @@ let searchQ = "", sortField = "rank", sortDir = 1;
 let openKey = null;
 const engaged = {};
 
-function isDark() { return document.documentElement.getAttribute("data-theme") === "dark"; }
-function repColor(rep) { return isDark() ? REP_HEX_DARK[rep] : REP_HEX_LIGHT[rep]; }
+function repColor(rep) { return REP_HEX_LIGHT[rep]; }
 function esc(s) { return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
 
-function toggleTheme() {
-  const d = document.documentElement;
-  const going = d.getAttribute("data-theme") === "dark" ? "light" : "dark";
-  d.setAttribute("data-theme", going);
-  document.getElementById("themeBtn").textContent = going === "dark" ? "Light mode" : "Dark mode";
-  renderAll();
-}
 
 function kpis() {
   const n = allAccts.length;
@@ -427,7 +399,7 @@ function renderTable() {
       </div></td></tr>`;
     }
     const acctDisplay = a.org62_id ? `<a class="org62-link" href="https://org62.my.salesforce.com/${a.org62_id}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${safeAcct}</a>` : safeAcct;
-    return `<tr class="data-row${isOpen?" open":""}" onclick="toggleRow(${esc(JSON.stringify(key))})">
+    return `<tr class="data-row${isOpen?" open":""}${isEngaged?" struck":""}" onclick="toggleRow(${esc(JSON.stringify(key))})">
       <td><div style="display:flex;align-items:center"><div class="rep-bar" style="background:${col}"></div></div></td>
       <td><span class="rank-n">${a.rank}</span></td>
       <td><div class="acct-name">${acctDisplay}</div><div class="acct-loc">${esc(loc)}</div>${a.contact_name?`<div class="acct-contact-line" style="color:${col}">${esc(a.contact_name)}<span class="acct-contact-sep">·</span><span style="opacity:.7;font-weight:400">${esc(a.contact_title)}</span></div>`:`<div class="acct-no-contact">· No contact yet</div>`}</td>
@@ -435,7 +407,7 @@ function renderTable() {
       <td><div class="score-cell"><span class="score-num">${a.score||"—"}</span><div class="score-track"><div class="score-fill" style="width:${pct}%"></div></div></div></td>
       <td><span class="tier-badge ${tierCls}">${a.tier}</span></td>
       <td><span class="status-pill ${statCls}">${a.status}</span></td>
-      <td onclick="event.stopPropagation()"><button class="eng-btn${isEngaged?" yes":""}" onclick="toggleEngaged(${esc(JSON.stringify(key))})">${isEngaged?"Engaged":"Mark"}</button></td>
+      <td onclick="event.stopPropagation()"><button class="eng-btn${isEngaged?" yes":""}" onclick="toggleEngaged(${esc(JSON.stringify(key))})">${isEngaged?"Done":"Mark"}</button></td>
       <td><span class="chevron">&#9654;</span></td>
     </tr>${dr}`;
   }).join("");
