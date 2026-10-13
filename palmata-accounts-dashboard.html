@@ -8,178 +8,180 @@
 :root[data-theme="dark"] {
   --surface-page: #0d0d0d;
   --surface-1: #1a1a19;
-  --surface-2: #242422;
-  --surface-3: #2e2e2c;
-  --border: rgba(255,255,255,0.07);
-  --border-strong: rgba(255,255,255,0.13);
+  --surface-2: #222220;
+  --surface-3: #2a2a28;
+  --surface-4: #313130;
+  --border: rgba(255,255,255,0.06);
+  --border-strong: rgba(255,255,255,0.12);
   --text-primary: #ffffff;
   --text-secondary: #c3c2b7;
   --text-muted: #898781;
-  --gridline: #2c2c2a;
-  --rep-1: #3987e5;
-  --rep-2: #d95926;
-  --rep-3: #199e70;
-  --rep-4: #c98500;
-  --rep-5: #d55181;
-  --seq-fill: #3987e5;
-  --seq-track: rgba(57,135,229,0.14);
-  --tier-a: #0ca30c; --tier-a-bg: rgba(12,163,12,0.11);
-  --tier-b: #fab219; --tier-b-bg: rgba(250,178,25,0.11);
-  --tier-c: #ec835a; --tier-c-bg: rgba(236,131,90,0.11);
-  --status-priority: #3987e5; --status-priority-bg: rgba(57,135,229,0.11);
-  --status-bench: #898781; --status-bench-bg: rgba(137,135,129,0.11);
-  --status-stretch: #52514e; --status-stretch-bg: rgba(82,81,78,0.11);
-  --kpi-border: rgba(255,255,255,0.07);
-  --detail-bg: #1e1e1d;
-  --detail-inner: #222220;
+  --gridline: #252523;
+  --rep-1: #3987e5; --rep-2: #d95926; --rep-3: #199e70; --rep-4: #c98500; --rep-5: #d55181;
+  --seq-fill: #3987e5; --seq-track: rgba(57,135,229,0.13);
+  --tier-a: #0ca30c; --tier-a-bg: rgba(12,163,12,0.12);
+  --tier-b: #e8a800; --tier-b-bg: rgba(232,168,0,0.12);
+  --tier-c: #ec835a; --tier-c-bg: rgba(236,131,90,0.12);
+  --status-priority: #3987e5; --status-priority-bg: rgba(57,135,229,0.13);
+  --status-bench: #898781; --status-bench-bg: rgba(137,135,129,0.10);
+  --status-stretch: #52514e; --status-stretch-bg: rgba(82,81,78,0.10);
+  --detail-bg: #1d1d1c; --detail-inner: #212120;
 }
 :root[data-theme="light"] {
-  --surface-page: #f4f4f2;
+  --surface-page: #f1f1ef;
   --surface-1: #fcfcfb;
-  --surface-2: #f3f3f1;
+  --surface-2: #f4f4f2;
   --surface-3: #ebebea;
+  --surface-4: #e3e3e1;
   --border: rgba(11,11,11,0.07);
   --border-strong: rgba(11,11,11,0.14);
   --text-primary: #0b0b0b;
   --text-secondary: #52514e;
   --text-muted: #898781;
-  --gridline: #e1e0d9;
-  --rep-1: #2a78d6;
-  --rep-2: #c94f20;
-  --rep-3: #1baf7a;
-  --rep-4: #9e6e00;
-  --rep-5: #c94a7a;
-  --seq-fill: #2a78d6;
-  --seq-track: rgba(42,120,214,0.12);
-  --tier-a: #0a8a0a; --tier-a-bg: rgba(12,163,12,0.10);
-  --tier-b: #9e6e00; --tier-b-bg: rgba(250,178,25,0.10);
+  --gridline: #e8e8e6;
+  --rep-1: #2a78d6; --rep-2: #c94f20; --rep-3: #1baf7a; --rep-4: #9e6e00; --rep-5: #c94a7a;
+  --seq-fill: #2a78d6; --seq-track: rgba(42,120,214,0.10);
+  --tier-a: #0a8a0a; --tier-a-bg: rgba(12,163,12,0.09);
+  --tier-b: #9e6e00; --tier-b-bg: rgba(232,168,0,0.10);
   --tier-c: #b05030; --tier-c-bg: rgba(236,131,90,0.10);
   --status-priority: #1e5fba; --status-priority-bg: rgba(42,120,214,0.10);
-  --status-bench: #737168; --status-bench-bg: rgba(137,135,129,0.10);
-  --status-stretch: #6a6864; --status-stretch-bg: rgba(82,81,78,0.10);
-  --kpi-border: rgba(11,11,11,0.07);
-  --detail-bg: #f5f5f3;
-  --detail-inner: #eeeeec;
+  --status-bench: #737168; --status-bench-bg: rgba(137,135,129,0.09);
+  --status-stretch: #6a6864; --status-stretch-bg: rgba(82,81,78,0.09);
+  --detail-bg: #f5f5f3; --detail-inner: #eeeeed;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--surface-page);color:var(--text-primary);font-size:14px;line-height:1.5;min-height:100vh}
 
-.header{background:var(--surface-1);border-bottom:1px solid var(--border);padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px)}
-.header-left{display:flex;align-items:center;gap:14px}
-.logo-mark{width:30px;height:30px;background:linear-gradient(135deg,#199e70,#1baf7a);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;color:#fff;letter-spacing:-0.5px;flex-shrink:0}
-.header-title{font-size:14px;font-weight:700;color:var(--text-primary);letter-spacing:.01em}
-.header-sep{width:1px;height:18px;background:var(--border-strong)}
-.header-sub{font-size:12px;color:var(--text-muted)}
+.header{background:var(--surface-1);border-bottom:1px solid var(--border);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(10px)}
+.header-left{display:flex;align-items:center;gap:16px}
+.logo-mark{width:32px;height:32px;background:linear-gradient(135deg,#199e70 0%,#3987e5 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff;letter-spacing:-0.5px;flex-shrink:0;box-shadow:0 2px 8px rgba(57,135,229,0.3)}
+.header-title{font-size:15px;font-weight:700;color:var(--text-primary);letter-spacing:.005em}
+.header-sep{width:1px;height:20px;background:var(--border-strong)}
+.header-sub{font-size:12px;color:var(--text-muted);font-weight:500}
 .header-right{display:flex;align-items:center;gap:10px}
-.theme-btn{background:var(--surface-3);border:1px solid var(--border-strong);border-radius:6px;color:var(--text-secondary);cursor:pointer;font-size:12px;padding:5px 10px;font-family:inherit;transition:background .1s}
-.theme-btn:hover{background:var(--surface-2)}
+.theme-btn{background:var(--surface-3);border:1px solid var(--border-strong);border-radius:7px;color:var(--text-secondary);cursor:pointer;font-size:12px;padding:5px 12px;font-family:inherit;transition:all .15s;font-weight:500}
+.theme-btn:hover{background:var(--surface-4);color:var(--text-primary)}
 
-.main{max-width:1300px;margin:0 auto;padding:28px 28px 60px}
+.main{max-width:1360px;margin:0 auto;padding:32px 32px 80px}
 
-.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px}
-.kpi-card{background:var(--surface-1);border:1px solid var(--kpi-border);border-radius:10px;padding:18px 20px;position:relative;overflow:hidden}
-.kpi-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:10px 10px 0 0}
-.kpi-card.c1::before{background:var(--seq-fill)}
-.kpi-card.c2::before{background:var(--tier-a)}
-.kpi-card.c3::before{background:linear-gradient(90deg,var(--tier-a),var(--tier-b),var(--tier-c))}
-.kpi-card.c4::before{background:var(--rep-1)}
-.kpi-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:7px}
-.kpi-value{font-size:34px;font-weight:700;color:var(--text-primary);line-height:1;margin-bottom:4px}
-.kpi-sub{font-size:12px;color:var(--text-secondary)}
-.tier-mini-bar{display:flex;gap:2px;height:4px;border-radius:2px;overflow:hidden;margin-top:10px}
+/* KPI row */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px}
+.kpi-card{background:var(--surface-1);border:1px solid var(--border);border-radius:14px;padding:22px 22px 20px;position:relative;overflow:hidden}
+.kpi-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:14px 14px 0 0}
+.kpi-card.c1::after{background:var(--seq-fill)}
+.kpi-card.c2::after{background:var(--tier-a)}
+.kpi-card.c3::after{background:linear-gradient(90deg,var(--tier-a) 0%,var(--tier-b) 50%,var(--tier-c) 100%)}
+.kpi-card.c4::after{background:linear-gradient(90deg,var(--rep-1),var(--rep-3))}
+.kpi-ghost{position:absolute;right:-6px;bottom:-16px;font-size:96px;font-weight:900;line-height:1;pointer-events:none;user-select:none;opacity:.04;color:var(--text-primary);letter-spacing:-4px}
+.kpi-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--text-muted);margin-bottom:10px}
+.kpi-value{font-size:40px;font-weight:800;color:var(--text-primary);line-height:1;margin-bottom:6px;letter-spacing:-1px}
+.kpi-sub{font-size:12px;color:var(--text-secondary);line-height:1.4}
+.tier-mini-bar{display:flex;gap:2px;height:5px;border-radius:3px;overflow:hidden;margin-top:12px;background:var(--surface-3)}
+.kpi-contact-bar{height:5px;border-radius:3px;overflow:hidden;margin-top:10px;background:var(--surface-3);position:relative}
+.kpi-contact-fill{height:100%;background:linear-gradient(90deg,var(--rep-1),var(--rep-3));border-radius:3px;transition:width .6s ease}
 
-.section-label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:10px}
-
-.rep-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
-.rep-tab{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:8px;cursor:pointer;border:1.5px solid var(--border);background:var(--surface-1);font-family:inherit;font-size:13px;font-weight:500;color:var(--text-secondary);transition:all .1s;white-space:nowrap}
-.rep-tab:hover{background:var(--surface-2)}
-.rep-tab.active{background:var(--surface-2);color:var(--text-primary);border-color:var(--border-strong)}
+/* Rep tabs */
+.rep-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.rep-tab{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:10px;cursor:pointer;border:1.5px solid var(--border);background:var(--surface-1);font-family:inherit;font-size:13px;font-weight:500;color:var(--text-secondary);transition:all .15s;white-space:nowrap}
+.rep-tab:hover{background:var(--surface-2);color:var(--text-primary)}
+.rep-tab.active{background:var(--surface-2);color:var(--text-primary);border-color:var(--border-strong);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.04)}
 .rep-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.rep-badge{font-size:10px;color:var(--text-muted);background:var(--surface-3);border-radius:4px;padding:1px 5px;font-variant-numeric:tabular-nums}
+.rep-badge{font-size:10px;font-weight:600;color:var(--text-muted);background:var(--surface-3);border-radius:5px;padding:1px 6px;font-variant-numeric:tabular-nums}
 
-.filters-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}
-.filter-label{font-size:11px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em}
-.filter-pill{padding:4px 10px;border-radius:6px;background:var(--surface-1);border:1px solid var(--border);cursor:pointer;font-size:12px;color:var(--text-secondary);font-family:inherit;transition:all .1s}
-.filter-pill:hover{background:var(--surface-2)}
-.filter-pill.active{background:var(--surface-2);border-color:var(--border-strong);color:var(--text-primary);font-weight:600}
+/* Filters */
+.filters-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.filter-label{font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em}
+.filter-pill{padding:5px 11px;border-radius:7px;background:var(--surface-1);border:1px solid var(--border);cursor:pointer;font-size:12px;color:var(--text-secondary);font-family:inherit;transition:all .12s;font-weight:500}
+.filter-pill:hover{background:var(--surface-2);color:var(--text-primary)}
+.filter-pill.active{background:var(--surface-3);border-color:var(--border-strong);color:var(--text-primary);font-weight:600}
 .fdiv{height:16px;width:1px;background:var(--border-strong)}
-.search-box{margin-left:auto;background:var(--surface-1);border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:12px;color:var(--text-primary);font-family:inherit;width:200px;outline:none;transition:border-color .1s}
+.search-box{margin-left:auto;background:var(--surface-1);border:1px solid var(--border);border-radius:8px;padding:6px 12px;font-size:12px;color:var(--text-primary);font-family:inherit;width:220px;outline:none;transition:border-color .15s}
 .search-box:focus{border-color:var(--border-strong)}
 .search-box::placeholder{color:var(--text-muted)}
 
-.result-line{font-size:12px;color:var(--text-muted);margin-bottom:10px;font-variant-numeric:tabular-nums}
+.result-line{font-size:12px;color:var(--text-muted);margin-bottom:12px;font-variant-numeric:tabular-nums;font-weight:500}
 
-.table-wrap{background:var(--surface-1);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+/* Table */
+.table-wrap{background:var(--surface-1);border:1px solid var(--border);border-radius:14px;overflow:hidden}
 .acct-table{width:100%;border-collapse:collapse}
-.acct-table thead th{padding:9px 14px;text-align:left;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);background:var(--surface-2);border-bottom:1px solid var(--border);white-space:nowrap;user-select:none}
+.acct-table thead th{padding:10px 14px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);background:var(--surface-2);border-bottom:1px solid var(--border);white-space:nowrap;user-select:none}
 .acct-table thead th.sort{cursor:pointer}
 .acct-table thead th.sort:hover{color:var(--text-secondary)}
-.acct-table thead th:first-child{padding-left:16px}
-.acct-table tbody tr{border-bottom:1px solid var(--gridline);cursor:pointer;transition:background .07s}
+.acct-table thead th:first-child{padding-left:18px}
+.acct-table tbody tr{border-bottom:1px solid var(--gridline);cursor:pointer;transition:background .08s}
 .acct-table tbody tr:last-child{border-bottom:none}
 .acct-table tbody tr.data-row:hover{background:var(--surface-2)}
 .acct-table tbody tr.data-row.open{background:var(--detail-bg)}
-.acct-table td{padding:11px 14px;vertical-align:middle}
-.acct-table td:first-child{padding-left:16px}
+.acct-table td{padding:13px 14px;vertical-align:middle}
+.acct-table td:first-child{padding-left:18px}
 
-.rep-bar{width:3px;height:30px;border-radius:2px;flex-shrink:0}
-.rank-n{font-size:12px;color:var(--text-muted);font-variant-numeric:tabular-nums;min-width:20px}
-.acct-name{font-size:13px;font-weight:600;color:var(--text-primary)}
-.acct-loc{font-size:11px;color:var(--text-muted);margin-top:1px}
-.rep-chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-secondary)}
-.rep-chip-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.rep-bar{width:4px;height:36px;border-radius:2px;flex-shrink:0}
+.rank-n{font-size:12px;color:var(--text-muted);font-variant-numeric:tabular-nums;min-width:20px;font-weight:600}
+.acct-name{font-size:13px;font-weight:700;color:var(--text-primary);line-height:1.3}
+.acct-loc{font-size:11px;color:var(--text-muted);margin-top:2px}
+.acct-contact-line{font-size:10px;font-weight:600;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:320px}
+.acct-contact-sep{font-weight:400;opacity:.6;margin:0 3px}
+.acct-no-contact{font-size:10px;color:var(--text-muted);margin-top:3px;opacity:.45;font-style:italic}
+.rep-chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--text-secondary);font-weight:500}
+.rep-chip-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 
-.score-cell{display:flex;align-items:center;gap:9px;min-width:110px}
-.score-num{font-size:13px;font-weight:700;color:var(--text-primary);min-width:26px;font-variant-numeric:tabular-nums}
-.score-track{flex:1;height:4px;background:var(--seq-track);border-radius:2px;overflow:hidden;max-width:72px}
-.score-fill{height:100%;background:var(--seq-fill);border-radius:2px}
+.score-cell{display:flex;align-items:center;gap:10px;min-width:110px}
+.score-num{font-size:14px;font-weight:800;color:var(--text-primary);min-width:28px;font-variant-numeric:tabular-nums}
+.score-track{flex:1;height:6px;background:var(--seq-track);border-radius:3px;overflow:hidden;max-width:70px}
+.score-fill{height:100%;background:var(--seq-fill);border-radius:3px}
 
-.tier-badge{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:5px;font-size:11px;font-weight:700}
+.tier-badge{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;font-size:12px;font-weight:800;letter-spacing:.01em}
 .tb-a{background:var(--tier-a-bg);color:var(--tier-a)}
 .tb-b{background:var(--tier-b-bg);color:var(--tier-b)}
 .tb-c{background:var(--tier-c-bg);color:var(--tier-c)}
 
-.status-pill{display:inline-flex;align-items:center;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:500;white-space:nowrap}
+.status-pill{display:inline-flex;align-items:center;padding:3px 9px;border-radius:6px;font-size:11px;font-weight:600;white-space:nowrap;letter-spacing:.01em}
 .sp-priority{background:var(--status-priority-bg);color:var(--status-priority)}
 .sp-bench{background:var(--status-bench-bg);color:var(--status-bench)}
 .sp-stretch{background:var(--status-stretch-bg);color:var(--status-stretch)}
 
-.eng-btn{display:inline-flex;align-items:center;padding:3px 8px;border-radius:5px;border:1px solid var(--border-strong);background:transparent;font-size:11px;color:var(--text-secondary);cursor:pointer;font-family:inherit;transition:all .1s;white-space:nowrap}
+.eng-btn{display:inline-flex;align-items:center;padding:4px 9px;border-radius:6px;border:1px solid var(--border-strong);background:transparent;font-size:11px;font-weight:600;color:var(--text-secondary);cursor:pointer;font-family:inherit;transition:all .12s;white-space:nowrap}
 .eng-btn:hover{background:var(--surface-3)}
 .eng-btn.yes{background:var(--tier-a-bg);color:var(--tier-a);border-color:transparent}
 
-.chevron{font-size:9px;color:var(--text-muted);transition:transform .15s;display:inline-block;width:14px;text-align:center}
-.open .chevron{transform:rotate(90deg)}
+.chevron{font-size:9px;color:var(--text-muted);transition:transform .15s;display:inline-block;width:14px;text-align:center;opacity:.6}
+.data-row.open .chevron{transform:rotate(90deg);opacity:1}
 
+/* Detail panel */
 .detail-tr td{padding:0;border-bottom:1px solid var(--gridline)}
-.detail-panel{padding:18px 20px 20px 48px;background:var(--detail-inner);display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.dl{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin-bottom:5px}
-.dt{font-size:12px;color:var(--text-secondary);line-height:1.55}
-.sbd-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
-.sbd-label{font-size:11px;color:var(--text-muted);min-width:86px}
-.sbd-track{flex:1;height:3px;background:var(--seq-track);border-radius:2px;max-width:90px;overflow:hidden}
+.detail-panel{padding:20px 24px 24px 46px;background:var(--detail-inner);display:grid;grid-template-columns:2fr 1.4fr 1.4fr;gap:28px}
+.dl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);margin-bottom:6px}
+.dt{font-size:12px;color:var(--text-secondary);line-height:1.6}
+.sbd-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.sbd-label{font-size:11px;color:var(--text-muted);min-width:90px}
+.sbd-track{flex:1;height:4px;background:var(--seq-track);border-radius:2px;max-width:80px;overflow:hidden}
 .sbd-fill{height:100%;background:var(--seq-fill);border-radius:2px}
-.sbd-val{font-size:11px;color:var(--text-secondary);min-width:22px;text-align:right;font-variant-numeric:tabular-nums}
-.web-link{font-size:11px;color:var(--seq-fill);text-decoration:none}
+.sbd-val{font-size:11px;font-weight:700;color:var(--text-secondary);min-width:24px;text-align:right;font-variant-numeric:tabular-nums}
+.web-link{font-size:11px;color:var(--seq-fill);text-decoration:none;font-weight:500}
 .web-link:hover{text-decoration:underline}
 
-.empty{padding:56px 20px;text-align:center;color:var(--text-muted);font-size:13px}
+/* Contact card */
+.contact-card{padding:14px 16px;background:var(--surface-3);border-radius:10px;border:1px solid var(--border)}
+.contact-card.contact-empty{border-style:dashed;opacity:.65}
+.contact-avatar{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0;letter-spacing:.01em}
+.contact-name-txt{font-size:13px;font-weight:700;color:var(--text-primary);margin-top:10px;line-height:1.3}
+.contact-title-txt{font-size:11px;color:var(--text-secondary);margin-top:3px;line-height:1.5}
+.contact-email-link{font-size:11px;color:var(--seq-fill);text-decoration:none;display:block;margin-top:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.contact-email-link:hover{text-decoration:underline}
+.contact-phone-txt{font-size:11px;color:var(--text-muted);margin-top:3px}
+.contact-source-badge{display:inline-flex;align-items:center;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;padding:2px 7px;border-radius:4px;margin-top:8px}
+.csb-org62{background:rgba(57,135,229,0.12);color:var(--rep-1)}
+.csb-web{background:rgba(25,158,112,0.12);color:var(--rep-3)}
+.contact-empty-msg{font-size:11px;color:var(--text-muted);font-style:italic;line-height:1.5}
 
+.empty{padding:64px 20px;text-align:center;color:var(--text-muted);font-size:13px;font-weight:500}
 
-.contact-card{padding:12px 14px;background:var(--surface-3);border-radius:8px;margin-bottom:2px}
-.contact-card.contact-empty{opacity:.7}
-.contact-row{display:flex;align-items:flex-start;gap:10px}
-.contact-avatar{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;letter-spacing:.02em}
-.contact-info{flex:1;min-width:0}
-.contact-name{font-size:13px;font-weight:600;color:var(--text-primary);line-height:1.3}
-.contact-title-txt{font-size:11px;color:var(--text-secondary);margin-top:2px;line-height:1.4}
-.contact-link{font-size:11px;color:var(--seq-fill);text-decoration:none;display:block;margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.contact-link:hover{text-decoration:underline}
-.contact-phone{font-size:11px;color:var(--text-muted);margin-top:2px}
-
-@media(max-width:780px){
+@media(max-width:900px){
   .kpi-row{grid-template-columns:repeat(2,1fr)}
+  .detail-panel{grid-template-columns:1fr 1fr}
   .header-sub{display:none}
+}
+@media(max-width:600px){
   .main{padding:16px}
   .detail-panel{grid-template-columns:1fr}
   .search-box{width:140px}
@@ -263,35 +265,47 @@ function kpis() {
 }
 
 function renderKPIs() {
-  const k = kpis();
-  const aP = (k.ta/k.n*100).toFixed(1), bP = (k.tb/k.n*100).toFixed(1), cP = (k.tc/k.n*100).toFixed(1);
+  const n = allAccts.length;
+  const pri = allAccts.filter(a=>a.status==="Priority").length;
+  const ta = allAccts.filter(a=>a.tier==="A").length;
+  const tb = allAccts.filter(a=>a.tier==="B").length;
+  const tc = allAccts.filter(a=>a.tier==="C").length;
+  const avg = Math.round(allAccts.reduce((s,a)=>s+(a.score||0),0)/n);
+  const contacts = allAccts.filter(a=>a.contact_name).length;
+  const aP = (ta/n*100).toFixed(1), bP = (tb/n*100).toFixed(1), cP = (tc/n*100).toFixed(1);
+  const cPct = (contacts/n*100).toFixed(0);
   document.getElementById("kpiRow").innerHTML = `
     <div class="kpi-card c1">
+      <div class="kpi-ghost">${n}</div>
       <div class="kpi-label">Total Accounts</div>
-      <div class="kpi-value">${k.n}</div>
-      <div class="kpi-sub">Across 5 reps</div>
+      <div class="kpi-value">${n}</div>
+      <div class="kpi-sub">Across 5 reps &nbsp;·&nbsp; ${REP_ORDER.length} territories</div>
     </div>
     <div class="kpi-card c2">
-      <div class="kpi-label">Priority Accounts</div>
-      <div class="kpi-value">${k.pri}</div>
-      <div class="kpi-sub">${(k.pri/k.n*100).toFixed(0)}% of total accounts</div>
+      <div class="kpi-ghost">${pri}</div>
+      <div class="kpi-label">Priority</div>
+      <div class="kpi-value">${pri}</div>
+      <div class="kpi-sub">${(pri/n*100).toFixed(0)}% of total &nbsp;·&nbsp; avg score ${avg}</div>
     </div>
     <div class="kpi-card c3">
+      <div class="kpi-ghost">A</div>
       <div class="kpi-label">Tier Breakdown</div>
-      <div class="kpi-value">${k.ta} <span style="font-size:16px;font-weight:400;color:var(--text-secondary)">Tier A</span></div>
+      <div class="kpi-value">${ta} <span style="font-size:18px;font-weight:500;color:var(--text-secondary)">Tier A</span></div>
       <div class="tier-mini-bar">
-        <div style="width:${aP}%;background:var(--tier-a);border-radius:2px 0 0 2px"></div>
+        <div style="width:${aP}%;background:var(--tier-a)"></div>
         <div style="width:${bP}%;background:var(--tier-b)"></div>
-        <div style="width:${cP}%;background:var(--tier-c);border-radius:0 2px 2px 0"></div>
+        <div style="width:${cP}%;background:var(--tier-c)"></div>
       </div>
-      <div class="kpi-sub" style="margin-top:5px">A:${k.ta} &nbsp; B:${k.tb} &nbsp; C:${k.tc}</div>
+      <div class="kpi-sub" style="margin-top:8px">A: ${ta} &nbsp; B: ${tb} &nbsp; C: ${tc||0}</div>
     </div>
     <div class="kpi-card c4">
-      <div class="kpi-label">Avg Fit Score</div>
-      <div class="kpi-value">${k.avg}</div>
-      <div class="kpi-sub">out of 100</div>
+      <div class="kpi-ghost">${contacts}</div>
+      <div class="kpi-label">Contacts Found</div>
+      <div class="kpi-value">${contacts}<span style="font-size:18px;font-weight:500;color:var(--text-secondary)">/${n}</span></div>
+      <div class="kpi-contact-bar"><div class="kpi-contact-fill" style="width:${cPct}%"></div></div>
+      <div class="kpi-sub" style="margin-top:8px">${cPct}% coverage &nbsp;·&nbsp; Org62 + web</div>
     </div>`;
-}
+}}
 
 function renderTabs() {
   const tabs = [["All", null]].concat(REP_ORDER.map(r=>[r, repColor(r)]));
@@ -358,53 +372,42 @@ function renderTable() {
     let dr = "";
     if (isOpen) {
       const website = a.website ? `<div style="margin-top:10px"><a class="web-link" href="${/^https?:/.test(a.website)?a.website:"https://"+a.website}" target="_blank" rel="noopener">${esc(a.website)} &nearr;</a></div>` : "";
+      const initials = a.contact_name ? a.contact_name.split(' ').map(w=>w[0]).slice(0,2).join('') : '';
+      const srcBadge = a.contact_source==='org62' ? `<span class="contact-source-badge csb-org62">Org62</span>` : a.contact_source==='web' ? `<span class="contact-source-badge csb-web">Web</span>` : '';
       const contactHtml = a.contact_name ? `
         <div class="contact-card">
-          <div class="dl" style="margin-bottom:8px">Key Contact</div>
-          <div class="contact-row">
-            <div class="contact-avatar" style="background:${col}22;color:${col}">${esc(a.contact_name.split(' ').map(w=>w[0]).slice(0,2).join(''))}</div>
-            <div class="contact-info">
-              <div class="contact-name">${esc(a.contact_name)}</div>
-              <div class="contact-title-txt">${esc(a.contact_title)}</div>
-              ${a.contact_email ? `<a class="contact-link" href="mailto:${esc(a.contact_email)}">${esc(a.contact_email)}</a>` : ''}
-              ${a.contact_phone ? `<div class="contact-phone">${esc(a.contact_phone)}</div>` : ''}
-            </div>
-          </div>
-        </div>` : `<div class="contact-card contact-empty"><div class="dl" style="margin-bottom:6px">Key Contact</div><div class="dt" style="font-style:italic">Not yet identified — check LinkedIn for VP Marketing or CMO</div></div>`;
+          <div class="dl">Key Contact</div>
+          <div class="contact-avatar" style="background:${col}22;color:${col}">${esc(initials)}</div>
+          <div class="contact-name-txt">${esc(a.contact_name)}</div>
+          <div class="contact-title-txt">${esc(a.contact_title)}</div>
+          ${a.contact_email?`<a class="contact-email-link" href="mailto:${esc(a.contact_email)}">${esc(a.contact_email)}</a>`:''}
+          ${a.contact_phone?`<div class="contact-phone-txt">${esc(a.contact_phone)}</div>`:''}
+          ${srcBadge}
+        </div>` : `
+        <div class="contact-card contact-empty">
+          <div class="dl">Key Contact</div>
+          <div class="contact-empty-msg">No contact identified yet.<br>Search LinkedIn for VP Marketing, CMO, or Director Digital Marketing.</div>
+        </div>`;
       dr = `<tr class="detail-tr"><td colspan="9"><div class="detail-panel">
         <div>
           ${a.why_it_fits?`<div class="dl">Why It Fits</div><div class="dt">${esc(a.why_it_fits)}</div>`:""}
-          ${a.watchout?`<div style="margin-top:12px"><div class="dl">Watch-out</div><div class="dt">${esc(a.watchout)}</div></div>`:""}
-          ${a.signals?`<div style="margin-top:12px"><div class="dl">Signals</div><div class="dt">${esc(a.signals)}</div></div>`:""}
+          ${a.watchout?`<div style="margin-top:14px"><div class="dl">Watch-out</div><div class="dt">${esc(a.watchout)}</div></div>`:""}
+          ${a.signals?`<div style="margin-top:14px"><div class="dl">Signals</div><div class="dt">${esc(a.signals)}</div></div>`:""}
           ${website}
         </div>
+        <div>${contactHtml}</div>
         <div>
-          ${contactHtml}
-          <div style="margin-top:16px"><div class="dl">Score Breakdown</div>
+          <div class="dl">Score Breakdown</div>
           ${[["Marketing (30%)",a.marketing],["Web (20%)",a.web],["Search (25%)",a.search],["Vertical (25%)",a.vertical]].map(([lbl,val])=>`
           <div class="sbd-row">
             <span class="sbd-label">${lbl}</span>
             <div class="sbd-track"><div class="sbd-fill" style="width:${val||0}%"></div></div>
             <span class="sbd-val">${val||"—"}</span>
           </div>`).join("")}
-          ${a.confidence?`<div style="margin-top:12px"><div class="dl">Confidence</div><div class="dt">${esc(a.confidence)}</div></div>`:""}
-          ${a.existing_customer?`<div style="margin-top:8px"><div class="dl">Existing Customer</div><div class="dt">${esc(a.existing_customer)}</div></div>`:""}
-          </div>
+          ${a.confidence?`<div style="margin-top:14px"><div class="dl">Confidence</div><div class="dt">${esc(a.confidence)}</div></div>`:""}
+          ${a.existing_customer?`<div style="margin-top:10px"><div class="dl">Existing Customer</div><div class="dt">${esc(a.existing_customer)}</div></div>`:""}
         </div>
-      </div></td></tr>`;
-    }
-    
-    return `<tr class="data-row${isOpen?" open":""}" onclick="toggleRow(${JSON.stringify(key)})">
-      <td><div style="display:flex;align-items:center"><div class="rep-bar" style="background:${col}"></div></div></td>
-      <td><span class="rank-n">${a.rank}</span></td>
-      <td><div class="acct-name">${safeAcct}</div><div class="acct-loc">${esc(loc)}</div></td>
-      <td><span class="rep-chip"><span class="rep-chip-dot" style="background:${col}"></span>${safeRep}</span></td>
-      <td><div class="score-cell"><span class="score-num">${a.score||"—"}</span><div class="score-track"><div class="score-fill" style="width:${pct}%"></div></div></div></td>
-      <td><span class="tier-badge ${tierCls}">${a.tier}</span></td>
-      <td><span class="status-pill ${statCls}">${a.status}</span></td>
-      <td onclick="event.stopPropagation()"><button class="eng-btn${isEngaged?" yes":""}" onclick="toggleEngaged(${JSON.stringify(key)})">${isEngaged?"Engaged":"Mark"}</button></td>
-      <td><span class="chevron${isOpen?" open":""}">&#9654;</span></td>
-    </tr>${dr}`;
+      </div></td></tr>`;    </tr>${dr}`;
   }).join("");
   document.getElementById("tbody").innerHTML = rows;
 }
