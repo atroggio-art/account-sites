@@ -307,7 +307,7 @@ function renderKPIs() {
       <div class="kpi-contact-bar"><div class="kpi-contact-fill" style="width:${cPct}%"></div></div>
       <div class="kpi-sub" style="margin-top:8px">${cPct}% coverage &nbsp;·&nbsp; Org62 + web</div>
     </div>`;
-}}
+}
 
 function renderTabs() {
   const tabs = [["All", null]].concat(REP_ORDER.map(r=>[r, repColor(r)]));
@@ -421,7 +421,6 @@ function renderTable() {
       <td onclick="event.stopPropagation()"><button class="eng-btn${isEngaged?" yes":""}" onclick="toggleEngaged(${JSON.stringify(key)})">${isEngaged?"Engaged":"Mark"}</button></td>
       <td><span class="chevron">&#9654;</span></td>
     </tr>${dr}`;
-  }).join("");
   }).join("");
   document.getElementById("tbody").innerHTML = rows;
 }
