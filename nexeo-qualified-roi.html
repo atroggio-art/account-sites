@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexeo Plastics — AI Pipeline Generation ROI</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --purple:#7c3aed; --purple-light:#a855f7; --blue:#2563eb; --blue-light:#3b82f6;
+  --green:#059669; --green-light:#10b981;
+  --ink-1:#0f0f0f; --ink-2:#4b5563; --ink-3:#9ca3af;
+  --s0:#ffffff; --s1:#f9fafb; --s2:#f3f4f6; --s3:#e5e7eb;
+  --border:rgba(0,0,0,0.07); --border-strong:rgba(0,0,0,0.13);
+  --shadow-card:0 1px 3px rgba(0,0,0,.05),0 4px 20px rgba(0,0,0,.07);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.05),0 2px 8px rgba(0,0,0,.05);
+}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--s0);color:var(--ink-1);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-bottom:none;box-shadow:0 1px 0 rgba(0,0,0,.07),0 2px 12px rgba(0,0,0,.04);padding:0 48px;height:60px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;gap:12px}
+.nav-logo{height:28px;display:flex;align-items:center;gap:8px}
+.nav-logo-q{width:28px;height:28px;background:linear-gradient(135deg,#7c3aed,#2563eb);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;letter-spacing:-0.5px}
+.nav-name{font-size:15px;font-weight:800;color:var(--ink-1)}
+.nav-sep{width:1px;height:18px;background:var(--border-strong);margin:0 4px}
+.nav-sub{font-size:12px;color:var(--ink-3);font-weight:500}
+.nav-cta{background:var(--purple);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:opacity .13s;white-space:nowrap}
+.nav-cta:hover{opacity:.87}
+
+/* HERO */
+.hero{position:relative;min-height:620px;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&w=1800&q=80');background-size:cover;background-position:center;opacity:.65}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,10,40,.82) 0%,rgba(37,99,235,.45) 100%)}
+.hero-inner{position:relative;max-width:1200px;margin:0 auto;padding:100px 48px;width:100%}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.20);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--green-light);flex-shrink:0}
+.hero-h1{font-size:clamp(36px,5vw,68px);font-weight:900;color:#fff;line-height:1.05;letter-spacing:-.03em;margin-bottom:20px;max-width:700px}
+.hero-h1 span{color:#a5f3c4}
+.hero-sub{font-size:18px;color:rgba(255,255,255,.70);line-height:1.65;max-width:540px;margin-bottom:40px}
+.hero-actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--purple);color:#fff;border-radius:10px;padding:14px 28px;font-size:15px;font-weight:700;text-decoration:none;transition:opacity .13s;white-space:nowrap}
+.btn-primary:hover{opacity:.88}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.10);border:1.5px solid rgba(255,255,255,.25);color:#fff;border-radius:10px;padding:13px 24px;font-size:14px;font-weight:600;text-decoration:none;transition:all .13s}
+.btn-ghost:hover{background:rgba(255,255,255,.18)}
+.hero-stats{display:flex;gap:40px;margin-top:56px;flex-wrap:wrap}
+.hs{border-left:2px solid rgba(255,255,255,.2);padding-left:20px}
+.hs-n{font-size:34px;font-weight:900;color:#fff;line-height:1;letter-spacing:-.02em}
+.hs-n span{font-size:18px;color:#a5f3c4;font-weight:700}
+.hs-l{font-size:11px;color:rgba(255,255,255,.50);margin-top:4px;line-height:1.4}
+
+/* SECTION SHELL */
+.sec{padding:96px 48px}
+.sec-inner{max-width:1200px;margin:0 auto}
+.sec-alt{background:var(--s1)}
+.sec-dark{background:#0a0618;color:#fff}
+.sec-purple{background:linear-gradient(135deg,#1e1b4b 0%,#0f0f3d 100%);color:#fff}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:12px}
+.eyebrow.green{color:var(--green-light)}
+.eyebrow.blue{color:#60a5fa}
+.sec-dark .eyebrow,.sec-purple .eyebrow{color:#a5f3c4}
+.bar{width:28px;height:3px;border-radius:2px;background:var(--purple);margin-bottom:22px}
+.bar.green{background:var(--green-light)}
+.h2{font-size:clamp(28px,3.5vw,48px);font-weight:900;color:var(--ink-1);line-height:1.08;letter-spacing:-.025em;margin-bottom:16px}
+.sec-dark .h2,.sec-purple .h2{color:#fff}
+.lead{font-size:18px;color:var(--ink-2);line-height:1.7;max-width:600px}
+.sec-dark .lead,.sec-purple .lead{color:rgba(255,255,255,.6)}
+
+/* ROI FUNNEL - NEXEO SPECIFIC */
+.roi-wrap{display:grid;grid-template-columns:1fr auto 1fr;gap:32px;align-items:center;margin-top:64px}
+.roi-state{background:var(--s0);border:none;border-radius:20px;padding:36px 32px;box-shadow:var(--shadow-card)}
+.roi-state-lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
+.roi-state.current .roi-state-lbl{color:var(--ink-3)}
+.roi-state.future .roi-state-lbl{color:var(--purple)}
+.roi-row{display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border)}
+.roi-row:last-child{border-bottom:none}
+.roi-key{font-size:13px;color:var(--ink-2);font-weight:500}
+.roi-val{font-size:28px;font-weight:900;color:var(--ink-1);line-height:1;letter-spacing:-.02em}
+.roi-state.future .roi-val{color:var(--purple)}
+.roi-delta{display:inline-flex;align-items:center;gap:4px;background:rgba(16,185,129,.12);color:var(--green);border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;margin-left:8px}
+.roi-arrow-col{display:flex;flex-direction:column;align-items:center;gap:12px}
+.roi-arrow-box{background:linear-gradient(135deg,var(--purple),var(--blue));border-radius:16px;padding:24px 20px;text-align:center;min-width:160px;box-shadow:0 8px 32px rgba(124,58,237,.30)}
+.roi-arrow-name{font-size:16px;font-weight:800;color:#fff;margin-bottom:4px}
+.roi-arrow-sub{font-size:12px;color:rgba(255,255,255,.65);line-height:1.4}
+.roi-arrow-icon{font-size:28px;color:rgba(255,255,255,.9);margin-bottom:8px}
+
+/* BUY VS BUILD */
+.bvb-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:56px}
+.bvb-card{border-radius:18px;padding:32px 28px}
+.bvb-card.build{background:var(--s2);border:1.5px solid var(--s3)}
+.bvb-card.buy{background:linear-gradient(135deg,rgba(124,58,237,.07),rgba(37,99,235,.07));border:1.5px solid rgba(124,58,237,.20)}
+.bvb-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:16px}
+.bvb-card.build .bvb-label{color:var(--ink-3)}
+.bvb-card.buy .bvb-label{color:var(--purple)}
+.bvb-head{font-size:22px;font-weight:800;color:var(--ink-1);margin-bottom:20px;line-height:1.2}
+.bvb-card.buy .bvb-head{color:var(--purple)}
+.bvb-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.bvb-icon{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;margin-top:1px}
+.bvb-card.build .bvb-icon{background:rgba(239,68,68,.10);color:#dc2626}
+.bvb-card.buy .bvb-icon{background:rgba(16,185,129,.12);color:var(--green)}
+.bvb-text{font-size:14px;color:var(--ink-2);line-height:1.55}
+.bvb-text strong{color:var(--ink-1);font-weight:700}
+
+/* COMPARISON TABLE */
+.cmp-wrap{margin-top:56px;border-radius:20px;overflow:hidden;box-shadow:var(--shadow-card)}
+.cmp-head{display:grid;grid-template-columns:2fr 1fr 1fr;background:var(--s0)}
+.cmp-head-cell{padding:20px 24px;font-size:13px;font-weight:800;color:var(--ink-1);border-bottom:1px solid var(--border)}
+.cmp-head-cell.human{background:#fafafa;text-align:center;color:var(--ink-3);font-size:12px}
+.cmp-head-cell.ai{background:linear-gradient(135deg,var(--purple),var(--blue));text-align:center;color:#fff;font-size:12px}
+.cmp-row{display:grid;grid-template-columns:2fr 1fr 1fr;background:var(--s0);border-bottom:1px solid var(--border)}
+.cmp-row:last-child{border-bottom:none}
+.cmp-row:nth-child(odd){background:#fefefe}
+.cmp-cell{padding:16px 24px;font-size:14px;font-weight:600;color:var(--ink-2)}
+.cmp-cell.label{color:var(--ink-1);font-weight:700;font-size:13px}
+.cmp-cell.human{text-align:center;color:var(--ink-3)}
+.cmp-cell.ai{text-align:center;color:var(--purple);font-weight:800;background:rgba(124,58,237,.04)}
+.cmp-footer{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(37,99,235,.06));padding:18px 24px;border-top:2px solid rgba(124,58,237,.15);display:grid;grid-template-columns:2fr 1fr 1fr}
+.cmp-footer-cell{font-size:12px;color:var(--ink-3);text-align:center}
+.cmp-footer-cell.ai{color:var(--purple);font-weight:700;font-size:13px}
+
+/* SOCIAL PROOF GRID */
+.proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px}
+.proof-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:16px;padding:24px;transition:background .14s}
+.proof-card:hover{background:rgba(255,255,255,.10)}
+.proof-co{font-size:11px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:10px}
+.proof-stat{font-size:36px;font-weight:900;color:#a5f3c4;line-height:1;letter-spacing:-.025em;margin-bottom:4px}
+.proof-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.5}
+.proof-quote{font-size:13px;font-style:italic;color:rgba(255,255,255,.60);line-height:1.55;margin-top:10px;border-left:2px solid rgba(165,243,196,.30);padding-left:12px}
+.proof-attr{font-size:11px;color:rgba(255,255,255,.35);margin-top:8px;font-weight:600}
+
+/* WHAT WE'RE BUILDING SECTION */
+.plan-wrap{background:var(--s0);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-card);margin-top:56px}
+.plan-head{background:linear-gradient(135deg,var(--purple),var(--blue));padding:28px 32px}
+.plan-head-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.65);margin-bottom:8px}
+.plan-head-title{font-size:22px;font-weight:900;color:#fff}
+.plan-body{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.plan-col{padding:32px}
+.plan-col+.plan-col{border-left:1px solid var(--border)}
+.plan-col-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:18px}
+.plan-item{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+.plan-check{width:18px;height:18px;border-radius:5px;background:rgba(16,185,129,.12);color:var(--green);font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.plan-item-text{font-size:14px;color:var(--ink-2);line-height:1.5}
+.plan-item-text strong{color:var(--ink-1);font-weight:700}
+.plan-price-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
+.plan-price-row:last-child{border-bottom:none;padding-top:16px}
+.plan-price-lbl{font-size:14px;color:var(--ink-2);font-weight:600}
+.plan-price-val{font-size:14px;color:var(--ink-1);font-weight:700;text-align:right}
+.plan-total-row{background:rgba(124,58,237,.05);border-radius:10px;padding:16px;margin-top:16px;display:flex;justify-content:space-between;align-items:center}
+.plan-total-lbl{font-size:14px;font-weight:800;color:var(--ink-1)}
+.plan-total-val{font-size:28px;font-weight:900;color:var(--purple);letter-spacing:-.02em}
+.plan-incentive{background:linear-gradient(135deg,rgba(5,150,105,.08),rgba(16,185,129,.06));border:1.5px solid rgba(16,185,129,.20);border-radius:12px;padding:16px 18px;margin-top:16px}
+.plan-incentive-lbl{font-size:10px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:var(--green);margin-bottom:6px}
+.plan-incentive-desc{font-size:13px;color:var(--ink-2);line-height:1.5}
+.plan-incentive-price{font-size:26px;font-weight:900;color:var(--green);margin-top:8px;letter-spacing:-.02em}
+.plan-incentive-note{font-size:11px;color:var(--ink-3);margin-top:3px}
+
+/* WHY NOW */
+.now-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px}
+.now-card{padding:32px 28px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:18px;position:relative;overflow:hidden}
+.now-ghost{position:absolute;right:-4px;bottom:-16px;font-size:96px;font-weight:900;opacity:.06;color:#fff;letter-spacing:-3px;pointer-events:none;line-height:1}
+.now-num{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#a5f3c4;margin-bottom:14px}
+.now-t{font-size:19px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px}
+.now-b{font-size:14px;color:rgba(255,255,255,.52);line-height:1.65}
+
+/* CTA */
+.cta-layout{display:grid;grid-template-columns:1fr auto;gap:64px;align-items:center}
+.cta-h{font-size:clamp(28px,3.5vw,48px);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.025em;margin-bottom:14px}
+.cta-p{font-size:16px;color:rgba(255,255,255,.55);line-height:1.65;max-width:480px;margin-bottom:28px}
+.cta-note{font-size:12px;color:rgba(255,255,255,.28);margin-top:12px;line-height:1.5}
+.cta-note a{color:rgba(255,255,255,.55);text-decoration:none}
+.cta-note a:hover{text-decoration:underline}
+.about-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:28px 24px;text-align:center;min-width:200px}
+.about-card-photo{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid rgba(124,58,237,.40);margin-bottom:14px;display:block;margin-left:auto;margin-right:auto}
+.about-card-name{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px}
+.about-card-title{font-size:11px;color:rgba(255,255,255,.40);line-height:1.5}
+.about-card-email{display:block;margin-top:10px;font-size:12px;color:#a5f3c4;text-decoration:none;font-weight:700}
+.about-card-email:hover{text-decoration:underline}
+
+/* FOOTER */
+.ftr{background:#050310;padding:28px 48px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid rgba(255,255,255,.06)}
+.ftr-note{font-size:11px;color:rgba(255,255,255,.18);line-height:1.5}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .nav,.hero-inner,.sec{padding-left:20px;padding-right:20px}
+  .roi-wrap{grid-template-columns:1fr;gap:20px}
+  .roi-arrow-col{flex-direction:row;justify-content:center}
+  .roi-arrow-box{min-width:auto;flex:1;max-width:200px}
+  .bvb-grid,.proof-grid,.now-grid,.plan-body,.cta-layout{grid-template-columns:1fr}
+  .cmp-head,.cmp-row,.cmp-footer{grid-template-columns:1.5fr 1fr 1fr}
+  .plan-col+.plan-col{border-left:none;border-top:1px solid var(--border)}
+  .hero-stats{gap:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo">
+      <div class="nav-logo-q">Q</div>
+    </div>
+    <div class="nav-name">Nexeo Plastics</div>
+    <div class="nav-sep"></div>
+    <div class="nav-sub">AI Pipeline Generation</div>
+  </div>
+  <a href="#cta" class="nav-cta">Talk to Anthony</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-tag"><span class="hero-tag-dot"></span>Personalized for Nexeo Plastics</div>
+    <h1 class="hero-h1">Double your meetings.<br><span>Without adding headcount.</span></h1>
+    <p class="hero-sub">Nexeo's website generates 30,000 monthly sessions. Right now, only 21 of those turn into sales meetings. An AI SDR agent changes that math permanently.</p>
+    <div class="hero-actions">
+      <a href="#roi" class="btn-primary">See Nexeo's ROI &#8594;</a>
+      <a href="#build-vs-buy" class="btn-ghost">Buy vs. Build</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hs">
+        <div class="hs-n">2<span>x</span></div>
+        <div class="hs-l">More meetings booked<br>with an AI SDR agent</div>
+      </div>
+      <div class="hs">
+        <div class="hs-n">150<span>%</span></div>
+        <div class="hs-l">More closed won deals<br>projected for Nexeo</div>
+      </div>
+      <div class="hs">
+        <div class="hs-n">30<span>-60</span></div>
+        <div class="hs-l">Days to go live<br>with full implementation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROI FOR NEXEO -->
+<section class="sec sec-alt" id="roi">
+  <div class="sec-inner">
+    <div class="eyebrow">Nexeo Plastics ROI Model</div>
+    <div class="bar"></div>
+    <h2 class="h2">What your pipeline looks like<br>with an AI SDR working 24/7</h2>
+    <p class="lead">These numbers are built on Nexeo's actual web traffic and current conversion rates, modeled against average results from similar deployments.</p>
+
+    <div class="roi-wrap">
+      <div class="roi-state current">
+        <div class="roi-state-lbl">Current State</div>
+        <div class="roi-row"><span class="roi-key">Monthly Sessions</span><span class="roi-val">30,000</span></div>
+        <div class="roi-row"><span class="roi-key">Website Leads / Month</span><span class="roi-val">350</span></div>
+        <div class="roi-row"><span class="roi-key">Meetings / Opptys / Month</span><span class="roi-val">21</span></div>
+        <div class="roi-row"><span class="roi-key">Closed Won / Month</span><span class="roi-val">2</span></div>
+      </div>
+
+      <div class="roi-arrow-col">
+        <div class="roi-arrow-box">
+          <div class="roi-arrow-icon">&#9650;</div>
+          <div class="roi-arrow-name">The AI SDR Agent</div>
+          <div class="roi-arrow-sub">Engages every visitor. Books meetings automatically. Works around the clock.</div>
+        </div>
+      </div>
+
+      <div class="roi-state future">
+        <div class="roi-state-lbl">Future State with AI SDR</div>
+        <div class="roi-row"><span class="roi-key">Monthly Sessions</span><span class="roi-val">30,000</span></div>
+        <div class="roi-row"><span class="roi-key">Marketing Generated Leads</span><span class="roi-val">380 <span class="roi-delta">+9%</span></span></div>
+        <div class="roi-row"><span class="roi-key">Meetings / Opptys / Month</span><span class="roi-val">42 <span class="roi-delta">+100%</span></span></div>
+        <div class="roi-row"><span class="roi-key">Closed Won / Month</span><span class="roi-val">5 <span class="roi-delta">+150%</span></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUY VS BUILD -->
+<section class="sec" id="build-vs-buy">
+  <div class="sec-inner">
+    <div class="eyebrow">Build vs. Buy</div>
+    <div class="bar"></div>
+    <h2 class="h2">Why build something we've<br>already spent 7 years perfecting?</h2>
+    <p class="lead">Every company that considers building an AI SDR in-house runs the same math. The conclusion is always the same.</p>
+
+    <div class="bvb-grid">
+      <div class="bvb-card build">
+        <div class="bvb-label">Building In-House</div>
+        <div class="bvb-head">Months of engineering work before you see a single meeting booked</div>
+        <div class="bvb-item">
+          <div class="bvb-icon">&#10005;</div>
+          <div class="bvb-text"><strong>12-18 months to production.</strong> You need ML engineers, data scientists, CRM integrators, and QA. That team doesn't exist at most companies.</div>
+        </div>
+        <div class="bvb-item">
+          <div class="bvb-icon">&#10005;</div>
+          <div class="bvb-text"><strong>No native Salesforce integration.</strong> Every field, object, and workflow has to be custom-mapped and maintained as Salesforce updates.</div>
+        </div>
+        <div class="bvb-item">
+          <div class="bvb-icon">&#10005;</div>
+          <div class="bvb-text"><strong>You own the maintenance.</strong> AI models degrade. Leads change their behavior. You're on the hook for every model refresh, data drift issue, and edge case.</div>
+        </div>
+        <div class="bvb-item">
+          <div class="bvb-icon">&#10005;</div>
+          <div class="bvb-text"><strong>No institutional knowledge.</strong> The system learns your specific prospects from scratch. No cross-customer intelligence to bootstrap performance from day one.</div>
+        </div>
+        <div class="bvb-item">
+          <div class="bvb-icon">&#10005;</div>
+          <div class="bvb-text"><strong>Key-person risk.</strong> When the engineer who built it leaves, the roadmap leaves with them.</div>
+        </div>
+      </div>
+
+      <div class="bvb-card buy">
+        <div class="bvb-label">Buying a Purpose-Built Platform</div>
+        <div class="bvb-head">30-60 days to live. Salesforce-native. Proven across hundreds of deployments.</div>
+        <div class="bvb-item">
+          <div class="bvb-icon">&#10003;</div>
+          <div class="bvb-text"><strong>30-60 days to go live,</strong> with a dedicated success architect handling implementation, onboarding, and first-quarter optimization.</div>
+        </div>
+        <div class="bvb-item">
+          <div class="bvb-icon">&#10003;</div>
+          <div class="bvb-text"><strong>Built on Salesforce,</strong> which means real-time sync with your existing CRM data, routing rules, and account intelligence. No custom integration work.</div>
+        </div>
+        <div class="bvb-item">
+          <div class="bvb-icon">&#10003;</div>
+          <div class="bvb-text"><strong>Continuous model improvement included.</strong> The platform gets smarter every month using learnings from every deployment, not just yours.</div>
+        </div>
+        <div class="bvb-item">
+          <div class="bvb-icon">&#10003;</div>
+          <div class="bvb-text"><strong>Cross-customer intelligence.</strong> The AI already knows what works for B2B manufacturers, distributors, and specialty material companies because it's already running at dozens of them.</div>
+        </div>
+        <div class="bvb-item">
+          <div class="bvb-icon">&#10003;</div>
+          <div class="bvb-text"><strong>Year-round account optimization.</strong> Quarterly business reviews, proactive tuning, and dedicated support so results compound over time.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HUMAN SDR VS AI SDR -->
+<section class="sec sec-alt">
+  <div class="sec-inner">
+    <div class="eyebrow green">Cost Comparison</div>
+    <div class="bar green"></div>
+    <h2 class="h2">Same budget. Five times the output.</h2>
+    <p class="lead">At $80K annual investment, an AI SDR and a human SDR cost the same. But the comparison ends there.</p>
+
+    <div class="cmp-wrap">
+      <div class="cmp-head">
+        <div class="cmp-head-cell">Metric</div>
+        <div class="cmp-head-cell human">Human SDR</div>
+        <div class="cmp-head-cell ai">AI SDR Agent</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell label">Annual Investment</div>
+        <div class="cmp-cell human">$80K</div>
+        <div class="cmp-cell ai">$80K</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell label">Onboarding Time</div>
+        <div class="cmp-cell human">3-4 months</div>
+        <div class="cmp-cell ai">1-4 weeks</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell label">Daily Working Hours</div>
+        <div class="cmp-cell human">8 hours</div>
+        <div class="cmp-cell ai">24 hours</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell label">Weekly Conversations</div>
+        <div class="cmp-cell human">26</div>
+        <div class="cmp-cell ai">120</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell label">Weekly Meetings Booked</div>
+        <div class="cmp-cell human">1</div>
+        <div class="cmp-cell ai">5</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell label">Simultaneous Conversations</div>
+        <div class="cmp-cell human">3</div>
+        <div class="cmp-cell ai">Unlimited</div>
+      </div>
+      <div class="cmp-footer">
+        <div class="cmp-footer-cell"></div>
+        <div class="cmp-footer-cell">Tired, sick, on vacation</div>
+        <div class="cmp-footer-cell ai">Always on. Never misses a lead.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="sec sec-dark">
+  <div class="sec-inner">
+    <div class="eyebrow">Proven Results</div>
+    <div class="bar" style="background:#a5f3c4"></div>
+    <h2 class="h2">Companies like Nexeo are already doing this</h2>
+    <p class="lead">B2B companies across manufacturing, distribution, and specialty verticals are running AI SDR agents and seeing outsized pipeline returns.</p>
+
+    <div class="proof-grid">
+      <div class="proof-card">
+        <div class="proof-co">Demandbase</div>
+        <div class="proof-stat">2X</div>
+        <div class="proof-desc">More pipeline and meetings booked. Plus $80K in SDR headcount savings.</div>
+        <div class="proof-quote">Piper has automated proactive engagement, but we still have that human touch for our target accounts.</div>
+        <div class="proof-attr">Hannah Jordan, Director of Digital Marketing</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-co">Greenhouse</div>
+        <div class="proof-stat">$27M</div>
+        <div class="proof-desc">Pipeline generated. SDRs were strapped for bandwidth and couldn't be on the website 24/7.</div>
+        <div class="proof-quote">We know Piper would be the assist for inbound.</div>
+        <div class="proof-attr">Kristina Finseth, Sr. Growth Marketing Manager</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-co">Aiven</div>
+        <div class="proof-stat">293%</div>
+        <div class="proof-desc">ROI. 260% increase in engagement. 2X meetings booked versus human SDR.</div>
+        <div class="proof-quote">Piper gave us an opportunity to scale, adding in AI where it's most effective, and saving our reps valuable time.</div>
+        <div class="proof-attr">Adele Kurki, Marketing Operations Lead</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-co">NextGen Healthcare</div>
+        <div class="proof-stat">$7.5M</div>
+        <div class="proof-desc">Pipeline sourced by 24/7 autonomous AI SDRs. $690K revenue sourced. Zero missed chat requests.</div>
+        <div class="proof-quote">Real-time conversations for reps, instant meetings booking. Our website is now a frictionless experience.</div>
+        <div class="proof-attr">Stacy State, Director of Digital Marketing</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-co">Adecco</div>
+        <div class="proof-stat">$57.7M</div>
+        <div class="proof-desc">Pipeline generated via real-time VIP website engagement.</div>
+      </div>
+      <div class="proof-card">
+        <div class="proof-co">Litmus</div>
+        <div class="proof-stat">$220K</div>
+        <div class="proof-desc">Additional pipeline in first month live. 65% increase in monthly pipeline after go-live. 2X meetings booked.</div>
+        <div class="proof-quote">Piper is the future of autonomous pipe gen. She's helping us scale the experience we want for prospects in our buyers journey.</div>
+        <div class="proof-attr">Jason Dent, VP Demand Generation</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE'RE BUILDING TOGETHER -->
+<section class="sec sec-alt" id="pricing">
+  <div class="sec-inner">
+    <div class="eyebrow">What We're Building Together</div>
+    <div class="bar"></div>
+    <h2 class="h2">Qualified Agentic Marketing Platform<br>Premier Plan for Nexeo Plastics</h2>
+    <p class="lead">Everything Nexeo needs to deploy an AI SDR agent, convert more website visitors into meetings, and scale pipeline without adding headcount.</p>
+
+    <div class="plan-wrap">
+      <div class="plan-head">
+        <div class="plan-head-label">Qualified Agentic Marketing Platform</div>
+        <div class="plan-head-title">Premier Plan with Dedicated Success Services</div>
+      </div>
+      <div class="plan-body">
+        <div class="plan-col">
+          <div class="plan-col-lbl">What's Included</div>
+          <div class="plan-item">
+            <div class="plan-check">&#10003;</div>
+            <div class="plan-item-text"><strong>AI SDR (Piper)</strong> — autonomous engagement, follow-up, and meeting booking 24/7</div>
+          </div>
+          <div class="plan-item">
+            <div class="plan-check">&#10003;</div>
+            <div class="plan-item-text"><strong>Unlimited chat and admin users</strong> — every rep and manager gets full access</div>
+          </div>
+          <div class="plan-item">
+            <div class="plan-check">&#10003;</div>
+            <div class="plan-item-text"><strong>500 email contacts per month</strong> included in base plan</div>
+          </div>
+          <div class="plan-item">
+            <div class="plan-check">&#10003;</div>
+            <div class="plan-item-text"><strong>100K monthly sessions</strong> — handles Nexeo's full web traffic volume</div>
+          </div>
+          <div class="plan-item">
+            <div class="plan-check">&#10003;</div>
+            <div class="plan-item-text"><strong>10 Calendar Connections</strong> — reps' calendars synced for instant booking</div>
+          </div>
+          <div class="plan-item">
+            <div class="plan-check">&#10003;</div>
+            <div class="plan-item-text"><strong>Enterprise plan with Dedicated QSA</strong> (3 hours per month)</div>
+          </div>
+          <div class="plan-item">
+            <div class="plan-check">&#10003;</div>
+            <div class="plan-item-text"><strong>Dedicated Success Services</strong> — full service implementation, onboarding training, and year-round account optimizations</div>
+          </div>
+          <div class="plan-item">
+            <div class="plan-check">&#10003;</div>
+            <div class="plan-item-text"><strong>Native Salesforce integration</strong> — real-time sync with your existing Salesforce environment</div>
+          </div>
+        </div>
+        <div class="plan-col">
+          <div class="plan-col-lbl">Investment</div>
+          <div class="plan-price-row">
+            <span class="plan-price-lbl">Platform (Qualified Agentic Marketing, Premier)</span>
+            <span class="plan-price-val">$133,250 list</span>
+          </div>
+          <div class="plan-price-row">
+            <span class="plan-price-lbl">Dedicated Success Services</span>
+            <span class="plan-price-val">$25,000 list</span>
+          </div>
+          <div class="plan-price-row">
+            <span class="plan-price-lbl">List Price Total</span>
+            <span class="plan-price-val">$158,250</span>
+          </div>
+          <div class="plan-price-row">
+            <span class="plan-price-lbl">Discount</span>
+            <span class="plan-price-val" style="color:#dc2626">-$42,475</span>
+          </div>
+          <div class="plan-total-row">
+            <span class="plan-total-lbl">Annual Subscription Cost</span>
+            <span class="plan-total-val">$115,775</span>
+          </div>
+          <div class="plan-incentive">
+            <div class="plan-incentive-lbl">Current Incentive Available</div>
+            <div class="plan-incentive-desc">Sign a 24-month contract and Nexeo's annual investment drops to $80,000 per year. That's the same cost as a single human SDR, and includes everything above plus 1,000 email contacts per month.</div>
+            <div class="plan-incentive-price">$80,000/yr</div>
+            <div class="plan-incentive-note">12 months billed annually. Net 30. Requires standard terms execution.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY NOW -->
+<section class="sec sec-dark">
+  <div class="sec-inner">
+    <div class="eyebrow">Why Act Now</div>
+    <div class="bar" style="background:#a5f3c4"></div>
+    <h2 class="h2">Three reasons this quarter matters</h2>
+
+    <div class="now-grid">
+      <div class="now-card">
+        <div class="now-ghost">01</div>
+        <div class="now-num">01 / Window of Advantage</div>
+        <div class="now-t">Your competitors haven't done this yet</div>
+        <div class="now-b">AI SDR adoption in specialty materials and plastics distribution is still early. The companies that deploy now build a conversion rate advantage that compounds. Waiting 12 months means starting from behind.</div>
+      </div>
+      <div class="now-card">
+        <div class="now-ghost">02</div>
+        <div class="now-num">02 / Every Visitor Is a Missed Meeting</div>
+        <div class="now-t">30,000 monthly sessions. Most leave without a conversation.</div>
+        <div class="now-b">Nexeo's website is working hard to generate traffic. Right now, the conversion from visitor to meeting is around 0.07%. Every month that passes is pipeline that went unworked because no one was on the website at 11pm when a prospect visited.</div>
+      </div>
+      <div class="now-card">
+        <div class="now-ghost">03</div>
+        <div class="now-num">03 / The Math Is Already There</div>
+        <div class="now-t">$80K for Piper. $80K for an SDR. One of them never sleeps.</div>
+        <div class="now-b">The current incentive pricing puts Qualified at exact headcount parity with hiring an SDR. At $80K per year on a 24-month term, this isn't a budget question. It's a decision about how you want to allocate the capacity you were going to spend anyway.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sec sec-dark" id="cta">
+  <div class="sec-inner">
+    <div class="cta-layout">
+      <div>
+        <div class="eyebrow">Ready to Move Forward</div>
+        <h2 class="cta-h">Let's build Nexeo's<br>AI pipeline engine</h2>
+        <p class="cta-p">30 minutes is all it takes to map out what an AI SDR deployment looks like for Nexeo's specific accounts, reps, and Salesforce setup.</p>
+        <a href="mailto:atroggio@salesforce.com" class="btn-primary" style="font-size:15px">Schedule time with Anthony &#8594;</a>
+        <p class="cta-note">Questions? Reach out directly at <a href="mailto:atroggio@salesforce.com">atroggio@salesforce.com</a> or reply to your last email thread.</p>
+      </div>
+      <div class="about-card">
+        <img src="anthony.png" alt="Anthony Troggio" class="about-card-photo" onerror="this.style.display='none'">
+        <div class="about-card-name">Anthony Troggio</div>
+        <div class="about-card-title">Digital Account Executive<br>Salesforce Manufacturing & Automotive West</div>
+        <a href="mailto:atroggio@salesforce.com" class="about-card-email">atroggio@salesforce.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="ftr">
+  <div class="ftr-note">Prepared for Nexeo Plastics by Salesforce. Confidential and proprietary. Not for distribution.</div>
+  <div class="ftr-note">Qualified is a product of Salesforce. ROI projections based on average customer results and may vary.</div>
+</footer>
+
+</body>
+</html>
