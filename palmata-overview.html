@@ -170,6 +170,17 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 .rep-email{display:block;margin-top:10px;font-size:12px;color:var(--green);text-decoration:none;font-weight:700}
 .rep-email:hover{text-decoration:underline}
 
+/* EMAIL TEMPLATES */
+.email-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.email-card{background:var(--s0);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.email-meta{padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.email-seq{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.email-subject{font-size:15px;font-weight:800;color:var(--ink-1);line-height:1.3}
+.email-copy-btn{background:var(--s2);border:1px solid var(--border-strong);border-radius:7px;padding:5px 11px;font-size:11px;font-weight:700;color:var(--ink-2);cursor:pointer;font-family:inherit;flex-shrink:0;transition:all .12s;white-space:nowrap}
+.email-copy-btn:hover{background:var(--ink-1);color:#fff;border-color:var(--ink-1)}
+.email-copy-btn.copied{background:var(--green);color:#fff;border-color:var(--green)}
+.email-body{padding:20px 22px 22px;font-size:14px;color:var(--ink-2);line-height:1.75;white-space:pre-wrap}
+
 /* FOOTER */
 .ftr{background:#040810;padding:26px 48px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid rgba(255,255,255,.06)}
 .ftr-note{font-size:11px;color:rgba(255,255,255,.20)}
@@ -177,7 +188,7 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 @media(max-width:860px){
   .shift-layout,.wpa,.cta-layout{grid-template-columns:1fr;gap:36px}
   .pain-grid,.tgt-grid,.now-grid,.p-grid{grid-template-columns:1fr}
-  .uc-grid,.obj-grid{grid-template-columns:1fr}
+  .uc-grid,.obj-grid,.email-grid{grid-template-columns:1fr}
   .hdr{padding:0 20px}
   .hero-c,.sec{padding-left:20px;padding-right:20px}
   .hdr-nav{display:none}
@@ -200,6 +211,7 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
     <a href="#personas">Personas</a>
     <a href="#objections">Objections</a>
     <a href="#why-now">Why Now</a>
+    <a href="#outreach">Outreach</a>
     <a class="hdr-cta" href="#cta">Free Report</a>
   </nav>
 </header>
@@ -641,6 +653,52 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
   </div>
 </section>
 
+<!-- OUTREACH -->
+<section class="sec sec-alt" id="outreach">
+  <div class="sec-inner">
+    <div style="margin-bottom:40px">
+      <div class="tag blue">Outreach Templates</div>
+      <div class="bar blue"></div>
+      <h2 class="h2">Cold emails that open the door</h2>
+      <p class="lead" style="margin-top:0">Personalize the name, company, and AI query examples. Send Email 1, follow up 3 days later with Email 2.</p>
+    </div>
+    <div class="email-grid">
+      <div class="email-card">
+        <div class="email-meta">
+          <div>
+            <div class="email-seq">Email 1 — First Touch</div>
+            <div class="email-subject">Are you showing up in AI Searches?</div>
+          </div>
+          <button class="email-copy-btn" onclick="copyEmail(this,'e1')">Copy</button>
+        </div>
+        <div class="email-body" id="e1">Hey [NAME] —
+
+I ran a quick query in a few chatbots (ChatGPT, Gemini) where I would expect [COMPANY] to show in the results — searches like "top truck auction platforms" or "trucking appraisal companies."
+
+I'd love to connect, show my findings, and share how to solve for AEO (Answer Engine Optimization vs. Search Engine Optimization).
+
+Do you have 15 minutes next week?</div>
+      </div>
+      <div class="email-card">
+        <div class="email-meta">
+          <div>
+            <div class="email-seq">Email 2 — Follow-Up (Day 3)</div>
+            <div class="email-subject">re: Are you showing up in AI Searches?</div>
+          </div>
+          <button class="email-copy-btn" onclick="copyEmail(this,'e2')">Copy</button>
+        </div>
+        <div class="email-body" id="e2">Hi [NAME] —
+
+One more thought to add here. It's not just about showing up in AI searches. It's about showing up in a positive light that drives people toward your brand.
+
+We help customers identify which content strengthens their AI reputation, what hurts it, and the specific steps they can take to improve.
+
+Open to connecting this week for 20 minutes?</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA -->
 <section class="sec sec-dark" id="cta" style="padding-top:0;border-top:1px solid rgba(255,255,255,.06)">
   <div class="sec-inner">
@@ -675,6 +733,14 @@ function showP(id, btn) {
   document.querySelectorAll('.p-tab').forEach(t => t.classList.remove('on'));
   document.getElementById('p-' + id).classList.add('on');
   btn.classList.add('on');
+}
+function copyEmail(btn, id) {
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
 }
 </script>
 </body>
