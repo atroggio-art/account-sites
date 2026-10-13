@@ -319,15 +319,7 @@ function renderTabs() {
 }
 
 function renderFilters() {
-  const ss = ["All","Priority","Bench","Stretch"];
-  const ts = ["All","A","B","C"];
-  const sPills = ss.map(s=>`<button class="filter-pill${activeStatus===s?" active":""}" onclick="selectStatus(\'${s}\')">${s==="All"?"All Status":s}</button>`).join("");
-  const tPills = ts.map(t=>`<button class="filter-pill${activeTier===t?" active":""}" onclick="selectTier(\'${t}\')">${t==="All"?"All Tiers":"Tier "+t}</button>`).join("");
-  document.getElementById("filtersRow").innerHTML = `
-    <span class="filter-label">Status</span>${sPills}
-    <div class="fdiv"></div>
-    <span class="filter-label">Tier</span>${tPills}
-    <input class="search-box" type="text" placeholder="Search accounts..." value="${esc(searchQ)}" oninput="onSearch(this.value)">`;
+  document.getElementById("filtersRow").innerHTML = `<input class="search-box" type="text" placeholder="Search accounts..." value="${esc(searchQ)}" oninput="onSearch(this.value)" style="margin-left:0;width:280px">`;
 }
 
 function filtered() {
