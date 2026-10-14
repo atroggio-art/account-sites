@@ -129,13 +129,19 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 .iceberg-footer-r{text-align:right}
 .iceberg-footer-tag{font-size:11px;font-weight:700;color:#f87171;background:rgba(248,113,113,.10);border:1px solid rgba(248,113,113,.18);border-radius:8px;padding:4px 12px}
 /* MURAL QUOTE */
-.mural-quote{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(37,99,235,.06));border:1.5px solid rgba(124,58,237,.18);border-radius:20px;padding:36px 40px;margin-top:36px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
-.mural-q-text{font-size:22px;font-weight:800;color:var(--ink-1);line-height:1.4;font-style:italic}
-.mural-q-attr{font-size:13px;color:var(--ink-2);margin-top:12px;font-weight:600}
-.mural-q-attr span{color:var(--ink-3);font-weight:500}
-.mural-q-stat{text-align:center;min-width:160px}
-.mural-q-stat-n{font-size:44px;font-weight:900;color:var(--purple);line-height:1;letter-spacing:-.03em}
-.mural-q-stat-l{font-size:12px;color:var(--ink-2);margin-top:4px;font-weight:500;line-height:1.4}
+.quote-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px}
+.q-card{background:linear-gradient(145deg,#1a0533 0%,#0f0a28 60%,#0d1f4a 100%);border-radius:22px;padding:36px 32px;position:relative;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.20)}
+.q-card::before{content:'\201C';position:absolute;top:-10px;right:24px;font-size:160px;font-weight:900;color:rgba(124,58,237,.15);line-height:1;pointer-events:none;font-family:Georgia,serif}
+.q-card-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:4px 12px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:20px}
+.q-card-tag-dot{width:5px;height:5px;border-radius:50%;background:#a78bfa;flex-shrink:0}
+.q-card-text{font-size:18px;font-weight:700;color:#fff;line-height:1.5;position:relative;z-index:1}
+.q-card-attr{margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08)}
+.q-card-name{font-size:13px;font-weight:700;color:rgba(255,255,255,.85)}
+.q-card-title{font-size:11px;color:rgba(255,255,255,.35);margin-top:2px;font-weight:500}
+.q-card-g2{display:flex;gap:20px;margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.08)}
+.q-card-g2-stat{text-align:center}
+.q-card-g2-n{font-size:26px;font-weight:900;color:#a78bfa;line-height:1;letter-spacing:-.02em}
+.q-card-g2-l{font-size:10px;color:rgba(255,255,255,.35);margin-top:2px;font-weight:600;line-height:1.35}
 /* IMPLEMENTATION JOURNEY */
 .journey-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:56px;position:relative}
 .journey-steps::before{content:'';position:absolute;top:42px;left:10%;right:10%;height:2px;background:linear-gradient(90deg,var(--purple),var(--blue));z-index:0}
@@ -249,7 +255,7 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
   .roi-state.future{border-radius:0 0 20px 20px}
   .roi-engine{padding:20px 16px;flex-direction:row;flex-wrap:wrap;gap:8px;justify-content:center}
   .roi-engine-pills{flex-direction:row;flex-wrap:wrap;width:auto}
-  .bvb-grid,.proof-grid,.now-grid,.plan-body,.cta-layout{grid-template-columns:1fr}
+  .bvb-grid,.proof-grid,.now-grid,.plan-body,.cta-layout,.quote-grid{grid-template-columns:1fr}
   .cmp-head,.cmp-row,.cmp-footer{grid-template-columns:1.5fr 1fr 1fr}
   .plan-col+.plan-col{border-left:none;border-top:1px solid var(--border)}
   .hero-stats{gap:20px}
@@ -446,24 +452,39 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
       </div>
     </div>
 
-    <!-- MURAL QUOTE + G2 -->
-    <div class="mural-quote">
-      <div>
-        <div class="mural-q-text">"Deploy a reliable AI SDR agent built on strong platforms that gets you to market faster. Don't get hung up on building an external-facing agent when there's a great solution already in the market."</div>
-        <div class="mural-q-attr">Paul Wilson, Head of GTM AI and Systems, Mural <span>via G2 review</span></div>
+    <!-- QUOTES -->
+    <div class="quote-grid">
+      <div class="q-card">
+        <div class="q-card-tag"><span class="q-card-tag-dot"></span>Mural via G2</div>
+        <div class="q-card-text">"Deploy a reliable AI SDR agent built on strong platforms that gets you to market faster. Don't get hung up on building an external-facing agent when there's a great solution already in the market."</div>
+        <div class="q-card-attr">
+          <div class="q-card-name">Paul Wilson</div>
+          <div class="q-card-title">Head of GTM AI and Systems, Mural</div>
+        </div>
+        <div class="q-card-g2">
+          <div class="q-card-g2-stat">
+            <div class="q-card-g2-n">1,200+</div>
+            <div class="q-card-g2-l">G2 Reviews</div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,.08)"></div>
+          <div class="q-card-g2-stat">
+            <div class="q-card-g2-n">4.9&#9733;</div>
+            <div class="q-card-g2-l">Star Rating</div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,.08)"></div>
+          <div class="q-card-g2-stat">
+            <div class="q-card-g2-n">#1</div>
+            <div class="q-card-g2-l">AI SDR on G2</div>
+          </div>
+        </div>
       </div>
-      <div class="mural-q-stat">
-        <div class="mural-q-stat-n">1,200+</div>
-        <div class="mural-q-stat-l">4.9&#9733; reviews on G2<br>#1 AI SDR Agent<br>1,000+ companies on Piper</div>
-      </div>
-    </div>
-
-    <!-- FRESHBOOKS QUOTE -->
-    <div style="background:var(--s1);border-radius:16px;padding:28px 32px;margin-top:20px;display:flex;align-items:flex-start;gap:20px;border:1px solid var(--border)">
-      <div style="font-size:32px;color:var(--purple);font-weight:900;line-height:1;flex-shrink:0">"</div>
-      <div>
-        <div style="font-size:17px;font-weight:700;color:var(--ink-1);line-height:1.45">With Piper, I have full control over the entire funnel.</div>
-        <div style="font-size:13px;color:var(--ink-3);margin-top:8px;font-weight:600">Jamie Domenici, CMO, FreshBooks</div>
+      <div class="q-card">
+        <div class="q-card-tag"><span class="q-card-tag-dot"></span>FreshBooks</div>
+        <div class="q-card-text">"With Piper, I have full control over the entire funnel."</div>
+        <div class="q-card-attr">
+          <div class="q-card-name">Jamie Domenici</div>
+          <div class="q-card-title">CMO, FreshBooks</div>
+        </div>
       </div>
     </div>
 
