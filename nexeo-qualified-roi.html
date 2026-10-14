@@ -789,132 +789,38 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
   </div>
 </section>
 
-<!-- DUAL-AGENT ARCHITECTURE -->
+<!-- FUTURE STATE -->
 <section class="sec">
   <div class="sec-inner">
     <div class="eyebrow blue">Future State</div>
     <div class="bar" style="background:var(--blue)"></div>
-    <h2 class="h2">Two specialists. One conversation.<br>Zero handoff friction.</h2>
-    <p class="lead">Piper and Nexeo's commerce agent run behind a single Nexeo Assistant on both nexeoplastics.com and MyNexeo. Visitors are routed by what they're asking, not which site they're on.</p>
+    <h2 class="h2">One assistant. Two specialists<br>working behind it.</h2>
+    <p class="lead">Piper handles the sales side. The commerce agent handles the transactional side. Buyers on nexeoplastics.com and MyNexeo see one Nexeo Assistant — routed by what they're asking, not which site they're on.</p>
 
-    <!-- Architecture Stack -->
-    <div style="margin-top:52px;border-radius:20px;overflow:hidden;box-shadow:var(--shadow-card)">
-
-      <!-- Top row: Two surfaces -->
-      <div class="dual-agent-sites" style="display:grid;grid-template-columns:1fr 1fr;gap:0">
-        <div style="background:#f8fafc;border-bottom:none;padding:22px 28px;border-right:1px solid #e2e8f0">
-          <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#64748b;margin-bottom:6px">Corporate Site</div>
-          <div style="font-size:17px;font-weight:800;color:#0f172a;margin-bottom:4px">nexeoplastics.com</div>
-          <div style="font-size:13px;color:#64748b;line-height:1.5">New visitors, anonymous buyers, product discovery, first-time qualification</div>
-        </div>
-        <div style="background:#f0f9ff;border-bottom:none;padding:22px 28px">
-          <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0369a1;margin-bottom:6px">Customer Portal</div>
-          <div style="font-size:17px;font-weight:800;color:#0c4a6e;margin-bottom:4px">MyNexeo</div>
-          <div style="font-size:13px;color:#0369a1;line-height:1.5">Known buyers, order management, reorders, account activity</div>
-        </div>
+    <div class="bvb-grid" style="margin-top:48px">
+      <div class="bvb-card" style="background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(37,99,235,.04));border:1.5px solid rgba(124,58,237,.18)">
+        <div class="bvb-label" style="color:#7c3aed">Piper &mdash; Sales Side</div>
+        <div class="bvb-head" style="color:#1e1b4b;font-size:17px">New visitors, qualification, meeting booking, and rep routing</div>
+        <div class="bvb-item"><div class="bvb-icon" style="background:rgba(124,58,237,.12);color:#7c3aed">&#10003;</div><div class="bvb-text">Anonymous and first-time visitors</div></div>
+        <div class="bvb-item"><div class="bvb-icon" style="background:rgba(124,58,237,.12);color:#7c3aed">&#10003;</div><div class="bvb-text">Educational product questions and grade selection</div></div>
+        <div class="bvb-item"><div class="bvb-icon" style="background:rgba(124,58,237,.12);color:#7c3aed">&#10003;</div><div class="bvb-text">Qualification, intent scoring, and rep routing</div></div>
+        <div class="bvb-item"><div class="bvb-icon" style="background:rgba(124,58,237,.12);color:#7c3aed">&#10003;</div><div class="bvb-text">Custom quote and bulk pricing escalation</div></div>
+        <div class="bvb-item"><div class="bvb-icon" style="background:rgba(124,58,237,.12);color:#7c3aed">&#10003;</div><div class="bvb-text">Account prioritization fueled by MyNexeo signals</div></div>
       </div>
-
-      <!-- Middle: Unified assistant -->
-      <div style="background:linear-gradient(135deg,#1e1b4b 0%,#1e3a8a 100%);padding:28px 32px;text-align:center;border-top:1px solid rgba(255,255,255,.06)">
-        <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.40);margin-bottom:14px">Single Unified Interface</div>
-        <div style="display:inline-flex;align-items:center;gap:14px;background:rgba(255,255,255,.10);border:1.5px solid rgba(255,255,255,.20);border-radius:14px;padding:14px 28px">
-          <div style="width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#2563eb);display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:900;color:#fff;flex-shrink:0">N</div>
-          <div style="text-align:left">
-            <div style="font-size:16px;font-weight:800;color:#fff;line-height:1">Nexeo Assistant</div>
-            <div style="font-size:12px;color:rgba(255,255,255,.50);margin-top:3px">Routed by intent, not by which site they're on</div>
-          </div>
-        </div>
-        <div style="display:flex;justify-content:center;gap:140px;margin-top:20px;color:rgba(255,255,255,.25);font-size:18px">
-          <span>&#8595;</span><span>&#8595;</span>
-        </div>
-      </div>
-
-      <!-- Bottom row: Two agents -->
-      <div class="dual-agent-panels" style="display:grid;grid-template-columns:1fr 1fr;gap:0">
-        <div style="background:linear-gradient(160deg,rgba(124,58,237,.07),rgba(37,99,235,.05));border-top:3px solid #7c3aed;border-right:1px solid rgba(124,58,237,.15);padding:28px 28px 32px">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-            <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#7c3aed,#5b21b6);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;flex-shrink:0;letter-spacing:-.02em">P</div>
-            <div>
-              <div style="font-size:14px;font-weight:800;color:#1e1b4b;line-height:1">Piper</div>
-              <div style="font-size:11px;color:#7c3aed;font-weight:600;margin-top:2px">Sales Agent &middot; Qualified</div>
-            </div>
-          </div>
-          <div style="font-size:13px;color:var(--ink-2);line-height:1.55;margin-bottom:16px">Owns every conversation on the sales side. Qualifies, educates, routes, and books.</div>
-          <div style="display:flex;flex-direction:column;gap:9px">
-            <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--ink-2);line-height:1.4"><span style="width:18px;height:18px;border-radius:5px;background:rgba(124,58,237,.12);color:#7c3aed;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">&#10003;</span>New and anonymous visitors</div>
-            <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--ink-2);line-height:1.4"><span style="width:18px;height:18px;border-radius:5px;background:rgba(124,58,237,.12);color:#7c3aed;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">&#10003;</span>Educational product questions</div>
-            <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--ink-2);line-height:1.4"><span style="width:18px;height:18px;border-radius:5px;background:rgba(124,58,237,.12);color:#7c3aed;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">&#10003;</span>Qualification and intent scoring</div>
-            <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--ink-2);line-height:1.4"><span style="width:18px;height:18px;border-radius:5px;background:rgba(124,58,237,.12);color:#7c3aed;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">&#10003;</span>Meeting booking and rep routing</div>
-            <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--ink-2);line-height:1.4"><span style="width:18px;height:18px;border-radius:5px;background:rgba(124,58,237,.12);color:#7c3aed;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">&#10003;</span>Custom quote and bulk pricing escalation</div>
-            <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--ink-2);line-height:1.4"><span style="width:18px;height:18px;border-radius:5px;background:rgba(124,58,237,.12);color:#7c3aed;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">&#10003;</span>Account prioritization from MyNexeo signals</div>
-          </div>
-        </div>
-        <div style="background:linear-gradient(160deg,rgba(3,105,161,.06),rgba(14,165,233,.04));border-top:3px solid #0ea5e9;padding:28px 28px 32px">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-            <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#0369a1,#0ea5e9);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;color:#fff;flex-shrink:0">C</div>
-            <div>
-              <div style="font-size:14px;font-weight:800;color:#0c4a6e;line-height:1">Commerce Agent</div>
-              <div style="font-size:11px;color:#0369a1;font-weight:600;margin-top:2px">Transactional Agent &middot; Always On</div>
-            </div>
-          </div>
-          <div style="font-size:13px;color:var(--ink-2);line-height:1.55;margin-bottom:16px">Owns every transactional question. Instant answers from live Salesforce data, no rep needed.</div>
-          <div style="display:flex;flex-direction:column;gap:9px">
-            <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--ink-2);line-height:1.4"><span style="width:18px;height:18px;border-radius:5px;background:rgba(3,105,161,.12);color:#0369a1;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">&#10003;</span>SKU-level price and stock availability</div>
-            <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--ink-2);line-height:1.4"><span style="width:18px;height:18px;border-radius:5px;background:rgba(3,105,161,.12);color:#0369a1;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">&#10003;</span>Reorder management</div>
-            <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--ink-2);line-height:1.4"><span style="width:18px;height:18px;border-radius:5px;background:rgba(3,105,161,.12);color:#0369a1;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">&#10003;</span>Order status and tracking</div>
-            <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--ink-2);line-height:1.4"><span style="width:18px;height:18px;border-radius:5px;background:rgba(3,105,161,.12);color:#0369a1;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">&#10003;</span>Standard quote generation</div>
-            <div style="display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--ink-2);line-height:1.4"><span style="width:18px;height:18px;border-radius:5px;background:rgba(3,105,161,.12);color:#0369a1;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">&#10003;</span>Escalates to Piper for custom or bulk pricing</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Salesforce shared layer -->
-      <div style="background:linear-gradient(135deg,#0f172a,#1a2744);padding:22px 32px;border-top:1px solid rgba(255,255,255,.06)">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
-          <div style="display:flex;align-items:center;gap:12px">
-            <div style="width:36px;height:36px;border-radius:10px;background:#00a1e0;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-              <svg width="20" height="14" viewBox="0 0 40 26" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16.5 0C13.1 0 10.1 1.7 8.3 4.3 7.3 3.5 6 3 4.5 3 1.9 3 0 4.9 0 7.5c0 1 .3 2 .8 2.7C.3 11.1 0 12.3 0 13.5 0 17.6 3.4 21 7.5 21c.7 0 1.4-.1 2-.3C10.7 23.4 13.2 25 16 25c2 0 3.8-.8 5.1-2 .7.2 1.5.3 2.4.3 3.7 0 6.8-2.5 7.7-5.9C33.3 17 34 16 34 14.8c0-1.6-.8-3.1-2-4 .2-.5.2-1.1.2-1.7C32.2 4.1 28.1 0 23 0c-1.5 0-3 .4-4.2 1.1A7.5 7.5 0 0016.5 0z" fill="#fff"/></svg>
-            </div>
-            <div>
-              <div style="font-size:13px;font-weight:800;color:#fff">Salesforce — The Shared Data Layer</div>
-              <div style="font-size:12px;color:rgba(255,255,255,.40);margin-top:2px">Both agents read and write the same Account, Contact, and Order data. Full context. Always in sync.</div>
-            </div>
-          </div>
-          <div style="display:flex;gap:28px;flex-wrap:wrap">
-            <div>
-              <div style="font-size:11px;font-weight:700;color:#a5f3c4;margin-bottom:2px">Shared Context</div>
-              <div style="font-size:12px;color:rgba(255,255,255,.40)">Each agent sees what<br>the other's conversation covered</div>
-            </div>
-            <div style="width:1px;height:36px;background:rgba(255,255,255,.08);align-self:center"></div>
-            <div>
-              <div style="font-size:11px;font-weight:700;color:#a5f3c4;margin-bottom:2px">No Repeating</div>
-              <div style="font-size:12px;color:rgba(255,255,255,.40)">Buyer never has to<br>re-explain themselves</div>
-            </div>
-            <div style="width:1px;height:36px;background:rgba(255,255,255,.08);align-self:center"></div>
-            <div>
-              <div style="font-size:11px;font-weight:700;color:#a5f3c4;margin-bottom:2px">Intent Signals</div>
-              <div style="font-size:12px;color:rgba(255,255,255,.40)">Repeat views and abandoned<br>carts in MyNexeo feed Piper's scoring</div>
-            </div>
-          </div>
-        </div>
+      <div class="bvb-card" style="background:linear-gradient(135deg,rgba(3,105,161,.06),rgba(14,165,233,.04));border:1.5px solid rgba(14,165,233,.22)">
+        <div class="bvb-label" style="color:#0369a1">Commerce Agent &mdash; Transactional Side</div>
+        <div class="bvb-head" style="color:#0c4a6e;font-size:17px">SKU pricing, stock, order status, and reorders — no rep needed</div>
+        <div class="bvb-item"><div class="bvb-icon" style="background:rgba(3,105,161,.12);color:#0369a1">&#10003;</div><div class="bvb-text">SKU-level price and availability</div></div>
+        <div class="bvb-item"><div class="bvb-icon" style="background:rgba(3,105,161,.12);color:#0369a1">&#10003;</div><div class="bvb-text">Order status and tracking</div></div>
+        <div class="bvb-item"><div class="bvb-icon" style="background:rgba(3,105,161,.12);color:#0369a1">&#10003;</div><div class="bvb-text">Reorder management</div></div>
+        <div class="bvb-item"><div class="bvb-icon" style="background:rgba(3,105,161,.12);color:#0369a1">&#10003;</div><div class="bvb-text">Standard quotes</div></div>
+        <div class="bvb-item"><div class="bvb-icon" style="background:rgba(3,105,161,.12);color:#0369a1">&#10003;</div><div class="bvb-text">Escalates to Piper for bulk or custom pricing</div></div>
       </div>
     </div>
 
-    <!-- Handoff examples -->
-    <div style="margin-top:36px">
-      <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);text-align:center;margin-bottom:18px">How handoffs work in practice</div>
-      <div class="handoff-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-        <div style="background:linear-gradient(135deg,rgba(3,105,161,.05),rgba(14,165,233,.04));border:1.5px solid rgba(14,165,233,.20);border-radius:14px;padding:22px 24px">
-          <div style="font-size:10px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:#0369a1;margin-bottom:10px">Transactional Intent</div>
-          <div style="font-size:15px;font-weight:800;color:#0c4a6e;margin-bottom:10px;line-height:1.3">"Where's my order?"</div>
-          <div style="font-size:13px;color:var(--ink-2);line-height:1.6">Routed directly to the commerce agent. Pulls real-time order status from Salesforce. No rep involved. No wait.</div>
-        </div>
-        <div style="background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(37,99,235,.04));border:1.5px solid rgba(124,58,237,.18);border-radius:14px;padding:22px 24px">
-          <div style="font-size:10px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:#7c3aed;margin-bottom:10px">Sales Intent</div>
-          <div style="font-size:15px;font-weight:800;color:#1e1b4b;margin-bottom:10px;line-height:1.3">"We need a custom quote for 50,000 lbs."</div>
-          <div style="font-size:13px;color:var(--ink-2);line-height:1.6">Commerce agent escalates to Piper, who escalates to a rep. Full order context transfers automatically. Buyer never repeats themselves.</div>
-        </div>
-      </div>
+    <div style="background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(37,99,235,.05));border:1.5px solid rgba(124,58,237,.14);border-radius:14px;padding:22px 28px;margin-top:20px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+      <div style="font-size:13px;font-weight:800;color:var(--ink-1);flex-shrink:0">Salesforce is the shared layer.</div>
+      <div style="font-size:14px;color:var(--ink-2);line-height:1.6;flex:1;min-width:240px">Both agents read and write the same Account, Contact, and Order data. Each has context from the other's conversations. Repeat views and abandoned carts in MyNexeo feed Piper's account scoring. The buyer never repeats themselves.</div>
     </div>
 
   </div>
