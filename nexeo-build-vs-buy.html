@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexeo Plastics: Build vs. Buy by the Numbers</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --purple:#7c3aed; --purple-light:#a855f7; --blue:#2563eb; --blue-light:#3b82f6;
+  --green:#059669; --green-light:#10b981;
+  --ink-1:#0f0f0f; --ink-2:#4b5563; --ink-3:#9ca3af;
+  --s0:#ffffff; --s1:#f9fafb; --s2:#f3f4f6; --s3:#e5e7eb;
+  --border:rgba(0,0,0,0.07); --border-strong:rgba(0,0,0,0.13);
+  --shadow-card:0 1px 3px rgba(0,0,0,.05),0 4px 20px rgba(0,0,0,.07);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.05),0 2px 8px rgba(0,0,0,.05);
+}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--s0);color:var(--ink-1);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-bottom:none;box-shadow:0 1px 0 rgba(0,0,0,.07),0 2px 12px rgba(0,0,0,.04);padding:0 48px;height:60px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;gap:12px}
+.nav-sep{width:1px;height:18px;background:var(--border-strong);margin:0 4px}
+.nav-sub{font-size:12px;color:var(--ink-3);font-weight:500}
+.nav-cta{background:var(--purple);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer;font-family:inherit;text-decoration:none;transition:opacity .13s;white-space:nowrap}
+.nav-cta:hover{opacity:.87}
+
+/* HERO */
+.hero{position:relative;min-height:560px;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1800&q=80');background-size:cover;background-position:center;opacity:.65}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(15,10,40,.82) 0%,rgba(37,99,235,.45) 100%)}
+.hero-inner{position:relative;max-width:1200px;margin:0 auto;padding:100px 48px;width:100%}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.20);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--green-light);flex-shrink:0}
+.hero-h1{font-size:clamp(36px,5vw,68px);font-weight:900;color:#fff;line-height:1.05;letter-spacing:-.03em;margin-bottom:20px;max-width:780px}
+.hero-h1 span{color:#a5f3c4}
+.hero-sub{font-size:18px;color:rgba(255,255,255,.70);line-height:1.65;max-width:580px}
+
+/* SECTION SHELL */
+.sec{padding:96px 48px}
+.sec-inner{max-width:1200px;margin:0 auto}
+.sec-alt{background:var(--s1)}
+.sec-dark{background:#0a0618;color:#fff}
+.sec-purple{background:linear-gradient(135deg,#1e1b4b 0%,#0f0f3d 100%);color:#fff}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--purple);margin-bottom:12px}
+.eyebrow.green{color:var(--green-light)}
+.sec-dark .eyebrow,.sec-purple .eyebrow{color:#a5f3c4}
+.bar{width:28px;height:3px;border-radius:2px;background:var(--purple);margin-bottom:22px}
+.bar.green{background:var(--green-light)}
+.h2{font-size:clamp(28px,3.5vw,48px);font-weight:900;color:var(--ink-1);line-height:1.08;letter-spacing:-.025em;margin-bottom:16px}
+.sec-dark .h2,.sec-purple .h2{color:#fff}
+.lead{font-size:18px;color:var(--ink-2);line-height:1.7;max-width:640px}
+.sec-dark .lead,.sec-purple .lead{color:rgba(255,255,255,.6)}
+
+/* 4-COLUMN COMPARISON TABLE */
+.bvb-table{margin-top:52px;border-radius:20px;overflow:hidden;box-shadow:var(--shadow-card)}
+.bvb-thead{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;background:var(--s0)}
+.bvb-thead-cell{padding:18px 20px;font-size:12px;font-weight:800;color:var(--ink-1);border-bottom:1px solid var(--border)}
+.bvb-thead-cell.lean{background:#fafafa;text-align:center;color:var(--ink-3)}
+.bvb-thead-cell.expanded{background:#f5f5f5;text-align:center;color:var(--ink-3)}
+.bvb-thead-cell.q{background:linear-gradient(135deg,var(--purple),var(--blue));text-align:center;color:#fff}
+.bvb-trow{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;background:var(--s0);border-bottom:1px solid var(--border)}
+.bvb-trow:last-child{border-bottom:none}
+.bvb-trow:nth-child(even){background:#fefefe}
+.bvb-tcell{padding:16px 20px;font-size:14px;color:var(--ink-2);font-weight:500;line-height:1.4}
+.bvb-tcell.lbl{color:var(--ink-1);font-weight:700;font-size:13px}
+.bvb-tcell.lean,.bvb-tcell.expanded{text-align:center;color:var(--ink-3)}
+.bvb-tcell.q{text-align:center;color:var(--purple);font-weight:800;background:rgba(124,58,237,.04)}
+.bvb-tcell.q strong{color:var(--purple)}
+.bvb-tfooter{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(37,99,235,.06));padding:16px 20px;border-top:2px solid rgba(124,58,237,.15);display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr}
+.bvb-tfooter-cell{font-size:11px;color:var(--ink-3);text-align:center}
+.bvb-tfooter-cell.q{color:var(--purple);font-weight:700;font-size:12px}
+.bvb-tfooter-cell.lbl{text-align:left;color:var(--ink-3)}
+
+/* SCOPE CARDS */
+.scope-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px}
+.scope-card{background:var(--s0);border-radius:18px;padding:28px 24px;box-shadow:var(--shadow-card);border-top:3px solid var(--s3)}
+.scope-card.highlight{border-top-color:var(--purple)}
+.scope-n{width:28px;height:28px;border-radius:8px;background:rgba(239,68,68,.10);color:#dc2626;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.scope-t{font-size:15px;font-weight:800;color:var(--ink-1);margin-bottom:10px;line-height:1.2}
+.scope-b{font-size:13px;color:var(--ink-2);line-height:1.65}
+.scope-qualified{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:12px;color:var(--purple);font-weight:600;line-height:1.5}
+
+/* RISK CARDS */
+.risk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px}
+.risk-card{padding:32px 28px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:18px;position:relative;overflow:hidden}
+.risk-ghost{position:absolute;right:-4px;bottom:-16px;font-size:96px;font-weight:900;opacity:.06;color:#fff;letter-spacing:-3px;pointer-events:none;line-height:1}
+.risk-tag{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#f87171;background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.18);border-radius:4px;padding:2px 8px;display:inline-block;margin-bottom:14px}
+.risk-t{font-size:18px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:10px}
+.risk-b{font-size:14px;color:rgba(255,255,255,.52);line-height:1.65}
+
+/* CTA */
+.cta-layout{display:grid;grid-template-columns:1fr auto;gap:64px;align-items:center}
+.cta-h{font-size:clamp(28px,3.5vw,44px);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.025em;margin-bottom:14px}
+.cta-p{font-size:16px;color:rgba(255,255,255,.55);line-height:1.65;max-width:520px;margin-bottom:28px}
+.about-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:28px 24px;text-align:center;min-width:200px}
+.about-card-photo{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid rgba(124,58,237,.40);margin-bottom:14px;display:block;margin-left:auto;margin-right:auto}
+.about-card-name{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px}
+.about-card-title{font-size:11px;color:rgba(255,255,255,.40);line-height:1.5}
+.about-card-email{display:block;margin-top:10px;font-size:12px;color:#a5f3c4;text-decoration:none;font-weight:700}
+.about-card-email:hover{text-decoration:underline}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--purple);color:#fff;border-radius:10px;padding:14px 28px;font-size:15px;font-weight:700;text-decoration:none;transition:opacity .13s;white-space:nowrap}
+.btn-primary:hover{opacity:.88}
+
+/* FOOTER */
+.ftr{background:#050310;padding:28px 48px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid rgba(255,255,255,.06)}
+.ftr-note{font-size:11px;color:rgba(255,255,255,.18);line-height:1.5}
+
+/* LABEL CHIPS */
+.chip-modeled{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(245,158,11,.12);color:#92400e;border-radius:4px;padding:1px 6px;margin-left:4px;vertical-align:middle}
+.chip-published{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:rgba(37,99,235,.10);color:#1e40af;border-radius:4px;padding:1px 6px;margin-left:4px;vertical-align:middle}
+
+/* RESPONSIVE */
+@media(max-width:860px){
+  .nav,.hero-inner,.sec{padding-left:20px;padding-right:20px}
+  .bvb-thead,.bvb-trow,.bvb-tfooter{grid-template-columns:1.2fr 1fr 1fr 1fr;font-size:12px}
+  .scope-grid,.risk-grid,.cta-layout{grid-template-columns:1fr}
+  .hero-h1{font-size:clamp(30px,6vw,48px)}
+}
+@media(max-width:640px){
+  .bvb-thead,.bvb-trow,.bvb-tfooter{display:block}
+  .bvb-tcell,.bvb-thead-cell,.bvb-tfooter-cell{display:block;text-align:left !important}
+  .scope-grid{grid-template-columns:1fr}
+  .risk-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <img src="https://www.nexeoplastics.com/img/logo.png" alt="Nexeo Plastics" style="height:28px;width:auto;display:block">
+    <div class="nav-sep"></div>
+    <div class="nav-sub">Build vs. Buy by the Numbers</div>
+  </div>
+  <a href="mailto:atroggio@salesforce.com" class="nav-cta">Book Time with Anthony</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-tag"><span class="hero-tag-dot"></span>For Nexeo's Leadership Team</div>
+    <h1 class="hero-h1">Building an AI SDR is not a chatbot project.<br><span>Here's what it actually costs.</span></h1>
+    <p class="hero-sub">A homegrown AI SDR requires CRM integration, qualification, routing, meeting booking, email, analytics, security, guardrails, monitoring, and ongoing optimization. That's closer to an enterprise software product than a pilot.</p>
+  </div>
+</section>
+
+<!-- BOTTOM LINE -->
+<section class="sec sec-alt">
+  <div class="sec-inner">
+    <div class="eyebrow">The Bottom Line</div>
+    <div class="bar"></div>
+    <h2 class="h2">Build: $190K to $950K in year one.<br>Qualified: $80K to $116K.</h2>
+    <p class="lead">Using published AI development benchmarks as the foundation, a Nexeo-specific build comes in at roughly $190K to $950K in year one depending on scope, with meaningful ongoing costs after launch. These are planning estimates, not published prices.</p>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:48px">
+      <div style="background:var(--s0);border-radius:18px;padding:28px 24px;box-shadow:var(--shadow-card);border-top:3px solid var(--s3)">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px">Lean Internal Build <span class="chip-modeled">Modeled</span></div>
+        <div style="font-size:36px;font-weight:900;color:var(--ink-1);line-height:1;letter-spacing:-.02em;margin-bottom:6px">$190K<span style="font-size:18px;font-weight:700;color:var(--ink-3)"> to $530K</span></div>
+        <div style="font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:14px">Year one. Basic web engagement, qualification, and routing only.</div>
+        <div style="font-size:12px;color:var(--ink-3)">Run cost: $40K to $250K annually after launch</div>
+      </div>
+      <div style="background:var(--s0);border-radius:18px;padding:28px 24px;box-shadow:var(--shadow-card);border-top:3px solid var(--s3)">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);margin-bottom:10px">Expanded Internal Build <span class="chip-modeled">Modeled</span></div>
+        <div style="font-size:36px;font-weight:900;color:var(--ink-1);line-height:1;letter-spacing:-.02em;margin-bottom:6px">$330K<span style="font-size:18px;font-weight:700;color:var(--ink-3)"> to $950K</span></div>
+        <div style="font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:14px">Year one. Web plus email, analytics, routing, and closer to full Piper functionality.</div>
+        <div style="font-size:12px;color:var(--ink-3)">Run cost: $60K to $360K annually after launch</div>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(124,58,237,.07),rgba(37,99,235,.06));border-radius:18px;padding:28px 24px;box-shadow:var(--shadow-card);border-top:3px solid var(--purple)">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);margin-bottom:10px">Qualified</div>
+        <div style="font-size:36px;font-weight:900;color:var(--purple);line-height:1;letter-spacing:-.02em;margin-bottom:6px">$80K<span style="font-size:18px;font-weight:700;color:var(--purple-light)"> to $116K</span></div>
+        <div style="font-size:13px;color:var(--ink-2);line-height:1.5;margin-bottom:14px">Annual subscription. Based on Nexeo's active commercial pricing. Live in 30 to 60 days.</div>
+        <div style="font-size:12px;color:var(--purple);font-weight:600">Includes dedicated Success Architect</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;background:rgba(0,0,0,.04);border-radius:10px;padding:14px 20px;font-size:12px;color:var(--ink-3);line-height:1.6">
+      Build figures are modeled from published benchmarks. Qualified figures are based on Nexeo's actual commercial pricing.
+      <span class="chip-modeled">Modeled</span> figures are planning estimates derived from third-party data, not guaranteed costs.
+      <span class="chip-published">Published</span> figures cite primary industry sources.
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="sec">
+  <div class="sec-inner">
+    <div class="eyebrow">Side by Side</div>
+    <div class="bar"></div>
+    <h2 class="h2">The numbers, modeled for Nexeo</h2>
+    <p class="lead">Lean build is a basic web engagement agent. Expanded build adds email, routing, analytics, and moves closer to full Piper functionality. Neither includes voice, video, or enrichment.</p>
+
+    <div class="bvb-table">
+      <div class="bvb-thead">
+        <div class="bvb-thead-cell"></div>
+        <div class="bvb-thead-cell lean">Lean Internal AI SDR <span class="chip-modeled">Modeled</span></div>
+        <div class="bvb-thead-cell expanded">Expanded AI SDR: Web + Email <span class="chip-modeled">Modeled</span></div>
+        <div class="bvb-thead-cell q">Qualified</div>
+      </div>
+      <div class="bvb-trow">
+        <div class="bvb-tcell lbl">Estimated build effort</div>
+        <div class="bvb-tcell lean">1,700 to 3,800 hrs</div>
+        <div class="bvb-tcell expanded">2,900 to 6,800 hrs</div>
+        <div class="bvb-tcell q">No dedicated build team</div>
+      </div>
+      <div class="bvb-trow">
+        <div class="bvb-tcell lbl">Core team required</div>
+        <div class="bvb-tcell lean">3 to 4 people</div>
+        <div class="bvb-tcell expanded">4 to 6 people</div>
+        <div class="bvb-tcell q">Dedicated Success Architect</div>
+      </div>
+      <div class="bvb-trow">
+        <div class="bvb-tcell lbl">Time to production</div>
+        <div class="bvb-tcell lean">4 to 6 months</div>
+        <div class="bvb-tcell expanded">7 to 12 months</div>
+        <div class="bvb-tcell q"><strong>30 to 60 days</strong></div>
+      </div>
+      <div class="bvb-trow">
+        <div class="bvb-tcell lbl">Year one cost <span class="chip-modeled">Modeled</span></div>
+        <div class="bvb-tcell lean">$190K to $530K</div>
+        <div class="bvb-tcell expanded">$330K to $950K</div>
+        <div class="bvb-tcell q"><strong>$80K to $116K</strong></div>
+      </div>
+      <div class="bvb-trow">
+        <div class="bvb-tcell lbl">Annual run cost <span class="chip-modeled">Modeled</span></div>
+        <div class="bvb-tcell lean">$40K to $250K</div>
+        <div class="bvb-tcell expanded">$60K to $360K</div>
+        <div class="bvb-tcell q"><strong>$80K to $116K</strong></div>
+      </div>
+      <div class="bvb-trow">
+        <div class="bvb-tcell lbl">Two year total <span class="chip-modeled">Modeled</span></div>
+        <div class="bvb-tcell lean">$230K to $780K</div>
+        <div class="bvb-tcell expanded">$390K to $1.31M</div>
+        <div class="bvb-tcell q"><strong>$160K to $232K</strong></div>
+      </div>
+      <div class="bvb-tfooter">
+        <div class="bvb-tfooter-cell lbl"></div>
+        <div class="bvb-tfooter-cell lean"></div>
+        <div class="bvb-tfooter-cell expanded"></div>
+        <div class="bvb-tfooter-cell q">4 to 11x lower two year cost</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;background:rgba(37,99,235,.05);border:1px solid rgba(37,99,235,.12);border-radius:10px;padding:16px 20px;font-size:13px;color:var(--ink-2);line-height:1.65">
+      <span class="chip-published">Published</span> &nbsp;Published benchmarks put a custom RAG application at roughly 700 to 1,500 hours. Enterprise conversational AI can require 1,600 to 4,000+ hours before adding AI SDR-specific functionality. Build estimates above use these ranges as the baseline, then add layers for CRM integration, qualification logic, email, routing, security, analytics, and monitoring.
+    </div>
+  </div>
+</section>
+
+<!-- SCOPE REALITY -->
+<section class="sec sec-alt">
+  <div class="sec-inner">
+    <div class="eyebrow">Scope Reality</div>
+    <div class="bar"></div>
+    <h2 class="h2">What the internal build still has to solve</h2>
+    <p class="lead">These are not features to add later. They are foundational requirements that determine whether the system is safe to run on Nexeo's website with real buyers.</p>
+
+    <div class="scope-grid">
+      <div class="scope-card highlight">
+        <div class="scope-n">01</div>
+        <div class="scope-t">CRM and GTM Integration</div>
+        <div class="scope-b">The agent has to understand leads, accounts, intent signals, qualification criteria, routing rules, rep calendars, website behavior, and email, while keeping all of it synchronized with Salesforce in real time.</div>
+        <div class="scope-qualified">Qualified is Salesforce-native. No custom integration work required.</div>
+      </div>
+      <div class="scope-card highlight">
+        <div class="scope-n">02</div>
+        <div class="scope-t">Security and Governance</div>
+        <div class="scope-b">Nexeo would own data privacy, access controls, prompt and agent guardrails, monitoring, incident response, model change management, and ongoing compliance governance. That is a full-time responsibility before a single playbook is written.</div>
+        <div class="scope-qualified">Qualified undergoes an annual SOC 2 Type II audit, encrypts customer data, and has a formal AI Trust Framework covering privacy and governance.</div>
+      </div>
+      <div class="scope-card highlight">
+        <div class="scope-n">03</div>
+        <div class="scope-t">Agent Accuracy and Control</div>
+        <div class="scope-b">Production AI agents require configurable goals and guardrails, response review, conversation coaching, and visibility into how decisions are made. All of that has to be designed, built, tested, and maintained internally.</div>
+        <div class="scope-qualified">Qualified provides all of this out of the box with Piper's built-in control layer.</div>
+      </div>
+      <div class="scope-card highlight">
+        <div class="scope-n">04</div>
+        <div class="scope-t">Ongoing Optimization</div>
+        <div class="scope-b">AI is not finished at launch. Knowledge changes, prompts need refinement, models evolve, and edge cases emerge. Industry estimates put maintenance at 15% to 25% of initial development cost annually, plus LLM inference and cloud infrastructure.</div>
+        <div class="scope-qualified">Qualified's Success Architect owns this work on Nexeo's behalf as part of the subscription.</div>
+      </div>
+      <div class="scope-card highlight">
+        <div class="scope-n">05</div>
+        <div class="scope-t">Feature Parity</div>
+        <div class="scope-b">Even the expanded build model does not reach full Piper parity. Piper already operates across the website and inbox with qualification, routing, meeting booking, workflows, analytics, enrichment, text, voice, and video capabilities. Each of those is a separate build workstream.</div>
+        <div class="scope-qualified">All capabilities are live and included in Nexeo's contract from day one.</div>
+      </div>
+      <div class="scope-card" style="background:rgba(124,58,237,.04);border:1.5px solid rgba(124,58,237,.15);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:32px 28px">
+        <div style="font-size:44px;font-weight:900;color:var(--purple);line-height:1;letter-spacing:-.02em;margin-bottom:8px">30</div>
+        <div style="font-size:13px;font-weight:700;color:var(--ink-1);margin-bottom:6px">Days to go live with Qualified</div>
+        <div style="font-size:13px;color:var(--ink-2)">vs. 4 to 12 months for an internal build</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RISK -->
+<section class="sec sec-dark">
+  <div class="sec-inner">
+    <div class="eyebrow">Execution Risk</div>
+    <div class="bar" style="background:#a5f3c4"></div>
+    <h2 class="h2">Three risks that do not show up in the build estimate</h2>
+    <p class="lead">These are independent third-party data points. They are not Salesforce projections.</p>
+
+    <div class="risk-grid">
+      <div class="risk-card">
+        <div class="risk-ghost">01</div>
+        <div class="risk-tag">Gartner</div>
+        <div class="risk-t">Budget and delivery risk</div>
+        <div class="risk-b">Gartner says at least 50% of GenAI projects will exceed budget through 2028 because of architecture and operational challenges. More than 40% of agentic AI projects are predicted to be canceled by end of 2027 because of cost, unclear business value, or inadequate risk controls.</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-ghost">02</div>
+        <div class="risk-tag">MIT NANDA via Fortune</div>
+        <div class="risk-t">Build success rate</div>
+        <div class="risk-b">Preliminary MIT NANDA research reported by Fortune found purchased AI solutions succeeded more often than internal builds. Treat this as directional, not definitive. It reinforces the execution risk of building and maintaining an internal AI product rather than deploying a purpose-built platform.</div>
+      </div>
+      <div class="risk-card">
+        <div class="risk-ghost">03</div>
+        <div class="risk-tag">Air Canada / ABA</div>
+        <div class="risk-t">Liability</div>
+        <div class="risk-b">Companies remain responsible for what customer-facing AI says. In the Air Canada case, the BC Civil Resolution Tribunal held the company liable for inaccurate information from its website chatbot. Buying software does not eliminate this responsibility, but mature guardrails, monitoring, and governance reduce exposure. Qualified's platform includes all three.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOT INCLUDED -->
+<section class="sec">
+  <div class="sec-inner">
+    <div style="background:var(--s2);border-radius:16px;padding:28px 36px;border-left:4px solid #dc2626">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#dc2626;margin-bottom:10px">Not Included in the Build Estimates</div>
+      <div style="font-size:15px;color:var(--ink-2);line-height:1.7">Voice, video, recruiting time, security audits, major compliance work, internal management overhead, and the opportunity cost of pulling engineers away from Nexeo's core product roadmap are not included in the build figures above. Including any of these would push year one costs materially higher.</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXECUTIVE TAKEAWAY / CTA -->
+<section class="sec sec-purple">
+  <div class="sec-inner">
+    <div class="cta-layout">
+      <div>
+        <div class="eyebrow">Executive Takeaway</div>
+        <div class="bar" style="background:#a5f3c4"></div>
+        <h2 class="cta-h">Nexeo can build this.<br>The real question is whether it should become one of Nexeo's software products.</h2>
+        <p class="cta-p">Qualified deploys in weeks instead of months, transfers the technical and operational burden to a vendor whose entire business is building this capability, and gives Nexeo a platform that keeps evolving without requiring an internal team to rebuild every new feature.</p>
+        <a href="mailto:atroggio@salesforce.com" class="btn-primary">Book Time with Anthony &#8594;</a>
+        <div style="margin-top:16px;font-size:12px;color:rgba(255,255,255,.30);line-height:1.5">
+          Questions on methodology or sources? atroggio@salesforce.com
+        </div>
+      </div>
+      <div class="about-card">
+        <img src="anthony.png" alt="Anthony Troggio" class="about-card-photo">
+        <div class="about-card-name">Anthony Troggio</div>
+        <div class="about-card-title">Digital Account Executive<br>Salesforce</div>
+        <a href="mailto:atroggio@salesforce.com" class="about-card-email">atroggio@salesforce.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="ftr">
+  <div class="ftr-note">Prepared for Nexeo Plastics by Salesforce. Confidential and proprietary. Not for distribution.</div>
+  <div class="ftr-note">Build estimates are modeled from published third-party benchmarks and are not guaranteed figures. Qualified pricing based on Nexeo's active commercial discussion.</div>
+</footer>
+
+</body>
+</html>
