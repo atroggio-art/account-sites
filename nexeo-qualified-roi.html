@@ -68,8 +68,9 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 .sec-dark .lead,.sec-purple .lead{color:rgba(255,255,255,.6)}
 
 /* ROI FUNNEL - NEXEO SPECIFIC */
-.roi-wrap{display:grid;grid-template-columns:1fr auto 1fr;gap:32px;align-items:center;margin-top:64px}
-.roi-state{background:var(--s0);border:none;border-radius:20px;padding:36px 32px;box-shadow:var(--shadow-card)}
+.roi-wrap{display:grid;grid-template-columns:1fr 180px 1fr;gap:0;align-items:stretch;margin-top:64px}
+.roi-state{background:var(--s0);border:none;border-radius:20px 0 0 20px;padding:36px 32px;box-shadow:var(--shadow-card)}
+.roi-state.future{border-radius:0 20px 20px 0}
 .roi-state-lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:20px}
 .roi-state.current .roi-state-lbl{color:var(--ink-3)}
 .roi-state.future .roi-state-lbl{color:var(--purple)}
@@ -79,11 +80,14 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 .roi-val{font-size:28px;font-weight:900;color:var(--ink-1);line-height:1;letter-spacing:-.02em}
 .roi-state.future .roi-val{color:var(--purple)}
 .roi-delta{display:inline-flex;align-items:center;gap:4px;background:rgba(16,185,129,.12);color:var(--green);border-radius:6px;padding:2px 8px;font-size:11px;font-weight:700;margin-left:8px}
-.roi-arrow-col{display:flex;flex-direction:column;align-items:center;gap:12px}
-.roi-arrow-box{background:linear-gradient(135deg,var(--purple),var(--blue));border-radius:16px;padding:24px 20px;text-align:center;min-width:160px;box-shadow:0 8px 32px rgba(124,58,237,.30)}
-.roi-arrow-name{font-size:16px;font-weight:800;color:#fff;margin-bottom:4px}
-.roi-arrow-sub{font-size:12px;color:rgba(255,255,255,.65);line-height:1.4}
-.roi-arrow-icon{font-size:28px;color:rgba(255,255,255,.9);margin-bottom:8px}
+.roi-engine{background:linear-gradient(180deg,#5b21b6 0%,#4f46e5 50%,#1d4ed8 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 16px;gap:10px;position:relative;overflow:hidden}
+.roi-engine::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(167,139,250,.25) 0%,transparent 70%)}
+.roi-engine-orb{width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.20);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 8px rgba(255,255,255,.06),0 0 0 16px rgba(255,255,255,.03);position:relative;z-index:1}
+.roi-engine-orb-q{font-size:20px;font-weight:900;color:#fff;letter-spacing:-.02em}
+.roi-engine-name{font-size:13px;font-weight:800;color:#fff;letter-spacing:.02em;position:relative;z-index:1}
+.roi-engine-pills{display:flex;flex-direction:column;gap:6px;width:100%;position:relative;z-index:1}
+.roi-engine-pill{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.14);border-radius:20px;padding:5px 10px;font-size:10px;font-weight:700;color:rgba(255,255,255,.85);text-align:center;letter-spacing:.02em}
+.roi-engine-arrow{font-size:10px;color:rgba(255,255,255,.30);position:relative;z-index:1}
 
 /* BUY VS BUILD */
 .bvb-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:56px}
@@ -240,9 +244,11 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 /* RESPONSIVE */
 @media(max-width:860px){
   .nav,.hero-inner,.sec{padding-left:20px;padding-right:20px}
-  .roi-wrap{grid-template-columns:1fr;gap:20px}
-  .roi-arrow-col{flex-direction:row;justify-content:center}
-  .roi-arrow-box{min-width:auto;flex:1;max-width:200px}
+  .roi-wrap{grid-template-columns:1fr;gap:0}
+  .roi-state{border-radius:20px 20px 0 0}
+  .roi-state.future{border-radius:0 0 20px 20px}
+  .roi-engine{padding:20px 16px;flex-direction:row;flex-wrap:wrap;gap:8px;justify-content:center}
+  .roi-engine-pills{flex-direction:row;flex-wrap:wrap;width:auto}
   .bvb-grid,.proof-grid,.now-grid,.plan-body,.cta-layout{grid-template-columns:1fr}
   .cmp-head,.cmp-row,.cmp-footer{grid-template-columns:1.5fr 1fr 1fr}
   .plan-col+.plan-col{border-left:none;border-top:1px solid var(--border)}
@@ -307,13 +313,17 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
         <div class="roi-row"><span class="roi-key">Closed Won / Month</span><span class="roi-val">2</span></div>
       </div>
 
-      <div class="roi-arrow-col">
-        <div class="roi-arrow-box">
-          <div class="roi-arrow-icon">&#9650;</div>
-          <div class="roi-arrow-name">Qualified</div>
-          <div class="roi-arrow-sub">Engages every visitor. Books meetings automatically. Works around the clock.</div>
+      <div class="roi-engine">
+          <div class="roi-engine-arrow">&#9660;</div>
+          <div class="roi-engine-orb"><span class="roi-engine-orb-q">Q</span></div>
+          <div class="roi-engine-name">Qualified</div>
+          <div class="roi-engine-pills">
+            <div class="roi-engine-pill">24/7 Always On</div>
+            <div class="roi-engine-pill">Instant Engagement</div>
+            <div class="roi-engine-pill">Auto-Books Meetings</div>
+          </div>
+          <div class="roi-engine-arrow">&#9650;</div>
         </div>
-      </div>
 
       <div class="roi-state future">
         <div class="roi-state-lbl">Future State with Qualified</div>
