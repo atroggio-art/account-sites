@@ -57,15 +57,16 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 .bvb-table{margin-top:52px;border-radius:20px;overflow:hidden;box-shadow:var(--shadow-card)}
 .bvb-thead{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;background:var(--s0)}
 .bvb-thead-cell{padding:18px 20px;font-size:12px;font-weight:800;color:var(--ink-1);border-bottom:1px solid var(--border)}
-.bvb-thead-cell.lean{background:#fafafa;text-align:center;color:var(--ink-3)}
-.bvb-thead-cell.expanded{background:#f5f5f5;text-align:center;color:var(--ink-3)}
+.bvb-thead-cell.lean{background:#fafafa;text-align:center;color:var(--ink-2)}
+.bvb-thead-cell.expanded{background:#f5f5f5;text-align:center;color:var(--ink-2)}
 .bvb-thead-cell.q{background:linear-gradient(135deg,var(--purple),var(--blue));text-align:center;color:#fff}
 .bvb-trow{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;background:var(--s0);border-bottom:1px solid var(--border)}
 .bvb-trow:last-child{border-bottom:none}
 .bvb-trow:nth-child(even){background:#fefefe}
 .bvb-tcell{padding:16px 20px;font-size:14px;color:var(--ink-2);font-weight:500;line-height:1.4}
 .bvb-tcell.lbl{color:var(--ink-1);font-weight:700;font-size:13px}
-.bvb-tcell.lean,.bvb-tcell.expanded{text-align:center;color:var(--ink-3)}
+.bvb-tcell.lean,.bvb-tcell.expanded{text-align:center;color:var(--ink-1)}
+.bvb-tcell.cost-build{color:#dc2626;font-weight:700}
 .bvb-tcell.q{text-align:center;color:var(--purple);font-weight:800;background:rgba(124,58,237,.04)}
 .bvb-tcell.q strong{color:var(--purple)}
 .bvb-tfooter{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(37,99,235,.06));padding:16px 20px;border-top:2px solid rgba(124,58,237,.15);display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr}
@@ -222,20 +223,20 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
       </div>
       <div class="bvb-trow">
         <div class="bvb-tcell lbl">Year one cost <span class="chip-modeled">Modeled</span></div>
-        <div class="bvb-tcell lean">$190K to $530K</div>
-        <div class="bvb-tcell expanded">$330K to $950K</div>
+        <div class="bvb-tcell lean cost-build">$190K to $530K</div>
+        <div class="bvb-tcell expanded cost-build">$330K to $950K</div>
         <div class="bvb-tcell q"><strong>$80K to $116K</strong></div>
       </div>
       <div class="bvb-trow">
         <div class="bvb-tcell lbl">Annual run cost <span class="chip-modeled">Modeled</span></div>
-        <div class="bvb-tcell lean">$40K to $250K</div>
-        <div class="bvb-tcell expanded">$60K to $360K</div>
+        <div class="bvb-tcell lean cost-build">$40K to $250K</div>
+        <div class="bvb-tcell expanded cost-build">$60K to $360K</div>
         <div class="bvb-tcell q"><strong>$80K to $116K</strong></div>
       </div>
       <div class="bvb-trow">
         <div class="bvb-tcell lbl">Two year total <span class="chip-modeled">Modeled</span></div>
-        <div class="bvb-tcell lean">$230K to $780K</div>
-        <div class="bvb-tcell expanded">$390K to $1.31M</div>
+        <div class="bvb-tcell lean cost-build">$230K to $780K</div>
+        <div class="bvb-tcell expanded cost-build">$390K to $1.31M</div>
         <div class="bvb-tcell q"><strong>$160K to $232K</strong></div>
       </div>
       <div class="bvb-tfooter">
