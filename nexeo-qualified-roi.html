@@ -102,17 +102,28 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 .bvb-text{font-size:14px;color:var(--ink-2);line-height:1.55}
 .bvb-text strong{color:var(--ink-1);font-weight:700}
 /* ICEBERG */
-.iceberg-wrap{margin-top:56px}
-.iceberg-top{background:linear-gradient(180deg,#e0f2fe 0%,#bae6fd 100%);border-radius:20px 20px 0 0;padding:28px 32px;text-align:center;border:1px solid #7dd3fc}
-.iceberg-top-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0369a1;margin-bottom:6px}
-.iceberg-visible{font-size:20px;font-weight:800;color:#0369a1}
-.iceberg-water{height:4px;background:linear-gradient(90deg,#38bdf8,#0ea5e9);position:relative}
-.iceberg-water::before{content:'above the surface';position:absolute;left:16px;top:-20px;font-size:10px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:#38bdf8}
-.iceberg-water::after{content:'the hidden costs';position:absolute;left:16px;bottom:-20px;font-size:10px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:rgba(255,255,255,.50)}
-.iceberg-below{background:linear-gradient(180deg,#1e3a5f 0%,#0f1f3d 100%);border-radius:0 0 20px 20px;padding:32px;margin-top:1px}
-.iceberg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
-.iceberg-item{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:10px;padding:14px;font-size:13px;color:rgba(255,255,255,.75);font-weight:600;line-height:1.4;position:relative;padding-left:24px}
-.iceberg-item::before{content:'';position:absolute;left:10px;top:18px;width:6px;height:6px;border-radius:50%;background:#60a5fa}
+.iceberg-wrap{margin-top:56px;border-radius:24px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.18)}
+.iceberg-top{background:linear-gradient(160deg,#e0f2fe 0%,#bae6fd 60%,#93c5fd 100%);padding:36px 40px 28px;text-align:center;position:relative}
+.iceberg-top-eyebrow{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#0369a1;margin-bottom:10px;opacity:.7}
+.iceberg-top-pill{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1.5px solid #7dd3fc;border-radius:50px;padding:10px 24px;box-shadow:0 2px 12px rgba(3,105,161,.12)}
+.iceberg-top-icon{width:32px;height:32px;background:linear-gradient(135deg,#0369a1,#0ea5e9);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;font-weight:900;flex-shrink:0}
+.iceberg-top-text{font-size:16px;font-weight:800;color:#0c4a6e}
+.iceberg-surface-label{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#38bdf8;margin-top:20px;opacity:.8}
+.iceberg-wave{line-height:0;display:block;background:linear-gradient(160deg,#e0f2fe 0%,#bae6fd 60%,#93c5fd 100%)}
+.iceberg-wave svg{display:block;width:100%}
+.iceberg-below{background:linear-gradient(175deg,#0f2744 0%,#0a1628 60%,#060e1a 100%);padding:32px 40px 36px}
+.iceberg-below-header{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.iceberg-below-lbl{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.iceberg-below-line{flex:1;height:1px;background:rgba(255,255,255,.08)}
+.iceberg-below-tag{font-size:9px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:#f87171;background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.20);border-radius:4px;padding:2px 8px}
+.iceberg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.iceberg-item{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:14px 14px 14px 44px;font-size:13px;color:rgba(255,255,255,.70);font-weight:600;line-height:1.4;position:relative;transition:background .15s}
+.iceberg-item:hover{background:rgba(255,255,255,.07)}
+.iceberg-item-n{position:absolute;left:12px;top:13px;width:20px;height:20px;border-radius:6px;background:rgba(96,165,250,.15);border:1px solid rgba(96,165,250,.20);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#60a5fa}
+.iceberg-footer{margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between}
+.iceberg-footer-l{font-size:12px;color:rgba(255,255,255,.35);line-height:1.5}
+.iceberg-footer-r{text-align:right}
+.iceberg-footer-tag{font-size:11px;font-weight:700;color:#f87171;background:rgba(248,113,113,.10);border:1px solid rgba(248,113,113,.18);border-radius:8px;padding:4px 12px}
 /* MURAL QUOTE */
 .mural-quote{background:linear-gradient(135deg,rgba(124,58,237,.06),rgba(37,99,235,.06));border:1.5px solid rgba(124,58,237,.18);border-radius:20px;padding:36px 40px;margin-top:36px;display:grid;grid-template-columns:1fr auto;gap:40px;align-items:center}
 .mural-q-text{font-size:22px;font-weight:800;color:var(--ink-1);line-height:1.4;font-style:italic}
@@ -389,24 +400,41 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
         <p style="font-size:15px;color:var(--ink-2);max-width:560px;margin:0 auto">When Nexeo's team looks at building in-house, they see one line item. What's below the surface is what kills the project.</p>
       </div>
       <div class="iceberg-top">
-        <div class="iceberg-top-lbl">What everyone budgets for</div>
-        <div class="iceberg-visible">Licensing / Subscription Cost</div>
+        <div class="iceberg-top-eyebrow">What everyone budgets for</div>
+        <div class="iceberg-top-pill">
+          <div class="iceberg-top-icon">$</div>
+          <div class="iceberg-top-text">Licensing / Subscription Cost</div>
+        </div>
+        <div class="iceberg-surface-label">Above the surface</div>
       </div>
-      <div class="iceberg-water"></div>
+      <div class="iceberg-wave">
+        <svg viewBox="0 0 1200 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,24 C150,48 350,0 600,24 C850,48 1050,0 1200,24 L1200,48 L0,48 Z" fill="#93c5fd" opacity=".4"/>
+          <path d="M0,32 C200,8 400,48 600,32 C800,8 1000,48 1200,32 L1200,48 L0,48 Z" fill="#0f2744"/>
+        </svg>
+      </div>
       <div class="iceberg-below">
-        <div style="color:rgba(255,255,255,.5);font-size:12px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;margin-bottom:20px;margin-top:12px">What nobody budgets for</div>
+        <div class="iceberg-below-header">
+          <span class="iceberg-below-lbl">The hidden costs</span>
+          <div class="iceberg-below-line"></div>
+          <span class="iceberg-below-tag">11 items nobody plans for</span>
+        </div>
         <div class="iceberg-grid">
-          <div class="iceberg-item">Strategy and Ideation</div>
-          <div class="iceberg-item">Implementation</div>
-          <div class="iceberg-item">Testing and Roll Out</div>
-          <div class="iceberg-item">Team Onboarding and Training</div>
-          <div class="iceberg-item">Unpredictable Usage-Based Pricing</div>
-          <div class="iceberg-item">Fine Tuning and Optimization</div>
-          <div class="iceberg-item">Ongoing Maintenance and Support</div>
-          <div class="iceberg-item">Performance Monitoring and QA</div>
-          <div class="iceberg-item">Ongoing Feature Innovation</div>
-          <div class="iceberg-item">Data Privacy and Security</div>
-          <div class="iceberg-item" style="grid-column:span 1">Opportunity Costs from Build Delays</div>
+          <div class="iceberg-item"><span class="iceberg-item-n">01</span>Strategy and Ideation</div>
+          <div class="iceberg-item"><span class="iceberg-item-n">02</span>Implementation</div>
+          <div class="iceberg-item"><span class="iceberg-item-n">03</span>Testing and Roll Out</div>
+          <div class="iceberg-item"><span class="iceberg-item-n">04</span>Team Onboarding and Training</div>
+          <div class="iceberg-item"><span class="iceberg-item-n">05</span>Unpredictable Usage-Based Pricing</div>
+          <div class="iceberg-item"><span class="iceberg-item-n">06</span>Fine Tuning and Optimization</div>
+          <div class="iceberg-item"><span class="iceberg-item-n">07</span>Ongoing Maintenance and Support</div>
+          <div class="iceberg-item"><span class="iceberg-item-n">08</span>Performance Monitoring and QA</div>
+          <div class="iceberg-item"><span class="iceberg-item-n">09</span>Ongoing Feature Innovation</div>
+          <div class="iceberg-item"><span class="iceberg-item-n">10</span>Data Privacy and Security</div>
+          <div class="iceberg-item"><span class="iceberg-item-n">11</span>Opportunity Costs from Build Delays</div>
+        </div>
+        <div class="iceberg-footer">
+          <div class="iceberg-footer-l">Budgeted cost: licensing only<br>Actual total cost: significantly higher</div>
+          <div class="iceberg-footer-r"><span class="iceberg-footer-tag">With Qualified, it's one predictable number</span></div>
         </div>
       </div>
     </div>
