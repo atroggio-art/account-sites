@@ -105,6 +105,18 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 .incentive-price{font-size:30px;font-weight:900;color:var(--green);margin-top:6px;letter-spacing:-.02em}
 .incentive-note{font-size:11px;color:var(--ink-3);margin-top:3px}
 
+/* ICEBERG */
+.iceberg-top{background:linear-gradient(180deg,#e0f2fe 0%,#bae6fd 100%);border-radius:20px 20px 0 0;padding:28px 32px;text-align:center;border:1px solid #7dd3fc}
+.iceberg-top-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#0369a1;margin-bottom:6px}
+.iceberg-visible{font-size:20px;font-weight:800;color:#0369a1}
+.iceberg-water{height:4px;background:linear-gradient(90deg,#38bdf8,#0ea5e9);position:relative}
+.iceberg-water::before{content:'ABOVE THE SURFACE';position:absolute;left:16px;top:-20px;font-size:10px;font-weight:700;letter-spacing:.10em;color:#38bdf8}
+.iceberg-water::after{content:'THE HIDDEN COSTS';position:absolute;left:16px;bottom:-20px;font-size:10px;font-weight:700;letter-spacing:.10em;color:rgba(255,255,255,.45)}
+.iceberg-below{background:linear-gradient(180deg,#1e3a5f 0%,#0f1f3d 100%);border-radius:0 0 20px 20px;padding:32px;margin-top:1px}
+.iceberg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+.iceberg-item{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.10);border-radius:10px;padding:14px;font-size:13px;color:rgba(255,255,255,.75);font-weight:600;line-height:1.4;position:relative;padding-left:24px}
+.iceberg-item::before{content:'';position:absolute;left:10px;top:18px;width:6px;height:6px;border-radius:50%;background:#60a5fa}
+
 /* NOW */
 .now-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px}
 .now-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:24px 20px}
@@ -239,28 +251,33 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
   </div>
 </section>
 
-<!-- PRICING -->
-<section class="sec sec-alt" id="pricing">
+<!-- ICEBERG -->
+<section class="sec sec-alt" id="hidden-costs">
   <div class="sec-inner">
-    <div class="eyebrow">Investment</div>
+    <div class="eyebrow">The Hidden Costs of Building Your Own Agent</div>
     <div class="bar"></div>
-    <h2 class="h2">Everything Nexeo needs. One number.</h2>
-    <div class="plan-box">
-      <div style="font-size:12px;font-weight:700;color:var(--ink-3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px">Standard Annual</div>
-      <div class="plan-price">$115,775 <span>/ yr</span></div>
-      <div class="plan-items">
-        <div class="plan-item"><span class="plan-item-dot"></span>100K monthly sessions (Nexeo's full traffic)</div>
-        <div class="plan-item"><span class="plan-item-dot"></span>Piper AI SDR — 24/7 engagement and booking</div>
-        <div class="plan-item"><span class="plan-item-dot"></span>Enterprise plan with dedicated QSA (3 hrs/mo)</div>
-        <div class="plan-item"><span class="plan-item-dot"></span>Full implementation, onboarding, and training</div>
-        <div class="plan-item"><span class="plan-item-dot"></span>Salesforce-native. No integration work.</div>
-        <div class="plan-item"><span class="plan-item-dot"></span>Quarterly strategic reviews, year-round optimization</div>
+    <h2 class="h2">Nexeo sees one line item. Here's what's below the surface.</h2>
+    <div style="margin-top:40px">
+      <div class="iceberg-top">
+        <div class="iceberg-top-lbl">What everyone budgets for</div>
+        <div class="iceberg-visible">Licensing / Subscription Cost</div>
       </div>
-      <div class="incentive">
-        <div class="incentive-lbl">October Close Incentive</div>
-        <div style="font-size:13px;color:var(--ink-2);line-height:1.5">Sign a 24-month contract by October 31 and the annual investment drops to $80,000 per year — the same cost as a single human SDR. Includes 1,000 email contacts per month.</div>
-        <div class="incentive-price">$80,000/yr</div>
-        <div class="incentive-note">Available for October close only. 12 months billed annually. Net 30.</div>
+      <div class="iceberg-water"></div>
+      <div class="iceberg-below">
+        <div style="color:rgba(255,255,255,.4);font-size:11px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;margin-bottom:20px;margin-top:14px">What nobody budgets for</div>
+        <div class="iceberg-grid">
+          <div class="iceberg-item">Strategy and Ideation</div>
+          <div class="iceberg-item">Implementation</div>
+          <div class="iceberg-item">Testing and Roll Out</div>
+          <div class="iceberg-item">Team Onboarding and Training</div>
+          <div class="iceberg-item">Unpredictable Usage-Based Pricing</div>
+          <div class="iceberg-item">Fine Tuning and Optimization</div>
+          <div class="iceberg-item">Ongoing Maintenance and Support</div>
+          <div class="iceberg-item">Performance Monitoring and QA</div>
+          <div class="iceberg-item">Ongoing Feature Innovation</div>
+          <div class="iceberg-item">Data Privacy and Security</div>
+          <div class="iceberg-item">Opportunity Costs from Build Delays</div>
+        </div>
       </div>
     </div>
   </div>
