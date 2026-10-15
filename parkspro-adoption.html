@@ -29,12 +29,12 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
 /* HERO */
 .hero{position:relative;min-height:580px;display:flex;align-items:center;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background-image:url('parkspro-trucks.png');background-size:cover;background-position:center;opacity:.90}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,8,30,.65) 0%,rgba(30,58,138,.35) 100%)}
-.hero-inner{position:relative;max-width:1200px;margin:0 auto;padding:100px 48px;width:100%}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.20);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(5,4,20,.86) 0%,rgba(10,8,30,.68) 52%,rgba(20,40,80,.28) 100%)}
+.hero-inner{position:relative;max-width:1200px;margin:0 auto;padding:110px 48px;width:100%}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.20);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:rgba(255,255,255,.8);margin-bottom:28px}
 .hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--green-light);flex-shrink:0}
-.hero-h1{font-size:clamp(44px,6vw,82px);font-weight:900;color:#fff;line-height:1.08;letter-spacing:-.03em;margin-bottom:24px;max-width:760px}
-.hero-h1 span{color:#c9a043;font-style:italic}
+.hero-h1{font-size:clamp(46px,6.5vw,90px);font-weight:900;color:#fff;line-height:1.03;letter-spacing:-.03em;margin-bottom:30px;max-width:740px}
+.hero-logo-card{display:inline-flex;align-items:center;background:rgba(255,255,255,.96);border-radius:14px;padding:12px 24px;margin-bottom:32px;box-shadow:0 8px 40px rgba(0,0,0,.35)}
 .hero-sub{font-size:18px;color:rgba(255,255,255,.72);line-height:1.7;max-width:600px;margin-bottom:40px}
 .hero-chips{display:flex;gap:16px;flex-wrap:wrap}
 .hero-chip{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:12px 20px}
@@ -179,9 +179,12 @@ body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-inner">
-    <div class="hero-tag"><span class="hero-tag-dot"></span>ParksPro Leadership</div>
-    <h1 class="hero-h1">Salesforce and Slack<br>fuel your command center...<br><span>meet Jarvis.</span></h1>
-    <p class="hero-sub">Meet Jarvis. Your AI sales concierge built inside Salesforce and Slack. Here is how we are investing in your success and giving time back to every rep on the road.</p>
+    <div class="hero-tag"><span class="hero-tag-dot"></span>ParksPro Field Sales</div>
+    <h1 class="hero-h1">Salesforce and Slack<br>fuel your command center.</h1>
+    <div class="hero-logo-card">
+      <img src="parkspro-jarvis-logo.png" alt="ParksPro Powered by Jarvis" style="height:58px;width:auto;display:block">
+    </div>
+    <p class="hero-sub">Your AI sales concierge is built inside Salesforce and Slack. Here is how we are investing in your success and giving time back to every rep on the road.</p>
     <div class="hero-chips">
       <div class="hero-chip">
         <div class="hero-chip-n">3</div>
