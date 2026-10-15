@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ParksPro | Salesforce Adoption Execution Plan</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#2563eb; --blue-light:#3b82f6; --blue-dark:#1e3a8a;
+  --green:#059669; --green-light:#10b981;
+  --amber:#d97706;
+  --ink-1:#0f0f0f; --ink-2:#4b5563; --ink-3:#9ca3af;
+  --s0:#ffffff; --s1:#f9fafb; --s2:#f3f4f6; --s3:#e5e7eb;
+  --border:rgba(0,0,0,.07); --border-strong:rgba(0,0,0,.13);
+  --shadow-card:0 1px 3px rgba(0,0,0,.05),0 4px 20px rgba(0,0,0,.07);
+}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--s0);color:var(--ink-1);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(0,0,0,.07),0 2px 12px rgba(0,0,0,.04);padding:0 48px;height:60px;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;gap:12px}
+.nav-logo{font-size:15px;font-weight:900;color:var(--ink-1);letter-spacing:-.02em;text-decoration:none}
+.nav-sep{width:1px;height:18px;background:var(--border-strong)}
+.nav-sub{font-size:12px;color:var(--ink-3);font-weight:500}
+.nav-badge{background:var(--blue);color:#fff;border-radius:20px;padding:4px 12px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+
+/* HERO */
+.hero{position:relative;min-height:580px;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1800&q=80');background-size:cover;background-position:center;opacity:.65}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,8,30,.90) 0%,rgba(30,58,138,.55) 100%)}
+.hero-inner{position:relative;max-width:1200px;margin:0 auto;padding:100px 48px;width:100%}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.20);border-radius:20px;padding:5px 14px;font-size:11px;font-weight:700;letter-spacing:.10em;text-transform:uppercase;color:rgba(255,255,255,.8);margin-bottom:24px}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--green-light);flex-shrink:0}
+.hero-h1{font-size:clamp(44px,6vw,82px);font-weight:900;color:#fff;line-height:1.0;letter-spacing:-.035em;margin-bottom:24px;max-width:720px}
+.hero-h1 span{color:#93c5fd}
+.hero-sub{font-size:18px;color:rgba(255,255,255,.72);line-height:1.7;max-width:600px;margin-bottom:40px}
+.hero-chips{display:flex;gap:16px;flex-wrap:wrap}
+.hero-chip{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.16);border-radius:12px;padding:12px 20px}
+.hero-chip-n{font-size:24px;font-weight:900;color:#fff;line-height:1;letter-spacing:-.02em}
+.hero-chip-l{font-size:11px;color:rgba(255,255,255,.50);margin-top:4px;font-weight:500}
+
+/* SECTIONS */
+.sec{padding:96px 48px}
+.sec-inner{max-width:1200px;margin:0 auto}
+.sec-alt{background:var(--s1)}
+.sec-dark{background:#060a18;color:#fff}
+.sec-blue{background:linear-gradient(135deg,#1e3a8a 0%,#1d4ed8 100%);color:#fff}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:12px}
+.sec-dark .eyebrow,.sec-blue .eyebrow{color:#93c5fd}
+.bar{width:28px;height:3px;border-radius:2px;background:var(--blue);margin-bottom:22px}
+.bar.green{background:var(--green-light)}
+.h2{font-size:clamp(28px,3.5vw,48px);font-weight:900;color:var(--ink-1);line-height:1.08;letter-spacing:-.025em;margin-bottom:16px}
+.sec-dark .h2,.sec-blue .h2{color:#fff}
+.lead{font-size:18px;color:var(--ink-2);line-height:1.7;max-width:640px}
+.sec-dark .lead,.sec-blue .lead{color:rgba(255,255,255,.60)}
+
+/* 3 NUMBERS */
+.num-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px}
+.num-card{background:var(--s0);border-radius:20px;padding:32px 28px;box-shadow:var(--shadow-card);border-top:4px solid var(--blue);position:relative;overflow:hidden}
+.num-ghost{position:absolute;right:-6px;bottom:-16px;font-size:108px;font-weight:900;opacity:.04;color:var(--blue);line-height:1;pointer-events:none;letter-spacing:-3px}
+.num-kpi{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--blue);margin-bottom:10px}
+.num-title{font-size:21px;font-weight:900;color:var(--ink-1);margin-bottom:16px;line-height:1.1}
+.num-list{list-style:none;display:flex;flex-direction:column;gap:9px}
+.num-list li{font-size:13px;color:var(--ink-2);line-height:1.5;padding-left:16px;position:relative}
+.num-list li::before{content:'';position:absolute;left:0;top:7px;width:6px;height:6px;border-radius:50%;background:var(--blue-light)}
+
+/* STANDARD TABLE */
+.std-wrap{margin-top:48px;border-radius:18px;overflow:hidden;box-shadow:var(--shadow-card)}
+.std-thead{display:grid;grid-template-columns:2.2fr 1fr 2fr;background:var(--ink-1);padding:14px 24px;gap:16px}
+.std-th{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.std-row{display:grid;grid-template-columns:2.2fr 1fr 2fr;background:var(--s0);border-bottom:1px solid var(--border);padding:16px 24px;align-items:center;gap:16px}
+.std-row:last-child{border-bottom:none}
+.std-row:nth-child(odd){background:var(--s1)}
+.std-metric{font-size:14px;font-weight:700;color:var(--ink-1);line-height:1.3}
+.std-target{font-size:16px;font-weight:900;text-align:center}
+.std-target.green{color:var(--green)}
+.std-target.tbd{color:var(--amber);font-size:13px;background:rgba(217,119,6,.08);border-radius:6px;padding:3px 8px}
+.std-maps{font-size:13px;color:var(--ink-2);line-height:1.5}
+
+/* EXECUTION STEPS */
+.steps-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:52px}
+.step-card{background:var(--s0);border-radius:20px;padding:32px 28px;box-shadow:var(--shadow-card);position:relative;overflow:hidden}
+.step-ghost{position:absolute;right:-6px;bottom:-16px;font-size:100px;font-weight:900;opacity:.04;color:var(--ink-1);line-height:1;pointer-events:none}
+.step-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:8px}
+.step-n{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);padding-top:2px}
+.badge{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;border-radius:6px;padding:3px 10px;white-space:nowrap}
+.badge-done{background:rgba(5,150,105,.10);color:var(--green)}
+.badge-now{background:rgba(37,99,235,.10);color:var(--blue)}
+.badge-next{background:rgba(156,163,175,.10);color:var(--ink-3)}
+.step-title{font-size:18px;font-weight:800;color:var(--ink-1);line-height:1.15;margin-bottom:10px}
+.step-body{font-size:13px;color:var(--ink-2);line-height:1.65}
+.step-list{margin-top:12px;display:flex;flex-direction:column;gap:6px;list-style:none}
+.step-list li{font-size:13px;color:var(--ink-2);padding-left:14px;position:relative;line-height:1.5}
+.step-list li::before{content:'';position:absolute;left:0;top:8px;width:5px;height:5px;border-radius:50%;background:var(--blue-light)}
+.step-card.featured{border-left:3px solid var(--green)}
+.step-card.active{border-left:3px solid var(--blue)}
+
+/* TIMELINE */
+.tl-list{margin-top:52px;display:flex;flex-direction:column;gap:0;position:relative}
+.tl-list::before{content:'';position:absolute;left:19px;top:24px;bottom:24px;width:2px;background:rgba(255,255,255,.07)}
+.tl-item{display:grid;grid-template-columns:48px 1fr;gap:24px;padding:24px 0;border-bottom:1px solid rgba(255,255,255,.05);position:relative}
+.tl-item:last-child{border-bottom:none}
+.tl-dot{width:40px;height:40px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;position:relative;z-index:1;margin-top:2px}
+.tl-dot.done{background:var(--green);box-shadow:0 0 0 4px rgba(16,185,129,.16)}
+.tl-dot.now{background:var(--blue);box-shadow:0 0 0 4px rgba(37,99,235,.20)}
+.tl-dot.soon{background:rgba(255,255,255,.10);border:2px solid rgba(255,255,255,.16)}
+.tl-dot svg{width:14px;height:14px;stroke:#fff;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tl-week{font-size:11px;font-weight:700;color:rgba(255,255,255,.35);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px}
+.tl-title{font-size:17px;font-weight:800;color:#fff;margin-bottom:6px;line-height:1.2}
+.tl-desc{font-size:13px;color:rgba(255,255,255,.48);line-height:1.6}
+.tl-chip{display:inline-block;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:5px;padding:2px 8px;margin-bottom:8px}
+.tl-chip.done{background:rgba(16,185,129,.14);color:#6ee7b7}
+.tl-chip.now{background:rgba(59,130,246,.18);color:#93c5fd}
+.tl-chip.soon{background:rgba(255,255,255,.07);color:rgba(255,255,255,.35)}
+
+/* SCORECARD CALLOUT */
+.scorecard-box{margin-top:52px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.10);border-radius:20px;padding:36px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.scorecard-stat{text-align:center;padding:24px;background:rgba(255,255,255,.04);border-radius:14px}
+.scorecard-n{font-size:52px;font-weight:900;color:#fff;line-height:1;letter-spacing:-.03em;margin-bottom:6px}
+.scorecard-n span{font-size:24px;font-weight:700;color:#93c5fd}
+.scorecard-l{font-size:13px;color:rgba(255,255,255,.45);line-height:1.5}
+
+/* NEXT STATE */
+.next-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:52px}
+.next-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:32px 28px}
+.next-tag{font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;display:inline-block;border-radius:5px;padding:3px 9px;margin-bottom:14px}
+.next-tag.live{background:rgba(16,185,129,.14);color:#6ee7b7}
+.next-tag.coming{background:rgba(59,130,246,.14);color:#93c5fd}
+.next-title{font-size:18px;font-weight:800;color:#fff;margin-bottom:10px;line-height:1.2}
+.next-body{font-size:13px;color:rgba(255,255,255,.50);line-height:1.65}
+
+/* CTA */
+.cta-layout{display:grid;grid-template-columns:1fr auto;gap:64px;align-items:center}
+.cta-h{font-size:clamp(26px,3.5vw,42px);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.025em;margin-bottom:14px}
+.cta-p{font-size:16px;color:rgba(255,255,255,.52);line-height:1.65;max-width:500px;margin-bottom:28px}
+.about-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:28px 24px;text-align:center;min-width:200px}
+.about-photo{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid rgba(37,99,235,.45);margin-bottom:14px;display:block;margin-left:auto;margin-right:auto}
+.about-name{font-size:15px;font-weight:700;color:#fff;margin-bottom:3px}
+.about-title{font-size:11px;color:rgba(255,255,255,.38);line-height:1.5}
+.about-email{display:block;margin-top:10px;font-size:12px;color:#93c5fd;text-decoration:none;font-weight:700}
+.about-email:hover{text-decoration:underline}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:#fff;border-radius:10px;padding:13px 26px;font-size:14px;font-weight:700;text-decoration:none;transition:opacity .13s}
+.btn:hover{opacity:.88}
+
+/* FOOTER */
+.ftr{background:#030810;padding:28px 48px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid rgba(255,255,255,.05)}
+.ftr-note{font-size:11px;color:rgba(255,255,255,.18);line-height:1.5}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .nav,.hero-inner,.sec{padding-left:20px;padding-right:20px}
+  .num-grid,.steps-grid,.next-grid,.cta-layout,.scorecard-box{grid-template-columns:1fr}
+  .hero-h1{font-size:clamp(34px,7vw,52px)}
+}
+@media(max-width:640px){
+  .hero-chips{flex-direction:column}
+  .std-thead,.std-row{grid-template-columns:1fr;gap:6px}
+  .std-th:not(:first-child){display:none}
+  .std-target,.std-maps{text-align:left}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-brand">
+    <span class="nav-logo">ParksPro</span>
+    <div class="nav-sep"></div>
+    <span class="nav-sub">Salesforce Adoption Execution Plan</span>
+  </div>
+  <div class="nav-badge">Field Sales</div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner">
+    <div class="hero-tag"><span class="hero-tag-dot"></span>ParksPro Leadership</div>
+    <h1 class="hero-h1">You have a choice.<br><span>Lean in or resist.</span><br>Either way, you have to do it.</h1>
+    <p class="hero-sub">Salesforce and Slack are the command center of your business. Learning the tool is about 10% of it. How you run your business inside it is the rest. ParksPro is investing in this for you.</p>
+    <div class="hero-chips">
+      <div class="hero-chip">
+        <div class="hero-chip-n">3</div>
+        <div class="hero-chip-l">KPIs that actually matter</div>
+      </div>
+      <div class="hero-chip">
+        <div class="hero-chip-n">800</div>
+        <div class="hero-chip-l">miles/week on the road</div>
+      </div>
+      <div class="hero-chip">
+        <div class="hero-chip-n">3 of 4</div>
+        <div class="hero-chip-l">sellers bought in after repetition</div>
+      </div>
+      <div class="hero-chip">
+        <div class="hero-chip-n">10 wks</div>
+        <div class="hero-chip-l">to full adoption</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE 3 NUMBERS -->
+<section class="sec sec-alt">
+  <div class="sec-inner">
+    <div class="eyebrow">The ParksPro Playbook</div>
+    <div class="bar"></div>
+    <h2 class="h2">Measure 3 things. Only 3.</h2>
+    <p class="lead">Everything else is noise. If every rep knows these three numbers cold, the whole system works.</p>
+    <div class="num-grid">
+      <div class="num-card">
+        <div class="num-ghost">01</div>
+        <div class="num-kpi">KPI 1</div>
+        <div class="num-title">Activities</div>
+        <ul class="num-list">
+          <li>Face-to-face visits</li>
+          <li>Phone and virtual calls</li>
+          <li>Every touch logged in Salesforce, same day</li>
+          <li>Target: 8 face-to-face per week per rep</li>
+        </ul>
+      </div>
+      <div class="num-card">
+        <div class="num-ghost">02</div>
+        <div class="num-kpi">KPI 2</div>
+        <div class="num-title">Pipeline</div>
+        <ul class="num-list">
+          <li>Next step on every open deal, no exceptions</li>
+          <li>Accurate close date, amount, and stage</li>
+          <li>Zero zombie deals, zero stalled opps</li>
+          <li>Velocity: deals moving or deals closing</li>
+        </ul>
+      </div>
+      <div class="num-card">
+        <div class="num-ghost">03</div>
+        <div class="num-kpi">KPI 3</div>
+        <div class="num-title">Quotes</div>
+        <ul class="num-list">
+          <li>How many customers did you quote this week?</li>
+          <li>How many this month?</li>
+          <li>Quote follow-up completed: 100%</li>
+          <li>Every quote tracked in Salesforce, not email</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE PARKSPRO STANDARD -->
+<section class="sec">
+  <div class="sec-inner">
+    <div class="eyebrow">Expectations</div>
+    <div class="bar"></div>
+    <h2 class="h2">The ParksPro Standard</h2>
+    <p class="lead">These are the guardrails. Stick before carrot. Every rep knows what good looks like and every leader can see it in Salesforce.</p>
+    <div class="std-wrap">
+      <div class="std-thead">
+        <div class="std-th">Metric</div>
+        <div class="std-th">Target</div>
+        <div class="std-th">Maps to</div>
+      </div>
+      <div class="std-row">
+        <div class="std-metric">Customer touches per rep per week</div>
+        <div class="std-target tbd">TBD with Jeff + Sarah</div>
+        <div class="std-maps">Activity and follow-up compliance</div>
+      </div>
+      <div class="std-row">
+        <div class="std-metric">Accounts with no activity in 60-90 days</div>
+        <div class="std-target green">0</div>
+        <div class="std-maps">Account and franchise network coverage</div>
+      </div>
+      <div class="std-row">
+        <div class="std-metric">Open opportunities with next step and valid close date</div>
+        <div class="std-target green">100%</div>
+        <div class="std-maps">Deal velocity and pipeline health</div>
+      </div>
+      <div class="std-row">
+        <div class="std-metric">Stalled or zombie deals in pipeline</div>
+        <div class="std-target green">0</div>
+        <div class="std-maps">Deal velocity and pipeline health</div>
+      </div>
+      <div class="std-row">
+        <div class="std-metric">Quotes with completed follow-up</div>
+        <div class="std-target green">100%</div>
+        <div class="std-maps">Deal velocity and pipeline health</div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px;background:rgba(37,99,235,.05);border:1px solid rgba(37,99,235,.12);border-radius:12px;padding:16px 24px;font-size:13px;color:var(--ink-2);line-height:1.65">
+      <strong style="color:var(--ink-1)">On system complexity:</strong> Alan cut the Account page from 8 scrolls to 2. If a field is not used by Fleet Commercial, it is gone. The system should work for the rep, not against them.
+    </div>
+  </div>
+</section>
+
+<!-- EXECUTION STEPS -->
+<section class="sec sec-alt">
+  <div class="sec-inner">
+    <div class="eyebrow">Execution Plan</div>
+    <div class="bar"></div>
+    <h2 class="h2">Six steps. Ten weeks.</h2>
+    <p class="lead">Each step builds on the last. The goal is not a Salesforce rollout. It is a sales operating rhythm ParksPro actually runs on.</p>
+    <div class="steps-grid">
+
+      <div class="step-card featured">
+        <div class="step-ghost">1</div>
+        <div class="step-top">
+          <div class="step-n">Step 01</div>
+          <div class="badge badge-done">Complete</div>
+        </div>
+        <div class="step-title">Define the ParksPro Standard</div>
+        <div class="step-body">Austin session complete. Reverse demo done. Leadership aligned on what behavior looks like and what success means before any rep gets a scorecard.</div>
+        <ul class="step-list">
+          <li>Calls, visits, and quotes per week per rep confirmed</li>
+          <li>Touch every account every 90 days (stated goal)</li>
+          <li>Pipeline hygiene rules: stage, close date, next step</li>
+          <li>Quote follow-up window defined</li>
+        </ul>
+      </div>
+
+      <div class="step-card active">
+        <div class="step-ghost">2</div>
+        <div class="step-top">
+          <div class="step-n">Step 02</div>
+          <div class="badge badge-now">In Progress</div>
+        </div>
+        <div class="step-title">Simplify the Experience</div>
+        <div class="step-body">Remove friction from every screen a rep touches. If it does not matter to Fleet Commercial, it is not on the page.</div>
+        <ul class="step-list">
+          <li>Trim Account, Opportunity, and Quote/BOS to what gets used</li>
+          <li>Fix open Phase 1 gaps: CSV bucket-list upload, Opp with Stock/VIN, BOS edits after creation</li>
+          <li>Document the standard Quoting flow and BOS flow</li>
+        </ul>
+      </div>
+
+      <div class="step-card active">
+        <div class="step-ghost">3</div>
+        <div class="step-top">
+          <div class="step-n">Step 03</div>
+          <div class="badge badge-now">In Progress</div>
+        </div>
+        <div class="step-title">Set Expectations and Guardrails</div>
+        <div class="step-body">Publish the ParksPro Standard. Every rep and every manager knows the number. No ambiguity about what good looks like.</div>
+        <ul class="step-list">
+          <li>Expectations published in writing to all reps</li>
+          <li>Guardrails enforced in Salesforce where possible</li>
+          <li>Managers coached on how to hold the standard</li>
+        </ul>
+      </div>
+
+      <div class="step-card">
+        <div class="step-ghost">4</div>
+        <div class="step-top">
+          <div class="step-n">Step 04</div>
+          <div class="badge badge-now">Launching Week 1</div>
+        </div>
+        <div class="step-title">Weekly Leadership Scorecard</div>
+        <div class="step-body">Every week, pull Salesforce reports and use Claude to build a 4-slide executive summary. Leaders get the story, not a dashboard to dig through.</div>
+        <ul class="step-list">
+          <li>Score every team and every seller</li>
+          <li>Call out reps improving, not just reps struggling</li>
+          <li>A 120-seller CRO review that used to take 3 days now takes about 4 minutes with CoWorker</li>
+          <li>Prompts built into a dropdown so leaders run them in one click</li>
+        </ul>
+      </div>
+
+      <div class="step-card">
+        <div class="step-ghost">5</div>
+        <div class="step-top">
+          <div class="step-n">Step 05</div>
+          <div class="badge badge-now">Launching Week 1</div>
+        </div>
+        <div class="step-title">Weekly Office Hours</div>
+        <div class="step-body">Standing weekly slot. 10-minute focused topic, then open Q&amp;A. 15 to 30 sellers attending. Not a training. A working session.</div>
+        <ul class="step-list">
+          <li>Logging activities and creating opportunities</li>
+          <li>Opp with Stock number or VIN</li>
+          <li>Quoting flow and BOS edits</li>
+          <li>Mobile prospect upload and reading the dashboard</li>
+          <li>Using CoWorker prompts in the field</li>
+        </ul>
+      </div>
+
+      <div class="step-card">
+        <div class="step-ghost">6</div>
+        <div class="step-top">
+          <div class="step-n">Step 06</div>
+          <div class="badge badge-next">Weeks 2-8</div>
+        </div>
+        <div class="step-title">Field and Mobile</div>
+        <div class="step-body">Reps drive 800 miles a week. The CRM has to work in the car, not just at a desk. Voice-to-text closes the debrief gap without adding time.</div>
+        <ul class="step-list">
+          <li>Voice-to-text for call debriefs and CRM updates on the road</li>
+          <li>Prospect upload on mobile (already deployed)</li>
+          <li>Enablement sessions at dealerships weeks 5 to 8</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- 10-WEEK ROADMAP -->
+<section class="sec sec-dark">
+  <div class="sec-inner">
+    <div class="eyebrow">Timeline</div>
+    <div class="bar green"></div>
+    <h2 class="h2">10-week roadmap</h2>
+    <p class="lead">Where we are, where we are going, and what leadership sees at each stage.</p>
+
+    <div class="tl-list">
+
+      <div class="tl-item">
+        <div>
+          <div class="tl-dot done">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+        </div>
+        <div>
+          <div class="tl-chip done">Complete</div>
+          <div class="tl-week">Week 0</div>
+          <div class="tl-title">Austin session: define the standard</div>
+          <div class="tl-desc">Reverse demo complete. Leadership aligned on the ParksPro Standard. Success metrics confirmed with Jeff and the C-suite. This is the foundation everything else runs on.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div>
+          <div class="tl-dot now"></div>
+        </div>
+        <div>
+          <div class="tl-chip now">Now</div>
+          <div class="tl-week">Week 1</div>
+          <div class="tl-title">Launch: expectations, office hours, Phase 1 fixes</div>
+          <div class="tl-desc">Publish the ParksPro Standard to all reps. Launch weekly office hours. Fix the top Phase 1 gaps blocking rep workflows. First scorecard goes to Sarah and leadership.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div>
+          <div class="tl-dot soon"></div>
+        </div>
+        <div>
+          <div class="tl-chip soon">Upcoming</div>
+          <div class="tl-week">Weeks 2-4</div>
+          <div class="tl-title">First scorecards and coaching conversations</div>
+          <div class="tl-desc">Weekly Salesforce reports go to leadership. Managers start coaching from data, not gut feel. Identify reps who need extra support. Call out wins publicly.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div>
+          <div class="tl-dot soon"></div>
+        </div>
+        <div>
+          <div class="tl-chip soon">Upcoming</div>
+          <div class="tl-week">Weeks 5-8</div>
+          <div class="tl-title">Tighten guardrails. Dealership enablement sessions.</div>
+          <div class="tl-desc">Meet with dealerships for hands-on enablement and feedback. Tighten guardrails based on what is and is not working. Office hours continue on topic rotation.</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div>
+          <div class="tl-dot soon"></div>
+        </div>
+        <div>
+          <div class="tl-chip soon">Upcoming</div>
+          <div class="tl-week">Week 10</div>
+          <div class="tl-title">Adoption review to Adam and ELT</div>
+          <div class="tl-desc">Chart adoption week over week. Present to Adam and the executive leadership team. Show what changed, what is working, and what the next phase looks like.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="scorecard-box">
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:#93c5fd;margin-bottom:12px">Weekly Scorecard Format</div>
+        <div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:10px;line-height:1.2">4 slides. Every week. No dashboards to dig through.</div>
+        <div style="font-size:14px;color:rgba(255,255,255,.50);line-height:1.65;margin-bottom:16px">Pull Salesforce reports, run them through Claude, and send leadership a story. Activity by team, pipeline by rep, a rep to call out, one thing to fix this week.</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:8px">
+          <li style="font-size:13px;color:rgba(255,255,255,.45);padding-left:14px;position:relative;line-height:1.5"><span style="position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:#93c5fd;display:block"></span>Slide 1: Activity summary by team and rep</li>
+          <li style="font-size:13px;color:rgba(255,255,255,.45);padding-left:14px;position:relative;line-height:1.5"><span style="position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:#93c5fd;display:block"></span>Slide 2: Pipeline health and zombie deal count</li>
+          <li style="font-size:13px;color:rgba(255,255,255,.45);padding-left:14px;position:relative;line-height:1.5"><span style="position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:#93c5fd;display:block"></span>Slide 3: Quote volume and follow-up rate</li>
+          <li style="font-size:13px;color:rgba(255,255,255,.45);padding-left:14px;position:relative;line-height:1.5"><span style="position:absolute;left:0;top:7px;width:5px;height:5px;border-radius:50%;background:#93c5fd;display:block"></span>Slide 4: Rep to praise, one thing to fix</li>
+        </ul>
+      </div>
+      <div class="scorecard-stat">
+        <div class="scorecard-n">3<span> days</span></div>
+        <div class="scorecard-l">A 120-seller CRO review used to take 3 days</div>
+        <div style="margin:16px 0;width:100%;height:1px;background:rgba(255,255,255,.08)"></div>
+        <div class="scorecard-n">4<span> min</span></div>
+        <div class="scorecard-l">With CoWorker and the right prompts, it takes about 4 minutes</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHAT'S NEXT -->
+<section class="sec sec-blue">
+  <div class="sec-inner">
+    <div class="eyebrow">What's Next</div>
+    <div class="bar" style="background:#93c5fd"></div>
+    <h2 class="h2">Giving time back to sellers.</h2>
+    <p class="lead">The system is the foundation. What comes next makes the rep faster, not just more accountable.</p>
+    <div class="next-grid">
+      <div class="next-card">
+        <div class="next-tag live">Live Now</div>
+        <div class="next-title">Voice-to-text for road warriors</div>
+        <div class="next-body">Reps debrief and prep in the car. Voice-to-text turns a 12-minute drive between accounts into a logged call, an updated opp, and a next step, without touching the phone. The Salesforce record is current before they pull into the next parking lot.</div>
+      </div>
+      <div class="next-card">
+        <div class="next-tag coming">Coming Next</div>
+        <div class="next-title">Agentforce CoWorker ("Jarvis")</div>
+        <div class="next-body">A sales concierge that works inside Slack and Salesforce. Ask it to summarize your accounts with no activity, pull your pipeline by close date, or draft a follow-up for a stalled deal. Three of four sellers are already bought in after seeing it in action. This is the payoff for getting the data right now.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sec sec-dark">
+  <div class="sec-inner">
+    <div class="cta-layout">
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:12px">Questions or Feedback</div>
+        <h2 class="cta-h">The door is open.</h2>
+        <p class="cta-p">Questions about the standard, the plan, or what you are seeing in Salesforce. Reach out directly. This only works if we hear what is and is not working from the field.</p>
+        <a href="mailto:atroggio@salesforce.com" class="btn">Get in touch</a>
+      </div>
+      <div class="about-card">
+        <img src="anthony.png" alt="Anthony Troggio" class="about-photo">
+        <div class="about-name">Anthony Troggio</div>
+        <div class="about-title">Digital Account Executive<br>Salesforce MFG &amp; Automotive</div>
+        <a href="mailto:atroggio@salesforce.com" class="about-email">atroggio@salesforce.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="ftr">
+  <div class="ftr-note">ParksPro Salesforce Adoption Execution Plan. Prepared by Salesforce. Internal use only.</div>
+  <div class="ftr-note">10-week plan effective October 2026. Review with Adam and ELT at Week 10.</div>
+</footer>
+
+</body>
+</html>
