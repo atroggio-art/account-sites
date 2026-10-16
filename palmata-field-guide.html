@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Palmata | Field Guide</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#2a78d6; --green:#1baf7a; --orange:#c94f20; --amber:#9e6e00;
+  --ink-1:#0b0b0b; --ink-2:#52514e; --ink-3:#8a8880;
+  --s0:#ffffff; --s1:#f7f7f5; --s2:#ebebea; --s3:#e2e2e0;
+  --border:rgba(11,11,11,0.07); --border-strong:rgba(11,11,11,0.13);
+  --shadow-card:0 1px 3px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.06);
+  --shadow-sm:0 1px 2px rgba(0,0,0,.04),0 2px 8px rgba(0,0,0,.04);
+}
+html{scroll-behavior:smooth}
+body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--s1);color:var(--ink-1);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* HEADER */
+.hdr{position:sticky;top:0;z-index:300;background:rgba(255,255,255,0.97);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(0,0,0,.06),0 2px 12px rgba(0,0,0,.04);padding:0 48px;height:60px;display:flex;align-items:center;justify-content:space-between}
+.hdr-brand{display:flex;align-items:center;gap:11px;text-decoration:none}
+.logom{width:34px;height:34px;background:linear-gradient(135deg,#1baf7a 0%,#2a78d6 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:#fff}
+.hdr-name{font-size:15px;font-weight:800;color:var(--ink-1)}
+.hdr-label{font-size:11px;color:var(--ink-3);background:var(--s2);border-radius:5px;padding:2px 8px;font-weight:600;letter-spacing:.03em;margin-left:4px}
+.hdr-nav{display:flex;align-items:center;gap:8px}
+.hdr-nav a{font-size:12px;color:var(--ink-3);text-decoration:none;font-weight:600;padding:5px 10px;border-radius:6px;transition:all .12s;white-space:nowrap}
+.hdr-nav a:hover{color:var(--ink-1);background:var(--s2)}
+.hdr-cadence{background:var(--blue);color:#fff!important;border-radius:7px;padding:7px 16px!important;font-weight:700!important;font-size:13px!important}
+.hdr-cadence:hover{opacity:.88}
+
+/* HERO CADENCE BLOCK */
+.cadence-hero{background:#060f1e;padding:52px 48px}
+.cadence-hero-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.cadence-left{}
+.cadence-eyebrow{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--green);margin-bottom:12px}
+.cadence-h{font-size:clamp(24px,3vw,38px);font-weight:900;color:#fff;line-height:1.1;letter-spacing:-.025em;margin-bottom:10px}
+.cadence-sub{font-size:15px;color:rgba(255,255,255,.48);line-height:1.6;max-width:520px}
+.cadence-btn{display:inline-flex;align-items:center;gap:10px;background:var(--blue);color:#fff;text-decoration:none;font-size:16px;font-weight:700;padding:16px 32px;border-radius:12px;transition:opacity .13s;white-space:nowrap;box-shadow:0 4px 20px rgba(42,120,214,.35)}
+.cadence-btn:hover{opacity:.88}
+.cadence-btn svg{width:16px;height:16px;stroke:#fff;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.cadence-steps{display:flex;gap:24px;flex-wrap:wrap;margin-top:32px}
+.cadence-step{display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.38);font-weight:600}
+.cadence-step-n{width:22px;height:22px;border-radius:50%;border:1.5px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:rgba(255,255,255,.45);flex-shrink:0}
+
+/* STATS STRIP */
+.stat-strip{background:#0b1623;border-bottom:1px solid rgba(255,255,255,.05);padding:0 48px}
+.stat-strip-inner{max-width:1200px;margin:0 auto;display:flex;align-items:stretch;flex-wrap:wrap}
+.ss{display:flex;flex-direction:column;justify-content:center;padding:20px 0;flex:1;min-width:160px}
+.ss+.ss{border-left:1px solid rgba(255,255,255,.07);padding-left:36px}
+.ss-num{font-size:30px;font-weight:900;color:#fff;line-height:1;letter-spacing:-.025em}
+.ss-num span{color:var(--green);font-size:17px;font-weight:800}
+.ss-lbl{font-size:11px;color:rgba(255,255,255,.38);margin-top:4px;line-height:1.4;max-width:200px}
+
+/* EMAIL SECTION */
+.sec{padding:80px 48px}
+.sec-inner{max-width:1200px;margin:0 auto}
+.tag{font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+.bar{width:28px;height:3px;border-radius:2px;background:var(--blue);margin-bottom:22px}
+.h2{font-size:clamp(28px,3.2vw,44px);font-weight:900;color:var(--ink-1);line-height:1.08;letter-spacing:-.025em;margin-bottom:14px}
+.lead{font-size:17px;color:var(--ink-2);line-height:1.7;max-width:600px}
+
+.email-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px}
+.email-card{background:var(--s0);border:none;border-radius:16px;overflow:hidden;box-shadow:var(--shadow-card)}
+.email-meta{padding:18px 22px 14px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.email-seq{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin-bottom:6px}
+.email-subject{font-size:15px;font-weight:800;color:var(--ink-1);line-height:1.3}
+.email-copy-btn{background:var(--s2);border:1px solid var(--border-strong);border-radius:7px;padding:5px 11px;font-size:11px;font-weight:700;color:var(--ink-2);cursor:pointer;font-family:inherit;flex-shrink:0;transition:all .12s;white-space:nowrap}
+.email-copy-btn:hover{background:var(--ink-1);color:#fff;border-color:var(--ink-1)}
+.email-copy-btn.copied{background:var(--green);color:#fff;border-color:var(--green)}
+.email-body{padding:20px 22px 22px;font-size:14px;color:var(--ink-2);line-height:1.75;white-space:pre-wrap}
+
+/* TIPS */
+.tips{margin-top:28px;background:var(--s0);border-radius:16px;padding:28px 32px;box-shadow:var(--shadow-sm);display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.tip-lbl{font-size:9px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3);margin-bottom:8px}
+.tip-body{font-size:13px;color:var(--ink-2);line-height:1.6}
+.tip-body strong{color:var(--ink-1);font-weight:700}
+
+/* FOOTER */
+.ftr{background:#040810;padding:26px 48px;display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid rgba(255,255,255,.06)}
+.ftr-note{font-size:11px;color:rgba(255,255,255,.20)}
+
+@media(max-width:860px){
+  .hdr,.cadence-hero,.stat-strip,.sec{padding-left:20px;padding-right:20px}
+  .cadence-hero-inner{flex-direction:column}
+  .email-grid,.tips{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <a class="hdr-brand" href="palmata-overview.html">
+    <div class="logom">P</div>
+    <span class="hdr-name">Palmata</span>
+    <span class="hdr-label">Field Guide</span>
+  </a>
+  <nav class="hdr-nav">
+    <a href="palmata-overview.html">Full Guide</a>
+    <a href="https://app.palmata.ai/" target="_blank" rel="noopener">Free Report</a>
+    <a class="hdr-cadence" href="https://org62.lightning.force.com/lightning/r/ActionCadence/77Ced000000IvizEAC/view?queryScope=userFolders" target="_blank" rel="noopener">Launch 10-Step Cadence &#8599;</a>
+  </nav>
+</header>
+
+<!-- CADENCE HERO -->
+<div class="cadence-hero">
+  <div class="cadence-hero-inner">
+    <div class="cadence-left">
+      <div class="cadence-eyebrow">Palmata Outreach Cadence</div>
+      <h1 class="cadence-h">Your 10-step Palmata sequence<br>is ready in Salesforce.</h1>
+      <p class="cadence-sub">Click to launch the cadence directly. Use the email templates below to personalize before sending. Start with Email 1, follow up on day 3 with Email 2.</p>
+      <div class="cadence-steps">
+        <div class="cadence-step"><div class="cadence-step-n">1</div>Email 1: First touch</div>
+        <div class="cadence-step"><div class="cadence-step-n">2</div>Email 2: Day 3 follow-up</div>
+        <div class="cadence-step"><div class="cadence-step-n">3-10</div>Remaining cadence steps in SF</div>
+      </div>
+    </div>
+    <a class="cadence-btn" href="https://org62.lightning.force.com/lightning/r/ActionCadence/77Ced000000IvizEAC/view?queryScope=userFolders" target="_blank" rel="noopener">
+      Launch 10-Step Cadence in Salesforce
+      <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </a>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stat-strip">
+  <div class="stat-strip-inner">
+    <div class="ss">
+      <div class="ss-num">14.2<span>%</span></div>
+      <div class="ss-lbl">AI search conversion vs. 2.8% Google, Seer Interactive</div>
+    </div>
+    <div class="ss">
+      <div class="ss-num">4.4<span>x</span></div>
+      <div class="ss-lbl">Higher conversion from AI-referred visitors vs. organic</div>
+    </div>
+    <div class="ss">
+      <div class="ss-num">25<span>%</span></div>
+      <div class="ss-lbl">Organic search shifting to AI assistants by end of 2026, Gartner</div>
+    </div>
+    <div class="ss">
+      <div class="ss-num">2028</div>
+      <div class="ss-lbl">When AI-search visitors overtake traditional search visitors</div>
+    </div>
+  </div>
+</div>
+
+<!-- EMAIL TEMPLATES -->
+<section class="sec">
+  <div class="sec-inner">
+    <div class="tag">Outreach Templates</div>
+    <div class="bar"></div>
+    <h2 class="h2">Cold emails that open the door</h2>
+    <p class="lead">Personalize the name, company, and AI query examples. Send Email 1, follow up 3 days later with Email 2.</p>
+
+    <div class="email-grid">
+      <div class="email-card">
+        <div class="email-meta">
+          <div>
+            <div class="email-seq">Email 1, First Touch</div>
+            <div class="email-subject">Are you showing up in AI Searches?</div>
+          </div>
+          <button class="email-copy-btn" onclick="copyEmail(this,'e1')">Copy</button>
+        </div>
+        <div class="email-body" id="e1">Hey [NAME]
+
+I ran a quick query in a few chatbots (ChatGPT, Gemini) where I would expect [COMPANY] to show in the results, searches like "top truck auction platforms" or "trucking appraisal companies."
+
+I'd love to connect, show my findings, and share how to solve for AEO (Answer Engine Optimization vs. Search Engine Optimization).
+
+Do you have 15 minutes next week?</div>
+      </div>
+      <div class="email-card">
+        <div class="email-meta">
+          <div>
+            <div class="email-seq">Email 2, Follow-Up (Day 3)</div>
+            <div class="email-subject">re: Are you showing up in AI Searches?</div>
+          </div>
+          <button class="email-copy-btn" onclick="copyEmail(this,'e2')">Copy</button>
+        </div>
+        <div class="email-body" id="e2">Hi [NAME]
+
+One more thought to add here. It's not just about showing up in AI searches. It's about showing up in a positive light that drives people toward your brand.
+
+We help customers identify which content strengthens their AI reputation, what hurts it, and the specific steps they can take to improve.
+
+Open to connecting this week for 20 minutes?</div>
+      </div>
+    </div>
+
+    <div class="tips">
+      <div>
+        <div class="tip-lbl">Personalize</div>
+        <div class="tip-body">Replace <strong>[NAME]</strong> and <strong>[COMPANY]</strong>. Swap the example queries with ones relevant to their actual industry and category.</div>
+      </div>
+      <div>
+        <div class="tip-lbl">Timing</div>
+        <div class="tip-body">Send Email 1 on day 1. Wait exactly <strong>3 days</strong> before sending Email 2. The cadence handles the rest from step 3 onward.</div>
+      </div>
+      <div>
+        <div class="tip-lbl">Free report hook</div>
+        <div class="tip-body">If they respond, offer a <strong>free Palmata AI visibility report</strong> at app.palmata.ai. No Salesforce footprint or setup required.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="ftr">
+  <div style="display:flex;align-items:center;gap:9px">
+    <div class="logom" style="width:26px;height:26px;font-size:11px;border-radius:6px">P</div>
+    <span style="font-size:12px;font-weight:700;color:rgba(255,255,255,.35)">Palmata by Contentful</span>
+  </div>
+  <div class="ftr-note">Internal use only, Palmata Manufacturing field team</div>
+</footer>
+
+<script>
+function copyEmail(btn, id) {
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+</script>
+</body>
+</html>
