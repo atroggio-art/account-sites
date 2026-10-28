@@ -63,13 +63,46 @@ h2 { font-size:30px; color:var(--navy); margin-bottom:10px; }
 .meeting .btn { margin-top:0; white-space:nowrap; background:var(--deep); color:#fff; }
 footer { border-top:1px solid var(--line); padding:24px 0; color:var(--muted); font-size:13px; }
 @media (max-width:800px) {
-  .stats .grid { grid-template-columns:repeat(2,1fr); }
+  .hero { padding:64px 0 56px; }
   .hero h1 { font-size:34px; }
+  .hero p { font-size:17px; }
+  .btn.ghost { margin-left:0; margin-top:10px; }
+  .stats { margin-top:-28px; }
+  .stats .grid { grid-template-columns:repeat(2,1fr); }
+  section { padding:56px 0 0; }
+  .next { padding:56px 0; }
   .use { grid-template-columns:1fr; }
   .why-grid { grid-template-columns:1fr; }
   .impact-grid { grid-template-columns:1fr; }
   .impact-banner { flex-direction:column; align-items:flex-start; gap:12px; }
+  .quote { padding:28px 24px; margin-top:48px; }
+  .quote blockquote { font-size:18px; }
   .meeting { flex-direction:column; align-items:flex-start; }
+  .meeting .btn { width:100%; text-align:center; }
+}
+@media (max-width:540px) {
+  .wrap { padding:0 16px; }
+  nav a { font-size:12px; margin-left:12px; }
+  .hero { padding:48px 0 44px; }
+  .hero h1 { font-size:27px; }
+  .hero p { font-size:16px; margin-bottom:24px; }
+  .hero .btn, .hero .btn.ghost { display:block; text-align:center; width:100%; margin-left:0; margin-top:10px; }
+  .hero .btn:first-of-type { margin-top:0; }
+  .stats { margin-top:-20px; }
+  .stats .grid { grid-template-columns:1fr 1fr; gap:10px; }
+  .stat { padding:18px 16px; }
+  .stat b { font-size:26px; }
+  h2 { font-size:24px; }
+  .lead { font-size:15px; }
+  .use { padding:20px 18px; }
+  .use h3 { font-size:17px; }
+  .impact-big { font-size:44px; }
+  .impact-banner { padding:22px 20px; }
+  .next h2 { font-size:24px; }
+}
+@media (max-width:400px) {
+  nav div { display:none; }
+  .stats .grid { grid-template-columns:1fr; }
 }
 </style>
 </head>
