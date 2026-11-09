@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Listen Labs | New Logo Enablement</title>
+<style>
+:root { color-scheme:light; --navy:#0d1b2a; --deep:#1a3a8f; --blue:#2d5be3; --teal:#00c9a7; --sky:#f0f4ff; --ink:#0d1b2a; --muted:#5a6b7d; --line:#dde5ee; }
+* { box-sizing:border-box; margin:0; }
+body { font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif; color:var(--ink); background:#fff; line-height:1.55; }
+.wrap { max-width:1040px; margin:0 auto; padding:0 24px; }
+nav { border-bottom:1px solid var(--line); padding:13px 0; }
+nav .wrap { display:flex; justify-content:space-between; align-items:center; }
+nav .logo { font-size:16px; font-weight:700; color:var(--navy); letter-spacing:-0.2px; }
+nav .logo span { color:var(--blue); }
+nav a { color:var(--deep); text-decoration:none; font-size:14px; margin-left:24px; }
+.hero { background:linear-gradient(135deg,#0d1b2a 0%,#1a3a8f 55%,#2d5be3 100%); color:#fff; padding:96px 0 80px; position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; right:-120px; top:-120px; width:560px; height:560px; border-radius:50%; background:rgba(0,201,167,.07); pointer-events:none; }
+.hero::after { content:''; position:absolute; left:-60px; bottom:-60px; width:320px; height:320px; border-radius:50%; background:rgba(45,91,227,.15); pointer-events:none; }
+.eyebrow { text-transform:uppercase; letter-spacing:1.5px; font-size:12px; opacity:.7; margin-bottom:14px; }
+.hero h1 { font-size:50px; line-height:1.1; max-width:760px; margin-bottom:22px; font-weight:700; }
+.hero h1 em { font-style:normal; color:#7dd8ff; }
+.pills { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:28px; }
+.pill { display:inline-flex; align-items:center; gap:7px; background:rgba(255,255,255,.1); color:rgba(255,255,255,.9); border:1px solid rgba(255,255,255,.18); border-radius:30px; padding:6px 14px; font-size:13px; }
+.pill::before { content:''; display:block; width:6px; height:6px; border-radius:50%; background:var(--teal); flex-shrink:0; }
+.hero p { font-size:18px; max-width:600px; opacity:.88; margin-bottom:32px; }
+.btn { display:inline-block; background:#fff; color:var(--navy); padding:13px 26px; border-radius:6px; font-weight:600; text-decoration:none; font-size:15px; }
+.btn.teal { background:var(--teal); color:#fff; }
+.btn.ghost { background:transparent; color:#fff; border:1px solid rgba(255,255,255,.5); margin-left:12px; }
+section { padding:80px 0 0; }
+h2 { font-size:30px; color:var(--navy); margin-bottom:10px; font-weight:700; }
+.lead { color:var(--muted); max-width:680px; margin-bottom:36px; font-size:16px; }
+.what-grid { display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; }
+.what-grid p { color:var(--muted); font-size:16.5px; line-height:1.65; }
+.what-grid p + p { margin-top:14px; }
+.stat-pair { display:flex; flex-direction:column; gap:12px; }
+.stat-box { background:var(--sky); border-radius:12px; padding:28px 32px; }
+.stat-box .big { font-size:52px; font-weight:700; color:var(--blue); line-height:1; margin-bottom:6px; }
+.stat-box .big.teal { color:var(--teal); }
+.stat-box .big sup { font-size:28px; }
+.stat-box p { font-size:14.5px; color:var(--muted); margin-top:6px; }
+.why-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.why-card { border:1px solid var(--line); border-top:3px solid var(--blue); border-radius:10px; padding:26px 22px; }
+.why-card h3 { font-size:16px; color:var(--navy); font-weight:700; margin-bottom:8px; }
+.why-card p { color:var(--muted); font-size:14.5px; line-height:1.6; }
+.opp-banner { background:linear-gradient(135deg,#0d1b2a,#1a3a8f 65%,#2d5be3); border-radius:14px; padding:44px 48px; color:#fff; margin-bottom:20px; }
+.opp-banner h2 { color:#fff; font-size:26px; margin-bottom:12px; }
+.opp-banner p { font-size:17px; opacity:.85; max-width:720px; line-height:1.7; }
+.opp-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.opp-card { background:#fff; border:1px solid var(--line); border-radius:10px; padding:28px 24px; box-shadow:0 4px 18px rgba(13,27,42,.06); position:relative; overflow:hidden; }
+.opp-num { position:absolute; bottom:-10px; right:10px; font-size:72px; font-weight:700; color:var(--blue); opacity:.06; line-height:1; pointer-events:none; }
+.opp-card h3 { font-size:16px; color:var(--navy); font-weight:700; margin-bottom:8px; position:relative; }
+.opp-card p { color:var(--muted); font-size:14.5px; line-height:1.6; position:relative; }
+.report-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.report-card { border:1px solid var(--line); border-radius:10px; padding:26px 24px; }
+.report-card .tag { display:inline-block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--blue); background:var(--sky); padding:3px 10px; border-radius:20px; margin-bottom:12px; }
+.report-card h3 { font-size:16px; color:var(--navy); font-weight:700; margin-bottom:8px; }
+.report-card p { color:var(--muted); font-size:14px; line-height:1.6; }
+.cta-wrap { padding:80px 0; }
+.cta-inner { background:linear-gradient(135deg,#0d1b2a,#1a3a8f 55%,#2d5be3); border-radius:16px; padding:60px 48px; color:#fff; text-align:center; }
+.cta-inner h2 { color:#fff; font-size:32px; margin-bottom:14px; }
+.cta-inner p { font-size:17px; opacity:.85; max-width:540px; margin:0 auto 32px; line-height:1.65; }
+.cta-inner .btn { margin:0 8px 10px; }
+footer { border-top:1px solid var(--line); padding:24px 0; color:var(--muted); font-size:13px; }
+@media (max-width:800px) {
+  .hero { padding:64px 0 56px; }
+  .hero h1 { font-size:36px; }
+  .what-grid { grid-template-columns:1fr; gap:32px; }
+  .why-grid { grid-template-columns:repeat(2,1fr); }
+  .opp-grid { grid-template-columns:1fr; }
+  .report-grid { grid-template-columns:1fr; }
+  .opp-banner { padding:30px 28px; }
+  .cta-inner { padding:40px 28px; }
+  section { padding:60px 0 0; }
+  .cta-wrap { padding:60px 0; }
+}
+@media (max-width:540px) {
+  .wrap { padding:0 16px; }
+  nav a { font-size:12px; margin-left:12px; }
+  .hero { padding:48px 0 44px; }
+  .hero h1 { font-size:28px; }
+  .hero p { font-size:16px; }
+  .btn.ghost { display:block; margin:10px 0 0; text-align:center; }
+  .why-grid { grid-template-columns:1fr; }
+  .cta-inner h2 { font-size:24px; }
+  section { padding:48px 0 0; }
+}
+@media (max-width:400px) {
+  nav div:last-child { display:none; }
+}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap">
+  <div class="logo">Listen Labs <span>| New Logo</span></div>
+  <div><a href="#what">What it is</a><a href="#why">Why NL</a><a href="#opp">Opportunity</a><a href="#start">Get started</a></div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">New Logo Enablement &middot; Q4 2026</div>
+  <h1>AI research that opens<br>doors <em>before your<br>competitors do.</em></h1>
+  <div class="pills">
+    <span class="pill">No Salesforce required</span>
+    <span class="pill">No implementation cost</span>
+    <span class="pill">Free 5-minute version</span>
+    <span class="pill">Immediate value</span>
+  </div>
+  <p>Listen Labs gives your target accounts a way to validate their biggest 2027 bets. Zero technical lift. Real customer insight in days.</p>
+  <a class="btn teal" href="#why">Why it matters for NL</a><a class="btn ghost" href="#start">Get started</a>
+</div></header>
+
+<section id="what"><div class="wrap">
+  <div class="what-grid">
+    <div>
+      <h2>What is Listen Labs?</h2>
+      <p>An AI-powered customer research platform that conducts real conversations with respondents and synthesizes findings instantly. Companies use it to validate GTM strategy, test new product messaging, and understand what customers actually want before making big bets.</p>
+      <p>It runs entirely on its own. No Salesforce instance. No implementation project. No IT involvement. From setup to insight in days, not quarters.</p>
+    </div>
+    <div class="stat-pair">
+      <div class="stat-box">
+        <div class="big">5<sup> min</sup></div>
+        <p>Free version. Let a target account run a live study before any deal conversation. The lowest-risk first ask you have.</p>
+      </div>
+      <div class="stat-box">
+        <div class="big teal">$0</div>
+        <p>Implementation cost. No engineers, no timeline, no reason to say "not yet." Removes the biggest new logo objection before it lands.</p>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<section id="why"><div class="wrap">
+  <h2>Four reasons this is a new logo play</h2>
+  <p class="lead">Every one of these removes a typical objection before it comes up.</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <h3>No Salesforce required</h3>
+      <p>Standalone platform. Any account qualifies. No footprint dependency, no blocker, no prerequisite conversation required.</p>
+    </div>
+    <div class="why-card">
+      <h3>No implementation cost</h3>
+      <p>Zero technical lift for the customer. No IT involvement, no timeline negotiation, no internal project to spin up first.</p>
+    </div>
+    <div class="why-card">
+      <h3>Immediate value</h3>
+      <p>Insight from real customer conversations in days. Not a roadmap item. Answers questions they have right now, before plans lock.</p>
+    </div>
+    <div class="why-card">
+      <h3>Free to try</h3>
+      <p>The 5-minute version lets a prospect experience the value before any budget conversation. A low-risk first ask that proves itself.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="opp"><div class="wrap">
+  <div class="opp-banner">
+    <h2>The 2027 opportunity is right now</h2>
+    <p>A lot of accounts are changing GTM strategy or launching new products in 2027. They have research questions that need answers before those plans lock in. Listen Labs gives you a strong reason to start that conversation today, before a competitor gets there first.</p>
+  </div>
+  <div class="opp-grid">
+    <div class="opp-card">
+      <div class="opp-num">01</div>
+      <h3>GTM pivots need validation</h3>
+      <p>Accounts repositioning in 2027 need to know if their new message lands with customers. Listen Labs answers that in days. You can be the rep who helped them find out.</p>
+    </div>
+    <div class="opp-card">
+      <div class="opp-num">02</div>
+      <h3>New products need market signal</h3>
+      <p>Before a product launch, teams need to know what resonates and what falls flat. Listen Labs gets that feedback fast, before they have committed to a direction.</p>
+    </div>
+    <div class="opp-card">
+      <div class="opp-num">03</div>
+      <h3>Big bets need customer proof</h3>
+      <p>Executives making major 2027 investments want defensible data. Real customer research from Listen Labs gives them the evidence to move confidently.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="start"><div class="wrap">
+  <h2>Reports to check this week</h2>
+  <p class="lead">Three starting points to find the right accounts and build early pipeline.</p>
+  <div class="report-grid">
+    <div class="report-card">
+      <div class="tag">Report 1</div>
+      <h3>Target Accounts</h3>
+      <p>Your prioritized list. Cross-reference against accounts with 2027 planning activity, new executive hires, or signals of a strategic shift coming.</p>
+    </div>
+    <div class="report-card">
+      <div class="tag">Report 2</div>
+      <h3>Open Listen Lab Pipeline</h3>
+      <p>Active opportunities already in flight across the team. Good for benchmarking conversations and seeing what objections are coming up in the field.</p>
+    </div>
+    <div class="report-card">
+      <div class="tag">Report 3</div>
+      <h3>SF + LL Joint Visibility</h3>
+      <p>Accounts with both Salesforce and Listen Labs signals. These are your best bets for a Listen Labs conversation that opens a wider door into the account.</p>
+    </div>
+  </div>
+</div></section>
+
+<div class="cta-wrap"><div class="wrap">
+  <div class="cta-inner">
+    <h2>Start the conversation this week</h2>
+    <p>Open the free 5-minute version with one target account. That is your first meeting, your first insight, and your foot in the door before Q1.</p>
+    <a class="btn teal" href="#start">Check the reports</a>
+    <a class="btn" href="#why">Review the value props</a>
+  </div>
+</div></div>
+
+<footer><div class="wrap">New Logo Team &middot; Listen Labs Enablement &middot; Q4 2026</div></footer>
+</body>
+</html>
