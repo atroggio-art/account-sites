@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Activate Agentforce Coworker in 30 Days — Sales Program Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Nunito:wght@800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;color:#0d1b3e;background:#fff;-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+:root{
+  --navy:#08184f;
+  --blue:#1B6EF3;
+  --blue-mid:#0E4DD4;
+  --indigo:#4B3BE8;
+  --purple:#7B4FDB;
+  --pale:#eef2fd;
+  --pale2:#f5f7ff;
+  --border:#dde4f5;
+  --text:#0d1b3e;
+  --dim:#4a5878;
+  --faint:#8898c8;
+  --white:#fff;
+  --r:10px;
+  --r2:16px;
+  --shadow:0 2px 16px rgba(11,31,111,.08);
+  --shadow2:0 4px 32px rgba(11,31,111,.14);
+}
+
+/* ── ANNOUNCEMENT BAR ── */
+.ab{
+  background:var(--blue);
+  color:#fff;
+  text-align:center;
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.5px;
+  padding:8px 48px;
+  position:sticky;
+  top:0;
+  z-index:201;
+}
+.ab strong{font-weight:800}
+.ab-dot{display:inline-block;width:3px;height:3px;background:rgba(255,255,255,.5);border-radius:50%;margin:0 10px;vertical-align:middle;position:relative;top:-1px}
+
+/* ── NAV ── */
+nav{
+  position:sticky;
+  top:34px;
+  z-index:200;
+  background:rgba(8,24,79,.92);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 48px;
+  height:62px;
+}
+nav::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--blue) 0%,var(--indigo) 50%,var(--purple) 100%);
+}
+.nav-brand{
+  font-family:'Nunito',sans-serif;
+  font-weight:900;
+  font-size:.95rem;
+  color:#fff;
+  letter-spacing:.3px;
+  white-space:nowrap;
+}
+.nav-brand span{color:#7ea8ff}
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:28px;
+  list-style:none;
+}
+.nav-links a{
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.65);
+  transition:color .2s;
+}
+.nav-links a:hover{color:#fff}
+.nav-cta{
+  font-size:.72rem;
+  font-weight:700;
+  letter-spacing:.4px;
+  color:#fff;
+  background:var(--blue);
+  padding:8px 18px;
+  border-radius:6px;
+  border:1px solid rgba(255,255,255,.15);
+  transition:background .2s;
+}
+.nav-cta:hover{background:var(--blue-mid)}
+
+/* ── HERO ── */
+.hero{
+  position:relative;
+  min-height:92vh;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background-image:url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1800&q=80');
+  background-size:cover;
+  background-position:center;
+  opacity:.65;
+  z-index:0;
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(8,24,79,.92) 0%,rgba(75,59,232,.55) 60%,rgba(123,79,219,.3) 100%);
+  z-index:1;
+}
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:1100px;
+  margin:0 auto;
+  padding:100px 48px 80px;
+  width:100%;
+}
+.hero-label{
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.6);
+  margin-bottom:20px;
+}
+.hero-label span{
+  color:#7ea8ff;
+  margin-right:10px;
+}
+.hero h1{
+  font-family:'Nunito',sans-serif;
+  font-weight:900;
+  font-size:clamp(2.4rem,5vw,4.2rem);
+  color:#fff;
+  line-height:1.1;
+  max-width:760px;
+  margin-bottom:28px;
+  letter-spacing:-.5px;
+}
+.hero-sub{
+  font-size:1.15rem;
+  color:rgba(255,255,255,.75);
+  max-width:600px;
+  margin-bottom:52px;
+  line-height:1.65;
+}
+.hero-stats{
+  display:flex;
+  gap:24px;
+  flex-wrap:wrap;
+}
+.hstat{
+  background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:var(--r2);
+  padding:24px 32px;
+  min-width:160px;
+  backdrop-filter:blur(8px);
+}
+.hstat-num{
+  font-family:'Nunito',sans-serif;
+  font-weight:900;
+  font-size:2.8rem;
+  color:#fff;
+  line-height:1;
+  margin-bottom:6px;
+}
+.hstat-label{
+  font-size:.75rem;
+  font-weight:500;
+  color:rgba(255,255,255,.6);
+  letter-spacing:.3px;
+}
+
+/* ── SECTION SHELL ── */
+section{padding:96px 48px}
+.container{max-width:1100px;margin:0 auto;width:100%}
+
+.section-tag{
+  font-size:.65rem;
+  font-weight:700;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--blue);
+  margin-bottom:12px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.section-tag::before{
+  content:'';
+  width:28px;height:2px;
+  background:var(--blue);
+  flex-shrink:0;
+}
+h2{
+  font-family:'Nunito',sans-serif;
+  font-weight:900;
+  font-size:clamp(1.8rem,3.5vw,2.6rem);
+  color:var(--navy);
+  letter-spacing:-.3px;
+  margin-bottom:14px;
+}
+.section-intro{
+  font-size:1.05rem;
+  color:var(--dim);
+  max-width:680px;
+  margin-bottom:52px;
+  line-height:1.7;
+}
+
+/* ── CARDS ── */
+.card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--r2);
+  padding:28px 32px;
+  box-shadow:var(--shadow);
+}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.card-grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+
+.card-title{
+  font-weight:700;
+  font-size:1.05rem;
+  color:var(--navy);
+  margin-bottom:8px;
+}
+.card-body{
+  font-size:.9rem;
+  color:var(--dim);
+  line-height:1.65;
+}
+
+/* ── CHECK LIST ── */
+.checklist{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.checklist li{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  font-size:.9rem;
+  color:var(--dim);
+  line-height:1.55;
+}
+.checklist li::before{
+  content:'';
+  width:16px;height:16px;
+  background:var(--blue);
+  border-radius:50%;
+  flex-shrink:0;
+  margin-top:2px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 6l2.5 2.5 4.5-5' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size:cover;
+}
+
+/* ── WHY SECTION ── */
+#why{background:linear-gradient(150deg,var(--navy) 0%,#1a2a7a 50%,#2d1a6e 100%);color:#fff}
+#why h2{color:#fff}
+#why .section-tag{color:#7ea8ff}
+#why .section-tag::before{background:#7ea8ff}
+#why .section-intro{color:rgba(255,255,255,.65)}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.why-card{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--r2);
+  padding:32px;
+  backdrop-filter:blur(6px);
+}
+.why-card h3{font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:10px}
+.why-card p{font-size:.9rem;color:rgba(255,255,255,.65);line-height:1.65}
+.quote-block{
+  background:rgba(255,255,255,.06);
+  border-left:3px solid #7ea8ff;
+  border-radius:0 var(--r) var(--r) 0;
+  padding:28px 32px;
+  margin-top:40px;
+}
+.quote-block blockquote{
+  font-size:1.15rem;
+  font-style:italic;
+  color:rgba(255,255,255,.88);
+  line-height:1.7;
+  margin-bottom:12px;
+}
+.quote-attr{font-size:.8rem;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.5px}
+
+/* ── DELIVERABLES ── */
+.deliverable-item{
+  display:flex;
+  align-items:flex-start;
+  gap:20px;
+  padding:24px 28px;
+  border:1px solid var(--border);
+  border-radius:var(--r2);
+  background:var(--white);
+  box-shadow:var(--shadow);
+  transition:box-shadow .2s,transform .2s;
+}
+.deliverable-item:hover{box-shadow:var(--shadow2);transform:translateY(-2px)}
+.del-icon{
+  width:44px;height:44px;
+  background:var(--pale);
+  border-radius:10px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.2rem;
+  font-weight:800;
+  color:var(--blue);
+}
+.del-content h3{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:4px}
+.del-content p{font-size:.85rem;color:var(--dim);line-height:1.55}
+.del-when{font-size:.7rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--blue);margin-top:6px}
+
+/* ── ROLES ── */
+#roles{background:var(--pale2)}
+.role-card{
+  border:1px solid var(--border);
+  border-radius:var(--r2);
+  background:var(--white);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.role-header{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:20px 24px;
+  border-bottom:1px solid var(--border);
+}
+.role-avatar{
+  width:38px;height:38px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:.85rem;
+  font-weight:800;
+  color:#fff;
+  flex-shrink:0;
+}
+.role-title{font-weight:700;font-size:.95rem;color:var(--navy)}
+.role-body{padding:20px 24px}
+.role-body ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.role-body li{
+  display:flex;gap:8px;
+  font-size:.85rem;color:var(--dim);
+  align-items:flex-start;
+  line-height:1.5;
+}
+.role-body li::before{
+  content:'';
+  width:14px;height:14px;
+  background:var(--blue);
+  border-radius:50%;
+  flex-shrink:0;
+  margin-top:2px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 6l2.5 2.5 4.5-5' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size:cover;
+}
+
+/* ── JOURNEY ── */
+.step-card{
+  display:flex;
+  gap:24px;
+  padding:28px 32px;
+  border:1px solid var(--border);
+  border-radius:var(--r2);
+  background:var(--white);
+  box-shadow:var(--shadow);
+  align-items:flex-start;
+}
+.step-num{
+  width:52px;height:52px;
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Nunito',sans-serif;
+  font-weight:900;
+  font-size:1.4rem;
+  color:#fff;
+  flex-shrink:0;
+}
+.step-content{flex:1}
+.step-meta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:6px;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.step-label{
+  font-size:.65rem;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--faint);
+}
+.step-week{
+  font-size:.7rem;
+  font-weight:700;
+  padding:3px 10px;
+  border-radius:20px;
+  background:var(--pale);
+  color:var(--blue);
+  letter-spacing:.4px;
+}
+.step-title{font-weight:700;font-size:1.1rem;color:var(--navy);margin-bottom:8px}
+.step-desc{font-size:.9rem;color:var(--dim);line-height:1.65;margin-bottom:12px}
+.steps-stack{display:flex;flex-direction:column;gap:16px}
+
+/* ── WEEK GRID ── */
+#weekly{background:var(--pale2)}
+.week-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.week-card{
+  border:1px solid var(--border);
+  border-radius:var(--r2);
+  background:var(--white);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.week-header{
+  padding:18px 24px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border-bottom:1px solid var(--border);
+}
+.week-badge{
+  width:34px;height:34px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Nunito',sans-serif;
+  font-weight:900;
+  font-size:.95rem;
+  color:#fff;
+  flex-shrink:0;
+}
+.week-header h3{font-weight:700;font-size:.95rem;color:var(--navy)}
+.week-body{padding:16px 24px}
+.week-focus{font-weight:700;font-size:.85rem;color:var(--navy);margin-bottom:6px}
+.week-body p{font-size:.82rem;color:var(--dim);line-height:1.6}
+
+/* ── DATA ENTRY ── */
+#data-entry{background:linear-gradient(160deg,#f0f4ff 0%,#f7f0ff 100%)}
+.flywheel-item{
+  display:flex;
+  align-items:flex-start;
+  gap:20px;
+  padding:24px 28px;
+  border:1px solid var(--border);
+  border-radius:var(--r2);
+  background:var(--white);
+  box-shadow:var(--shadow);
+}
+.fly-num{
+  width:42px;height:42px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Nunito',sans-serif;
+  font-weight:900;
+  font-size:1.1rem;
+  color:#fff;
+  flex-shrink:0;
+}
+.fly-content h3{font-weight:700;font-size:.95rem;color:var(--navy);margin-bottom:4px}
+.fly-content p{font-size:.85rem;color:var(--dim);line-height:1.55}
+.flywheel-arrow{
+  text-align:center;
+  color:var(--faint);
+  font-size:1.4rem;
+  padding:6px 0;
+}
+
+/* ── CHAMPION ── */
+.champion-criteria{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+.crit-item{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  padding:20px 24px;
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  background:var(--white);
+}
+.crit-dot{
+  width:10px;height:10px;
+  border-radius:50%;
+  background:var(--blue);
+  flex-shrink:0;
+  margin-top:5px;
+}
+.crit-item p{font-size:.9rem;color:var(--dim);line-height:1.55}
+
+.first-call-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:36px}
+.call-block{
+  border:1px solid var(--border);
+  border-radius:var(--r2);
+  background:var(--white);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.call-block-header{
+  background:var(--pale);
+  padding:16px 24px;
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:1.5px;
+  text-transform:uppercase;
+  color:var(--blue);
+  border-bottom:1px solid var(--border);
+}
+.call-block-body{padding:20px 24px}
+.call-block-body ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.call-block-body li{
+  display:flex;gap:8px;
+  font-size:.87rem;color:var(--dim);
+  align-items:flex-start;line-height:1.5;
+}
+.call-block-body li::before{
+  content:'';
+  width:14px;height:14px;
+  background:var(--blue);border-radius:50%;flex-shrink:0;margin-top:2px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 6l2.5 2.5 4.5-5' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size:cover;
+}
+.call-block-body p{font-size:.87rem;color:var(--dim);line-height:1.65}
+.call-highlight{
+  background:var(--pale);
+  border-left:3px solid var(--blue);
+  border-radius:0 var(--r) var(--r) 0;
+  padding:16px 20px;
+  margin-top:12px;
+}
+.call-highlight p{font-size:.85rem;color:var(--navy);font-weight:500;line-height:1.6}
+
+/* ── HOW TO QUOTE ── */
+#quote{background:var(--pale2)}
+.req-item{
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+  padding:20px 24px;
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  background:var(--white);
+  box-shadow:var(--shadow);
+}
+.req-check{
+  width:22px;height:22px;
+  border-radius:50%;
+  background:var(--blue);
+  flex-shrink:0;
+  margin-top:1px;
+  display:flex;align-items:center;justify-content:center;
+}
+.req-check::after{
+  content:'';
+  width:12px;height:12px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2 6l3 3 5-6' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size:cover;
+}
+.req-text{font-size:.9rem;color:var(--navy);font-weight:500;line-height:1.55}
+.req-sub{font-size:.8rem;color:var(--dim);margin-top:4px;line-height:1.5}
+.req-stack{display:flex;flex-direction:column;gap:12px}
+.warn-box{
+  background:#fffbea;
+  border:1px solid #f3c84a;
+  border-radius:var(--r);
+  padding:18px 24px;
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  margin-top:20px;
+}
+.warn-icon{font-size:1.1rem;color:#d4a010;flex-shrink:0}
+.warn-box p{font-size:.85rem;color:#6b5100;line-height:1.6}
+
+/* ── END USERS TABLE ── */
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r2);box-shadow:var(--shadow)}
+table{width:100%;border-collapse:collapse;font-size:.87rem}
+thead{background:var(--navy);color:#fff}
+thead th{padding:14px 20px;text-align:left;font-weight:700;font-size:.72rem;letter-spacing:.8px;text-transform:uppercase;white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border)}
+tbody tr:last-child{border-bottom:none}
+tbody tr:nth-child(even){background:var(--pale2)}
+td{padding:16px 20px;color:var(--dim);vertical-align:top;line-height:1.55}
+td:first-child{font-weight:700;color:var(--navy)}
+.badge-low{
+  display:inline-block;
+  padding:2px 10px;
+  border-radius:20px;
+  background:#e0f7ec;
+  color:#1a7a47;
+  font-size:.72rem;
+  font-weight:700;
+  letter-spacing:.4px;
+}
+.badge-med{
+  display:inline-block;
+  padding:2px 10px;
+  border-radius:20px;
+  background:#fff3cd;
+  color:#9a6800;
+  font-size:.72rem;
+  font-weight:700;
+  letter-spacing:.4px;
+}
+.badge-ga{
+  display:inline-block;
+  padding:2px 10px;
+  border-radius:20px;
+  background:#d0f0e8;
+  color:#0a6e45;
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.4px;
+}
+.badge-nov{
+  display:inline-block;
+  padding:2px 10px;
+  border-radius:20px;
+  background:#fff0d0;
+  color:#8a5500;
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.4px;
+}
+
+/* ── RESULTS ── */
+#results{background:linear-gradient(150deg,var(--navy) 0%,#1a2a7a 50%,#2d1a6e 100%)}
+#results h2{color:#fff}
+#results .section-tag{color:#7ea8ff}
+#results .section-tag::before{background:#7ea8ff}
+#results .section-intro{color:rgba(255,255,255,.65)}
+.results-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:40px}
+.result-stat{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--r2);
+  padding:28px 24px;
+  text-align:center;
+  backdrop-filter:blur(6px);
+}
+.rs-trend{
+  display:inline-block;
+  font-size:.7rem;
+  font-weight:700;
+  padding:3px 8px;
+  border-radius:20px;
+  background:rgba(34,197,94,.15);
+  color:#4ade80;
+  margin-bottom:10px;
+  letter-spacing:.4px;
+}
+.rs-num{
+  font-family:'Nunito',sans-serif;
+  font-weight:900;
+  font-size:2.4rem;
+  color:#fff;
+  line-height:1;
+  margin-bottom:6px;
+}
+.rs-label{font-size:.78rem;color:rgba(255,255,255,.55)}
+.rs-sub{font-size:.7rem;color:rgba(255,255,255,.38);margin-top:3px}
+.story-card{
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:var(--r2);
+  padding:36px;
+  backdrop-filter:blur(6px);
+}
+.story-grid{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:start}
+.story-label{
+  font-size:.62rem;
+  font-weight:700;
+  letter-spacing:1.8px;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.4);
+  margin-bottom:8px;
+}
+.story-meta{font-size:.85rem;color:rgba(255,255,255,.5);margin-bottom:24px}
+.story-challenge h4{font-weight:700;font-size:.7rem;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px}
+.story-quote{
+  font-size:1.05rem;
+  font-style:italic;
+  color:rgba(255,255,255,.85);
+  line-height:1.7;
+  border-left:2px solid rgba(255,255,255,.25);
+  padding-left:20px;
+  margin-bottom:16px;
+}
+.story-attr{font-size:.8rem;color:rgba(255,255,255,.45)}
+.story-takeaway{
+  background:rgba(255,255,255,.07);
+  border-radius:var(--r);
+  padding:16px 20px;
+  font-size:.85rem;
+  color:rgba(255,255,255,.65);
+  line-height:1.6;
+  margin-top:12px;
+}
+.story-takeaway strong{color:#7ea8ff}
+.story-stats{display:flex;flex-direction:column;gap:16px}
+.ss-item{
+  background:rgba(255,255,255,.07);
+  border-radius:var(--r);
+  padding:20px 24px;
+  text-align:center;
+  min-width:140px;
+}
+.ss-num{
+  font-family:'Nunito',sans-serif;
+  font-weight:900;
+  font-size:1.8rem;
+  color:#7ea8ff;
+  line-height:1;
+  margin-bottom:4px;
+}
+.ss-label{font-size:.75rem;color:rgba(255,255,255,.5)}
+
+/* ── UPCOMING ── */
+.upcoming-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.upcoming-item{
+  border:1px solid var(--border);
+  border-radius:var(--r2);
+  background:var(--white);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.upcoming-top{
+  height:4px;
+  background:linear-gradient(90deg,var(--blue),var(--indigo));
+}
+.upcoming-body{padding:24px 28px}
+.upcoming-body h3{font-weight:700;font-size:1rem;color:var(--navy);margin-bottom:6px}
+.upcoming-body p{font-size:.87rem;color:var(--dim);line-height:1.55;margin-bottom:12px}
+
+/* ── BLOCKERS ── */
+#blockers{background:var(--pale2)}
+.blocker-card{
+  display:flex;
+  align-items:flex-start;
+  gap:20px;
+  padding:24px 28px;
+  border:1px solid var(--border);
+  border-radius:var(--r2);
+  background:var(--white);
+  box-shadow:var(--shadow);
+}
+.blocker-num{
+  width:40px;height:40px;
+  border-radius:50%;
+  background:var(--indigo);
+  color:#fff;
+  font-family:'Nunito',sans-serif;
+  font-weight:900;
+  font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.blocker-content h3{font-weight:700;font-size:.95rem;color:var(--navy);margin-bottom:6px}
+.blocker-content p{font-size:.87rem;color:var(--dim);line-height:1.6}
+
+/* ── INSIGHTS ── */
+.insight-item{
+  display:flex;
+  gap:20px;
+  align-items:flex-start;
+  padding:24px;
+  border-radius:var(--r2);
+  background:var(--pale);
+  border:1px solid var(--border);
+}
+.insight-icon{
+  font-size:1.3rem;
+  flex-shrink:0;
+  width:40px;
+  text-align:center;
+}
+.insight-content p{font-size:.95rem;color:var(--navy);font-weight:500;line-height:1.65}
+.start-box{
+  background:linear-gradient(135deg,var(--blue) 0%,var(--indigo) 100%);
+  border-radius:var(--r2);
+  padding:36px 40px;
+  color:#fff;
+  margin-top:36px;
+}
+.start-box h3{font-family:'Nunito',sans-serif;font-weight:900;font-size:1.4rem;color:#fff;margin-bottom:16px}
+.start-box ol{list-style:none;display:flex;flex-direction:column;gap:10px;counter-reset:steps}
+.start-box li{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  font-size:.95rem;
+  color:rgba(255,255,255,.85);
+}
+.start-box li::before{
+  content:counter(steps);
+  counter-increment:steps;
+  width:28px;height:28px;
+  border-radius:50%;
+  background:rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:.8rem;color:#fff;
+  flex-shrink:0;
+}
+
+/* ── DELIVERABLES CHECKLIST ── */
+.dlv-check-item{
+  display:flex;
+  align-items:flex-start;
+  gap:14px;
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+}
+.dlv-check-item:last-child{border-bottom:none}
+.dlv-check-mark{
+  width:22px;height:22px;
+  border-radius:50%;
+  background:var(--blue);
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+}
+.dlv-check-mark::after{
+  content:'';
+  width:12px;height:12px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2 6l3 3 5-6' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-size:cover;
+}
+.dlv-check-text{font-size:.9rem;color:var(--navy);font-weight:500;line-height:1.55}
+
+/* ── CTA / FOOTER ── */
+#cta{
+  background:linear-gradient(150deg,#08184f 0%,#1a2a7a 50%,#2d1a6e 100%);
+  padding:96px 48px;
+}
+.cta-inner{
+  max-width:1100px;
+  margin:0 auto;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:80px;
+  align-items:center;
+}
+.cta-content h2{
+  font-family:'Nunito',sans-serif;
+  font-weight:900;
+  font-size:clamp(2rem,4vw,3rem);
+  color:#fff;
+  line-height:1.15;
+  margin-bottom:20px;
+}
+.cta-content p{
+  font-size:1.05rem;
+  color:rgba(255,255,255,.65);
+  max-width:520px;
+  margin-bottom:36px;
+  line-height:1.7;
+}
+.cta-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:var(--blue);
+  color:#fff;
+  font-weight:700;
+  font-size:.92rem;
+  padding:15px 32px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,.15);
+  transition:background .2s;
+  letter-spacing:.3px;
+}
+.cta-btn:hover{background:var(--blue-mid)}
+.cta-photo{
+  width:220px;
+  border-radius:20px;
+  overflow:hidden;
+  flex-shrink:0;
+  border:3px solid rgba(255,255,255,.15);
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+}
+.cta-photo img{width:100%;height:auto;display:block}
+.cta-name{
+  text-align:center;
+  margin-top:12px;
+  font-size:.8rem;
+  font-weight:600;
+  color:rgba(255,255,255,.5);
+  letter-spacing:.5px;
+}
+
+footer{
+  background:var(--navy);
+  padding:28px 48px;
+  border-top:1px solid rgba(255,255,255,.08);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+footer p{font-size:.75rem;color:rgba(255,255,255,.3);letter-spacing:.3px}
+
+/* ── GHOST NUMERAL ACCENTS ── */
+.ghost-num{
+  position:absolute;
+  right:-20px;top:-30px;
+  font-family:'Nunito',sans-serif;
+  font-weight:900;
+  font-size:8rem;
+  color:rgba(27,110,243,.05);
+  pointer-events:none;
+  line-height:1;
+  z-index:0;
+  user-select:none;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:0 24px}
+  .nav-links{display:none}
+  .hero-content{padding:80px 24px 60px}
+  section{padding:72px 24px}
+  .first-call-grid,.champion-criteria{grid-template-columns:1fr}
+  .cta-inner{grid-template-columns:1fr}
+  .cta-photo{width:160px;margin:0 auto}
+  .story-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;gap:8px;text-align:center}
+}
+@media(max-width:600px){
+  .hero-stats{flex-direction:column}
+  .hstat{min-width:0}
+  .step-card{flex-direction:column}
+  .deliverable-item{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="ab">
+  <strong>Agentforce Coworker</strong><span class="ab-dot"></span>
+  30-Day Activation Playbook for Field AEs<span class="ab-dot"></span>
+  Proven live. Champion-led. In 30 days.
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">Agentforce <span>Coworker</span> Playbook</div>
+  <ul class="nav-links">
+    <li><a href="#why">Why Now</a></li>
+    <li><a href="#roles">Roles</a></li>
+    <li><a href="#journey">Journey</a></li>
+    <li><a href="#data-entry">Data Entry</a></li>
+    <li><a href="#champion">Champion</a></li>
+    <li><a href="#quote">Quote</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#cta" class="nav-cta">Start Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-label"><span>Sales Program Playbook</span>Agentforce Coworker</p>
+    <h1>Activate Agentforce Coworker in 30 Days</h1>
+    <p class="hero-sub">A repeatable framework for team selling across Core AE, BVS, BDR, AiDAPT AE, and SE. In 30 days, your customer sees a successful AI strategy led by their own champion, proven live in their own org.</p>
+    <div class="hero-stats">
+      <div class="hstat">
+        <div class="hstat-num">30</div>
+        <div class="hstat-label">days to a proven AI strategy</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">6</div>
+        <div class="hstat-label">step framework</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">1</div>
+        <div class="hstat-label">champion leads it</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-num">#1</div>
+        <div class="hstat-label">use case: data entry</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+  <div class="container">
+    <p class="section-tag">The Case for Agent-Informed Selling</p>
+    <h2>Why change the approach?</h2>
+    <p class="section-intro">AI projects have stalled at account after account. Customers want more from their Salesforce investment. Here is the shift that changes the conversation.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>Why agent-informed?</h3>
+        <p>It has been so difficult to align stakeholders and IT to deploy AI. There has been a ton of failure and little AI with proven value. With Agentforce, anyone can set up an agent, and we are seeing business stakeholders building agents to improve their own business.</p>
+      </div>
+      <div class="why-card">
+        <h3>Why change?</h3>
+        <p>Too many AI projects have stalled without proven value. Customers want more from their Salesforce investment. The traditional approach requires IT alignment, long timelines, and complex deployments. Agentforce changes all of that.</p>
+      </div>
+      <div class="why-card">
+        <h3>Why now?</h3>
+        <p>We are seeing great success with everyone we deploy Agentforce Coworker to: immediate value, and customers walk away with a successful AI use case strategy. The window to be the AE who brought AI to their customers is open today.</p>
+      </div>
+    </div>
+    <div class="quote-block">
+      <blockquote>"Thank you for the investment to co-develop this AI agent. Partnering directly with our team to streamline daily workflows has given our leaders the field capacity needed to focus on growth."</blockquote>
+      <p class="quote-attr">Customer CEO, via champion outreach</p>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERABLES -->
+<section id="deliverables">
+  <div class="container">
+    <p class="section-tag">01 &middot; Customer Deliverables</p>
+    <h2>Three deliverables across the journey</h2>
+    <p class="section-intro">Key assets and when they are used across the 30-day journey.</p>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="deliverable-item">
+        <div class="del-icon">01</div>
+        <div class="del-content">
+          <h3>First Call Deck</h3>
+          <p>Win stories, success definition, and aligning on one solid POC goal.</p>
+          <p class="del-when">Used on Week 1 kickoff call</p>
+        </div>
+      </div>
+      <div class="deliverable-item">
+        <div class="del-icon">02</div>
+        <div class="del-content">
+          <h3>POC Results + AI Use Case Road Map Proposal Deck</h3>
+          <p>Present POC results and the 10 use case roadmap to the decision maker.</p>
+          <p class="del-when">Used in Weeks 3 and 4</p>
+        </div>
+      </div>
+      <div class="deliverable-item">
+        <div class="del-icon">03</div>
+        <div class="del-content">
+          <h3>Micro-Site Proposal</h3>
+          <p>A customer-facing micro-site to carry the proposal and story throughout the 30-day journey.</p>
+          <p class="del-when">Built at kickoff, updated through the program</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROLES -->
+<section id="roles">
+  <div class="container">
+    <p class="section-tag">02 &middot; Roles &amp; Responsibilities</p>
+    <h2>Who does what</h2>
+    <p class="section-intro">Five roles across the 30-day program, each with a distinct lane.</p>
+    <div class="card-grid">
+      <div class="role-card">
+        <div class="role-header">
+          <div class="role-avatar" style="background:#1B6EF3">C</div>
+          <div class="role-title">Core AE</div>
+        </div>
+        <div class="role-body">
+          <ul>
+            <li>Find the champions and manage the team</li>
+            <li>Own the business use case</li>
+            <li>Create the BVS through the Slackbot skill</li>
+            <li>Identify success metrics</li>
+          </ul>
+        </div>
+      </div>
+      <div class="role-card">
+        <div class="role-header">
+          <div class="role-avatar" style="background:#0E4DD4">L</div>
+          <div class="role-title">Lead SE</div>
+        </div>
+        <div class="role-body">
+          <ul>
+            <li>Demo and show Coworker on the first call</li>
+            <li>Help with technical questions throughout</li>
+          </ul>
+        </div>
+      </div>
+      <div class="role-card">
+        <div class="role-header">
+          <div class="role-avatar" style="background:#7B4FDB">A</div>
+          <div class="role-title">Agentforce AE (AiDAPT)</div>
+        </div>
+        <div class="role-body">
+          <ul>
+            <li>Help with Coworker setup and activation</li>
+            <li>Teach users how to use Agentforce</li>
+          </ul>
+        </div>
+      </div>
+      <div class="role-card">
+        <div class="role-header">
+          <div class="role-avatar" style="background:#e05c1a">B</div>
+          <div class="role-title">BDR</div>
+        </div>
+        <div class="role-body">
+          <ul>
+            <li>Set up meetings and interviews</li>
+            <li>Outreach to identified accounts</li>
+            <li>Send swag to users</li>
+            <li>Capture quotes from users to share with the Exec Sponsor</li>
+          </ul>
+        </div>
+      </div>
+      <div class="role-card">
+        <div class="role-header">
+          <div class="role-avatar" style="background:#4B3BE8">B</div>
+          <div class="role-title">BVS Team</div>
+        </div>
+        <div class="role-body">
+          <ul>
+            <li>Help guide the spreadsheet for inputs</li>
+            <li>Check the Core AE's work</li>
+            <li>Help with the story</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNEY -->
+<section id="journey">
+  <div class="container">
+    <p class="section-tag">03 &middot; The 6-Step 30-Day Journey</p>
+    <h2>From picking a champion to a live demo for the decision maker</h2>
+    <p class="section-intro">Six steps, four weeks. Each step has a clear owner, clear inputs, and a clear output.</p>
+    <div class="steps-stack">
+      <div class="step-card">
+        <div class="step-num" style="background:linear-gradient(135deg,#1B6EF3,#0E4DD4)">1</div>
+        <div class="step-content">
+          <div class="step-meta">
+            <span class="step-label">Step 1</span>
+            <span class="step-week">Week 1</span>
+          </div>
+          <div class="step-title">Identify the customer &amp; champion</div>
+          <p class="step-desc">Pick the account and the internal champion you will build the agent with. The champion carries the message, runs the demo, and owns adoption after you leave.</p>
+          <ul class="checklist">
+            <li>Choose a customer motivated to drive Salesforce adoption and visibility</li>
+            <li>Find a champion who is respected, hands-on in CRM, and wants to lead the AI story</li>
+            <li>Confirm the champion has access to build and demo in their own org</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num" style="background:linear-gradient(135deg,#2b5ce8,#1B6EF3)">2</div>
+        <div class="step-content">
+          <div class="step-meta">
+            <span class="step-label">Step 2</span>
+            <span class="step-week">Week 1</span>
+          </div>
+          <div class="step-title">First call: win stories &amp; the why</div>
+          <p class="step-desc">Run the kickoff. Show win stories and align on one solid POC goal, then prove it. Data entry is a high-value use case; stay inside Salesforce to avoid flex credits.</p>
+          <ul class="checklist">
+            <li>Open with win stories that mirror the customer's business</li>
+            <li>Align on one solid POC goal and prove that success</li>
+            <li>Lead with data entry as a high-value use case</li>
+            <li>Stay inside Salesforce to avoid flex credits and get easy quick wins</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num" style="background:linear-gradient(135deg,#4B3BE8,#7B4FDB)">3</div>
+        <div class="step-content">
+          <div class="step-meta">
+            <span class="step-label">Step 3</span>
+            <span class="step-week">Week 2</span>
+          </div>
+          <div class="step-title">Identify end users</div>
+          <p class="step-desc">Segment end users into power and struggling users. Power users become multipliers; struggling users become the adoption proof point.</p>
+          <ul class="checklist">
+            <li>List power users, fast adopters who model the behavior</li>
+            <li>List struggling users, low CRM usage, manual workflows</li>
+            <li>Plan a help path for each segment</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num" style="background:linear-gradient(135deg,#7B4FDB,#9f5fd4)">4</div>
+        <div class="step-content">
+          <div class="step-meta">
+            <span class="step-label">Step 4</span>
+            <span class="step-week">Week 2</span>
+          </div>
+          <div class="step-title">One-on-one interviews</div>
+          <p class="step-desc">Sit with each end user. Teach them how to use Agentforce led by the Agentforce AE, and create 1 to 3 skills with them.</p>
+          <ul class="checklist">
+            <li>Teach each user how to use Agentforce, led by the Agentforce AE</li>
+            <li>Create 1 to 3 skills together with each user</li>
+            <li>Map each user's real workflow and the manual, avoided tasks</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num" style="background:linear-gradient(135deg,#0E4DD4,#1B6EF3)">5</div>
+        <div class="step-content">
+          <div class="step-meta">
+            <span class="step-label">Step 5</span>
+            <span class="step-week">Week 3</span>
+          </div>
+          <div class="step-title">Deliverables: roadmap &amp; value summary</div>
+          <p class="step-desc">Produce a 10 use case roadmap of low-complexity skills. Build the Business Value Summary and executive value map with Slackbot, plus the sheet quantifying data-entry impact.</p>
+          <ul class="checklist">
+            <li>10 use case roadmap, skills and agents, mostly low complexity</li>
+            <li>Executive value map built with Slackbot</li>
+            <li>Value sheet quantifying data-entry and streamlining impact</li>
+          </ul>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-num" style="background:linear-gradient(135deg,#d45a1a,#e87a3e)">6</div>
+        <div class="step-content">
+          <div class="step-meta">
+            <span class="step-label">Step 6</span>
+            <span class="step-week">Week 4</span>
+          </div>
+          <div class="step-title">Champion demos to the decision maker</div>
+          <p class="step-desc">The champion demos Coworker live in their own org and shows the results, proof of a successful AI strategy delivered inside 30 days.</p>
+          <ul class="checklist">
+            <li>Champion leads the demo in their real org</li>
+            <li>Show results: activity logged, time saved, CRM completeness</li>
+            <li>Make the ask to expand and commit</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WEEKLY -->
+<section id="weekly">
+  <div class="container">
+    <p class="section-tag">04 &middot; Week-by-Week Guide</p>
+    <h2>Suggested weekly mapping</h2>
+    <p class="section-intro">Adjust to the customer's pace. The structure is the guide; the champion's calendar is the reality.</p>
+    <div class="week-grid">
+      <div class="week-card">
+        <div class="week-header">
+          <div class="week-badge" style="background:#1B6EF3">1</div>
+          <h3>Week 1</h3>
+        </div>
+        <div class="week-body">
+          <p class="week-focus">Champion &amp; kickoff call</p>
+          <p>Identify the customer and champion. Run the first call with win stories, success definition, and the data-entry why.</p>
+        </div>
+      </div>
+      <div class="week-card">
+        <div class="week-header">
+          <div class="week-badge" style="background:#4B3BE8">2</div>
+          <h3>Week 2</h3>
+        </div>
+        <div class="week-body">
+          <p class="week-focus">End users &amp; interviews</p>
+          <p>Segment power and struggling users. Hold one-on-one interviews to teach Agentforce and create 1 to 3 skills with each user.</p>
+        </div>
+      </div>
+      <div class="week-card">
+        <div class="week-header">
+          <div class="week-badge" style="background:#7B4FDB">3</div>
+          <h3>Week 3</h3>
+        </div>
+        <div class="week-body">
+          <p class="week-focus">Roadmap &amp; value summary</p>
+          <p>Build the 10 use case roadmap, the executive value map with Slackbot, and the data-entry value sheet.</p>
+        </div>
+      </div>
+      <div class="week-card">
+        <div class="week-header">
+          <div class="week-badge" style="background:#d45a1a">4</div>
+          <h3>Week 4</h3>
+        </div>
+        <div class="week-body">
+          <p class="week-focus">Champion demo to decision maker</p>
+          <p>Champion demos Coworker in their own org and shows the results to the decision maker. Make the ask.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATA ENTRY -->
+<section id="data-entry">
+  <div class="container">
+    <p class="section-tag">05 &middot; Why Data Entry First</p>
+    <h2>The flywheel that sells itself</h2>
+    <p class="section-intro">Data entry is the biggest use case and the start of a flywheel. Voice-to-CRM and automated activity logging reduce manual work, which completes CRM data, which makes dashboards and forecasts trustworthy, which builds trust, which drives more adoption and pipeline visibility.</p>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <div class="flywheel-item">
+        <div class="fly-num" style="background:linear-gradient(135deg,#1B6EF3,#0E4DD4)">1</div>
+        <div class="fly-content">
+          <h3>Less manual entry</h3>
+          <p>Voice-to-CRM updates and automated activity logging remove the typing tax. Sellers stop avoiding Salesforce.</p>
+        </div>
+      </div>
+      <div class="flywheel-arrow">&#8595;</div>
+      <div class="flywheel-item">
+        <div class="fly-num" style="background:linear-gradient(135deg,#2b5ce8,#4B3BE8)">2</div>
+        <div class="fly-content">
+          <h3>More complete CRM data</h3>
+          <p>Activities, next steps, and notes land in Salesforce consistently because entering them no longer requires extra effort.</p>
+        </div>
+      </div>
+      <div class="flywheel-arrow">&#8595;</div>
+      <div class="flywheel-item">
+        <div class="fly-num" style="background:linear-gradient(135deg,#4B3BE8,#7B4FDB)">3</div>
+        <div class="fly-content">
+          <h3>Better dashboards &amp; forecasts</h3>
+          <p>Complete data makes pipeline and forecast reporting trustworthy. Leaders stop discounting the numbers.</p>
+        </div>
+      </div>
+      <div class="flywheel-arrow">&#8595;</div>
+      <div class="flywheel-item">
+        <div class="fly-num" style="background:linear-gradient(135deg,#7B4FDB,#9f5fd4)">4</div>
+        <div class="fly-content">
+          <h3>More trust</h3>
+          <p>Leaders believe the numbers because the activity behind them is real. Confidence in Salesforce goes up across the org.</p>
+        </div>
+      </div>
+      <div class="flywheel-arrow">&#8595;</div>
+      <div class="flywheel-item">
+        <div class="fly-num" style="background:linear-gradient(135deg,#9f5fd4,#d45a1a)">5</div>
+        <div class="fly-content">
+          <h3>More adoption</h3>
+          <p>Reps and leaders lean in, which feeds even more data back into CRM. The flywheel spins faster with each cycle.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAMPION & FIRST CALL -->
+<section id="champion">
+  <div class="container">
+    <p class="section-tag">06 &middot; Champion &amp; First Call</p>
+    <h2>What makes a good champion</h2>
+    <p class="section-intro">The champion is the most important variable in the 30 days. They carry the message, run the demo, and own adoption after you leave.</p>
+    <div class="champion-criteria">
+      <div class="crit-item">
+        <div class="crit-dot"></div>
+        <p>Respected by peers and credible with the decision maker</p>
+      </div>
+      <div class="crit-item">
+        <div class="crit-dot"></div>
+        <p>Hands-on in Salesforce every day, feels the data-entry pain</p>
+      </div>
+      <div class="crit-item">
+        <div class="crit-dot"></div>
+        <p>Wants to own and lead the AI story, not just sponsor it</p>
+      </div>
+      <div class="crit-item">
+        <div class="crit-dot"></div>
+        <p>Able to build and demo in their own org</p>
+      </div>
+      <div class="crit-item">
+        <div class="crit-dot"></div>
+        <p>Motivated by adoption and visibility, not just the technology itself</p>
+      </div>
+    </div>
+    <div class="first-call-grid">
+      <div class="call-block">
+        <div class="call-block-header">First-Call Agenda: Challenge the Why</div>
+        <div class="call-block-body">
+          <div class="call-highlight">
+            <p>Customers want more from their Salesforce investment, and most have not seen a successful AI investment turn into value. That is the opening.</p>
+          </div>
+          <p style="margin-top:16px;font-size:.75rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--faint)">Win stories to show</p>
+          <ul style="margin-top:10px">
+            <li>Sellers logging activity by voice instead of typing after every call</li>
+            <li>Pipeline dashboards that are finally complete and trusted</li>
+            <li>Struggling reps brought up to the standard of power users</li>
+            <li>Hours of admin time returned to selling each week</li>
+          </ul>
+        </div>
+      </div>
+      <div class="call-block">
+        <div class="call-block-header">Challenge the Why: Discovery Questions</div>
+        <div class="call-block-body">
+          <ul>
+            <li>Why do this now, and what breaks if nothing changes?</li>
+            <li>What does success actually look like in 30 days?</li>
+            <li>Where is Salesforce data incomplete today, and what does that cost in visibility?</li>
+            <li>Who feels the pain most, and who benefits most from fixing it?</li>
+            <li>If adoption goes up, what decisions get better?</li>
+          </ul>
+          <div class="call-highlight" style="margin-top:16px">
+            <p><strong>Align and prove success.</strong> Data entry is a high-value use case. Stay inside Salesforce to avoid flex credits and get easy quick wins.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO QUOTE -->
+<section id="quote">
+  <div class="container">
+    <p class="section-tag">07 &middot; How to Quote</p>
+    <h2>Confirm before the activation session</h2>
+    <p class="section-intro">Confirm all of the following with your customer before scheduling the activation session. Missing any one of these delays the Week 4 demo.</p>
+    <div class="req-stack">
+      <div class="req-item">
+        <div class="req-check"></div>
+        <div>
+          <div class="req-text">Enterprise or Unlimited edition</div>
+        </div>
+      </div>
+      <div class="req-item">
+        <div class="req-check"></div>
+        <div>
+          <div class="req-text">On one of these eligible SKUs</div>
+          <div class="req-sub">Agentforce 1 Edition (A1E) includes Coworker, unmetered. Agentforce for Salesforce (A4X) includes Coworker, unmetered. Agentforce Foundations (Flex) requires all 3 Foundations SKUs: Salesforce Foundations, Salesforce Foundations Entitlements, Flex Credits, and Data Cloud Provisioning or Data 360 Provisioning.</div>
+        </div>
+      </div>
+      <div class="req-item">
+        <div class="req-check"></div>
+        <div>
+          <div class="req-text">Data Cloud included in contract (or a standalone Data Cloud license)</div>
+        </div>
+      </div>
+      <div class="req-item">
+        <div class="req-check"></div>
+        <div>
+          <div class="req-text">A System Administrator on the call who can make Setup changes</div>
+        </div>
+      </div>
+      <div class="req-item">
+        <div class="req-check"></div>
+        <div>
+          <div class="req-text">Core AE sends the Data Cloud Activation Email Template before the meeting</div>
+          <div class="req-sub">So Coworker can be fully activated during the session.</div>
+        </div>
+      </div>
+      <div class="req-item">
+        <div class="req-check"></div>
+        <div>
+          <div class="req-text">Block 20 minutes for activation</div>
+          <div class="req-sub">Data Cloud provisioning can take up to 90 minutes, so walk through use cases and permission sets after setting up Data Cloud. It may not finish by the end of the session.</div>
+        </div>
+      </div>
+    </div>
+    <div class="warn-box">
+      <div class="warn-icon">!</div>
+      <p>Verify against the latest Pricing Guidance for Agentforce Coworker V1 and with Deal Desk before quoting. Requirements change with product updates.</p>
+    </div>
+  </div>
+</section>
+
+<!-- END USERS -->
+<section id="end-users">
+  <div class="container">
+    <p class="section-tag">08 &middot; End Users &amp; Interviews</p>
+    <h2>End user segmentation</h2>
+    <p class="section-intro">Segment end users into power and struggling users. Power users become multipliers; struggling users become the adoption proof point for the decision maker.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Segment</th>
+            <th>What they need</th>
+            <th>How Coworker helps</th>
+            <th>Interview prompts</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Power users</td>
+            <td>Speed, fewer clicks, and advanced moves that compound their edge</td>
+            <td>Coworker removes admin drag: voice-to-CRM, next-step summaries, prospecting. They sell more and model the behavior.</td>
+            <td>What slows you down in CRM? Which repetitive task would you hand off first? Where could an agent save you an hour a day?</td>
+          </tr>
+          <tr>
+            <td>Struggling users</td>
+            <td>Lower friction and confidence, a reason to actually use Salesforce</td>
+            <td>Coworker logs activity for them and drafts the work, turning CRM from a chore into a helper. They become the clearest adoption proof point.</td>
+            <td>What keeps you out of Salesforce? What do you track outside CRM today? If updates happened automatically, what would change?</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card" style="margin-top:24px">
+      <div style="font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-bottom:12px">Interview Prompts (Led by Agentforce AE)</div>
+      <p style="font-size:.9rem;color:var(--dim);line-height:1.65;margin-bottom:12px"><strong style="color:var(--navy)">Prompt 1:</strong> "What are the questions you want to know about your business or for your role?"</p>
+      <p style="font-size:.9rem;color:var(--dim);line-height:1.65;margin-bottom:12px"><strong style="color:var(--navy)">Teaching point:</strong> The more context the better. Speak to Agentforce like you speak to a teammate.</p>
+      <p style="font-size:.9rem;color:var(--dim);line-height:1.65"><strong style="color:var(--navy)">Goal:</strong> Teach each user how to use Agentforce, led by the Agentforce AE, and create 1 to 3 skills with them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASES -->
+<section id="use-cases" style="background:var(--pale2)">
+  <div class="container">
+    <p class="section-tag">09 &middot; 10 Use Case Roadmap</p>
+    <h2>Skills and agent use cases</h2>
+    <p class="section-intro">Skills and agent use cases that make the organization better, typically low complexity. Customize per customer and build out the remaining rows.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Use Case</th>
+            <th>Skill / Agent</th>
+            <th>Complexity</th>
+            <th>Owner</th>
+            <th>Expected Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Automated activity logging</td>
+            <td>Activity logging skill</td>
+            <td><span class="badge-low">Low</span></td>
+            <td>Champion</td>
+            <td>Complete activity data, no manual entry</td>
+          </tr>
+          <tr>
+            <td>Next steps summaries</td>
+            <td>Summarization skill</td>
+            <td><span class="badge-low">Low</span></td>
+            <td>AE / SE</td>
+            <td>Clear next steps on every opportunity</td>
+          </tr>
+          <tr>
+            <td>Pipeline hygiene nudges</td>
+            <td>Hygiene nudge agent</td>
+            <td><span class="badge-low">Low</span></td>
+            <td>Sales mgr</td>
+            <td>Cleaner pipeline, better forecast</td>
+          </tr>
+          <tr>
+            <td>Prospecting with ZoomInfo</td>
+            <td>ZoomInfo prospecting agent</td>
+            <td><span class="badge-med">Medium</span></td>
+            <td>BDR</td>
+            <td>More qualified activity into pipeline</td>
+          </tr>
+          <tr>
+            <td>Voice-to-CRM updates</td>
+            <td>Voice capture agent</td>
+            <td><span class="badge-low">Low</span></td>
+            <td>Champion</td>
+            <td>Updates logged by voice; seller time back</td>
+          </tr>
+          <tr>
+            <td>Wallet share analysis</td>
+            <td>Wallet share skill</td>
+            <td><span class="badge-med">Medium</span></td>
+            <td>AE</td>
+            <td>Whitespace surfaced for expansion</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:.78rem;color:var(--faint);margin-top:12px">Rows shown are a sample of the full 10 use case roadmap. Build out the rest per customer.</p>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="container">
+    <p class="section-tag">10 &middot; Early Results &amp; Customer Stories</p>
+    <h2>What the data shows</h2>
+    <p class="section-intro">Early results from Customer A after adopting Coworker on October 14. Measured against the September baseline.</p>
+    <div class="results-stat-grid">
+      <div class="result-stat">
+        <div class="rs-trend">+86%</div>
+        <div class="rs-num">~18/day</div>
+        <div class="rs-label">Activities logged daily</div>
+        <div class="rs-sub">vs. ~9.7/day in September</div>
+      </div>
+      <div class="result-stat">
+        <div class="rs-trend">+44%</div>
+        <div class="rs-num">252</div>
+        <div class="rs-label">Tasks logged since Oct 14</div>
+        <div class="rs-sub">vs. 175 in all of September</div>
+      </div>
+      <div class="result-stat">
+        <div class="rs-trend">+250%</div>
+        <div class="rs-num">22</div>
+        <div class="rs-label">Opportunities created in week one</div>
+        <div class="rs-sub">vs. September's ~6/week pace</div>
+      </div>
+      <div class="result-stat">
+        <div class="rs-trend">+133%</div>
+        <div class="rs-num">14</div>
+        <div class="rs-label">Closed Won in October</div>
+        <div class="rs-sub">vs. 6 in September</div>
+      </div>
+    </div>
+    <div style="background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:var(--r2);padding:28px 32px;margin-bottom:36px;backdrop-filter:blur(6px)">
+      <p style="font-size:1.05rem;font-style:italic;color:rgba(255,255,255,.85);line-height:1.7">"Since adopting Coworker on Oct 14, users' daily logged activity nearly doubled, pipeline is being built at a record pace, and Closed Won deals are on track for a 4x month-over-month increase."</p>
+      <p style="font-size:.8rem;color:rgba(255,255,255,.45);margin-top:10px">AE, Customer A</p>
+    </div>
+    <div class="story-card">
+      <div class="story-label">Customer Story: Driving Adoption</div>
+      <div class="story-grid">
+        <div>
+          <p class="story-meta">Territory Manager at Customer B</p>
+          <div class="story-challenge">
+            <h4>The Challenge</h4>
+            <p style="font-size:.87rem;color:rgba(255,255,255,.65);line-height:1.65;margin-bottom:16px">The Territory Manager was candid: not tech-savvy, and had historically avoided using Salesforce in the field.</p>
+          </div>
+          <blockquote class="story-quote">"Speaking for an older person, it did help me when I was out in the field. I click on the microphone and say what I want... it drives and goes to there. It does help me navigate the system better than I could manually... and it's a lot quicker."</blockquote>
+          <p class="story-attr">Territory Manager, Customer B</p>
+          <div class="story-takeaway">
+            <strong>Key takeaway:</strong> If this rep can seamlessly adopt Salesforce voice-to-text using Coworker, every rep across Customer B can scale adoption.
+          </div>
+        </div>
+        <div class="story-stats">
+          <div class="ss-item">
+            <div class="ss-num">+78%</div>
+            <div class="ss-label">activities logged</div>
+          </div>
+          <div class="ss-item">
+            <div class="ss-num">+67%</div>
+            <div class="ss-label">opportunities updated</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UPCOMING CAPABILITIES -->
+<section id="upcoming">
+  <div class="container">
+    <p class="section-tag">11 &middot; What Customers Are Most Excited For</p>
+    <h2>Coworker capabilities customers want most</h2>
+    <p class="section-intro">The capabilities customers are most excited about and when they become available.</p>
+    <div class="upcoming-grid">
+      <div class="upcoming-item">
+        <div class="upcoming-top"></div>
+        <div class="upcoming-body">
+          <h3>History</h3>
+          <p>Remembers your role, past conversations, and working context.</p>
+          <span class="badge-ga">GA Now</span>
+        </div>
+      </div>
+      <div class="upcoming-item">
+        <div class="upcoming-top" style="background:linear-gradient(90deg,var(--indigo),var(--purple))"></div>
+        <div class="upcoming-body">
+          <h3>Skills</h3>
+          <p>Build, reuse, and share repeatable workflows with the whole team.</p>
+          <span class="badge-ga">GA Now</span>
+        </div>
+      </div>
+      <div class="upcoming-item">
+        <div class="upcoming-top" style="background:linear-gradient(90deg,var(--purple),#d45a1a)"></div>
+        <div class="upcoming-body">
+          <h3>Mobile App</h3>
+          <p>Your AI teammate in your pocket. Full Coworker capabilities on the go.</p>
+          <span class="badge-nov">GA in November</span>
+        </div>
+      </div>
+      <div class="upcoming-item">
+        <div class="upcoming-top" style="background:linear-gradient(90deg,#d45a1a,var(--blue))"></div>
+        <div class="upcoming-body">
+          <h3>Coworker in Teams</h3>
+          <p>Works directly in Microsoft Teams, where many customers live daily.</p>
+          <span class="badge-nov">GA in November</span>
+        </div>
+      </div>
+      <div class="upcoming-item">
+        <div class="upcoming-top" style="background:linear-gradient(90deg,var(--blue),var(--indigo))"></div>
+        <div class="upcoming-body">
+          <h3>Native 3rd Party Context</h3>
+          <p>Pulls context from your productivity suite directly into the flow of work.</p>
+          <span class="badge-ga" style="margin-right:6px">Google Workspace Now</span><span class="badge-nov">M365 November</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERABLES CHECKLIST + DEMO -->
+<section id="checklist" style="background:var(--pale2)">
+  <div class="container">
+    <p class="section-tag">12 &middot; Deliverables &amp; Demo</p>
+    <h2>Before Week 4</h2>
+    <p class="section-intro">Everything that should be in place before the champion demo to the decision maker.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+      <div class="card">
+        <div style="font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-bottom:18px">Deliverables Checklist</div>
+        <div class="dlv-check-item">
+          <div class="dlv-check-mark"></div>
+          <div class="dlv-check-text">Named customer and committed champion</div>
+        </div>
+        <div class="dlv-check-item">
+          <div class="dlv-check-mark"></div>
+          <div class="dlv-check-text">First-call deck: win stories + success definition + the why</div>
+        </div>
+        <div class="dlv-check-item">
+          <div class="dlv-check-mark"></div>
+          <div class="dlv-check-text">End-user list segmented into power and struggling users</div>
+        </div>
+        <div class="dlv-check-item">
+          <div class="dlv-check-mark"></div>
+          <div class="dlv-check-text">One-on-one interview notes for each end user</div>
+        </div>
+        <div class="dlv-check-item">
+          <div class="dlv-check-mark"></div>
+          <div class="dlv-check-text">10 use case roadmap of skills and agent use cases</div>
+        </div>
+        <div class="dlv-check-item">
+          <div class="dlv-check-mark"></div>
+          <div class="dlv-check-text">Business Value Summary and executive value map built with Slackbot</div>
+        </div>
+        <div class="dlv-check-item">
+          <div class="dlv-check-mark"></div>
+          <div class="dlv-check-text">Value sheet quantifying data-entry and streamlining impact</div>
+        </div>
+        <div class="dlv-check-item" style="border-bottom:none">
+          <div class="dlv-check-mark"></div>
+          <div class="dlv-check-text">Champion demo built and rehearsed in their own org</div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="font-size:.7rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--indigo);margin-bottom:18px">Decision-Maker Demo Outline</div>
+        <p style="font-size:.85rem;color:var(--dim);margin-bottom:16px;line-height:1.6">The champion demos Coworker live in their own org and presents four proof points:</p>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#1B6EF3,#0E4DD4);color:#fff;font-family:'Nunito',sans-serif;font-weight:900;font-size:.9rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+            <div>
+              <div style="font-weight:700;font-size:.9rem;color:var(--navy)">Activity logged</div>
+              <div style="font-size:.82rem;color:var(--dim)">Show calls, meetings, and tasks captured automatically by Coworker.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#4B3BE8,#7B4FDB);color:#fff;font-family:'Nunito',sans-serif;font-weight:900;font-size:.9rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+            <div>
+              <div style="font-weight:700;font-size:.9rem;color:var(--navy)">Time saved</div>
+              <div style="font-size:.82rem;color:var(--dim)">Quantify admin minutes returned to selling per rep per week.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#7B4FDB,#9f5fd4);color:#fff;font-family:'Nunito',sans-serif;font-weight:900;font-size:.9rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+            <div>
+              <div style="font-weight:700;font-size:.9rem;color:var(--navy)">CRM completeness</div>
+              <div style="font-size:.82rem;color:var(--dim)">Before and after on how complete the records are now.</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:14px;align-items:flex-start">
+            <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#d45a1a,#e87a3e);color:#fff;font-family:'Nunito',sans-serif;font-weight:900;font-size:.9rem;display:flex;align-items:center;justify-content:center;flex-shrink:0">4</div>
+            <div>
+              <div style="font-weight:700;font-size:.9rem;color:var(--navy)">Visibility</div>
+              <div style="font-size:.82rem;color:var(--dim)">Dashboards and forecasts leaders can finally trust.</div>
+            </div>
+          </div>
+        </div>
+        <div style="background:var(--pale);border-left:3px solid var(--blue);border-radius:0 var(--r) var(--r) 0;padding:16px 20px;margin-top:20px">
+          <div style="font-size:.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--blue);margin-bottom:6px">The Ask</div>
+          <p style="font-size:.87rem;color:var(--navy);line-height:1.6">A successful AI strategy proven in 30 days. Commit to expanding Coworker across the end-user base to grow adoption and pipeline visibility.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCKERS -->
+<section id="blockers">
+  <div class="container">
+    <p class="section-tag">13 &middot; Common Blockers &amp; Mitigations</p>
+    <h2>Protect the 30 days</h2>
+    <p class="section-intro">Every program faces these four blockers. Anticipate them at kickoff and the Week 4 demo stays on track.</p>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="blocker-card">
+        <div class="blocker-num">1</div>
+        <div class="blocker-content">
+          <h3>Provisioning delays</h3>
+          <p>Confirm Agentforce and Data Foundations provisioning before Week 1. Escalate early so the Week 4 demo is never at risk.</p>
+        </div>
+      </div>
+      <div class="blocker-card">
+        <div class="blocker-num">2</div>
+        <div class="blocker-content">
+          <h3>Data readiness</h3>
+          <p>Assess CRM data quality up front. Scope low-complexity use cases that work with data as-is. Don't let perfect be the enemy of proven.</p>
+        </div>
+      </div>
+      <div class="blocker-card">
+        <div class="blocker-num">3</div>
+        <div class="blocker-content">
+          <h3>Change management</h3>
+          <p>Use the struggling-user segment and champion-led demos to build belief. Show, don't tell. Peer-to-peer proof converts faster than vendor pitches.</p>
+        </div>
+      </div>
+      <div class="blocker-card">
+        <div class="blocker-num">4</div>
+        <div class="blocker-content">
+          <h3>Champion availability</h3>
+          <p>Secure the champion's time for all four weeks at kickoff. Name a backup contact. The champion going dark is the single biggest program killer.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSIGHTS -->
+<section id="insights">
+  <div class="container">
+    <p class="section-tag">14 &middot; Insights &amp; Next Steps</p>
+    <h2>What the best teams do differently</h2>
+    <p class="section-intro">Four things that separate programs that close from programs that stall.</p>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="insight-item">
+        <div class="insight-icon" style="color:var(--blue)">&#9889;</div>
+        <div class="insight-content">
+          <p>Lead with data entry. It is the biggest use case and the cheapest to stand up, mostly low-complexity skills that deliver proof fast.</p>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-icon" style="color:var(--indigo)">&#128101;</div>
+        <div class="insight-content">
+          <p>The champion, not the AE, demos. Peer-to-peer proof in the customer's own org converts decision makers far better than a vendor pitch.</p>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-icon" style="color:var(--purple)">&#9901;</div>
+        <div class="insight-content">
+          <p>Adoption is the real product. More logging means more complete data, more trusted forecasts, and more pipeline visibility. The flywheel sells itself.</p>
+        </div>
+      </div>
+      <div class="insight-item">
+        <div class="insight-icon" style="color:#d45a1a">&#9201;</div>
+        <div class="insight-content">
+          <p>Protect the 30 days. Lock champion time and provisioning at kickoff so the Week 4 demo to the decision maker never slips.</p>
+        </div>
+      </div>
+    </div>
+    <div class="start-box">
+      <h3>Start this week</h3>
+      <ol>
+        <li>Pick the account and name the champion.</li>
+        <li>Book the first call with win stories and a success definition.</li>
+        <li>Build the value map with Slackbot (Run BVS Executive Value Map, Outside-In).</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-inner">
+    <div class="cta-content">
+      <h2>Ready to run<br>your first 30-day program?</h2>
+      <p>This playbook is live, proven, and ready to deploy. Pick your account, name your champion, and book the first call this week. The 30-day clock starts the moment the champion is confirmed.</p>
+      <a href="mailto:atroggio@salesforce.com" class="cta-btn">Connect with Anthony &#8594;</a>
+    </div>
+    <div>
+      <div class="cta-photo">
+        <img src="anthony.png" alt="Anthony Troggio, Digital AE, Salesforce">
+      </div>
+      <p class="cta-name">Anthony Troggio<br>Digital AE, MFG &amp; Auto West</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Agentforce Coworker 30-Day Playbook &mdash; Salesforce</p>
+  <p>Built by Anthony Troggio &middot; atroggio-art.github.io/account-sites/agentforce-coworker-30-day-playbook.html</p>
+</footer>
+
+</body>
+</html>
