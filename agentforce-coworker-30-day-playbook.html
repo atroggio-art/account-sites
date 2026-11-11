@@ -33,79 +33,36 @@ img{display:block;max-width:100%}
   --shadow2:0 4px 32px rgba(11,31,111,.14);
 }
 
-/* ── ANNOUNCEMENT BAR ── */
-.ab{
-  background:var(--blue);
-  color:#fff;
-  text-align:center;
-  font-size:.72rem;
-  font-weight:600;
-  letter-spacing:.5px;
-  padding:8px 48px;
-  position:sticky;
-  top:0;
-  z-index:201;
-}
-.ab strong{font-weight:800}
-.ab-dot{display:inline-block;width:3px;height:3px;background:rgba(255,255,255,.5);border-radius:50%;margin:0 10px;vertical-align:middle;position:relative;top:-1px}
-
 /* ── NAV ── */
 nav{
   position:sticky;
-  top:34px;
+  top:0;
   z-index:200;
-  background:rgba(8,24,79,.92);
-  backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
-  border-bottom:1px solid rgba(255,255,255,.08);
+  background:#0e2060;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  padding:0 48px;
-  height:62px;
+  justify-content:center;
+  padding:0 40px;
+  height:46px;
 }
-nav::after{
-  content:'';
-  position:absolute;
-  bottom:0;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,var(--blue) 0%,var(--indigo) 50%,var(--purple) 100%);
-}
-.nav-brand{
-  font-family:'Nunito',sans-serif;
-  font-weight:900;
-  font-size:.95rem;
-  color:#fff;
-  letter-spacing:.3px;
-  white-space:nowrap;
-}
-.nav-brand span{color:#7ea8ff}
 .nav-links{
   display:flex;
   align-items:center;
-  gap:28px;
+  gap:0;
   list-style:none;
 }
 .nav-links a{
-  font-size:.72rem;
-  font-weight:600;
-  letter-spacing:.5px;
-  text-transform:uppercase;
-  color:rgba(255,255,255,.65);
-  transition:color .2s;
+  font-size:.82rem;
+  font-weight:400;
+  color:rgba(255,255,255,.88);
+  padding:0 18px;
+  height:46px;
+  display:flex;
+  align-items:center;
+  transition:background .15s,color .15s;
+  white-space:nowrap;
 }
-.nav-links a:hover{color:#fff}
-.nav-cta{
-  font-size:.72rem;
-  font-weight:700;
-  letter-spacing:.4px;
-  color:#fff;
-  background:var(--blue);
-  padding:8px 18px;
-  border-radius:6px;
-  border:1px solid rgba(255,255,255,.15);
-  transition:background .2s;
-}
-.nav-cta:hover{background:var(--blue-mid)}
+.nav-links a:hover{background:rgba(255,255,255,.1);color:#fff}
 
 /* ── HERO ── */
 .hero{
@@ -321,22 +278,56 @@ h2{
 .deliverable-item:hover{box-shadow:var(--shadow2);transform:translateY(-2px)}
 .del-icon{
   width:44px;height:44px;
-  background:var(--pale);
   border-radius:10px;
   flex-shrink:0;
   display:flex;
   align-items:center;
   justify-content:center;
-  font-size:1.2rem;
-  font-weight:800;
-  color:var(--blue);
+  overflow:hidden;
 }
 .del-content h3{font-size:.95rem;font-weight:700;color:var(--navy);margin-bottom:4px}
+.del-content h3 a{color:var(--blue);text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.del-content h3 a:hover{text-decoration:underline}
+.del-content h3 .ext-arrow{font-size:.8rem;opacity:.6}
 .del-content p{font-size:.85rem;color:var(--dim);line-height:1.55}
 .del-when{font-size:.7rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--blue);margin-top:6px}
+a.deliverable-item{display:flex;cursor:pointer}
+a.deliverable-item:hover{box-shadow:var(--shadow2);transform:translateY(-2px)}
+
+/* ── FROM OUR CUSTOMERS ── */
+#from-customers{background:var(--pale2)}
+.customer-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.cstat-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--r2);
+  padding:28px 32px;
+  box-shadow:var(--shadow);
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
+}
+.cstat-check{
+  width:28px;height:28px;
+  border-radius:7px;
+  background:#43a047;
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  margin-top:2px;
+}
+.cstat-check svg{width:16px;height:16px}
+.cstat-text strong{
+  font-size:1rem;
+  font-weight:700;
+  color:var(--navy);
+  line-height:1.4;
+  display:block;
+  margin-bottom:4px;
+}
+.cstat-text p{font-size:.87rem;color:var(--dim);line-height:1.6}
 
 /* ── ROLES ── */
-#roles{background:var(--pale2)}
+#roles{background:var(--white)}
 .role-card{
   border:1px solid var(--border);
   border-radius:var(--r2);
@@ -964,25 +955,17 @@ footer p{font-size:.75rem;color:rgba(255,255,255,.3);letter-spacing:.3px}
 </head>
 <body>
 
-<!-- ANNOUNCEMENT BAR -->
-<div class="ab">
-  <strong>Agentforce Coworker</strong><span class="ab-dot"></span>
-  30-Day Activation Playbook for Field AEs<span class="ab-dot"></span>
-  Proven live. Champion-led. In 30 days.
-</div>
-
 <!-- NAV -->
 <nav>
-  <div class="nav-brand">Agentforce <span>Coworker</span> Playbook</div>
   <ul class="nav-links">
-    <li><a href="#why">Why Now</a></li>
+    <li><a href="#deliverables">Deliverables</a></li>
     <li><a href="#roles">Roles</a></li>
     <li><a href="#journey">Journey</a></li>
-    <li><a href="#data-entry">Data Entry</a></li>
-    <li><a href="#champion">Champion</a></li>
-    <li><a href="#quote">Quote</a></li>
-    <li><a href="#results">Results</a></li>
-    <li><a href="#cta" class="nav-cta">Start Now</a></li>
+    <li><a href="#weekly">Weekly guide</a></li>
+    <li><a href="#data-entry">Data entry first</a></li>
+    <li><a href="#champion">Champion &amp; first call</a></li>
+    <li><a href="#quote">How to quote</a></li>
+    <li><a href="#end-users">End users</a></li>
   </ul>
 </nav>
 
@@ -1049,28 +1032,90 @@ footer p{font-size:.75rem;color:rgba(255,255,255,.3);letter-spacing:.3px}
     <h2>Three deliverables across the journey</h2>
     <p class="section-intro">Key assets and when they are used across the 30-day journey.</p>
     <div style="display:flex;flex-direction:column;gap:16px">
-      <div class="deliverable-item">
-        <div class="del-icon">01</div>
+      <a class="deliverable-item" href="#" target="_blank" rel="noopener">
+        <div class="del-icon">
+          <!-- Google Sheets icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="44" height="44">
+            <path fill="#43a047" d="M37,45H11c-1.657,0-3-1.343-3-3V6c0-1.657,1.343-3,3-3h19l10,10v29C40,43.657,38.657,45,37,45z"/>
+            <path fill="#c8e6c9" d="M40,13H30V3L40,13z"/>
+            <path fill="#2e7d32" d="M30,3l10,10h-10V3z"/>
+            <path fill="#fff" d="M15,23h18v2H15V23z M15,27h18v2H15V27z M15,31h12v2H15V31z"/>
+          </svg>
+        </div>
         <div class="del-content">
-          <h3>First Call Deck</h3>
+          <h3><span>First Call Deck</span> <span class="ext-arrow">&#8599;</span></h3>
           <p>Win stories, success definition, and aligning on one solid POC goal.</p>
           <p class="del-when">Used on Week 1 kickoff call</p>
         </div>
-      </div>
-      <div class="deliverable-item">
-        <div class="del-icon">02</div>
+      </a>
+      <a class="deliverable-item" href="#" target="_blank" rel="noopener">
+        <div class="del-icon">
+          <!-- Google Sheets icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="44" height="44">
+            <path fill="#43a047" d="M37,45H11c-1.657,0-3-1.343-3-3V6c0-1.657,1.343-3,3-3h19l10,10v29C40,43.657,38.657,45,37,45z"/>
+            <path fill="#c8e6c9" d="M40,13H30V3L40,13z"/>
+            <path fill="#2e7d32" d="M30,3l10,10h-10V3z"/>
+            <path fill="#fff" d="M15,23h18v2H15V23z M15,27h18v2H15V27z M15,31h12v2H15V31z"/>
+          </svg>
+        </div>
         <div class="del-content">
-          <h3>POC Results + AI Use Case Road Map Proposal Deck</h3>
+          <h3><span>POC Results + AI Use Case Road Map Proposal Deck</span> <span class="ext-arrow">&#8599;</span></h3>
           <p>Present POC results and the 10 use case roadmap to the decision maker.</p>
           <p class="del-when">Used in Weeks 3 and 4</p>
         </div>
-      </div>
-      <div class="deliverable-item">
-        <div class="del-icon">03</div>
+      </a>
+      <a class="deliverable-item" href="#" target="_blank" rel="noopener">
+        <div class="del-icon">
+          <!-- Claude logo -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" width="44" height="44">
+            <rect width="44" height="44" rx="10" fill="#cc785c"/>
+            <path d="M14 28.5 C14 28.5 16 20 22 16 C28 20 30 28.5 30 28.5" stroke="#fff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M11 28.5 L33 28.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="22" cy="14" r="2.5" fill="#fff"/>
+          </svg>
+        </div>
         <div class="del-content">
-          <h3>Micro-Site Proposal</h3>
+          <h3><span>Micro-Site Proposal | SPL</span> <span class="ext-arrow">&#8599;</span></h3>
           <p>A customer-facing micro-site to carry the proposal and story throughout the 30-day journey.</p>
           <p class="del-when">Built at kickoff, updated through the program</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FROM OUR CUSTOMERS -->
+<section id="from-customers">
+  <div class="container">
+    <p class="section-tag">From our customers</p>
+    <h2>What teams tell us after going live</h2>
+    <p class="section-intro">Real numbers from customers who let Agentforce take on the busywork. Here is what stood out.</p>
+    <div class="customer-stat-grid">
+      <div class="cstat-card">
+        <div class="cstat-check">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8l3.5 3.5 6.5-7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="cstat-text">
+          <strong>Up to six hours back, every week.</strong>
+          <p>That's the average time reps save with sales agents.</p>
+        </div>
+      </div>
+      <div class="cstat-card">
+        <div class="cstat-check">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8l3.5 3.5 6.5-7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="cstat-text">
+          <strong>63% report more accurate and complete CRM data.</strong>
+          <p>Conversations turn into actions automatically, and that data becomes trusted context for every step of the deal.</p>
+        </div>
+      </div>
+      <div class="cstat-card">
+        <div class="cstat-check">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 8l3.5 3.5 6.5-7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="cstat-text">
+          <strong>A 28% increase in win rate.</strong>
+          <p>Which points to a boost in overall revenue.</p>
         </div>
       </div>
     </div>
