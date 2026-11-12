@@ -1060,8 +1060,8 @@ footer p{font-size:.75rem;color:rgba(255,255,255,.3);letter-spacing:.3px}
           </svg>
         </div>
         <div class="del-content">
-          <h3><span>Micro-Site Proposal | SPL</span> <span class="ext-arrow">&#8599;</span></h3>
-          <p>A customer-facing micro-site to carry the proposal and story throughout the 30-day journey.</p>
+          <h3><span>Customer, Champion Micro-Site | SPL</span> <span class="ext-arrow">&#8599;</span></h3>
+          <p>Built for the champion to share internally. They use it to brief their executive, align stakeholders, and make the case for Agentforce without you in the room.</p>
           <p class="del-when">Built at kickoff, updated through the program</p>
         </div>
       </a>
@@ -1905,10 +1905,13 @@ footer p{font-size:.75rem;color:rgba(255,255,255,.3);letter-spacing:.3px}
 </footer>
 
 <script>
-  if (window.location.hash) {
+  (function() {
+    if (!window.location.hash) return;
     history.replaceState(null, '', window.location.pathname + window.location.search);
     window.scrollTo(0, 0);
-  }
+    document.addEventListener('DOMContentLoaded', function() { window.scrollTo(0, 0); });
+    window.addEventListener('load', function() { window.scrollTo(0, 0); });
+  })();
 </script>
 </body>
 </html>
