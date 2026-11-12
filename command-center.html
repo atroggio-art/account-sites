@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AE Command Center — Anthony Troggio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:#f0f4ff;color:#0f172a;-webkit-font-smoothing:antialiased;min-height:100vh}
+a{color:inherit;text-decoration:none}
+
+:root{
+  --blue:#1B6EF3;--blue-d:#0E4DD4;--blue-l:#e8effd;
+  --green:#16a34a;--green-l:#dcfce7;
+  --amber:#d97706;--amber-l:#fef3c7;
+  --red:#dc2626;--red-l:#fee2e2;
+  --purple:#7c3aed;--purple-l:#ede9fe;
+  --teal:#0891b2;--teal-l:#cffafe;
+  --navy:#0a1028;
+  --surface:#fff;
+  --border:#e2e8f0;
+  --dim:#64748b;
+  --faint:#94a3b8;
+  --r:10px;--r2:14px;
+  --shadow:0 1px 8px rgba(15,23,42,.07);
+  --shadow2:0 4px 24px rgba(15,23,42,.12);
+}
+
+/* ── AUTH SCREEN ── */
+#auth-screen{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  min-height:100vh;padding:40px 24px;
+  background:linear-gradient(160deg,#0d48b8 0%,#1669d4 40%,#2a8ae8 100%);
+}
+.auth-card{
+  background:#fff;border-radius:20px;padding:48px;
+  max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3);
+  text-align:center;
+}
+.auth-logo{
+  width:52px;height:52px;background:var(--blue);border-radius:14px;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 24px;
+  font-weight:800;font-size:1.3rem;color:#fff;
+}
+.auth-card h1{font-size:1.6rem;font-weight:800;color:var(--navy);margin-bottom:8px}
+.auth-card p{font-size:.92rem;color:var(--dim);line-height:1.65;margin-bottom:32px}
+.auth-form{display:flex;flex-direction:column;gap:14px;text-align:left;margin-bottom:24px}
+.auth-form label{font-size:.78rem;font-weight:600;color:var(--navy);margin-bottom:4px;display:block}
+.auth-form input{
+  width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;
+  font-size:.9rem;font-family:inherit;color:var(--navy);
+  transition:border-color .15s;outline:none;
+}
+.auth-form input:focus{border-color:var(--blue)}
+.auth-form input::placeholder{color:var(--faint)}
+.btn-connect{
+  width:100%;padding:13px;background:var(--blue);color:#fff;
+  border:none;border-radius:9px;font-size:.95rem;font-weight:700;
+  cursor:pointer;font-family:inherit;transition:background .15s;
+}
+.btn-connect:hover{background:var(--blue-d)}
+.auth-help{font-size:.75rem;color:var(--faint);line-height:1.6}
+.auth-help a{color:var(--blue);text-decoration:underline}
+
+/* ── LOADING ── */
+#loading-screen{
+  display:none;flex-direction:column;align-items:center;justify-content:center;
+  min-height:100vh;gap:16px;
+  background:linear-gradient(160deg,#0d48b8 0%,#1669d4 40%,#2a8ae8 100%);
+}
+.spinner{
+  width:40px;height:40px;border:3px solid rgba(255,255,255,.3);
+  border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+#loading-screen p{color:rgba(255,255,255,.8);font-size:.9rem}
+
+/* ── DASHBOARD ── */
+#dashboard{display:none;flex-direction:column;min-height:100vh}
+
+/* ── TOP BAR ── */
+.topbar{
+  background:var(--navy);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;height:56px;position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 8px rgba(0,0,0,.3);
+}
+.topbar-left{display:flex;align-items:center;gap:14px}
+.topbar-logo{
+  width:32px;height:32px;background:var(--blue);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:.8rem;color:#fff;flex-shrink:0;
+}
+.topbar-title{font-weight:700;font-size:.95rem;color:#fff}
+.topbar-user{font-size:.78rem;color:rgba(255,255,255,.45);margin-left:4px}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.sync-info{font-size:.72rem;color:rgba(255,255,255,.35);white-space:nowrap}
+.btn-refresh{
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.7);padding:6px 14px;border-radius:6px;
+  font-size:.75rem;font-weight:600;cursor:pointer;font-family:inherit;
+  transition:background .15s;
+}
+.btn-refresh:hover{background:rgba(255,255,255,.15);color:#fff}
+.btn-disconnect{
+  background:transparent;border:none;color:rgba(255,255,255,.3);
+  font-size:.72rem;cursor:pointer;font-family:inherit;padding:4px 8px;
+}
+.btn-disconnect:hover{color:rgba(255,255,255,.6)}
+
+/* ── QUOTA BAR ── */
+.quota-bar-wrap{
+  background:var(--navy);border-top:1px solid rgba(255,255,255,.06);
+  padding:10px 28px;display:flex;align-items:center;gap:24px;
+}
+.quota-label{font-size:.72rem;font-weight:600;color:rgba(255,255,255,.4);letter-spacing:.5px;text-transform:uppercase;white-space:nowrap}
+.quota-track{flex:1;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden;max-width:400px}
+.quota-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#22c55e,#16a34a);transition:width .8s ease}
+.quota-pct{font-size:.8rem;font-weight:700;color:#4ade80;white-space:nowrap}
+.quota-detail{font-size:.72rem;color:rgba(255,255,255,.3)}
+.kpi-chips{display:flex;gap:12px;margin-left:auto}
+.kpi-chip{
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);
+  border-radius:20px;padding:4px 14px;
+  font-size:.72rem;color:rgba(255,255,255,.55);white-space:nowrap;
+}
+.kpi-chip strong{color:rgba(255,255,255,.85);font-weight:700}
+
+/* ── MAIN CONTENT ── */
+.main{padding:24px 28px;display:flex;flex-direction:column;gap:20px}
+
+/* ── SECTION LABEL ── */
+.sec-label{
+  font-size:.65rem;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--dim);margin-bottom:12px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.sec-label a{font-size:.7rem;font-weight:600;color:var(--blue);letter-spacing:0;text-transform:none}
+
+/* ── CARD ── */
+.card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r2);box-shadow:var(--shadow);overflow:hidden;
+}
+.card-head{
+  padding:16px 20px 0;display:flex;align-items:center;
+  justify-content:space-between;
+}
+.card-title{font-size:.8rem;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.6px}
+.card-body{padding:16px 20px}
+
+/* ── FORECAST CARDS ── */
+.forecast-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.fcast-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r2);padding:20px;box-shadow:var(--shadow);
+  position:relative;overflow:hidden;
+}
+.fcast-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+}
+.fcast-card.commit::before{background:var(--blue)}
+.fcast-card.bestcase::before{background:var(--teal)}
+.fcast-card.pipeline::before{background:var(--purple)}
+.fcast-card.won::before{background:var(--green)}
+.fcast-label{font-size:.68rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--dim);margin-bottom:6px}
+.fcast-amount{font-size:1.7rem;font-weight:800;color:var(--navy);line-height:1;margin-bottom:4px}
+.fcast-count{font-size:.75rem;color:var(--faint)}
+
+/* ── PIPELINE STAGES ── */
+.pipeline-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.stage-list{display:flex;flex-direction:column;gap:6px}
+.stage-item{display:flex;align-items:center;gap:10px}
+.stage-name{font-size:.8rem;color:var(--dim);min-width:160px;flex-shrink:0}
+.stage-bar-track{flex:1;height:20px;background:#f1f5f9;border-radius:4px;overflow:hidden;position:relative}
+.stage-bar-fill{height:100%;border-radius:4px;transition:width .6s ease;display:flex;align-items:center;padding-left:8px}
+.stage-bar-fill span{font-size:.68rem;font-weight:700;color:#fff;white-space:nowrap}
+.stage-amt{font-size:.78rem;font-weight:600;color:var(--navy);min-width:80px;text-align:right}
+.stage-cnt{font-size:.7rem;color:var(--faint);min-width:28px;text-align:right}
+
+/* ── OPP LIST ── */
+.opp-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.opp-table th{
+  padding:8px 12px;text-align:left;font-size:.65rem;font-weight:700;
+  letter-spacing:.8px;text-transform:uppercase;color:var(--faint);
+  border-bottom:1px solid var(--border);background:#fafbfd;
+}
+.opp-table td{padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:middle}
+.opp-table tr:last-child td{border-bottom:none}
+.opp-table tr:hover td{background:#fafbfd}
+.opp-name{font-weight:600;color:var(--navy)}
+.opp-account{font-size:.75rem;color:var(--dim)}
+.badge{
+  display:inline-block;padding:2px 9px;border-radius:20px;
+  font-size:.68rem;font-weight:700;letter-spacing:.3px;white-space:nowrap;
+}
+.badge-blue{background:var(--blue-l);color:var(--blue-d)}
+.badge-green{background:var(--green-l);color:var(--green)}
+.badge-amber{background:var(--amber-l);color:var(--amber)}
+.badge-red{background:var(--red-l);color:var(--red)}
+.badge-purple{background:var(--purple-l);color:var(--purple)}
+.badge-teal{background:var(--teal-l);color:var(--teal)}
+.badge-gray{background:#f1f5f9;color:var(--dim)}
+.close-date{font-size:.78rem;color:var(--dim);white-space:nowrap}
+.close-date.urgent{color:var(--red);font-weight:600}
+.close-date.soon{color:var(--amber);font-weight:600}
+.prob{font-size:.78rem;color:var(--dim)}
+.amt{font-size:.82rem;font-weight:600;color:var(--navy);white-space:nowrap}
+
+/* ── ACCOUNT CARDS ── */
+.acct-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.acct-card{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:var(--r);padding:16px;box-shadow:var(--shadow);
+}
+.acct-card:hover{box-shadow:var(--shadow2)}
+.acct-name{font-weight:700;font-size:.88rem;color:var(--navy);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acct-industry{font-size:.72rem;color:var(--dim);margin-bottom:10px}
+.acct-tags{display:flex;gap:6px;flex-wrap:wrap}
+
+/* ── RENEWAL LIST ── */
+.renewal-item{
+  display:flex;align-items:center;gap:14px;
+  padding:12px 0;border-bottom:1px solid #f1f5f9;
+}
+.renewal-item:last-child{border-bottom:none}
+.renewal-days{
+  width:44px;height:44px;border-radius:10px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  flex-shrink:0;font-weight:800;line-height:1;
+}
+.renewal-days.urgent{background:var(--red-l);color:var(--red)}
+.renewal-days.soon{background:var(--amber-l);color:var(--amber)}
+.renewal-days.ok{background:var(--green-l);color:var(--green)}
+.renewal-days-num{font-size:1.1rem}
+.renewal-days-label{font-size:.55rem;text-transform:uppercase;letter-spacing:.5px}
+.renewal-info{flex:1;min-width:0}
+.renewal-name{font-weight:600;font-size:.85rem;color:var(--navy);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.renewal-account{font-size:.75rem;color:var(--dim)}
+.renewal-amount{font-weight:700;font-size:.88rem;color:var(--navy);text-align:right;white-space:nowrap}
+
+/* ── ACTIVITY ── */
+.activity-item{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:10px 0;border-bottom:1px solid #f1f5f9;
+}
+.activity-item:last-child{border-bottom:none}
+.act-dot{
+  width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px;
+}
+.act-content{flex:1;min-width:0}
+.act-subject{font-size:.83rem;font-weight:500;color:var(--navy)}
+.act-meta{font-size:.72rem;color:var(--faint);margin-top:2px}
+
+/* ── EMPTY STATE ── */
+.empty{
+  text-align:center;padding:32px 20px;
+}
+.empty p{font-size:.85rem;color:var(--faint)}
+
+/* ── SETUP PANEL ── */
+#setup-panel{
+  display:none;position:fixed;inset:0;z-index:500;
+  background:rgba(0,0,0,.5);backdrop-filter:blur(4px);
+  align-items:center;justify-content:center;padding:24px;
+}
+.setup-card{
+  background:#fff;border-radius:16px;padding:36px;
+  max-width:520px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3);
+}
+.setup-card h2{font-size:1.2rem;font-weight:800;color:var(--navy);margin-bottom:6px}
+.setup-card p{font-size:.85rem;color:var(--dim);line-height:1.65;margin-bottom:20px}
+.setup-steps{
+  background:#f8faff;border:1px solid var(--border);border-radius:8px;
+  padding:16px 20px;margin-bottom:20px;
+  font-size:.82rem;color:var(--dim);line-height:1.8;
+}
+.setup-steps ol{padding-left:18px}
+.setup-steps code{
+  background:#e8effd;color:var(--blue-d);padding:1px 6px;
+  border-radius:4px;font-family:monospace;font-size:.8rem;
+}
+.setup-btn-row{display:flex;gap:10px;justify-content:flex-end;margin-top:8px}
+.btn-secondary{
+  background:#f1f5f9;border:1px solid var(--border);color:var(--dim);
+  padding:9px 18px;border-radius:7px;font-size:.82rem;font-weight:600;
+  cursor:pointer;font-family:inherit;
+}
+.btn-primary{
+  background:var(--blue);border:none;color:#fff;
+  padding:9px 18px;border-radius:7px;font-size:.82rem;font-weight:600;
+  cursor:pointer;font-family:inherit;
+}
+
+/* ── LAYOUT ROWS ── */
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.row-2-3{display:grid;grid-template-columns:2fr 1fr;gap:14px}
+
+/* ── ERROR TOAST ── */
+.toast{
+  position:fixed;bottom:24px;right:24px;z-index:999;
+  background:#1e293b;color:#fff;padding:12px 20px;border-radius:8px;
+  font-size:.83rem;box-shadow:var(--shadow2);
+  transform:translateY(100px);opacity:0;transition:all .3s;
+}
+.toast.show{transform:translateY(0);opacity:1}
+
+@media(max-width:1100px){
+  .forecast-row{grid-template-columns:repeat(2,1fr)}
+  .pipeline-row{grid-template-columns:1fr}
+  .row-2,.row-2-3{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .main{padding:16px}
+  .forecast-row{grid-template-columns:1fr 1fr}
+  .row-3{grid-template-columns:1fr}
+  .kpi-chips{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- AUTH SCREEN -->
+<div id="auth-screen">
+  <div class="auth-card">
+    <div class="auth-logo">CC</div>
+    <h1>AE Command Center</h1>
+    <p>Connect your Salesforce org to get a live view of your pipeline, accounts, renewals, and greenfield opportunities.</p>
+    <div class="auth-form">
+      <div>
+        <label for="instance-url">Salesforce Instance URL</label>
+        <input type="text" id="instance-url" placeholder="https://yourorg.my.salesforce.com" autocomplete="off">
+      </div>
+      <div>
+        <label for="client-id">Connected App Client ID (Consumer Key)</label>
+        <input type="text" id="client-id" placeholder="3MVG9..." autocomplete="off">
+      </div>
+    </div>
+    <button class="btn-connect" onclick="startAuth()">Connect to Salesforce</button>
+    <p style="margin-top:16px">
+      <a href="#" onclick="showSetup()" style="color:var(--blue);font-size:.8rem;text-decoration:underline">First time? See setup instructions</a>
+    </p>
+    <p class="auth-help" style="margin-top:20px">Your credentials are stored only in your browser. Nothing is sent to any third party.</p>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div id="loading-screen">
+  <div class="spinner"></div>
+  <p id="loading-msg">Connecting to Salesforce...</p>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-logo">CC</div>
+      <div>
+        <span class="topbar-title">AE Command Center</span>
+        <span class="topbar-user" id="topbar-user"></span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span class="sync-info" id="sync-info"></span>
+      <button class="btn-refresh" onclick="refreshData()">Refresh</button>
+      <button class="btn-disconnect" onclick="disconnect()">Disconnect</button>
+    </div>
+  </div>
+
+  <!-- QUOTA BAR -->
+  <div class="quota-bar-wrap">
+    <span class="quota-label">Quota</span>
+    <div class="quota-track">
+      <div class="quota-fill" id="quota-fill" style="width:0%"></div>
+    </div>
+    <span class="quota-pct" id="quota-pct">—</span>
+    <span class="quota-detail" id="quota-detail"></span>
+    <div class="kpi-chips" id="kpi-chips"></div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- FORECAST ROW -->
+    <div>
+      <div class="sec-label">Forecast</div>
+      <div class="forecast-row">
+        <div class="fcast-card won">
+          <div class="fcast-label">Closed Won (QTD)</div>
+          <div class="fcast-amount" id="fc-won">—</div>
+          <div class="fcast-count" id="fc-won-cnt"></div>
+        </div>
+        <div class="fcast-card commit">
+          <div class="fcast-label">Commit</div>
+          <div class="fcast-amount" id="fc-commit">—</div>
+          <div class="fcast-count" id="fc-commit-cnt"></div>
+        </div>
+        <div class="fcast-card bestcase">
+          <div class="fcast-label">Best Case</div>
+          <div class="fcast-amount" id="fc-bestcase">—</div>
+          <div class="fcast-count" id="fc-bestcase-cnt"></div>
+        </div>
+        <div class="fcast-card pipeline">
+          <div class="fcast-label">Pipeline</div>
+          <div class="fcast-amount" id="fc-pipeline">—</div>
+          <div class="fcast-count" id="fc-pipeline-cnt"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PIPELINE STAGES + CLOSING SOON -->
+    <div class="pipeline-row">
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">Pipeline by Stage</span>
+          <span id="total-pipeline" style="font-size:.82rem;font-weight:700;color:var(--blue)"></span>
+        </div>
+        <div class="card-body">
+          <div class="stage-list" id="stage-list">
+            <div class="empty"><p>Loading...</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">Closing This Month</span>
+        </div>
+        <div class="card-body" style="padding-top:8px">
+          <div id="closing-list"><div class="empty"><p>Loading...</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AT RISK + DARK ACCOUNTS -->
+    <div class="row-2">
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">At Risk</span>
+          <span style="font-size:.72rem;color:var(--faint)">No activity in 14+ days</span>
+        </div>
+        <div class="card-body" style="padding-top:8px">
+          <div id="at-risk-list"><div class="empty"><p>Loading...</p></div></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">Overdue Next Steps</span>
+          <span style="font-size:.72rem;color:var(--faint)">Past close date or stale stage</span>
+        </div>
+        <div class="card-body" style="padding-top:8px">
+          <div id="overdue-list"><div class="empty"><p>Loading...</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RENEWALS -->
+    <div>
+      <div class="sec-label">Renewals <span>(next 90 days)</span></div>
+      <div class="card">
+        <div class="card-body" style="padding-top:8px">
+          <div id="renewals-list"><div class="empty"><p>Loading...</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GREENFIELD + ACCOUNTS -->
+    <div class="row-2">
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">Greenfield</span>
+          <span style="font-size:.72rem;color:var(--faint)">Accounts with no open opportunities</span>
+        </div>
+        <div class="card-body">
+          <div class="acct-grid" id="greenfield-list">
+            <div class="empty"><p>Loading...</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">Full Pipeline</span>
+        </div>
+        <div class="card-body" style="padding-top:8px;max-height:400px;overflow-y:auto">
+          <div id="full-pipeline-list"><div class="empty"><p>Loading...</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIVITY -->
+    <div>
+      <div class="sec-label">Recent Activity</div>
+      <div class="card">
+        <div class="card-body" style="padding-top:8px">
+          <div id="activity-list"><div class="empty"><p>Loading...</p></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /dashboard -->
+
+<!-- SETUP PANEL -->
+<div id="setup-panel" onclick="if(event.target===this)hideSetup()">
+  <div class="setup-card">
+    <h2>One-time Salesforce Setup</h2>
+    <p>You need a Salesforce Connected App to authorize this page. Ask your Salesforce admin, or do it yourself if you have admin access.</p>
+    <div class="setup-steps">
+      <strong>Steps (takes about 5 minutes):</strong>
+      <ol>
+        <li>In Salesforce: Setup &rarr; App Manager &rarr; <strong>New Connected App</strong></li>
+        <li>Name it anything. Check <strong>Enable OAuth Settings</strong></li>
+        <li>Callback URL: <code>https://atroggio-art.github.io/account-sites/command-center.html</code></li>
+        <li>OAuth Scopes: add <strong>Access and manage your data (api)</strong> and <strong>Perform requests anytime (refresh_token)</strong></li>
+        <li>Save. Copy the <strong>Consumer Key</strong> (Client ID)</li>
+        <li>Setup &rarr; CORS &rarr; Add <code>https://atroggio-art.github.io</code></li>
+        <li>Paste the Consumer Key and your org URL into the form</li>
+      </ol>
+    </div>
+    <div class="setup-btn-row">
+      <button class="btn-secondary" onclick="hideSetup()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── UTILS ──────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+
+function fmt(n) {
+  if (!n) return '$0';
+  if (n >= 1e6) return '$' + (n/1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return '$' + (n/1e3).toFixed(0) + 'K';
+  return '$' + Math.round(n).toLocaleString();
+}
+
+function fmtDate(d) {
+  if (!d) return '';
+  const dt = new Date(d + 'T00:00:00');
+  return dt.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+}
+
+function daysUntil(d) {
+  if (!d) return null;
+  const dt = new Date(d + 'T00:00:00');
+  const now = new Date(); now.setHours(0,0,0,0);
+  return Math.round((dt - now) / 86400000);
+}
+
+function daysAgo(d) {
+  if (!d) return 999;
+  const dt = new Date(d);
+  const now = new Date();
+  return Math.round((now - dt) / 86400000);
+}
+
+function showToast(msg, dur = 3500) {
+  const t = $('toast'); t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), dur);
+}
+
+// ── STORAGE ────────────────────────────────────────────
+const LS = {
+  get: k => { try { return JSON.parse(localStorage.getItem(k)) } catch { return null } },
+  set: (k, v) => localStorage.setItem(k, JSON.stringify(v)),
+  del: k => localStorage.removeItem(k)
+};
+
+// ── OAUTH PKCE ─────────────────────────────────────────
+function b64url(buf) {
+  return btoa(String.fromCharCode(...new Uint8Array(buf)))
+    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+}
+
+async function genVerifier() {
+  const arr = new Uint8Array(32);
+  crypto.getRandomValues(arr);
+  return b64url(arr.buffer);
+}
+
+async function genChallenge(verifier) {
+  const data = new TextEncoder().encode(verifier);
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  return b64url(digest);
+}
+
+async function startAuth() {
+  const instanceUrl = $('instance-url').value.trim().replace(/\/$/, '');
+  const clientId = $('client-id').value.trim();
+  if (!instanceUrl || !clientId) { showToast('Enter your instance URL and client ID'); return; }
+
+  LS.set('cc_instance', instanceUrl);
+  LS.set('cc_client_id', clientId);
+
+  const verifier = await genVerifier();
+  const challenge = await genChallenge(verifier);
+  LS.set('cc_verifier', verifier);
+
+  const params = new URLSearchParams({
+    response_type: 'code',
+    client_id: clientId,
+    redirect_uri: window.location.href.split('?')[0].split('#')[0],
+    code_challenge: challenge,
+    code_challenge_method: 'S256',
+    scope: 'api refresh_token'
+  });
+
+  window.location.href = `${instanceUrl}/services/oauth2/authorize?${params}`;
+}
+
+async function handleCallback(code) {
+  const instanceUrl = LS.get('cc_instance');
+  const clientId = LS.get('cc_client_id');
+  const verifier = LS.get('cc_verifier');
+  if (!instanceUrl || !clientId || !verifier) { showAuth(); return; }
+
+  show('loading-screen');
+  $('loading-msg').textContent = 'Exchanging authorization code...';
+
+  try {
+    const body = new URLSearchParams({
+      grant_type: 'authorization_code',
+      client_id: clientId,
+      redirect_uri: window.location.href.split('?')[0].split('#')[0],
+      code_verifier: verifier,
+      code
+    });
+
+    const res = await fetch(`${instanceUrl}/services/oauth2/token`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error_description || data.error);
+
+    LS.set('cc_token', data.access_token);
+    LS.set('cc_instance_url', data.instance_url || instanceUrl);
+    LS.del('cc_verifier');
+
+    // Clean URL
+    window.history.replaceState({}, '', window.location.pathname);
+    await loadDashboard();
+  } catch (e) {
+    showToast('Auth failed: ' + e.message, 6000);
+    show('auth-screen');
+  }
+}
+
+// ── SALESFORCE API ─────────────────────────────────────
+async function sfQuery(soql) {
+  const token = LS.get('cc_token');
+  const base = LS.get('cc_instance_url');
+  if (!token || !base) throw new Error('Not authenticated');
+
+  const url = `${base}/services/data/v59.0/query?q=${encodeURIComponent(soql)}`;
+  const res = await fetch(url, { headers: { Authorization: `Bearer ${token}` } });
+
+  if (res.status === 401) {
+    disconnect();
+    throw new Error('Session expired. Please reconnect.');
+  }
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error((err[0] && err[0].message) || `HTTP ${res.status}`);
+  }
+  return res.json();
+}
+
+async function sfGet(path) {
+  const token = LS.get('cc_token');
+  const base = LS.get('cc_instance_url');
+  const res = await fetch(`${base}${path}`, { headers: { Authorization: `Bearer ${token}` } });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+// ── LOAD DATA ──────────────────────────────────────────
+async function loadDashboard() {
+  show('loading-screen');
+  $('loading-msg').textContent = 'Loading your pipeline...';
+
+  try {
+    // Get current user
+    const me = await sfGet('/services/data/v59.0/chatter/users/me');
+    const userId = me.id.match(/\/User\/([^/]+)/)?.[1] || me.id;
+    LS.set('cc_user_id', userId);
+    LS.set('cc_user_name', me.displayName || me.name);
+
+    $('topbar-user').textContent = '— ' + (me.displayName || me.name);
+    $('sync-info').textContent = 'Last synced: just now';
+    LS.set('cc_last_sync', Date.now());
+
+    await Promise.all([
+      loadOpportunities(userId),
+      loadRenewals(userId),
+      loadAccounts(userId),
+      loadActivity(userId)
+    ]);
+
+    show('dashboard');
+  } catch (e) {
+    showToast('Error loading data: ' + e.message, 6000);
+    if (e.message.includes('Session') || e.message.includes('reconnect')) {
+      show('auth-screen');
+    } else {
+      show('dashboard'); // show partial data if possible
+    }
+  }
+}
+
+async function loadOpportunities(userId) {
+  const data = await sfQuery(`
+    SELECT Id, Name, StageName, Amount, CloseDate, Probability,
+           Account.Name, AccountId, ForecastCategoryName, Type,
+           LastActivityDate, NextStep, IsClosed, IsWon
+    FROM Opportunity
+    WHERE OwnerId = '${userId}'
+    AND (IsClosed = false OR (IsWon = true AND CloseDate = THIS_QUARTER))
+    ORDER BY CloseDate ASC
+    LIMIT 500
+  `);
+
+  const opps = data.records || [];
+  renderForecast(opps);
+  renderPipelineStages(opps);
+  renderClosingSoon(opps);
+  renderAtRisk(opps);
+  renderOverdue(opps);
+  renderFullPipeline(opps);
+  renderKPIs(opps);
+}
+
+async function loadRenewals(userId) {
+  const data = await sfQuery(`
+    SELECT Id, Name, Amount, CloseDate, Account.Name, AccountId, StageName
+    FROM Opportunity
+    WHERE OwnerId = '${userId}'
+    AND IsClosed = false
+    AND (Type = 'Renewal' OR Type = 'Existing Business')
+    AND CloseDate <= NEXT_N_DAYS:90
+    ORDER BY CloseDate ASC
+    LIMIT 50
+  `);
+  renderRenewals(data.records || []);
+}
+
+async function loadAccounts(userId) {
+  const data = await sfQuery(`
+    SELECT Id, Name, Industry, Type, AnnualRevenue,
+           (SELECT Id FROM Opportunities WHERE IsClosed = false LIMIT 1)
+    FROM Account
+    WHERE OwnerId = '${userId}'
+    ORDER BY Name ASC
+    LIMIT 200
+  `);
+  renderGreenfield(data.records || []);
+}
+
+async function loadActivity(userId) {
+  const tasks = await sfQuery(`
+    SELECT Id, Subject, ActivityDate, Status, WhatId, What.Name, Description
+    FROM Task
+    WHERE OwnerId = '${userId}'
+    ORDER BY ActivityDate DESC
+    LIMIT 30
+  `);
+  renderActivity(tasks.records || []);
+}
+
+// ── RENDER FUNCTIONS ───────────────────────────────────
+function renderForecast(opps) {
+  const open = opps.filter(o => !o.IsClosed);
+  const won = opps.filter(o => o.IsWon);
+
+  const cats = { Commit: [], 'Best Case': [], Pipeline: [], Omitted: [] };
+  open.forEach(o => {
+    const cat = o.ForecastCategoryName || 'Pipeline';
+    (cats[cat] || cats.Pipeline).push(o);
+  });
+
+  const sumAmt = arr => arr.reduce((s, o) => s + (o.Amount || 0), 0);
+
+  $('fc-won').textContent = fmt(sumAmt(won));
+  $('fc-won-cnt').textContent = won.length + ' deal' + (won.length !== 1 ? 's' : '');
+
+  $('fc-commit').textContent = fmt(sumAmt(cats.Commit));
+  $('fc-commit-cnt').textContent = cats.Commit.length + ' deal' + (cats.Commit.length !== 1 ? 's' : '');
+
+  $('fc-bestcase').textContent = fmt(sumAmt(cats['Best Case']));
+  $('fc-bestcase-cnt').textContent = cats['Best Case'].length + ' deals';
+
+  const pipeTotal = sumAmt(open);
+  $('fc-pipeline').textContent = fmt(pipeTotal);
+  $('fc-pipeline-cnt').textContent = open.length + ' open deals';
+
+  $('total-pipeline').textContent = fmt(pipeTotal);
+
+  // Quota (estimate from closed won if ForecastingQuota not accessible)
+  const wonAmt = sumAmt(won);
+  // Can't know quota without ForecastingQuota object access, show won amount
+  const pct = Math.min(100, Math.round((wonAmt / Math.max(wonAmt, pipeTotal)) * 100));
+  $('quota-fill').style.width = pct + '%';
+  $('quota-pct').textContent = fmt(wonAmt) + ' closed';
+  $('quota-detail').textContent = '— connect ForecastingQuota for full attainment';
+}
+
+function renderKPIs(opps) {
+  const open = opps.filter(o => !o.IsClosed);
+  const won = opps.filter(o => o.IsWon);
+  const avg = won.length ? won.reduce((s,o) => s+(o.Amount||0),0)/won.length : 0;
+  const winRate = opps.length ? Math.round(won.length / opps.length * 100) : 0;
+
+  $('kpi-chips').innerHTML = `
+    <div class="kpi-chip"><strong>${open.length}</strong> open opps</div>
+    <div class="kpi-chip"><strong>${won.length}</strong> closed won QTD</div>
+    <div class="kpi-chip">avg deal <strong>${fmt(avg)}</strong></div>
+    <div class="kpi-chip">win rate <strong>${winRate}%</strong></div>
+  `;
+}
+
+const STAGE_COLORS = {
+  'Prospecting': '#6366f1',
+  'Qualification': '#3b82f6',
+  'Needs Analysis': '#0891b2',
+  'Value Proposition': '#0ea5e9',
+  'Id. Decision Makers': '#8b5cf6',
+  'Perception Analysis': '#a855f7',
+  'Proposal/Price Quote': '#f59e0b',
+  'Negotiation/Review': '#f97316',
+  'Commit': '#1B6EF3',
+  'Best Case': '#0891b2',
+  'Pipeline': '#6366f1',
+  'Closed Won': '#16a34a',
+  'Closed Lost': '#dc2626'
+};
+
+function stageColor(name) {
+  return STAGE_COLORS[name] || '#6366f1';
+}
+
+function renderPipelineStages(opps) {
+  const open = opps.filter(o => !o.IsClosed);
+  if (!open.length) {
+    $('stage-list').innerHTML = '<div class="empty"><p>No open opportunities</p></div>';
+    return;
+  }
+
+  const stages = {};
+  open.forEach(o => {
+    if (!stages[o.StageName]) stages[o.StageName] = { count: 0, amount: 0 };
+    stages[o.StageName].count++;
+    stages[o.StageName].amount += (o.Amount || 0);
+  });
+
+  const maxAmt = Math.max(...Object.values(stages).map(s => s.amount));
+
+  $('stage-list').innerHTML = Object.entries(stages)
+    .sort((a,b) => b[1].amount - a[1].amount)
+    .map(([name, s]) => {
+      const pct = maxAmt ? Math.max(8, Math.round(s.amount / maxAmt * 100)) : 8;
+      const col = stageColor(name);
+      return `
+        <div class="stage-item">
+          <span class="stage-name">${name}</span>
+          <div class="stage-bar-track">
+            <div class="stage-bar-fill" style="width:${pct}%;background:${col}">
+              <span>${s.count}</span>
+            </div>
+          </div>
+          <span class="stage-amt">${fmt(s.amount)}</span>
+        </div>
+      `;
+    }).join('');
+}
+
+function oppRow(o, showStage = false) {
+  const days = daysUntil(o.CloseDate);
+  const dateClass = days !== null && days < 0 ? 'urgent' : days !== null && days <= 14 ? 'soon' : '';
+  const stageMap = {
+    'Commit': 'badge-blue', 'Best Case': 'badge-teal',
+    'Closed Won': 'badge-green', 'Proposal/Price Quote': 'badge-amber',
+    'Negotiation/Review': 'badge-amber',
+  };
+  const badgeClass = stageMap[o.StageName] || 'badge-gray';
+  const lastAct = o.LastActivityDate ? daysAgo(o.LastActivityDate) : null;
+  const actBadge = lastAct !== null ? (lastAct > 30 ? `<span class="badge badge-red">${lastAct}d ago</span>` : lastAct > 14 ? `<span class="badge badge-amber">${lastAct}d ago</span>` : '') : '';
+
+  return `<tr>
+    <td>
+      <div class="opp-name">${o.Name}</div>
+      <div class="opp-account">${(o.Account && o.Account.Name) || ''}</div>
+    </td>
+    ${showStage ? `<td><span class="badge ${badgeClass}">${o.StageName}</span></td>` : ''}
+    <td class="amt">${fmt(o.Amount)}</td>
+    <td class="close-date ${dateClass}">${fmtDate(o.CloseDate)}${days !== null && days < 0 ? ' <span style="font-size:.65rem">(overdue)</span>' : ''}</td>
+    <td>${actBadge}</td>
+  </tr>`;
+}
+
+function oppTable(opps, showStage = false) {
+  if (!opps.length) return '<div class="empty"><p>None</p></div>';
+  return `<table class="opp-table">
+    <thead><tr>
+      <th>Opportunity</th>
+      ${showStage ? '<th>Stage</th>' : ''}
+      <th>Amount</th>
+      <th>Close Date</th>
+      <th>Activity</th>
+    </tr></thead>
+    <tbody>${opps.map(o => oppRow(o, showStage)).join('')}</tbody>
+  </table>`;
+}
+
+function renderClosingSoon(opps) {
+  const now = new Date(); now.setHours(0,0,0,0);
+  const endOfMonth = new Date(now.getFullYear(), now.getMonth()+1, 0);
+  const closing = opps.filter(o => {
+    if (o.IsClosed) return false;
+    const d = new Date(o.CloseDate + 'T00:00:00');
+    return d >= now && d <= endOfMonth;
+  });
+  $('closing-list').innerHTML = oppTable(closing);
+}
+
+function renderAtRisk(opps) {
+  const atRisk = opps.filter(o => {
+    if (o.IsClosed) return false;
+    const inactive = !o.LastActivityDate || daysAgo(o.LastActivityDate) >= 14;
+    return inactive;
+  }).slice(0, 8);
+  $('at-risk-list').innerHTML = oppTable(atRisk, true);
+}
+
+function renderOverdue(opps) {
+  const now = new Date(); now.setHours(0,0,0,0);
+  const overdue = opps.filter(o => {
+    if (o.IsClosed) return false;
+    const d = new Date(o.CloseDate + 'T00:00:00');
+    return d < now;
+  }).slice(0, 8);
+  $('overdue-list').innerHTML = oppTable(overdue, true);
+}
+
+function renderFullPipeline(opps) {
+  const open = opps.filter(o => !o.IsClosed).slice(0, 30);
+  $('full-pipeline-list').innerHTML = oppTable(open, true);
+}
+
+function renderRenewals(renewals) {
+  if (!renewals.length) {
+    $('renewals-list').innerHTML = '<div class="empty"><p>No renewals in the next 90 days</p></div>';
+    return;
+  }
+  $('renewals-list').innerHTML = renewals.map(r => {
+    const days = daysUntil(r.CloseDate);
+    const cls = days <= 30 ? 'urgent' : days <= 60 ? 'soon' : 'ok';
+    return `<div class="renewal-item">
+      <div class="renewal-days ${cls}">
+        <span class="renewal-days-num">${days}</span>
+        <span class="renewal-days-label">days</span>
+      </div>
+      <div class="renewal-info">
+        <div class="renewal-name">${r.Name}</div>
+        <div class="renewal-account">${(r.Account && r.Account.Name) || ''} &middot; ${r.StageName}</div>
+      </div>
+      <div class="renewal-amount">${fmt(r.Amount)}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderGreenfield(accounts) {
+  const greenfield = accounts.filter(a => {
+    return !a.Opportunities || !a.Opportunities.records || a.Opportunities.records.length === 0;
+  }).slice(0, 24);
+
+  if (!greenfield.length) {
+    $('greenfield-list').innerHTML = '<div class="empty"><p>All accounts have open opportunities</p></div>';
+    return;
+  }
+  $('greenfield-list').innerHTML = greenfield.map(a => `
+    <div class="acct-card">
+      <div class="acct-name">${a.Name}</div>
+      <div class="acct-industry">${a.Industry || a.Type || 'No industry set'}</div>
+      <div class="acct-tags">
+        <span class="badge badge-blue">Greenfield</span>
+        ${a.AnnualRevenue ? `<span class="badge badge-gray">${fmt(a.AnnualRevenue)} ARR</span>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderActivity(tasks) {
+  if (!tasks.length) {
+    $('activity-list').innerHTML = '<div class="empty"><p>No recent activity</p></div>';
+    return;
+  }
+  $('activity-list').innerHTML = tasks.map(t => {
+    const ago = t.ActivityDate ? daysAgo(t.ActivityDate + 'T00:00:00') : null;
+    const agoStr = ago === null ? '' : ago === 0 ? 'Today' : ago === 1 ? 'Yesterday' : `${ago}d ago`;
+    const dotColor = t.Status === 'Completed' ? 'var(--green)' : 'var(--amber)';
+    return `<div class="activity-item">
+      <div class="act-dot" style="background:${dotColor}"></div>
+      <div class="act-content">
+        <div class="act-subject">${t.Subject || 'Task'}</div>
+        <div class="act-meta">${t.What ? t.What.Name : ''} ${agoStr ? '&middot; ' + agoStr : ''} ${t.Status !== 'Completed' ? '&middot; <span style="color:var(--amber)">' + t.Status + '</span>' : ''}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── SCREEN MANAGEMENT ──────────────────────────────────
+function show(screenId) {
+  ['auth-screen', 'loading-screen', 'dashboard'].forEach(id => {
+    const el = $(id);
+    if (el) {
+      el.style.display = id === screenId ? (id === 'dashboard' ? 'flex' : 'flex') : 'none';
+    }
+  });
+}
+
+function showAuth() { show('auth-screen'); }
+
+function disconnect() {
+  ['cc_token', 'cc_instance_url', 'cc_user_id', 'cc_user_name', 'cc_last_sync'].forEach(k => LS.del(k));
+  show('auth-screen');
+}
+
+function showSetup() { $('setup-panel').style.display = 'flex'; }
+function hideSetup() { $('setup-panel').style.display = 'none'; }
+
+async function refreshData() {
+  const userId = LS.get('cc_user_id');
+  if (!userId) { showAuth(); return; }
+  show('loading-screen');
+  $('loading-msg').textContent = 'Refreshing data...';
+  try {
+    await Promise.all([
+      loadOpportunities(userId),
+      loadRenewals(userId),
+      loadAccounts(userId),
+      loadActivity(userId)
+    ]);
+    $('sync-info').textContent = 'Last synced: just now';
+    LS.set('cc_last_sync', Date.now());
+    show('dashboard');
+  } catch (e) {
+    showToast('Refresh failed: ' + e.message, 5000);
+    show('dashboard');
+  }
+}
+
+// ── INIT ───────────────────────────────────────────────
+(async function init() {
+  // Check for OAuth callback
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  const error = params.get('error');
+
+  if (error) {
+    showToast('Authorization error: ' + (params.get('error_description') || error), 6000);
+    show('auth-screen');
+    window.history.replaceState({}, '', window.location.pathname);
+    return;
+  }
+
+  if (code) {
+    await handleCallback(code);
+    return;
+  }
+
+  // Check for existing token
+  const token = LS.get('cc_token');
+  const userId = LS.get('cc_user_id');
+
+  if (token && userId) {
+    // Restore saved values to auth form in case
+    const inst = LS.get('cc_instance');
+    const cid = LS.get('cc_client_id');
+    if (inst) $('instance-url').value = inst;
+    if (cid) $('client-id').value = cid;
+
+    // Restore user name display
+    const name = LS.get('cc_user_name');
+    if (name) $('topbar-user').textContent = '— ' + name;
+
+    const lastSync = LS.get('cc_last_sync');
+    if (lastSync) {
+      const mins = Math.round((Date.now() - lastSync) / 60000);
+      $('sync-info').textContent = mins < 1 ? 'Last synced: just now' : `Last synced: ${mins}m ago`;
+    }
+
+    show('dashboard');
+    await refreshData();
+    return;
+  }
+
+  // Restore saved credentials to form
+  const inst = LS.get('cc_instance');
+  const cid = LS.get('cc_client_id');
+  if (inst) $('instance-url').value = inst;
+  if (cid) $('client-id').value = cid;
+
+  show('auth-screen');
+})();
+</script>
+</body>
+</html>
